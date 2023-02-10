@@ -1,0 +1,26 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="bao-hiem-thue">
+  <form class="form-horizontal" [formGroup]="taiLieuForm">
+    <div class="col-md-12 mt-1 p-0">
+      <div class="col-md-12 form-group">
+        <label>Tên tài liệu <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="tenTaiLieu" class="w-100"
+          [ngClass]="submitted && taiLieuForm.controls.tenTaiLieu.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && taiLieuForm.controls.tenTaiLieu.errors">{{
+          error['tenTaiLieu'] }}
+        </p>
+      </div>
+      <div class="col-md-12 form-group">
+        <p-checkbox formControlName="active" [binary]="true" label="Sử dụng"></p-checkbox>
+      </div>
+    </div>
+    <div class="col-md-12 text-right mt-1">
+      <button pButton type="button" label="Lưu" (click)="save()"></button>
+      <button pButton type="button" label="Hủy" class="ui-button-secondary ml-1" (click)="cancel()"></button>
+    </div>
+  </form>
+</div>

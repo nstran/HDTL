@@ -1,0 +1,837 @@
+.project-scope .header {
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: solid 1px #cccccc;
+}
+
+.project-scope .header-box-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.project-scope .header-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.project-scope .buffer-top {
+  margin-top: 1.2rem;
+}
+
+.project-scope .buffer-bottom {
+  margin-bottom: 1.2rem;
+}
+
+.project-scope .buffer-bottom-label {
+  margin-bottom: 3px;
+}
+
+.project-scope .required {
+  color: red;
+}
+
+.project-scope .error-message-span {
+  color: red;
+}
+
+.project-scope .btn-remove {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.project-scope .btn-remove-text {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #121619;
+}
+
+.project-scope .text-title {
+  width: 152px;
+  height: 17px;
+  font-family: 'Inter UI';
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.project-scope .ios-print {
+  width: 17.5px;
+  height: 17.5px;
+  object-fit: contain;
+  float: right;
+  cursor: pointer;
+}
+
+::ng-deep .project-scope .ui-dropdown {
+  min-width: 0px !important;
+}
+
+::ng-deep .project-scope .ui-menu ul {
+  text-align: left;
+}
+
+.project-scope .project-infor {
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: none;
+  border: solid 1px #cccccc;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.borderless td, .borderless th {
+  border: none !important;
+}
+
+.project-scope .text-status {
+  color: red;
+}
+
+/*Begin: Customize Accordion */
+
+::ng-deep .project-scope .ui-accordion .ui-accordion-header a {
+  border: 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+  font-size: 16px;
+}
+
+::ng-deep .project-scope .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background-color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  color: #121619 !important;
+}
+
+::ng-deep .project-scope .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .project-scope .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .project-scope .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  color: #121619 !important;
+}
+
+::ng-deep .project-scope .ui-accordion .ui-accordion-content {
+  border: 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/*End: Customize Accordion */
+
+/*Begin: Customize dropdown */
+
+::ng-deep .project-scope .header-title .ui-dropdown {
+  background: #ffffff;
+  /* border: 1px solid #a6a6a6; */
+  border: none;
+  margin-left: 5px;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-label {
+  padding-right: 2em;
+  font-size: 16px !important;
+  font-weight: bold;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-panel {
+  width: max-content !important;
+}
+
+::ng-deep .header-title .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  /* box-shadow: 0 0 0 0.2em #8dcdff; */
+  border-color: #007ad9;
+}
+
+/*End: Customize dropdown */
+
+.project-scope .box-handle-infor {
+  border-right: 1px dashed;
+}
+
+.project-scope .error-message-span {
+  color: red !important;
+}
+
+.project-scope .w100 {
+  width: 100%;
+}
+
+.project-scope .link {
+  font-family: 'Inter UI';
+  color: #007ad9;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.project-scope .no-data {
+  height: 330px;
+  border: solid 1px #d7dbe0;
+  background-color: #f2f4f8;
+  text-align: center;
+}
+
+.project-scope .box-no-data {
+  position: relative;
+  top: 25%;
+}
+
+.project-scope .box-icon {
+  width: 57.1px;
+  height: 58px;
+  object-fit: contain;
+}
+
+/* CSS time line */
+
+/* End */
+
+.project-scope .fixed {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  background: #eee;
+}
+
+.project-scope #progress {
+  background: #333;
+  border-radius: 13px;
+  height: 20px;
+  width: 300px;
+  padding: 3px;
+}
+
+.project-scope #progress:after {
+  content: '';
+  display: block;
+  background: orange;
+  height: 100%;
+  border-radius: 9px;
+}
+
+.project-scope .project-name {
+  width: 119px;
+  height: 20px;
+  font-family: 'Inter UI';
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.project-scope .infor-label {
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.project-scope .infor-value {
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.project-scope .btn-filter-text {
+  width: 36px;
+  height: 13px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.project-scope .btn-filter {
+  width: 104px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #007ad9;
+  background-color: #007ad9;
+  margin-left: 5px;
+}
+
+.project-scope .btn-save-note {
+  width: 158px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border: solid 1px #cccccc;
+  margin-left: 5px;
+}
+
+.project-scope .save-note-lable {
+  width: 110px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.project-scope .cancel {
+  /* width: 64px; */
+  min-width: 90px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left: 5px;
+}
+
+.project-scope .btn-cancel-note {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.project-scope .save-cancel-lable {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #121619;
+}
+
+.project-scope .note-user {
+  font-family: 'Inter UI';
+  font-weight: bold;
+}
+
+.project-scope .note-title {
+  font-size: 11px !important;
+  color: #222 !important;
+  font-weight: normal !important;
+}
+
+.project-scope .time-note {
+  font-size: 10px !important;
+  color: #5d5a5a !important;
+  font-weight: normal !important;
+}
+
+.project-scope .timeline-body {
+  padding: 10px 15px;
+}
+
+.project-scope #myProgress {
+  background-color: #d5d5d5;
+  border-radius: 10px;
+  width: 100%;
+  display: inline-block;
+  align-items: center;
+}
+
+.project-scope #myBar {
+  height: 10px;
+  border-radius: 10px;
+  background-color: #56b40b;
+}
+.project-scope .style-delete {
+    color: #FE747A;
+    cursor: pointer;
+    font-size: 1.55em;
+}
+.project-scope .btn-search {
+  width: 72px;
+  height: 32px;
+  border: solid 1px #cccccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+
+.project-scope .btn-search:focus {
+  border-color: #007ad9;
+  outline: 0 none;
+}
+
+.project-scope .btn-search-text {
+  width: 36px;
+  height: 13px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.project-scope .list-resource-name {
+  border-radius: 5px;
+  background: #007ad9;
+  color: white;
+  margin-right: 5px;
+  font-size: 10pt
+}
+
+.project-scope .mt-7 {
+  margin-top: 7px;
+}
+
+::ng-deep .project-scope .ui-progressbar .ui-progressbar-value {
+  background: #56b40b;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.btn-remove-copy {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+}
+
+.btn-remove-text-copy {
+    width: 24px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #121619;
+}
+
+.btn-save-copy {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border: solid 1px #cccccc;
+    margin-left: 5px;
+}
+
+.btn-save-text-copy {
+    width: 24px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+
+#headline {
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.demo-heading {
+  padding: 40px 10px 0px 10px;
+  margin: 0px;
+  font-size: 3em;
+  color: #fff;
+}
+
+.demo-container {
+  position: relative;
+  display: inline-block;
+  top: 10px;
+  left: 10px;
+  height: 420px;
+  width: calc(100% - 24px);
+  border: 2px dashed #eee;
+  border-radius: 5px;
+  overflow: auto;
+  text-align: center;
+}
+
+.orgchart {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.orgchart>.spinner {
+  color: rgba(255, 255, 0, 0.75);
+}
+
+.orgchart .node .title {
+  background-color: #fff;
+  color: #000;
+}
+
+.orgchart .node .content {
+  border-color: transparent;
+  border-top-color: #333;
+}
+
+.orgchart .node>.spinner {
+  color: rgba(184, 0, 54, 0.75);
+}
+
+.orgchart .node:hover {
+  background-color: rgba(255, 255, 0, 0.6);
+}
+
+.orgchart .node.focused {
+  background-color: rgba(255, 255, 0, 0.6);
+}
+
+.orgchart .node .edge {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.orgchart .edge:hover {
+  color: #000;
+}
+
+.orgchart td.left,
+.orgchart td.top,
+.orgchart td.right {
+  border-color: #fff;
+}
+
+.orgchart td>.down {
+  background-color: #fff;
+}
+
+.orgchart .second-menu-icon {
+  transition: opacity .5s;
+  opacity: 0;
+  right: -5px;
+  top: -5px;
+  z-index: 2;
+  color: rgba(184, 0, 100, 0.8);
+  font-size: 18px;
+  position: absolute;
+}
+
+.orgchart .second-menu-icon:hover {
+  color: #b80064;
+}
+
+.orgchart .node:hover .second-menu-icon {
+  opacity: 1;
+}
+
+.orgchart .node .second-menu {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: -70px;
+  border-radius: 35px;
+  box-shadow: 0 0 4px 1px #999;
+  background-color: #fff;
+  z-index: 1;
+}
+
+.orgchart .node .second-menu .avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  float: left;
+  margin: 5px;
+}
+
+.orgchart~.mask .spinner {
+  color: rgba(255, 255, 0, 0.75);
+}
+
+#integrate-map {
+  position: absolute;
+  left: 40px;
+  width: calc(100% - 80px);
+  z-index: 100;
+}
+
+#integrate-map .orgchart {
+  padding: 0px;
+  min-height: 154px;
+}
+
+#integrate-map .orgchart>table:first-child {
+  margin: 5px auto;
+}
+
+.orgchart.view-state .edge {
+  display: none;
+}
+
+#edit-panel {
+  position: relative;
+  left: 10px;
+  width: calc(100% - 40px);
+  border-radius: 4px;
+  float: left;
+  margin-top: 10px;
+  padding: 10px;
+  color: #fff;
+  background-color: #449d44;
+}
+
+#edit-panel .btn-inputs {
+  font-size: 24px;
+}
+
+#edit-panel.view-state>:not(#chart-state-panel) {
+  display: none;
+}
+
+#edit-panel label {
+  font-weight: bold;
+}
+
+#edit-panel.edit-parent-node .selected-node-group {
+  display: none;
+}
+
+#chart-state-panel,
+#selected-node,
+#btn-remove-input {
+  margin-right: 20px;
+}
+
+#edit-panel button,
+#btn-export-hier {
+  color: #333;
+  background-color: #fff;
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#edit-panel.edit-parent-node button:not(#btn-add-nodes) {
+  display: none;
+}
+
+#edit-panel button:hover,
+.edit-panel button:focus,
+.edit-panel button:active {
+  border-color: #eea236;
+  box-shadow: 0 0 10px #eea236;
+}
+
+#new-nodelist {
+  display: inline-block;
+  list-style: none;
+  margin-top: -2px;
+  padding: 0;
+  vertical-align: text-top;
+}
+
+#new-nodelist>* {
+  padding-bottom: 4px;
+}
+
+.btn-inputs {
+  vertical-align: sub;
+}
+
+#edit-panel.edit-parent-node .btn-inputs {
+  display: none;
+}
+
+.btn-inputs:hover {
+  text-shadow: 0 0 4px #fff;
+}
+
+.radio-panel input[type='radio'] {
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  vertical-align: top;
+}
+
+#edit-panel.view-state .radio-panel input[type='radio']+label {
+  vertical-align: -webkit-baseline-middle;
+}
+
+#btn-add-nodes {
+  margin-left: 20px;
+}
+
+#btn-export-hier {
+  vertical-align: top;
+  margin-top: 200px;
+  margin-left: 50px;
+}
+
+#btn-export-hier+pre {
+  display: inline-block;
+  vertical-align: top;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: -80px;
+  margin-left: 50px;
+}
+
+.mb-20
+{
+  margin-bottom: 20px;
+}
+
+.mt-20
+{
+   margin-top: 20px;
+}
+
+#chart-container {
+  font-family: Arial;
+  height: 420px;
+  border: 2px dashed #aaa;
+  border-radius: 5px;
+  overflow: auto;
+  text-align: center;
+}
+
+/* .confirm-dialog
+{
+  max-height: 600px;
+} */
+
+.copy-dialog
+{
+  max-height: 45vw;
+}
+
+.confirm-dialog
+{
+  min-height: 300px;
+  max-height: 45vw;
+}
+
+.confirm-dialog .organization-chart
+{
+  overflow-x: auto;
+  overflow-y: auto;
+  height: 100%;
+  width: 880px;
+  max-width: 900px;
+  max-height: 400px;
+}
+
+::ng-deep .project-scope .node-NEW
+  {
+    background-color: #0F62FE !important;
+          color: #ffffff !important;
+  }
+
+  ::ng-deep .project-scope .node-DL{
+    background-color: #FFC000 !important;
+          color: #ffffff !important;
+  }
+
+  ::ng-deep .project-scope .node-PAUSE{
+    background-color: #6D98E7 !important;
+          color: #ffffff !important;
+  }
+
+  ::ng-deep .project-scope .node-HT{
+    background-color: #63B646 !important;
+          color: #ffffff !important;
+  }
+
+  ::ng-deep .project-scope .node-CLOSE{
+    background-color: #9C00FF !important;
+          color: #ffffff !important;
+  }
+
+  ::ng-deep .project-scope .node-CANCEL{
+    background-color: #797979 !important;
+          color: #ffffff !important;
+  }
+
+ /* ::ng-deep .project-scope .node-DEFAULT{
+    background-color: #ffffff !important;
+          color: black !important;
+  } */
+

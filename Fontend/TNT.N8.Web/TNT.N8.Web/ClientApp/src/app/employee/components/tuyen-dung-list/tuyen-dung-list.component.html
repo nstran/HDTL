@@ -1,0 +1,434 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+
+<div class="list-vacancies">
+    <div class="row no-margin">
+        <div class="box-header">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box-header-group">
+                            <div class="row">
+                                <div class="col-md-1 col-xs-2">
+                                    <div class="box-header-icon">
+                                        <img src="/assets/icons/components/project.svg" class="Money-2">
+                                    </div>
+                                </div>
+                                <div class="col-md-11 col-xs-10">
+                                    <div class="box-header-title">Danh sách vị trí tuyển dụng
+                                    </div>
+                                    <div class="box-header-subtitle">
+                                        {{listViTriTuyenDung.length}} bẳn ghi - Cập nhật ngày {{ today |
+                                        date:'dd/MM/yyyy' }} - Sắp xếp theo mức độ ưu tiên của vị trí
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12" style="text-align: right;">
+                        <button pButton type="button" class="btn-create" label="Xuất excel"
+                            (click)="exportExcel()"></button>
+                        <!-- <button pButton type="button" class="btn-create" label="Nhập excel" (click)="importCustomer()"
+                            style="margin-left: 10px;"></button> -->
+                        <button type="button" class="btn-create" (click)="goToCreate()" style="margin-left: 10px;"><span
+                                class="btn-create-text">Tạo mới</span></button>
+                        <div style="clear: both;"></div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="box-header-group-btn">
+                            <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+                            </button>
+                            <button type="button" class="btn-filter" (click)="showFilter()">
+                                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                                <span class="btn-filter-text">Bộ lọc</span>
+                            </button>
+                            <input [(ngModel)]="filterGlobal" type="text" class="iput-text"
+                                placeholder="Tìm kiếm trong danh sách"
+                                (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+                            <div style="clear: both;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row no-margin" style="background-color: #f2f4f8;">
+        <div *ngIf="listViTriTuyenDung.length > 0" class="col-md-{{leftColNumber}} no-padding">
+            <p-table #myTable [columns]="selectedColumns" [value]="listViTriTuyenDung" [resizableColumns]="true"
+                columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                [responsive]="true" [scrollable]="true">
+                <ng-template pTemplate="caption">
+                    <div style="text-align:left">
+                        <p-multiSelect [options]="colsListViTri" [(ngModel)]="selectedColumns"
+                            [ngModelOptions]="{standalone: true}" optionLabel="header"
+                            selectedItemsLabel="{0} cột được chọn" [style]="{minWidth: '200px'}"
+                            defaultLabel="Chọn cột"></p-multiSelect>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                            [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.width }">
+                            <span>
+                                {{col.header}}
+                                <p-sortIcon [field]="col.field"></p-sortIcon>
+                            </span>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                            [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.width }">
+                            <span class="ui-column-title">{{col.header}}</span>
+
+                            <span *ngSwitchCase="'vacanciesName'" (click)="goToDetail(rowData)" class="link">
+                                {{ rowData[col.field] }}
+                            </span>
+                            <span *ngSwitchCase="'action'" class="btn-group">
+                                <button (click)="addCandidate(rowData)" pButton icon="pi pi-plus"
+                                    class="ui-button-info"></button>
+                                <button (click)="removeData(rowData)" pButton icon="pi pi-trash"
+                                    class="ui-button-danger"></button>
+                            </span>
+
+                            <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <div *ngIf="!(listViTriTuyenDung.length > 0)" class="col-md-{{leftColNumber}} no-padding no-data">
+            <div class="box-no-data">
+                <img src="/assets/icons/components/box.svg" class="box-icon">
+                <div>
+                    <span>Hiện tại không có dữ liệu</span>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+            <div class="box-filter">
+                <div class="row no-margin">
+                    <div class="col-md-12 mt-5">
+                        <span>Vị trí</span>
+                    </div>
+                    <div class="col-md-12">
+                        <p-multiSelect [options]="listViTriFilter" defaultLabel="Chọn vị trí"
+                            [(ngModel)]="selectedViTri" optionLabel="categoryName" [style]="{'width': '100%'}"
+                            [resetFilterOnHide]="true" selectedItemsLabel="{0} vị trí được chọn">
+                        </p-multiSelect>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-md-12 mt-5">
+                        <span>Tên chiến dịch</span>
+                    </div>
+                    <div class="col-md-12">
+                        <p-multiSelect [options]="listChienDich" [(ngModel)]="selectedChienDich"
+                            defaultLabel="Chọn chiến dịch" optionLabel="recruitmentCampaignName"
+                            [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                            selectedItemsLabel="{0} chiến dịch được chọn">
+                        </p-multiSelect>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-md-12 mt-5">
+                        <span>Mức độ ưu tiên</span>
+                    </div>
+                    <div class="col-md-12">
+                        <p-multiSelect [options]="listMucUuTien" [(ngModel)]="selectedMucDoUT"
+                            defaultLabel="Chọn mức độ ưu tiên" optionLabel="name" [style]="{'width': '100%'}"
+                            [resetFilterOnHide]="true" selectedItemsLabel="{0} model xe được chọn">
+                        </p-multiSelect>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-md-12 mt-5">
+                        <span>Lương
+                        </span>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="quote-code-text" placeholder="Từ" [(ngModel)]="startSalary"
+                            [cleave]="{ numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 0 }">
+
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="quote-code-text" placeholder="Đến" [(ngModel)]="endSalary"
+                            [cleave]="{ numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 0 }">
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-md-12 mt-5">
+                        <span>Kinh nghiệm</span>
+                    </div>
+                    <div class="col-md-12">
+                        <p-multiSelect [options]="listExperience" [(ngModel)]="selectedKinhNghiem"
+                            defaultLabel="Chọn kinh nghiệm làm việc" optionLabel="categoryName"
+                            [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                            selectedItemsLabel="{0} kinh nghiệm được chọn">
+                        </p-multiSelect>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-md-12 mt-5">
+                        <span>Loại công việc</span>
+                    </div>
+                    <div class="col-md-12">
+                        <p-multiSelect [options]="listLoaiCV" [(ngModel)]="selectedLoaiCV"
+                            defaultLabel="Chọn loại công việc" optionLabel="categoryName" [style]="{'width': '100%'}"
+                            [resetFilterOnHide]="true" selectedItemsLabel="{0} loại công việc được chọn">
+                        </p-multiSelect>
+                    </div>
+                </div>
+                <div class="row no-margin">
+                    <div class="col-md-12 mt-5">
+                        <span>Người phụ trách</span>
+                    </div>
+                    <div class="col-md-12">
+                        <p-multiSelect [options]="listNguoiPT" [(ngModel)]="selectedNguoiPT"
+                            defaultLabel="Chọn người phụ trách" optionLabel="employeeName" [style]="{'width': '100%'}"
+                            [resetFilterOnHide]="true" selectedItemsLabel="{0} người phụ trách được chọn">
+                        </p-multiSelect>
+                    </div>
+                </div>
+
+                <div class="row no-margin pb-1">
+                    <div class="col-md-12 mt-5" style="text-align: right;">
+                        <button type="button" class="btn-search" (click)="filterVacancies()">
+                            <span class="btn-search-text">Tìm kiếm</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<p-dialog header="Nhập file excel" [(visible)]="displayChooseFileImportDialog" [modal]="true" [responsive]="true"
+    class='showImportForm' [style]="{width: '550px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000"
+    [closable]="true" (onHide)="closeChooseFileImportDialog()">
+    <div class="col-md-4 mt-25">
+        <span>File mẫu</span>
+    </div>
+    <div class="col-md-8 mt-25">
+        <button class="choose-file" type="button" (click)="downloadTemplateExcel()">
+            <span class="text-choose-file">Tải file mẫu</span>
+        </button>
+    </div>
+    <div class="col-md-4 mt-25">
+        <span>Chọn file</span>
+    </div>
+    <div class="col-md-8 mt-25" style="margin-bottom: 25px;">
+        <button class="btn btn-primary btn-file import-file">
+            <span class="text-import">Chọn file</span>
+            <input type="file" id="importFileProduct" (click)="onClickImportBtn($event)" (change)="chooseFile($event)"
+                accept=".xlsx, .xls">
+        </button>
+        <div>{{fileName}}</div>
+    </div>
+    <p-footer>
+        <button class="btn-create" type="button" #save (click)="importExcel()">
+            <span class="btn-create-text">Nhập</span>
+        </button>
+    </p-footer>
+</p-dialog>
+
+<p-dialog header="Thêm nhanh ứng viên" [(visible)]="displayAddCandidate" [modal]="true" class="candidate-dialog"
+    [style]="{width: '60vw'}" [draggable]="false" [resizable]="false">
+    <form [formGroup]="createCandidateForm" style="overflow-x: hidden;" class="confirm-dialog">
+        <div class="row top-buffer bottom-buffer content-dialog">
+
+            <div class="row col-md-12 mb-10 mt-10">
+                <!-- HÀNG THỨ 1 -->
+                <div class="row col-md-12">
+                    <div class="col-md-3" style="display: flex; align-items: center;">
+                        <b>Vị trí ứng tuyển</b>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="row bottom-buffer">
+                            <input formControlName="vacanciesControl" disabled type="text" style="width:100%"
+                                pInputText />
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+
+                <div class="row col-md-12 mb-20">
+                    <hr>
+                </div>
+
+                <div class="row col-md-12 mb-20">
+                    <div class="col-md-6">
+                        <div class="col-md-4">
+                            <span>Họ và tên</span><span class="required">*</span>
+                        </div>
+                        <div class="col-md-8">
+                            <input formControlName="fullNameControl"
+                                [ngClass]="(fullNameControl.invalid && (fullNameControl.dirty || fullNameControl.touched)) ? 'error-border' : ''"
+                                type="text" style="width:100%" pInputText />
+                            <div
+                                *ngIf="createCandidateForm.controls['fullNameControl'].invalid && (createCandidateForm.controls['fullNameControl'].dirty || createCandidateForm.controls['fullNameControl'].touched)">
+                                <div *ngIf="createCandidateForm.controls['fullNameControl'].errors.required"
+                                    style="color: red;">
+                                    Chủng loại không được để trống
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-4">
+                            <span>Ngày sinh</span><span class="required">*</span>
+                        </div>
+                        <div class="col-md-8">
+                            <p-calendar formControlName="dateOfBirthControl" dateFormat="dd/mm/yy"
+                                [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}" [monthNavigator]="true"
+                                [styleClass]="(dateOfBirthControl.invalid && (dateOfBirthControl.dirty || dateOfBirthControl.touched)) ? 'error-border' : ''"
+                                (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+                                [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="body">
+                            </p-calendar>
+                            <div
+                                *ngIf="createCandidateForm.controls['dateOfBirthControl'].invalid && (createCandidateForm.controls['dateOfBirthControl'].dirty || createCandidateForm.controls['dateOfBirthControl'].touched)">
+                                <div *ngIf="createCandidateForm.controls['dateOfBirthControl'].errors.required"
+                                    style="color: red;">
+                                    Không được để trống
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-md-12 mb-20">
+                    <div class="col-md-6">
+                        <div class="col-md-4">
+                            <span>Số điện thoại </span><span class="required">*</span>
+                        </div>
+                        <div class="col-md-8">
+                            <mat-form-field class="w100" style="width: 100%;margin-top: -15px">
+                                <input matInput type="text" name="phone" formControlName="phoneControl"
+                                    placeholder="Số điện thoại">
+                                <mat-error *ngIf="createCandidateForm.controls['phoneControl'].hasError('pattern')">Sai
+                                    định
+                                    dạng số
+                                    điện thoại</mat-error>
+                            </mat-form-field>
+                            <!-- <input formControlName="phoneControl" type="text" maxlength="500"
+                                [ngClass]="(phoneControl.invalid && (phoneControl.dirty || phoneControl.touched)) ? 'error-border' : ''"
+                                style="width:100%" pInputText />
+                        </div>
+                        <div class="row bottom-buffer my-form-control">
+                            <div class="col-md-4 buffer-bottom-label">
+                            </div>
+                            <div class="col-md-8" [hidden]="phoneControl.valid || phoneControl.untouched">
+                                <span *ngIf="phoneControl.hasError('required')" class="error-message-span">Không
+                                    được để trống</span>
+                                <span *ngIf="phoneControl.hasError('pattern')" class="error-message-span">Sai
+                                    định
+                                    dạng Số điện thoại</span>
+                            </div> -->
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-4">
+                            <span>Giới tính </span><span class="required">*</span>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <p-radioButton name="Gender" formControlName="genderControl" value="1" label="Nam">
+                                    </p-radioButton>
+                                </div>
+                                <div class="col-md-6" style="padding-left: 25px;">
+                                    <p-radioButton name="Gender" formControlName="genderControl" value="2" label="Nữ">
+                                    </p-radioButton>
+                                </div>
+
+                            </div>
+                            <div class="col-md-12" [hidden]="genderControl.valid || genderControl.untouched">
+                                <span *ngIf="genderControl.hasError('required')" class="error-message-span">
+                                    Không được để trống
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-md-12 mb-20">
+                    <div class="col-md-6">
+                        <div class="col-md-4">
+                            <span>Kênh tuyển dụng</span>
+                        </div>
+                        <div class="col-md-8">
+                            <p-dropdown [options]="listChanel" formControlName="chanelControl"
+                                [styleClass]="(chanelControl.invalid  && (chanelControl.dirty ||  chanelControl.touched)) ? 'error-border': ''"
+                                placeholder="Chọn vị trí tuyển dụng" optionLabel="categoryName"
+                                [style]="{'width': '100%'}">
+                            </p-dropdown>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-4">
+                            <span>Email</span>
+                        </div>
+                        <div class="col-md-8">
+                            <input maxlength="100" formControlName="emailControl" type="text" pInputText placeholder=""
+                                style="width:100%" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row col-md-12 mb-20">
+                    <div class="col-md-6">
+                        <div class="col-md-4">
+                            <span>Địa chỉ</span>
+                        </div>
+                        <div class="col-md-8">
+                            <input formControlName="addressControl" type="text" maxlength="500" style="width:100%"
+                                pInputText />
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-4">
+                            <span>Ngày ứng tuyển</span>
+                        </div>
+                        <div class="col-md-8">
+                            <p-calendar formControlName="applicationDateCandidateControl" dateFormat="dd/mm/yy"
+                                [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"
+                                appendTo="body">
+                            </p-calendar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12 mb-20">
+                <div class="col-md-12" style="display: flex; justify-content: flex-end">
+                    <button (click)="cancelAddCandidateDialog()" type="button" class="btn-remove">
+                        <span class="btn-remove-text">Đóng</span>
+                    </button>
+                    <button (click)="saveAddCandidateDialog()" [disabled]="awaitResult" type="button" class="btn-save">
+                        <span class="btn-save-text">Lưu</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</p-dialog>

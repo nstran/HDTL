@@ -1,0 +1,14 @@
+.export-excel {
+  width: 112px;
+  height: 31px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-right: 5px;
+  color: #121619;
+  font-size: 13px;
+}
+
+.row {
+  margin: 5px 10px 0 10px;
+}

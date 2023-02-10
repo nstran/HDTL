@@ -1,0 +1,670 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="layout-project">
+  <app-top-header-project></app-top-header-project>
+
+  <div class="wrapper" style="height: auto;">
+    <!-- <main-header></main-header> -->
+    <app-project-header></app-project-header>
+    <!-- Menu Left -->
+    <app-menu-left-project></app-menu-left-project>
+
+    <!-- Content -->
+    <div class="content-wrapper" style="height: auto; min-height: 100vh">
+      <section class="row content" style="min-height:inherit;">
+        <div class="project-dashboard">
+          <div class="row no-margin" style="padding-bottom: 10px;">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12" class="header-title">
+                  <span class="title">DASHBOARD DỰ ÁN</span>
+                  <p-dropdown [options]="listProject" optionLabel="projectName" placeholder="Chọn dự án" [filter]="true"
+                    [resetFilterOnHide]="true" [virtualScroll]="true" itemSize="30" [(ngModel)]="selectedProject"
+                    (onChange)="onChangeProject($event.value.projectId)" (keydown.enter)="$event.preventDefault()">
+                  </p-dropdown>
+                </div>
+                <div class="col-md-12">
+                  <span>{{currentTimeString}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-6" style="display: flex; justify-content: space-between; margin-top: 20px;">
+              <strong style="font-size: 15px;" class="mt-1">Tiến độ dự án</strong>
+              <div style="width: calc(100% - 120px);">
+                <p-progressBar [value]="totalPercent"></p-progressBar>
+              </div>
+            </div>
+          </div>
+          <!-- START: Thông tin dự án -->
+          <div class="row no-margin" style="padding-top: 20px;">
+            <div class="col-md-6" *ngIf="isManager">
+              <div class="row no-margin box-table-1">
+                <div class="col-md-12" style="text-align:center; margin-top: 10px;">
+                  <strong>NGÂN SÁCH DỰ ÁN</strong>
+                  <div style="clear: both;"></div>
+                </div>
+                <div class="col-md-12">
+                  <div *ngIf="(listChartBudget.length > 0)" class="row">
+                    <div class="col-md-12 chart">
+                      <div id="container6">
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!(listChartBudget.length > 0)" class="row">
+                    <div class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="row no-margin box-table-1">
+                <div class="col-md-6 mt-7">
+                  <table class="table borderless mt-25">
+                    <tbody>
+                      <tr>
+                        <th class="col-md-8 infor-label">Ngày bắt đầu dự kiến</th>
+                        <td class="col-md-4 infor-value">{{project?.projectStartDate |
+                          date:'dd/MM/yyyy'}}</td>
+                      </tr>
+                      <tr>
+                        <th class="col-md-8 infor-label">Ngày kết thúc dự kiến</th>
+                        <td class="col-md-4 infor-value">{{project?.projectEndDate |
+                          date:'dd/MM/yyyy'}}</td>
+                      </tr>
+                      <tr>
+                        <th class="col-md-8 infor-label">Thời gian dự kiến thực hiện (Giờ)
+                        </th>
+                        <td class="col-md-4 infor-value">{{totalEstimateTime}}</td>
+                      </tr>
+                      <tr *ngIf="project?.budgetNgayCong != null">
+                        <th class="col-md-8 infor-label">Hiệu quả sử dụng nguồn lực(EE)
+                        </th>
+                        <td class="col-md-4 infor-value">{{totalEE | number:'1.0-2'}} %</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-md-6 mt-7">
+                  <table class="table borderless mt-25">
+                    <tbody>
+                      <tr>
+                        <th class="col-md-6 infor-label">Ngày bắt đầu thực tế</th>
+                        <td class="col-md-6 infor-value">{{project?.actualStartDate |
+                          date:'dd/MM/yyyy'}}</td>
+                      </tr>
+                      <tr>
+                        <th class="col-md-6 infor-label">Ngày kết thúc thực tế</th>
+                        <td class="col-md-6 infor-value">{{project?.actualEndDate |
+                          date:'dd/MM/yyyy'}}</td>
+                      </tr>
+                      <tr>
+                        <th class="col-md-6 infor-label">Thời gian đã sử dụng</th>
+                        <td class="col-md-6 infor-value">{{totalHourUsed}}</td>
+                      </tr>
+                      <tr>
+                        <th class="col-md-6 infor-label"></th>
+                        <td class="col-md-6 infor-value">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END: Thông tin dự án -->
+
+          <!--START: Thông tin, biểu đồ của quản lý: isManager == true -->
+          <div class="row no-margin" style="padding-top: 20px;" *ngIf="isManager">
+            <div class="col-md-6">
+              <div class="row box-chart-line no-margin">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                  <span class="chart-1-title">ĐỒ THỊ TIẾN ĐỘ - CHI PHÍ THEO EVM</span>
+                  <div class="choose-month">
+                    <p-dropdown [options]="listTime" [(ngModel)]="selectedTime" optionLabel="label"
+                      (onChange)="changeChooseTime($event.value)">
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div *ngIf="(listChartEvn.length > 0)" class="row">
+                    <div class="col-md-12 chart">
+                      <div id="container3">
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!(listChartEvn.length > 0)" class="row">
+                    <div class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row no-margin box-chart-line">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                  <span class="chart-1-title">CHỈ SỐ HIỆU SUẤT CHI PHÍ</span>
+                  <div class="choose-month">
+                    <p-dropdown [options]="listTime" [(ngModel)]="selectedTime" optionLabel="label"
+                      (onChange)="changeChooseTime($event.value)">
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div *ngIf="(listPerformanceCost.length > 0)" class="row">
+                    <div class="col-md-12 chart">
+                      <div id="container4">
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!(listPerformanceCost.length > 0)" class="row">
+                    <div class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row no-margin" style="padding-top: 20px;" *ngIf="isManager">
+            <div class="col-md-6">
+              <div class="row box-chart no-margin">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                  <span class="chart-1-title">TỔNG QUAN TÌNH TRẠNG CÔNG VIỆC</span>
+                  <div class="choose-month">
+                    <p-dropdown [options]="listTime" [(ngModel)]="selectedTime" optionLabel="label"
+                      (onChange)="changeChooseTime($event.value)">
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="row">
+                    <div *ngIf="listTaskFollowStatus.length > 0" class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-7">
+                          <div [chart]="doughnutChartStatus"></div>
+                        </div>
+                        <div class="col-md-5 icon-chart">
+                          <div *ngFor="let item of listTaskFollowStatus" class="row buffer-text-row">
+                            <div class="col-md-8 col-xs-8" style="padding-right: 0;">
+                              <span class="color-icon" [ngStyle]="{'background-color': item['color']}"></span>
+                              <span class="color-text">{{item.categoryName}}</span>
+                            </div>
+                            <div class="col-md-2 col-xs-2 rating-text" style="padding-left: 0;">{{item.percentValue}}%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="!(listTaskFollowStatus.length > 0)" class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row no-margin box-chart">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                  <span class="chart-1-title">PHÂN LOẠI CÔNG VIỆC</span>
+                  <div class="choose-month">
+                    <p-dropdown [options]="listTime" [(ngModel)]="selectedTime" optionLabel="label"
+                      (onChange)="changeChooseTime($event.value)">
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div *ngIf="(listTaskFollowTaskType.length > 0)" class="row">
+                    <div class="col-md-12 chart">
+                      <div id="container">
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!(listTaskFollowTaskType.length > 0)" class="row">
+                    <div class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row no-margin" style="padding-top: 20px;" *ngIf="isManager">
+            <div class="col-md-6">
+              <div class="row no-margin box-chart">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                  <span class="chart-1-title">TIẾN ĐỘ CÔNG VIỆC THEO NHÂN VIÊN</span>
+                  <div class="choose-month">
+                    <p-dropdown [options]="listTime" [(ngModel)]="selectedTime" optionLabel="label"
+                      (onChange)="changeChooseTime($event.value)">
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div *ngIf="(listTaskFollowResource.length > 0)" class="row">
+                    <div class="col-md-12 chart">
+                      <div id="container2">
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!(listTaskFollowResource.length > 0)" class="row">
+                    <div class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row no-margin box-chart">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                  <span class="chart-1-title">TIẾN ĐỘ CÔNG VIỆC TRONG DỰ ÁN</span>
+                  <div class="choose-month">
+                    <p-dropdown [options]="listTime" [(ngModel)]="selectedTime" optionLabel="label"
+                      (onChange)="changeChooseTime($event.value)">
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div *ngIf="listTaskFollowTime.length > 0" class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-7">
+                            <div [chart]="doughnutChartFollowTime"></div>
+                          </div>
+                          <div class="col-md-5 icon-chart">
+                            <div *ngFor="let item of listTaskFollowTime" class="row buffer-text-row">
+                              <div class="col-md-8 col-xs-8" style="padding-right: 0;">
+                                <span class="color-icon" [ngStyle]="{'background-color': item['color']}"></span>
+                                <span class="color-text">{{item.timeName}}</span>
+                              </div>
+                              <div class="col-md-2 col-xs-2 rating-text" style="padding-left: 0;">{{item.percentValue}}%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="!(listTaskFollowTime.length > 0)" class="col-md-12 no-padding no-data">
+                        <div class="box-no-data">
+                          <img src="/assets/icons/components/box.svg" class="box-icon">
+                          <div>
+                            <span>Hiện tại không có dữ liệu</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row no-margin" style="padding-top: 20px;" *ngIf="isManager">
+            <div class="col-md-6">
+              <div class="row no-margin box-chart">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                  <span class="chart-1-title">THỜI GIAN NHÀN RỖI CỦA NHÂN VIÊN</span>
+                  <div class="choose-month">
+                    <p-dropdown [options]="listTime" [(ngModel)]="selectedTime" optionLabel="label"
+                      (onChange)="changeChooseTime($event.value)">
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div *ngIf="(listChartTimeFollowResource.length > 0)" class="row">
+                    <div class="col-md-12 chart">
+                      <div id="container5">
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!(listChartTimeFollowResource.length > 0)" class="row">
+                    <div class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+            </div>
+          </div>
+          <!--END: Thông tin, biểu đồ của quản lý -->
+
+          <div class="row no-margin" style="padding-top: 20px;">
+            <div class="col-md-12">
+              <div class="row no-margin box-calendar">
+                <div class="col-md-12" style=" margin-top: 10px;">
+                  <span class="chart-1-title">THÔNG TIN LỊCH LÀM VIỆC</span>
+                </div>
+                <div class="col-md-12" style=" margin-top: 10px;">
+                  <p-dropdown [options]="listEmployee" [(ngModel)]="employee" optionLabel="employeeCodeName"
+                    [style]="{'width': '300px'}" (onChange)="changeEmployee($event.value)" [autoDisplayFirst]="false"
+                    [showClear]="isShowClear" placeholder="Chọn nhân viên" [readonly]="isReadonly">
+                  </p-dropdown>
+                </div>
+                <div class="col-md-12" style="margin-bottom: 10px;">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p-fullCalendar #calendar [events]="events" [options]="options">
+                      </p-fullCalendar>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--START: Thông tin, biểu đồ của nhân viên: isManager == false -->
+          <div class="row no-margin" style="padding-top: 20px;" *ngIf="!isManager">
+            <div class="col-md-6">
+              <div class="row no-margin box-chart">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                  <span class="chart-1-title">TIẾN ĐỘ CÔNG VIỆC TRONG DỰ ÁN</span>
+                  <div class="choose-month">
+                    <p-dropdown [options]="listTime" [(ngModel)]="selectedTime" optionLabel="label"
+                      (onChange)="changeChooseTime($event.value)">
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="col-md-12">
+                    <div class="row">
+                      <div *ngIf="listTaskFollowTime.length > 0" class="col-md-12">
+                        <div class="row">
+                          <div class="col-md-7">
+                            <div [chart]="doughnutChartFollowTime"></div>
+                          </div>
+                          <div class="col-md-5 icon-chart">
+                            <div *ngFor="let item of listTaskFollowTime" class="row buffer-text-row">
+                              <div class="col-md-8 col-xs-8" style="padding-right: 0;">
+                                <span class="color-icon" [ngStyle]="{'background-color': item['color']}"></span>
+                                <span class="color-text">{{item.timeName}}</span>
+                              </div>
+                              <div class="col-md-2 col-xs-2 rating-text" style="padding-left: 0;">{{item.percentValue}}%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div *ngIf="!(listTaskFollowTime.length > 0)" class="col-md-12 no-padding no-data">
+                        <div class="box-no-data">
+                          <img src="/assets/icons/components/box.svg" class="box-icon">
+                          <div>
+                            <span>Hiện tại không có dữ liệu</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row no-margin box-chart">
+                <div class="col-md-12" style="text-align: center; margin-top: 10px;">
+                  <span class="chart-1-title">CÁC DỰ ÁN ĐƯỢC GIAO</span>
+                  <div class="choose-month">
+                    <p-dropdown [options]="listTime" [(ngModel)]="selectedTime" optionLabel="label"
+                      (onChange)="changeChooseTime($event.value)">
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div *ngIf="(listProjectFollowResource.length > 0)" class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-12 chart">
+                        <div id="container7">
+                        </div>
+                      </div>
+                      <div class="col-md-12" style="display: flex; justify-content: flex-start; flex-direction: row; align-items: center;">
+                        <div class="col-md-12">
+                          <div class="row buffer-text-row">
+                            <div class="col-md-4 col-xs-4" style="padding-right: 0;">
+                              <span class="color-box-icon" [ngStyle]="{'background-color': '#ffce3b'}"></span>
+                              <span class="color-text">Nhàn rỗi</span>
+                            </div>
+                            <div class="col-md-4 col-xs-4" style="padding-right: 0;">
+                              <span class="color-box-icon" [ngStyle]="{'background-color': '#70B603'}"></span>
+                              <span class="color-text">Hợp lý</span>
+                            </div>
+                            <div class="col-md-4 col-xs-4" style="padding-right: 0;">
+                              <span class="color-box-icon" [ngStyle]="{'background-color': '#E30B0B'}"></span>
+                              <span class="color-text">Quá tải</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!(listProjectFollowResource.length > 0)" class="row">
+                    <div class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--END: Thông tin, biểu đồ của nhân viên -->
+
+          <!--START : Danh sách công việc quá hạn -->
+          <div class="row no-margin" style="padding-top: 20px;">
+            <div class="col-md-12">
+              <div class="row no-margin box-table-3">
+                <div class="col-md-12">
+                  <div class="row p-15">
+                    <div class="col-md-8">
+                      <span class="box-table-1-title">DANH SÁNH CÔNG VIỆC QUÁ HẠN</span>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="box-table-1-handle" style="text-align: right;" (click)="goToListAllTask()">
+                        <img src="/assets/icons/components/Double-Arrow-Left-3.svg" class="Double-Arrow-Left-3">
+                        <span>Xem tất cả</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div *ngIf="(listTaskOverdue.length > 0)" class="col-md-12 no-padding">
+                      <p-table [columns]="selectedColumnsOverdue" [value]="listTaskOverdue" [resizableColumns]="true"
+                        columnResizeMode="expand" [responsive]="true" [paginator]="true" [rows]="5"
+                        [rowsPerPageOptions]="[5, 10]">
+                        <ng-template pTemplate="header" let-columns>
+                          <tr>
+                            <th *ngFor="let col of columns" pResizableColumn
+                              [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+                              {{col.header}}
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                          <tr>
+                            <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                              [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+                              <span class="ui-column-title">{{col.header}}</span>
+                              <span *ngSwitchCase="'taskCode'" (click)="goToDetail(rowData['taskId'])" class="link">
+                                {{rowData[col.field]}}
+                              </span>
+                              <span *ngSwitchCase="'planEndTimeStr'"
+                                [ngStyle]="{'color': rowData['colorPlanEndTimeStr']}">
+                                {{rowData[col.field]}}
+                              </span>
+                              <span *ngSwitchCase="'actualEndTimeStr'"
+                                [ngStyle]="{'color': rowData['colorActualEndTimeStr']}">
+                                {{rowData[col.field]}}
+                              </span>
+                              <span *ngSwitchCase="'taskTypeName'">
+                                <i class="{{rowData['icon']}}"
+                                  style="font-size:16px;vertical-align:middle; margin-right: 5px;"></i>
+                                {{rowData[col.field]}}
+                              </span>
+                              <span *ngSwitchCase="'statusName'"
+                                [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}" style="display: inline-block;
+                                          padding: 3px 3px;
+                                          color: white;
+                                          width: 130px;
+                                          text-align: center;
+                                          border-radius: 3px;">{{ rowData[col.field] }}</span>
+                              <span *ngSwitchDefault>
+                                {{rowData[col.field]}}
+                              </span>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <div *ngIf="!(listTaskOverdue.length > 0)" class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--END : Danh sách công việc quá hạn -->
+
+          <!--START : Danh sách công việc cần hoàn thành trong ngày -->
+          <div class="row no-margin" style="padding-top: 20px;" *ngIf="!isManager">
+            <div class="col-md-12">
+              <div class="row no-margin box-table-3">
+                <div class="col-md-12">
+                  <div class="row p-15">
+                    <div class="col-md-8">
+                      <span class="box-table-1-title">DANH SÁNH CÔNG VIỆC HOÀN THÀNH TRONG NGÀY</span>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="box-table-1-handle" style="text-align: right;" (click)="goToListAllTask()">
+                        <img src="/assets/icons/components/Double-Arrow-Left-3.svg" class="Double-Arrow-Left-3">
+                        <span>Xem tất cả</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div *ngIf="(listTaskComplete.length > 0)" class="col-md-12 no-padding">
+                      <p-table [columns]="selectedColumnsTaskCompleteInDay" [value]="listTaskComplete"
+                        [resizableColumns]="true" columnResizeMode="expand" [responsive]="true" [paginator]="true"
+                        [rows]="5" [rowsPerPageOptions]="[5, 10]">
+                        <ng-template pTemplate="header" let-columns>
+                          <tr>
+                            <th *ngFor="let col of columns" pResizableColumn
+                              [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+                              {{col.header}}
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                          <tr>
+                            <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                              [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+                              <span class="ui-column-title">{{col.header}}</span>
+                              <span *ngSwitchCase="'taskCode'" (click)="goToDetail(rowData['taskId'])" class="link">
+                                {{rowData[col.field]}}
+                              </span>
+                              <span *ngSwitchCase="'planEndTimeStr'"
+                                [ngStyle]="{'color': rowData['colorPlanEndTimeStr']}">
+                                {{rowData[col.field]}}
+                              </span>
+                              <span *ngSwitchCase="'taskTypeName'">
+                                <i class="{{rowData['icon']}}"
+                                  style="font-size:16px;vertical-align:middle; margin-right: 5px;"></i>
+                                {{rowData[col.field]}}
+                              </span>
+                              <span *ngSwitchCase="'statusName'"
+                                [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}" style="display: inline-block;
+                                          padding: 3px 3px;
+                                          color: white;
+                                          width: 130px;
+                                          text-align: center;
+                                          border-radius: 3px;">{{ rowData[col.field] }}</span>
+                              <span *ngSwitchDefault>
+                                {{rowData[col.field]}}
+                              </span>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <div *ngIf="!(listTaskComplete.length > 0)" class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--END : Danh sách công việc cần hoàn thành trong ngày -->
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <main-footer></main-footer>
+  </div>
+</div>

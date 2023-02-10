@@ -1,0 +1,187 @@
+.danh-sach-qt .page-header {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.danh-sach-qt .mt-5 {
+  margin-top: 5px;
+}
+
+.danh-sach-qt .mt-10 {
+  margin-top: 10px;
+}
+
+.danh-sach-qt .mt-20 {
+  margin-top: 20px;
+}
+
+.danh-sach-qt .can-giua-dong {
+  display: flex;
+  align-items: center;
+}
+
+.danh-sach-qt .header-box-icon {
+  width: 40px;
+  height: 40px;
+  color: #007AFF;
+  border-radius: 50%;
+}
+
+.danh-sach-qt .header-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.danh-sach-qt .page-title {
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+.danh-sach-qt .quay-lai {
+  width: 140px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  font-size: 13px;
+}
+
+.danh-sach-qt .save {
+	width: 142px;
+	height: 32px;
+	border-radius: 4px;
+	border: solid 1px ;
+	background-color: #0f62fe;
+  margin-left: 5px;
+  font-size: 13px;
+  color: #fff;
+}
+
+.danh-sach-qt .btn-refresh {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.danh-sach-qt .ios-refresh {
+  width: 12px;
+  height: 14px;
+  object-fit: contain;
+  margin-left: 2px;
+}
+
+.danh-sach-qt .can-giua-ben-phai {
+  display: flex;
+  align-items: center;
+  float: right;
+  margin-top: 5px;
+}
+
+.danh-sach-qt .btn-filter {
+  width: 104px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #007aff;
+  background-color: #007aff;
+  margin-left: 5px;
+  text-align: center;
+  color: #ffffff;
+  font-family: 'Inter UI';
+  font-size: 13px;
+}
+
+.danh-sach-qt .ios-funnel {
+  width: 12.3px;
+  height: 11.3px;
+  object-fit: contain;
+  margin-right: 5px;
+}
+
+.danh-sach-qt .iput-text {
+  width: 248px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding-left: 5px;
+  margin-left: 5px;
+  font-size: 13px;
+}
+
+.danh-sach-qt .page-section {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+::ng-deep .danh-sach-qt legend {
+  width: auto;
+  font-size: 13px;
+  font-weight: 900;
+  border-bottom: 0px;
+  margin-bottom: 0;
+}
+
+::ng-deep .danh-sach-qt .ui-fieldset {
+  border: 2px solid #c8c8c8;
+  margin-bottom: 15px;
+}
+
+.danh-sach-qt .no-data-content {
+  height: 335px;
+  border: solid 1px #d7dbe0;
+  background-color: #f2f4f8;
+  text-align: center;
+}
+
+.danh-sach-qt .box-no-data {
+  position: relative;
+  top: 25%;
+}
+
+.danh-sach-qt .hyperlink {
+  color: #007ad9;
+  cursor: pointer;
+}
+
+.danh-sach-qt .box-filter {
+  border: solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding: 10px 0px;
+}
+
+.danh-sach-qt .field {
+  width: 100%;
+  height: 32px;
+  font-family: 'Inter UI';
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  padding-left: 5px;
+}
+
+.danh-sach-qt .btn-search {
+  width: 72px;
+  height: 32px;
+  border: solid 1px #cccccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  font-size: 13px;
+  color: #ffffff;
+  text-align: center;
+}

@@ -1,0 +1,551 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration="1s">
+  </p-progressSpinner>
+</div>
+<p-toast position="bottom-right"></p-toast>
+
+<body>
+  <div class="row no-padding body-wrapper" id="parent">
+    <div class="col-md-12">
+      <p-tabView>
+
+        <!-- Mức đánh giá -->
+        <p-tabPanel header="Mức đánh giá" [headerStyle]="{width: '145px', 'text-align': 'center'}">
+          <div class="row buffer-bottom no-margin mt-10">
+            <div class="col-md-12">
+              <div class="row buffer-bottom">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>
+                    <button class="buttonAdd" pButton (click)="showAddDanhGia()" icon="pi pi-plus"
+                            *ngIf="actionAdd"></button>
+                  </span>
+                </div>
+
+                <!-- Bảng đánh giá -->
+                <div class="col-md-12">
+                  <p-table [columns]="listMucDanhGiaHeader" [value]="listMucDanhGia">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th style="width: 3.5em; text-align: center;" class="col-md-1">
+                          #
+                        </th>
+                        <th *ngFor="let col of columns" class="col-md-8" style="text-align: center;">
+                          {{col.header}}
+                        </th>
+                        <th class="col-md-3">
+                          <span>
+                            Thao tác
+                          </span>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                      <tr>
+                        <td style="text-align: center;" *ngIf="rowGroupMetadata[rowData.mucDanhGiaId].index === i"
+                            [attr.rowspan]="rowGroupMetadata[rowData.mucDanhGiaId].size">
+                          {{ rowGroupMetadata[rowData.mucDanhGiaId].rowIndex }}
+                        </td>
+                        <td style="width: 200px;text-align:left"
+                            *ngIf="rowGroupMetadata[rowData.mucDanhGiaId].index === i"
+                            [attr.rowspan]="rowGroupMetadata[rowData.mucDanhGiaId].size">
+                          {{rowData.tenMucDanhGia}}
+                        </td>
+                        <td style="width: 80px;text-align:center"
+                            *ngIf="rowGroupMetadata[rowData.mucDanhGiaId].index === i"
+                            [attr.rowspan]="rowGroupMetadata[rowData.mucDanhGiaId].size">
+                          {{rowData.diemDanhGia}}
+                        </td>
+                        <td style="width: 80px;text-align:left">
+                          {{
+'Mức đánh giá:' + rowData.mucDanhGiaMasterDataName + ', Điều
+                          kiện điểm đánh giá:' + rowData.diemTu + ' - ' + rowData.diemDen
+                          }}
+                        </td>
+                        <td style="width: 80px;text-align:center"
+                            *ngIf="rowGroupMetadata[rowData.mucDanhGiaId].index === i"
+                            [attr.rowspan]="rowGroupMetadata[rowData.mucDanhGiaId].size">
+                          <span>
+                            <button style="margin-right:7px;" pButton (click)="chinhSuaDanhGia(rowData)"
+                                    *ngIf="actionEdit" icon="pi pi-pencil"></button>
+                            <button class="ui-button-danger" pButton (click)="isShowConfirmDeleteDanhGia(rowData)"
+                                    *ngIf="actionDelete" icon="pi pi-trash"></button>
+                          </span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+
+                <!-- dialog thêm mới đánh giá -->
+                <p-dialog header="Thêm mức đánh giá" [(visible)]="isShow1" [modal]="true" [style]="{width: '75%'}"
+                          [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                  <div class="box-add-1">
+                    <div class="row no-margin">
+                      <span class="col-md-12 col-ms-12">
+                        <form [formGroup]="thangDiem">
+                          <span class="col-md-8 no-padding">
+                            <span class="col-md-12">Tên thang điểm<span class='required'>*</span>:</span>
+                            <span class="col-md-12">
+                              <span class="ui-float-label">
+                                <input formControlName="tenThangDiem" id="float-input" type="text" size="30" pInputText
+                                       [ngClass]="(thangDiem.get('tenThangDiem').invalid && (thangDiem.get('tenThangDiem').dirty || thangDiem.get('tenThangDiem').touched)) ? 'error-border' : ''"
+                                       class="w100">
+                              </span>
+                              <div class="col-md-12 no-padding"
+                                   [hidden]="thangDiem.get('tenThangDiem').untouched || thangDiem.get('tenThangDiem').valid">
+                                <span *ngIf="thangDiem.get('tenThangDiem').hasError('required') && thangDiem.get('tenThangDiem').touched"
+                                      class="error-message-span">
+                                  Không được để trống
+                                </span>
+                              </div>
+                            </span>
+                          </span>
+                          <span class="col-md-4 no-padding">
+                            <span class="col-md-12">Điểm tối đa<span class='required'>*</span>:</span>
+                            <span class="col-md-12">
+                              <span class="ui-float-label">
+                                <p-inputNumber formControlName="diemToiDa" [min]="0" class="w-100"
+                                               (ngModelChange)="checkGiaTri()"
+                                               [ngClass]="(thangDiem.get('diemToiDa').invalid && (thangDiem.get('diemToiDa').dirty || thangDiem.get('diemToiDa').touched)) ? 'error-border' : ''">
+                                </p-inputNumber>
+                              </span>
+                              <div class="col-md-12 no-padding"
+                                   [hidden]="thangDiem.get('diemToiDa').untouched || thangDiem.get('diemToiDa').valid">
+                                <span *ngIf="thangDiem.get('diemToiDa').hasError('required') || thangDiem.get('diemToiDa').hasError('blankString')"
+                                      class="error-message-span">
+                                  Không được để trống
+                                </span>
+                              </div>
+                            </span>
+                          </span>
+                        </form>
+                      </span>
+
+                      <span class="col-md-12">
+                        <span class="col-md-12 no-padding">
+                          <span class="col-md-12">
+                            <button pButton icon="pi pi-plus" class="buttonAdd" style="float:right;margin-top:10px;"
+                                    (click)="addMucDanhGia()"></button>
+                          </span>
+                        </span>
+                        <span class="col-md-12 no-padding" *ngFor="let group of danhGiaChiTiet.controls;let i = index">
+                          <form [formGroup]="group">
+                            <span class="col-md-4 no-padding">
+                              <span class="col-md-12">Mức đánh giá<span class='required'>*</span>:</span>
+                              <span class="col-md-12">
+                                <span class="ui-float-label">
+                                  <p-dropdown formControlName="mucDanhGia"
+                                              [ngClass]="(group.get('mucDanhGia').invalid && (group.get('mucDanhGia').touched)) ? 'error-border' : ''"
+                                              class="w100 p-dropdown" [options]="mucDanhGiaNhanVien" placeholder="Lựa chọn mức"
+                                              [style]="{'width': '100%'}" optionLabel="categoryName" [showClear]="true">
+                                  </p-dropdown>
+                                </span>
+                                <div class="col-md-12 no-padding"
+                                     [hidden]="group.get('mucDanhGia').untouched || group.get('mucDanhGia').valid">
+                                  <span *ngIf="group.get('mucDanhGia').hasError('required') && group.get('mucDanhGia').touched"
+                                        class="error-message-span">
+                                    Không được để trống
+                                  </span>
+                                </div>
+                              </span>
+                            </span>
+
+                            <span class="col-md-4 no-padding">
+                              <span class="col-md-12">Từ<span class='required'>*</span>:</span>
+                              <span class="col-md-12">
+                                <span class="ui-float-label">
+                                  <p-inputNumber formControlName="giaTri1" [min]="0" class="w-100"
+                                                 (ngModelChange)="checkGiaTri()"
+                                                 [ngClass]="(group.get('giaTri1').invalid && (group.get('giaTri1').touched)) ? 'error-border' : 'no-error-border'">
+                                  </p-inputNumber>
+                                </span>
+                                <div class="col-md-12 no-padding"
+                                     [hidden]="group.get('giaTri1').untouched || group.get('giaTri1').valid">
+                                  <span *ngIf="group.get('giaTri1').hasError('required') || group.get('giaTri1').hasError('blankString') "
+                                        class="error-message-span">
+                                    Không được để trống
+                                  </span>
+                                  <span *ngIf="group.get('giaTri1').hasError('max') || group.get('giaTri1').hasError('blankString') "
+                                        class="error-message-span">
+                                    Không được lớn hơn giá trị đến
+                                  </span>
+                                </div>
+                              </span>
+                            </span>
+
+                            <span class="col-md-4 no-padding">
+                              <span class="col-md-12">Đến<span class='required'>*</span>:</span>
+                              <span class="col-md-12">
+                                <span class="ui-float-label">
+                                  <span class="col-md-10 no-padding">
+                                    <p-inputNumber formControlName="giaTri2" [min]="0" class="w-100"
+                                                   (ngModelChange)="checkGiaTri()"
+                                                   [ngClass]="(group.get('giaTri2').invalid && ( group.get('giaTri2').touched)) ? 'error-border' : 'no-error-border'">
+                                    </p-inputNumber>
+                                  </span>
+                                  <span class="col-md-2">
+                                    <button pButton icon="pi pi-minus" class="ui-button-danger"
+                                            (click)="reMoveMucDanhGia(group,i)"></button>
+                                  </span>
+                                </span>
+                                <div class="col-md-12 no-padding"
+                                     [hidden]="group.get('giaTri2').untouched || group.get('giaTri2').valid">
+                                  <span *ngIf="group.get('giaTri2').hasError('required') || group.get('giaTri2').hasError('blankString') "
+                                        class="error-message-span">
+                                    Không được để trống
+                                  </span>
+                                  <span *ngIf="group.get('giaTri2').hasError('max') || group.get('giaTri2').hasError('blankString') "
+                                        class="error-message-span">
+                                    Không được lớn hơn điểm tối đa
+                                  </span>
+                                </div>
+                              </span>
+                            </span>
+                          </form>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <p-footer>
+                    <button type="button" pButton (click)="submitAll()" label="Lưu"></button>
+                    <button type="button" pButton (click)="isShow1 = false" label="Đóng"
+                            class="ui-button-secondary"></button>
+                  </p-footer>
+                </p-dialog>
+
+                <!-- dialog chỉnh sửa đánh giá -->
+                <p-dialog header="Chỉnh sửa mức đánh giá" [(visible)]="isShowChinhSua1" [modal]="true"
+                          [style]="{width: '75%'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                  <div class="box-add-1">
+                    <div class="row no-margin">
+                      <span class="col-md-12 col-ms-12">
+                        <form [formGroup]="thangDiem">
+                          <span class="col-md-8 no-padding">
+                            <span class="col-md-12">Tên thang điểm<span class='required'>*</span>:</span>
+                            <span class="col-md-12">
+                              <span class="ui-float-label">
+                                <input formControlName="tenThangDiem" id="float-input" type="text" size="30" pInputText
+                                       [ngClass]="(thangDiem.get('tenThangDiem').invalid && (thangDiem.get('tenThangDiem').dirty || thangDiem.get('tenThangDiem').touched)) ? 'error-border' : ''"
+                                       class="w100">
+                              </span>
+                              <div class="col-md-12 no-padding"
+                                   [hidden]="thangDiem.get('tenThangDiem').untouched || thangDiem.get('tenThangDiem').valid">
+                                <span *ngIf="thangDiem.get('tenThangDiem').hasError('required') && thangDiem.get('tenThangDiem').touched"
+                                      class="error-message-span">
+                                  Không được để trống
+                                </span>
+                              </div>
+                            </span>
+                          </span>
+                          <span class="col-md-4 no-padding">
+                            <span class="col-md-12">Điểm tối đa<span class='required'>*</span>:</span>
+                            <span class="col-md-12">
+                              <span class="ui-float-label">
+                                <p-inputNumber formControlName="diemToiDa" [min]="0" class="w-100"
+                                               (ngModelChange)="checkGiaTri()"
+                                               [ngClass]="(thangDiem.get('diemToiDa').invalid && (thangDiem.get('diemToiDa').dirty || thangDiem.get('diemToiDa').touched)) ? 'error-border' : ''">
+                                </p-inputNumber>
+                              </span>
+                              <div class="col-md-12 no-padding"
+                                   [hidden]="thangDiem.get('diemToiDa').untouched || thangDiem.get('diemToiDa').valid">
+                                <span *ngIf="thangDiem.get('diemToiDa').hasError('required') || thangDiem.get('diemToiDa').hasError('blankString')"
+                                      class="error-message-span">
+                                  Không được để trống
+                                </span>
+                              </div>
+                            </span>
+                          </span>
+                        </form>
+                      </span>
+
+                      <span class="col-md-12">
+                        <span class="col-md-12 no-padding">
+                          <span class="col-md-12">
+                            <button pButton icon="pi pi-plus" class="buttonAdd" style="float:right;margin-top:10px;"
+                                    (click)="addMucDanhGia()"></button>
+                          </span>
+                        </span>
+                        <span class="col-md-12 no-padding" *ngFor="let group of danhGiaChiTiet.controls;let i = index">
+                          <form [formGroup]="group">
+                            <span class="col-md-4 no-padding">
+                              <span class="col-md-12">Mức đánh giá<span class='required'>*</span>:</span>
+                              <span class="col-md-12">
+                                <span class="ui-float-label">
+                                  <p-dropdown formControlName="mucDanhGia"
+                                              [ngClass]="(group.get('mucDanhGia').invalid && (group.get('mucDanhGia').touched)) ? 'error-border' : ''"
+                                              class="w100 p-dropdown" [options]="mucDanhGiaNhanVien" placeholder="Lựa chọn mức"
+                                              [style]="{'width': '100%'}" optionLabel="categoryName" [showClear]="true">
+                                  </p-dropdown>
+                                </span>
+                                <div class="col-md-12 no-padding"
+                                     [hidden]="group.get('mucDanhGia').untouched || group.get('mucDanhGia').valid">
+                                  <span *ngIf="group.get('mucDanhGia').hasError('required') && group.get('mucDanhGia').touched"
+                                        class="error-message-span">
+                                    Không được để trống
+                                  </span>
+                                </div>
+                              </span>
+                            </span>
+
+                            <span class="col-md-4 no-padding">
+                              <span class="col-md-12">Từ<span class='required'>*</span>:</span>
+                              <span class="col-md-12">
+                                <span class="ui-float-label">
+                                  <p-inputNumber formControlName="giaTri1" [min]="0" class="w-100"
+                                                 (ngModelChange)="checkGiaTri()"
+                                                 [ngClass]="(group.get('giaTri1').invalid && (group.get('giaTri1').touched)) ? 'error-border' : 'no-error-border'">
+                                  </p-inputNumber>
+                                </span>
+                                <div class="col-md-12 no-padding"
+                                     [hidden]="group.get('giaTri1').untouched || group.get('giaTri1').valid">
+                                  <span *ngIf="group.get('giaTri1').hasError('required') || group.get('giaTri1').hasError('blankString') "
+                                        class="error-message-span">
+                                    Không được để trống
+                                  </span>
+                                  <span *ngIf="group.get('giaTri1').hasError('max') || group.get('giaTri1').hasError('blankString') "
+                                        class="error-message-span">
+                                    Không được lớn hơn giá trị đến
+                                  </span>
+                                </div>
+                              </span>
+                            </span>
+
+                            <span class="col-md-4 no-padding">
+                              <span class="col-md-12">Đến<span class='required'>*</span>:</span>
+                              <span class="col-md-12">
+                                <span class="ui-float-label">
+                                  <span class="col-md-10 no-padding">
+                                    <p-inputNumber formControlName="giaTri2" [min]="0" class="w-100"
+                                                   (ngModelChange)="checkGiaTri()"
+                                                   [ngClass]="(group.get('giaTri2').invalid && ( group.get('giaTri2').touched)) ? 'error-border' : 'no-error-border'">
+                                    </p-inputNumber>
+                                  </span>
+                                  <span class="col-md-2">
+                                    <button pButton icon="pi pi-minus" class="ui-button-danger"
+                                            (click)="reMoveMucDanhGia(group,i)"></button>
+                                  </span>
+                                </span>
+                                <div class="col-md-12 no-padding"
+                                     [hidden]="group.get('giaTri2').untouched || group.get('giaTri2').valid">
+                                  <span *ngIf="group.get('giaTri2').hasError('required') || group.get('giaTri2').hasError('blankString') "
+                                        class="error-message-span">
+                                    Không được để trống
+                                  </span>
+                                  <span *ngIf="group.get('giaTri2').hasError('max') || group.get('giaTri2').hasError('blankString') "
+                                        class="error-message-span">
+                                    Không được lớn hơn điểm tối đa
+                                  </span>
+                                </div>
+                              </span>
+                            </span>
+                          </form>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <p-footer>
+                    <button type="button" pButton (click)="luuChinhSuaDanhGia()" label="Lưu"></button>
+                    <button type="button" pButton (click)="isShowChinhSua1 = false" label="Đóng"
+                            class="ui-button-secondary"></button>
+                  </p-footer>
+                </p-dialog>
+
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+
+        <!-- Quỹ lương -->
+        <p-tabPanel header="Quỹ lương" [headerStyle]="{width: '145px', 'text-align': 'center'}">
+          <div class="row buffer-bottom no-margin mt-10">
+            <div class="col-md-12">
+              <div class="row buffer-bottom">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>
+                    <button class="buttonAdd" pButton (click)="showAdd()" icon="pi pi-plus" *ngIf="actionAdd"></button>
+                  </span>
+                </div>
+
+                <!-- bảng quỹ lương -->
+                <div class="col-md-12">
+                  <p-table [columns]="listQuyLuongHeader" [value]="quyLuongData">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th style="width: 3.5em; text-align: center;" class="col-md-2">
+                          #
+                        </th>
+                        <th *ngFor="let col of columns" class="col-md-8" style="text-align: center;">
+                          {{col.header}}
+                        </th>
+                        <th class="col-md-2" style="text-align:center">
+                          <span>
+                            Thao tác
+                          </span>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                      <tr>
+                        <td style="text-align: center;">
+                          {{i+1}}
+                        </td>
+                        <td *ngFor="let col of columns" style="text-align: center;" [ngSwitch]="col.field">
+                          <span *ngSwitchCase="col.field">
+                            {{col.field == 'quyLuong' ? (rowData[col.field]| number) : (rowData[col.field]) }}
+                          </span>
+                          <span *ngSwitchDefault>
+                            {{rowData[col.field]}}
+                          </span>
+
+                        </td>
+
+                        <td style="text-align:center">
+                          <span>
+                            <button pButton (click)="capNhatQuyLuong(rowData)" icon="pi pi-pencil" *ngIf="actionEdit"
+                                    style="margin-right:7px;"></button>
+                            <button class="ui-button-danger" pButton (click)="isShowConfirmDeleteQuyLuong(rowData)"
+                                    *ngIf="actionDelete" icon="pi pi-trash"></button>
+                          </span>
+                        </td>
+                      </tr>
+
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div>
+
+              <!-- dialog thêm mới quỹ lương -->
+              <p-dialog header="Thông tin quỹ lương" [(visible)]="isShow2" [modal]="true" [style]="{width: '30%'}"
+                        [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                <form [formGroup]="quyLuongForm">
+                  <div class="box-add-2">
+                    <div class="row no-margin">
+                      <div class="col-md-12">
+                        <span>Năm:</span>
+                      </div>
+                      <div class="col-md-12">
+                        <span class="ui-float-label">
+                          <p-dropdown [options]="items" formControlName="namControl" placeholder="Lựa chọn năm"
+                                      [virtualScroll]="true" [itemSize]="30" [filter]="true"
+                                      [ngClass]="(namControl.invalid && (namControl.dirty || namControl.touched)) ? 'error-border' : ''"
+                                      [style]="{'width': '100%'}">
+                            <!-- appendTo="body" -->
+                          </p-dropdown>
+                        </span>
+                      </div>
+                      <div class="col-md-12" *ngIf="namControl.touched">
+                        <span *ngIf="namControl.hasError('required') || namControl.hasError('blankString')"
+                              class="error-message-span">
+                          Không được để trống
+                        </span>
+                      </div>
+                      <div class="col-md-12">
+                        <span>Quỹ lương:</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-inputNumber formControlName="quyLuongControl" [min]="0" class="w-100"
+                                       [ngClass]="(quyLuongForm.invalid && (quyLuongForm.dirty || quyLuongForm.touched)) ? 'error-border' : ''">
+                        </p-inputNumber>
+                      </div>
+
+                      <div class="col-md-12" [hidden]="quyLuongControl.valid || quyLuongControl.untouched">
+                        <span *ngIf="quyLuongControl.hasError('required') || quyLuongControl.hasError('blankString') "
+                              class="error-message-span"> Không được để trống</span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <p-footer>
+                  <button type="button" pButton icon="pi pi-check" (click)="submit()" label="Lưu"></button>
+                  <button type="button" pButton icon="pi pi-times" (click)="isShow2 = false" label="Đóng"
+                          class="ui-button-secondary"></button>
+                </p-footer>
+              </p-dialog>
+
+              <!-- dialog chỉnh sửa quỹ lương -->
+              <p-dialog header="Chỉnh sửa thông tin quỹ lương" [(visible)]="isShowChinhSua2" [modal]="true"
+                        [style]="{width: '30%'}" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+                <form [formGroup]="quyLuongForm">
+                  <div class="box-add-2">
+                    <div class="row no-margin">
+                      <div class="col-md-12">
+                        <span>Năm:</span>
+                      </div>
+                      <div class="col-md-12">
+                        <span class="ui-float-label">
+                          <p-dropdown [options]="items" formControlName="namControl" placeholder="Lựa chọn năm"
+                                      [disabled]="true" [virtualScroll]="true" [itemSize]="30" [filter]="true"
+                                      [ngClass]="(namControl.invalid && (namControl.dirty || namControl.touched)) ? 'error-border' : ''"
+                                      [style]="{'width': '100%'}">
+                          </p-dropdown>
+                        </span>
+                      </div>
+                      <div class="col-md-12" *ngIf="namControl.touched">
+                        <span *ngIf="namControl.hasError('required') || namControl.hasError('blankString')"
+                              class="error-message-span">
+                          Không được để trống
+                        </span>
+                        <span *ngIf="namControl.hasError('pattern') || namControl.hasError('blankString') "
+                              class="error-message-span">
+                          Năm không phù hợp
+                        </span>
+                      </div>
+                      <div class="col-md-12">
+                        <span>Quỹ lương:</span>
+                      </div>
+                      <div class="col-md-12">
+                        <span class="ui-float-label">
+                          <p-inputNumber formControlName="quyLuongControl" [min]="0" class="w-100"
+                                         [ngClass]="(quyLuongForm.invalid && (quyLuongForm.dirty || quyLuongForm.touched)) ? 'error-border' : ''">
+                          </p-inputNumber>
+                          <!-- <input pInputText type="number" formControlName="quyLuongControl"
+                            [ngClass]="(quyLuongForm.invalid && (quyLuongForm.dirty || quyLuongForm.touched)) ? 'error-border' : ''"
+                            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}"
+                            class="w100"> -->
+                        </span>
+                      </div>
+                      <div class="col-md-12" *ngIf="quyLuongControl.touched">
+                        <span *ngIf="quyLuongControl.hasError('required') || quyLuongControl.hasError('blankString') "
+                              class="error-message-span">
+                          Không được để trống
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <p-footer>
+                  <button type="button" pButton icon="pi pi-check" (click)="luuCapNhatQuyLuong()" label="Lưu"></button>
+                  <button type="button" pButton icon="pi pi-times" (click)="isShowChinhSua2 = false" label="Đóng"
+                          class="ui-button-secondary"></button>
+                </p-footer>
+              </p-dialog>
+
+            </div>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+
+    </div>
+  </div>
+</body>
+
+<p-dialog header="Xác nhận xóa quỹ lương" [(visible)]="isShowConfirmQuyLuong" [modal]="true" [style]="{width: '30%'}"
+          [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <p>Bạn có chắc chắn muốn xóa quỹ lương này không?</p>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="xoaQuyLuong()" label="Đồng ý"></button>
+    <button type="button" pButton icon="pi pi-times" (click)="isShowConfirmQuyLuong=false" label="Không"
+            class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>
+
+
+<p-dialog header="Xác nhận xóa mức đánh giá" [(visible)]="isShowConfirmDanhGia" [modal]="true" [style]="{width: '30%'}"
+          [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <p>Bạn có chắc chắn muốn mức đánh giá này không?</p>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="xoaThangDiemDanhGia()" label="Đồng ý"></button>
+    <button type="button" pButton icon="pi pi-times" (click)="isShowConfirmDanhGia=false" label="Không"
+            class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>

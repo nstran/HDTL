@@ -1,0 +1,334 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="track-production">
+  <div class="row no-margin">
+    <div class="col-md-12 box-header">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-1 col-xs-2">
+              <div class="box-header-icon">
+                <img src="/assets/icons/components/ic_library_add_24px.svg" class="ic_library_add_24px">
+              </div>
+            </div>
+            <div class="col-md-11 col-xs-10">
+              <div class="box-header-title">Theo dõi sản xuất</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-12" style="text-align: right;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 box-content">
+      <div class="row no-margin">
+        <div class="col-md-12" style="text-align: center;">
+          <span style="font-size: 24px; font-weight: bold;">{{organizationName}}</span>
+        </div>
+        <div class="col-md-12 mt-5">
+          <div class="row">
+            <div class="col-md-6">
+              <span style="font-size: 16px;">Thời gian: {{currentTime}}</span>
+            </div>
+
+            <div class="col-md-6" style="text-align: right;">
+              <button *ngIf="isDisplayExportButton" type="button" class="add" (click)="exportExcel()">
+                <i class="pi icon-add"></i> <span class="text-add">Xuất Excel</span></button>
+              <button *ngIf="organizationCode=='TCAT' && actionAdd" type="button" class="view-remember-item" (click)="viewRememberItemDialog()">
+                <span class="text-view-remember-item">Xem lỗi khác</span>
+              </button>
+              <button [disabled]="awaitResponse" type="button" class="add" (click)="cong_tat_ca()">
+                <i class="pi pi-plus icon-add"></i> <span class="text-add">Hoàn thành nhanh</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 mt-10">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <span>Ngày trả hàng</span>
+                </div>
+                <div class="col-md-12">
+                  <p-calendar [(ngModel)]="endDate"
+                    dateFormat="dd/mm/yy" [style]="{'width':'100%'}" showButtonBar="true"
+                    [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <span>Lệnh số</span>
+                </div>
+                <div class="col-md-12">
+                  <p-multiSelect [options]="listProductionOrder"
+                    defaultLabel="Tất cả"
+                    [(ngModel)]="selectedProductionOrder"
+                    optionLabel="productionOrderCode"
+                    showClear="true"
+                    resetFilterOnHide="true"
+                    [style]="{'width': '100%'}"
+                    [virtualScroll]="true" 
+                    itemSize="30">
+                  </p-multiSelect>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <span>Độ dày</span>
+                </div>
+                <div class="col-md-12">
+                  <input type="text" [(ngModel)]="productThickness" class="number-input"
+                    [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <span>Chủng loại</span>
+                </div>
+                <div class="col-md-12">
+                  <input type="text" class="code-text" [(ngModel)]="productName">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <span>Chiều dài</span>
+                </div>
+                <div class="col-md-12">
+                  <p-dropdown [options]="listProductLengthValue"
+                    optionLabel="label"
+                    placeholder="Tất cả"
+                    [(ngModel)]="selectedProductLengthValue"
+                    [showClear]="true"
+                    [filter]="true"
+                    resetFilterOnHide="true"
+                    [style]="{'width': '100%'}">
+                  </p-dropdown>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <span>Chiều rộng</span>
+                </div>
+                <div class="col-md-12">
+                  <p-dropdown [options]="listProductWidthValue"
+                    optionLabel="label"
+                    placeholder="Tất cả"
+                    [(ngModel)]="selectedProductWidthValue"
+                    [showClear]="true"
+                    [filter]="true"
+                    resetFilterOnHide="true"
+                    [style]="{'width': '100%'}">
+                  </p-dropdown>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-md-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <span>Từ ngày</span>
+                </div>
+                <div class="col-md-12">
+                  <p-calendar [(ngModel)]="fromDate"
+                    dateFormat="dd/mm/yy" [style]="{'width':'100%'}" showButtonBar="true"
+                    [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <span>Đến ngày</span>
+                </div>
+                <div class="col-md-12">
+                  <p-calendar [(ngModel)]="toDate"
+                    dateFormat="dd/mm/yy" [style]="{'width':'100%'}" showButtonBar="true"
+                    [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="row">
+                <div class="col-md-12">
+                  <span>Trạng thái sản phẩm</span>
+                </div>
+                <div class="col-md-12">
+                  <p-multiSelect [options]="listStatusItem"
+                    defaultLabel="Tất cả"
+                    [(ngModel)]="selectedStatus"
+                    optionLabel="categoryName"
+                    showClear="true"
+                    resetFilterOnHide="true"
+                    [style]="{'width': '100%'}">
+                  </p-multiSelect>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-md-12">
+              <div style="text-align: right;">
+                <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                  <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+                </button>
+                <button type="button" class="btn-filter" (click)="search(true, 0, rows)">
+                  <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                  <span class="btn-filter-text">Tìm kiếm</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="listTrackProduction.length > 0" class="col-md-12 mt-10">
+          <p-table #myTable [columns]="cols" [value]="listTrackProduction"
+            dataKey="productionOrderMappingId">
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th *ngFor="let col of columns"
+                  [ngSwitch]="col.field"
+                  [ngStyle]="{'width': col.width, 'text-align': col.textAlign, 'display': col.display}">
+                  <span *ngSwitchCase="'preCompleteQuantity'" pTooltip="Hoàn thành công đoạn trước" tooltipPosition="top">
+                    {{col.header}}
+                  </span>
+                  <span *ngSwitchCase="'checkbox'">
+                    <p-checkbox [binary]="true" [(ngModel)]="checkAll" (onChange)="toggleCheckAll($event)"></p-checkbox>
+                  </span>
+                  <span *ngSwitchDefault>
+                    {{col.header}}
+                  </span>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <tr>
+                <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                  [ngStyle]="{'width': col.width, 'text-align': col.textAlign, 'display': col.display}"
+                  [ngClass]="{'status-pend': rowData.textColorMode == 'a', 
+                              'status-canc': rowData.textColorMode == 'b',
+                              'status-other': rowData.textColorMode == 'c'}"
+                >
+                  <span *ngSwitchCase="'checkbox'">
+                    <p-checkbox [binary]="true" [(ngModel)]="rowData['checked']" (onChange)="chekedItem($event, rowData)"></p-checkbox>
+                  </span>
+                  <span *ngSwitchCase="'endDate'">
+                    {{rowData[col.field] | date:'dd/MM/yyyy'}}
+                  </span>
+                  <span *ngSwitchCase="'productName'" pTooltip="{{rowData['note']}}" tooltipPosition="top">
+                    {{rowData[col.field]}}
+                  </span>
+                  <span *ngSwitchCase="'codeShow'" pTooltip="{{rowData['code']}}" tooltipPosition="top" 
+                    (click)="goToDetail(rowData['productionOrderId'])" class="link">
+                    {{rowData[col.field]}}
+                  </span>
+                  <span *ngSwitchCase="'productLength'">
+                    {{rowData[col.field] | number:0}}
+                  </span>
+                  <span *ngSwitchCase="'productWidth'">
+                    {{rowData[col.field] | number:0}}
+                  </span>
+                  <span *ngSwitchCase="'productThickness'">
+                    {{rowData[col.field] | number:0}}
+                  </span>
+                  <span *ngSwitchCase="'preCompleteQuantity'">
+                    <span *ngIf="rowData['type'] == 1">
+                      <span *ngFor="let rateItemChild of rowData['listRateChild']; let i = index">
+                        {{rateItemChild}} <span *ngIf="i != (rowData['listRateChild'].length - 1)">:</span>
+                      </span>
+                    </span>
+                    <span *ngIf="rowData['type'] == 0">{{rowData[col.field] | number:0}}</span>
+                  </span>
+                  <span *ngSwitchCase="'to'">
+                    <button *ngIf="actionAdd" pTooltip="Hoàn thành" tooltipPosition="top"
+                      [tooltipDisabled]="false" type="button" (click)="congItem(rowData)"
+                      class="btn-plus"
+                      [ngClass]="{'disable-cong': rowData.isDisable}"
+                      [disabled]="awaitResponse">
+                      <i class="pi pi-plus icon-plus"></i>
+                    </button>
+                    <button *ngIf="actionAdd" pTooltip="Lỗi" tooltipPosition="top"
+                      [tooltipDisabled]="false" type="button" (click)="truItem(rowData)"
+                      class="btn-minus">
+                      <i class="pi pi-minus icon-minus"></i>
+                    </button>
+                    <button *ngIf="organizationCode=='TCAT' && actionAdd" pTooltip="Lỗi khác" tooltipPosition="top"
+                      [tooltipDisabled]="false" type="button" (click)="logItem(rowData)"
+                      class="btn-ban">
+                      <i class="pi pi-ban icon-ban"></i>
+                    </button>
+                    <!-- <button *ngIf="organizationCode=='TDAN' && actionAdd && rowData['techniqueDescription'].indexOf('-CH') != -1" pTooltip="Không còn kính cắt hạ" tooltipPosition="bottom"
+                      [tooltipDisabled]="false" type="button" (click)="bao_het_kinh(rowData)"
+                      class="btn-ban">
+                      <i class="pi pi-ban icon-ban"></i>
+                    </button> -->
+                  </span>
+                  <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+        <div class="col-m-12">
+          <p-paginator [rows]="rows" [totalRecords]="totalRecords" pageLinkSize="10" (onPageChange)="paginate($event)"></p-paginator>
+        </div>
+        <div *ngIf="!(listTrackProduction.length > 0)" class="col-md-12 mt-5 no-data">
+          <div class="box-no-data">
+            <img src="/assets/icons/components/box.svg" class="box-icon">
+            <div>
+              <span>Hiện tại không có dữ liệu</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
+
+<p-dialog [(visible)]="displayViewDialog" [contentStyle]="{'min-height':'150px', 'min-width':'500px'}">
+  <p-header>
+    Chi tiết yêu cầu kỹ thuật
+  </p-header>
+  <div *ngFor="let item of listTechniqueRequest" class="row no-margin">
+    <div style="margin-top: 10px;">
+      <div class="col-md-4">
+        <span>{{item.techniqueName}}: </span>
+      </div>
+      <div class="col-md-6">
+        <span>{{item.techniqueValue}} m2</span>
+      </div>
+    </div>
+  </div>
+</p-dialog>

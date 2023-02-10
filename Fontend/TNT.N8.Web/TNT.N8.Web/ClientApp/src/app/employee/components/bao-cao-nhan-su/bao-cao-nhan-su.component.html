@@ -1,0 +1,540 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div style="background-color: #fff;">
+  <div class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding">
+          <span class="col-md-12">
+            <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+            <span class="customer-name">Báo cáo nhân sự</span>
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Danh sách nhân viên -->
+  <div class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding">
+
+          <span class="col-md-12 no-padding" style="margin-bottom: 10px">
+            <span class="col-md-3">
+              <div class="header-table">
+                Danh sách nhân viên:
+              </div>
+            </span>
+            <span class="col-md-9 no-padding" style="float: right;">
+              <div class=" row">
+                <div class="col-md-12 no-padding">
+                  <div class="box-header-group-btn">
+                    <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                      <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+                    </button>
+                    <button type="button" class="btn-filter" (click)="showFilter()">
+                      <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                      <span class="btn-filter-text">Bộ lọc</span>
+                    </button>
+                    <input type="text" class="iput-text" [(ngModel)]="filterGlobal"
+                      placeholder="Tìm kiếm trong danh sách"
+                      (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+                    <button *ngIf="actionDownload" type="button" class="btn-save" style="width:90px!important;margin-right: 7px;"
+                      (click)="exportExcel()">
+                      <span class="btn-create-text">Xuất file</span>
+                    </button>
+                    <div style="clear: both;"></div>
+                  </div>
+                </div>
+              </div>
+            </span>
+          </span>
+
+
+
+          <!-- bảng nhân viên -->
+          <div>
+            <span class="col-md-{{leftColNumber}}" style="padding: 0 15px auto 15px;">
+              <p-table #myTable [columns]="selectedColumns" [value]="listEmployee" [resizableColumns]="true"
+                columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                [responsive]="true" [scrollable]="true">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns"
+                      [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.colWith }">
+                      <span>
+                        {{col.header}}
+                      </span>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+                  <tr>
+                    <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                      [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.colWith }">
+                      <span class="ui-column-title">{{col.header}}</span>
+                      <span *ngSwitchCase="'stt'">
+                        {{ index + 1}}
+                      </span>
+                      <span *ngSwitchCase="'startDateMayChamCong'">
+                        {{ rowData[col.field] | date: 'dd/MM/yyyy'}}
+                      </span>
+                      <span *ngSwitchCase="'dateOfBirth'">
+                        {{ rowData[col.field] | date: 'dd/MM/yyyy'}}
+                      </span>
+                      <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </span>
+          </div>
+
+          <!-- bộ lọc -->
+          <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding" style="padding: 0 15px auto auto;">
+            <form [formGroup]="searchForm">
+              <div class="box-filter" style="margin-right: 15px">
+                <div class="row no-margin">
+                  <div class="col-md-12 mt-5">
+                    <span>Khu vực làm việc</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown formControlName="searchKhuVucLamViec" [options]="listProvince"
+                      placeholder="Lựa chọn khu vực" optionLabel="provinceName" [style]="{'width': '100%'}">
+                    </p-dropdown>
+                  </div>
+
+
+                  <div class="col-md-12 label-search">
+                    <span>Phòng ban</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown formControlName="searchPhongBan" [options]="listOrganization"
+                      placeholder="Lựa chọn phòng ban" optionLabel="organizationName" [style]="{'width': '100%'}">
+                    </p-dropdown>
+                  </div>
+
+                  <div class="col-md-12 label-search">
+                    <span>Chức vụ</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown formControlName="searchChucVu" [options]="listPosition" placeholder="Lựa chọn chức vụ"
+                      optionLabel="positionName" [style]="{'width': '100%'}" selectedItemsLabel="{0} trạng thái được chọn">
+                    </p-dropdown>
+                  </div>
+
+                  <div class="col-md-12 label-search">
+                    <span>SUB CODE 1</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown formControlName="searchSubCode1" [options]="listSubCode1" placeholder="Lựa chọn SUB-CODE1"
+                      optionLabel="name" [style]="{'width': '100%'}" selectedItemsLabel="{0} trạng thái được chọn">
+                    </p-dropdown>
+                  </div>
+
+                  <div class="col-md-12 label-search">
+                    <span>Giới tính</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown formControlName="searchGioiTinh" [options]="listGioiTinh" placeholder="Lựa chọn giới tính"
+                      optionLabel="name" [style]="{'width': '100%'}" selectedItemsLabel="{0} trạng thái được chọn">
+                    </p-dropdown>
+                  </div>
+
+                  <div class="col-md-12 label-search">
+                    <span>Trình độ học vấn</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown formControlName="searchTrinhDoHocVan" [options]="listBangCap"
+                      placeholder="Lựa chọn trình độ học vấn" optionLabel="categoryName" [style]="{'width': '100%'}"
+                      selectedItemsLabel="{0} trạng thái được chọn">
+                    </p-dropdown>
+                  </div>
+
+                  <div class="col-md-12 label-search">
+                    <span>Trình độ chuyên môn</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown formControlName="searchTrinhDoChuyenMon" [options]="listKyNangTayNghe"
+                      placeholder="Lựa chọn trình độ chuyên môn" optionLabel="name" [style]="{'width': '100%'}"
+                      selectedItemsLabel="{0} trạng thái được chọn">
+                    </p-dropdown>
+                  </div>
+
+                  <div class="col-md-12 label-search">
+                    <span>Trạng thái</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown formControlName="searchTrangThai" [options]="listTrangThai"
+                      placeholder="Lựa chọn trạng thái" optionLabel="text" [style]="{'width': '100%'}"
+                      selectedItemsLabel="{0} trạng thái được chọn">
+                    </p-dropdown>
+                  </div>
+
+
+                  <div class="col-md-12 mt-5">
+                    <span class="col-md-6 no-padding">
+                      <div class="col-md-12 label-search no-padding">
+                        <span>Ngày vào từ:</span>
+                      </div>
+                      <div class="col-md-12 no-padding">
+                        <p-calendar formControlName="searchNgayVaoTu" [style]="{'width': '75%'}"
+                          [inputStyle]="{'width':'125%'}">
+                        </p-calendar>
+                      </div>
+                    </span>
+                    <span class="col-md-6 no-padding">
+                      <div class="col-md-12 label-search no-padding">
+                        <span style="margin-left: 8px">Ngày vào đến:</span>
+                      </div>
+                      <div class="col-md-12 no-padding" style="margin-left: 8px">
+                        <p-calendar formControlName="searchNgayVaoDen" [style]="{'width': '75%'}"
+                          [inputStyle]="{'width':'125%'}">
+                        </p-calendar>
+                      </div>
+                    </span>
+                  </div>
+
+
+                  <div class="col-md-12 mt-5">
+                    <span class="col-md-6 no-padding">
+                      <div class="col-md-12 label-search no-padding">
+                        <span>Độ tuổi từ:</span>
+                      </div>
+                      <div class="col-md-12 no-padding">
+                        <input pInputText type="text" formControlName="searchTuoiTu" [ngStyle]="{'width': '95%'}">
+                      </div>
+                    </span>
+                    <span class="col-md-6 no-padding">
+                      <div class="col-md-12 label-search no-padding">
+                        <span style="margin-left: 8px">Đến tuổi:</span>
+                      </div>
+                      <div class="col-md-12 no-padding" style="margin-left: 8px">
+                        <input pInputText type="text" formControlName="searchTuoiDen" [ngStyle]="{'width': '95%'}">
+                      </div>
+                    </span>
+                  </div>
+
+
+                  <div class="col-md-12 mt-5">
+                    <span class="col-md-6 no-padding">
+                      <div class="col-md-12 label-search no-padding">
+                        <span>Thâm niên từ năm:</span>
+                      </div>
+                      <div class="col-md-12 no-padding">
+                        <input pInputText type="text" formControlName="searchThamNienTu" [ngStyle]="{'width': '95%'}">
+                      </div>
+                    </span>
+                    <span class="col-md-6 no-padding">
+                      <div class="col-md-12 label-search no-padding">
+                        <span style="margin-left: 8px">Đến năm:</span>
+                      </div>
+                      <div class="col-md-12 no-padding" style="margin-left: 8px">
+                        <input pInputText type="text" formControlName="searchThamNienDen" [ngStyle]="{'width': '95%'}">
+                      </div>
+                    </span>
+                  </div>
+
+
+                </div>
+                <div class="row no-margin pb-1">
+                  <div class="col-md-12 mt-5" style="text-align: right">
+                    <button type="button" class="btn-search" (click)="searchThongTinNhanVien()">
+                      <span class="btn-search-text">Tìm kiếm</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loại biểu đồ -->
+  <div class="col-md-12 detail-box no-padding">
+    <div class="box-bieuDo">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding">
+          <form [formGroup]="thongTinBieuDo" *ngIf="!checkChart12">
+
+            <span class="col-md-5 no-padding">
+              <div class="col-md-12">
+                Loại biểu đồ:
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="searchLoaiBieuDo" [options]="loaiBieuDo" optionLabel="name"
+                  [style]="{'width': '100%'}"
+                  [ngClass]="searchLoaiBieuDo.invalid && (searchLoaiBieuDo.dirty || searchLoaiBieuDo.touched) ? 'error-border' : ''"
+                  (onChange)="checkLoaiBieuDo($event)" (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12" [hidden]="searchLoaiBieuDo.valid || searchLoaiBieuDo.untouched">
+                <span *ngIf="searchLoaiBieuDo.hasError('required') || searchLoaiBieuDo.hasError('blankString') "
+                  class="error-message-span"> Không được để trống</span>
+              </div>
+            </span>
+
+
+            <span class="col-md-3 no-padding" *ngIf="showTime">
+              <div class="col-md-12">
+                Từ:
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="startTimeBieuDo" [style]="{'width': '80%'}" [inputStyle]="{'width':'125%'}"
+                  view="month" dateFormat="mm/yy" [readonlyInput]="true"
+                  [ngClass]="startTimeBieuDo.invalid && (startTimeBieuDo.dirty || startTimeBieuDo.touched) ? 'error-border' : ''">
+                </p-calendar>
+              </div>
+              <div class="col-md-12" [hidden]="startTimeBieuDo.valid || startTimeBieuDo.untouched">
+                <span *ngIf="startTimeBieuDo.hasError('required') || startTimeBieuDo.hasError('blankString') "
+                  class="error-message-span"> Không được để trống</span>
+              </div>
+            </span>
+
+
+            <span class="col-md-3 no-padding" *ngIf="showTime">
+              <div class="col-md-12">
+                Đến:
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="endTimeBieuDo" [style]="{'width': '80%'}" [inputStyle]="{'width':'125%'}"
+                  view="month" dateFormat="mm/yy" [readonlyInput]="true" [minDate]="startTimeBieuDo.value"
+                  [ngClass]="endTimeBieuDo.invalid && (endTimeBieuDo.dirty || endTimeBieuDo.touched) ? 'error-border' : ''">
+                </p-calendar>
+              </div>
+              <div class="col-md-12" [hidden]="endTimeBieuDo.valid || endTimeBieuDo.untouched">
+                <span *ngIf="endTimeBieuDo.hasError('required') || endTimeBieuDo.hasError('blankString') "
+                  class="error-message-span"> Không được để trống</span>
+              </div>
+
+              <div class="col-md-12" [hidden]="endTimeBieuDo.untouched">
+                <span *ngIf="thongTinBieuDo?.hasError('saiThongTin')" class="error-message-span">Tháng bắt đầu phải lớn
+                  hơn tháng kết thúc</span>
+              </div>
+            </span>
+
+            <span class="col-md-1 no-padding" style="float: right;">
+              <span class="col-md-12" style=" margin-top: 17px; margin-right: auto;">
+                <button type="button" class="btn-ok" (click)="showBieuDo()">
+                  <span class="btn-filter-text">OK</span>
+                </button>
+              </span>
+            </span>
+          </form>
+          <form [formGroup]="thongTinBieuDoChart12" *ngIf="checkChart12">
+
+            <span class="col-md-5 no-padding">
+              <div class="col-md-12">
+                Loại biểu đồ:
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="searchLoaiBieuDoChart12" [options]="loaiBieuDo"
+                  placeholder="Lựa loại biểu đồ" optionLabel="name" [style]="{'width': '100%'}"
+                  [ngClass]="searchLoaiBieuDoChart12.invalid && (searchLoaiBieuDoChart12.dirty || searchLoaiBieuDoChart12.touched) ? 'error-border' : ''"
+                  (onChange)="checkLoaiBieuDo($event)">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12" [hidden]="searchLoaiBieuDoChart12.valid || searchLoaiBieuDoChart12.untouched">
+                <span
+                  *ngIf="searchLoaiBieuDoChart12.hasError('required') || searchLoaiBieuDoChart12.hasError('blankString') "
+                  class="error-message-span"> Không được để trống</span>
+              </div>
+            </span>
+
+
+            <span class="col-md-3 no-padding" *ngIf="showTime">
+              <div class="col-md-12">
+                Từ:
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="startTimeBieuDoChart12" [style]="{'width': '80%'}"
+                  [inputStyle]="{'width':'125%'}" view="month" dateFormat="mm/yy" [readonlyInput]="true"
+                  [ngClass]="startTimeBieuDoChart12.invalid && (startTimeBieuDoChart12.dirty || startTimeBieuDoChart12.touched) ? 'error-border' : ''">
+                </p-calendar>
+              </div>
+              <div class="col-md-12" [hidden]="startTimeBieuDoChart12.valid || startTimeBieuDoChart12.untouched">
+                <span
+                  *ngIf="startTimeBieuDoChart12.hasError('required') || startTimeBieuDoChart12.hasError('blankString') "
+                  class="error-message-span"> Không được để trống</span>
+              </div>
+            </span>
+
+
+            <span class="col-md-3 no-padding" *ngIf="showTime">
+              <div class="col-md-12">
+                Đến:
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="endTimeBieuDoChart12" [style]="{'width': '80%'}"
+                  [inputStyle]="{'width':'125%'}" view="month" dateFormat="mm/yy" [readonlyInput]="true"
+                  [minDate]="startTimeBieuDoChart12.value"
+                  [ngClass]="endTimeBieuDoChart12.invalid && (endTimeBieuDoChart12.dirty || endTimeBieuDoChart12.touched) ? 'error-border' : ''">
+                </p-calendar>
+              </div>
+              <div class="col-md-12" [hidden]="endTimeBieuDoChart12.valid || endTimeBieuDoChart12.untouched">
+                <span *ngIf="endTimeBieuDoChart12.hasError('required') || endTimeBieuDoChart12.hasError('blankString') "
+                  class="error-message-span"> Không được để trống</span>
+              </div>
+            </span>
+
+            <span class="col-md-1 no-padding" style="float: right;">
+              <span class="col-md-12" style=" margin-top: 17px; margin-right: auto;">
+                <button type="button" class="btn-ok" (click)="showBieuDo()">
+                  <span class="btn-filter-text">OK</span>
+                </button>
+              </span>
+            </span>
+          </form>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Biểu đồ thống kê -->
+
+  <!-- chart 12 -->
+  <div [hidden]="!showChart12" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart12"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- chart 11 -->
+  <div [hidden]="!showChart11" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart11"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- chart 10 -->
+  <div [hidden]="!showChart10" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart10"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- chart 9 -->
+  <div [hidden]="!showChart9" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin formatChart">
+        <span class="col-md-7 no-padding" style="margin: 30px auto 30px auto">
+          <span class="col-md-12" id="chart901"></span>
+        </span>
+        <span class="col-md-5 no-padding" style="margin: 30px auto 30px auto">
+          <span class="col-md-12" id="chart902"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- chart 8 -->
+  <div [hidden]="!showChart8" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart8"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- chart 7 -->
+  <div [hidden]="!showChart7" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin formatChart">
+        <span class="col-md-7 no-padding" style="margin: 30px auto 30px auto">
+          <span class="col-md-12" id="chart701"></span>
+        </span>
+        <span class="col-md-5 no-padding" style="margin: 30px auto 30px auto">
+          <span class="col-md-12" id="chart702"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- chart 6 -->
+  <div [hidden]="!showChart6" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin ">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart6"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- chart 5 -->
+  <div [hidden]="!showChart5" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin formatChart">
+        <span class="col-md-7 no-padding" style="margin: 30px auto 30px auto">
+          <span class="col-md-12" id="chart501"></span>
+        </span>
+        <span class="col-md-5 no-padding" style="margin: 30px auto 30px auto">
+          <span class="col-md-12" id="chart502"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- chart 4 -->
+  <div [hidden]="!showChart4" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart4"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- chart 3 -->
+  <!-- <div [hidden]="!showChart3" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding">
+          <span class="col-md-12" id="chart3"></span>
+        </span>
+      </div>
+    </div>
+  </div> -->
+  <div [hidden]="!showChart3" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart3"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <!-- chart 2 -->
+  <div [hidden]="!showChart2" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin ">
+        <span class="col-md-7 no-padding" style="margin: 30px auto 30px auto">
+          <span class="col-md-12" id="chart201"></span>
+        </span>
+        <span class="col-md-5 no-padding" style="margin: 30px auto 30px auto">
+          <span class="col-md-12" id="chart202"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+</div>

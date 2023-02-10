@@ -1,0 +1,155 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right" key="popup"></p-toast>
+
+<div class="order-detail-dialog">
+  <div class="col-md-12" style="margin-bottom:13px">
+
+    <div class="row form-input">
+
+
+      <form [formGroup]="settingFormGroup">
+
+        <div class="col-md-12 form-input">
+          <div class="row">
+
+            <div class="col-md-3">
+              <label>Tên điểm báo cáo:</label><span class="required">*</span>
+            </div>
+
+            <div class="col-md-9">
+              <input class="w100" type="text" formControlName="nameControl" pInputText
+                [ngClass]="(nameControl.invalid  && (nameControl.dirty ||  nameControl.touched)) ? 'error-border': ''">
+            </div>
+
+            <div class="col-md-3" [hidden]="nameControl.valid || nameControl.untouched"></div>
+            <div class="col-md-9" [hidden]="nameControl.valid || nameControl.untouched">
+              <span *ngIf="nameControl.hasError('required') || nameControl.hasError('blankString') "
+                class="error-message-span"> Không được để trống</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12 form-input">
+          <div class="row">
+
+            <div class="col-md-3">
+              <label>Thuộc dịch vụ:</label>
+            </div>
+
+            <div class="col-md-9">
+              <p-dropdown [options]="listOption" [virtualScroll]="true" itemSize="30" [filter]="true"
+                formControlName="optionControl" [showClear]="true" [resetFilterOnHide]="true" appendTo="body"
+                [baseZIndex]="99999"
+                (onChange)="changeOption($event.value)"
+                [styleClass]="(optionControl.invalid && (optionControl.dirty || optionControl.touched)) ? 'error-border' : ''"
+                placeholder="Chọn dịch vụ" optionLabel="path" [style]="{'width': '100%'}">
+              </p-dropdown>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12 form-input">
+          <div class="row">
+
+            <div class="col-md-3">
+              <label>Thứ tự:</label><span class="required">*</span>
+            </div>
+
+            <div class="col-md-3">
+
+              <input type="text" class="number-input" formControlName="orderControl"
+                [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                [ngClass]="(orderControl.invalid  && (orderControl.dirty ||  orderControl.touched)) ? 'error-border': ''" />
+            </div>
+
+            <div class="col-md-3">
+              <label>Nhân viên báo cáo:</label><span class="required">*</span>
+            </div>
+
+            <div class="col-md-3">
+              <p-dropdown [options]="listSupporter" [virtualScroll]="true" itemSize="30" [filter]="true"
+                formControlName="reporterControl" [showClear]="true" [resetFilterOnHide]="true" appendTo="body"
+                [baseZIndex]="99999"
+                [styleClass]="(reporterControl.invalid && (reporterControl.dirty || reporterControl.touched)) ? 'error-border' : ''"
+                placeholder="Chọn nhân viên hỗ trợ" optionLabel="employeeName" [style]="{'width': '100%'}">
+              </p-dropdown>
+            </div>
+
+
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+              <span *ngIf="orderControl.hasError('required') || orderControl.hasError('blankString') "
+                class="error-message-span"> Không được để trống</span>
+            </div>
+
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+              <span [hidden]="reporterControl.valid || reporterControl.untouched" *ngIf="reporterControl.hasError('required')" class="error-message-span"> Không được để trống</span>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="col-md-12 form-input">
+          <div class="row">
+
+            <div class="col-md-3">
+              <label>Hạn báo cáo:</label>
+            </div>
+            <div class="col-md-3">
+              <p-calendar formControlName="deadlineControl" [yearNavigator]="true" dateFormat="dd/mm/yy" showTime="true"
+                hourFormat="24" [style]="{'width':'100%'}" placeholder="dd/mm/yy hh:mm" showButtonBar="true"
+                appendTo="body" [inputStyle]="{'width':'100%'}" [baseZIndex]="99999"></p-calendar>
+            </div>
+
+            <div class="col-md-6">
+              <p-checkbox formControlName="isCusViewControl" [binary]="true"
+                label="Khách hàng được xem nội dung điểm báo cáo">
+              </p-checkbox>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12 form-input">
+          <div class="row">
+            <div class="col-md-3">
+              <label>Nội dung báo cáo:</label><span class="required">*</span>
+            </div>
+            <div class="col-md-9">
+              <textarea rows="4" formControlName="contentControl" class="w-100"
+                [ngClass]="(contentControl.invalid && (contentControl.dirty || contentControl.touched)) ? 'error-border' : ''"></textarea>
+            </div>
+
+            <div class="col-md-3" [hidden]="contentControl.valid || contentControl.untouched"></div>
+            <div class="col-md-3" [hidden]="contentControl.valid || contentControl.untouched">
+              <span *ngIf="contentControl.hasError('required') || contentControl.hasError('blankString') "
+                class="error-message-span"> Không được để trống</span>
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <div class="col-md-12 mt-5">
+    <div class="group-button-footer">
+      <button type="button" class="cancel" (click)="cancel()"><span class="cancel-label">Hủy</span></button>
+      <button type="button" class="save" (click)="save()"><span class="save-label">Lưu</span></button>
+    </div>
+  </div>
+
+</div>

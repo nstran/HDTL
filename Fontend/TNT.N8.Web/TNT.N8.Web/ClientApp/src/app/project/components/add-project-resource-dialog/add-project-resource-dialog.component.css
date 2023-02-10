@@ -1,0 +1,147 @@
+.add-project-resource .top-buffer {
+  margin-top: 2rem;
+}
+
+.add-project-resource .bottom-buffer {
+  margin-bottom: 2rem;
+}
+
+.add-project-resource .full-width {
+  width: 100% !important;
+}
+
+.add-project-resource .buffer-bottom-label {
+  margin-bottom: 4px;
+}
+
+.add-project-resource .error-message-span, .add-project-resource .required {
+  color: red;
+}
+
+.add-project-resource .btn-remove {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.add-project-resource .btn-remove-text {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #121619;
+}
+
+.add-project-resource .btn-save {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border: solid 1px #cccccc;
+  margin-left: 5px;
+}
+
+.add-project-resource .btn-save-text {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.add-project-resource .ui-inputtext {
+  top: 0px !important;
+}
+
+::ng-deep .add-project-resource div.ui-datepicker .ui-timepicker{
+  top: 0px !important;
+
+}
+
+::ng-deep .add-project-resource div.ui-datepicker table
+{
+  font-size: 10px !important;
+  width: 50% !important;
+
+}
+
+::ng-deep .add-project-resource div.ui-datepicker
+{
+  min-width: 50% !important;
+  min-height: 50% !important;
+  padding:  0px !important;
+  top : -260px !important;
+}
+
+::ng-deep .add-project-resource div.ui-datepicker .ui-datepicker-buttonbar
+{
+  padding: 0.15em !important;
+}
+
+::ng-deep .add-project-resource div.ui-datepicker .ui-datepicker-buttonbar .ui-button-text
+{
+  padding: 0.2em 1em !important;
+}
+
+
+
+
+
+
+
+.add-project-resource .outsource .ui-inputtext {
+  top: 0px !important;
+}
+
+::ng-deep .add-project-resource .outsource div.ui-datepicker .ui-timepicker{
+  top: 0px !important;
+
+}
+
+::ng-deep .add-project-resource .outsource div.ui-datepicker table
+{
+  font-size: 10px !important;
+  width: 50% !important;
+
+}
+
+::ng-deep .add-project-resource .outsource div.ui-datepicker
+{
+  min-width: 50% !important;
+  min-height: 50% !important;
+  padding:  0px !important;
+  top : 30px !important;
+}
+
+::ng-deep .add-project-resource .outsource div.ui-datepicker .ui-datepicker-buttonbar
+{
+  padding: 0.15em !important;
+}
+
+::ng-deep .add-project-resource .outsource div.ui-datepicker .ui-datepicker-buttonbar .ui-button-text
+{
+  padding: 0.2em 1em !important;
+}
+
+.add-project-resource .outsource .top-buffer {
+  margin-top: 1.5rem;
+}
+
+.add-project-resource .outsource .bottom-buffer {
+  margin-bottom: 1.5rem;
+}

@@ -1,0 +1,869 @@
+.de-xuat-cong-tac-chi-tiet .w100 {
+  width: 100% !important;
+}
+
+.de-xuat-cong-tac-chi-tiet .mt-10 {
+  margin-top: 10px;
+}
+
+.de-xuat-cong-tac-chi-tiet .require {
+  color: #F94E4E;
+}
+
+.de-xuat-cong-tac-chi-tiet .error-message-span {
+  color: red !important;
+}
+
+.de-xuat-cong-tac-chi-tiet .detail-box {
+  background-color: #ffffff;
+  border-radius   : 4px;
+  border          : solid 1px #cccccc;
+  margin-bottom   : 2rem;
+}
+
+/* --------------------------- Phê duyệt theo quy trình  ---------------------------*/
+
+.de-xuat-cong-tac-chi-tiet ul.slds-path__nav {
+  display       : flex;
+  align-items   : flex-start;
+  /* overflow   : hidden; */
+  list-style    : none;
+  border        : 0;
+  padding-bottom: 20px;
+}
+
+.de-xuat-cong-tac-chi-tiet ul.slds-path__nav li a:hover,
+.de-xuat-cong-tac-chi-tiet ul.slds-path__nav li.active a {
+  background      : unset;
+  background-color: unset;
+  border          : 0;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__item {
+  position    : relative;
+  flex        : 1;
+  margin-left : .375rem;
+  margin-right: .4375rem;
+  min-width   : 5rem;
+  text-align  : center;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__item:first-child {
+  margin-left              : 0;
+  border-top-left-radius   : var(--lwc-heightSalesPath, 2rem);
+  border-bottom-left-radius: var(--lwc-heightSalesPath, 2rem);
+  padding-left             : .625rem;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__item:last-child {
+  margin-right              : 0;
+  border-top-right-radius   : var(--lwc-heightSalesPath, 2rem);
+  border-bottom-right-radius: var(--lwc-heightSalesPath, 2rem);
+  padding-right             : .625rem;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__item:first-child:before,
+.de-xuat-cong-tac-chi-tiet .slds-path__item:first-child:after {
+  left: 1.525rem;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__item:last-child:before,
+.de-xuat-cong-tac-chi-tiet .slds-path__item:last-child:after {
+  right: .625rem;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__title,
+.de-xuat-cong-tac-chi-tiet .slds-path__stage {
+  display                    : block;
+  transition                 : transform .2s linear;
+  -webkit-backface-visibility: hidden;
+  backface-visibility        : hidden;
+}
+
+.de-xuat-cong-tac-chi-tiet .sty {
+  padding-left: inherit;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__stage {
+  position : absolute;
+  top      : 50%;
+  left     : 50%;
+  transform: translate(-50%, -50%) rotateX(-180deg);
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete:before,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete:after {
+  background: var(--lwc-colorBackgroundPathComplete, rgb(75, 202, 129));
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete .slds-path__stage {
+  transform: translate(-50%, -50%) rotateX(0deg);
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete .slds-path__title {
+  transform: rotateX(180deg);
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete .slds-path__link,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete p-dropdown .ui-dropdown,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete p-dropdown .ui-dropdown .ui-dropdown-label,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete p-dropdown .ui-dropdown .ui-dropdown-trigger {
+  color: var(--lwc-colorTextInverse, rgb(255, 255, 255));
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete:hover .slds-path__stage {
+  transform: translate(-50%, -50%) rotateX(-180deg);
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete:hover .slds-path__title {
+  transform: rotateX(0deg);
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete:hover,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete:hover:before,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete:hover:after {
+  background: var(--lwc-colorBackgroundPathCompleteHover, rgb(4, 132, 75));
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-incomplete:before,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-incomplete:after {
+  background: var(--lwc-colorBackgroundPathIncomplete, rgb(236, 235, 234));
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-incomplete:not(.slds-is-current):hover:before,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-incomplete:not(.slds-is-current):hover:after {
+  background: var(--lwc-colorBackgroundPathIncompleteHover, rgb(221, 219, 218));
+}
+
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current {
+  background-color: var(--lwc-colorBackgroundPathCurrent, rgb(255, 255, 255));
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current:before,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current:after {
+  background-color : var(--lwc-colorBackgroundPathCurrent, rgb(255, 255, 255));
+  background-image : linear-gradient(90deg, var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)), var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)) 0.125rem, transparent 0.125rem), linear-gradient(90deg, var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)), var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)) 0.125rem, transparent 0.125rem), linear-gradient(var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)), var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)) 0.125rem, transparent 0.125rem);
+  background-repeat: no-repeat;
+  background-size  : .125rem 100%, .125rem 100%, 100% .125rem;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current:before {
+  background-position: top right, top left, top left;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current:after {
+  background-position: top right, top left, bottom left;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current:hover:before,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current:hover:after {
+  background-image: linear-gradient(90deg, var(--lwc-colorBorderPathCurrentHover, rgb(0, 57, 107)), var(--lwc-colorBorderPathCurrentHover, rgb(0, 57, 107)) 0.125rem, transparent 0.125rem), linear-gradient(90deg, var(--lwc-colorBorderPathCurrentHover, rgb(0, 57, 107)), var(--lwc-colorBorderPathCurrentHover, rgb(0, 57, 107)) 0.125rem, transparent 0.125rem), linear-gradient(var(--lwc-colorBorderPathCurrentHover, rgb(0, 57, 107)), var(--lwc-colorBorderPathCurrentHover, rgb(0, 57, 107)) 0.125rem, transparent 0.125rem);
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current:hover a,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current:hover a {
+  color: #00396b;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current:first-child {
+  border      : 2px solid var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178));
+  border-right: 0;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current:first-child:before {
+  background-color: transparent;
+  background-image: linear-gradient(90deg, var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)), var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)) 0.125rem, transparent 0.125rem);
+  top             : -.125rem;
+  left            : 1.125rem;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current:first-child:after {
+  left            : 1.125rem;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)), var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)) 0.125rem, transparent 0.125rem);
+  bottom          : -.125rem;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current:first-child a {
+  height: 2.35rem;
+}
+
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__item p-dropdown .ui-dropdown,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__item p-dropdown .ui-dropdown .ui-dropdown-label,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__item p-dropdown .ui-dropdown .ui-dropdown-trigger {
+  background: unset;
+  border    : 0;
+  color     : #121619;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-incomplete.slds-is-current:not(.active) .slds-path__title,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__item.slds-is-current p-dropdown .ui-dropdown,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__item.slds-is-current p-dropdown .ui-dropdown .ui-dropdown-label,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__item.slds-is-current p-dropdown .ui-dropdown .ui-dropdown-trigger {
+  color: #005fb2;
+}
+
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-is-current.active p-dropdown .ui-dropdown,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-is-current.active p-dropdown .ui-dropdown .ui-dropdown-label,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-is-current.active p-dropdown .ui-dropdown .ui-dropdown-trigger {
+  color: #ffffff;
+}
+
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__item p-dropdown .ui-dropdown.ui-state-focus {
+  outline   : 0;
+  box-shadow: unset;
+  border    : 0;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current.active:first-child,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete.active,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-path__item.active:before,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-path__item.active:after {
+  background: var(--lwc-colorBackgroundPathActive, rgb(0, 95, 178));
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-path__item.active .slds-path__link,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__item.active p-dropdown .ui-dropdown,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__item.active p-dropdown .ui-dropdown .ui-dropdown-label,
+::ng-deep .de-xuat-cong-tac-chi-tiet .slds-path__item.active p-dropdown .ui-dropdown .ui-dropdown-trigger {
+  color: var(--lwc-colorTextInverse, rgb(255, 255, 255));
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-current.active:first-child:hover,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete.active:hover,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-path__item.active:hover:before,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-path__item.active:hover:after {
+  background: var(--lwc-colorBackgroundPathActiveHover, rgb(0, 57, 107));
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-is-complete.active .slds-path__stage {
+  display: none;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete.active .slds-path__title,
+.de-xuat-cong-tac-chi-tiet .slds-path__nav .slds-is-complete.active:hover .slds-path__title {
+  transform: unset;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__item:before {
+  top      : 0;
+  height   : 1.3rem;
+  transform: skew(30deg) translate3d(0, 0, 0);
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__item:before,
+.de-xuat-cong-tac-chi-tiet .slds-path__item:after {
+  content : '';
+  position: absolute;
+  left    : -.25rem;
+  right   : -.3125rem;
+  cursor  : pointer;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__link,
+.de-xuat-cong-tac-chi-tiet .slds-path__item p-dropdown {
+  position       : relative;
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+  height         : 2.6rem;
+  padding        : var(--lwc-spacingXSmall, 0.5rem) var(--lwc-spacingXxSmall, 0.25rem) var(--lwc-spacingXSmall, 0.5rem) var(--lwc-spacingXSmall, 0.5rem);
+  text-decoration: none;
+  z-index        : 5;
+  cursor         : pointer;
+  color          : #121619;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__item p-dropdown {
+  z-index: 100 !important;
+}
+
+.de-xuat-cong-tac-chi-tiet .slds-path__item:after {
+  bottom   : 0;
+  height   : 1.3rem;
+  transform: skew(-30deg) translate3d(0, 0, 0);
+}
+
+/* --------------------------- END ---------------------------*/
+
+.btn-save {
+  width           : 100px;
+  height          : 32px;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border          : solid 1px #cccccc;
+  margin-left     : 5px;
+}
+
+.btn-save .btn-save-text {
+  width         : 110px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+
+.btn-cancel {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.btn-cancel-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #121619;
+}
+
+.de-xuat-cong-tac-chi-tiet .link {
+  font-family: 'Inter UI';
+  color      : #007ad9;
+  cursor     : pointer;
+  font-size  : 13px;
+}
+
+/* Thêm */
+::ng-deep .content-wrapper {
+  background-color: #fff !important;
+}
+
+.de-xuat-cong-tac-chi-tiet {
+  font-family: "Inter UI";
+}
+
+.de-xuat-cong-tac-chi-tiet .body-wrapper {
+  background-color: #fff;
+  border          : solid 1px #cccccc;
+}
+
+.de-xuat-cong-tac-chi-tiet .header {
+  background-color: #ffffff;
+  border-radius   : 4px;
+  border          : solid 1px #cccccc;
+}
+
+.de-xuat-cong-tac-chi-tiet .header-box-icon {
+  width        : 40px;
+  height       : 40px;
+  border-radius: 50%;
+}
+
+.de-xuat-cong-tac-chi-tiet .header-icon {
+  width      : 18px;
+  height     : 18px;
+  object-fit : contain;
+  margin-top : 13px;
+  margin-left: 10px;
+}
+
+.de-xuat-cong-tac-chi-tiet .buffer-top {
+  margin-top: 1.2rem;
+}
+
+.de-xuat-cong-tac-chi-tiet .required {
+  color: red;
+}
+
+.de-xuat-cong-tac-chi-tiet .error-message-span {
+  color: red;
+}
+
+.de-xuat-cong-tac-chi-tiet .customer-name {
+  width         : 119px;
+  height        : 20px;
+  font-family   : 'Inter UI';
+  font-size     : 19px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 2.25;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #121619;
+}
+
+.de-xuat-cong-tac-chi-tiet .btn-remove {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left     : 5px;
+}
+
+.de-xuat-cong-tac-chi-tiet .btn-remove-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #121619;
+}
+
+.de-xuat-cong-tac-chi-tiet .btn-save-and-new {
+  width           : 155px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #0f62fe;
+  background-color: #ffffff;
+  margin-left     : 5px;
+}
+
+.de-xuat-cong-tac-chi-tiet .btn-save-and-new .btn-save-and-new-text {
+  width         : 102px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #0f62fe;
+}
+
+::ng-deep .de-xuat-cong-tac-chi-tiet .ui-dropdown {
+  min-width: 0px !important;
+}
+
+::ng-deep .de-xuat-cong-tac-chi-tiet .ui-menu ul {
+  text-align: left;
+}
+
+.de-xuat-cong-tac-chi-tiet .btn-save {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border          : solid 1px #cccccc;
+  margin-left     : 5px;
+}
+
+.de-xuat-cong-tac-chi-tiet .btn-save-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+
+.de-xuat-cong-tac-chi-tiet .body-wrapper {
+  margin-top  : 20px;
+  margin-left : 0px;
+  margin-right: 0px;
+}
+
+.de-xuat-cong-tac-chi-tiet .w100 {
+  width: 100% !important;
+}
+
+.de-xuat-cong-tac-chi-tiet .my-form-control {
+  display    : flex;
+  align-items: center;
+}
+
+/*Begin: Customize Accordion */
+
+::ng-deep .de-xuat-cong-tac-chi-tiet .ui-accordion .ui-accordion-header a {
+  border          : 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+  font-size       : 16px;
+}
+
+::ng-deep .de-xuat-cong-tac-chi-tiet .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background-color: #ffffff !important;
+  border          : 1px solid #ffffff !important;
+  color           : #121619 !important;
+}
+
+::ng-deep .de-xuat-cong-tac-chi-tiet .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .de-xuat-cong-tac-chi-tiet .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .de-xuat-cong-tac-chi-tiet .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  color: #121619 !important;
+}
+
+::ng-deep .de-xuat-cong-tac-chi-tiet .ui-accordion .ui-accordion-content {
+  border          : 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/*End: Customize Accordion */
+
+.de-xuat-cong-tac-chi-tiet .label-bold {
+  font-weight: bold;
+}
+
+.de-xuat-cong-tac-chi-tiet .link {
+  font-family: 'Inter UI';
+  color      : #007ad9;
+  cursor     : pointer;
+  font-size  : 13px;
+}
+
+.de-xuat-cong-tac-chi-tiet .btn-save-note {
+  width           : 158px;
+  height          : 32px;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border          : solid 1px #cccccc;
+  margin-left     : 5px;
+}
+
+.de-xuat-cong-tac-chi-tiet .save-note-lable {
+  width         : 110px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+
+/* Thông báo lỗi */
+
+.de-xuat-cong-tac-chi-tiet .error-border,
+.de-xuat-cong-tac-chi-tiet .error-border:focus {
+  border-color: #f44336;
+}
+
+.de-xuat-cong-tac-chi-tiet .error-border:focus {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset, 0 0 8px #f44336;
+}
+
+.de-xuat-cong-tac-chi-tiet .box-waring {
+  display         : inline-block;
+  width           : 49px;
+  height          : 30px;
+  border-radius   : 4px;
+  background-color: #ffcc00;
+  text-align      : center;
+  cursor          : pointer;
+}
+
+.de-xuat-cong-tac-chi-tiet .ios-warning {
+  position  : relative;
+  top       : 5px;
+  width     : 16.2px;
+  height    : 15px;
+  object-fit: contain;
+  cursor    : pointer;
+}
+
+.de-xuat-cong-tac-chi-tiet .ios-warning-active {
+  position  : relative;
+  top       : 5px;
+  width     : 16.2px;
+  height    : 15px;
+  object-fit: contain;
+  cursor    : pointer;
+}
+
+.de-xuat-cong-tac-chi-tiet .notification {
+  position        : absolute;
+  top             : 38px;
+  width           : 380px;
+  box-shadow      : 0 6px 12px 0 rgba(18, 22, 25, 0.16);
+  border          : solid 1px #dde1e6;
+  background-color: #ffffff;
+  z-index         : 1;
+}
+
+/*Begin: Tạo góc nhọn trên hộp thoại */
+.de-xuat-cong-tac-chi-tiet .notification::before {
+  position           : absolute;
+  bottom             : 100%;
+  left               : 16px;
+  display            : block;
+  width              : 0;
+  height             : 0;
+  pointer-events     : none;
+  content            : " ";
+  border-left        : solid transparent;
+  border-right       : solid transparent;
+  border-bottom      : solid #ffffff;
+  border-width       : 8px;
+  border-bottom-color: #d1d5da;
+}
+
+.de-xuat-cong-tac-chi-tiet .notification::after {
+  position           : absolute;
+  bottom             : 100%;
+  left               : 16px;
+  display            : block;
+  width              : 0;
+  height             : 0;
+  pointer-events     : none;
+  content            : " ";
+  border-left        : solid transparent;
+  border-right       : solid transparent;
+  border-bottom      : solid transparent;
+  margin-bottom      : -1px;
+  border-width       : 8px;
+  border-bottom-color: #ffffff;
+}
+
+/*End: Tạo góc nhọn trên hộp thoại */
+
+.de-xuat-cong-tac-chi-tiet .notification .notifi-row {
+  width        : 100%;
+  border-bottom: 1px solid #dde1e6;
+  padding      : 10px 0px;
+  cursor       : pointer;
+  text-align   : left;
+}
+
+.de-xuat-cong-tac-chi-tiet .notification .notifi-row .ios-alert {
+  position  : absolute;
+  left      : 15px;
+  width     : 15.9px;
+  height    : 15.9px;
+  object-fit: contain;
+}
+
+.de-xuat-cong-tac-chi-tiet .notification .notifi-row .notifi-text {
+  position      : relative;
+  left          : 50px;
+  width         : 100%;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #ff3b30;
+}
+
+.de-xuat-cong-tac-chi-tiet .notification .notifi-row-footer {
+  width     : 100%;
+  padding   : 10px 10px;
+  text-align: right;
+}
+
+.de-xuat-cong-tac-chi-tiet .notification .notifi-row-footer .notifi-text-footer {
+  width         : 100%;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  color         : #121619;
+}
+
+.de-xuat-cong-tac-chi-tiet .header-box-icon {
+  width        : 40px;
+  height       : 40px;
+  border-radius: 50%;
+}
+
+.de-xuat-cong-tac-chi-tiet .header-icon {
+  width      : 18px;
+  height     : 18px;
+  object-fit : contain;
+  margin-top : 10px;
+  margin-left: 10px;
+}
+
+.de-xuat-cong-tac-chi-tiet .buffer-top {
+  margin-top: 1.2rem;
+}
+
+.de-xuat-cong-tac-chi-tiet .buffer-bottom {
+  margin-bottom: 1.2rem;
+}
+
+.de-xuat-cong-tac-chi-tiet .buffer-bottom-label {
+  margin-bottom: 3px;
+}
+
+.de-xuat-cong-tac-chi-tiet .required {
+  color: red;
+}
+
+.de-xuat-cong-tac-chi-tiet .error-message-span {
+  color: red;
+}
+
+.de-xuat-cong-tac-chi-tiet .save-and-new {
+  width           : 160px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left     : 5px;
+}
+
+.de-xuat-cong-tac-chi-tiet .save-and-new .text-save-phe-duyet {
+  color: #ffffff;
+}
+
+.de-xuat-cong-tac-chi-tiet .save-and-new .text-save-and-new {
+  width         : 102px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #121619;
+}
+
+.de-xuat-cong-tac-chi-tiet .labelDefault {
+  font-weight: bold !important;
+}
+
+.de-xuat-cong-tac-chi-tiet .cancel {
+  width           : 64px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.de-xuat-cong-tac-chi-tiet .cancel .text-cancel {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #121619;
+}
+
+.de-xuat-cong-tac-chi-tiet .save {
+  width           : 86px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  margin-left     : 5px;
+}
+
+.de-xuat-cong-tac-chi-tiet .save .text-save {
+  width         : 25px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #ffffff;
+}
+
+.de-xuat-cong-tac-chi-tiet .save-cancel-lable {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #121619;
+}
+
+.btn-cancel-note {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.de-xuat-cong-tac-chi-tiet .timeline>li>.timeline-item {
+  box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.de-xuat-cong-tac-chi-tiet .timeline-content {
+  margin-top: 20px;
+}
+
+.de-xuat-cong-tac-chi-tiet .timeline-item .onHover {
+  display: none;
+}
+
+.de-xuat-cong-tac-chi-tiet .timeline-item:hover .onHover {
+  display: block;
+}
+
+.de-xuat-cong-tac-chi-tiet .timeline-user-avatar {
+  border-radius: 50%;
+  margin-right : 5px;
+  float        : left;
+}
+
+.de-xuat-cong-tac-chi-tiet .timeline-body {
+  padding: 10px 15px;
+}
+
+.de-xuat-cong-tac-chi-tiet .note-user {
+  font-family: 'Inter UI';
+  font-weight: bold;
+}
+
+.de-xuat-cong-tac-chi-tiet .time-note {
+  font-size  : 10px !important;
+  color      : #5d5a5a !important;
+  font-weight: normal !important;
+}

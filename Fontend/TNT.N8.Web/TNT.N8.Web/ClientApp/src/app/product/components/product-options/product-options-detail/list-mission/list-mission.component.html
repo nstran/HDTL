@@ -1,0 +1,48 @@
+<div class="row no-margin">
+    <div class="col-md-12">
+        <p class="font-weight-bold">Danh sách điểm báo cáo</p>
+    </div>
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12" style="display: flex; padding: 5px;"><span style="padding: 10px;">
+                    <p>Tên điểm báo cáo: <span class="text-danger">*</span></p>
+                </span><input style="padding: 10px;" type="text" class="form-control" type="text" class="form-control"
+                    name="name" #optionPrice="ngModel" required placeholder="Nhập tên điểm báo cáo"
+                    [(ngModel)]="createMilestone.name" style="width: 40%;">
+                <div class="actions">
+                    <button type="button" class="btn-edit" (click)="save()" [disabled]="!optionPrice.valid">
+                        <span class="text-white">Thêm điểm báo cáo</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <p-table #dt [columns]="cols" [value]="listMilestone" [resizableColumns]="true" columnResizeMode="expand"
+            [rowsPerPageOptions]="[10, 20, 30]" [paginator]="true" [filterDelay]="0" [rows]="rows">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th *ngFor="let col of columns" [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+                        {{col.header}}
+                    </th>
+                    <th style="text-align: center; width: 10rem;">
+                        <span>Thao tác</span>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-index="rowIndex" let-columns="columns">
+                <tr>
+                    <td *ngFor="let col of columns" [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+                        {{rowData[col.field]}}
+                    </td>
+                    <td style="text-align: center; width: 10rem;">
+                        <button (click)="deleteMilestroneConfigure(rowData['id'])" class="ui-button-danger" pButton
+                            icon="pi pi-trash"></button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </div>
+
+</div>

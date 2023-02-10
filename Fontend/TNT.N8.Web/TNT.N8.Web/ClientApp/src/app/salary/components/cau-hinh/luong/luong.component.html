@@ -1,0 +1,650 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+
+<div class="congluong-cauhinh row">
+  <div class="col-md-12 mt-35">
+    <div class="row">
+      <div class="col-md-12 header-section">
+        <span class="title-section">Ca làm việc</span>
+        <button *ngIf="actionAdd" pButton icon="fa fa-plus" class="button-add" (click)="addRow('CLV')"
+          pTooltip="Thêm cấu hình" style="margin-left: 10px !important;">
+        </button>
+      </div>
+      <div class="col-md-12 mt-10">
+        <p-table [columns]="colsCaLamViec" [value]="listCaLamViec" class="table-border">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+            <tr>
+              <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                <span *ngSwitchCase="'gioVao'">
+                  {{ rowData[col.field] }}
+                </span>
+                <span *ngSwitchCase="'gioRa'">
+                  {{ rowData[col.field] }}
+                </span>
+                <span *ngSwitchCase="'thoiGianKetThucCa'">
+                  {{ rowData[col.field] }}
+                </span>
+                <span *ngSwitchCase="'action'">
+                  <button *ngIf="actionEdit" pButton icon="fa fa-pencil" class="button-edit"
+                    (click)="suaCaLamViec(rowData)" pTooltip="Sửa ca làm việc">
+                  </button>
+                  <button *ngIf="actionDelete" pButton icon="fa fa-trash" class="button-delete"
+                    (click)="xoaCaLamViec(rowData)" pTooltip="Xóa ca làm việc">
+                  </button>
+                </span>
+                <span *ngSwitchDefault>
+                  {{rowData[col.field]}}
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 mt-35">
+    <div class="row">
+      <div class="col-md-12 header-section">
+        <span class="title-section">Ngày nghỉ lễ trong năm</span>
+        <button *ngIf="actionAdd" pButton icon="fa fa-plus" class="button-add" (click)="addRow('NL')"
+          pTooltip="Thêm cấu hình" style="margin-left: 10px !important;">
+        </button>
+      </div>
+      <div class="col-md-12 mt-10">
+        <p-table [columns]="colsNghiLe" [value]="listCauHinhNghiLe" class="table-border" [paginator]="true" [rows]="5"
+          [rowsPerPageOptions]="[5,10,20]">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+            <tr>
+              <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                <span *ngSwitchCase="'action'">
+                  <button *ngIf="actionEdit" pButton icon="fa fa-pencil" class="button-edit"
+                    (click)="suaCauHinhNghiLe(rowData)">
+                  </button>
+                  <button *ngIf="actionDelete" pButton icon="fa fa-trash" class="button-delete"
+                    (click)="xoaCauHinhNghiLe(rowData)">
+                  </button>
+                </span>
+                <span *ngSwitchDefault>
+                  {{rowData[col.field]}}
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 mt-35">
+    <div class="row">
+      <div class="col-md-12 header-section">
+        <span class="title-section">Lương OT</span>
+        <button *ngIf="actionAdd" pButton icon="fa fa-plus" class="button-add" (click)="addRow('OT')"
+          pTooltip="Thêm cấu hình" style="margin-left: 10px !important;">
+        </button>
+      </div>
+      <div class="col-md-12 mt-10">
+        <p-table [columns]="colsCauHinhOt" [value]="listCauHinhOt" class="table-border" [paginator]="true" [rows]="5"
+          [rowsPerPageOptions]="[5,10,20]">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+            <tr>
+              <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                <span *ngSwitchCase="'action'">
+                  <button *ngIf="actionEdit" pButton icon="fa fa-pencil" class="button-edit"
+                    (click)="suaCauHinhOt(rowData)">
+                  </button>
+                  <button *ngIf="actionDelete" pButton icon="fa fa-trash" class="button-delete"
+                    (click)="xoaCauHinhOt(rowData)">
+                  </button>
+                </span>
+                <span *ngSwitchDefault>
+                  {{rowData[col.field]}}
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 mt-35">
+    <div class="row">
+      <div class="col-md-12 header-section">
+        <span class="title-section">Giảm trừ gia cảnh</span>
+        <button *ngIf="actionAdd" pButton icon="fa fa-plus" class="button-add" (click)="addRow('GT')"
+          pTooltip="Thêm cấu hình" style="margin-left: 10px !important;">
+        </button>
+      </div>
+      <div class="col-md-12 mt-10">
+        <p-table [columns]="colsGiamTru" [value]="listCauHinhGiamTru" class="table-border" [paginator]="true" [rows]="5"
+          [rowsPerPageOptions]="[5,10,20]">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+            <tr>
+              <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                <span *ngSwitchCase="'mucGiamTru'">
+                  {{ rowData[col.field] | number }}
+                </span>
+                <span *ngSwitchCase="'action'">
+                  <button *ngIf="actionEdit" pButton icon="fa fa-pencil" class="button-edit"
+                    (click)="suaCauHinhGiamTru(rowData)">
+                  </button>
+                  <button *ngIf="actionDelete" pButton icon="fa fa-trash" class="button-delete"
+                    (click)="xoaCauHinhGiamTru(rowData)">
+                  </button>
+                </span>
+                <span *ngSwitchDefault>
+                  {{rowData[col.field]}}
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 mt-35">
+    <div class="row">
+      <div class="col-md-12 header-section">
+        <span class="title-section">Kinh phí công đoàn</span>
+        <button *ngIf="kinhPhiCongDoanFormGroup.disabled && actionAdd && actionEdit" pButton icon="fa fa-pencil"
+          class="button-edit" (click)="suaKinhPhiCongDoan()">
+        </button>
+        <button [disabled]="awaitResult" pButton icon="fa fa-check" class="button-save" (click)="saveKinhPhiCongDoan()"
+          *ngIf="kinhPhiCongDoanFormGroup.enabled" pTooltip="Lưu cấu hình">
+        </button>
+        <button [disabled]="awaitResult" pButton icon="fa fa-times" class="button-undo"
+          (click)="huySuaKinhPhiCongDoan()" *ngIf="kinhPhiCongDoanFormGroup.enabled" pTooltip="Hủy sửa cấu hình">
+        </button>
+      </div>
+      <div [formGroup]="kinhPhiCongDoanFormGroup" class="col-md-12 mt-10">
+        <div class="row no-margin" style="border: solid 1px #ccc; padding: 20px 20px;">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4">Mức đóng của nhân viên tự đóng (%):</div>
+              <div class="col-md-2">
+                <input type="text" class="number-input" formControlName="mucDongNhanVienControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}" [ngClass]="{ 'error-border' : (mucDongNhanVienControl.invalid && (mucDongNhanVienControl.dirty || mucDongNhanVienControl.touched)),
+                    'input-disable': mucDongNhanVienControl.disabled }" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-4">Mức đóng công ty đóng cho nhân viên (%):</div>
+              <div class="col-md-2">
+                <input type="text" class="number-input" formControlName="mucDongCongTyControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}" [ngClass]="{ 'error-border' : (mucDongCongTyControl.invalid && (mucDongCongTyControl.dirty || mucDongCongTyControl.touched)),
+                    'input-disable': mucDongCongTyControl.disabled }" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="col-md-12 mt-35">
+    <div class="row">
+      <div class="col-md-12 header-section">
+        <span class="title-section">Công thức tính lương</span>
+        <button *ngIf="actionAdd && actionEdit" pButton icon="fa fa-pencil" class="button-edit"
+          (click)="addRow('CTTL')">
+        </button>
+      </div>
+      <div class="col-md-12 mt-10">
+        <div class="row no-margin" style="border: solid 1px #ccc; padding: 20px 20px;">
+          <div class="col-md-12">
+            {{ congThucTinhLuongClone.congThucText }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <div class="col-md-12 mt-35">
+    <div class="row">
+      <div class="col-md-12 header-section">
+        <span class="title-section">Cấu hình chấm công OT</span>
+      </div>
+      <div class="col-md-12 mt-10">
+        <div class="row no-margin" style="border: solid 1px #ccc; padding: 20px 20px;">
+          <div class="col-md-2">
+            Thời điểm tính chấm công trước thời gian bắt đầu OT (phút):
+          </div>
+          <div [formGroup]="cauHinhChamCongOtFormGroup" class="col-md-1">
+            <input type="text" class="number-input" formControlName="soPhutControl"
+              [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}" [ngClass]="{ 'error-border' : (soPhutControl.invalid && (soPhutControl.dirty || soPhutControl.touched)),
+                'input-disable': soPhutControl.disabled }" />
+          </div>
+          <div class="col-md-9">
+            <button *ngIf="cauHinhChamCongOtFormGroup.disabled && actionAdd && actionEdit" pButton icon="fa fa-pencil"
+              class="button-edit" (click)="suaCauHinhChamCongOt()">
+            </button>
+            <button [disabled]="awaitResult" pButton icon="fa fa-check" class="button-save"
+              (click)="saveCauHinhChamCongOt()" *ngIf="cauHinhChamCongOtFormGroup.enabled" pTooltip="Lưu cấu hình">
+            </button>
+            <button [disabled]="awaitResult" pButton icon="fa fa-times" class="button-undo"
+              (click)="huySuaCauHinhChamCongOt()" *ngIf="cauHinhChamCongOtFormGroup.enabled"
+              pTooltip="Hủy sửa cấu hình">
+            </button>
+          </div>
+          <div class="col-md-12 mt-20">
+            <strong style="font-size: 15px;">Ca OT:</strong>
+            <button *ngIf="cauHinhOtCaNgayFormGroup.disabled && actionAdd && actionEdit" pButton
+              icon="fa fa-pencil" class="button-edit" (click)="suaCauHinhOtCaNgay()">
+            </button>
+            <button [disabled]="awaitResult" pButton icon="fa fa-check" class="button-save"
+              (click)="saveCauHinhOtCaNgay()" *ngIf="cauHinhOtCaNgayFormGroup.enabled" pTooltip="Lưu cấu hình">
+            </button>
+            <button [disabled]="awaitResult" pButton icon="fa fa-times" class="button-undo"
+              (click)="huySuaCauHinhOtCaNgay()" *ngIf="cauHinhOtCaNgayFormGroup.enabled"
+              pTooltip="Hủy sửa cấu hình">
+            </button>
+          </div>
+          <div [formGroup]="cauHinhOtCaNgayFormGroup" class="col-md-12 mt-10">
+            <div class="row">
+              <div class="col-md-2">
+                <p>Ca sáng:</p>
+              </div>
+              <div class="col-md-2">
+                <p>Giờ vào:</p>
+                <p-calendar formControlName="gioVaoSangControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  [timeOnly]="true"
+                  [styleClass]="(gioVaoSangControl.invalid && (gioVaoSangControl.dirty || gioVaoSangControl.touched)) ? 'error-pcalendar' : ''">
+                </p-calendar>
+              </div>
+              <div class="col-md-2">
+                <p>Giờ ra:</p>
+                <p-calendar formControlName="gioRaSangControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  [timeOnly]="true"
+                  [styleClass]="(gioRaSangControl.invalid && (gioRaSangControl.dirty || gioRaSangControl.touched)) ? 'error-pcalendar' : ''">
+                </p-calendar>
+              </div>
+              <div class="col-md-2">
+                <p>Giờ kết thúc ca:</p>
+                <p-calendar formControlName="gioKetThucSangControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  [timeOnly]="true"
+                  [styleClass]="(gioKetThucSangControl.invalid && (gioKetThucSangControl.dirty || gioKetThucSangControl.touched)) ? 'error-pcalendar' : ''">
+                </p-calendar>
+              </div>
+            </div>
+            <div class="row mt-10">
+              <div class="col-md-2">
+                <p>Ca chiều:</p>
+              </div>
+              <div class="col-md-2">
+                <p>Giờ vào:</p>
+                <p-calendar formControlName="gioVaoChieuControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  [timeOnly]="true"
+                  [styleClass]="(gioVaoChieuControl.invalid && (gioVaoChieuControl.dirty || gioVaoChieuControl.touched)) ? 'error-pcalendar' : ''">
+                </p-calendar>
+              </div>
+              <div class="col-md-2">
+                <p>Giờ ra:</p>
+                <p-calendar formControlName="gioRaChieuControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  [timeOnly]="true"
+                  [styleClass]="(gioRaChieuControl.invalid && (gioRaChieuControl.dirty || gioRaChieuControl.touched)) ? 'error-pcalendar' : ''">
+                </p-calendar>
+              </div>
+              <div class="col-md-2">
+                <p>Giờ kết thúc ca:</p>
+                <p-calendar formControlName="gioKetThucChieuControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  [timeOnly]="true"
+                  [styleClass]="(gioKetThucChieuControl.invalid && (gioKetThucChieuControl.dirty || gioKetThucChieuControl.touched)) ? 'error-pcalendar' : ''">
+                </p-calendar>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 mt-35">
+    <div class="row">
+      <div class="col-md-12 header-section">
+        <span class="title-section">Thuế TNCN</span>
+        <button *ngIf="actionAdd" pButton icon="fa fa-plus" class="button-add" (click)="addRow('TTNCN')"
+          pTooltip="Thêm cấu hình" style="margin-left: 10px !important;">
+        </button>
+      </div>
+      <div class="col-md-12 mt-10">
+        <p-table [columns]="colsTtncn" [value]="listCauHinhThueTncn" class="table-border" [paginator]="true" [rows]="10"
+          [rowsPerPageOptions]="[10,20]">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+            <tr>
+              <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                <span *ngSwitchCase="'stt'">
+                  {{rowIndex + 1}}
+                </span>
+                <span *ngSwitchCase="'tuDen'">
+                  Từ {{rowData.soTienTu | number}} đến {{rowData.soTienDen | number}}
+                </span>
+                <span *ngSwitchCase="'soBiTruTheoCongThuc'">
+                  {{rowData[col.field] | number}}
+                </span>
+                <span *ngSwitchCase="'action'">
+                  <button *ngIf="actionEdit" pButton icon="fa fa-pencil" class="button-edit"
+                    (click)="suaCauHinhTtncn(rowData)">
+                  </button>
+                  <button *ngIf="actionDelete" pButton icon="fa fa-trash" class="button-delete"
+                    (click)="xoaCauHinhTtncn(rowData)">
+                  </button>
+                </span>
+                <span *ngSwitchDefault>
+                  {{rowData[col.field]}}
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12 mt-35">
+    <app-note-time-line [viewNote]="true" [viewTimeline]="true" 
+      objectType="CHLUONG" [objectNumber]="1" 
+      [actionAdd]="true" [actionEdit]="false" [actionDelete]="false" 
+      [pageSize]="10" [refresh]="refreshNote">
+    </app-note-time-line>
+  </div>
+
+  <p-dialog [(visible)]="showCaLamViec" [modal]="true" [style]="{width: '30vw'}" [draggable]="false" [resizable]="false"
+    [closable]="false">
+    <p-header [style]="{'margin-left': '35%'}">Thông tin ca làm việc</p-header>
+    <div [formGroup]="caLamViecFormGroup">
+      <div class="row no-margin">
+        <div class="col-md-12">
+          <label>Ca làm việc<span class="required">*</span>:</label>
+          <p-dropdown [options]="listLoaiCaLamViec" placeholder="Chọn ca" [style]="{'width': '100%'}"
+            formControlName="loaiCaLamViecControl" optionLabel="name"
+            [styleClass]="(loaiCaLamViecControl.invalid && (loaiCaLamViecControl.dirty || loaiCaLamViecControl.touched)) ? 'error-border': ''">
+          </p-dropdown>
+        </div>
+
+        <div class="col-md-12 mt-10">
+          <div class="row">
+            <div class="col-md-6">
+              <label>Giờ vào<span class="required">*</span>:</label>
+              <p-calendar formControlName="gioVaoControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                [timeOnly]="true"
+                [styleClass]="(gioVaoControl.invalid && (gioVaoControl.dirty || gioVaoControl.touched)) ? 'error-pcalendar' : ''">
+              </p-calendar>
+            </div>
+            <div class="col-md-6">
+              <label>Giờ ra<span class="required">*</span>:</label>
+              <p-calendar formControlName="gioRaControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                [timeOnly]="true"
+                [styleClass]="(gioRaControl.invalid && (gioRaControl.dirty || gioRaControl.touched)) ? 'error-pcalendar' : ''">
+              </p-calendar>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 mt-10">
+          <label>Thời gian kết thúc ca<span class="required">*</span>:</label>
+          <p-calendar formControlName="thoiGianKetThucCaControl" [style]="{'width':'100%'}"
+            [inputStyle]="{'width':'100%'}" [timeOnly]="true"
+            [styleClass]="(thoiGianKetThucCaControl.invalid && (thoiGianKetThucCaControl.dirty || thoiGianKetThucCaControl.touched)) ? 'error-pcalendar' : ''">
+          </p-calendar>
+        </div>
+
+        <div class="col-md-12 mt-10" style="margin-top: 10px;">
+          <label>Ngày làm việc trong tuần<span class="required">*</span>:</label>
+          <p-multiSelect [options]="listNgayLamViecTrongTuan" formControlName="ngayLamViecTrongTuanControl"
+            [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} ngày được chọn" defaultLabel="Chọn ngày"
+            optionLabel="name" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+            [styleClass]="ngayLamViecTrongTuanControl.invalid && (ngayLamViecTrongTuanControl.dirty || ngayLamViecTrongTuanControl.touched) ? 'error-border' : ''">
+          </p-multiSelect>
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin: 20px 0px;">
+          <button [disabled]="awaitResult" pButton class="btn btn-green my-2" type="button" label="Lưu"
+            style="padding: 0 25px; background: #169BD5;" (click)="saveCaLamViec()">
+          </button>
+          <button [disabled]="awaitResult" pButton type="button" label="Đóng" class="btn  ml-2"
+            style="padding: 0 25px; background: white; color: black" (click)="closeDetailItem('CLV')">
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog [(visible)]="showCauHinhNghiLe" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
+    [resizable]="false" [closable]="false">
+    <p-header [style]="{'margin-left': '35%'}">Thông tin ngày nghỉ trong năm</p-header>
+    <div [formGroup]="cauHinhNghiLeFormGroup">
+      <div class="row no-margin">
+        <div class="col-md-12">
+          <label>Năm<span class="required">*</span>:</label>
+          <p-inputNumber formControlName="soNamControl" locale="en-US" class="w-100"
+            [ngClass]="(soNamControl.invalid && (soNamControl.dirty || soNamControl.touched)) ? 'error-border' : ''"
+            (keydown.enter)="$event.preventDefault()" [min]="0" [minFractionDigits]="0" [maxFractionDigits]="0">
+          </p-inputNumber>
+        </div>
+
+        <div class="col-md-12 mt-10">
+          <label>Ngày nghỉ lễ:</label>
+          <p-calendar formControlName="ngayNghiLeControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+            appendTo="body" selectionMode="multiple" [readonlyInput]="true" dateFormat="dd/mm/yy">
+          </p-calendar>
+        </div>
+
+        <div class="col-md-12 mt-10">
+          <label>Ngày nghỉ bù:</label>
+          <p-calendar formControlName="ngayNghiBuControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+            appendTo="body" selectionMode="multiple" [readonlyInput]="true" dateFormat="dd/mm/yy">
+          </p-calendar>
+        </div>
+
+        <div class="col-md-12 mt-10">
+          <label>Ngày làm bù:</label>
+          <p-calendar formControlName="ngayLamBuControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+            appendTo="body" selectionMode="multiple" [readonlyInput]="true" dateFormat="dd/mm/yy">
+          </p-calendar>
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin: 20px 0px;">
+          <button [disabled]="awaitResult" pButton class="btn btn-green my-2" type="button" label="Lưu"
+            style="padding: 0 25px; background: #169BD5;" (click)="saveNghiLe()">
+          </button>
+          <button [disabled]="awaitResult" pButton type="button" label="Đóng" class="btn  ml-2"
+            style="padding: 0 25px; background: white; color: black" (click)="closeDetailItem('NL')">
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog [(visible)]="showCauHinhOt" [modal]="true" [style]="{width: '30vw'}" [draggable]="false" [resizable]="false"
+    [closable]="false">
+    <p-header [style]="{'margin-left': '35%'}">Thông tin lương OT</p-header>
+    <div [formGroup]="cauHinhOtFormGroup">
+      <div class="row no-margin">
+        <div class="col-md-12">
+          <label>Loại OT<span class="required">*</span>:</label>
+          <p-dropdown [options]="listLoaiOt" placeholder="Chọn loại" [style]="{'width': '100%'}"
+            formControlName="loaiOtControl" optionLabel="categoryName"
+            [styleClass]="(loaiOtControl.invalid && (loaiOtControl.dirty || loaiOtControl.touched)) ? 'error-border': ''">
+          </p-dropdown>
+        </div>
+
+        <div class="col-md-12 mt-10">
+          <label>Mức lương (%)<span class="required">*</span>:</label>
+          <input type="text" class="number-input" formControlName="tyLeHuongControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}"
+            [ngClass]="(tyLeHuongControl.invalid && (tyLeHuongControl.dirty || tyLeHuongControl.touched)) ? 'error-border': ''" />
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin: 20px 0px;">
+          <button [disabled]="awaitResult" pButton class="btn btn-green my-2" type="button" label="Lưu"
+            style="padding: 0 25px; background: #169BD5;" (click)="saveCauHinhOt()">
+          </button>
+          <button [disabled]="awaitResult" pButton type="button" label="Đóng" class="btn  ml-2"
+            style="padding: 0 25px; background: white; color: black" (click)="closeDetailItem('OT')">
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog [(visible)]="showCauHinhGiamTru" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
+    [resizable]="false" [closable]="false">
+    <p-header [style]="{'margin-left': '35%'}">Thông tin mức giảm trừ gia cảnh</p-header>
+    <div [formGroup]="cauHinhGiamTruFormGroup">
+      <div class="row no-margin">
+        <div class="col-md-12">
+          <label>Loại giảm trừ<span class="required">*</span>:</label>
+          <p-dropdown [options]="listLoaiGiamTru" placeholder="Chọn loại" [style]="{'width': '100%'}"
+            formControlName="loaiGiamTruControl" optionLabel="name"
+            [styleClass]="(loaiGiamTruControl.invalid && (loaiGiamTruControl.dirty || loaiGiamTruControl.touched)) ? 'error-border': ''">
+          </p-dropdown>
+        </div>
+
+        <div class="col-md-12 mt-10">
+          <label>Mức giảm trừ (VNĐ)<span class="required">*</span>:</label>
+          <input type="text" class="number-input" formControlName="mucGiamTruControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+            [ngClass]="(mucGiamTruControl.invalid && (mucGiamTruControl.dirty || mucGiamTruControl.touched)) ? 'error-border': ''" />
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin: 20px 0px;">
+          <button [disabled]="awaitResult" pButton class="btn btn-green my-2" type="button" label="Lưu"
+            style="padding: 0 25px; background: #169BD5;" (click)="saveCauHinhGiamTru()">
+          </button>
+          <button [disabled]="awaitResult" pButton type="button" label="Đóng" class="btn  ml-2"
+            style="padding: 0 25px; background: white; color: black" (click)="closeDetailItem('GT')">
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog [(visible)]="showCongThucTinhLuong" [modal]="true" [style]="{width: '50vw'}" [draggable]="false"
+    [resizable]="false" [closable]="false">
+    <p-header [style]="{'display': 'flex', 'justify-content': 'center'}">
+      <span>Công thức tính lương</span>
+    </p-header>
+    <div [formGroup]="congThucTinhLuongFormGroup">
+      <div class="row no-margin">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-10">
+              <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" class="w-100"
+                formControlName="congThucControl"
+                [ngClass]="(congThucControl.invalid && (congThucControl.dirty || congThucControl.touched)) ? 'error-border': ''">
+              </textarea>
+            </div>
+            <div class="col-md-2" style="text-align: center;">
+              <button [disabled]="awaitResult" pButton type="button" label="Xóa" class="btn"
+                style="padding: 0 20px; background: white; color: black;" (click)="xoaCongThuc()">
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 mt-10">
+          <div class="row no-margin" style="justify-content: center;">
+            <div class="token" *ngFor="let item of listTokenTinhLuong" (click)="addToken(item)">
+              {{item.name}}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin: 20px 0px;">
+          <button [disabled]="awaitResult" pButton class="btn btn-green my-2" type="button" label="Lưu"
+            style="padding: 0 25px; background: #169BD5;" (click)="saveCongThucTinhLuong()">
+          </button>
+          <button [disabled]="awaitResult" pButton type="button" label="Đóng" class="btn ml-2"
+            style="padding: 0 25px; background: white; color: black" (click)="closeDetailItem('CTTL')">
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog [(visible)]="showCauHinhTtncn" [modal]="true" [style]="{width: '30vw'}" [draggable]="false" [resizable]="false"
+    [closable]="false">
+    <p-header [style]="{'margin-left': '35%'}">Thông tin tính thuế TNCN</p-header>
+    <div [formGroup]="ttncnFormGroup">
+      <div class="row no-margin">
+        <div class="col-md-6">
+          <label>Từ<span class="required">*</span>:</label>
+          <input type="text" class="number-input" formControlName="soTienTuControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+            [ngClass]="(soTienTuControl.invalid && (soTienTuControl.dirty || soTienTuControl.touched)) ? 'error-border': ''" />
+        </div>
+
+        <div class="col-md-6">
+          <label>Đến<span class="required">*</span>:</label>
+          <input type="text" class="number-input" formControlName="soTienDenControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+            [ngClass]="(soTienDenControl.invalid && (soTienDenControl.dirty || soTienDenControl.touched)) ? 'error-border': ''" />
+        </div>
+
+        <div class="col-md-6 mt-10">
+          <label>Thuế suất (%)<span class="required">*</span>:</label>
+          <input type="text" class="number-input" formControlName="phanTramThueControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}"
+            [ngClass]="(phanTramThueControl.invalid && (phanTramThueControl.dirty || phanTramThueControl.touched)) ? 'error-border': ''" />
+        </div>
+
+        <div class="col-md-6 mt-10">
+          <label>Tiền thuế phần thu nhập lũy tiến<span class="required">*</span>:</label>
+          <input type="text" class="number-input" formControlName="soBiTruTheoCongThucControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+            [ngClass]="(soBiTruTheoCongThucControl.invalid && (soBiTruTheoCongThucControl.dirty || soBiTruTheoCongThucControl.touched)) ? 'error-border': ''" />
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin: 20px 0px;">
+          <button [disabled]="awaitResult" pButton class="btn btn-green my-2" type="button" label="Lưu"
+            style="padding: 0 25px; background: #169BD5;" (click)="saveCauHinhTtncn()">
+          </button>
+          <button [disabled]="awaitResult" pButton type="button" label="Đóng" class="btn  ml-2"
+            style="padding: 0 25px; background: white; color: black" (click)="closeDetailItem('TTNCN')">
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>

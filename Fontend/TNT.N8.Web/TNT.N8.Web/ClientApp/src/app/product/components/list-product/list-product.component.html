@@ -1,0 +1,91 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner 
+    [style]="{width: '50px', height: '50px'}" 
+    strokeWidth="8" 
+    fill="#EEEEEE" 
+    animationDuration=".5s"
+    >
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog 
+  header="Xác nhận" 
+  icon="pi pi-exclamation-triangle" 
+  acceptLabel="Chấp nhận" 
+  rejectLabel="Không"
+  >
+</p-confirmDialog>
+<card-body>
+  <sub-header>
+    <ng-container iconSubHeader>
+      <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+    </ng-container>
+    <ng-container subHeaderTitle>
+      Chi tiết dịch vụ
+    </ng-container>
+    <ng-container actions>
+      <div class="actions">
+        <button type="button" 
+          class="btn-primary btn-edit"
+          [routerLink]="'/product/createOrEdit'" 
+          >
+          <span class="text-white" >Tạo mới</span>
+        </button>
+      </div>
+      <div class="filter">
+        <input type="text" id="queryControl" 
+          name="queryControl"
+          class="form-control m-input" [formControl]="queryControl"
+          [placeholder]="'Tìm kiếm tên dịch vụ, loại dịch vụ ...'" 
+          autocomplete="off"
+        >
+      </div>
+    </ng-container>
+  </sub-header>
+
+  <!-- Table -->
+  <div *ngIf="listProduct.length > 0" class="row table-padding">
+    <p-table #dt 
+      [columns]="cols" 
+      [value]="listProduct" 
+      [resizableColumns]="true" columnResizeMode="expand"
+      [rowsPerPageOptions]="[10, 20, 30]" [paginator]="true" [filterDelay]="0" [rows]="rows">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width: 3.5em; text-align: center;">
+            #
+          </th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th style="text-align: center; width: 10rem;">
+            <span>Thao tác</span>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-idx ="rowIndex" let-rowData let-columns="columns">
+        <tr>
+          <td style="text-align: center;">
+            {{idx + 1}}
+          </td>
+          <td *ngFor="let col of columns">
+            <a class="cursor-poiter" (click)="goToDetail(rowData['productId'])">
+              {{rowData[col.field]}}
+            </a>
+          </td>
+          <td style="text-align: center;  width: 10rem;">
+            <button 
+              class="ui-button-danger" 
+              pButton icon="pi pi-trash"
+              (click)="deleteProduct(rowData['productId'])"
+              >
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</card-body>

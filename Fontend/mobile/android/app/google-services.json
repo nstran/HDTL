@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "822529047154",
+    "firebase_url": "https://hello-world-34e33.firebaseio.com",
+    "project_id": "hello-world-34e33",
+    "storage_bucket": "hello-world-34e33.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822529047154:android:1a9509198f5c3e8520e0eb",
+        "android_client_info": {
+          "package_name": "com.tnt.takecare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822529047154-9ifrl37kfbgcm78osmtvaufoq232tfcq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACMDaqqLlMypmR3aQctCyVKhN94ehafOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822529047154-9ifrl37kfbgcm78osmtvaufoq232tfcq.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "822529047154-r38lqkd6tvi0urn33poocmate26venvk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.tnt.takecare"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

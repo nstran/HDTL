@@ -1,0 +1,75 @@
+<div class="update-dk-tck">
+  <div class="row no-ml-mr mt-10">
+    <div class="col-md-3">
+      Nhân viên:
+    </div>
+    <div class="col-md-9">
+      <strong>{{employeeName}}</strong>
+    </div>
+  </div>
+  <div class="row no-ml-mr mt-10">
+    <div class="col-md-3">
+      Loại trợ cấp:
+    </div>
+    <div class="col-md-9">
+      <strong>{{loaiTroCap}}</strong>
+    </div>
+  </div>
+  <div class="row no-ml-mr mt-10">
+    <div class="col-md-3">
+      Mức trợ cấp:
+    </div>
+    <div class="col-md-9">
+      <ng-container *ngIf="!isCoCauHinhLoaiTroCap && trangThai == 1">
+        <input type="text" class="number-input" [(ngModel)]="mucTroCap"
+        [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+        (change)="updateMucTroCapKhac()" />
+      </ng-container>
+
+      <ng-container *ngIf="isCoCauHinhLoaiTroCap || trangThai != 1">
+        {{mucTroCap | number}}
+      </ng-container>
+    </div>
+  </div>
+  <div *ngIf="listLuongCtDieuKienTroCapKhac.length" class="row no-ml-mr mt-20">
+    <div class="col-md-12">
+      <strong>Điều kiện hưởng khác:</strong>
+    </div>
+    <div class="col-md-12 mt-10">
+      <p-table [columns]="cols" [value]="listLuongCtDieuKienTroCapKhac" class="table-border" [paginator]="true" [rows]="5"
+        [rowsPerPageOptions]="[5,10,20]">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [ngStyle]="{'text-align': 'center', 'width': col.width}">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+          <tr>
+            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+              [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+              <span *ngSwitchCase="'stt'">
+                {{rowIndex + 1}}
+              </span>
+              
+              <span *ngSwitchCase="'duDieuKien'">
+                <p-checkbox [disabled]="trangThai != 1" [(ngModel)]="rowData[col.field]" [binary]="true" (onChange)="update(rowData)"></p-checkbox>
+              </span>
+              <span *ngSwitchDefault>
+                {{rowData[col.field]}}
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+  <div class="row no-ml-mr mt-20">
+    <div class="col-md-12 mt-20" style="text-align: right;">
+      <button pButton [disabled]="awaitResponse" class="btn ml-2" type="button" label="Đóng" 
+        style="padding: 0 25px; background: white; color: black" (click)="close()">
+      </button>
+    </div>
+  </div>
+</div>

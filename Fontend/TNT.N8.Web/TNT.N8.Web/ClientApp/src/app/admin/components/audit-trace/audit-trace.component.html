@@ -1,0 +1,243 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="audit-trace">
+  <div class="row no-margin bg-white shadow">
+    <div class="col-md-12 pd-10">
+      <span class="title">Nhật ký hệ thống</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 no-padding mt-20">
+      <p-panel header="Bộ lọc nhật ký" [toggleable]="true">
+        <form [formGroup]="searchForm">
+          <div class="row buffer-bottom">
+            <div class="col-md-6 mt-15">
+              <div class="col-md-12">
+                <p-checkbox name="groupname" [(ngModel)]="isSelectedLoginAudit" binary="true" label="Nhật ký đăng nhập"
+                  [ngModelOptions]="{standalone: true}" (onChange)="masterToggleDdefault('login')">
+                </p-checkbox>
+              </div>
+            </div>
+            <div class="col-md-6 mt-15">
+              <div class="col-md-12">
+                <p-checkbox name="groupname" [(ngModel)]="isSelectedAuditTrace" binary="true" label="Nhật ký hệ thống"
+                  [ngModelOptions]="{standalone: true}" (onChange)="masterToggleDdefault('trace')">
+                </p-checkbox>
+              </div>
+            </div>
+          </div>
+
+          <!-- NHẬT KÝ HỆ THỐNG -->
+          <div class="row" *ngIf="isSelectedAuditTrace">
+            <div class="row buffer-bottom">
+              <div class="col-md-6">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Tên tài khoản</span>
+                </div>
+                <div class="col-md-12">
+                  <p-multiSelect formControlName="userNameControl" class="customer-dropdown" [options]="listUser"
+                    optionLabel="userName" [virtualScroll]="true" defaultLabel="Chọn tài khoản"
+                    [style]="{'width': '100%'}" [resetFilterOnHide]="true" [filter]="true"
+                    selectedItemsLabel="{0} tài khoản được chọn"></p-multiSelect>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Tên Nhân viên</span>
+                </div>
+                <div class="col-md-12">
+                  <p-multiSelect formControlName="employeeNameControl" class="customer-dropdown"
+                    [options]="listEmployee" optionLabel="employeeName" [virtualScroll]="true"
+                    defaultLabel="Chọn nhân viên" [style]="{'width': '100%'}" [resetFilterOnHide]="true" [filter]="true"
+                    selectedItemsLabel="{0} nhân viên được chọn"></p-multiSelect>
+                </div>
+              </div>
+            </div>
+
+            <div class="row buffer-bottom">
+              <div class="col-md-4">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Hành động</span>
+                </div>
+                <div class="col-md-12">
+                  <p-multiSelect formControlName="actionNameControl" class="customer-dropdown" [options]="lstAction"
+                    optionLabel="name" [virtualScroll]="true" defaultLabel="Chọn hành động" [style]="{'width': '100%'}"
+                    [resetFilterOnHide]="true" [filter]="true"></p-multiSelect>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Đối tượng</span>
+                </div>
+                <div class="col-md-12">
+                  <p-multiSelect formControlName="objectNameControl" class="customer-dropdown" [options]="lstObject"
+                    optionLabel="name" [virtualScroll]="true" defaultLabel="Chọn đối tượng" [style]="{'width': '100%'}"
+                    [resetFilterOnHide]="true" [filter]="true" selectedItemsLabel="{0} đối tượng được chọn">
+                  </p-multiSelect>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Ngày</span>
+                </div>
+                <div class="col-md-12">
+                  <p-calendar formControlName="dateControl" [monthNavigator]="true" [yearNavigator]="true"
+                    yearRange="1960:{{currentYear}}" [maxDate]="today" dateFormat="dd/mm/yy" [style]="{'width':'100%'}"
+                    [inputStyle]="{'width':'100%'}" placeholder="Ngày" [baseZIndex]="999" showButtonBar="true">
+                  </p-calendar>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- NHẬT KÝ ĐĂNG NHẬP -->
+          <div class="row" *ngIf="isSelectedLoginAudit">
+            <div class="row buffer-bottom">
+              <div class="col-md-6">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Tên tài khoản</span>
+                </div>
+                <div class="col-md-12">
+                  <p-multiSelect formControlName="userNameControl" class="customer-dropdown" [options]="listUser"
+                    optionLabel="userName" [virtualScroll]="true" defaultLabel="Chọn tài khoản"
+                    [style]="{'width': '100%'}" [resetFilterOnHide]="true" [filter]="true"
+                    selectedItemsLabel="{0} tài khoản được chọn"></p-multiSelect>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Tên Nhân viên</span>
+                </div>
+                <div class="col-md-12">
+                  <p-multiSelect formControlName="employeeNameControl" class="customer-dropdown"
+                    [options]="listEmployee" optionLabel="employeeCodeName" [virtualScroll]="true"
+                    defaultLabel="Chọn nhân viên" [style]="{'width': '100%'}" [resetFilterOnHide]="true" [filter]="true"
+                    selectedItemsLabel="{0} nhân viên được chọn"></p-multiSelect>
+                </div>
+              </div>
+            </div>
+
+            <div class="row buffer-bottom">
+              <div class="col-md-6">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Ngày đăng nhập</span>
+                </div>
+                <div class="col-md-12">
+                  <p-calendar formControlName="dateControl" [yearNavigator]="true" [monthNavigator]="true"
+                    yearRange="1960:{{currentYear}}" [maxDate]="today" dateFormat="dd/mm/yy" [style]="{'width':'100%'}"
+                    placeholder="Ngày đăng nhập" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"
+                    showButtonBar="true"></p-calendar>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Trạng thái</span>
+                </div>
+                <div class="col-md-12">
+                  <p-multiSelect formControlName="statusControl" class="customer-dropdown" [options]="lstStatus"
+                    optionLabel="name" [virtualScroll]="true" defaultLabel="Chọn trạng thái" [style]="{'width': '100%'}"
+                    [resetFilterOnHide]="true" [filter]="true"></p-multiSelect>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row buffer-bottom">
+            <div class="col-md-12" style="display: flex; justify-content: center;">
+              <p-button (onClick)="search(1)" label="Tìm kiếm" icon="pi pi-search" iconPos="left"
+                [style]="{'margin-right': '0.3rem'}">
+              </p-button>
+              <p-button (onClick)="refresh()" label="Làm mới" icon="pi pi-replay" iconPos="left"
+                [style]="{'margin-right': '0.3rem'}">
+              </p-button>
+            </div>
+          </div>
+        </form>
+      </p-panel>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 no-padding mt-20">
+      <p-tabView (onChange)="handleChange()">
+        <p-tabPanel header="Nhật ký đăng nhập" [headerStyle]="{width: '145px', 'text-align': 'center'}"
+          [selected]="isSelectedLoginAudit">
+          <div class="row">
+            <div class="col-md-12">
+              <p-table [columns]="colHeaderLoginTrace" [value]="listLoginTrace" [responsive]="true">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns" pResizableColumn
+                      [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.colWith}">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                      [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.colWith}">
+                      <span class="ui-column-title">{{col.header}}</span>
+                      <span *ngSwitchCase="'loginDate'">
+                        {{rowData.loginDate | date:'dd/MM/yyyy h:mm:ss a'}}
+                      </span>
+                      <span *ngSwitchCase="'status'" class="status"
+                        [ngStyle]="{'background-color': rowData['backgroundColor'], 'color': rowData['color']}">
+                        {{rowData.status}}
+                      </span>
+                      <span *ngSwitchDefault> 
+                        {{ rowData[col.field] }}
+                      </span>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+              <p-paginator [rows]="pageSize" [totalRecords]="totalRecordLoginTrace" (onPageChange)="paginate($event)"></p-paginator>
+            </div>
+          </div>
+        </p-tabPanel>
+
+        <p-tabPanel header="Nhật ký hệ thống" [headerStyle]="{width: '145px', 'text-align': 'center'}"
+          [selected]="isSelectedAuditTrace">
+          <div class="row">
+            <div class="col-md-12">
+              <p-table [columns]="colHeaderTrace" [value]="listAuditTrace" [responsive]="true">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns" pResizableColumn
+                      [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.colWith}">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                      [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.colWith}">
+                      <span class="ui-column-title">{{col.header}}</span>
+                      <span *ngSwitchCase="'createDate'">
+                        {{rowData.createDate | date:'dd/MM/yyyy h:mm:ss a'}}
+                      </span>
+                      <span *ngSwitchDefault>
+                        {{ rowData[col.field] }}
+                      </span>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+              <p-paginator [rows]="pageSize" [totalRecords]="totalRecordAuditTrace" (onPageChange)="paginate($event)"></p-paginator>
+            </div>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</div>

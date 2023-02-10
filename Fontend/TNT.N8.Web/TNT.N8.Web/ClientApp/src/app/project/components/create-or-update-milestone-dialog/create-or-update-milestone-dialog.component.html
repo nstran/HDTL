@@ -1,0 +1,115 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right" key="popup"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="create-or-update-milestone-dialog">
+    <form [formGroup]="createOrUpdateMilestoneFrom" style="height: auto !important;">
+        <div class="row top-buffer bottom-buffer">
+            <!-- DÒNG 1 -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="row bottom-buffer">
+                            <div class="col-md-12 buffer-bottom-label">
+                                Dự án<span class="required">*</span>
+                            </div>
+                            <div class="col-md-12">
+                                <p-dropdown [options]="listProject" optionLabel="projectName" [autoDisplayFirst]="false"
+                                    formControlName="projectControl" [showClear]="false" [resetFilterOnHide]="true"
+                                    placeholder="Chọn dự án" [style]="{'width': '100%'}" [disabled]="true">
+                                </p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row bottom-buffer">
+                            <div class="col-md-12 buffer-bottom-label">
+                                Tên mốc dự án<span class="required">*</span>
+                            </div>
+                            <div class="col-md-12">
+                                <input
+                                    [ngClass]="(createOrUpdateMilestoneFrom.get('nameControl').invalid && (createOrUpdateMilestoneFrom.get('nameControl').dirty || createOrUpdateMilestoneFrom.get('nameControl').touched)) ? 'error-border' : ''"
+                                    maxlength="225" formControlName="nameControl" type="text" class="w100" pInputText />
+                            </div>
+                            <div class="col-md-12"
+                                [hidden]="createOrUpdateMilestoneFrom.get('nameControl').valid || createOrUpdateMilestoneFrom.get('nameControl').untouched">
+                                <span class="error-message-span"
+                                    *ngIf="createOrUpdateMilestoneFrom.get('nameControl').hasError('required') || createOrUpdateMilestoneFrom.get('nameControl').hasError('required') ">
+                                    Tên mốc dự án không được để trống
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- DÒNG 2 -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <div class="row bottom-buffer">
+                            <div class="col-md-12 buffer-bottom-label">
+                                Ngày hoàn thành<span class="required">*</span>
+                            </div>
+                            <div class="col-md-12">
+                                <p-calendar formControlName="endTimeControl" showButtonBar="true" [yearNavigator]="true"
+                                    yearRange="{{minYear}}:{{currentYear}}" dateFormat="dd/mm/yy"
+                                    [styleClass]="(endTimeControl.invalid  && (endTimeControl.dirty ||  endTimeControl.touched)) ? 'error-pcalendar': ''"
+                                    [style]="{'width':'100%'}" [minDate]="projectControl.value?.projectStartDate"
+                                    [maxDate]="projectControl.value?.projectEndDate" [inputStyle]="{'width':'100%'}"
+                                    [baseZIndex]="9999" (keydown.enter)="$event.preventDefault()">
+                                </p-calendar>
+                            </div>
+                            <div class="col-md-12"
+                                [hidden]="createOrUpdateMilestoneFrom.get('endTimeControl').valid || createOrUpdateMilestoneFrom.get('endTimeControl').untouched">
+                                <span class="error-message-span"
+                                    *ngIf="createOrUpdateMilestoneFrom.get('endTimeControl').hasError('required')">
+                                    Không được để trống</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                </div>
+            </div>
+            <div class="row buffer-bottom no-margin">
+                <div class="col-md-12">
+                    <div class="row buffer-bottom">
+                        <div class="col-md-12 buffer-bottom-label">
+                            <span>Mô tả</span>
+                        </div>
+                        <div class="col-md-12">
+                            <!-- <textarea pInputTextarea rows="5" style="width: 100%;"
+                                formControlName="descriptionControl"></textarea> -->
+                            <ejs-richtexteditor #templateRTE [height]="300" [toolbarSettings]='tools'
+                                formControlName="descriptionControl">
+                                <ng-template>
+                                </ng-template>
+                            </ejs-richtexteditor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 mt-5" style="display: flex; justify-content: flex-end;">
+                <button (click)="cancel()" type="button" class="btn-remove">
+                    <span class="btn-remove-text">Hủy</span>
+                </button>
+                <button (click)="save()" type="button" class="btn-save">
+                    <span class="btn-save-text">Lưu</span>
+                </button>
+                <!-- <button *ngIf="!isApproveProject" (click)="save()" type="button" class="btn-save">
+                    <span class="btn-save-text">Lưu</span>
+                </button> -->
+            </div>
+        </div>
+    </form>
+</div>

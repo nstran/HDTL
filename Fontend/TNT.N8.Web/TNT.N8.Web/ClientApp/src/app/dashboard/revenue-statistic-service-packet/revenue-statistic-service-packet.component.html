@@ -1,0 +1,87 @@
+<card-body>
+    <div class="row">
+        <div class="col-md-8">
+            <div #container></div>
+        </div>
+        <div class="col-md-4 border-left">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" 
+                        *ngIf="chart"
+                        [disabled]="loading"
+                        class="btn-edit"
+                        (click)="refresh()"
+                        >
+                        <span class="text-white">Làm mới</span>
+                        <i [class]="loading ? 'fa fa-circle-o-notch fa-spin' : 'fas fa-sync'"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row row-responsive">
+                <div class="col-md-4">
+                    <label>Top :</label>
+                    <p-dropdown 
+                        [options]="listCount" 
+                        [(ngModel)]="countSelected"
+                        [filter]="true"
+                        optionLabel="text" 
+                        (onChange)="selectCount($event.value)"
+                        placeholder="Chọn" 
+                        required
+                        >
+                    </p-dropdown>
+                </div>
+                <div class="col-md-4">
+                    <label>Từ :</label>
+                    <p-calendar
+                      styleClass="d-block"
+                      [(ngModel)]="startDate"
+                      showButtonBar="true"
+                      dateFormat="dd/mm/yy"
+                      (onSelect)="onChangeFromDate($event)"
+                    >
+                    </p-calendar>
+                </div>
+                <div class="col-md-4">
+                    <label>Đến :</label>
+                    <p-calendar
+                        styleClass="d-block"
+                        [(ngModel)]="endDate"
+                        showButtonBar="true"
+                        dateFormat="dd/mm/yy"
+                        (onSelect)="onChangeToDate($event)"
+                    ></p-calendar>
+                </div>
+            </div>
+            <div class="row pt-20">
+                <div class="col-md-12">
+                    <p class="font-weiht-bold">Trong đó:</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ng-container *ngFor="let item of listDetail">
+                                <a *ngIf="!servicePacketName" class="d-block line-height" (click)="loadDashBoardByProductCategoryName(item.productCategoryName)">{{item.productCategoryName}}:</a>
+                                <P *ngIf="servicePacketName" class="line-height">{{item.servicePacketName}}:</P>
+                            </ng-container>
+                            <p class="line-height">Tổng:</p>
+                        </div>
+                        <div class="col-md-3">
+                            <ng-container *ngFor="let item of listDetail">
+                                <p class="font-weiht-bold line-height">{{item.amount | number :'1.0-0'}}</p>
+                            </ng-container>
+                            <p class="font-weiht-bold line-height">{{totalAmount | number :'1.0-0'}}</p>
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button"
+                                *ngIf="servicePacketName"
+                                class="btn-edit"
+                                (click)="takeRevenueStatisticServicePacketDashboard()"
+                                >
+                                <span class="text-white">Tổng quát</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</card-body>

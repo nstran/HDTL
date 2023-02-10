@@ -1,0 +1,48 @@
+.box-title {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.col-md-2 .box {
+    border: 1px solid #000;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.col-md-2 .box .box-content {
+    font-family: Inter UI;
+    font-weight: 700;
+    font-size: 28px;
+    color: #0f62fe;
+}
+
+.revenue-wait-payment {
+    color: #D78504 !important;
+}
+
+.text-green {
+    color:#28a745;
+}
+
+.text-danger{
+    color:#dc3545;
+}
+
+button:disabled,
+button[disabled]{
+    background-color: #5867dd;
+    border-color: #5867dd;
+}
+
+@media only screen and (max-width: 1600px) {
+    .box-title {
+      font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    .box-title {
+      font-size: 14px;
+    }
+}

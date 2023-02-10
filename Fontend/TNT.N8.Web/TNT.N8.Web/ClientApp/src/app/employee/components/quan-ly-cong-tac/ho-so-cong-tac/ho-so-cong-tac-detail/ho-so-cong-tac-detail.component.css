@@ -1,0 +1,521 @@
+::ng-deep .content-wrapper {
+    background-color: #fff !important;
+  }
+
+  .chi-tiet-ho-so-cong-tac {
+    font-family: "Inter UI";
+  }
+
+  .chi-tiet-ho-so-cong-tac .body-wrapper {
+    background-color: #fff;
+    border          : solid 1px #cccccc;
+  }
+
+  .chi-tiet-ho-so-cong-tac .header {
+    background-color: #ffffff;
+    border-radius   : 4px;
+    border          : solid 1px #cccccc;
+  }
+
+  .chi-tiet-ho-so-cong-tac .header-box-icon {
+    width        : 40px;
+    height       : 40px;
+    border-radius: 50%;
+  }
+
+  .chi-tiet-ho-so-cong-tac .header-icon {
+    width      : 18px;
+    height     : 18px;
+    object-fit : contain;
+    margin-top : 13px;
+    margin-left: 10px;
+  }
+
+  .chi-tiet-ho-so-cong-tac .buffer-top {
+    margin-top: 1.2rem;
+  }
+
+  .chi-tiet-ho-so-cong-tac .buffer-bottom {
+    margin-bottom: 1.2rem;
+  }
+
+  .chi-tiet-ho-so-cong-tac .buffer-bottom-label {
+    margin-bottom: 3px;
+  }
+
+  .chi-tiet-ho-so-cong-tac .required {
+    color: red;
+  }
+
+  .chi-tiet-ho-so-cong-tac .error-message-span {
+    color: red;
+  }
+
+  .chi-tiet-ho-so-cong-tac .customer-name {
+    width         : 119px;
+    height        : 20px;
+    font-family   : 'Inter UI';
+    font-size     : 19px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 2.25;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+  }
+
+  .chi-tiet-ho-so-cong-tac .btn-remove {
+    width           : 72px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #ffffff;
+    margin-left     : 5px;
+  }
+
+  .chi-tiet-ho-so-cong-tac .btn-remove-text {
+    width         : 24px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #121619;
+  }
+
+  .chi-tiet-ho-so-cong-tac .btn-save-and-new {
+    width           : 155px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #0f62fe;
+    background-color: #ffffff;
+    margin-left     : 5px;
+  }
+
+  .chi-tiet-ho-so-cong-tac .btn-save-and-new .btn-save-and-new-text {
+    width         : 102px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #0f62fe;
+  }
+
+  ::ng-deep .chi-tiet-ho-so-cong-tac .ui-dropdown {
+    min-width: 0px !important;
+  }
+
+  ::ng-deep .chi-tiet-ho-so-cong-tac .ui-menu ul {
+    text-align: left;
+  }
+
+  .chi-tiet-ho-so-cong-tac .btn-save {
+    width           : 72px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border          : solid 1px #cccccc;
+    margin-left     : 5px;
+  }
+
+  .chi-tiet-ho-so-cong-tac .btn-save-text {
+    width         : 24px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+  }
+
+  .chi-tiet-ho-so-cong-tac .body-wrapper {
+    margin-top  : 20px;
+    margin-left : 0px;
+    margin-right: 0px;
+  }
+
+  .chi-tiet-ho-so-cong-tac .w100 {
+    width: 100% !important;
+  }
+
+  .chi-tiet-ho-so-cong-tac .my-form-control {
+    display    : flex;
+    align-items: center;
+  }
+
+  /*Begin: Customize Accordion */
+
+  ::ng-deep .chi-tiet-ho-so-cong-tac .ui-accordion .ui-accordion-header a {
+    border          : 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+    font-size       : 16px;
+  }
+
+  ::ng-deep .chi-tiet-ho-so-cong-tac .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    background-color: #ffffff !important;
+    border          : 1px solid #ffffff !important;
+    color           : #121619 !important;
+  }
+
+  ::ng-deep .chi-tiet-ho-so-cong-tac .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+  }
+
+  ::ng-deep .chi-tiet-ho-so-cong-tac .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+  }
+
+  ::ng-deep .chi-tiet-ho-so-cong-tac .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    color: #121619 !important;
+  }
+
+  ::ng-deep .chi-tiet-ho-so-cong-tac .ui-accordion .ui-accordion-content {
+    border          : 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+  }
+
+  /*End: Customize Accordion */
+
+    .chi-tiet-ho-so-cong-tac .label-bold {
+    font-weight: bold;
+  }
+  .chi-tiet-ho-so-cong-tac .link {
+  font-family: 'Inter UI';
+  color: #007ad9;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+  .chi-tiet-ho-so-cong-tac .btn-save-note {
+    width: 158px;
+    height: 32px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border: solid 1px #cccccc;
+    margin-left: 5px;
+  }
+
+  .chi-tiet-ho-so-cong-tac .save-note-lable {
+    width: 110px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+  }
+
+.chi-tiet-ho-so-cong-tac .btn-cancel-note {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.chi-tiet-ho-so-cong-tac .save-cancel-lable {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #121619;
+}
+
+
+.chi-tiet-ho-so-cong-tac .note-user {
+    font-family: 'Inter UI';
+    font-weight: bold;
+}
+
+.chi-tiet-ho-so-cong-tac .timeline>li>.timeline-item {
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.chi-tiet-ho-so-cong-tac .timeline-content {
+    margin-top: 20px;
+}
+
+.chi-tiet-ho-so-cong-tac .bg-blueX {
+    background-color: #4E6BA5 !important;
+}
+
+.chi-tiet-ho-so-cong-tac .color-w {
+    color: #fff !important;
+}
+
+.chi-tiet-ho-so-cong-tac .timeline-item .onHover {
+    display: none;
+}
+
+.chi-tiet-ho-so-cong-tac .timeline-item:hover .onHover {
+    display: block;
+}
+
+.chi-tiet-ho-so-cong-tac .material-icons {
+    cursor: pointer;
+}
+
+.chi-tiet-ho-so-cong-tac .timeline-user-avatar {
+    border-radius: 50%;
+    margin-right : 5px;
+    float        : left;
+}
+
+.chi-tiet-ho-so-cong-tac .note-title {
+    font-size  : 11px !important;
+    color      : #222 !important;
+    font-weight: normal !important;
+}
+
+.chi-tiet-ho-so-cong-tac .time-note {
+    font-size  : 10px !important;
+    color      : #5d5a5a !important;
+    font-weight: normal !important;
+}
+
+.chi-tiet-ho-so-cong-tac .timeline-body {
+    padding: 10px 15px;
+}
+
+.chi-tiet-ho-so-cong-tac .file-upload-zone .col-md-4:nth-child(3n+1) {
+    padding-right: 5px !important;
+}
+
+.chi-tiet-ho-so-cong-tac .file-upload-zone .col-md-4:nth-child(3n+2) {
+    padding-right: 5px !important;
+    padding-left : 5px !important;
+}
+
+.chi-tiet-ho-so-cong-tac .file-upload-zone .col-md-4:nth-child(3n) {
+    padding-left: 5px !important;
+}
+
+.chi-tiet-ho-so-cong-tac .file-upload-zone .col-md-4:nth-child(3n+1) {
+    padding-right: 5px !important;
+}
+
+.chi-tiet-ho-so-cong-tac .file-upload-zone .col-md-4:nth-child(3n+2) {
+    padding-right: 5px !important;
+    padding-left : 5px !important;
+}
+
+.chi-tiet-ho-so-cong-tac .file-upload-zone .col-md-4:nth-child(3n) {
+    padding-left: 5px !important;
+}
+
+.chi-tiet-ho-so-cong-tac .file-item div:nth-child(1),
+.chi-tiet-ho-so-cong-tac .file-item div:nth-child(3) {
+    padding-left: 0 !important;
+}
+
+.chi-tiet-ho-so-cong-tac .file-item div:nth-child(2) {
+    padding: 0 5px !important;
+}
+
+.chi-tiet-ho-so-cong-tac .item-name {
+    text-overflow: ellipsis !important;
+    white-space  : nowrap !important;
+    overflow     : hidden !important;
+}
+
+.chi-tiet-ho-so-cong-tac .preview-doc {
+    cursor: pointer;
+}
+
+
+
+
+/* Thông báo lỗi */
+
+.chi-tiet-ho-so-cong-tac .error-border,
+.chi-tiet-ho-so-cong-tac .error-border:focus {
+  border-color: #f44336;
+}
+
+.chi-tiet-ho-so-cong-tac .error-border:focus {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset, 0 0 8px #f44336;
+}
+
+.chi-tiet-ho-so-cong-tac .box-waring {
+  display: inline-block;
+  width: 49px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #ffcc00;
+  text-align: center;
+  cursor: pointer;
+}
+
+.chi-tiet-ho-so-cong-tac .ios-warning {
+  position: relative;
+  top: 5px;
+  width: 16.2px;
+  height: 15px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.chi-tiet-ho-so-cong-tac .ios-warning-active {
+  position: relative;
+  top: 5px;
+  width: 16.2px;
+  height: 15px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.chi-tiet-ho-so-cong-tac .notification {
+  position: absolute;
+  top: 38px;
+  width: 380px;
+  box-shadow: 0 6px 12px 0 rgba(18, 22, 25, 0.16);
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+/*Begin: Tạo góc nhọn trên hộp thoại */
+.chi-tiet-ho-so-cong-tac .notification::before {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  display: block;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  content: " ";
+  border-left: solid transparent;
+  border-right: solid transparent;
+  border-bottom: solid #ffffff;
+  border-width: 8px;
+  border-bottom-color: #d1d5da;
+}
+
+.chi-tiet-ho-so-cong-tac .notification::after {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  display: block;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  content: " ";
+  border-left: solid transparent;
+  border-right: solid transparent;
+  border-bottom: solid transparent;
+  margin-bottom: -1px;
+  border-width: 8px;
+  border-bottom-color: #ffffff;
+}
+/*End: Tạo góc nhọn trên hộp thoại */
+
+.chi-tiet-ho-so-cong-tac .notification .notifi-row {
+  width: 100%;
+  border-bottom: 1px solid #dde1e6;
+  padding: 10px 0px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.chi-tiet-ho-so-cong-tac .notification .notifi-row .ios-alert {
+  position: absolute;
+  left: 15px;
+  width: 15.9px;
+  height: 15.9px;
+  object-fit: contain;
+}
+
+.chi-tiet-ho-so-cong-tac .notification .notifi-row .notifi-text {
+  position: relative;
+  left: 50px;
+  width: 100%;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ff3b30;
+}
+
+.chi-tiet-ho-so-cong-tac .notification .notifi-row-footer {
+  width: 100%;
+  padding: 10px 10px;
+  text-align: right;
+}
+
+.chi-tiet-ho-so-cong-tac .notification .notifi-row-footer .notifi-text-footer {
+  width: 100%;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  color: #121619;
+}
+
+.chi-tiet-ho-so-cong-tac .header-box-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.chi-tiet-ho-so-cong-tac .header-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.chi-tiet-ho-so-cong-tac .buffer-top {
+  margin-top: 1.2rem;
+}
+
+.chi-tiet-ho-so-cong-tac .buffer-bottom {
+  margin-bottom: 1.2rem;
+}
+
+.chi-tiet-ho-so-cong-tac .buffer-bottom-label {
+  margin-bottom: 3px;
+}
+
+.chi-tiet-ho-so-cong-tac .required {
+  color: red;
+}
+
+.chi-tiet-ho-so-cong-tac .error-message-span {
+  color: red;
+}

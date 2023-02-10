@@ -1,0 +1,341 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="qc-report">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="/assets/icons/components/money-2.svg" class="Money-2">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title d-contents">Thống kê sản phẩm theo mã lỗi</div>
+                  <div class="box-header-subtitle">
+                    <!-- {{listProductOrder.length}} bản ghi -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <button type="button" class="btn-create" (click)="showTotalReportDialog()">
+              <span class="btn-create-text">In báo cáo</span></button>
+            <button type="button" class="btn-create" (click)="showErrorProductDialog()">
+              <span class="btn-create-text">In SP lỗi</span></button>
+            <div style="clear: both;"></div>
+          </div>
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                <span class="btn-filter-text">Bộ lọc</span>
+              </button>
+              <input type="text" class="iput-text" placeholder="Tìm kiếm trong danh sách"
+                (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+      <div class="box-filter">
+        <form [formGroup]="searchForm">
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Tổ cắt</span>
+            </div>
+            <div class="col-md-12">
+              <p-dropdown [options]="listTechniqueRequest" defaultLabel="Chọn tổ cắt" [autoDisplayFirst]="false"
+                formControlName="TechniqueRequest" optionLabel="techniqueName" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} tổ cắt được chọn"></p-dropdown>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Độ dày</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listThickNessFilter" defaultLabel="Chọn độ dày" formControlName="Thickness"
+                optionLabel="label" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                selectedItemsLabel="{0} độ dày được chọn"></p-multiSelect>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Từ ngày</span>
+            </div>
+            <div class="col-md-12">
+              <p-calendar formControlName="FromDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                appendTo="body" dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Đến ngày</span>
+            </div>
+            <div class="col-md-12">
+              <p-calendar formControlName="ToDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                appendTo="body" dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5" style="text-align: right;">
+              <button type="button" class="btn-search" (click)="search()">
+                <span class="btn-search-text">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div *ngIf="listQuanlityControlReport.length > 0" class="col-md-{{leftColNumber}} no-padding">
+      <p-table #myTable [columns]="selectedColumns" [value]="listQuanlityControlReport"
+      [scrollable]="true"
+        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20]" [responsive]="true">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" pResizableColumn
+              [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+              <span>
+                {{ col.header }}
+              </span>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td pEditableColumn *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+              [ngStyle]="{ 'text-align': col.textAlign, 'width': col.width }">
+              <span class="ui-column-title">{{ col.header }}</span>
+
+              <span *ngSwitchCase="'createdDate'">
+                {{rowData[col.field] | date:'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'productLength'">
+                {{rowData[col.field] | number}}
+              </span>
+              <span *ngSwitchCase="'productWidth'">
+                {{rowData[col.field] | number}}
+              </span>
+              <span *ngSwitchCase="'productThickness'">
+                {{rowData[col.field] | number}}
+              </span>
+
+              <p-cellEditor *ngSwitchCase="'noteQcName'">
+                <ng-template pTemplate="input">
+                  <p-dropdown (onChange)="changeNoteQc($event, rowData)" [options]="listQualityControlNote"
+                    [filter]="true" [resetFilterOnHide]="true" [autoDisplayFirst]="false" [showClear]="true"
+                    [resetFilterOnHide]="true" optionLabel="categoryName" [(ngModel)]="rowData.selectedQcNote"
+                    [style]="{'width':'100%'}" appendTo="body" baseZIndex="99999">
+                  </p-dropdown>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{rowData.selectedQcNote ? rowData.selectedQcNote.categoryName : '' }}
+                </ng-template>
+              </p-cellEditor>
+
+              <p-cellEditor *ngSwitchCase="'errorTypeName'">
+                <ng-template pTemplate="input">
+                  <p-dropdown (onChange)="changeErrorType($event, rowData)" [options]="listErrorType"
+                    [autoDisplayFirst]="false" [showClear]="true" [resetFilterOnHide]="true" optionLabel="categoryName"
+                    [(ngModel)]="rowData.selectedErrorType" [style]="{'width':'100%'}" appendTo="body"
+                    baseZIndex="99999">
+                  </p-dropdown>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{rowData.selectedErrorType ? rowData.selectedErrorType.categoryName : '' }}
+                </ng-template>
+              </p-cellEditor>
+
+              <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+      
+
+    </div>
+    <div *ngIf="!(listQuanlityControlReport.length> 0)" class="col-md-{{leftColNumber}} no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+      <div class="box-filter">
+        <form [formGroup]="searchForm">
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Tổ</span>
+            </div>
+            <div class="col-md-12">
+              <p-dropdown [options]="listTechniqueRequest" defaultLabel="Chọn tổ cắt" [autoDisplayFirst]="false"
+                formControlName="TechniqueRequest" optionLabel="techniqueName" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} tổ được chọn"></p-dropdown>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Độ dày</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listThickNessFilter" defaultLabel="Chọn độ dày" formControlName="Thickness"
+                optionLabel="label" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                selectedItemsLabel="{0} độ dày được chọn"></p-multiSelect>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Từ ngày</span>
+            </div>
+            <div class="col-md-12">
+              <p-calendar formControlName="FromDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                appendTo="body" dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Đến ngày</span>
+            </div>
+            <div class="col-md-12">
+              <p-calendar formControlName="ToDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                appendTo="body" dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5" style="text-align: right;">
+              <button type="button" class="btn-search" (click)="search()">
+                <span class="btn-search-text">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <p-dialog header="In sản phẩm lỗi" minWidth="400" [(visible)]="displayErrorProductDialog">
+    <div class="dialog">
+      <form [formGroup]="downloadErrorProductForm">
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Tổ</span>
+          </div>
+          <div class="col-md-12">
+            <p-dropdown [options]="listTechniqueRequest" defaultLabel="Chọn tổ" [autoDisplayFirst]="false"
+              [styleClass]="(downloadErrorProductForm.get('TechniqueRequest').invalid && (downloadErrorProductForm.get('TechniqueRequest').dirty || downloadErrorProductForm.get('TechniqueRequest').touched)) ? 'error-border' : ''"
+              formControlName="TechniqueRequest" optionLabel="techniqueName" [style]="{'width': '100%'}"
+              [resetFilterOnHide]="true" selectedItemsLabel="{0} tổ được chọn"></p-dropdown>
+          </div>
+          <div class="col-md-12"
+            [hidden]="downloadErrorProductForm.get('TechniqueRequest').valid || downloadErrorProductForm.get('TechniqueRequest').untouched">
+            <span *ngIf="downloadErrorProductForm.get('TechniqueRequest').hasError('required')"
+              class="error-message-span">Không được để trống</span>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Độ dày</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listThickNessFilter" defaultLabel="Chọn độ dày" formControlName="Thickness"
+              optionLabel="label" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} độ dày được chọn"></p-multiSelect>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Từ ngày</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar formControlName="FromDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+              appendTo="body" dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy"
+              showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Đến ngày</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar formControlName="ToDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+              appendTo="body" dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy"
+              showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5" style="text-align: right;">
+            <button type="button" class="btn-export" (click)="exportErrorProduct()">
+              <span class="btn-export-text">Tải xuống</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </p-dialog>
+
+  <p-dialog header="In Báo cáo" minWidth="400" [(visible)]="displayTotalReportDialog">
+    <div class="dialog">
+      <form [formGroup]="downloadReportForm">
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Từ ngày</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar formControlName="FromDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+              appendTo="body" dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy"
+              showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Đến ngày</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar formControlName="ToDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+              appendTo="body" dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy"
+              showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5" style="text-align: right;">
+            <button type="button" class="btn-export" (click)="exportTotalReport()">
+              <span class="btn-export-text">Tải xuống</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </p-dialog>
+</div>

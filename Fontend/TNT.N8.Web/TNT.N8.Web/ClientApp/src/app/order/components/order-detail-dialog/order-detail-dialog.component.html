@@ -1,0 +1,175 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right" key="popup"></p-toast>
+
+<div class="order-detail-dialog">
+  <div class="col-md-12" style="margin-bottom:13px">
+
+    <div class="row form-input">
+      <!-- Chọn gói -->
+      <div class="col-md-6 form-input">
+        <div class="row">
+          <div class="col-md-10">
+            <label>Gói dịch vụ<span class="require">*</span></label>
+          </div>
+          <div class="col-md-12">
+            <p-dropdown [options]="listServicePacket" [virtualScroll]="true" itemSize="30" [filter]="true"
+              [disabled]="this.packId != null" [(ngModel)]="packetService" [showClear]="true" [resetFilterOnHide]="true"
+              placeholder="Chọn gói dịch vụ" optionLabel="name" [style]="{'width': '100%'}"
+              (onChange)="changePacketService($event.value)">
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+      <!-- Tên gói -->
+      <div class="col-md-6 form-input">
+        <div class="row">
+          <div class="col-md-12">
+            <label>Tên gói dịch vụ</label>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="w100" pInputText [(ngModel)]="packetService.name" [disabled]="true" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Các thuộc tính của gói -->
+      <div class="col-md-6 form-input" *ngFor="let attr of listAttrPacket">
+        <div class="row">
+          <div class="col-md-12">
+            <label><b>{{ attr.categoryName }}</b></label>
+          </div>
+          <div class="col-md-12">
+
+            <!-- Ký tự số -->
+            <input type="text" class="number-input" *ngIf="attr.dataType == 1" (keydown.enter)="$event.preventDefault()"
+              [(ngModel)]="attr.value"
+              [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}"
+              [style]="{'width': '100%', 'display':'inline-grid'}">
+
+            <!-- Chuỗi ký tự -->
+            <input type="text" class="w100" pInputText *ngIf="attr.dataType == 2" [(ngModel)]="attr.value" />
+
+            <!-- Ngày/tháng/năm -->
+            <p-calendar [monthNavigator]="true" [yearNavigator]="true" *ngIf="attr.dataType == 3"
+              yearRange="1960:{{currentYear}}" dateFormat="dd/mm/yy" [(ngModel)]="attr.value" [style]="{'width':'100%'}"
+              appendTo="body" [inputStyle]="{'width':'100%'}" placeholder="Chọn ngày" [baseZIndex]="9999999"
+              showButtonBar="true">
+            </p-calendar>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="col-md-12">
+    <div class="row form-input">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <label>Danh sách dịch vụ của gói</label>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row form-input">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+
+            <p-treeTable [value]="listOptionTreeNode" [columns]="cols" [(selection)]="selectedOption" dataKey="id">
+              <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                  <td *ngFor="let col of columns; let i = index" [ngStyle]="{ 'width': '100%'}">
+                    <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"
+                      [disabled]="rowNode.node.data.optionId == null && rowNode.node.children.length == 0"></p-treeTableCheckbox>
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+
+                    <b>{{ rowData[col.field] }}</b>
+
+                    <!-- Các thuộc tính của tùy chọn dịch vụ -->
+                    <!-- được chọn và k có child -->
+                    <div
+                      [hidden]="!( (selectedOption.indexOf(rowNode.node) != -1)  && rowNode.node.children.length == 0)"
+                      [ngStyle]="{'margin-left': rowNode.node.margin}">
+                      <div class="col-md-3 form-input">
+                        <div class="row mt-5">
+                          <div class="col-md-12">
+                            <label><b>Số lượng</b></label>
+                          </div>
+                          <div class="col-md-12">
+                            <!-- Số lượng của dịch vụ -->
+                            <input type="text" class="number-input" (keydown.enter)="$event.preventDefault()"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}"
+                              [(ngModel)]="rowNode.node.number" [style]="{'width': '100%', 'display':'inline-grid'}">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-3 form-input" *ngFor="let attr of rowNode.node.listAttr;let idx = index">
+                        <div class="row mt-5">
+                          <div class="col-md-12">
+                            <label><b>{{ rowNode.node.listAttr[idx].categoryName
+                                }}</b></label>
+                          </div>
+                          <div class="col-md-12">
+                            <!-- Ký tự số -->
+                            <input type="text" class="number-input" *ngIf="attr.dataType == 1"
+                              (keydown.enter)="$event.preventDefault()"
+                              (ngModelChange)="rowNode.node.listAttr[idx].value = $event"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}"
+                              [ngModel]="rowNode.node.listAttr[idx].value"
+                              [style]="{'width': '100%', 'display':'inline-grid'}">
+
+                            <!-- Chuỗi ký tự -->
+                            <input type="text" class="w100" pInputText *ngIf="attr.dataType == 2"
+                              [(ngModel)]="rowNode.node.listAttr[idx].value" />
+
+                            <!-- Ngày/tháng/năm -->
+                            <p-calendar [monthNavigator]="true" [yearNavigator]="true" *ngIf="attr.dataType == 3" [show]
+                              (ngModelChange)="rowNode.node.listAttr[idx].value = $event"
+                              yearRange="1960:{{currentYear}}" showTime="true" hourFormat="24"
+                              [ngModel]="rowNode.node.listAttr[idx].value" [style]="{'width':'100%'}" appendTo="body"
+                              [inputStyle]="{'width':'100%'}" placeholder="Chọn ngày" [baseZIndex]="9999999"
+                              showButtonBar="true">
+                            </p-calendar>
+
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                  </td>
+              </ng-template>
+            </p-treeTable>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="col-md-12 mt-10">
+    <div class="group-button-footer">
+      <button type="button" class="cancel" (click)="cancel()"><span class="cancel-label">Hủy</span></button>
+      <button type="button" class="save" (click)="save()" *ngIf="statusOrder == 1"><span
+          class="save-label">Lưu</span></button>
+    </div>
+  </div>
+
+</div>

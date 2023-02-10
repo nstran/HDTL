@@ -1,0 +1,1704 @@
+::ng-deep legend {
+  width: 27%;
+  font-size: 13px;
+  font-weight: 900;
+  border-bottom: 0px;
+  margin-bottom: 0;
+}
+
+::ng-deep body .ui-fieldset {
+  border: 2px solid #c8c8c8;
+  margin-bottom: 15px;
+}
+
+.detail-project .box-waring {
+  display: inline-block;
+  width: 49px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #ffcc00;
+  text-align: center;
+  cursor: pointer;
+}
+
+.detail-project .ios-warning {
+  position: relative;
+  top: 5px;
+  width: 16.2px;
+  height: 15px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.detail-project .ios-warning-active {
+  position: relative;
+  top: 5px;
+  width: 16.2px;
+  height: 15px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.detail-project .actual-time {
+  height: 92px;
+}
+
+.content {
+  padding: 30px;
+}
+
+.detail-project .notification {
+  position: absolute;
+  top: 38px;
+  width: 380px;
+  box-shadow: 0 6px 12px 0 rgba(18, 22, 25, 0.16);
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+/*Begin: Tạo góc nhọn trên hộp thoại */
+
+.detail-project .notification::before {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  display: block;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  content: " ";
+  border-left: solid transparent;
+  border-right: solid transparent;
+  border-bottom: solid #ffffff;
+  border-width: 8px;
+  border-bottom-color: #d1d5da;
+}
+
+.detail-project .notification::after {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  display: block;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  content: " ";
+  border-left: solid transparent;
+  border-right: solid transparent;
+  border-bottom: solid transparent;
+  margin-bottom: -1px;
+  border-width: 8px;
+  border-bottom-color: #ffffff;
+}
+
+/*End: Tạo góc nhọn trên hộp thoại */
+
+.detail-project .notification .notifi-row {
+  width: 100%;
+  border-bottom: 1px solid #dde1e6;
+  padding: 10px 0px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.detail-project .notification .notifi-row .ios-alert {
+  position: absolute;
+  left: 15px;
+  width: 15.9px;
+  height: 15.9px;
+  object-fit: contain;
+}
+
+.detail-project .notification .notifi-row .notifi-text {
+  position: relative;
+  left: 50px;
+  width: 100%;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ff3b30;
+}
+
+.detail-project .notification .notifi-row-footer {
+  width: 100%;
+  padding: 10px 10px;
+  text-align: right;
+}
+
+.detail-project .notification .notifi-row-footer .notifi-text-footer {
+  width: 100%;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  color: #121619;
+}
+
+.sidebar-menu>li {
+  border-bottom: 2px solid #262a2d;
+}
+
+.sidebar-menu .treeview-menu .treeview .treeview-menu>li:hover {
+  background-color: #262a2d !important;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .menu-item-1 {
+  padding: 15px 0 !important;
+  padding-left: 10px !important;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .menu-item-1 img {
+  margin-right: 17px;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .menu-item-1 i {
+  margin-right: 17px;
+  width: 17px;
+  line-height: 18px;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .menu-item-1 .menu-item-name-1 {
+  color: #78a9ff;
+  font-weight: bold;
+  font-size: 11px;
+  text-align: left;
+  width: 143px;
+  height: auto;
+  line-height: 18px;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .menu-item-1 .pull-right-container {
+  display: block;
+  top: 45%;
+  width: 16px;
+  height: 16px;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .menu-item-1 span.pull-right-container .fa-plus-circle {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: #78a9ff
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .menu-item-1 span.pull-right-container .fa-minus-circle {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: #78a9ff;
+  display: none
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .treeview-menu-1 {
+  line-height: 14px !important;
+  background: #121619 !important;
+  padding-top: 10px;
+  margin-top: unset;
+  padding-left: 20px;
+  border-left: 0;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .treeview-menu-1 .menu-item-2 {
+  display: inline-flex;
+  margin: 13px 0;
+  height: 14px;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .treeview-menu-1 .menu-item-2 img {
+  margin-right: 0px;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .treeview-menu-1 .menu-item-2 i {
+  margin-right: 0px;
+  width: 17px;
+  height: 18px
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .treeview-menu-1 .menu-item-2 .menu-item-name-2 {
+  display: block;
+  color: #78a9ff;
+  font-weight: bold;
+  font-size: 11px;
+  padding-left: 10px;
+  padding-right: 25px;
+  width: auto;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .treeview-menu-1 .menu-item-2 .pull-right-container {
+  position: absolute;
+  right: 10px;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .treeview-menu-1 .menu-item-2 .pull-right-container i {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+  color: #78a9ff
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .treeview-menu-1 .menu-item-2 .pull-right-container i.fa-minus-circle {
+  display: none !important;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .treeview-menu-2 {
+  line-height: 19px !important;
+  padding-left: 0;
+}
+
+::ng-deep .sidebar-mini .custom-sidebar-home .treeview-menu-2 a {
+  padding-left: 26px;
+  padding-right: 15px;
+}
+
+::ng-deep .sidebar-mini.sidebar-collapse:not(.sidebar-open) .custom-sidebar-home .menu-item-1 .menu-item-name-1 {
+  width: 230px;
+  height: 50px;
+}
+
+::ng-deep .sidebar-mini.sidebar-collapse:not(.sidebar-open) .custom-sidebar-home .menu-item-1 span.pull-right-container, ::ng-deep .sidebar-mini.sidebar-collapse:not(.sidebar-open) .custom-sidebar-home .menu-item-1 span.pull-right-container i {
+  display: none !important;
+  padding: 0;
+}
+
+::ng-deep .sidebar-mini.sidebar-collapse:not(.sidebar-open) .custom-sidebar-home .treeview-menu-1 {
+  margin-top: 6px;
+  padding-left: 10px;
+  border-left: 1px solid;
+}
+
+::ng-deep .sidebar-mini.sidebar-collapse:not(.sidebar-open) .custom-sidebar-home .treeview-menu-1 .menu-item-2 .menu-item-name-2 {
+  width: 180px;
+}
+
+.layout-project .save {
+  width: 86px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  margin-left: 5px;
+  position: relative;
+}
+
+.layout-project .save .text-save {
+  width: 25px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.layout-project .title {
+  color: #6D98E7;
+}
+
+.layout-project a {
+  color: #6d98e7;
+}
+
+.layout-project .alignIcon {
+  top: -3px;
+  position: relative;
+  font-size: 20px !important;
+}
+
+.layout-project .cursor {
+  cursor: pointer;
+}
+
+.layout-project .img_conf_cus_lead {
+  width: 17px;
+  height: 18px;
+}
+
+.layout-project .sidebar-menu {
+  white-space: normal !important;
+  margin-top: 22px;
+}
+
+.layout-project .notification-icon {
+  position: absolute;
+  bottom: 25px;
+  left: 30px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #ff4081;
+  border-radius: 50%;
+  display: block;
+  padding: 3px 5px;
+  font-size: 10px;
+}
+
+.layout-project #notification-content {
+  position: absolute;
+  background-color: #fff;
+  top: 101%;
+  right: 0%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+  border: 1px solid #ccc;
+  z-index: 3000;
+}
+
+.layout-project #notification-content .notification-row {
+  padding: 15px;
+  margin: 0 15px;
+}
+
+.layout-project #notification-content .notification-row:hover {
+  cursor: pointer;
+  background-color: rgb(191, 191, 191) !important;
+}
+
+.layout-project #user-content {
+  position: absolute;
+  background-color: #fff;
+  top: 101%;
+  right: 0%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .2);
+  border: 1px solid #ccc;
+  z-index: 3000;
+}
+
+.layout-project #user-content .row {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.layout-project #user-content .user-name {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.layout-project #user-content .user-avatar, .layout-project .small-user-avatar {
+  border-radius: 50%;
+}
+
+.layout-project #sys-config {
+  position: absolute;
+  background-color: #fff;
+  top: 101%;
+  right: 0%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+  border: 1px solid #ccc;
+  z-index: 3000;
+}
+
+.layout-project #sys-config .sys-config-row {
+  padding: 15px 15px 15px 15px;
+  margin: 0 15px;
+}
+
+#sys-config .sys-config-row:hover {
+  cursor: pointer;
+  background-color: rgb(191, 191, 191) !important;
+}
+
+.layout-project .box {
+  width: 100%;
+  height: 160px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  margin-top: 10px;
+  padding: 5px 5px;
+}
+
+.layout-project .box .box-title {
+  font-family: 'Inter UI';
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.layout-project .box .box-sub-title {
+  font-family: 'Inter UI';
+  font-weight: 400;
+  font-size: 11px;
+}
+
+.layout-project .box .box-content {
+  font-family: 'Inter UI';
+  font-weight: 700;
+  font-size: 28px;
+  color: #0f62fe;
+}
+
+.layout-project .box .box-detail {
+  font-family: 'Inter UI';
+  font-weight: 500;
+  font-size: 12px;
+  color: #0f62fe;
+  cursor: pointer;
+}
+
+.layout-project .box-medium {
+  width: 100%;
+  height: 352px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  margin-top: 10px;
+  padding: 5px 5px;
+}
+
+.layout-project .box-medium .box-medium-title {
+  font-family: 'Inter UI';
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.layout-project .box-medium .box-medium-sub-title {
+  font-family: 'Inter UI';
+  font-weight: 400;
+  font-size: 11px;
+}
+
+.layout-project .box-medium .box-medium-content {
+  font-family: 'Inter UI';
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.layout-project .box-medium .box-medium-detail {
+  font-family: 'Inter UI';
+  font-weight: 500;
+  font-size: 12px;
+  color: #0f62fe;
+  cursor: pointer;
+}
+
+.layout-project .box-large {
+  width: 100%;
+  height: 542px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  margin-top: 10px;
+  padding: 5px 5px;
+}
+
+.layout-project .box-large .box-large-title {
+  font-family: 'Inter UI';
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.layout-project .box-large .box-large-sub-title {
+  font-family: 'Inter UI';
+  font-weight: 400;
+  font-size: 11px;
+}
+
+.layout-project .box-large .box-large-content {
+  font-family: 'Inter UI';
+  font-weight: 700;
+  font-size: 28px;
+}
+
+.layout-project .box-large .label-color {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+}
+
+.layout-project .box-large .label-text {
+  font-family: 'Inter UI';
+  font-weight: 400;
+  font-size: 11px;
+}
+
+.layout-project .box-large .box-large-detail {
+  font-family: 'Inter UI';
+  font-weight: 500;
+  font-size: 12px;
+  color: #0f62fe;
+  cursor: pointer;
+}
+
+.layout-project .box-quote-large {
+  height: 275px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+}
+
+.layout-project .box-calendar {
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+}
+
+.layout-project .box-metting-large {
+  height: auto;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+}
+
+.layout-project .box-quote-header {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.layout-project .box-quote-title {
+  height: 19px;
+  font-family: 'Inter UI';
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.layout-project .box-quote-handle {
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  color: #0f62fe;
+  cursor: pointer;
+}
+
+.layout-project .Double-Arrow-Left-3 {
+  position: relative;
+  right: 5px;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.layout-project .link {
+  font-family: 'Inter UI';
+  color: #007ad9;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.layout-project .box-no-data {
+  position: relative;
+  top: 25%;
+}
+
+.layout-project .box-icon {
+  width: 57.1px;
+  height: 58px;
+  object-fit: contain;
+}
+
+.layout-project .no-data-quote {
+  height: 200px;
+  border: solid 1px #d7dbe0;
+  background-color: #f2f4f8;
+  text-align: center;
+}
+
+.layout-project .no-data {
+  margin-top: 10px;
+  height: 330px;
+  border: solid 1px #d7dbe0;
+  background-color: #f2f4f8;
+  text-align: center;
+}
+
+.layout-project #create-config {
+  position: absolute;
+  background-color: #fff;
+  top: 101%;
+  right: 10%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+  border: 1px solid #ccc;
+  z-index: 3000;
+}
+
+.layout-project #create-config .create-config-row {
+  padding: 15px 15px 15px 15px;
+  margin: 0 15px;
+}
+
+.layout-project #create-config .create-config-row:hover {
+  cursor: pointer;
+  background-color: rgb(191, 191, 191) !important;
+}
+
+::ng-deep .layout-project .fc {
+  border-left: 1px solid lightgray !important;
+  border-right: 1px solid lightgray !important;
+  background-color: white !important;
+}
+
+::ng-deep .layout-project .fc-view-container {
+  background-color: white !important;
+  border-left: 1px solid lightgray !important;
+  width: 60% !important;
+  margin-left: 20% !important;
+}
+
+::ng-deep .layout-project .fc-toolbar.fc-header-toolbar {
+  background-color: white !important;
+  border: 1px solid lightgray !important;
+  box-shadow: 2px;
+}
+
+.detail-project .header {
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: solid 1px #cccccc;
+}
+
+.detail-project .header-box-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.detail-project .header-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.detail-project .buffer-top {
+  margin-top: 1.2rem;
+}
+
+.detail-project .buffer-bottom {
+  margin-bottom: 1.2rem;
+}
+
+.detail-project .buffer-bottom-label {
+  margin-bottom: 3px;
+}
+
+.detail-project .required {
+  color: red;
+}
+
+.detail-project .error-message-span {
+  color: red;
+}
+
+.detail-project .customer-name {
+  width: 119px;
+  height: 20px;
+  font-family: 'Inter UI';
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.detail-project .customer-type {
+  width: 106px;
+  height: 14px;
+  font-family: 'Inter UI';
+  font-size: 11px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.36;
+  letter-spacing: normal;
+  text-align: left;
+  color: #4d5358;
+}
+
+.detail-project .btn-remove {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.detail-project .btn-remove-text {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #121619;
+}
+
+.detail-project .save-and-new {
+  width: 142px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #0f62fe;
+  background-color: #ffffff;
+  margin-left: 5px;
+}
+
+.detail-project .save-and-new .text-save-and-new {
+  width: 102px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #0f62fe;
+}
+
+::ng-deep .detail-project .ui-dropdown {
+  min-width: 0px !important;
+}
+
+::ng-deep .detail-project .ui-menu ul {
+  text-align: left;
+}
+
+.detail-project .btn-save {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border: solid 1px #cccccc;
+  margin-left: 5px;
+}
+
+.detail-project .btn-save-text {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.detail-project .btn-create-company {
+  width: 125px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border: solid 1px #cccccc;
+  margin-left: 5px;
+}
+
+.detail-project .btn-create-company-text {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.detail-project .customer-infor {
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: none;
+  border: solid 1px #cccccc;
+  padding-bottom: 10px;
+}
+
+.detail-project .error-border, .detail-project .error-border:focus {
+  border-color: #f44336;
+}
+
+.detail-project .error-border:focus {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset, 0 0 8px #f44336;
+}
+
+/*Begin: Customize Accordion */
+
+::ng-deep .detail-project .ui-accordion .ui-accordion-header a {
+  border: 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+  font-size: 16px;
+}
+
+::ng-deep .detail-project .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background-color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  color: #121619 !important;
+}
+
+::ng-deep .detail-project .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .detail-project .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .detail-project .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  color: #121619 !important;
+}
+
+::ng-deep .detail-project .ui-accordion .ui-accordion-content {
+  border: 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/*End: Customize Accordion */
+
+.detail-project .box-handle-infor {
+  border-right: 1px dashed;
+}
+
+.detail-project .cus-avatar {
+  width: 50%;
+  border-radius: 50%;
+}
+
+.detail-project .error-message-span {
+  color: red !important;
+}
+
+.detail-project .infor-label {
+  width: 97px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #4d5358;
+}
+
+.detail-project .infor-value {
+  width: 67px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.detail-project .box-level {
+  width: 125px;
+  height: 32px;
+  border-radius: 20px;
+  background-color: rgba(255, 59, 48, 0.1);
+  margin-left: 25px;
+  padding-top: 5px;
+}
+
+.detail-project .level-text {
+  width: 93px;
+  height: 14px;
+  font-family: 'Inter UI';
+  font-size: 11px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.36;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ff3b30;
+}
+
+.detail-project .point-text {
+  width: 98px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #4d5358;
+}
+
+.detail-project .point-number {
+  width: 37px;
+  height: 34px;
+  font-family: 'Inter UI';
+  font-size: 28px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.21;
+  letter-spacing: normal;
+  text-align: left;
+  color: #0f62fe;
+}
+
+.detail-project .box-money {
+  height: 158px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  padding: 5px 5px;
+}
+
+.detail-project .money-label {
+  width: 81px;
+  height: 20px;
+  font-family: 'Inter UI';
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.detail-project .box-money-number {
+  margin-top: 20%;
+  text-align: center;
+}
+
+.detail-project .money-number {
+  width: 170px;
+  height: 34px;
+  font-family: 'Inter UI';
+  font-size: 15px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.21;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.detail-project .btn-cancel-note {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.detail-project .save-cancel-lable {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #121619;
+}
+
+.detail-project .btn-save-note {
+  width: 158px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border: solid 1px #cccccc;
+  margin-left: 5px;
+}
+
+.detail-project .save-note-lable {
+  width: 110px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.detail-project .w100 {
+  width: 100%;
+}
+
+.detail-project .link {
+  font-family: 'Inter UI';
+  color: #007ad9;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.detail-project .no-data {
+  height: 330px;
+  border: solid 1px #d7dbe0;
+  background-color: #f2f4f8;
+  text-align: center;
+}
+
+.detail-project .box-no-data {
+  position: relative;
+  top: 25%;
+}
+
+.detail-project .box-icon {
+  width: 57.1px;
+  height: 58px;
+  object-fit: contain;
+}
+
+/* CSS time line */
+
+.detail-project .timeline>li {
+  margin-right: 0 !important;
+}
+
+.detail-project .style-delete {
+  color: #FE747A;
+  cursor: pointer;
+  font-size: 1.55em;
+}
+
+.detail-project .style-edit {
+  cursor: pointer;
+  font-size: 1.55em;
+}
+
+.detail-project .note-user {
+  font-family: 'Inter UI';
+  font-weight: bold;
+}
+
+.detail-project .timeline>li>.timeline-item {
+  box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.detail-project .timeline-content {
+  margin-top: 20px;
+}
+
+.detail-project .bg-blueX {
+  background-color: #4E6BA5 !important;
+}
+
+.detail-project .color-w {
+  color: #fff !important;
+}
+
+.detail-project .timeline-item .onHover {
+  display: none;
+}
+
+.detail-project .timeline-item:hover .onHover {
+  display: block;
+}
+
+.detail-project .material-icons {
+  cursor: pointer;
+}
+
+.detail-project .timeline-user-avatar {
+  border-radius: 50%;
+  margin-right: 5px;
+  float: left;
+}
+
+.detail-project .note-title {
+  font-size: 11px !important;
+  color: #222 !important;
+  font-weight: normal !important;
+}
+
+.detail-project .time-note {
+  font-size: 10px !important;
+  color: #5d5a5a !important;
+  font-weight: normal !important;
+}
+
+.detail-project .timeline-body {
+  padding: 10px 15px;
+}
+
+.detail-project .file-upload-zone .col-md-4:nth-child(3n+1) {
+  padding-right: 5px !important;
+}
+
+.detail-project .file-upload-zone .col-md-4:nth-child(3n+2) {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+
+.detail-project .file-upload-zone .col-md-4:nth-child(3n) {
+  padding-left: 5px !important;
+}
+
+.detail-project .file-upload-zone .col-md-4:nth-child(3n+1) {
+  padding-right: 5px !important;
+}
+
+.detail-project .file-upload-zone .col-md-4:nth-child(3n+2) {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+
+.detail-project .file-upload-zone .col-md-4:nth-child(3n) {
+  padding-left: 5px !important;
+}
+
+.detail-project .file-item div:nth-child(1), .detail-project .file-item div:nth-child(3) {
+  padding-left: 0 !important;
+}
+
+.detail-project .file-item div:nth-child(2) {
+  padding: 0 5px !important;
+}
+
+.detail-project .item-name {
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
+.detail-project .preview-doc {
+  cursor: pointer;
+}
+
+.detail-project .box-search {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.detail-project .text-search {
+  width: 364px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.detail-project .btn-create {
+  width: 116px;
+  height: 32px;
+  border: solid 1px #c1c7cd;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  margin-left: 5px;
+}
+
+.detail-project .btn-create-text {
+  width: 68px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+/* End */
+
+.detail-project .btn-choose-time {
+  width: 150px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding-top: 6px;
+}
+
+.detail-project .icon-choose-left {
+  position: relative;
+  cursor: pointer;
+  left: 5px;
+}
+
+.detail-project .choose-label {
+  position: relative;
+  left: 16px;
+}
+
+.detail-project .icon-choose-right {
+  position: relative;
+  cursor: pointer;
+  right: -28px;
+}
+
+.detail-project .btn-send-email {
+  width: 132px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #af52de;
+  border: solid 1px #cccccc;
+}
+
+.detail-project .btn-send-email-icon {
+  width: 16px;
+  height: 10.2px;
+  object-fit: contain;
+}
+
+.detail-project .btn-send-email-text {
+  width: 60px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.detail-project .btn-send-sms {
+  width: 132px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #ffcc00;
+  border: solid 1px #cccccc;
+}
+
+.detail-project .btn-send-sms-icon {
+  width: 22px;
+  height: 15px;
+  object-fit: contain;
+}
+
+.detail-project .btn-send-sms-text {
+  width: 54px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #121619;
+}
+
+.detail-project .btn-send-gift {
+  width: 132px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border: solid 1px #cccccc;
+}
+
+.detail-project .btn-send-gift-icon {
+  width: 13px;
+  height: 14.9px;
+  object-fit: contain;
+}
+
+.detail-project .btn-send-gift-text {
+  width: 58px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.detail-project .cskh-header-timeline {
+  border-bottom: solid 1px #cccccc;
+  padding: 5px 5px;
+  width: 144px;
+}
+
+.detail-project .cskh-header-week {
+  border-left: solid 1px #cccccc;
+  border-bottom: solid 1px #cccccc;
+  padding: 5px 5px;
+  text-align: center;
+  width: 170.5px;
+}
+
+.detail-project .cskh-body-emp {
+  border-bottom: solid 1px #cccccc;
+  padding: 5px 0px;
+}
+
+.detail-project .cskh-body-emp-name {
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.detail-project .cskh-body-emp-position {
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #878d96;
+}
+
+.detail-project .cskh-body-week {
+  vertical-align: top;
+  border-left: solid 1px #cccccc;
+  border-bottom: solid 1px #cccccc;
+}
+
+.detail-project .cskh-body-week-block {
+  width: 148px;
+  height: 46px;
+  border-radius: 12px;
+  padding-top: 6px;
+  padding-left: 13px;
+  margin-left: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.detail-project .cskh-body-week-title {
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.detail-project .cskh-body-week-sub-title {
+  height: 12px;
+  font-family: 'Inter UI';
+  font-size: 10px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.9;
+  letter-spacing: normal;
+  text-align: left;
+  color: #878d96;
+  cursor: pointer;
+}
+
+.detail-project .fixed {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  background: #eee;
+}
+
+
+::ng-deep .detail-project .header-title .ui-dropdown {
+  background: #ffffff;
+  /* border: 1px solid #a6a6a6; */
+  border: none;
+  margin-left: 5px;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-label {
+  padding-right: 2em;
+  font-size: 16px !important;
+  font-weight: bold;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-panel {
+  width: max-content !important;
+}
+
+::ng-deep .header-title .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  /* box-shadow: 0 0 0 0.2em #8dcdff; */
+  border-color: #007ad9;
+}
+/* Máy để bàn */
+
+@media only screen and (min-width: 1025px) and (max-width: 1423px) {
+  ::ng-deep legend {
+    width: 59%;
+    font-size: 13px;
+    font-weight: 900;
+    border-bottom: 0px;
+  }
+ 
+  .detail-project .budget-lable {
+    height: 40px;
+  }
+
+  .detail-project .in_country {
+    font-size: 13px !important;
+    padding: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 414px) and (min-width: 376px) {
+  ::ng-deep legend {
+    width: 29%;
+    font-size: 13px;
+    font-weight: 900;
+    border-bottom: 0px;
+  }
+  .detail-project .box-handle-infor {
+    border-right: none;
+  }
+  .detail-project .box-level {
+    margin-left: 105px;
+  }
+  .detail-project .text-search {
+    width: 303px;
+  }
+  .detail-project .btn-create {
+    margin-top: 5px;
+  }
+  .detail-project .buffer-bottom .in_country {
+    margin-bottom: 5px;
+  }
+  .detail-project .customer-name {
+    margin-left: -60px;
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 767px) and (min-width: 415px) {
+  ::ng-deep legend {
+    width: 51%;
+    font-size: 13px;
+    font-weight: 900;
+    border-bottom: 0px;
+  }
+  .detail-project .box-handle-infor {
+    border-right: none;
+  }
+  .detail-project .box-level {
+    margin-left: 160px;
+  }
+  .detail-project .text-search {
+    width: 427px;
+  }
+  .detail-project .btn-create {
+    margin-top: 5px;
+  }
+  .detail-project .buffer-bottom .in_country {
+    margin-bottom: 5px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  ::ng-deep legend {
+    width: 25%;
+    font-size: 13px;
+    font-weight: 900;
+    border-bottom: 0px;
+  }
+  .detail-project .actual-time {
+    height: auto;
+  }
+  .layout-project .box-medium .box-medium-title {
+    font-size: 15px;
+  }
+  .layout-project .box-medium .box-medium-sub-title {
+    font-size: 10px;
+  }
+  .layout-project .box-quote-large {
+    height: auto;
+  }
+  .layout-project .space_create {
+    display: none;
+  }
+  .layout-project .margin-box-mobile {
+    margin-top: 20px;
+  }
+  ::ng-deep .layout-project .fc-view-container {
+    background-color: white !important;
+    border-left: 1px solid lightgray !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 1024px) and (min-width: 769px) {
+  ::ng-deep legend {
+    width: 60%;
+    font-size: 13px;
+    font-weight: 900;
+    border-bottom: 0px;
+  }
+  
+  .detail-project .budget-lable {
+    height: 40px;
+  }
+  .detail-project .box-handle-infor {
+    border-right: none;
+  }
+  .detail-project .box-level {
+    margin-left: 18px;
+  }
+  .detail-project .money-number {
+    font-size: 14px;
+  }
+  .detail-project .buffer-bottom .in_country {
+    font-size: 11px;
+    margin-bottom: 3px;
+  }
+  .detail-project .customer-name {
+    margin-left: 15px;
+  }
+  .detail-project .in_country {
+    font-size: 13px !important;
+    padding: 0 !important;
+  }
+  .layout-project .box .box-title {
+    font-size: 6px;
+  }
+  .layout-project .box .box-sub-title {
+    font-size: 10px;
+  }
+  .layout-project .box .box-content {
+    font-size: 15px;
+  }
+  .layout-project .box .box-detail {
+    font-size: 8px;
+  }
+  .layout-project .box-medium .box-medium-title {
+    font-size: 10px;
+  }
+  .layout-project .box-large .box-large-title {
+    font-size: 13px;
+  }
+  ::ng-deep .layout-project .fc-view-container {
+    background-color: white !important;
+    border-left: 1px solid lightgray !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+}
+
+/* Iphone 6/7/8 Plus */
+
+@media only screen and (min-width: 376px) and (max-width: 414px) {
+  ::ng-deep legend {
+    width: 53%;
+    font-size: 13px;
+    font-weight: 900;
+    border-bottom: 0px;
+  }
+  .detail-project .actual-time {
+    height: auto;
+  }
+  .layout-project span.ui-column-title {
+    width: 170px;
+  }
+  .layout-project .search {
+    padding-top: 10px;
+    padding-left: 23px;
+  }
+}
+
+/* Iphone 6/7/8/X */
+
+@media only screen and (max-width: 375px) {
+  ::ng-deep legend {
+    width: 63%;
+    font-size: 13px;
+    font-weight: 900;
+    border-bottom: 0px;
+  }
+  .detail-project .box-handle-infor {
+    border-right: none;
+  }
+  .detail-project .box-level {
+    margin-left: 80px;
+  }
+  .detail-project .text-search {
+    width: 264px;
+  }
+  .detail-project .btn-create {
+    margin-top: 5px;
+  }
+  .detail-project .buffer-bottom .in_country {
+    margin-bottom: 5px;
+  }
+  .detail-project .customer-name {
+    margin-left: -20px;
+  }
+  .detail-project .customer-name {
+    margin-left: -60px;
+    font-size: 18px;
+  }
+  .detail-project .actual-time {
+    height: auto;
+  }
+  .layout-project span.ui-column-title {
+    width: 155px;
+  }
+  .layout-project .search {
+    padding-top: 10px;
+    padding-left: 23px;
+  }
+}

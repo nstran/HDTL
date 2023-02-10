@@ -1,0 +1,71 @@
+<!-- Loading -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="cauhinh-checklist page-content">
+  <div class="row create-content">
+    <div class="col-md-6 d-inline-flex">
+      <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+      <span class="header">Cấu hình checklist</span>
+    </div>
+    <div class="col-md-6 button-group text-right">
+      <button *ngIf="isShowButton && actionAdd" pButton type="button" class="btn btn-create" label="Thêm mới"
+        (click)="addTaiLieu()"></button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box-border p-1">
+        <p-table #myTable [columns]="cols" [value]="listCauHinh" [responsive]="true" class="table-border"
+          [scrollable]="true">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns"
+                [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.colWith }">
+                <span>
+                  {{col.header}}
+                </span>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+            <tr>
+              <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.colWith }">
+                <span class="ui-column-title">{{col.header}}</span>
+                <span *ngSwitchCase="'stt'">
+                  {{ index + 1}}
+                </span>
+                <span *ngSwitchCase="'active'">
+                  <i *ngIf="rowData.active" class="pi pi-check icons icons-check"></i>
+                </span>
+                <span *ngSwitchCase="'action'">
+                  <button *ngIf="isShowButton && actionEdit" pButton icon="pi pi-pencil" (click)="addTaiLieu(rowData)"></button>
+                  <button *ngIf="isShowButton && actionDelete" class="ui-button-danger ml-1" pButton icon="pi pi-trash" (click)="deleteTaiLieu(rowData)"></button>
+                </span>
+                <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage" let-columns>
+            <tr>
+              <td [attr.colspan]="columns.length">
+                Hiện tại không có dữ liệu
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+    </div>
+  </div>
+</div>

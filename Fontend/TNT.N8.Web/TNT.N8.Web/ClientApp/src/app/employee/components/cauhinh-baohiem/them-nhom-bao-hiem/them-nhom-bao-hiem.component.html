@@ -1,0 +1,75 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+
+<div class="bao-hiem-thue">
+  <form class="form-horizontal" [formGroup]="nhomBaoHiemForm">
+    <div class="col-md-12" style="padding-left: 0;">
+      <div class="col-md-5 form-group">
+        <label>Nhóm bảo hiểm <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="tenNhom" class="w-100"
+          [ngClass]="submitted && nhomBaoHiemForm.controls.tenNhom.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && nhomBaoHiemForm.controls.tenNhom.errors">{{error}}
+        </p>
+      </div>
+      <div class="col-md-6 form-group">
+        <label>Chức vụ:</label>
+        <!-- <p-multiSelect [options]="listPosition" formControlName="chucVu" [filter]="true" [resetFilterOnHide]="true"
+          selectedItemsLabel="{0} chức vụ được chọn" defaultLabel="Chọn chức vụ" optionLabel="positionName"
+          [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()">
+        </p-multiSelect> -->
+        <p-dropdown [options]="listPosition" formControlName="chucVu" optionLabel="positionName" [filter]="true"
+          [resetFilterOnHide]="true" placeholder="Chọn chức vụ" [style]="{'width': '100%'}">
+        </p-dropdown>
+      </div>
+      <div class="col-md-1 text-right form-group p-0">
+        <label>&nbsp;</label>
+        <div>
+          <button pButton icon="fa fa-plus" class="button-add" (click)="themChucVu()" pTooltip="Thêm chức vụ"
+            style="margin-left: 0 !important;">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <ng-container *ngIf="nhomBaoHiem?.listChucVuBaoHiemLoftCare.length">
+        <p-table [columns]="colsChucVu" [value]="nhomBaoHiem.listChucVuBaoHiemLoftCare" class="table-border">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+            <tr>
+              <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                <span *ngSwitchCase="'soNamKinhNghiem'">
+                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                    [ngModelOptions]="{standalone: true}"
+                    [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}" />
+                </span>
+                <span *ngSwitchCase="'action'">
+                  <button pButton icon="fa fa-trash" class="button-delete" (click)="xoaChucVu(rowData)">
+                  </button>
+                </span>
+                <span *ngSwitchDefault>
+                  {{rowData[col.field]}}
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </ng-container>
+    </div>
+    <div class="col-md-12 text-right mt-1">
+      <button pButton type="button" label="Lưu" (click)="save()"></button>
+      <button pButton type="button" label="Hủy" class="ui-button-secondary ml-1" (click)="cancel()"></button>
+    </div>
+  </form>
+</div>

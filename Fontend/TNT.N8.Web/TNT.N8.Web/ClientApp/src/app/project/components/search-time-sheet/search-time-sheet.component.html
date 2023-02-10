@@ -1,0 +1,560 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<p-dialog header="Bạn có chắc chắn muốn từ chối bản khai báo thời gian này?" [(visible)]="displayReject" [modal]="true"
+    [style]="{width: '900px', minWidth: '350px'}">
+    <div class="col-md-2">
+        <span> Lý do </span>
+    </div>
+    <div class="col-md-10">
+        <textarea rows="4" cols="30" pInputTextarea [(ngModel)]="descriptionReject" class="w100 input-text"></textarea>
+        <!-- <ejs-richtexteditor #templateRTE [height]="180" [toolbarSettings]='tools' [(ngModel)]="descriptionReject">
+            <ng-template>
+            </ng-template>
+        </ejs-richtexteditor> -->
+    </div>
+    <p-footer>
+        <button type="button" *ngIf="isSingle" pButton icon="pi pi-check" (click)="rejectSingleTimeSheet()"
+            label="Đồng ý"></button>
+        <button type="button" *ngIf="!isSingle" pButton icon="pi pi-check" (click)="rejectMultiTimeSheet()"
+            label="Đồng ý"></button>
+    </p-footer>
+</p-dialog>
+
+<p-dialog header="Bạn có chắc chắn muốn phê duyệt bản khai báo thời gian này?" [(visible)]="displayApproval"
+    [modal]="true" [style]="{width: '900px', minWidth: '350px'}">
+    <div class="col-md-2">
+        <span> Diễn giải </span>
+    </div>
+    <div class="col-md-10">
+        <textarea rows="4" cols="30" pInputTextarea [(ngModel)]="descriptionApproval" class="w100 input-text"></textarea>
+        <!-- <ejs-richtexteditor #templateRTE [height]="180" [toolbarSettings]='tools' [(ngModel)]="descriptionApproval">
+            <ng-template>
+            </ng-template>
+        </ejs-richtexteditor> -->
+    </div>
+    <p-footer>
+        <button type="button" *ngIf="isSingle" pButton icon="pi pi-check" (click)="approvalSingleTimeSheet()"
+            label="Đồng ý"></button>
+        <button type="button" *ngIf="!isSingle" pButton icon="pi pi-check" (click)="approvalMultiTimeSheet()"
+            label="Đồng ý"></button>
+    </p-footer>
+</p-dialog>
+
+<div class="layout-project">
+    <app-top-header-project></app-top-header-project>
+
+    <div class="wrapper" style="height: auto;">
+        <!-- <main-header></main-header> -->
+        <app-project-header></app-project-header>
+        <!-- Menu Left -->
+        <app-menu-left-project></app-menu-left-project>
+
+        <!-- Content -->
+        <div class="content-wrapper" style="height: auto; min-height: 100vh">
+            <section class="row content" style="min-height:inherit;">
+                <div class="list-time-sheet">
+                    <div class="row no-margin">
+                        <div class="box-header" [ngClass]="{ fixed: fixed }" [ngStyle]="{ width: withFiexd }">
+                            <div class="col-md-6 no-padding mt-7">
+                                <!-- <div class="box-header-title-2">[{{project?.projectCode}}]: {{project?.projectName}}</div> -->
+                                <div class="header-title">
+                                    <p-dropdown [options]="listProjectTitle" optionLabel="projectCodeName"
+                                        placeholder="Chọn dự án" [filter]="true" [resetFilterOnHide]="true"
+                                        [virtualScroll]="true" itemSize="10" [(ngModel)]="selectedProject"
+                                        (onChange)="onChangeProject($event.value.projectId)"
+                                        (keydown.enter)="$event.preventDefault()">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row">
+                                    <div class="col-md-12 no-padding btn-group">
+                                        <button class="cancel" type="button" (click)="showProjectInfor()"
+                                            *ngIf="!isShow">
+                                            <span class="text-cancel"><i class="fa fa-bars"
+                                                    aria-hidden="true"></i>&nbsp; Thông tin dự
+                                                án</span>
+                                        </button>
+                                        <button type="button" class="btn-create" *ngIf="actionAdd"
+                                            (click)="createTimeSheet()"><span class="btn-create-text">Tạo
+                                                mới</span></button>
+                                        <button type="button" class="btn-create" (click)="exportExcel()"><span
+                                                class="btn-create-text">Xuất
+                                                Excel</span></button>
+                                        <div style="clear: both;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- PANEL THÔNG TIN CHUNG CỦA DỰ ÁN -->
+                    <app-project-information-panel></app-project-information-panel>
+                    <!-- <div class="row project-infor">
+                        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                            collapseIcon="pi pi-fw pi-chevron-circle-down">
+                            <p-accordionTab header="Thông tin dự án" [selected]="true">
+                                <div class="row">
+                                    <div class="col-md-4 mt-7">
+                                        <table class="table borderless mt-25">
+                                            <tbody>
+                                                <tr>
+                                                    <th class="col-md-6 infor-label">Loại dự án</th>
+                                                    <td class="col-md-6 infor-value">{{project?.projectTypeName}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-md-6 infor-label">Mức độ ưu tiên</th>
+                                                    <td class="col-md-6 infor-value">{{project?.priorityName}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-md-6 infor-label">Trạng thái</th>
+                                                    <td class="col-md-6 infor-value">{{project?.projectStatusName}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-4 mt-7">
+                                        <table class="table borderless mt-25">
+                                            <tbody>
+                                                <tr>
+                                                    <th class="col-md-8 infor-label">Thời gian dự kiến thực hiện (Giờ)
+                                                    </th>
+                                                    <td class="col-md-4 infor-value">{{totalEstimateTime}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-md-8 infor-label">Ngày bắt đầu dự kiến</th>
+                                                    <td class="col-md-4 infor-value">{{project?.projectStartDate |
+                                                        date:'dd/MM/yyyy'}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-md-8 infor-label">Ngày kết thúc dự kiến</th>
+                                                    <td class="col-md-4 infor-value">{{project?.projectEndDate |
+                                                        date:'dd/MM/yyyy'}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-md-6 infor-label">Hiệu quả sử dụng nguồn lực(EE)</th>
+                                                    <td class="col-md-6 infor-value">{{totalHourUsed | number}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-md-4 mt-7">
+                                        <table class="table borderless mt-25">
+                                            <tbody>
+                                                <tr>
+                                                    <th class="col-md-6 infor-label">Tiến độ hoàn thành dự án</th>
+                                                    <td class="col-md-6 infor-value">
+                                                        <div class="col-md-12 infor-value">
+                                                            <p-progressBar [value]="totalPercent">
+                                                            </p-progressBar>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-md-6 infor-label">Thời gian đã sử dụng</th>
+                                                    <td class="col-md-6 infor-value">{{totalHourUsed | number}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-md-6 infor-label">Ngày bắt đầu thực tế</th>
+                                                    <td class="col-md-6 infor-value">{{project?.actualStartDate |
+                                                        date:'dd/MM/yyyy'}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <th class="col-md-6 infor-label">Ngày kết thúc thực tế</th>
+                                                    <td class="col-md-6 infor-value">{{project?.actualEndDate |
+                                                        date:'dd/MM/yyyy'}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
+                        </p-accordion>
+                    </div> -->
+                    
+                    <div class="row no-margin">
+                        <div class="col-md-12 box-content" style="margin-top:15px">
+                            <div class="row no-margin" style="padding-top: 10px;">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box-header-group">
+                                                <div class="row">
+                                                    <div class="col-md-1 col-xs-2">
+                                                        <div class="box-header-icon">
+                                                            <img src="/assets/icons/components/project.svg"
+                                                                class="Money-2">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-11 col-xs-10">
+                                                        <div class="box-header-title" *ngIf="isRoot">Phê duyệt khai báo
+                                                            thời gian</div>
+                                                        <div class="box-header-title" *ngIf="!isRoot">Danh sách khai báo
+                                                            thời gian</div>
+                                                        <div class="box-header-subtitle">
+                                                            {{listTimeSheet.length}} bản ghi - cập nhật ngày {{today |
+                                                            date:
+                                                            'dd/MM/yyyy'}} - sắp xếp theo ngày tạo mới nhất
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12 no-padding ">
+                                            <div class="box-header-group-btn">
+                                                <p-selectButton [options]="stateOptions" [(ngModel)]="selectedOption"
+                                                    (onChange)="searchTimeSheet()">
+                                                </p-selectButton>
+                                                <input type="text" class="iput-text"
+                                                    placeholder="Tìm kiếm trong danh sách" id="text-search-order"
+                                                    [(ngModel)]="isGlobalFilter" pInputText
+                                                    (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+                                                <div style="clear: both;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row no-margin" style="padding-top: 10px;">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box-header-group">
+                                                <div class="row">
+                                                    <div class="col-md-12" *ngIf="selectedOption == 'week'">
+                                                        <button pButton type="button" icon="pi pi-fast-backward"
+                                                            class="ui-button-secondary mr-3"
+                                                            (click)="previousDoubleWeek()"></button>
+                                                        <button pButton type="button" icon="pi pi-step-backward-alt"
+                                                            class="ui-button-secondary mr-5"
+                                                            (click)="previousWeek()"></button>
+                                                        <input disabled [(ngModel)]="week" type="text"
+                                                            class="mr-5 week-input" disabled />
+                                                        <button pButton type="button" icon="pi pi-step-forward-alt"
+                                                            class="ui-button-secondary mr-3"
+                                                            (click)="nextWeek()"></button>
+                                                        <button pButton type="button" icon="pi pi-fast-forward"
+                                                            class="ui-button-secondary"
+                                                            (click)="nextDoubleWeek()"></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12 no-padding ">
+                                            <div class="box-header-group-btn" *ngIf="isRoot">
+                                                <button type="button" class="btn-approval"
+                                                    (click)="confirmRejectMutilTimeSheet()">
+                                                    <span class="btn-approval-text">Từ chối</span>
+                                                </button>
+                                                <button type="button" class="btn-approval"
+                                                    (click)="confrimApprovalMutilTimeSheet()">
+                                                    <span class="btn-approval-text">Phê duyệt</span>
+                                                </button>
+                                                <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                                                    <img src="/assets/icons/components/ios-refresh.svg"
+                                                        class="ios-refresh">
+                                                </button>
+                                                <button type="button" class="btn-filter" (click)="showFilter()">
+                                                    <img src="/assets/icons/components/ios-funnel.svg"
+                                                        class="ios-funnel">
+                                                    <span class="btn-filter-text">Bộ lọc</span>
+                                                </button>
+                                                <div style="clear: both;"></div>
+                                            </div>
+                                            <div class="box-header-group-btn" *ngIf="!isRoot">
+                                                <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                                                    <img src="/assets/icons/components/ios-refresh.svg"
+                                                        class="ios-refresh">
+                                                </button>
+                                                <button type="button" class="btn-filter" (click)="sendApproval()">
+                                                    <span class="btn-filter-text">Gửi phê duyệt</span>
+                                                </button>
+                                                <div style="clear: both;"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row no-margin" style="height: 10px"></div>
+                            <div class="row no-margin" style="background-color: #f2f4f8;">
+                                <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+                                    <div class="box-filter">
+                                        <div class="row no-margin">
+                                            <div class="col-md-12 mt-5">
+                                                <span>Loại thời gian</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p-multiSelect [options]="listTimeStyle"
+                                                    [(ngModel)]="listSelectedTimeType"
+                                                    defaultLabel="Chọn loại thời gian" optionLabel="categoryName"
+                                                    [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                                                    selectedItemsLabel="{0} loại thời gian được chọn">
+                                                </p-multiSelect>
+                                            </div>
+                                        </div>
+                                        <div class="row no-margin">
+                                            <div class="col-md-12 mt-5">
+                                                <span>Trạng thái</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p-multiSelect [options]="listStatus" [(ngModel)]="listSeletedStatus"
+                                                    defaultLabel="Chọn trạng thái" optionLabel="categoryName"
+                                                    [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                                                    selectedItemsLabel="{0} trạng thái được chọn"></p-multiSelect>
+                                            </div>
+                                        </div>
+
+                                        <div class="row no-margin">
+                                            <div class="col-md-12 mt-5">
+                                                <span>Người phụ trách</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p-multiSelect [options]="listPersionInCharged"
+                                                    [(ngModel)]="listSelectedEmployee"
+                                                    defaultLabel="Chọn người phụ trách" optionLabel="employeeName"
+                                                    [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                                                    selectedItemsLabel="{0} người phụ trách được chọn">
+                                                </p-multiSelect>
+                                            </div>
+                                        </div>
+
+                                        <div class="row no-margin">
+                                            <div class="col-md-12 mt-5">
+                                                <button type="button" class="btn-search" (click)="searchTimeSheet()">
+                                                    <span class="btn-search-text">Tìm kiếm</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="listTimeSheet.length > 0" class="col-md-{{leftColNumber}} no-padding">
+                                    <p-table #myTable [columns]="selectedColumns" [value]="listTimeSheet"
+                                        [resizableColumns]="true" columnResizeMode="expand" [paginator]="true"
+                                        [rows]="10" [rowsPerPageOptions]="[10, 20, 30]" [responsive]="true"
+                                        (sortFunction)="customSort($event)" [customSort]="true"
+                                        (onFilter)="onFilter($event)" [(selection)]="selectedTimeSheet">
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr>
+                                                <th style="width: 3em; text-align: center;">
+                                                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                                </th>
+                                                <th style="text-align: center; width: 70px;">
+                                                    <span>Thao tác</span>
+                                                </th>
+                                                <th *ngFor="let col of columns" pResizableColumn
+                                                    [pSortableColumn]="col.field"
+                                                    [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width':col.width}">
+                                                    <span>
+                                                        {{col.header | translate}}
+                                                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                                                    </span>
+                                                </th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-columns="columns"
+                                            let-rowIndex="rowIndex">
+                                            <tr>
+                                                <!-- <td style="width: 3em; text-align: center;">
+                                                    <p-tableCheckbox [value]="rowData" *ngIf="!isRoot"
+                                                        [disabled]="rowData['statusCode'] != 'NHAP' && rowData['statusCode'] != 'TCKB'">
+                                                    </p-tableCheckbox>
+                                                    <p-tableCheckbox [value]="rowData" *ngIf="isRoot"
+                                                        [disabled]="rowData['statusCode'] != 'GPD'"></p-tableCheckbox>
+                                                </td> -->
+
+                                                <td style="width: 3em; text-align: center;">
+                                                    <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                                                </td>
+
+                                                <td style="text-align: center; width: 70px;">
+                                                    <button pButton type="button" icon="pi pi-pencil"
+                                                        (click)="openTimeSheetDialog(rowData)"
+                                                        class="ui-button-secondary" *ngIf="!isRoot"></button>
+                                                    <p-splitButton label="Thao tác" icon="" *ngIf="isRoot"
+                                                        (onDropdownClick)="onChangeAction(rowData)" [model]="actions"
+                                                        appendTo="body" styleClass="ui-button-secondary">
+                                                    </p-splitButton>
+                                                </td>
+                                                
+                                                <td *ngFor="let col of columns"
+                                                    [ngStyle]="{'width': col.width, 'display': col.display, 'text-align': col.textAlign }"
+                                                    [ngSwitch]="col.field">
+                                                    <span *ngSwitchCase="'statusName'" class="status"
+                                                        [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}"
+                                                        style="display: inline-block;
+                                                            padding: 3px 3px;
+                                                            color: white;
+                                                            width: 100%;
+                                                            text-align: center;">
+                                                        {{rowData[col.field]}}
+                                                    </span>
+                                                    <span *ngSwitchCase="'taskCodeName'" class="link"
+                                                        (click)="goToTaskDetail(rowData)">
+                                                        {{rowData[col.field]}}
+                                                    </span>
+
+                                                    <span *ngSwitchCase="'monday'" >
+                                                        <p *ngIf="rowData['mondayCheck'] == 0" style = 'color: #99BDEE'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['mondayCheck'] == 1" (click)="selectCar($event,rowData['mondayId'],op3)" style = 'color: #FFBC8B;cursor:pointer'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['mondayCheck'] == 2" style = 'color: #F44336'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['mondayCheck'] == 3" style = 'color: #49C846'>{{rowData[col.field]}}</p>
+                                                        <div #actualTarget></div>
+                                                    </span>
+
+                                                    <span *ngSwitchCase="'tuesday'" >
+                                                        <p *ngIf="rowData['tuesdayCheck'] == 0" style = 'color: #99BDEE'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['tuesdayCheck'] == 1" (click)="selectCar($event,rowData['tuesdayId'],op3)" style = 'color: #FFBC8B;cursor:pointer'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['tuesdayCheck'] == 2" style = 'color: #F44336'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['tuesdayCheck'] == 3" style = 'color: #49C846'>{{rowData[col.field]}}</p>
+                                                    </span>
+
+
+                                                    <span *ngSwitchCase="'wednesday'">
+                                                        <p *ngIf="rowData['wednesdayCheck'] == 0" style = 'color: #99BDEE'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['wednesdayCheck'] == 1" (click)="selectCar($event,rowData['wednesdayId'],op3)" style = 'color: #FFBC8B;cursor:pointer'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['wednesdayCheck'] == 2" style = 'color: #F44336'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['wednesdayCheck'] == 3" style = 'color: #49C846'>{{rowData[col.field]}}</p>
+                                                    </span>
+
+                                                    <span *ngSwitchCase="'thursday'" >
+                                                        <p *ngIf="rowData['thursdayCheck'] == 0" style = 'color: #99BDEE'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['thursdayCheck'] == 1" (click)="selectCar($event,rowData['thursdayId'],op3)" style = 'color: #FFBC8B;cursor:pointer'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['thursdayCheck'] == 2" style = 'color: #F44336'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['thursdayCheck'] == 3" style = 'color: #49C846'>{{rowData[col.field]}}</p>
+                                                    </span>
+
+                                                    <span *ngSwitchCase="'friday'" >
+                                                        <p *ngIf="rowData['fridayCheck'] == 0" style = 'color: #99BDEE'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['fridayCheck'] == 1" (click)="selectCar($event,rowData['fridayId'],op3)" style = 'color: #FFBC8B;cursor:pointer'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['fridayCheck'] == 2" style = 'color: #F44336'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['fridayCheck'] == 3" style = 'color: #49C846'>{{rowData[col.field]}}</p>
+                                                    </span>
+                                                    <span *ngSwitchCase="'saturday'">
+                                                        <p *ngIf="rowData['saturdayCheck'] == 0" style = 'color: #99BDEE'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['saturdayCheck'] == 1" (click)="selectCar($event,rowData['saturdayId'],op3)" style = 'color: #FFBC8B;cursor:pointer'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['saturdayCheck'] == 2" style = 'color: #F44336'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['saturdayCheck'] == 3" style = 'color: #49C846'>{{rowData[col.field]}}</p>
+                                                    </span>
+
+                                                    <span *ngSwitchCase="'sunday'" >
+                                                        <p *ngIf="rowData['sundayCheck'] == 0" style = 'color: #99BDEE'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['sundayCheck'] == 1" (click)="selectCar($event,rowData['sundayId'],op3)" style = 'color: #FFBC8B;cursor:pointer'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['sundayCheck'] == 2" style = 'color: #F44336'>{{rowData[col.field]}}</p>
+                                                        <p *ngIf="rowData['sundayCheck'] == 3" style = 'color: #49C846'>{{rowData[col.field]}}</p>
+                                                    </span>
+
+                                                    <span *ngSwitchCase="'spentHour'">
+                                                        <strong>{{rowData[col.field] | number}}</strong>
+                                                    </span>
+                                                    <span *ngSwitchDefault>{{ rowData[col.field]}}</span>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                                <div *ngIf="!(listTimeSheet.length > 0)"
+                                    class="col-md-{{leftColNumber}} no-padding no-data">
+                                    <div class="box-no-data">
+                                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                                        <div>
+                                            <span>Hiện tại không có dữ liệu</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+                                    <div class="box-filter">
+                                        <div class="row no-margin">
+                                            <div class="col-md-12 mt-5">
+                                                <span>Loại thời gian</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p-multiSelect [options]="listTimeStyle"
+                                                    [(ngModel)]="listSelectedTimeType"
+                                                    defaultLabel="Chọn loại thời gian" optionLabel="categoryName"
+                                                    [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                                                    selectedItemsLabel="{0} loại thời gian được chọn">
+                                                </p-multiSelect>
+                                            </div>
+                                        </div>
+                                        <div class="row no-margin">
+                                            <div class="col-md-12 mt-5">
+                                                <span>Trạng thái</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p-multiSelect [options]="listStatus" [(ngModel)]="listSeletedStatus"
+                                                    defaultLabel="Chọn trạng thái" optionLabel="categoryName"
+                                                    [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                                                    selectedItemsLabel="{0} trạng thái được chọn"></p-multiSelect>
+                                            </div>
+                                        </div>
+
+                                        <div class="row no-margin">
+                                            <div class="col-md-12 mt-5">
+                                                <span>Người phụ trách</span>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <p-multiSelect [options]="listPersionInCharged"
+                                                    [(ngModel)]="listSelectedEmployee"
+                                                    defaultLabel="Chọn người phụ trách" optionLabel="employeeName"
+                                                    [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                                                    selectedItemsLabel="{0} người phụ trách được chọn">
+                                                </p-multiSelect>
+                                            </div>
+                                        </div>
+
+                                        <div class="row no-margin">
+                                            <div class="col-md-12 mt-5">
+                                                <button type="button" class="btn-search" (click)="searchTimeSheet()">
+                                                    <span class="btn-search-text">Tìm kiếm</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <main-footer></main-footer>
+    </div>
+</div>
+
+<p-overlayPanel #op3 [style]="{width: 'auto'}">
+    <ng-template pTemplate>
+        <div class="row no-margin">
+            <div class="col-md-6">
+                <button type="button" class="btnPheDuyet" (click)="acceptOrRejectByDay(true)">
+                    <span class="btnPheDuyet-text">Phê duyệt</span>
+                </button>
+            </div>
+            <div class="col-md-6">
+                <button type="button" class="btnTuChoi" (click)="acceptOrRejectByDay(false)">
+                    <span class="btnPheDuyet-text">Từ chối</span>
+                </button>
+            </div>
+        </div>
+    </ng-template>
+</p-overlayPanel>

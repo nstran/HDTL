@@ -1,0 +1,134 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="danhSachPhieuDanhGia">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="\assets\icons\components\noun_product.svg" class="noun-product">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title" style="width:100%!important">Danh sách mẫu phiếu đánh
+                    giá</div>
+                  <div class="box-header-subtitle">
+                    {{listPhieuDanhGia.length}} đầu mục - Sắp xếp theo ngày gần nhất - Cập nhật
+                    {{nowDate | date:'dd/MM/yyyy'}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12" style="text-align: right;">
+            <button type="button" class="btn-create" (click)="goToCreate()"><span class="btn-create-text">Tạo
+                mới</span></button>
+            <div style="clear: both;"></div>
+          </div>
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <input type="text" class="iput-text" [(ngModel)]="filterGlobal" placeholder="Tìm kiếm trong danh sách"
+                (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div *ngIf="listPhieuDanhGia.length > 0" class="col-md-12">
+      <p-table #myTable [columns]="selectedColumns" [value]="listPhieuDanhGia" sortMode="multiple"
+        [resizableColumns]="true" [(selection)]="selection" columnResizeMode="expand" [paginator]="true" [rows]="10"
+        [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+        <ng-template pTemplate="caption">
+          <div style="text-align: left;">
+            <p-multiSelect [options]="colsList" optionLabel="header" [(ngModel)]="selectedColumns"
+              [ngModelOptions]="{ standalone: true }" selectedItemsLabel="{0} cột được chọn"
+              [style]="{ minWidth: '200px' }" defaultLabel="Chọn cột"></p-multiSelect>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 3.5em; text-align: center;">
+              #
+            </th>
+
+            <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+              [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th style="text-align: center; width: 10rem;">
+              <span>Thao tác</span>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+          <tr>
+            <td style="text-align: center;">
+              {{rowIndex + 1}}
+            </td>
+            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+              [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+              <span class="ui-column-title">{{col.header}}</span>
+              <span *ngSwitchCase="'maPhieuDanhGia'" (click)="onViewDetail(rowData)" class="link"
+                style="display: inline-block;padding: 3px 3px;">{{rowData[col.field]}}</span>
+
+                            <span *ngSwitchCase="'trangThaiPhieuDanhGia'">
+                                <span *ngIf="rowData[col.field] == 0" [ngStyle]="{'background-color': '#728da1'}"
+                                    style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Mới</span>
+                                <span *ngIf="rowData[col.field] == 1"
+                                    [ngStyle]="{'background-color': '#54cf3a'}"
+                                    style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Có hiệu lực</span>
+                                <span *ngIf="rowData[col.field] == 2"
+                                    [ngStyle]="{'background-color': 'rgb(255, 192, 0)'}"
+                                    style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Hết
+                                    hiệu lực</span>
+                            </span>
+
+              <span *ngSwitchCase="'createdDate'">
+                {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+              </span>
+
+              <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+            </td>
+            <td style="text-align: center;  width: 10rem;" >
+              <button class="ui-button-danger" pButton icon="pi pi-trash" *ngIf="rowData['trangThaiPhieuDanhGia'] == 0 && actionDelete"
+                (click)="deletePhieuDanhGia(rowData)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div *ngIf="!(listPhieuDanhGia.length > 0)" class="col-md-{{leftColNumber}} no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+  </div>

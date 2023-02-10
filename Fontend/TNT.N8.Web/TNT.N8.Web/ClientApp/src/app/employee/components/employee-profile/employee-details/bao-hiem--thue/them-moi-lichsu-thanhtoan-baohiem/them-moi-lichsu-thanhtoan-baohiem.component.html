@@ -1,0 +1,50 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="bao-hiem-thue">
+  <form class="form-horizontal" [formGroup]="lichSuThanhToanForm" #form>
+    <div class="col-md-12 p-0">
+      <div class="col-md-4 form-group">
+        <label>Ngày <span class="required">*</span>:</label>
+        <p-calendar dateFormat="dd/mm/yy" [baseZIndex]="9999" formControlName="ngayThanhToan" [style]="{'width':'100%'}"
+          showButtonBar="true" [inputStyle]="{'width':'100%'}" appendTo="body"
+          [ngClass]="submitted && lichSuThanhToanForm.controls.ngayThanhToan.errors ? 'error-border': ''">
+        </p-calendar>
+        <p class="required" *ngIf="submitted && lichSuThanhToanForm.controls.ngayThanhToan.errors">{{
+          error['ngayThanhToan'] }}
+        </p>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Loại bảo hiểm <span class="required">*</span>:</label>
+        <p-dropdown [options]="listLoaiBaoHiem" formControlName="loaiBaoHiem"
+          placeholder="Chọn loại bảo hiểm" optionLabel="name" [style]="{'width': '100%'}"
+          [ngClass]="submitted && lichSuThanhToanForm.controls.loaiBaoHiem.errors ? 'error-border': ''">
+        </p-dropdown>
+        <p class="required" *ngIf="submitted && lichSuThanhToanForm.controls.loaiBaoHiem.errors">{{
+          error['loaiBaoHiem'] }}
+        </p>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Số tiền <span class="required">*</span>:</label>
+        <p-inputNumber formControlName="soTienThanhToan" [min]="1" class="w-100"
+          [ngClass]="submitted && lichSuThanhToanForm.controls.soTienThanhToan.errors ? 'error-border': ''">
+        </p-inputNumber>
+        <p class="required" *ngIf="submitted && lichSuThanhToanForm.controls.soTienThanhToan.errors">{{
+          error['soTienThanhToan'] }}
+        </p>
+      </div>
+    </div>
+    <div class="col-md-12 p-0">
+      <div class="col-md-12 form-group">
+        <label>Ghi chú:</label>
+        <textarea [rows]="3" pInputTextarea formControlName="ghiChu" class="w-100"></textarea>
+      </div>
+    </div>
+    <div class="col-md-12 text-right mt-1">
+      <button pButton type="button" label="Lưu" (click)="save()"></button>
+      <button pButton type="button" label="Hủy" class="ui-button-secondary ml-1" (click)="cancel()"></button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,321 @@
+.time-sheet-dialog .top-buffer {
+    margin-top: 1.2rem;
+}
+
+.time-sheet-dialog .bottom-buffer {
+    margin-bottom: 1.2rem;
+}
+
+.time-sheet-dialog .full-width {
+    width: 100% !important;
+}
+
+.time-sheet-dialog .buffer-bottom-label {
+    margin-bottom: 4px;
+}
+
+.time-sheet-dialog .error-message-span, .time-sheet-dialog .required {
+    color: red;
+}
+
+.time-sheet-dialog .mr-5 {
+    margin-right: 5px;
+}
+
+.time-sheet-dialog .mr-3 {
+    margin-right: 3px;
+}
+
+.time-sheet-dialog .time-line {
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding-bottom: 10px;
+}
+
+/* CSS time line */
+
+.time-sheet-dialog .timeline>li {
+    margin-right: 0 !important;
+}
+
+.time-sheet-dialog .style-delete {
+    color: #FE747A;
+    cursor: pointer;
+    font-size: 1.55em;
+}
+
+.time-sheet-dialog .style-edit {
+    cursor: pointer;
+    font-size: 1.55em;
+}
+
+.time-sheet-dialog .note-user {
+    font-family: 'Inter UI';
+    font-weight: bold;
+}
+
+.time-sheet-dialog .timeline>li>.timeline-item {
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.time-sheet-dialog .timeline-content {
+    margin-top: 20px;
+}
+
+.time-sheet-dialog .bg-blueX {
+    background-color: #4E6BA5 !important;
+}
+
+.time-sheet-dialog .color-w {
+    color: #fff !important;
+}
+
+.time-sheet-dialog .timeline-item .onHover {
+    display: none;
+}
+
+.time-sheet-dialog .timeline-item:hover .onHover {
+    display: block;
+}
+
+.time-sheet-dialog .material-icons {
+    cursor: pointer;
+}
+
+.time-sheet-dialog .timeline-user-avatar {
+    border-radius: 50%;
+    margin-right: 5px;
+    float: left;
+}
+
+.time-sheet-dialog .note-title {
+    font-size: 11px !important;
+    color: #222 !important;
+    font-weight: normal !important;
+}
+
+.time-sheet-dialog .time-note {
+    font-size: 10px !important;
+    color: #5d5a5a !important;
+    font-weight: normal !important;
+}
+
+.time-sheet-dialog .timeline-body {
+    padding: 10px 15px;
+}
+
+.time-sheet-dialog .file-upload-zone .col-md-4:nth-child(3n+1) {
+    padding-right: 5px !important;
+}
+
+.time-sheet-dialog .file-upload-zone .col-md-4:nth-child(3n+2) {
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+}
+
+.time-sheet-dialog .file-upload-zone .col-md-4:nth-child(3n) {
+    padding-left: 5px !important;
+}
+
+.time-sheet-dialog .file-upload-zone .col-md-4:nth-child(3n+1) {
+    padding-right: 5px !important;
+}
+
+.time-sheet-dialog .file-upload-zone .col-md-4:nth-child(3n+2) {
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+}
+
+.time-sheet-dialog .file-upload-zone .col-md-4:nth-child(3n) {
+    padding-left: 5px !important;
+}
+
+.time-sheet-dialog .file-item div:nth-child(1), .time-sheet-dialog .file-item div:nth-child(3) {
+    padding-left: 0 !important;
+}
+
+.time-sheet-dialog .file-item div:nth-child(2) {
+    padding: 0 5px !important;
+}
+
+.time-sheet-dialog .item-name {
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}
+
+.time-sheet-dialog .preview-doc {
+    cursor: pointer;
+}
+
+.time-sheet-dialog .box-search {
+    text-align: right;
+    margin-top: 15px;
+}
+
+.time-sheet-dialog .text-search {
+    width: 364px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #dde1e6;
+    background-color: #ffffff;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.time-sheet-dialog .btn-create {
+    width: 116px;
+    height: 32px;
+    border: solid 1px #c1c7cd;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    margin-left: 5px;
+}
+
+.time-sheet-dialog .btn-create-text {
+    width: 68px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+/* End */
+
+.box-time {
+    border: 1px solid gray;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    background-color: lightgray;
+}
+
+.lable-time {
+    padding: 0 5px;
+    font-style: bold;
+    width: 100%;
+    font-weight: 600;
+}
+
+.time-sheet-dialog .btn-approval {
+    margin-left: 5px;
+    width: 120px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #007aff;
+}
+
+.btn-approval-text {
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+.btn-reject {
+    width: 120px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffcc00;
+    margin-right: 9px;
+    margin-left: 5px;
+}
+
+.btn-reject-text {
+    width: 70px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #121619;
+}
+
+.time-sheet-dialog .btn-send-approval {
+    width: 130px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+    margin-left: 5px;
+}
+
+.time-sheet-dialog .btn-remove {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+}
+
+.time-sheet-dialog .btn-remove-text {
+    width: 24px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #121619;
+}
+
+.time-sheet-dialog .btn-save {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border: solid 1px #cccccc;
+    margin-left: 5px;
+}
+
+.time-sheet-dialog .btn-save-text {
+    width: 24px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+.time-sheet-dialog .ui-button-secondary {
+    background-color: lightgray;
+}
+
+.mr-3 {
+    margin-right: 3px;
+}
+
+.mr-5 {
+    margin-right: 5px;
+}
+
+.w100 {
+    width: 100%;
+}

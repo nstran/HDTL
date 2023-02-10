@@ -1,0 +1,210 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="add-project-scope-dialog">
+  <form [formGroup]="createProjectScopeForm" class="form-dialog">
+    <div class="row top-buffer bottom-buffer">
+      <!-- DÒNG 1 -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Hạng mục trực thuộc<span class="required">*</span>
+                <span (click)="openProjetScopeDialog()" class="link" style="float: right;">Chọn hạng mục</span>
+              </div>
+              <div class="col-md-12">
+                <input disabled
+                  [ngClass]="(createProjectScopeForm.get('scopeControl').invalid && (createProjectScopeForm.get('scopeControl').dirty || createProjectScopeForm.get('scopeControl').touched)) ? 'error-border' : ''"
+                  formControlName="scopeControl" type="text" class="w100" pInputText />
+              </div>
+              <div class="col-md-12"
+                [hidden]="createProjectScopeForm.get('scopeControl').valid || createProjectScopeForm.get('scopeControl').untouched">
+                <span
+                  *ngIf="createProjectScopeForm.get('scopeControl').hasError('required') || createProjectScopeForm.get('scopeControl').hasError('blankString') "
+                  class="error-message-span">
+                  Hạng mục không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6" *ngIf="isExternal === 1">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Nhà thầu phụ trách
+              </div>
+              <div class="col-md-12">
+                <p-dropdown [options]="listVendor" optionLabel="vendorName" [autoDisplayFirst]="false"
+                  formControlName="supplyControl" [showClear]="true" [resetFilterOnHide]="true"
+                  placeholder="Chọn vai trò" [style]="{'width': '100%'}">
+                </p-dropdown>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- DÒNG 2 -->
+      <div class="row">
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Tên gói công việc<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input
+                  [ngClass]="(createProjectScopeForm.get('scopeNameControl').invalid && (createProjectScopeForm.get('scopeNameControl').dirty || createProjectScopeForm.get('scopeNameControl').touched)) ? 'error-border' : ''"
+                  formControlName="scopeNameControl" type="text" class="full-width" pInputText />
+              </div>
+              <div class="col-md-12"
+                [hidden]="createProjectScopeForm.get('scopeNameControl').valid || createProjectScopeForm.get('scopeNameControl').untouched">
+                <span
+                  *ngIf="createProjectScopeForm.get('scopeNameControl').hasError('required') || createProjectScopeForm.get('scopeNameControl').hasError('blankString') "
+                  class="error-message-span">
+                  Tên gói công việc không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Nguồn<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown [options]="listResourceType" formControlName="resourceTypeControl"
+                  (onChange)="changeResource($event)" [autoDisplayFirst]="false"
+                  [styleClass]="(resourceTypeControl.invalid && (resourceTypeControl.dirty || resourceTypeControl.touched)) ? 'error-border' : ''"
+                  [filter]="true" [showClear]="true" [resetFilterOnHide]="true" placeholder="Chọn nguồn"
+                  optionLabel="categoryName" [style]="{'width': '100%'}"></p-dropdown>
+                <div class="col-md-12" [hidden]="resourceTypeControl.valid || resourceTypeControl.untouched">
+                  <span *ngIf="resourceTypeControl.hasError('required')" class="error-message-span">Nguồn không được để
+                    trống</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- DANH SÁCH CÔNG VIỆC-->
+      <div class="col-md-12" *ngIf="isExternal === 2 && listTaskOfScope.length > 0">
+        <div class="row col-md-12">
+          <span>Di chuyển các công việc</span>
+        </div>
+        <div class="col-md-12">
+          <p-table #myTable [columns]="selectedColumns" [value]="listTaskOfScope"
+            (sortFunction)="sortColumnInList($event)" [customSort]="true" [resizableColumns]="true"
+            [(selection)]="selectedTask" columnResizeMode="expand" [paginator]="true" [rows]="10"
+            [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th style="width: 3em;">
+                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                  [ngStyle]="{ 'text-align': col.textAlign, display: col.display, width: col.width }">
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field"></p-sortIcon>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <tr>
+                <td>
+                  <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                </td>
+                <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                  [ngStyle]="{ 'text-align': col.textAlign, display: col.display, width: col.width }">
+                  <span class="ui-column-title">{{col.header}}</span>
+                  <span *ngSwitchCase="taskCode" (click)="onViewDetail(rowData)" class="link" style="display: inline-block;
+                        padding: 2px 2px;">
+                    {{ rowData[col.field] }}
+                  </span>
+                  <span *ngSwitchCase="taskName" pTooltip="{{rowData[col.field]}}" tooltipPosition="bottom">
+                    {{rowData[col.field]}}
+                  </span>
+                  <span *ngSwitchCase="taskTyeName" pTooltip="{{rowData[col.field]}}" tooltipPosition="bottom">
+                    {{rowData[col.field]}}
+                  </span>
+                  <span *ngSwitchCase="statusName" pTooltip="{{rowData[col.field]}}" tooltipPosition="bottom">
+                    {{rowData[col.field]}}
+                  </span>
+                  <span *ngSwitchCase="employee" pTooltip="{{rowData[col.field]}}" tooltipPosition="bottom">
+                    {{rowData[col.field]}}
+                  </span>
+                  <span *ngSwitchDefault>
+                    {{ rowData[col.field] }}
+                  </span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+
+      <div class="row buffer-bottom no-margin">
+        <div class="col-md-12">
+          <div class="row buffer-bottom">
+            <div class="col-md-12 buffer-bottom-label">
+              <span>Mô tả</span>
+            </div>
+            <div class="col-md-12">
+              <!-- <textarea pInputTextarea rows="5" style="width: 100%;" formControlName="scopeDescriptionControl"></textarea> -->
+              <ejs-richtexteditor #templateRTE [height]="200" [toolbarSettings]='tools' formControlName="scopeDescriptionControl">
+                <ng-template>
+                </ng-template>
+              </ejs-richtexteditor>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-md-12 mt-5" style="display: flex; justify-content: flex-end;">
+        <button (click)="cancel()" type="button" class="btn-remove">
+          <span class="btn-remove-text">Hủy</span>
+        </button>
+        <button (click)="save()" type="button" class="btn-save">
+          <span class="btn-save-text">Lưu</span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<p-dialog header="Danh sách hạng mục" [(visible)]="display" [modal]="true" class="add-task-scope-dialog"
+  [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <p-treeTable #treeTable [value]="listNoteProjectScope" [columns]="columns" selectionMode="single"
+    [(selection)]="selectedNode" dataKey="Id">
+    <ng-template pTemplate="header" let-columns>
+      <tr [ttRow]="rowNode">
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns; let i = index" [ngSwitch]="col.field" (click)="selectedScope(rowData)"
+          [ngStyle]="{'width': col.width, 'display': col.display, 'text-align': col.textAlign }">
+          <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+          <span *ngSwitchCase="'Name'">{{ rowData[col.field]}}</span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-treeTable>
+</p-dialog>

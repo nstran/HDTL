@@ -1,0 +1,532 @@
+::ng-deep .content-wrapper {
+    background-color: #fff !important;
+  }
+
+  .chien-dich {
+    font-family: "Inter UI";
+  }
+
+  .chien-dich .btn-cancel-note {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+  }
+
+  .chien-dich .save-cancel-lable {
+    width: 24px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #121619;
+  }
+
+  .chien-dich .btn-save-note {
+    width: 158px;
+    height: 32px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border: solid 1px #cccccc;
+    margin-left: 5px;
+  }
+
+  .chien-dich .save-note-lable {
+    width: 110px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .chien-dich .btn-create {
+    float: right;
+    width: 98px;
+    height: 31px;
+    border-radius: 4px;
+    border: 1px solid #cccccc;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #007aff;
+  }
+
+  .chien-dich .btn-create-text {
+    width: 50px;
+    height: 16px;
+    font-family: "Inter UI";
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+  }
+
+  .chien-dich .import-exel {
+    padding-top: 3px;
+    width: 134px;
+    height: 30px;
+    border-radius: 4px;
+    border: solid 1px #0f62fe;
+    background-color: #ffffff;
+    margin-right: 5px;
+  }
+
+  .chien-dich .import-exel-text {
+    width: 86px;
+    height: 16px;
+    font-family: "Inter UI";
+    font-size: 13px;
+    font-weight: nomal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #0f62fe;
+  }
+
+  .chien-dich .export-exel {
+    width: 112px;
+    height: 30px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+    margin-right: 5px;
+  }
+
+   .chien-dich .export-exel .export-exel-text {
+     width: 64px;
+     height: 16px;
+     font-family: "Inter UI";
+     font-size: 13px;
+     font-weight: normal;
+     font-stretch: normal;
+     font-style: normal;
+     line-height: 1.15;
+     letter-spacing: normal;
+     text-align: center;
+     color: #121619;
+   }
+
+  .chien-dich .body-wrapper {
+    background-color: #fff;
+    border          : solid 1px #cccccc;
+  }
+
+  .chien-dich .header {
+    background-color: #ffffff;
+    border-radius   : 4px;
+    border          : solid 1px #cccccc;
+  }
+
+  .chien-dich .header-box-icon {
+    width        : 40px;
+    height       : 40px;
+    border-radius: 50%;
+  }
+
+  .chien-dich .header-icon {
+    width      : 18px;
+    height     : 18px;
+    object-fit : contain;
+    margin-top : 13px;
+    margin-left: 10px;
+  }
+
+  .chien-dich .buffer-top {
+    margin-top: 1.2rem;
+  }
+
+  .chien-dich .buffer-bottom {
+    margin-bottom: 1.2rem;
+  }
+
+  .chien-dich .buffer-bottom-label {
+    margin-bottom: 3px;
+  }
+
+  .chien-dich .required {
+    color: red;
+  }
+
+  .chien-dich .error-message-span {
+    color: red;
+  }
+
+  .chien-dich .customer-name {
+    width         : 119px;
+    height        : 20px;
+    font-family   : 'Inter UI';
+    font-size     : 19px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 2.25;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+  }
+
+  .chien-dich .btn-remove {
+    width           : 72px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #ffffff;
+    margin-left     : 5px;
+  }
+
+  .chien-dich .btn-remove-text {
+    width         : 24px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #121619;
+  }
+
+  .chien-dich .btn-save-and-new {
+    width           : 142px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #0f62fe;
+    background-color: #ffffff;
+    margin-left     : 5px;
+  }
+
+  .chien-dich .btn-save-and-new .btn-save-and-new-text {
+    width         : 102px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #0f62fe;
+  }
+
+  ::ng-deep .chien-dich .ui-dropdown {
+    min-width: 0px !important;
+  }
+
+  ::ng-deep .chien-dich .ui-menu ul {
+    text-align: left;
+  }
+
+  .chien-dich .btn-save {
+    width           : 72px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border          : solid 1px #cccccc;
+    margin-left     : 5px;
+  }
+
+  .chien-dich .btn-save-text {
+    width         : 24px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+  }
+
+  .chien-dich .body-wrapper {
+    margin-top  : 20px;
+    margin-left : 0px;
+    margin-right: 0px;
+  }
+
+  .chien-dich .w100 {
+    width: 100% !important;
+  }
+.chien-dich .link {
+  font-family: 'Inter UI';
+  color      : #007ad9;
+  cursor     : pointer;
+  font-size  : 13px;
+}
+  .chien-dich .my-form-control {
+    display    : flex;
+    align-items: center;
+  }
+
+  /*Begin: Customize Accordion */
+
+  ::ng-deep .chien-dich .ui-accordion .ui-accordion-header a {
+    border          : 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+    font-size       : 16px;
+  }
+
+  ::ng-deep .chien-dich .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    background-color: #ffffff !important;
+    border          : 1px solid #ffffff !important;
+    color           : #121619 !important;
+  }
+
+  ::ng-deep .chien-dich .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+  }
+
+  ::ng-deep .chien-dich .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+  }
+
+  ::ng-deep .chien-dich .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    color: #121619 !important;
+  }
+
+  ::ng-deep .chien-dich .ui-accordion .ui-accordion-content {
+    border          : 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+  }
+
+  /*End: Customize Accordion */
+
+
+.chien-dich .timeline>li {
+  margin-right: 0 !important;
+}
+
+.chien-dich .style-delete {
+  color: #FE747A;
+  cursor: pointer;
+  font-size: 1.55em;
+}
+
+.chien-dich .style-edit {
+  cursor: pointer;
+  font-size: 1.55em;
+}
+
+.chien-dich .note-user {
+  font-family: 'Inter UI';
+  font-weight: bold;
+}
+
+.chien-dich .timeline>li>.timeline-item {
+  box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.chien-dich .timeline-content {
+  margin-top: 20px;
+}
+
+.chien-dich .bg-blueX {
+  background-color: #4E6BA5 !important;
+}
+
+.chien-dich .color-w {
+  color: #fff !important;
+}
+
+.chien-dich .timeline-item .onHover {
+  display: none;
+}
+
+.chien-dich .timeline-item:hover .onHover {
+  display: block;
+}
+
+.chien-dich .material-icons {
+  cursor: pointer;
+}
+
+.chien-dich .timeline-user-avatar {
+  border-radius: 50%;
+  margin-right: 5px;
+  float: left;
+}
+
+.chien-dich .note-title {
+  font-size: 11px !important;
+  color: #222 !important;
+  font-weight: normal !important;
+}
+
+.chien-dich .time-note {
+  font-size: 10px !important;
+  color: #5d5a5a !important;
+  font-weight: normal !important;
+}
+
+.chien-dich .timeline-body {
+  padding: 10px 15px;
+}
+
+.chien-dich .file-upload-zone .col-md-4:nth-child(3n+1) {
+  padding-right: 5px !important;
+}
+
+.chien-dich .file-upload-zone .col-md-4:nth-child(3n+2) {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+
+.chien-dich .file-upload-zone .col-md-4:nth-child(3n) {
+  padding-left: 5px !important;
+}
+
+.chien-dich .file-upload-zone .col-md-4:nth-child(3n+1) {
+  padding-right: 5px !important;
+}
+
+.chien-dich .file-upload-zone .col-md-4:nth-child(3n+2) {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+
+.chien-dich .file-upload-zone .col-md-4:nth-child(3n) {
+  padding-left: 5px !important;
+}
+
+.chien-dich .file-item div:nth-child(1), .chien-dich .file-item div:nth-child(3) {
+  padding-left: 0 !important;
+}
+
+.chien-dich .file-item div:nth-child(2) {
+  padding: 0 5px !important;
+}
+
+.chien-dich .item-name {
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
+.candidate-dialog .btn-save {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border          : solid 1px #cccccc;
+  margin-left     : 5px;
+}
+
+.mt-25 {
+    margin-top: 25px;
+}
+.mb-20
+{
+  margin-bottom: 20px !important;
+}
+.mb-5
+{
+  margin-bottom: 5px !important;
+}
+.mb-10
+{
+  margin-bottom: 10px !important;
+}
+.candidate-dialog .btn-save-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+.candidate-dialog .btn-remove {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left     : 5px;
+}
+
+.candidate-dialog .btn-remove-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #121619;
+}
+
+
+.vacancies-dialog .btn-save {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border          : solid 1px #cccccc;
+  margin-left     : 5px;
+}
+.vacancies-dialog .btn-save-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+.vacancies-dialog .btn-remove {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left     : 5px;
+}
+
+.vacancies-dialog .btn-remove-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #121619;
+}

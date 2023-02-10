@@ -1,0 +1,7 @@
+::ng-deep .cham-cong-ot-ct .ui-table .ui-table-thead>tr>th {
+  border: 1px solid #c8c8c8 !important;
+}
+
+::ng-deep .cham-cong-ot-ct .ui-table .ui-table-tbody>tr>td {
+  border: 1px solid #c8c8c8 !important;
+}

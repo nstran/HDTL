@@ -1,0 +1,154 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="emp-ttc">
+  <form class="form-horizontal" [formGroup]="thongTinChungForm">
+    <div class="row mt-10">
+      <div class="col-md-12 list-btn-edit" style="text-align: right;">
+        <i *ngIf="!isEdit && isShowButtonSua" class="pi pi-pencil icons" (click)="enabledForm()"></i>
+        <i *ngIf="isEdit" class="pi pi-check icons icons-check" (click)="saveForm()"></i>
+        <i *ngIf="isEdit" class="pi pi-times icons icons-times" (click)="disabledForm()"></i>
+      </div>
+    </div>
+    <div class="row mt-1 mb-1">
+      <div class="col-md-12 text-center">
+        <img class="emp-avatar" [src]="transform(currentLogoUrl)">
+        <div class="col-md-12 mt-10 center">
+          <span>{{ thongTinChung.employeeCode + ' - ' + thongTinChung.userName }}</span>
+        </div>
+        <input type="file" id="imageProfile" accept="image/*" (change)="handleFileUpload($event)"
+          class="file-input d-none" />
+        <div class="upload-image" *ngIf="isEdit">
+          <button pButton type="button" icon="pi pi-upload" iconPos="right" label="Chọn ảnh"
+            class="ui-button-secondary btn-secondary" (click)="uploadImage()"></button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 form-group">
+        <label>Họ và tên đệm <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="FirstName" class="w-100"
+          [ngClass]="submitted && thongTinChungForm.controls.FirstName.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinChungForm.controls.FirstName.errors">{{
+          error['FirstName'] }}
+        </p>
+      </div>
+      <div class="col-md-3 form-group">
+        <label>Tên tiếng việt <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="LastName" class="w-100"
+          [ngClass]="submitted && thongTinChungForm.controls.LastName.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinChungForm.controls.LastName.errors">{{
+          error['LastName'] }}
+        </p>
+      </div>
+
+      <div class="col-md-3 form-group">
+        <label>Giới tính <span class="required">*</span>:</label>
+        <div>
+          <p-radioButton name="Gender" formControlName="Gender" value="NAM" label="Nam">
+          </p-radioButton>
+          <p-radioButton name="Gender" formControlName="Gender" value="NU" label="Nữ" class="ml-2">
+          </p-radioButton>
+        </div>
+      </div>
+
+      <div class="col-md-3 form-group">
+        <label>Ngày sinh <span class="required">*</span>:</label>
+        <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2022" dateFormat="dd/mm/yy"
+          [baseZIndex]="9999" formControlName="DateOfBirth" [style]="{'width':'100%'}" showButtonBar="true"
+          [inputStyle]="{'width':'100%'}"
+          [ngClass]="submitted && thongTinChungForm.controls.DateOfBirth.errors ? 'error-border': ''">
+        </p-calendar>
+        <p class="required" *ngIf="submitted && thongTinChungForm.controls.DateOfBirth.errors">{{
+          error['DateOfBirth'] }}
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="row">
+      <div class="col-md-3 form-group">
+        <label>Phòng ban <span class="required">*</span>:
+          <a href="javascript:(0)" (click)="openOrgPopup()"> <u>(sơ đồ tổ chức)</u></a>
+        </label>
+        <input type="text" pInputText formControlName="OrganizationId" class="w-100"
+          [ngClass]="submitted && error['OrganizationId'] ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && error['OrganizationId']">{{
+          error['OrganizationId'] }}
+        </p>
+      </div>
+      <div class="col-md-3 form-group">
+        <label>Nhiệm vụ:</label>
+        <p-dropdown [options]="listMission" formControlName="mission" [filter]="true" [resetFilterOnHide]="true"
+          placeholder="Chọn nhiệm vụ" optionLabel="categoryName" [style]="{'width': '100%'}">
+        </p-dropdown>
+      </div>
+
+      <div class="col-md-3 form-group">
+        <label>Số điện thoại cá nhân <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="Phone" class="w-100"
+          [ngClass]="submitted && thongTinChungForm.controls.Phone.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinChungForm.controls.Phone.errors">{{
+          error['Phone'] }}
+        </p>
+      </div>
+
+      <div class="col-md-3 form-group">
+        <label>Email công ty <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="WorkEmail" class="w-100"
+          [ngClass]="submitted && thongTinChungForm.controls.WorkEmail.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinChungForm.controls.WorkEmail.errors">{{
+          error['WorkEmail'] }}
+        </p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 form-group">
+        <label>Trạng thái <span class="required">*</span>:</label>
+        <p-dropdown [options]="listTrangThai" formControlName="TrangThai" [filter]="true" [resetFilterOnHide]="true"
+          placeholder="Chọn trạng thái" optionLabel="text" [style]="{'width': '100%'}"
+          [ngClass]="submitted && thongTinChungForm.controls.TrangThai.errors ? 'error-border': ''">
+        </p-dropdown>
+        <p class="required" *ngIf="submitted && thongTinChungForm.controls.TrangThai.errors">{{
+          error['TrangThai'] }}
+        </p>
+      </div>
+
+
+      <div class="col-md-3">
+        <label>Có phải là cộng tác viên không?</label>
+        <div>
+          <p-inputSwitch (onChange)="checkCongTacVien($event)" formControlName="EmployeeType"></p-inputSwitch>
+        </div>
+      </div>
+
+      <div class="col-md-3" *ngIf="checked">
+        <label>Mức hưởng<span class="required">*</span></label>
+        <p-dropdown [filter]="true" [showClear]="true" [resetFilterOnHide]="true" optionLabel="name"
+          (onChange)="changeBenefitDataType($event.value)" [options]="listBenefitType" formControlName="Benefit"
+          placeholder="Chọn mức hưởng" [showClear]="true" [style]="{'width': '100%'}">
+        </p-dropdown>
+      </div>
+      <div class="col-md-3" *ngIf="isShowPercenBenefit && checked">
+        <label>Phần trăm<span class="required">*</span></label>
+
+        <input pInputText type="text" appenTo="body" [baseZIndex]="999999999" formControlName="PercenBenefit"
+          [cleave]="{ numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 3 }" [ngStyle]="{'width': '100%'}"
+          (keydown.enter)="$event.preventDefault()">
+
+        <p class="required" *ngIf="submitted">
+          {{
+          error['PercenBenefit']
+          }}
+        </p>
+      </div>
+
+    </div>
+
+  </form>
+</div>

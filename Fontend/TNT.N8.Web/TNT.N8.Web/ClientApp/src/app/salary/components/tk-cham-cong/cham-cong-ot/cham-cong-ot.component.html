@@ -1,0 +1,144 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<div class="cham-cong-ot">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="box-header-group-btn">
+        <button type="button" class="btn-refresh" (click)="refreshFilter()">
+          <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+        </button>
+        <button type="button" class="btn-filter" (click)="showFilter()">
+          <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+          <span class="btn-filter-text">Bộ lọc</span>
+        </button>
+        <input type="text" class="iput-text" [(ngModel)]="filterGlobal" placeholder="Nhập Code hoặc Tên"
+          (input)="myTable?.filterGlobal($event.target.value.trim(), 'contains')">
+        <div style="clear: both;"></div>
+      </div>
+    </div>
+
+    <div *ngIf="listData.length" class="col-md-{{leftColNumber}}" style="margin-top: 20px">
+      <p-table #myTable [columns]="cols" [value]="listData" [scrollable]="true" selectionMode="single"
+        [(selection)]="selectedRow" dataKey="stt" [responsive]="true" [paginator]="true" [rows]="10"
+        [rowsPerPageOptions]="[10, 15, 20, 50]">
+        <ng-template pTemplate="header">
+          <ng-container *ngFor="let item of trRow">
+            <tr>
+              <ng-container *ngFor="let _item of item">
+                <th style="text-align: center;" [attr.rowspan]="_item.rowspan != 0 ? _item.rowspan : ''"
+                  [attr.colspan]="_item.colspan != 0 ? _item.colspan : ''" [ngStyle]="{'width': _item.width}">
+                  {{_item.columnValue}}
+                </th>
+              </ng-container>
+            </tr>
+          </ng-container>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData" pTooltip="Nhân viên: {{rowData.name}}" tooltipPosition="top">
+            <td *ngFor="let col of columns" [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+              <ng-container *ngIf="col.field.includes('index_') == true">
+                <span>
+                  {{rowData[col.field] | number}}
+                </span>
+              </ng-container>
+              <ng-container *ngIf="col.field == 'name'">
+                <span (click)="viewChiTiet(rowData)">
+                  {{rowData[col.field]}}
+                </span>
+              </ng-container>
+              <ng-container *ngIf="col.field.includes('index_') == false &&
+                col.field != 'name'">
+                <span>
+                  {{rowData[col.field]}}
+                </span>
+              </ng-container>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div *ngIf="!listData.length" class="col-md-{{leftColNumber}} no-padding no-data" style="margin-top: 20px">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isShowFilter" class="col-md-{{rightColNumber}}" style="margin-top: 20px">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Từ ngày</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="tuNgay" dateFormat="dd/mm/yy" [style]="{'width':'100%'}"
+              [maxDate]="denNgay ? denNgay : null" placeholder="dd/mm/yyyy" [inputStyle]="{'width':'100%'}">
+            </p-calendar>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-10">
+            <span>Đến ngày</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="denNgay" dateFormat="dd/mm/yy" [style]="{'width':'100%'}"
+              [minDate]="tuNgay ? tuNgay : null" placeholder="dd/mm/yyyy" [inputStyle]="{'width':'100%'}">
+            </p-calendar>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-10">
+            <span>Nhân viên</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listEmployee" [(ngModel)]="listSelectedEmployee" [filter]="true"
+              [resetFilterOnHide]="true" selectedItemsLabel="{0} nhân viên được chọn"
+              defaultLabel="Chọn nhân viên" optionLabel="employeeCodeName" [style]="{'width': '100%'}"
+              (keydown.enter)="$event.preventDefault()">
+            </p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-10">
+            <span>Điều kiện hiển thị</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listDieuKienHienThi" [(ngModel)]="listSelectedDieuKienHienThi"
+              [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} điều kiện được chọn"
+              defaultLabel="Chọn điều kiện" optionLabel="name" [style]="{'width': '100%'}"
+              (keydown.enter)="$event.preventDefault()">
+            </p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12" style="margin-top: 20px; text-align: right;">
+            <button type="button" class="btn-create" (click)="getData()">
+              Tìm kiếm
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12" style="margin-top: 20px">
+      <app-note-time-line [viewNote]="false" [viewTimeline]="true" 
+        objectType="TKCCOT" [objectNumber]="1" 
+        [actionAdd]="false" [actionEdit]="false" [actionDelete]="false" 
+        [pageSize]="10" [refresh]="refreshNote">
+      </app-note-time-line>
+    </div>
+  </div>
+</div>

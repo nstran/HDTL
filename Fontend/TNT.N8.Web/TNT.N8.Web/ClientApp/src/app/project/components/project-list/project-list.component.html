@@ -1,0 +1,557 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<section class="quote-list">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="/assets/icons/components/project.svg" class="Money-2">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title">Danh sách dự án</div>
+                  <div class="box-header-subtitle">
+                    {{ listProject.length }} bản ghi - Cập nhật ngày {{ today | date:'dd/MM/yyyy' }} - Sắp xếp theo ngày
+                    cập nhật gần nhất
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <button type="button" class="btn-create" *ngIf="actionAdd" (click)="goToCreateProject()"><span
+                class="btn-create-text">Tạo mới</span></button>
+            <button type="button" class="btn-create" *ngIf="actionAdd" (click)="exportExcel()"><span
+                class="btn-create-text">Xuất Excel</span></button>
+            <div style="clear: both;"></div>
+          </div>
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                <span class="btn-filter-text">Bộ lọc</span>
+              </button>
+              <input *ngIf="activeIndex == 0" type="text" class="iput-text" placeholder="Tìm kiếm trong danh sách"
+                id="text-search-order" [(ngModel)]="isGlobalFilter"
+                (input)="myTableDtk.filterGlobal($event.target.value.trim(), 'contains')">
+              <input *ngIf="activeIndex == 1" type="text" class="iput-text" placeholder="Tìm kiếm trong danh sách"
+                id="text-search-order" [(ngModel)]="isGlobalFilter"
+                (input)="myTableHuy.filterGlobal($event.target.value.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <!-- BỘ LỌC -->
+    <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Trạng thái</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listStatus" [(ngModel)]="selectedStatus" defaultLabel="Chọn trạng thái"
+              optionLabel="categoryName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} trạng thái được chọn"></p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Loại dự án</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listProjectType" [(ngModel)]="selectedProjectType" defaultLabel="Chọn loại dự án"
+              optionLabel="categoryName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} loại dự án được chọn"></p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Người quản lý</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listEmployee" [(ngModel)]="selectedEmployee" defaultLabel="Chọn người quản lý"
+              optionLabel="employeeCodeName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} người QL được chọn"></p-multiSelect>
+          </div>
+        </div>
+
+        <!-- <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Mã dự án</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="quote-code-text" placeholder="Nhập mã dự án" [(ngModel)]="projectCode">
+          </div>
+        </div> -->
+
+        <!-- <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Tên dự án</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="quote-code-text" placeholder="Nhập tên dự án" [(ngModel)]="projectName">
+          </div>
+        </div> -->
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày bắt đầu dự tính</span>
+          </div>
+          <div class="row no-margin pb-1">
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="projectStartS" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [maxDate]="projectStartE" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="projectStartE" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [minDate]="projectStartS" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày kết thúc dự tính</span>
+          </div>
+          <div class="row no-margin pb-1">
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="projectEndS" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [maxDate]="endDate" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="projectEndE" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [minDate]="startDate" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày bắt đầu thực tế</span>
+          </div>
+          <div class="row no-margin pb-1">
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="actualStartS" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [maxDate]="endDate" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="actualStartE" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [minDate]="startDate" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Thời gian dự tính thực hiện</span>
+          </div>
+          <div class="row no-margin pb-1">
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="startDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [maxDate]="endDate" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="endDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [minDate]="startDate" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ước tính tỉ lệ hoàn thành</span>
+          </div>
+          <div class="row no-margin pb-1">
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="startDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [maxDate]="endDate" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="endDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [minDate]="startDate" placeholder="dd/mm/yy"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5" style="text-align: right;">
+            <button type="button" class="btn-search" (click)="searchQuote()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BẢNG -->
+    <div class="col-md-{{leftColNumber}} no-padding">
+      <p-tabView [(activeIndex)]="activeIndex">
+        <p-tabPanel header="Dự án đang triển khai">
+          <div class="row">
+            <div class="col-md-12">
+              <div *ngIf="listProjectDTK.length > 0" class="col-md-12 no-padding">
+                <p-table #myTableDtk [columns]="selectedColumns" [value]="listProjectDTK" [resizableColumns]="true"
+                  (sortFunction)="customSort($event)" [customSort]="true" columnResizeMode="expand" [paginator]="true"
+                  [rows]="rows" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" (onPage)="pageChange($event)">
+                  <ng-template pTemplate="caption">
+                    <div style="text-align:left">
+                      <p-multiSelect [options]="colsListProject" [(ngModel)]="selectedColumns"
+                        [ngModelOptions]="{standalone: true}" optionLabel="header"
+                        selectedItemsLabel="{0} cột được chọn" [style]="{minWidth: '200px'}" defaultLabel="Chọn cột">
+                      </p-multiSelect>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th style="text-align: center; width: 80px;">
+                        <span>Thao tác</span>
+                      </th>
+                      <th style="text-align: left; width: 100px;">
+                        <span>Mã</span>
+                      </th>
+                      <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                        [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.width }">
+                        <span>
+                          {{col.header}}
+                          <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </span>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                      <td style="text-align: center; width: 100px;">
+                        <p-splitButton label="Thao tác" icon="" (onDropdownClick)="onChangeAction(rowData)"
+                          [model]="actions" appendTo="body" styleClass="ui-button-secondary"></p-splitButton>
+                      </td>
+                      <td style="text-align: left;">
+                        <span (click)="goToDetail(rowData['projectId'])" class="link">
+                          {{rowData['projectCode']}}
+                        </span>
+                      </td>
+                      <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                        [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.width }">
+                        <span class="ui-column-title">{{col.header}}</span>
+                        <span *ngSwitchCase="'butget'">
+                          {{rowData[col.field] | number}}
+                        </span>
+                        <span *ngSwitchCase="'projectStatusName'"
+                          [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}" style="display: inline-block;
+                              padding: 3px 3px;
+                              color: white;
+                              width: 115px;">
+                          {{rowData[col.field]}}
+                        </span>
+                        <span *ngSwitchCase="'projectStartDate'">
+                          {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+                        </span>
+                        <span *ngSwitchCase="'projectEndDate'">
+                          {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+                        </span>
+                        <span *ngSwitchCase="'actualStartDate'">
+                          {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+                        </span>
+                        <span *ngSwitchCase="'actualEndDate'">
+                          {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+                        </span>
+                        <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+              <div *ngIf="!(listProjectDTK.length > 0)" class="col-md-12 no-padding no-data">
+                <div class="box-no-data">
+                  <img src="/assets/icons/components/box.svg" class="box-icon">
+                  <div>
+                    <span>Hiện tại không có dữ liệu</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Dự án đã đóng">
+          <div class="row">
+            <div class="col-md-12">
+              <div *ngIf="listProjectHUY.length > 0" class="col-md-12 no-padding">
+                <p-table #myTableHuy [columns]="selectedColumns" [value]="listProjectHUY" [resizableColumns]="true"
+                  (sortFunction)="customSort($event)" [customSort]="true" columnResizeMode="expand" [paginator]="true"
+                  [rows]="rows" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" (onPage)="pageChange($event)">
+                  <ng-template pTemplate="caption">
+                    <div style="text-align:left">
+                      <p-multiSelect [options]="colsListProject" [(ngModel)]="selectedColumns"
+                        [ngModelOptions]="{standalone: true}" optionLabel="header"
+                        selectedItemsLabel="{0} cột được chọn" [style]="{minWidth: '200px'}" defaultLabel="Chọn cột">
+                      </p-multiSelect>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th style="text-align: center; width: 80px;">
+                        <span>Thao tác</span>
+                      </th>
+                      <th style="text-align: left; width: 100px;">
+                        <span>Mã</span>
+                      </th>
+                      <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                        [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.width }">
+                        <span>
+                          {{col.header}}
+                          <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </span>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                      <td style="text-align: center; width: 100px;">
+                        <p-splitButton label="Thao tác" icon="" (onDropdownClick)="onChangeAction(rowData)"
+                          [model]="actions" appendTo="body" styleClass="ui-button-secondary"></p-splitButton>
+                      </td>
+                      <td style="text-align: left;">
+                        <span (click)="goToDetail(rowData['projectId'])" class="link">
+                          {{rowData['projectCode']}}
+                        </span>
+                      </td>
+                      <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                        [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.width }">
+                        <span class="ui-column-title">{{col.header}}</span>
+                        <span *ngSwitchCase="'butget'">
+                          {{rowData[col.field] | number}}
+                        </span>
+                        <span *ngSwitchCase="'projectStatusName'"
+                          [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}" style="display: inline-block;
+                              padding: 3px 3px;
+                              color: white;
+                              width: 115px;">
+                          {{rowData[col.field]}}
+                        </span>
+                        <span *ngSwitchCase="'projectStartDate'">
+                          {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+                        </span>
+                        <span *ngSwitchCase="'projectEndDate'">
+                          {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+                        </span>
+                        <span *ngSwitchCase="'actualStartDate'">
+                          {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+                        </span>
+                        <span *ngSwitchCase="'actualEndDate'">
+                          {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+                        </span>
+                        <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+              <div *ngIf="!(listProjectHUY.length > 0)" class="col-md-12 no-padding no-data">
+                <div class="box-no-data">
+                  <img src="/assets/icons/components/box.svg" class="box-icon">
+                  <div>
+                    <span>Hiện tại không có dữ liệu</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+
+
+
+    <!-- BỘ LỌC -->
+    <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Trạng thái</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listStatus" [(ngModel)]="selectedStatus" defaultLabel="Chọn trạng thái"
+              optionLabel="categoryName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} trạng thái được chọn"></p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Loại dự án</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listProjectType" [(ngModel)]="selectedProjectType" defaultLabel="Chọn loại dự án"
+              optionLabel="categoryName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} loại dự án được chọn"></p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Người quản lý</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listEmployee" [(ngModel)]="selectedEmployee" defaultLabel="Chọn người quản lý"
+              optionLabel="employeeCodeName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} người QL được chọn"></p-multiSelect>
+          </div>
+        </div>
+
+        <!-- <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Mã dự án</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="quote-code-text" placeholder="Nhập mã dự án" [(ngModel)]="projectCode">
+          </div>
+        </div> -->
+
+        <!-- <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Tên dự án</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="quote-code-text" placeholder="Nhập tên dự án" [(ngModel)]="projectName">
+          </div>
+        </div> -->
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày bắt đầu dự tính</span>
+          </div>
+          <div class="row no-margin pb-1">
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="projectStartS" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [maxDate]="projectStartE" placeholder="Từ ngày"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="projectStartE" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [minDate]="projectStartS" placeholder="Đến ngày"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày kết thúc dự tính</span>
+          </div>
+          <div class="row no-margin pb-1">
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="projectEndS" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [maxDate]="endDate" placeholder="Từ ngày"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="projectEndE" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [minDate]="startDate" placeholder="Đến ngày"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày bắt đầu thực tế</span>
+          </div>
+          <div class="row no-margin pb-1">
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="actualStartS" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [maxDate]="actualEnd" placeholder="Từ ngày"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="actualStartE" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [minDate]="actualStart" placeholder="Đến ngày"
+                showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Thời gian dự tính thực hiện</span>
+          </div>
+          <div class="row no-margin pb-1">
+            <div class="col-md-6">
+              <input type="text" class="quote-code-text" placeholder="Nhập mã dự án" [(ngModel)]="estimateCompleteTimeS"
+                [cleave]="{numeral: true, numeralPositiveOnly: true}">
+            </div>
+
+            <div class="col-md-6">
+              <input type="text" class="quote-code-text" placeholder="Nhập mã dự án" [(ngModel)]="estimateCompleteTimeE"
+                [cleave]="{numeral: true, numeralPositiveOnly: true}">
+            </div>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ước tính tỉ lệ hoàn thành</span>
+          </div>
+          <div class="row no-margin pb-1">
+            <div class="col-md-6">
+              <input type="text" class="quote-code-text" placeholder="Nhập mã dự án" [(ngModel)]="completeRateS"
+                [cleave]="{numeral: true, numeralPositiveOnly: true}">
+            </div>
+
+            <div class="col-md-6">
+              <input type="text" class="quote-code-text" placeholder="Nhập mã dự án" [(ngModel)]="completeRateE"
+                [cleave]="{numeral: true, numeralPositiveOnly: true}">
+            </div>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5" style="text-align: right;">
+            <button type="button" class="btn-search" (click)="searchProject()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

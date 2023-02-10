@@ -1,0 +1,404 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+
+<div class="phieu-luong">
+  <div class="row no-margin" id="parent">
+    <div class="col-md-12 header" style="padding: 6px;">
+      <div class="row">
+        <div class="col-md-6 no-padding">
+          <div class="row no-margin">
+            <div class="col-md-1 col-sm-1 col-xs-3">
+              <div class="header-box-icon">
+                <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+              </div>
+            </div>
+            <div class="col-md-11 col-sm-10 col-xs-9 no-margin no-padding">
+              <div>
+                <span class="customer-name">Chi tiết phiếu lương</span>
+              </div>
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12" style="display: flex; justify-content: flex-end; margin-top: 5px;">
+              <button type="button" class="btn-back" (click)="goBackToList()">
+                <span class="btn-back-text">Thoát</span>
+              </button>
+
+              <button (click)="exportFile()" type="button" class="btn-back">
+                <span class="btn-back-text">Xuất file</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" id="parent">
+    <div *ngIf="data!=null" class="col-md-12" style="padding: 30px 12%;">
+      <table id="table1" style="width:100%;">
+        <tr>
+          <td style="width:60%;">
+            <span class="titlename">{{titleName[0]}}</span>
+            <span class="eng-titlename">{{engTitleName[0]}}: </span>
+            <span class="data"> {{data?.employeeName}}</span>
+          </td>
+          <td style="width:40%;">
+            <span class="titlename">{{titleName[1]}}</span>
+            <span class="eng-titlename">{{engTitleName[1]}}: </span>
+            <span class="data"> {{data?.employeeCode}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:60%;">
+            <span class="titlename">{{titleName[2]}}</span>
+            <span class="data"> {{data?.workEmail}}</span>
+          </td>
+          <td style="width:40%;">
+            <span class="titlename">{{titleName[3]}}</span>
+            <span class="eng-titlename">{{engTitleName[3]}}: </span>
+            <span class="data"> {{data?.soNgayLamViec | number}}</span>
+          </td>
+        </tr>
+      </table>
+      <table id="table2" style="width:100%;">
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[4]}}</span>
+            <span class="eng-titlename">{{engTitleName[4]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data">{{data?.luongCoBan | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[5]}}</span>
+            <span class="eng-titlename">{{engTitleName[5]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data">{{data?.luongCoBanSau | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[6]}}</span>
+            <span class="eng-titlename">{{engTitleName[6]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data">{{data?.mucDieuChinh | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[7]}}</span>
+            <span class="eng-titlename"> {{engTitleName[7]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data">{{data?.ngayLamViecThucTe | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[8]}}</span>
+            <span class="eng-titlename"> {{engTitleName[8]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.ngayNghiPhep | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[9]}}</span>
+            <span class="eng-titlename"> {{engTitleName[9]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.ngayNghiLe | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[10]}}</span>
+            <span class="eng-titlename"> {{engTitleName[10]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.ngayNghiKhongLuong | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[11]}}</span>
+            <span class="eng-titlename"> {{engTitleName[11]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.ngayDmvs | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[12]}}</span>
+            <span class="eng-titlename"> {{engTitleName[12]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.ngayKhongHuongChuyenCan | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[13]}}</span>
+            <span class="eng-titlename"> {{engTitleName[13]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.duocHuongTroCapKpi}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[14]}}</span>
+            <span class="eng-titlename"> {{engTitleName[14]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.soLuongDkGiamTruGiaCanh | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[15]}}</span>
+            <span class="eng-titlename"> {{engTitleName[15]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.giamTruGiaCanh | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-header">{{titleName[16]}}</span>
+            <span class="eng-titlename-header"> {{engTitleName[16]}}</span>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[17]}}</span>
+            <span class="eng-titlename"> {{engTitleName[17]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.luongTheoNgayHocViec | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[18]}}</span>
+            <span class="eng-titlename"> {{engTitleName[18]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.troCapDiLai | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[19]}}</span>
+            <span class="eng-titlename"> {{engTitleName[19]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.troCapDienThoai | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[20]}}</span>
+            <span class="eng-titlename"> {{engTitleName[20]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.troCapAnTrua | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[21]}}</span>
+            <span class="eng-titlename"> {{engTitleName[21]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.troCapNhaO | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[22]}}</span>
+            <span class="eng-titlename"> {{engTitleName[22]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.troCapChuyenCan | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[23]}}</span>
+            <span class="eng-titlename"> {{engTitleName[23]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.thuongKpi | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[24]}}</span>
+            <span class="eng-titlename"> {{engTitleName[24]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.thuongCuoiNam | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[25]}}</span>
+            <span class="eng-titlename"> {{engTitleName[25]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.troCapTrachNhiem | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[26]}}</span>
+            <span class="eng-titlename"> {{engTitleName[26]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.troCapHocViec | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[27]}}</span>
+            <span class="eng-titlename"> {{engTitleName[27]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.otTinhThue | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[28]}}</span>
+            <span class="eng-titlename"> {{engTitleName[28]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.otKhongTinhThue | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename">{{titleName[29]}}</span>
+            <span class="eng-titlename"> {{engTitleName[29]}}</span>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[30]}}</span>
+            <span class="eng-titlename"> {{engTitleName[30]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.luongThang13 | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[31]}}</span>
+            <span class="eng-titlename"> {{engTitleName[31]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.quaBocTham | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-header">{{titleName[32]}}</span>
+            <span class="eng-titlename-header"> {{engTitleName[32]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"></span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[33]}}</span>
+            <span class="eng-titlename"> {{engTitleName[33]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.tongThueTncn | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[34]}}</span>
+            <span class="eng-titlename"> {{engTitleName[34]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.baoHiem | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-header">{{titleName[35]}}</span>
+            <span class="eng-titlename-header"> {{engTitleName[35]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.thucNhan | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-header">{{titleName[36]}}</span>
+            <span class="eng-titlename-header"> {{engTitleName[36]}}</span>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[37]}}</span>
+            <span class="eng-titlename"> {{engTitleName[37]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.ctyTraBh | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-normal">{{titleName[38]}}</span>
+            <span class="eng-titlename"> {{engTitleName[38]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.kinhPhiCongDoan | number}}</span>
+          </td>
+        </tr>
+        <tr>
+          <td style="width:80%;">
+            <span class="titlename-header">{{titleName[39]}}</span>
+            <span class="eng-titlename-header"> {{engTitleName[39]}}</span>
+          </td>
+          <td style="width:20%;">
+            <span class="data"> {{data?.tongChiPhiNhanVien | number}}</span>
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+    <div *ngIf="data==null" class="col-md-12 no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

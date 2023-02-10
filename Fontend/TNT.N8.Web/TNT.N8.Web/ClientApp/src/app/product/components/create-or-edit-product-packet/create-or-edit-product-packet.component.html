@@ -1,0 +1,931 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không"></p-confirmDialog>
+
+<!-- Card-body -->
+<card-body>
+    <sub-header>
+        <ng-container iconSubHeader>
+            <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+        </ng-container>
+        <ng-container subHeaderTitle>
+            Chi tiết gói dịch vụ
+        </ng-container>
+        <ng-container actions>
+            <div class="actions">
+                <button type="button" 
+                    class="btn-back"
+                    [routerLink]="'/product/list-product-packet'"
+                    >
+                <span class="text-black">Quay lại</span>
+                </button>
+                <button type="button" class="btn-primary btn-save"
+                    [disabled]="!formServicePacket.form.valid" 
+                    (click)="save()"
+                    >
+                    <span class="text-white">Lưu</span>
+                </button>
+            </div>
+        </ng-container>
+    </sub-header>
+
+    <p-tabView>
+        <!-- Thông tin chung -->
+        <p-tabPanel header="Thông tin chung">
+            <form #formServicePacket="ngForm" novalidate autocomplete="off">
+                <h5 class="service-infor font-weight-bold">
+                    <p>Thông tin chung </p>
+                </h5>
+                <div class="row">
+                    <div class="col-md-4" style="text-align: -webkit-center;">
+                        <p class="description font-weight-bold">
+                            Icon (200px X 200px)
+                        </p>
+                        <div class="image" [ngClass]="ratioIconImage == '2:1' ? 'wh375-188' : ratioIconImage == '1:2' ? 'wh188-375' : 'wh375-375'">
+                            <img [src]="base64Icon != undefined ? base64Icon : '/assets/images/no-product-image.jpg'">
+                        </div>
+                        <div [ngClass]="ratioIconImage == '2:1' ? 'w188' : ratioIconImage == '1:2' ? 'w188' : 'w188'">
+                            <p-fileUpload 
+                                name="demo[]" 
+                                customUpload="true"
+                                [showCancelButton]="false" 
+                                (uploadHandler)="uploadIcon($event)" 
+                                (onRemove)="removeIcon()"
+                                chooseLabel="Chọn file" 
+                                cancelLabel="Hủy file" 
+                                uploadLabel="Lưu" 
+                                accept="image/*"
+                                maxFileSize="10000000"
+                                >
+                            </p-fileUpload>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <p class="description font-weight-bold">
+                                Ảnh chính (188px X 375px)
+                            </p>
+                            <div class="image" [ngClass]=" ratioMainImage == '2:1' ? 'wh375-188' : ratioMainImage == '1:2' ? 'wh188-375' : 'wh375-375'">
+                                <img [src]="base64MainImage != undefined ? base64MainImage : '/assets/images/no-product-image.jpg'">
+                            </div>
+                            <div [ngClass]="ratioMainImage == '2:1' ? 'w375' : ratioMainImage == '1:2' ? 'w188' : 'w375'">
+                                <p-fileUpload 
+                                    name="demo[]" 
+                                    customUpload="true"
+                                    [showCancelButton]="false" 
+                                    (uploadHandler)="uploadMainImage($event)" 
+                                    (onRemove)="removeMainImage()"
+                                    chooseLabel="Chọn file" 
+                                    cancelLabel="Hủy file" 
+                                    uploadLabel="Lưu" 
+                                    accept="image/*"
+                                    maxFileSize="10000000"
+                                    >
+                                </p-fileUpload>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <p class="description font-weight-bold">
+                            Ảnh nền (188px X 375px)
+                        </p>
+                        <div class="image" [ngClass]="ratioBackgroundImage == '2:1' ? 'wh375-188' : ratioBackgroundImage == '1:2' ? 'wh188-375' : 'wh375-375'">
+                            <img [src]="base64BackgroundImage != undefined ? base64BackgroundImage : '/assets/images/no-product-image.jpg'">
+                        </div>
+                        <div [ngClass]="ratioBackgroundImage == '2:1' ? 'w375' : ratioBackgroundImage == '1:2' ? 'w188' : 'w375'">
+                            <p-fileUpload 
+                                name="demo[]" 
+                                customUpload="true"
+                                [showCancelButton]="false" 
+                                (uploadHandler)="uploadBackgroundImage($event)" 
+                                (onRemove)="removeBackgroundImage()"
+                                chooseLabel="Chọn file" 
+                                cancelLabel="Hủy file" 
+                                uploadLabel="Lưu" 
+                                accept="image/*"
+                                maxFileSize="10000000"
+                                >
+                            </p-fileUpload>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row pt-15">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-2" *ngIf="servicePacketEntityModel.code">
+                                <div class="form-group">
+                                    <p class="service-type font-weight-bold">
+                                        Mã gói dịch vụ
+                                    </p>
+                                    <input type="text" 
+                                        class="form-control" 
+                                        name="Code" 
+                                        required
+                                        [readOnly]="true"
+                                        autocomplete="off" 
+                                        [(ngModel)]="servicePacketEntityModel.code"
+                                    >
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <p class="service-type font-weight-bold">
+                                        Loại gói dịch vụ <span class="text-danger">*</span>
+                                    </p>
+                                    <p-dropdown 
+                                        [options]="listProductCategoryEntityModel" 
+                                        [(ngModel)]="productCategoryEntityModel"
+                                        [filter]="true" 
+                                        [style]="{'width': '100%'}"
+                                        optionLabel="productCategoryName" 
+                                        (onChange)="changeProductCategory($event.value)"
+                                        [ngModelOptions]="{standalone: true}"
+                                        placeholder="Chọn loại gói dịch vụ" 
+                                        required
+                                        >
+                                    </p-dropdown>
+                                    <p *ngIf="showErrorProductCategoryEntityModel" class="text-danger">Chọn loại gói dịch vụ</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <p class="service-type font-weight-bold">
+                                        Tên gọi gói dịch vụ <span class="text-danger">*</span>
+                                    </p>
+                                    <input type="text" 
+                                        class="form-control" 
+                                        #productName="ngModel" 
+                                        name="ProductName" 
+                                        required
+                                        autocomplete="off" 
+                                        [(ngModel)]="servicePacketEntityModel.name"
+                                    >
+                                    <validation-messages 
+                                        [formCtrl]="productName"
+                                        [customMessage]="[{error:'required', message:('Tên dịch vụ không được để trống')}]"
+                                        >
+                                    </validation-messages>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <p class="service-type font-weight-bold">
+                                        Khu vực áp dụng <span class="text-danger">*</span>
+                                    </p>
+                                    <p-dropdown 
+                                        [options]="listProvince" 
+                                        [(ngModel)]="provinceEntityModel"
+                                        [filter]="true" 
+                                        [style]="{'width': '100%'}"
+                                        optionLabel="provinceName" 
+                                        (onChange)="changeProvince($event.value)"
+                                        [ngModelOptions]="{standalone: true}"
+                                        placeholder="Chọn khu vực áp dụng" 
+                                        required
+                                        >
+                                    </p-dropdown>
+                                    <p *ngIf="showErrorProvinceEntityModel" class="text-danger">Chọn khu vực áp dụng</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p class="description font-weight-bold">
+                                Mô tả <span class="text-danger">*</span>
+                            </p>
+                            <p-editor #description="ngModel" 
+                                name="Description" 
+                                required
+                                [(ngModel)]="servicePacketEntityModel.description" 
+                                [style]="{'height':'180px', 'width': '100%'}"
+                                >
+                            </p-editor>
+                            <validation-messages 
+                                [formCtrl]="description"
+                                [customMessage]="[{error:'required', message:('Mô tả không được để trống')}]">
+                            </validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <p class="message font-weight-bold">
+                                Mẫu tin cảm ơn <span class="text-danger">*</span>
+                            </p>
+                            <p-editor 
+                                #message="ngModel" 
+                                name="Message" 
+                                required 
+                                [(ngModel)]="servicePacketEntityModel.message"
+                                [style]="{'height':'180px', 'width': '100%'}"
+                                >
+                            </p-editor>
+                            <validation-messages 
+                                [formCtrl]="message"
+                                [customMessage]="[{error:'required', message:('Mô tả không được để trống')}]"
+                                >
+                            </validation-messages>
+                        </div>
+                    </div>
+                </div> -->
+            </form>
+
+            <!-- TreeNode -->
+            <div class="row" *ngIf="servicePacketId">
+                <div class="col-md-12">
+                    <p class="description font-weight-bold">
+                        Dịch vụ
+                    </p>
+                    <button type="button"
+                        class="btn-edit"
+                        (click)="addOption(undefined, 'add')"
+                        >
+                        <span class="text-white" > + Thêm dịch vụ</span>
+                    </button>
+                    <p-treeTable [value]="listOptionTreeNode" [columns]="colOptions" dataKey="id">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th *ngFor="let col of columns">
+                                    {{col.header}}
+                                </th>
+                                <th style="text-align: center; width: 12rem;">
+                                    <span>Thao tác</span>
+                                </th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                            <tr>
+                                <td *ngFor="let col of columns; let i = index" [ngStyle]="{ 'width': '100%'}">
+                                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                                    <b>{{ rowData[col.field] }}</b>
+                                </td>
+                                <td class="text-center">
+                                    <button pButton type="button" 
+                                        icon="pi pi-pencil"
+                                        class="ui-button-info margin-btn"
+                                        matTooltip="Chỉnh sửa"
+                                        (click)="editOption(rowNode, 'edit')" 
+                                        >
+                                    </button>
+                                    <button pButton type="button" 
+                                        icon="pi pi-plus" 
+                                        class="ui-button-info margin-btn"
+                                        matTooltip="Thêm dịch vụ con"
+                                        (click)="addOption(rowData, 'add')" 
+                                        >
+                                    </button>
+                                    <button class="ui-button-danger margin-btn" 
+                                        pButton 
+                                        icon="pi pi-trash"
+                                        matTooltip="Xóa dịch vụ"
+                                        (click)="deleteOption(rowData['id'])"
+                                        >
+                                    </button>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-treeTable>
+                </div>
+            </div>
+        </p-tabPanel>
+
+        <!-- Thông tin bổ sung -->
+        <p-tabPanel header="Thông tin bổ sung">
+        <div class="row no-margin">
+            <div class="actions">
+                <button type="button" 
+                    class="btn-edit" 
+                    (click)="openModalAttr()"
+                    >
+                    <span class="text-white" > + Thêm mới</span>
+                </button>
+            </div>
+            <div>
+                <p-table #dt 
+                    [columns]="colsAttr" 
+                    [value]="listServicePacketAttributeEntityModel" 
+                    [resizableColumns]="true"
+                    columnResizeMode="expand" 
+                    [rowsPerPageOptions]="[10, 20, 30]" 
+                    [paginator]="true" 
+                    [filterDelay]="0"
+                    [rows]="rows"
+                    >
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th style="width: 3.5em; text-align: center;">
+                                #
+                            </th>
+                            <th *ngFor="let col of columns">
+                                {{col.header}}
+                            </th>
+                            <th style="text-align: center; width: 10rem;">
+                                <span>Thao tác</span>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-index="rowIndex" let-columns="columns">
+                        <tr>
+                            <td style="text-align: center;">
+                                {{index + 1}}
+                            </td>
+                            <td *ngFor="let col of columns">
+                                {{rowData[col.field]}}
+                            </td>
+                            <td style="text-align: center;  width: 10rem;">
+                                <button class="ui-button-danger" 
+                                    pButton icon="pi pi-trash" 
+                                    (click)="deleteAttr(rowData)"
+                                    >
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+        </p-tabPanel>
+
+        <!-- Cấu hình phân quyền -->
+        <p-tabPanel header="Cấu hình phân quyền">
+        <div class="row no-margin">
+            <div class="col-md-6">
+                <p class="service-type font-weight-bold" style="width: 150px;float:left;">
+                    Quản lý dịch vụ
+                </p>
+                    <p-multiSelect 
+                        [options]="listEmpWithRole"
+                        [(ngModel)]="listManager"
+                        [style]="{'width': '250px'}"
+                        [id]="'EmployeeName'"
+                        [name]="'EmployeeName'"
+                        optionLabel="employeeName"
+                        selectedItemsLabel="{0} quản lý được chọn"
+                        itemSize="30"
+                        defaultLabel="Chọn quản lý dịch vụ"
+                        >
+                    </p-multiSelect>
+            </div>
+            <div class="col-md-6">
+                <button type="button"  style="float:right;"
+                    class="btn-edit" 
+                    (click)="addStepServicePacket()"
+                    >
+                    <span class="text-white">+ Thêm mới</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="row no-margin">
+            <div class="col-md-1">
+                <p class="service-type font-weight-bold">
+                    Số thứ tự :
+                </p>
+            </div>
+            <div class="col-md-4">
+                <p class="service-type font-weight-bold">
+                    Tên bước :
+                </p>
+            </div>
+            <div class="col-md-3">
+                <p class="service-type font-weight-bold">
+                    Chọn nhóm quyền :
+                </p>
+            </div>
+            <div class="col-md-4">
+                <p class="service-type font-weight-bold">
+                    Chọn nhân viên :
+                </p>
+            </div>
+        </div>
+        <div class="row no-margin padding-10" *ngFor="let step of listServicePacketConfigurationPermissionModel; let i = index; count as total; first as isFirst; last as isLast;">
+            <div class="col-md-1">
+                <div class="step" >
+                    <div class="form-group">
+                        <input type="number" 
+                            class="form-control"
+                            [id]="'StepName'+ step.stepId" 
+                            [name]="'StepName'+ step.stepId"
+                            [ngModel]="step.stepId"
+                            (input)="changeStep($event.target.value, step)"
+                            [readOnly]="!step.isEdit"
+                            required
+                            autocomplete="off"
+                            >
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="step" >
+                    <div class="form-group">
+                        <input type="text" *ngIf="!step.isEdit"
+                          class="form-control"
+                          [id]="'StepName'+ step.stepId"
+                          [name]="'StepName'+ step.stepId"
+                          [(ngModel)]="step.categoryName"
+                          [readOnly]="!step.isEdit"
+                          required
+                          autocomplete="off"
+                        >
+
+                        <p-dropdown *ngIf="step.isEdit"
+                            [options]="listStepServicePacketSelect" 
+                            [(ngModel)]="step.stepServicePacketSelect"
+                            [filter]="true"
+                            [id]="'Role'+ step.stepId"
+                            [name]="'Role'+ step.stepId"
+                            [style]="{'width': '100%'}"
+                            optionLabel="categoryName" 
+                            [placeholder]="'Chọn nhóm quyền'" 
+                            (onChange)="selectRole($event.value, step)"
+                            required
+                            >
+                        </p-dropdown>
+                      </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group position-relative">
+                    <p-dropdown 
+                        [options]="listRoleServicePacket"
+                        [(ngModel)]="step.objectRole"
+                        [filter]="true"
+                        [id]="'Role'+ step.stepId"
+                        [name]="'Role'+ step.stepId"
+                        [style]="{'width': '100%'}"
+                        optionLabel="roleValue" 
+                        (onChange)="changeRole($event.value, step)"
+                        [placeholder]="'Chọn nhóm quyền'" 
+                        required
+                        >
+                    </p-dropdown>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div [ngClass]="step.isEdit ? 'row' : ''">
+                    <div [ngClass]="step.isEdit ? 'col-md-10 pr-0' : ''">
+                        <div class="form-group position-relative">
+                            <p-multiSelect 
+                                [options]="step.listEmployeeEntityModelByRoleId"
+                                [(ngModel)]="step.listEmployeeEntityModel"
+                                (onChange)="selectEmp($event.value, step)"
+                                [style]="{'width': '100%'}"
+                                [id]="'EmployeeName'+ step.stepId"
+                                [name]="'EmployeeName'+ step.stepId"
+                                optionLabel="employeeName"
+                                selectedItemsLabel="{0} cột được chọn"
+                                itemSize="30"
+                                defaultLabel="Nhân viên thực hiện"
+                                >
+                            </p-multiSelect>
+                        </div>
+                    </div>
+                    <div [ngClass]="step.isEdit ? 'col-md-2' : ''">
+                    <button *ngIf="step.isEdit"
+                        type="button" 
+                        class="btn-danger"
+                        (click)="deleteRole(step)"
+                        >
+                        <span class="text-white">Xóa</span>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </p-tabPanel>
+
+        <!-- Cấu hình thông báo -->
+        <p-tabPanel header="Cấu hình thông báo">
+            <div class="row table-padding">
+                <p-table #dt 
+                    [columns]="colsNotiConfig" 
+                    [value]="listNotificationConfigurationModel" 
+                    [resizableColumns]="true" columnResizeMode="expand"
+                    [rowsPerPageOptions]="[13]" 
+                    [paginator]="false" 
+                    [filterDelay]="0" 
+                    [rows]="rows"
+                    >
+                    <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                            {{col.header}}
+                        </th>
+                        <th style="text-align: center; width: 10rem;">
+                            <span>Thao tác</span>
+                        </th>
+                    </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-idx ="rowIndex" let-rowData let-columns="columns">
+                    <tr *ngIf="idx == 0">
+                        <td colspan="3" style="font-weight:bold">Yêu cầu dịch vụ/bổ sung dịch vụ</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr *ngIf="idx == 7">
+                        <td colspan="3" style="font-weight:bold">Hỗ trợ dịch vụ</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr *ngIf="idx == 12">
+                        <td colspan="3" style="font-weight:bold">Quản lý đặt dịch vụ</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td *ngFor="let col of columns"
+                            [ngStyle]="{'width': col.width}"
+                            [ngSwitch]="col.field"
+                        >
+                            <span class="Notification-Recipient" *ngSwitchCase="'notificationRecipient'">
+                                {{rowData[col.field]}}
+                            </span>
+                            <span *ngSwitchDefault>
+                                {{rowData[col.field]}}
+                            </span>
+                        </td>
+                        <td style="text-align: center;  width: 10rem;">
+                            <button pButton type="button" 
+                            icon="pi pi-pencil"
+                            class="ui-button-info margin-btn"
+                            matTooltip="Chỉnh sửa"
+                            (click)="showModalNotiConfig(rowData)"
+                            >
+                        </button>
+                        </td>
+                    </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </p-tabPanel>
+
+        <!-- Cấu hình phê duyệt -->
+        <p-tabPanel header="Cấu hình phê duyệt" *ngIf="servicePacketEntityModel.id" class="chi-tiet-qt">
+
+            <div class="row no-margin">
+                <div class="col-md-12 mt-10">
+                  <button type="button" (click)="themBuoc()"  
+                    pTooltip="Thêm bước" appendTo="body" tooltipZIndex="99999"
+                    [tooltipDisabled]="false" class="btn-plus">
+                    <i class="pi pi-plus icon-plus"></i>
+                  </button>
+                </div>
+            
+                <div class="col-md-12 mt-10" [formGroup]="form" *ngIf="quyTrinh.controls.length != 0">
+                  <ng-container formArrayName="quyTrinh">
+                    <ng-container *ngFor="let rowForm of quyTrinh.controls; let i = index">
+                      <div [formGroup]="rowForm">
+                        <div class="row mt-20">
+                          <div class="col-md-3">
+                            {{ 'Phê duyệt lần ' + (i + 1) }}
+                          </div>
+                          <div class="col-md-5">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <p-dropdown [options]="listLoaiPheDuyet" formControlName="loaiPheDuyet"
+                                  [filter]="true" [resetFilterOnHide]="true"
+                                  placeholder="Chọn loại phê duyệt" optionLabel="name" [style]="{'width': '100%'}"
+                                  (onChange)="changeLoaiPheDuyet(i)"
+                                  [styleClass]="quyTrinh.controls[i].get('loaiPheDuyet').touched && quyTrinh.controls[i].get('loaiPheDuyet').errors?.required ? 'error-border': ''"
+                                >
+                                </p-dropdown>
+                              </div>
+                              <div *ngIf="quyTrinh.controls[i].get('loaiPheDuyet').value && quyTrinh.controls[i].get('loaiPheDuyet').value?.value == 2" class="col-md-12 mt-10">
+                                <p-chips formControlName="phongBan" [style]="{'width': '100%'}">
+                                </p-chips>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-2">
+                            <ng-container *ngIf="quyTrinh.controls[i].get('loaiPheDuyet').value && quyTrinh.controls[i].get('loaiPheDuyet').value?.value == 2">
+                              <span class="hyperlink" (click)="openPopup(i)">Chọn phòng ban</span>
+                            </ng-container>
+                          </div>
+                          <div class="col-md-2">
+                            <button type="button" (click)="xoaBuoc(i)"  
+                              pTooltip="Xóa bước" appendTo="body" tooltipZIndex="99999"
+                              [tooltipDisabled]="false" class="btn-minus">
+                              <i class="pi pi-minus icon-plus"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                </div>
+            </div>
+            
+        </p-tabPanel>
+        
+    </p-tabView> 
+</card-body>
+
+
+<!-- Modal thuộc tính -->
+<p-dialog [(visible)]="showModalAttr" [modal]="true" [style]="{width: '30vw'}" [draggable]="false" [resizable]="false"
+  [closable]="false">
+  <p-header>Thêm mới thuộc tính</p-header>
+
+  <div class="row no-margin row-dialog">
+    <div class="col-md-12">
+      <div class="form-group">
+        <p class="service-type font-weight-bold">
+          Thuộc tính dịch vụ <span class="text-danger">*</span>
+        </p>
+        <p-dropdown 
+            [options]="listAttrCategory" 
+            [filter]="true" 
+            [style]="{'width': '100%'}" optionLabel="categoryName"
+            appendTo="body" 
+            (onChange)="changeAttrName($event.value)" 
+            placeholder="Chọn thuộc tính" 
+            required
+            >
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin row-dialog">
+    <div class="col-md-12">
+      <div class="form-group">
+        <p class="service-type font-weight-bold">
+          Loại giá trị <span class="text-danger">*</span>
+        </p>
+        <p-dropdown 
+            [options]="listDataTypeAttr" 
+            [filter]="true" 
+            [style]="{'width': '100%'}" 
+            optionLabel="name"
+            appendTo="body" 
+            (onChange)="changeAttrDataType($event.value)" 
+            placeholder="Chọn loại giá trị" 
+            required
+          >
+        </p-dropdown>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button type="button" 
+        class="btn-back" 
+        (click)="closeModalAttr()"
+        >
+      <span class="text-black">Đóng</span>
+    </button>
+    <button type="button" 
+        class="btn-edit" 
+        (click)="addAttr()"
+        >
+      <span class="text-white">Thêm</span>
+    </button>
+  </div>
+</p-dialog>
+
+<!-- Modal dịch vụ -->
+<p-dialog [(visible)]="showModalOption" [modal]="true" [style]="{width: '30vw', 'max-height': '550px'}" [draggable]="false" [resizable]="false">
+    <p-header> {{editServicePMOption ? 'Chỉnh sửa' : 'Thêm mới'}} Dịch vụ</p-header>
+    <div style="max-height:400px;overflow-y: scroll;max-width:30vw;">
+        <form #optionForm="ngForm">
+            <div class="row no-margin" *ngIf="showIsLastOption">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="container">Là dịch vụ cuối không?
+                            <input type="checkbox" 
+                            [(ngModel)]="isLastOption"
+                            name="IsLastOption"
+                            >
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row no-margin">
+                <div class="col-md-12">
+                    <p class="service-type font-weight-bold">
+                        Thứ tự <span class="text-danger">*</span>
+                    </p>
+                    <input type="number" 
+                        class="form-control" 
+                        name="SortOrder"
+                        #sortOrder="ngModel" 
+                        required
+                        autocomplete="off"
+                        [(ngModel)]="servicePacketMappingOptionsEntityModel.sortOrder"
+                    >
+                    <validation-messages 
+                        [formCtrl]="sortOrder"
+                        [customMessage]="[{error:'required', message:('Thứ tự không được để trống')}]"
+                        >
+                    </validation-messages>
+                </div>
+            </div>
+            
+            <div class="row no-margin">
+                <div class="col-md-12">
+                    <div class="form-group" *ngIf="isLastOption">
+                        <p class="service-type font-weight-bold">
+                            Chọn dịch vụ <span class="text-danger">*</span>
+                        </p>
+                        <p-dropdown 
+                            [options]="listOptionEntityModel" 
+                            [(ngModel)]="optionModelService"
+                            [filter]="true" 
+                            [style]="{'width': '100%'}"
+                            optionLabel="name" 
+                            (onChange)="changeOption($event.value)"
+                            placeholder="Chọn dịch vụ" 
+                            [ngModelOptions]="{standalone: true}"
+                            appendTo="body"
+                            [baseZIndex]="999999999"
+                            required
+                            >
+                        </p-dropdown>
+                        <p *ngIf="showErrorOptionModelService" class="text-danger">Chọn dịch vụ</p>
+                    </div>
+                    <div class="form-group" *ngIf="!isLastOption">
+                        <p class="service-type font-weight-bold">
+                            Tên dịch vụ <span class="text-danger">*</span>
+                        </p>
+                        <input type="text" 
+                            class="form-control" 
+                            #optionName="ngModel" 
+                            name="OptionName"
+                            required
+                            autocomplete="off"
+                            [(ngModel)]="servicePacketMappingOptionsEntityModel.name"
+                        >
+                        <validation-messages 
+                            [formCtrl]="optionName"
+                            [customMessage]="[{error:'required', message:('Tên dịch vụ không được để trống')}]"
+                            >
+                        </validation-messages>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row no-margin" *ngIf="servicePrice && isLastOption && optionModelService">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <p class="service-type font-weight-bold">
+                            Đơn giá
+                        </p>
+                        <input type="text" 
+                            class="form-control" 
+                            name="OptionPrice"
+                            [readOnly]="true"
+                            autocomplete="off"
+                            [(ngModel)]="servicePrice"
+                        >
+                    </div>
+                </div>
+            </div>
+    
+            <div class="row no-margin" *ngIf="serviceDescription && isLastOption && optionModelService">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <p class="service-type font-weight-bold">
+                            Mô tả
+                        </p>
+                        <div [innerHTML]="serviceDescription" class="w100"></div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <p-footer>
+        <div class="actions">
+            <button 
+                type="button" 
+                class="btn-back" 
+                (click)="closeModalOption()"
+                >
+                <span class="text-black">Hủy</span>
+            </button>
+            <button type="button" 
+                class="btn-edit"
+                [disabled]="!optionForm.form.valid"
+                (click)="createServicePacketMappingOption()"
+                >
+                <span class="text-white">Lưu</span>
+            </button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+<!-- Modal cấu hình -->
+<p-dialog [(visible)]="showModalNoitiConfig" [modal]="true" [style]="{width: '40vw'}" [draggable]="false" [resizable]="false">
+    <p-header>Chọn danh sách người nhận thông báo</p-header>
+    <form #noitiConfigForm="ngForm">
+        <p class="font-weight-bold">Sự kiện</p>
+        <div class="noti-checkbox">
+            <p class="service-type font-weight-bold">
+                Thông báo cho:
+            </p>
+            <div class="row no-margin row-dialog row-checkbox">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="container">Người tạo phiếu yêu cầu dịch vụ (khách hàng hoặc nhân viên tư vấn)
+                            <input type="checkbox" 
+                                [(ngModel)]="notificationConfigurationEntityModel.serviceRequestMaker"
+                                name="ServiceRequestMaker"
+                            >
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="container">Quản lý dịch vụ
+                            <input type="checkbox" 
+                                [(ngModel)]="notificationConfigurationEntityModel.serviceManagement"
+                                name="ServiceManagement"
+                            >
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="notificationConfigurationEntityModel.sortOrder > 7">
+                    <div class="form-group">
+                        <label class="container">Người tạo phiếu hỗ trợ dịch vụ
+                            <input type="checkbox" 
+                                [(ngModel)]="notificationConfigurationEntityModel.serviceSupporter"
+                                name="ServiceSupporter"
+                            >
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="notificationConfigurationEntityModel.sortOrder > 7">
+                    <div class="form-group">
+                        <label class="container">Nhân viên hỗ trợ
+                            <input type="checkbox" 
+                                [(ngModel)]="notificationConfigurationEntityModel.supporter"
+                                name="Supporter"
+                            >
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-12" *ngIf="notificationConfigurationEntityModel.sortOrder > 7">
+                    <div class="form-group">
+                        <label class="container">Nhân viên báo cáo
+                            <input type="checkbox" 
+                                [(ngModel)]="notificationConfigurationEntityModel.reporter"
+                                name="Reporter"
+                            >
+                            <span class="checkmark"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <p class="service-type font-weight-bold">
+                Thông báo đặc biệt cho
+            </p>
+            <div class="form-group position-relative padding-bottom-160">
+                <p-multiSelect 
+                    [options]="listEmpWithRole"
+                    [(ngModel)]="notificationConfigurationEntityModel.listEmployeeEntityModel"
+                    [style]="{'width': '100%'}"
+                    [id]="'EmployeeName'"
+                    [name]="'EmployeeName'"
+                    optionLabel="employeeName"
+                    selectedItemsLabel="{0} cột được chọn"
+                    itemSize="30"
+                    defaultLabel="Chọn nhân viên"
+                    >
+                </p-multiSelect>
+            </div>
+        </div>
+        <div class="actions">
+            <button 
+                type="button" 
+                class="btn-back" 
+                (click)="showModalNoitiConfig = false"
+                >
+                <span class="text-black">Hủy</span>
+            </button>
+            <button type="button" 
+                class="btn-edit"
+                (click)="saveNotiConfig()"
+                >
+                <span class="text-white">Lưu</span>
+            </button>
+        </div>
+    </form>
+</p-dialog>

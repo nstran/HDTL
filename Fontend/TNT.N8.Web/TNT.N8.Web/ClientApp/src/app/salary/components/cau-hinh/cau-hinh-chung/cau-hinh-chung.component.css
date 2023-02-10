@@ -1,0 +1,49 @@
+.ch-chung .header-page {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  background-color: #fff;
+  border: 1px solid #dde1e6;
+  border-radius: 5px;
+  background-image: linear-gradient(to top, #f2f4f8, #dde1e6);
+  border-bottom: 0;
+}
+
+.ch-chung .header-box-icon {
+  display: inline-flex;
+}
+
+.ch-chung .header-icon {
+  width: 25px;
+  height: 25px;
+}
+
+.ch-chung .page-title {
+  font-weight: 700;
+  font-size: 18px;
+  padding-left: 0.5em;
+}
+
+.ch-chung .mt-10 {
+  margin-top: 10px;
+}
+
+.ch-chung .mt-35 {
+  margin-top: 35px;
+}
+
+.ch-chung .header-section {
+  display    : flex;
+  align-items: center;
+}
+
+.ch-chung .input-disable {
+  opacity: 0.5;
+}
+
+.ch-chung .title-section {
+  font-size  : 16px;
+  font-weight: bold;
+}
+
+

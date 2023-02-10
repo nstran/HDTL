@@ -1,0 +1,146 @@
+.add-or-remove-task-milestone-dialog .top-buffer {
+    margin-top: 1.2rem;
+}
+
+.add-or-remove-task-milestone-dialog .bottom-buffer {
+    margin-bottom: 1.2rem;
+}
+
+.add-or-remove-task-milestone-dialog .full-width {
+    width: 100% !important;
+}
+
+.add-or-remove-task-milestone-dialog .buffer-bottom-label {
+    margin-bottom: 4px;
+}
+
+.add-or-remove-task-milestone-dialog .error-message-span, .add-or-remove-task-milestone-dialog .required {
+    color: red;
+}
+
+.add-or-remove-task-milestone-dialog .btn-remove {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+}
+
+.add-or-remove-task-milestone-dialog .btn-remove-text {
+    width: 24px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #121619;
+}
+
+.add-or-remove-task-milestone-dialog .btn-save {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border: solid 1px #cccccc;
+    margin-left: 5px;
+}
+
+.add-or-remove-task-milestone-dialog .btn-save-new {
+    width: 140px;
+    height: 32px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border: solid 1px #cccccc;
+    margin-left: 5px;
+}
+
+.add-or-remove-task-milestone-dialog .btn-save-text {
+    width: 24px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+.add-or-remove-task-milestone-dialog .w100 {
+    width: 100%;
+    height: 34px;
+}
+
+.add-or-remove-task-milestone-dialog .link {
+    font-family: 'Inter UI';
+    color: #007ad9;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.add-or-remove-task-milestone-dialog .box-header-group-btn {
+    text-align: right;
+    padding-top: 5px;
+}
+
+.add-or-remove-task-milestone-dialog .btn-filter {
+    width: 104px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #007aff;
+    background-color: #007aff;
+    margin-left: 5px;
+}
+
+.add-or-remove-task-milestone-dialog .link {
+    font-family: 'Inter UI';
+    color: #007ad9;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.add-or-remove-task-milestone-dialog .no-data {
+    height: 330px;
+    border: solid 1px #d7dbe0;
+    background-color: #f2f4f8;
+    text-align: center;
+}
+
+.add-or-remove-task-milestone-dialog .box-no-data {
+    position: relative;
+    top: 25%;
+}
+
+.add-or-remove-task-milestone-dialog .box-icon {
+    width: 57.1px;
+    height: 58px;
+    object-fit: contain;
+}
+
+.add-or-remove-task-milestone-dialog .iput-text {
+    width: 248px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #f2f4f8;
+    padding-left: 5px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+::ng-deep .add-or-remove-task-milestone-dialog .ui-datepicker {
+    top: 31px !important;
+}
+
+::ng-deep .add-or-remove-task-milestone-dialog .error-pcalendar .ui-inputtext {
+    border: 1px solid #f44336 !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset, 0 0 0.75rem #f4433685;
+}

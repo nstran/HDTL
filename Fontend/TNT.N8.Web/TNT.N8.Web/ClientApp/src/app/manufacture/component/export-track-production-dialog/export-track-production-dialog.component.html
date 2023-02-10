@@ -1,0 +1,49 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right" key="popup"></p-toast>
+
+<div class="export-track-production-dialog">
+  <div class="row no-margin">
+    <div *ngIf="listProductionOrder.length > 0">
+      <form [formGroup]="exportForm">
+        <div class="col-md-9">
+          <div class="row">
+            <div class="col-md-12 mt-5">
+              <span>Lệnh sản xuất</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect formControlName="ProductionOrderCode" [options]="listProductionOrder"
+                [styleClass]="(exportForm.get('ProductionOrderCode').invalid && (exportForm.get('ProductionOrderCode').dirty || exportForm.get('ProductionOrderCode').touched)) ? 'error-border' : ''"
+                defaultLabel="Chọn lệnh sản xuất" optionLabel="productionOrderCode" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} lệnh sản xuất được chọn"
+                [virtualScroll]="true" [itemSize]="30"></p-multiSelect>
+            </div>
+            <div class="col-md-12"
+              [hidden]="exportForm.get('ProductionOrderCode').valid || exportForm.get('ProductionOrderCode').untouched">
+              <span *ngIf="exportForm.get('ProductionOrderCode').hasError('required')" class="error-message-span">Không
+                được để trống</span>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="col-md-3" style="text-align: right; margin-top: 20px; display: flex;">
+        <button *ngIf="listProductionOrder.length > 0" class="save" type="button" (click)="exportReport()">
+          <span class="text-save">Tải xuống</span>
+        </button>
+      </div>
+    </div>
+    <div *ngIf="!(listProductionOrder.length > 0)" class="col-md-12 no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

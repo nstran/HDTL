@@ -1,0 +1,44 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{ width: '50px', height: '50px' }" strokeWidth="8" fill="#EEEEEE"
+        animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast key="popup" position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="project-scope">
+    <div class="row main-grid mt-30">
+        <div class="col-md-12">
+            <p-treeTable #treeTable [value]="listNoteProjectScope" [columns]="columns" selectionMode="single"
+                [(selection)]="selectedNode" dataKey="Id">
+                <ng-template pTemplate="header" let-columns>
+                    <tr [ttRow]="rowNode">
+                        <th *ngFor="let col of columns">
+                            {{col.header}}
+                        </th>
+                        <!-- <th style="text-align: center; width: 100px;">
+                            Thao tác
+                        </th> -->
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns; let i = index" [ngSwitch]="col.field"
+                            (click)="selectedScope(rowData)"
+                            [ngStyle]="{'width': col.width, 'display': col.display, 'text-align': col.textAlign }">
+                            <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                            <span *ngSwitchCase="'Name'">{{ rowData[col.field]}}</span>
+                        </td>
+                        <!-- <td style="text-align: center; width: 100px;">
+                            <p-button (onClick)="selectedScope(rowData)" icon="pi pi-check"></p-button>
+                        </td> -->
+                    </tr>
+                </ng-template>
+            </p-treeTable>
+        </div>
+    </div>
+</div>

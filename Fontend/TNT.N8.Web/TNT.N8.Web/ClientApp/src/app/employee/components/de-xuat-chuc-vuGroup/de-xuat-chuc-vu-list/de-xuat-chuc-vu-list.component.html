@@ -1,0 +1,247 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="employee-list">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="\assets\icons\components\noun_product.svg" class="noun-product">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title" style="width:100%!important">Danh sách đề xuất thay đổi chức vụ</div>
+                  <div class="box-header-subtitle">
+                    {{listDeXuatChucVu.length}} đầu mục - Sắp xếp theo ngày gần nhất - Cập nhật
+                    {{nowDate | date:'dd/MM/yyyy'}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12" style="text-align: right;">
+            <!-- <button type="button" class="export-exel"  (click)="exportExcel()">
+              <span class="export-exel-text">Xuất Excel</span>
+            </button> -->
+            <button type="button" class="btn-create" *ngIf="actionAdd" (click)="goToCreate()"><span class="btn-create-text">Tạo
+                mới</span></button>
+            <div style="clear: both;"></div>
+          </div>
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                <span class="btn-filter-text">Bộ lọc</span>
+              </button>
+              <input type="text" class="iput-text" [(ngModel)]="filterGlobal" placeholder="Tìm kiếm trong danh sách"
+                (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Người đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <p-dropdown [options]="listEmpAdd" optionLabel="employeeName" [style]="{'width': '100%'}" [filter]="true"
+              placeholder="Chọn người đề xuất" (keydown.enter)="$event.preventDefault()" [(ngModel)]="nguoiDeXuatId">
+            </p-dropdown>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Thời gian đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="thoiGianDeXuat" dateFormat="dd/mm/yy" placeholder="Chọn thời gian đề xuất"
+              showButtonBar="true" [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}"
+              [style]="{'width':'100%'}" [monthNavigator]="true" (keydown.enter)="$event.preventDefault()"
+              [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="body">
+            </p-calendar>
+
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Trạng thái đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <p-dropdown [options]="listTrangThai" optionLabel="name" [style]="{'width': '100%'}" [filter]="true"
+              placeholder="Chọn trạng thái" (keydown.enter)="$event.preventDefault()" [(ngModel)]="trangThai">
+            </p-dropdown>
+          </div>
+        </div>
+
+        <div class="row no-margin pb-1">
+          <div class="col-md-12 mt-5" style="text-align: right">
+            <button type="button" class="btn-search" (click)="searchEmployee()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="listDeXuatChucVu.length > 0" class="col-md-{{leftColNumber}}">
+      <p-table #myTable [columns]="selectedColumns" [value]="listDeXuatChucVu" sortMode="multiple"
+        [resizableColumns]="true" [(selection)]="selection" columnResizeMode="expand" [paginator]="true" [rows]="10"
+        [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+        <ng-template pTemplate="caption">
+          <div style="text-align: left;">
+            <p-multiSelect [options]="colsList" optionLabel="header" [(ngModel)]="selectedColumns"
+              [ngModelOptions]="{ standalone: true }" selectedItemsLabel="{0} cột được chọn"
+              [style]="{ minWidth: '200px' }" defaultLabel="Chọn cột"></p-multiSelect>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 3.5em; text-align: center;">
+              #
+            </th>
+            <!-- <th style="width: 3em;">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th> -->
+            <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+              [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th style="text-align: center; width: 10rem;">
+              <span>Thao tác</span>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td style="text-align: center;">
+              {{rowData.index}}
+            </td>
+            <!-- <td>
+              <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+            </td> -->
+            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+              [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+              <span class="ui-column-title">{{col.header}}</span>
+              <span *ngSwitchCase="'tenDeXuat'" (click)="onViewDetail(rowData)" class="link"
+                style="display: inline-block;padding: 3px 3px;">{{rowData[col.field]}}</span>
+              <span *ngSwitchCase="'trangThai'">
+                <span *ngIf="rowData[col.field] == 1" [ngStyle]="{'background-color': '#728da1'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Mới</span>
+                <span *ngIf="rowData[col.field] == 2" [ngStyle]="{'background-color': 'rgb(255, 192, 0)'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Chờ phê
+                  duyệt</span>
+                <span *ngIf="rowData[col.field] == 3" [ngStyle]="{'background-color': 'rgb(0, 122, 255)'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Đã
+                  duyệt</span>
+                <span *ngIf="rowData[col.field] == 4" [ngStyle]="{'background-color': 'red'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Từ
+                  chối</span>
+              </span>
+
+              <span *ngSwitchCase="'ngayDeXuat'">
+                {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+              </span>
+
+              <span *ngSwitchCase="'tongMucDeXuat'">
+                {{ rowData[col.field] | number: 0}}
+              </span>
+
+              <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+            </td>
+            <td style="text-align: center;  width: 10rem;">
+              <button *ngIf="(rowData['trangThai'] == 1 || rowData['trangThai'] ==  4) && actionDelete" class="ui-button-danger" pButton
+                icon="pi pi-trash" (click)="deleteDeXuat(rowData)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div *ngIf="!(listDeXuatChucVu.length > 0)" class="col-md-{{leftColNumber}} no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Không tìm thấy đề xuất thay đổi chức vụ nào</span>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Người đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <p-dropdown [options]="listEmpAdd" optionLabel="employeeName" [style]="{'width': '100%'}" [filter]="true"
+              placeholder="Chọn người đề xuất" (keydown.enter)="$event.preventDefault()" [(ngModel)]="nguoiDeXuatId">
+            </p-dropdown>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Thời gian đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="thoiGianDeXuat" dateFormat="dd/mm/yy" placeholder="Chọn thời gian đề xuất"
+              showButtonBar="true" [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}"
+              [style]="{'width':'100%'}" [monthNavigator]="true" (keydown.enter)="$event.preventDefault()"
+              [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="body">
+            </p-calendar>
+
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Trạng thái đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <p-dropdown [options]="listTrangThai" optionLabel="name" [style]="{'width': '100%'}" [filter]="true"
+              placeholder="Chọn trạng thái" (keydown.enter)="$event.preventDefault()" [(ngModel)]="trangThai">
+            </p-dropdown>
+          </div>
+        </div>
+
+        <div class="row no-margin pb-1">
+          <div class="col-md-12 mt-5" style="text-align: right">
+            <button type="button" class="btn-search" (click)="searchDeXuatTangLuong()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

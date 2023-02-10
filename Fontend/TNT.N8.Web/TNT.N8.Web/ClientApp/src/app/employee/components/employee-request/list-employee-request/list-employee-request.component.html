@@ -1,0 +1,270 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<div class="employee-request-list">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="\assets\icons\components\noun_product.svg" class="noun-product">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title">Danh sách đề xuất xin nghỉ</div>
+                  <div class="box-header-subtitle">
+                    {{listDeXuatXinNghi.length | number}} đầu mục - Sắp xếp theo ngày gần nhất - Cập nhật
+                    {{nowDate | date:'dd/MM/yyyy'}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12" style="text-align: right;">
+            <button type="button" class="btn-create" *ngIf="actionAdd && organizationId" (click)="goToCreate()">
+              <span class="btn-create-text">Tạo đề xuất</span>
+            </button>
+            <div style="clear: both;"></div>
+          </div>
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                <span class="btn-filter-text">Bộ lọc</span>
+              </button>
+              <input type="text" class="iput-text" [(ngModel)]="filterGlobal" placeholder="Tìm kiếm trong danh sách"
+                     (input)="myTable?.filterGlobal($event?.target?.value?.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Mã đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="employee-code-text" placeholder=""
+                   [(ngModel)]="code">
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Mã nhân viên được đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="employee-code-text" placeholder=""
+                   [(ngModel)]="employeeCode">
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Tên nhân viên được đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="employee-code-text" placeholder=""
+                   [(ngModel)]="employeeName">
+          </div>
+        </div>
+
+        <div *ngIf="isShowOrganization" class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Chọn đơn vị</span>
+            <a href="javascript:(0)" (click)="openOrgPopup()"> <u>(Xem sơ đồ tổ chức)</u></a>
+          </div>
+          <div class="col-md-12">
+            <input type="text" value="{{currentOrganizationName}}" placeholder="Chọn đơn vị"
+                   class="employee-code-text" disabled>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Trạng thái</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [(ngModel)]="listSelectedStatus" [options]="listStatus" defaultLabel="Chọn trạng thái"
+                           optionLabel="name" [style]="{'width': '100%'}" [resetFilterOnHide]="true" itemSize="30"
+                           [virtualScroll]="true" selectedItemsLabel="{0} trạng thái được chọn">
+            </p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Loại đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [(ngModel)]="listSelectedKyHieuChamCong" [options]="listKyHieuChamCong"
+                           defaultLabel="Chọn loại đề xuất" optionLabel="name" [style]="{'width': '100%'}"
+                           [resetFilterOnHide]="true" itemSize="30" [virtualScroll]="true" selectedItemsLabel="{0} loại đề xuất được chọn">
+            </p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin pb-1">
+          <div class="col-md-12 mt-5" style="text-align: right">
+            <button type="button" class="btn-search" (click)="searchEmployeeRequest()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="listDeXuatXinNghi.length" class="col-md-{{leftColNumber}}">
+      <p-table #myTable [columns]="colsList" [value]="listDeXuatXinNghi"
+               [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true"
+               class="table-border">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 3.5em; text-align: center;">
+              #
+            </th>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+                [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+              {{col.header}}
+              <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+          <tr>
+            <td style="text-align: center;">
+              {{rowIndex + 1}}
+            </td>
+            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+              <span class="ui-column-title">{{col.header}}</span>
+              <span *ngSwitchCase="'code'" (click)="goToRequest(rowData)" class="link"
+                    style="display: inline-block;padding: 3px 3px;">
+                {{rowData[col.field]}}
+              </span>
+              <span *ngSwitchCase="'employeeCodeName'"
+                    style="display: inline-block;padding: 3px 3px;">
+                {{rowData[col.field]}}
+              </span>
+              <span *ngSwitchCase="'createdDate'">{{rowData[col.field] | date : 'dd/MM/yyyy'}}</span>
+              <span *ngSwitchCase="'statusName'" style="display: flex;justify-content: center;">
+                <span [ngStyle]="{'background-color': rowData['backgroupStatusColor']}"
+                      style="color: white;width: 140px;padding: 5px 0px;">
+                  {{rowData[col.field]}}
+                </span>
+              </span>
+              <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div *ngIf="!listDeXuatXinNghi.length" class="col-md-{{leftColNumber}} no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Mã đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="employee-code-text" placeholder=""
+                   [(ngModel)]="code">
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Mã nhân viên được đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="employee-code-text" placeholder=""
+                   [(ngModel)]="employeeCode">
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Tên nhân viên được đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="employee-code-text" placeholder=""
+                   [(ngModel)]="employeeName">
+          </div>
+        </div>
+
+        <div *ngIf="isShowOrganization" class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Chọn đơn vị</span>
+            <a href="javascript:(0)" (click)="openOrgPopup()"> <u>(Xem sơ đồ tổ chức)</u></a>
+          </div>
+          <div class="col-md-12">
+            <input type="text" value="{{currentOrganizationName}}" placeholder="Chọn đơn vị"
+                   class="employee-code-text" disabled>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Trạng thái</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [(ngModel)]="listSelectedStatus" [options]="listStatus" defaultLabel="Chọn trạng thái"
+                           optionLabel="name" [style]="{'width': '100%'}" [resetFilterOnHide]="true" itemSize="30"
+                           [virtualScroll]="true" selectedItemsLabel="{0} trạng thái được chọn">
+            </p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Loại đề xuất</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [(ngModel)]="listSelectedKyHieuChamCong" [options]="listKyHieuChamCong"
+                           defaultLabel="Chọn loại đề xuất" optionLabel="name" [style]="{'width': '100%'}"
+                           [resetFilterOnHide]="true" itemSize="30" [virtualScroll]="true" selectedItemsLabel="{0} loại đề xuất được chọn">
+            </p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin pb-1">
+          <div class="col-md-12 mt-5" style="text-align: right">
+            <button type="button" class="btn-search" (click)="searchEmployeeRequest()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

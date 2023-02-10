@@ -1,0 +1,487 @@
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="layout-project">
+    <app-top-header-project></app-top-header-project>
+
+    <div class="wrapper" style="height: auto;">
+        <!-- <main-header></main-header> -->
+        <app-project-header></app-project-header>
+        <!-- Menu Left -->
+        <app-menu-left-project></app-menu-left-project>
+
+        <!-- Content -->
+        <div class="content-wrapper" style="height: auto; min-height: calc(100vh - 100px);">
+            <section class="row content">
+                <div class="project-document">
+                    <div class="row no-margin">
+                        <div class="col-md-12 header" style="padding: 6px;">
+                            <div class="row">
+                                <div class="col-md-8 no-padding">
+                                    <div class="row no-margin">
+                                        <div class="col-md-12 project-name">
+                                            <div>
+                                                <!-- <span class="project-name-text">[{{project?.projectCode}}]:{{project?.projectName}}</span> -->
+                                                <div class="header-title">
+                                                    <p-dropdown [options]="listProjectTitle" optionLabel="projectCodeName"
+                                                        placeholder="Chọn dự án" [filter]="true" [resetFilterOnHide]="true"
+                                                        [virtualScroll]="true" itemSize="10" [(ngModel)]="selectedProject"
+                                                        (onChange)="onChangeProject($event.value.projectId)"
+                                                        (keydown.enter)="$event.preventDefault()">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12 btn-flex">
+                                            <button (click)="cancel()" type="button" class="btn-remove">
+                                                <span class="btn-remove-text">Thoát</span>
+                                            </button>
+                                            <button (click)="update()" type="button" class="btn-create">
+                                                <span class="btn-create-text">Cập nhật</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- PANEL THÔNG TIN CHUNG CỦA DỰ ÁN -->
+                    <app-project-information-panel></app-project-information-panel>
+
+                    <div class="col-md-12 project-document-tab">
+                        <div class="row">
+                            <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                                collapseIcon="pi pi-fw pi-chevron-circle-down">
+                                <p-accordionTab header="Tài liệu dự án" [selected]="true">
+                                    <p-header>
+                                        Tài liệu dự án
+                                        <span style="margin-left: 40px; font-weight: 100; font-size: 13px;">
+                                            <ng-container *ngIf="convertFileSize(totalSize.toString())">
+                                                Đã sử dụng {{ totalSize / 1024 | number:'1.0-2' }} KB dung lượng lưu trữ
+                                            </ng-container>
+                                            <ng-container *ngIf="!convertFileSize(totalSize.toString())">
+                                                Đã sử dụng {{ (totalSize / 1024) / 1024 | number: '1.0-2' }} MB dung
+                                                lượng
+                                                lưu trữ
+                                            </ng-container>
+                                        </span>
+                                    </p-header>
+                                    <p-tabView (onChange)="handleChange($event)">
+                                        <p-tabPanel header="Tài liệu dự án" [selected]="isSelectProjectDocument"
+                                            [headerStyle]="{width: '145px', 'text-align': 'center'}">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="document-header">
+                                                        <div class="document-header-title">
+                                                            <span class="icon-folder"><i
+                                                                    class="fas fa-folder"></i></span>
+                                                            <span>Thư mục</span>
+                                                        </div>
+                                                        <div class="document-header-icon" *ngIf="isSelectFolder">
+                                                            <!-- <span *ngIf="selectedForder.isDelete" (click)="showDialog()"
+                                                                class="icon-folder" style="cursor: pointer;">
+                                                                <i class="fas fa-pencil-alt"></i>
+                                                            </span> -->
+                                                            <!-- <span *ngIf="selectedForder.isDelete"
+                                                                (click)="showConfirm()" class="icon-folder"
+                                                                style="cursor: pointer;">
+                                                                <i class="fas fa-trash-alt"></i>
+                                                            </span> -->
+                                                            <span (click)="showDialog()" class="icon-folder"
+                                                                style="cursor: pointer;">
+                                                                <i class="fas fa-plus"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <p-tree [value]="folders"
+                                                            (onNodeExpand)="nodeExpand($event.node)"
+                                                            [(selection)]="selectedForderNode"
+                                                            (onNodeSelect)="nodeSelect($event.node)"
+                                                            (onNodeUnselect)="nodeUnselect($event.node)"
+                                                            selectionMode="single">
+                                                            <ng-template let-node pTemplate="default">
+                                                                <label>{{node.label}} ({{node.data.fileNumber}})</label>
+                                                            </ng-template>
+                                                        </p-tree>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <div class="document-header">
+                                                        <div class="document-header-title-file">
+                                                            <span *ngIf="isSelectFolder">{{SelectFolderName}}</span>
+                                                            <span *ngIf="!isSelectFolder">Thư mục tài liệu</span>
+                                                        </div>
+                                                        <div style="display: flex; justify-content: flex-end;">
+                                                            <div style="text-align: right">
+                                                                <input type="text" pInputText size="50"
+                                                                    placeholder="Tìm kiếm tài liệu"
+                                                                    (input)="table.filterGlobal($event.target.value, 'contains')"
+                                                                    style="width:auto">
+                                                            </div>
+                                                            <div class="document-header-icon" *ngIf="isSelectFolder">
+                                                                <span (click)="showFileDialog()" class="icon-folder"
+                                                                    style="cursor: pointer;">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <p-table #table [columns]="selectedColumns"
+                                                            [value]="listDocument" [resizableColumns]="true"
+                                                            columnResizeMode="expand" [paginator]="true" [rows]="10"
+                                                            [rowsPerPageOptions]="[10, 20, 30]" [responsive]="true"
+                                                            class="table-border">
+                                                            <ng-template pTemplate="header" let-columns>
+                                                                <tr>
+                                                                    <th *ngFor="let col of columns" pResizableColumn
+                                                                        [ngStyle]="{ 'text-align': col.textAlign, 'width': col.width }">
+                                                                        <span>
+                                                                            {{ col.header }}
+                                                                        </span>
+                                                                    </th>
+                                                                    <th style="text-align: center; width: 100px;">
+                                                                        <span>Thao tác</span>
+                                                                    </th>
+                                                                </tr>
+                                                            </ng-template>
+                                                            <ng-template pTemplate="body" let-rowData
+                                                                let-columns="columns">
+                                                                <tr [pSelectableRow]="rowData">
+                                                                    <td *ngFor="let col of columns"
+                                                                        class="ui-resizable-column"
+                                                                        [ngSwitch]="col.field"
+                                                                        [ngStyle]="{ 'text-align': col.textAlign, 'width': col.width }">
+                                                                        <span class="ui-column-title">{{
+                                                                            col.header}}</span>
+                                                                        <span
+                                                                            *ngSwitchCase="'documentNameWithoutExtension'">
+                                                                            <ng-container
+                                                                                *ngIf="classifyTypeOfFile(rowData) == 'word'">
+                                                                                <div class="file-icon">
+                                                                                    <span class="icon">
+                                                                                        <i class="far fa-file-word"
+                                                                                            style="font-size: 2em;"></i>
+                                                                                    </span>
+                                                                                    <span>{{rowData[col.field] }}</span>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-container
+                                                                                *ngIf="classifyTypeOfFile(rowData) == 'image'">
+                                                                                <div class="file-icon">
+                                                                                    <span class="icon">
+                                                                                        <i class="far fa-file-image"
+                                                                                            style="font-size: 2em;"></i>
+                                                                                    </span>
+                                                                                    <span>{{rowData[col.field] }}</span>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-container
+                                                                                *ngIf="classifyTypeOfFile(rowData) == 'powerpoint'">
+                                                                                <div class="file-icon">
+                                                                                    <span class="icon">
+                                                                                        <i class="far fa-file-powerpoint"
+                                                                                            style="font-size: 2em;"></i>
+                                                                                    </span>
+                                                                                    <span>{{rowData[col.field] }}</span>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-container
+                                                                                *ngIf="classifyTypeOfFile(rowData) == 'excel'">
+                                                                                <div class="file-icon">
+                                                                                    <span class="icon">
+                                                                                        <i class="far fa-file-excel"
+                                                                                            style="font-size: 2em;"></i>
+                                                                                    </span>
+                                                                                    <span>{{rowData[col.field] }}</span>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-container
+                                                                                *ngIf="classifyTypeOfFile(rowData) == 'rar'">
+                                                                                <div class="file-icon">
+                                                                                    <span class="icon">
+                                                                                        <i class="far fa-file-archive"
+                                                                                            style="font-size: 2em;"></i>
+                                                                                    </span>
+                                                                                    <span>{{rowData[col.field] }}</span>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-container
+                                                                                *ngIf="classifyTypeOfFile(rowData) == 'video'">
+                                                                                <div class="file-icon">
+                                                                                    <span class="icon">
+                                                                                        <i class="far fa-file-video"
+                                                                                            style="font-size: 2em;"></i>
+                                                                                    </span>
+                                                                                    <span>{{rowData[col.field] }}</span>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <!-- <ng-container
+                                                                                *ngIf="classifyTypeOfFile(rowData) == 'folder'">
+                                                                                <div class="file-icon">
+                                                                                    <span class="icon">
+                                                                                        <i class="far fa-folder"
+                                                                                            style="font-size: 2em;"></i>
+                                                                                    </span>
+                                                                                    <span>{{rowData[col.field] }}</span>
+                                                                                </div>
+                                                                            </ng-container> -->
+                                                                            <ng-container
+                                                                                *ngIf="classifyTypeOfFile(rowData) == 'pdf'">
+                                                                                <div class="file-icon">
+                                                                                    <span class="icon">
+                                                                                        <i class="far fa-file-pdf"
+                                                                                            style="font-size: 2em;"></i>
+                                                                                    </span>
+                                                                                    <span>{{rowData[col.field] }}</span>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-container
+                                                                                *ngIf="classifyTypeOfFile(rowData) == 'text'">
+                                                                                <div class="file-icon">
+                                                                                    <span class="icon">
+                                                                                        <i class="far fa-file-alt"
+                                                                                            style="font-size: 2em;"></i>
+                                                                                    </span>
+                                                                                    <span>{{rowData[col.field] }}</span>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                            <ng-container
+                                                                                *ngIf="classifyTypeOfFile(rowData) == 'other'">
+                                                                                <div class="file-icon">
+                                                                                    <span class="icon">
+                                                                                        <i class="far fa-file"
+                                                                                            style="font-size: 2em;"></i>
+                                                                                    </span>
+                                                                                    <span>{{rowData[col.field] }}</span>
+                                                                                </div>
+                                                                            </ng-container>
+                                                                        </span>
+                                                                        <span *ngSwitchCase="'documentSize'">
+                                                                            <ng-container
+                                                                                *ngIf="convertFileSize(rowData[col.field])">
+                                                                                {{ rowData[col.field] / 1024 | number:
+                                                                                '1.0-2'
+                                                                                }} KB
+                                                                            </ng-container>
+                                                                            <ng-container
+                                                                                *ngIf="!convertFileSize(rowData[col.field])">
+                                                                                {{ (rowData[col.field] / 1024) / 1024 |
+                                                                                number: '1.0-2' }} MB
+                                                                            </ng-container>
+                                                                        </span>
+                                                                        <span *ngSwitchCase="'updatedDate'">
+                                                                            {{ rowData[col.field] | date:'dd/MM/yyyy' }}
+                                                                        </span>
+                                                                        <span *ngSwitchDefault>
+                                                                            {{ rowData[col.field]}}
+                                                                        </span>
+                                                                    </td>
+                                                                    <td style="text-align: center; width: 100px;">
+                                                                        <button pButton icon="pi pi-trash"
+                                                                            (click)="deleteNoteFile(rowData)"
+                                                                            class="ui-button-danger">
+                                                                        </button>
+                                                                        <button pButton icon="pi pi-download"
+                                                                            (click)="downloadFile(rowData)"
+                                                                            style="margin-left: 15px;"></button>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-template>
+                                                        </p-table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p-tabPanel>
+
+                                        <p-tabPanel header="Tài liệu công việc" [selected]="isSelectTaskDocument"
+                                            [headerStyle]="{width: '145px', 'text-align': 'center'}">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-12 mt-10">
+                                                        <p-table #dt [columns]="selectedColumnsTask"
+                                                            [value]="listTaskDocument" [responsive]="true"
+                                                            [resizableColumns]="true" [paginator]="true" [rows]="10">
+                                                            <ng-template pTemplate="caption">
+                                                                <div style="text-align: right">
+                                                                    <input type="text" pInputText size="50"
+                                                                        placeholder="Tên tài liệu"
+                                                                        (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                                        style="width:auto">
+                                                                </div>
+                                                            </ng-template>
+                                                            <ng-template pTemplate="header" let-columns>
+                                                                <tr>
+                                                                    <th *ngFor="let col of columns" pResizableColumn
+                                                                        [ngStyle]="{ 'text-align': col.textAlign, 'width': col.width }">
+                                                                        {{col.header}}
+                                                                    </th>
+                                                                    <th style="width:4em; text-align: center;"
+                                                                        colspan="2">Thao tác</th>
+                                                                </tr>
+                                                            </ng-template>
+                                                            <ng-template pTemplate="body" let-rowData
+                                                                let-rowIndex="rowIndex" let-columns="columns">
+                                                                <tr>
+                                                                    <td *ngFor="let col of columns"
+                                                                        [ngSwitch]="col.field"
+                                                                        class="ui-resizable-column"
+                                                                        [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                                                                        <span
+                                                                            class="ui-column-title">{{col.header}}</span>
+                                                                        <span *ngSwitchCase="'documentOrder'">
+                                                                            {{ rowIndex + 1 }}
+                                                                        </span>
+                                                                        <span *ngSwitchDefault>{{ rowData[col.field]
+                                                                            }}</span>
+                                                                        <span *ngSwitchCase="'createdDate'">
+                                                                            {{ rowData[col.field] | date:'dd/MM/yyyy' }}
+                                                                        </span>
+                                                                    </td>
+                                                                    <td style="text-align: center;">
+                                                                        <button pButton icon="pi pi-trash"
+                                                                            (click)="deleteTaskFile(rowData)"
+                                                                            class="ui-button-danger"></button>
+                                                                    </td>
+                                                                    <td style="width:4em; text-align: center;">
+                                                                        <button pButton icon="pi pi-download"
+                                                                            (click)="downloadFile(rowData)"></button>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-template>
+                                                        </p-table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p-tabPanel>
+                                    </p-tabView>
+                                </p-accordionTab>
+                            </p-accordion>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Footer -->
+        <main-footer></main-footer>
+    </div>
+</div>
+
+<p-dialog header="Thêm thư mục" [(visible)]="showDialogAddFolder" [style]="{width: '50%', minWidth: '300px'}"
+    [baseZIndex]="10000">
+    <form [formGroup]="addFolderFormGroup">
+        <div class="row buffer-bottom no-margin">
+            <div class="col-md-12" style="padding-top: 20px;">
+                <div class="row buffer-bottom">
+                    <div class="col-md-3 buffer-bottom-label">
+                        <span>Danh mục cha<span class="require">*</span></span>
+                    </div>
+                    <div class="col-md-9">
+                        <p-dropdown formControlName="parentFolderControl"
+                            [styleClass]="(parentFolderControl.invalid && (parentFolderControl.dirty || parentFolderControl.touched)) ? 'error-border' : ''"
+                            [filter]="true" [resetFilterOnHide]="true" [options]="listFolders" [virtualScroll]="true"
+                            [itemSize]="31" optionLabel="name" placeholder="Chọn mục dữ liệu gốc"
+                            [style]="{'width': '100%'}">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-9">
+                        <span [hidden]="parentFolderControl.valid || parentFolderControl.untouched"
+                            *ngIf="parentFolderControl.hasError('required')" class="error-message-span">
+                            Chọn Danh mục cha
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row buffer-bottom no-margin">
+            <div class="col-md-12" style="padding-top: 20px;">
+                <div class="row buffer-bottom">
+                    <div class="col-md-3 buffer-bottom-label">
+                        <span>Tên danh mục<span class="require">*</span></span>
+                    </div>
+                    <div class="col-md-9">
+                        <input formControlName="folderNameControl" type="text" maxlength="200"
+                            [ngClass]="(folderNameControl.invalid && (folderNameControl.dirty || folderNameControl.touched)) ? 'error-border' : ''"
+                            [ngStyle]="{'width': '100%'}" pInputText placeholder="" />
+                    </div>
+                    <div class="col-md-3"></div>
+                    <div class="col-md-9">
+                        <span [hidden]="folderNameControl.valid || folderNameControl.untouched"
+                            *ngIf="folderNameControl.hasError('required') || folderNameControl.errors?.forbiddenSpaceText"
+                            class="error-message-span">
+                            Bắt buộc phải nhập tên danh mục
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="addFolder()" label="Tạo mới"></button>
+        <button type="button" pButton icon="pi pi-close" (click)="closeDialog()" label="Hủy"
+            class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>
+
+<p-dialog header="Thêm tài liệu" [(visible)]="showDialogAddFile" [style]="{width: '50%', minWidth: '300px'}"
+    [baseZIndex]="10000">
+    <form [formGroup]="addFileFormGroup">
+        <div class="row buffer-bottom no-margin">
+            <div class="col-md-12" style="padding-top: 20px;">
+                <div class="row buffer-bottom">
+                    <div class="col-md-3 buffer-bottom-label">
+                        <span>Danh mục<span class="require">*</span></span>
+                    </div>
+                    <div class="col-md-9">
+                        <p-dropdown formControlName="parentFolderOfFileControl"
+                            [styleClass]="(parentFolderOfFileControl.invalid && (parentFolderOfFileControl.dirty || parentFolderOfFileControl.touched)) ? 'error-border' : ''"
+                            [filter]="true" [resetFilterOnHide]="true" [options]="listFolders" [virtualScroll]="true"
+                            [itemSize]="31" optionLabel="name" placeholder="Chọn mục dữ liệu gốc"
+                            [style]="{'width': '100%'}">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row buffer-bottom no-margin">
+            <div class="col-md-12" style="padding-top: 20px;">
+                <div class="row buffer-bottom">
+                    <div class="col-md-3 buffer-bottom-label">
+                        <span>Tài liệu<span class="require">*</span></span>
+                    </div>
+                    <div class="col-md-9">
+                        <p-fileUpload #fileUpload name="demo[]" [showUploadButton]="false" multiple="multiple"
+                            accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+                            [maxFileSize]="defaultLimitedFileSize"
+                            invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+                            invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+                            invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+                            invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}."
+                            chooseLabel="Chọn file" cancelLabel="Hủy" (onSelect)="handleFile($event, fileUpload)"
+                            (onRemove)="removeFile($event)" (onClear)="clearAllFile()">
+                        </p-fileUpload>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="addFile()" label="Upload File"></button>
+        <button type="button" pButton icon="pi pi-close" (click)="closeDialog()" label="Hủy"
+            class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>

@@ -1,0 +1,69 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right" key="popup"></p-toast>
+
+<div class="view-list-item-dialog">
+  <div class="row no-margin">
+    <div *ngIf="listItem.length > 0" class="col-md-12">
+      <p-table [columns]="cols" [value]="listItem" [paginator]="true" [rows]="10">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns"
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display}">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td *ngFor="let col of columns" 
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display}"
+              [ngSwitch]="col.field">
+              <span *ngSwitchCase="'productThickness'">
+                {{rowData[col.field] | number:0}}
+              </span>
+              <span *ngSwitchCase="'productLength'">
+                {{rowData[col.field] | number:0}}
+              </span>
+              <span *ngSwitchCase="'productWidth'">
+                {{rowData[col.field] | number:0}}
+              </span>
+              <span *ngSwitchCase="'quantity'">
+                {{rowData[col.field] | number:0}}
+              </span>
+              <span *ngSwitchCase="'totalArea'">
+                {{rowData[col.field] | number:0}}
+              </span>
+              <span *ngSwitchCase="'completeQuantity'">
+                {{rowData[col.field] | number:0}}
+              </span>
+              <span *ngSwitchCase="'completeTotalArea'">
+                {{rowData[col.field] | number:0}}
+              </span>
+              <span *ngSwitchDefault>
+                {{rowData[col.field]}}
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div *ngIf="!(listItem.length > 0)" class="col-md-12 no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12" style="text-align: right; margin-top: 20px;">
+      <button class="cancel" type="button" (click)="cancel()">
+        <span class="text-cancel">Hủy</span>
+      </button>
+    </div>
+  </div>
+</div>

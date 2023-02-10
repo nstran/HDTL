@@ -1,0 +1,270 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<!-- Card-body -->
+<card-body>
+  <sub-header>
+    <ng-container iconSubHeader>
+      <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+    </ng-container>
+    <ng-container subHeaderTitle>
+      Chi tiết dịch vụ
+    </ng-container>
+    <ng-container actions>
+        <div class="actions">
+          <button type="button" 
+            class="btn-back" [routerLink]="'/product/list'"
+            >
+            <span class="text-black">Quay lại</span>
+          </button>
+          <button type="button" 
+            class="btn-primary btn-save" 
+            [disabled]="!formService.form.valid"
+            (click)="save()"
+            >
+            <span class="text-white">Lưu</span>
+          </button>
+        </div>
+    </ng-container>
+  </sub-header>
+  <form #formService="ngForm" novalidate autocomplete="off">
+    <h5 class="service-infor font-weight-bold">
+      <p>Thông tin dịch vụ</p>
+    </h5>
+    
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-group">
+          <p class="service-type font-weight-bold">
+            Loại dịch vụ <span class="text-danger">*</span>
+          </p>
+          <p-dropdown
+            [options]="listCategory"
+            [filter]="true"
+            [(ngModel)]="categoryEntity"
+            (onChange)="changeServiceType($event.value)"
+            [style]="{'width': '100%'}"
+            optionLabel="categoryName"
+            placeholder="Chọn loại dịch vụ"
+            [ngModelOptions]="{standalone: true}"
+            required
+            >
+          </p-dropdown>
+          <p *ngIf="showErrorCategoryEntity && categoryEntity == undefined" class="text-danger">Chọn loại dịch vụ</p>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="form-group">
+          <p class="service-type font-weight-bold">
+            Tên dịch vụ <span class="text-danger">*</span>
+          </p>
+          <input type="text" 
+            class="form-control"
+            #productName="ngModel" 
+            name="ProductName"
+            required
+            autocomplete="off"
+            [(ngModel)]="productEntityModel.productName"
+          >
+          <validation-messages 
+            [formCtrl]="productName" 
+            [customMessage]="[{error:'required', message:('Tên dịch vụ không được để trống')}]"
+            >
+          </validation-messages>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          
+          <p class="description font-weight-bold">
+            Mô tả <span class="text-danger">*</span>
+          </p>
+          <p-editor 
+            #productDescription="ngModel" 
+            name="ProductDescription"
+            required
+            [(ngModel)]="productEntityModel.productDescription"
+            [style]="{'height':'180px', 'width': '100%'}"
+            >
+          </p-editor>
+          <validation-messages 
+            [formCtrl]="productDescription" 
+            [customMessage]="[{error:'required', message:('Mô tả không được để trống')}]"
+            >
+          </validation-messages>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-md-4">
+        <h5 class="service-infor font-weight-bold">
+          <p>Danh sách tùy chọn dịch vụ</p>
+        </h5>
+      </div>
+      <div class="col-md-4">
+        <button type="button"
+          class="btn-edit"
+          (click)="openDialog()"
+        >
+          <span class="text-white"><i class="fas fa-plus"></i></span> &nbsp;
+          <span class="text-white">Thêm nhanh</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="pick-list">
+          <p-pickList 
+            [source]="options" 
+            [target]="targetOption" 
+            sourceHeader="Tùy chọn dịch vụ" 
+            targetHeader="Tùy chọn dịch vụ đã chọn" 
+            [dragdrop]="true"
+            [responsive]="true" 
+            [sourceStyle]="{'height':'30rem'}" 
+            [targetStyle]="{'height':'30rem'}" 
+            filterBy="name"
+            sourceFilterPlaceholder="Tìm kiếm" 
+            targetFilterPlaceholder="Tìm kiếm"
+            >
+            <ng-template let-options pTemplate="item">
+              <div class="options-item">
+                <div class="options-list-detail">
+                  <h5 class="mb-2">{{options.name}}</h5>
+                </div>
+                <div class="options-list-action">
+                  <h6 class="mb-2">{{options.price | number:'1.0-2'}}</h6>
+                </div>
+              </div>
+            </ng-template>
+          </p-pickList>
+        </div>
+      </div>
+    </div>
+  </form>
+</card-body>
+
+<!-- Modal -->
+<p-dialog [(visible)]="showModal" 
+  [modal]="true" 
+  [style]="{width: '60vw'}" 
+  [draggable]="false"
+  [resizable]="false" 
+  [closable]="false"
+  >
+  <p-header>Thêm nhanh tùy chọn dịch vụ</p-header>
+  <form #createProductOptionForm ="ngForm">
+    <div class="row no-margin row-dialog">
+      <div class="col-md-6">
+        <p class="font-weight-bold">Loại tùy chọn dịch vụ <span class="text-danger">*</span></p>
+        <p-dropdown
+          [options]="listCategory"
+          [filter]="true"
+          [showClear]="true"
+          (onChange)="changeServiceTypeDiaLog($event.value)"
+          [style]="{'width': '100%'}"
+          optionLabel="categoryName" 
+          placeholder="Chọn loại tùy chọn dịch vụ" 
+          >
+        </p-dropdown>
+        <p *ngIf="showErrorDropdownModal" class="text-danger">Chọn loại dịch vụ</p>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <p class="font-weight-bold">Tên tùy chọn dịch vụ <span class="text-danger">*</span></p>
+          <input type="text" 
+            class="form-control"
+            name="OptionName"
+            #optionName="ngModel" 
+            required
+            [(ngModel)]="optionsEntityModel.name"
+          >
+          <validation-messages 
+            [formCtrl]="optionName" 
+            [customMessage]="[{error:'required', message:('Tên không được để trống')}]"
+            >
+          </validation-messages>
+        </div>
+      </div>
+    </div>
+
+    <div class="row no-margin row-dialog">
+      <div class="col-md-6">
+        <div class="form-group">
+          <p class="font-weight-bold">Đơn giá dịch vụ (VNĐ) <span class="text-danger">*</span></p>
+          <input type="text"
+            class="form-control"
+            name="OptionPrice"
+            #optionPrice="ngModel" 
+            required
+            [(ngModel)]="optionsEntityModel.price"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 0}"
+          >
+          <validation-messages 
+            [formCtrl]="optionPrice"
+            [customMessage]="[{error:'required', message:('Đơn giá không được để trống')}]"
+            >
+          </validation-messages>
+        </div>
+      </div>
+      <div class="col-md-6 position-relative">
+        <p-inputSwitch 
+          [(ngModel)]="optionsEntityModel.isShowQuantity"
+          name="IsShowQuantity"
+          >
+        </p-inputSwitch>
+      </div>
+    </div>
+
+    <div class="row no-margin row-dialog">
+      <div class="col-md-12">
+        <p class="font-weight-bold">Mô tả <span class="text-danger">*</span></p>
+        <p-editor 
+            #optionsNote="ngModel" 
+            name="OptionsNote"
+            required
+            [(ngModel)]="optionsEntityModel.note"
+            [style]="{'height':'180px', 'width': '100%'}"
+            >
+          </p-editor>
+          <validation-messages 
+            [formCtrl]="optionsNote" 
+            [customMessage]="[{error:'required', message:('Mô tả không được để trống')}]"
+            >
+          </validation-messages>
+      </div>
+    </div>
+
+    <div class="row no-margin row-dialog">
+      <div class="col-md-12 no-padding">
+        <div class="actions">
+          <button type="button" 
+            class="btn-back"
+            (click)="closeDialog()"
+            >
+            <span class="text-black">Thoát</span>
+          </button>
+          <button type="button" 
+            class="btn-primary btn-save"
+            [disabled]="!createProductOptionForm.form.valid"
+            (click)="saveProductOptions()"
+            >
+            <span class="text-white">Đồng ý</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </form>
+</p-dialog>

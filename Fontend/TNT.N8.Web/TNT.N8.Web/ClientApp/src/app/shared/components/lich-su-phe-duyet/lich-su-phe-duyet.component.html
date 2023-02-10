@@ -1,0 +1,28 @@
+<div class="lich-su-phe-duyet">
+  <div class="row no-margin">
+    <div class="col-md-12 mt-20" style="text-align: right;">
+      <input type="text" class="iput-text" placeholder="Tìm kiếm trong danh sách"
+        (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+    </div>
+    <div class="col-md-12 mt-10 mb-20">
+      <p-table #myTable [columns]="cols" [value]="listLichSuPheDuyet" [paginator]="true" [rows]="5" class="table-border">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td *ngFor="let col of columns" [ngSwitch]="col.field">
+              <span *ngSwitchDefault>
+                {{rowData[col.field]}}
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>

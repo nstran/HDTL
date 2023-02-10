@@ -1,0 +1,76 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="bao-hiem-thue">
+  <div class="row">
+    <div class="col-md-3">
+      <p class="title-tab">Tài liệu</p>
+    </div>
+    <div class="col-md-9 text-right">
+      <button *ngIf="isShowButtonTuChoi" pButton type="button" label="Từ chối" class="btn btn-back" (click)="tuChoi()"></button>
+      <button *ngIf="isShowButtonXacNhan" pButton type="button" label="Xác nhận" class="btn btn-back ml-1" (click)="xacNhan()"></button>
+      <button *ngIf="isShowButtonYeuCauXacNhan" pButton type="button" label="Yêu cầu xác nhận" class="btn btn-back ml-1" (click)="yeuCauXacNhan()"></button>
+      <!-- <button *ngIf="isShowButtonThemMoi" pButton type="button" label="Thêm mới" class="btn btn-create ml-1" (click)="addTaiLieu()"></button> -->
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-12">
+      <p-table #myTable [columns]="cols" [value]="listTaiLieu" [responsive]="true" class="table-border"
+        [scrollable]="true">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns"
+              [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.colWith }">
+              <span>
+                {{col.header}}
+              </span>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+          <tr>
+            <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+              [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.colWith }">
+              <span class="ui-column-title">{{col.header}}</span>
+              <span *ngSwitchCase="'stt'">
+                {{ index + 1}}
+              </span>
+              <span *ngSwitchCase="'ngayNop'">
+                {{ rowData[col.field] | date: 'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'ngayHen'">
+                {{ rowData[col.field] | date: 'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'action'">
+                <button *ngIf="isShowButtonSua" pButton icon="pi pi-pencil" (click)="addTaiLieu(rowData)"></button>
+                <button class="ui-button-danger ml-1" pButton icon="pi pi-trash" (click)="deleteTaiLieu(rowData)"
+                  *ngIf="isShowButtonXoa && rowData.taiLieuNhanVienId"></button>
+              </span>
+              <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="columns.length">
+              Hiện tại không có dữ liệu
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<p-dialog [(visible)]="displayTuChoi" [modal]="true" [baseZIndex]="1000">
+  <div class="col-md-12">
+    <label>Lý do từ chối:</label>
+    <textarea [rows]="3" pInputTextarea [(ngModel)]="lyDoTuChoi" class="w-100"></textarea>
+  </div>
+  <div class="col-md-12 text-right mt-1">
+    <button pButton type="button" label="Xác nhận" (click)="saveTuChoi()"></button>
+    <button pButton type="button" label="Hủy" class="ui-button-secondary ml-1" (click)="cancel()"></button>
+  </div>
+</p-dialog>

@@ -1,0 +1,139 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="phieu-luong-list">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="\assets\icons\components\noun_product.svg" class="noun-product">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10" style="padding-top: 5px;">
+                  <div class="box-header-title">Danh sách phiếu lương</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                Bộ lọc
+              </button>
+              <input type="text" class="iput-text-search" [(ngModel)]="filterGlobal"
+                placeholder="Tìm kiếm trong danh sách"
+                (input)="myTable?.filterGlobal($event?.target?.value?.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div *ngIf="listPhieuLuong.length" class="col-md-{{leftColNumber}}">
+      <p-table #myTable [columns]="colsList" [value]="listPhieuLuong" [paginator]="true" [rows]="10"
+        [rowsPerPageOptions]="[10,20,50]" [responsive]="true" class="table-border">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="text-align: center;width:50px">#</th>
+            <th *ngFor="let col of columns" [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+          <tr>
+            <td style="text-align: center;width:50px">
+              {{rowIndex + 1}}
+            </td>
+            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+              [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+              <span class="ui-column-title">{{col.header}}</span>
+              <span *ngSwitchCase="'phieuLuongCode'" (click)="goToDetailPhieuLuong(rowData)" class="link"
+                style="display: inline-block;padding: 3px 3px;">
+                {{rowData[col.field]}}
+              </span>
+              <span *ngSwitchCase="'tenKyLuong'" (click)="goToDetailKyLuong(rowData)" class="link" style="display: inline-block;padding: 3px 3px;">
+                {{rowData[col.field]}}
+              </span>
+              <span *ngSwitchCase="'employeeCode'" style="display: inline-block;padding: 3px 3px;">
+                {{rowData[col.field]}}
+              </span>
+              <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div *ngIf="!listPhieuLuong.length" class="col-md-{{leftColNumber}} no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isShowFilterRight" class="col-md-{{rightColNumber}} no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Tên kỳ lương</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [(ngModel)]="listSelectedKyLuong" [options]="listKyLuong" defaultLabel="Chọn kỳ lương"
+              optionLabel="tenKyLuong" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} kỳ lương được chọn">
+            </p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Nhân viên</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [(ngModel)]="listSelectedEmployee" [options]="listEmployee" defaultLabel="Chọn nhân viên"
+              optionLabel="employeeCodeName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} nhân viên được chọn">
+            </p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin pb-1">
+          <div class="col-md-12 mt-5" style="text-align: right">
+            <button type="button" class="btn-search" (click)="search()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

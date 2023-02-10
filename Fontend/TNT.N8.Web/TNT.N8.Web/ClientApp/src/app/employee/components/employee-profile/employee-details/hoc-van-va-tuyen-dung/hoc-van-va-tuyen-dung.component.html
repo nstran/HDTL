@@ -1,0 +1,81 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="hoc-van">
+  <form class="form-horizontal" [formGroup]="hocVanForm">
+    <div class="col-md-12 list-btn-edit p-0" style="text-align: right;">
+      <i *ngIf="!isEdit && isShowButtonSua" class="pi pi-pencil icons" (click)="enabledForm()"></i>
+      <i *ngIf="isEdit" class="pi pi-check icons icons-check" (click)="saveForm()"></i>
+      <i *ngIf="isEdit" class="pi pi-times icons icons-times" (click)="disabledForm()"></i>
+    </div>
+    <p class="title-tab">Trình độ học vấn và thông tin tuyển dụng</p>
+    <div class="col-md-12 border-box">
+      <p class="title-tab">Trình độ học vấn</p>
+      <div class="row form-row">
+        <div class="col-md-6 form-group">
+          <label>Tên trường học cao nhất:</label>
+          <input type="text" pInputText formControlName="TenTruong" class="w-100" />
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Chuyên ngành học:</label>
+          <input type="text" pInputText formControlName="ChuyenNganh" class="w-100" />
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Bằng cấp cao nhất đạt được:</label>
+          <p-dropdown [options]="listBangCap" formControlName="BangCap" [filter]="true" [resetFilterOnHide]="true"
+            optionLabel="categoryName" [style]="{'width': '100%'}" placeholder="Chọn bằng cấp">
+          </p-dropdown>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Kỹ năng, tay nghề:</label>
+          <p-dropdown [options]="listKyNangTayNghe" formControlName="KyNang" placeholder="Chọn kỹ năng, tay nghề"
+            optionLabel="name" [style]="{'width': '100%'}">
+          </p-dropdown>
+        </div>
+        <div class="col-md-12 form-group">
+          <label>Tóm tắt học vấn:</label>
+          <textarea [rows]="3" pInputTextarea formControlName="HocVan" class="w-100"></textarea>
+        </div>
+        <div class="col-md-12 form-group">
+          <label>Kinh nghiệm làm việc:</label>
+          <textarea [rows]="3" pInputTextarea formControlName="KinhNghiem" class="w-100"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 border-box mt-3 mb-3">
+      <p class="title-tab">Tuyển dụng</p>
+      <div class="row form-row">
+        <div class="col-md-6 form-group">
+          <label>Phương thức tuyển dụng:</label>
+          <p-dropdown [options]="listPhuongThucTuyenDung" formControlName="PhuongThucTuyenDung" [filter]="true"
+            [resetFilterOnHide]="true" placeholder="Chọn phương thức tuyển dụng" optionLabel="categoryName"
+            [style]="{'width': '100%'}">
+          </p-dropdown>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Chuyên ngành học:</label>
+          <div>
+            <p-radioButton name="ChuyenNganhHoc" formControlName="ChuyenNganhHoc" value="a" label="Có phí">
+            </p-radioButton>
+            <p-radioButton name="ChuyenNganhHoc" formControlName="ChuyenNganhHoc" value="b" label="Miễn phí"
+              class="ml-2">
+            </p-radioButton>
+          </div>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Mức phí:</label>
+          <p-inputNumber formControlName="MucPhi" [min]="0" class="w-100"></p-inputNumber>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Nguồn tuyển dụng:</label>
+          <p-dropdown [options]="listNguonTuyenDung" formControlName="NguonTuyenDung" [filter]="true"
+            [resetFilterOnHide]="true" placeholder="Chọn nguồn tuyển dụng" optionLabel="categoryName"
+            [style]="{'width': '100%'}">
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,143 @@
+<div class="template-priview-email">
+    <div class="row no-margin">
+        <div class="col-md-12">
+            <div class="row mb-10">
+                <div class="col-md-6">
+                    <div class="row no-margin" style="padding-bottom: 10px;">
+                        <div class="col-md-12" style="font-weight: bold;">
+                            Ngày gửi
+                        </div>
+                        <div class="col-md-12 mt-10">
+                            <p-calendar [(ngModel)]="previewCustomerCare.sendDate" showTime="true" hourFormat="24"
+                                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                                [baseZIndex]="999" disabled="true"></p-calendar>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row no-margin" style="padding-bottom: 10px;">
+                        <div class="col-md-12" style="font-weight: bold;">
+                            Người nhận
+                        </div>
+                        <div class="col-md-12 mt-10">
+                            <input pInputText [(ngModel)]="previewCustomerCare.previewEmailTo" type="text"
+                                [style]="{'width':'100%'}" disabled="true" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-10">
+                <div class="col-md-6">
+                    <div class="row no-margin" style="padding-bottom: 10px;">
+                        <div class="col-md-12" style="font-weight: bold;">
+                            CC
+                        </div>
+                        <div class="col-md-12 mt-10">
+                            <input pInputText type="text" [style]="{'width':'100%'}"
+                                [(ngModel)]="previewCustomerCare.previewEmailCC" disabled="true" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row no-margin" style="padding-bottom: 10px;">
+                        <div class="col-md-12" style="font-weight: bold;">
+                            Bcc
+                        </div>
+                        <div class="col-md-12 mt-10">
+                            <input pInputText type="text" [style]="{'width':'100%'}"
+                                [(ngModel)]="previewCustomerCare.previewEmailBcc" disabled="true" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-10">
+                <div class="col-md-12">
+                    <div class="row no-margin" style="padding-bottom: 10px;">
+                        <div class="col-md-12" style="font-weight: bold;">
+                            Tiêu đề
+                        </div>
+                        <div class="col-md-12 mt-10">
+                            <input pInputText type="text" [style]="{'width':'100%'}"
+                                [(ngModel)]="previewCustomerCare.previewEmailTitle" disabled="true" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-10">
+                <div class="col-md-12">
+                    <div class="row no-margin" style="padding-bottom: 10px;">
+                        <div class="col-md-12" style="font-weight: bold;">
+                            Nội dung
+                        </div>
+                        <div class="col-md-12 mt-10">
+                            <ejs-richtexteditor #templateRTE [height]="180" [toolbarSettings]='tools'
+                            [(ngModel)]="previewCustomerCare.previewEmailContent" readonly="true">
+                                <ng-template>
+                                </ng-template>
+                            </ejs-richtexteditor>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-10">
+                <div class="col-md-12">
+                    <div class="row no-margin" style="padding-bottom: 10px;">
+                        <div class="col-md-12" style="font-weight: bold;">
+                            Danh sách file đính kèm
+                        </div>
+                        <div class="col-md-12 mt-10">
+                            <p-table [columns]="previewFileCols" [value]="listPreviewFileEmail"
+                                [resizableColumns]="true" [responsive]="true" columnResizeMode="expand"
+                                [paginator]="true" [rows]="5">
+                                <ng-template pTemplate="header" let-columns>
+                                    <tr>
+                                        <th *ngFor="let col of columns" pResizableColumn
+                                            [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+                                            {{col.header}} </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                    <tr [pSelectableRow]="rowData">
+                                        <td *ngFor="let col of columns" class="ui-resizable-column"
+                                            [ngSwitch]="col.field"
+                                            [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+                                            <span *ngSwitchCase="'createdDate'">
+                                                {{rowData[col.field] | date:'dd/MM/yyyy'}}
+                                            </span>
+                                            <span *ngSwitchCase="'size'">
+                                                <ng-container *ngIf="convertFileSize(rowData[col.field])">
+                                                    {{rowData[col.field] / 1024 | number}} KB
+                                                </ng-container>
+                                                <ng-container *ngIf="!convertFileSize(rowData[col.field])">
+                                                    {{rowData[col.field] / 1048576 | number}} MB
+                                                </ng-container>
+                                            </span>
+                                            <span *ngSwitchCase="'action'">
+                                                <button pButton icon="pi pi-download" (click)="downloadFile(rowData)"
+                                                    style="margin-left: 15px;"></button>
+                                            </span>
+                                            <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="group-button-footer">
+                        <button type="button" class="cancel" (click)="cancel()"><span
+                                class="cancel-label">Đóng</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

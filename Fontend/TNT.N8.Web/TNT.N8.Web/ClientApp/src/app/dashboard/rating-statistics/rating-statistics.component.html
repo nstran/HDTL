@@ -1,0 +1,127 @@
+<card-body>
+    <div class="row">
+        <div class="col-md-8">
+            <div #container></div>
+        </div>
+        <div class="col-md-4 border-left">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" 
+                        *ngIf="chart"
+                        [disabled]="loading"
+                        class="btn-edit"
+                        (click)="refresh()"
+                        >
+                        <span class="text-white">Làm mới</span>
+                        <i [class]="loading ? 'fa fa-circle-o-notch fa-spin' : 'fas fa-sync'"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="row row-responsive">
+                <div class="col-md-4">
+                    <label>Top :</label>
+                    <p-dropdown 
+                        [options]="listCount"
+                        [(ngModel)]="countSelected"
+                        [filter]="true" 
+                        [style]="{'width': '100%'}"
+                        optionLabel="text" 
+                        (onChange)="selectCount($event.value)"
+                        placeholder="Chọn" 
+                        required
+                        >
+                    </p-dropdown>
+                </div>
+                <div class="col-md-4">
+                    <label>Từ :</label>
+                    <p-calendar
+                        styleClass="d-block"
+                        inputStyleClass="w100"
+                        [(ngModel)]="startDate"
+                        showButtonBar="true"
+                        (onClose)="onChangeFromDate($event)"
+                        dateFormat="dd/mm/yy"
+                    >
+                    </p-calendar>
+                </div>
+                <div class="col-md-4">
+                    <label>Đến :</label>
+                    <p-calendar
+                        styleClass="d-block"
+                        inputStyleClass="w100"
+                        [(ngModel)]="endDate"
+                        showButtonBar="true"
+                        dateFormat="dd/mm/yy"
+                        (onClose)="onChangeToDate($event)"
+                    ></p-calendar>
+                </div>
+            </div>
+            <div class="row pt-20">
+                <div class="col-md-12">
+                    <p class="font-weiht-bold">Trong đó:</p>
+                    <div class="row">
+                        <div class="col-md-9">
+                            <ng-container *ngIf="listRatingStatisticStarServicePacketModelByServicePacketName.length == 0">
+                                <div class="row" *ngFor="let item of listDetail">
+                                    <div class="col-md-8">
+                                        <a *ngIf="!item.servicePacketName" class="d-block line-height" (click)="loadDashBoardByProductCategoryName(item.productCategoryName)">{{item.productCategoryName}}:</a>
+                                        <a *ngIf="item.servicePacketName" class="d-block line-height" (click)="loadDashBoardByServicePacketName(item.servicePacketName)">{{item.servicePacketName}}:</a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="font-weiht-bold line-height">{{item.rate}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <p class="line-height">Tổng:</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="font-weiht-bold line-height">{{totalRate}}</p>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                            <ng-container *ngIf="listRatingStatisticStarServicePacketModelByServicePacketName.length > 0">
+                                <div class="row" *ngFor="let item of listRatingStatisticStarServicePacketModelByServicePacketName">
+                                    <div class="col-md-8">
+                                        <p class="line-height">
+                                            {{item.rateStar == 1 ? 'Tệ' : item.rateStar == 2 ? 'Chưa hài lòng' : item.rateStar == 3 ? 'Bình thường' : item.rateStar == 4 ? 'Hài lòng' : 'Tuyệt vời'}}:
+                                        </p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="font-weiht-bold line-height">{{item.count}}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <p class="line-height">Tổng:</p>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <p class="font-weiht-bold line-height">{{totalRateByServicePacketName}}</p>
+                                    </div>
+                                </div>
+                            </ng-container>
+
+                        </div>
+                        <div class="col-md-3">
+                            <button type="button"
+                                *ngIf="productCategoryName"
+                                class="btn-edit"
+                                (click)="takeRatingStatisticDashboard()"
+                                >
+                                <span class="text-white">Tổng quát</span>
+                            </button>
+                            <button type="button"
+                                *ngIf="servicePacketName"
+                                class="btn-edit"
+                                (click)="loadDashBoardByProductCategoryName(productCategoryName)"
+                                >
+                                <span class="text-white">Loại gói</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</card-body>

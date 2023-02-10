@@ -1,0 +1,705 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="layout-project">
+    <app-top-header-project></app-top-header-project>
+
+    <div class="wrapper" style="height: auto;">
+        <app-project-header></app-project-header>
+        <!-- <main-header></main-header> -->
+        <!-- Menu Left -->
+        <app-menu-left-project></app-menu-left-project>
+
+        <!-- Content -->
+        <div class="content-wrapper" style="height: auto; min-height: 100vh">
+            <section class="row content" style="min-height:inherit;">
+                <div class="project-milestone">
+                    <div class="row no-margin">
+                        <div class="box-header" [ngClass]="{ fixed: fixed }" [ngStyle]="{ width: withFiexd }">
+                            <div class="col-md-8 no-padding mt-7">
+                                <!-- <div class="box-header-title-2">[{{project?.projectCode}}]: {{project?.projectName}}</div> -->
+                                <div class="header-title">
+                                    <p-dropdown [options]="listProjectTitle" optionLabel="projectCodeName"
+                                        placeholder="Chọn dự án" [filter]="true" [resetFilterOnHide]="true"
+                                        [virtualScroll]="true" itemSize="10" [(ngModel)]="selectedProject"
+                                        (onChange)="onChangeProject($event.value.projectId)"
+                                        (keydown.enter)="$event.preventDefault()">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-12 btn-flex">
+                                        <button (click)="cancel()" type="button" class="btn-remove">
+                                            <span class="btn-remove-text">Thoát</span>
+                                        </button>
+                                        <!-- <button (click)="update()" type="button" class="btn-create">
+                                            <span class="btn-create-text">Cập nhật</span>
+                                        </button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANEL THÔNG TIN CHUNG CỦA DỰ ÁN -->
+                    <app-project-information-panel></app-project-information-panel>
+
+                    <div class="row project-infor">
+                        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                            collapseIcon="pi pi-fw pi-chevron-circle-down">
+                            <p-accordionTab header="Mốc dự án" [selected]="true">
+                                <p-tabView>
+                                    <p-tabPanel header="Đang hoạt động"
+                                        [headerStyle]="{width: '150px', 'text-align': 'center'}">
+                                        <div class="row">
+                                            <div class="col-md-{{colNumber}} mt-7"
+                                                *ngFor="let item of listProjectMilestoneInProgress; index as i">
+                                                <div *ngIf="i == 0" class="milestone-content-create">
+                                                    <div class="col-md-12 icon-milestone" (click)="addMilestone()">
+                                                        <img src="/assets/icons/components/new_milestone.png"
+                                                            class="Money-2">
+                                                    </div>
+                                                    <div class="col-md-12 mt-5" style="cursor: pointer;">
+                                                        <span class="text-title-create">Tạo mới mốc dự án</span>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="i != 0" class="milestone-content">
+                                                    <div class="row no-margin header-milstone"
+                                                        (click)="showDetailMilestone(item)">
+                                                        <div class="col-md-12 mt-5">
+                                                            <div class="col-md-12 no-padding">
+                                                                <span pTooltip="{{item.name}}" tooltipPosition="bottom"
+                                                                    style="font-weight: 700;">{{item.name.trim().length
+                                                                    > 42 ? item.name.trim().slice(0,42)+'...' :
+                                                                    item.name.trim()}}</span>
+                                                            </div>
+                                                            <!-- <div class="col-md-6 no-padding">
+                                                                <span style="font-weight: 700; float: right;">Hoàn thành
+                                                                    {{item.endTime | date:
+                                                                    'dd/MM/yyyy'}}</span>
+                                                            </div> -->
+                                                        </div>
+                                                        <div class="col-md-12 mt-5 mb-10">
+                                                            <p-progressBar
+                                                                [value]="item.projectMilestoneComplete.toFixed(2)">
+                                                            </p-progressBar>
+                                                        </div>
+                                                        <div class="col-md-12 hr-milestone"></div>
+                                                    </div>
+                                                    <div class="col-md-12 mt-10" style="height: 155px;">
+
+                                                        <div class="row mt-10 mb-10">
+                                                            <div class="col-md-12">
+                                                                <span style="font-weight: 700;">Hoàn thành
+                                                                    {{item.endTime | date:
+                                                                    'dd/MM/yyyy'}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-10 mb-10">
+                                                            <div class="col-md-12">
+                                                                <span class="row-content">Công việc
+                                                                    {{item.taskNumber}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-10 mb-10">
+                                                            <div class="col-md-12">
+                                                                <span class="row-content">Đang thực hiện
+                                                                    {{item.taskInProgressNumber}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-10 mb-10">
+                                                            <div class="col-md-12">
+                                                                <span class="row-content">Đã đóng
+                                                                    {{item.taskCloseNumber}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-10 mb-10">
+                                                            <div class="col-md-12">
+                                                                <span class="row-content">Tạo bởi {{item.createByName}}
+                                                                    ngày
+                                                                    {{item.createDate | date: 'dd/MM/yyyy'}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 mt-10 remote-control">
+                                                        <div class="row">
+                                                            <div class="col-md-12 mt-10"
+                                                                style="display: flex; justify-content: space-between;">
+                                                                <span class="row-content">Cập nhật lần cuối vào
+                                                                    {{item.updateTimeStr}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="overlay-control">
+                                                            <div class="overlay">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="row no-margin">
+                                                                            <div class="col-md-6 mt-10"><span
+                                                                                    (click)="addTaskToMilestone(item)"
+                                                                                    class="text-control">Thêm công
+                                                                                    việc</span>
+                                                                            </div>
+                                                                            <div class="col-md-6 mt-10"><span
+                                                                                    (click)="editMilestone(item)"
+                                                                                    class="text-control">Chỉnh
+                                                                                    sửa</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row no-margin">
+                                                                            <div class="col-md-6 mt-10"><span
+                                                                                    (click)="deleteTaskFromMilestone(item)"
+                                                                                    class="text-control">Xóa công
+                                                                                    việc</span>
+                                                                            </div>
+                                                                            <div class="col-md-6 mt-10"><span
+                                                                                    (click)="deleteMilestone(item)"
+                                                                                    class="text-control">Xóa</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row no-margin">
+                                                                            <div class="col-md-6 mt-10"><span
+                                                                                    (click)="closeMilestone(item)"
+                                                                                    class="text-control">Đóng mốc
+                                                                                    dự án</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p-tabPanel>
+                                    <p-tabPanel header="Đã hoàn thành"
+                                        [headerStyle]="{width: '150px', 'text-align': 'center'}">
+                                        <div class="row">
+                                            <div class="col-md-{{colNumber}} mt-7"
+                                                *ngFor="let item of listProjectMilestoneComplete; index as i">
+                                                <div *ngIf="i == 0" class="milestone-content-create">
+                                                    <div class="col-md-12 icon-milestone" (click)="addMilestone()">
+                                                        <img src="/assets/icons/components/new_milestone.png"
+                                                            class="Money-2">
+                                                    </div>
+                                                    <div class="col-md-12 mt-5" style="cursor: pointer;">
+                                                        <span class="text-title-create">Tạo mới mốc dự án</span>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="i != 0" class="milestone-content">
+                                                    <div class="row no-margin header-milstone"
+                                                        (click)="showDetailMilestone(item)">
+                                                        <div class="col-md-12 mt-5">
+                                                            <div class="col-md-6 no-padding">
+                                                                <span pTooltip="{{item.name}}" tooltipPosition="bottom"
+                                                                    style="font-weight: 700;">{{item.name.trim().length
+                                                                    > 42 ? item.name.trim().slice(0,42)+'...' :
+                                                                    item.name.trim()}}</span>
+                                                            </div>
+                                                            <div class="col-md-6 no-padding">
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12 mt-5 mb-10">
+                                                            <p-progressBar
+                                                                [value]="item.projectMilestoneComplete.toFixed(2)">
+                                                            </p-progressBar>
+                                                        </div>
+                                                        <div class="col-md-12 hr-milestone"></div>
+                                                    </div>
+                                                    <div class="col-md-12 mt-10" style="height: 155px;">
+                                                        <div class="row mt-10 mb-10">
+                                                            <div class="col-md-12">
+                                                                <span style="font-weight: 700;">Hoàn thành
+                                                                    {{item.updateDate | date:
+                                                                    'dd/MM/yyyy'}}</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row mt-10 mb-10">
+                                                            <div class="col-md-4">
+                                                                <span class="row-content">Công việc
+                                                                    {{item.taskNumber}}</span>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-10 mb-10">
+                                                            <div class="col-md-12">
+                                                                <span class="row-content">Đang thực hiện
+                                                                    {{item.taskInProgressNumber}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-10 mb-10">
+                                                            <div class="col-md-12">
+                                                                <span class="row-content">Đã đóng
+                                                                    {{item.taskCloseNumber}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-10 mb-10">
+                                                            <div class="col-md-12">
+                                                                <span class="row-content">Tạo bởi {{item.createByName}}
+                                                                    ngày
+                                                                    {{item.createDate | date: 'dd/MM/yyyy'}}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 mt-10 remote-control">
+                                                        <div class="row">
+                                                            <div class="col-md-12 mt-10"
+                                                                style="display: flex; justify-content: space-between;">
+                                                                <span class="row-content">Cập nhật lần cuối vào
+                                                                    {{item.updateTimeStr}}</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="overlay-control">
+                                                            <div class="overlay-complete">
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="row no-margin">
+                                                                            <div class="col-md-6 mt-10"><span
+                                                                                    (click)="reOpenMilestone(item)"
+                                                                                    class="text-control">Mở lại</span>
+                                                                            </div>
+                                                                            <div class="col-md-6 mt-10"><span
+                                                                                    (click)="deleteMilestone(item)"
+                                                                                    class="text-control">Xóa</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p-tabPanel>
+                                </p-tabView>
+                            </p-accordionTab>
+                        </p-accordion>
+                    </div>
+
+                    <div class="row project-infor">
+                        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                            collapseIcon="pi pi-fw pi-chevron-circle-down">
+                            <p-accordionTab header="Chi tiết mốc dự án" [selected]="true">
+                                <div class="row detail-milestone"
+                                    *ngIf="projectMilestoneId && projectMilestoneId != emptyGuid">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <div class="row no-margin"
+                                                style="border: 1px solid #B5AFAF; padding: 5px 10px;">
+                                                <div class="col-md-12 mt-10">
+                                                    <span *ngIf="projectMilestone?.delayNumber < 0"
+                                                        style="font-size: 15px; font-weight: 600;">{{projectMilestone?.name}}
+                                                        <p-splitButton label="Thao tác" icon=""
+                                                            (onDropdownClick)="onChangeActionMilestone()"
+                                                            [model]="actionsMilestone" appendTo="body"
+                                                            styleClass="ui-button-secondary">
+                                                        </p-splitButton>
+
+                                                        <i class="pi pi-clock icon-clock"
+                                                            style="margin-left: 15px;"></i>
+                                                        {{projectMilestone?.endTime | date : 'dd/MM/yyyy'}} Còn
+                                                        {{projectMilestone?.delayNumber * -1}} ngày
+                                                    </span>
+                                                    <span *ngIf="projectMilestone?.delayNumber > 0"
+                                                        style="font-size: 15px; font-weight: 600;">{{projectMilestone?.name}}
+                                                        <p-splitButton label="Thao tác" icon=""
+                                                            (onDropdownClick)="onChangeActionMilestone()"
+                                                            [model]="actionsMilestone" appendTo="body"
+                                                            styleClass="ui-button-secondary">
+                                                        </p-splitButton>
+
+                                                        <i class="pi pi-clock icon-clock"
+                                                            style="margin-left: 15px;"></i>
+                                                        {{projectMilestone?.endTime | date : 'dd/MM/yyyy'}} Trễ
+                                                        {{projectMilestone?.delayNumber}} ngày
+                                                    </span>
+                                                    <span *ngIf="projectMilestone?.delayNumber == 0"
+                                                        style="font-size: 15px; font-weight: 600;">{{projectMilestone?.name}}
+                                                        <p-splitButton label="Thao tác" icon=""
+                                                            (onDropdownClick)="onChangeActionMilestone()"
+                                                            [model]="actionsMilestone" appendTo="body"
+                                                            styleClass="ui-button-secondary">
+                                                        </p-splitButton>
+
+                                                        <i class="pi pi-clock icon-clock"
+                                                            style="margin-left: 15px;"></i>
+                                                        {{projectMilestone?.endTime | date : 'dd/MM/yyyy'}} Hôm nay
+                                                    </span>
+                                                </div>
+                                                <div class="col-md-6 mt-20 mb-10">
+                                                    <p-progressBar
+                                                        [value]="projectMilestone?.projectMilestoneComplete.toFixed(2)">
+                                                    </p-progressBar>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 mt-10">
+                                        <div class="col-md-3" (onDrop)="drop($event, 'NEW')" pDroppable="tasks"
+                                            [ngClass]="{'ui-highlight-car':draggedTask}">
+                                            <div class="col-md-12"
+                                                style="padding: 10px; border: 1px solid #B5AFAF; border-bottom: none;">
+                                                <span style="font-weight: 700; font-size: 15px;">Mới</span>
+                                                <span style="font-weight: 700; font-size: 15px;">
+                                                    {{listTaskNew.length}}
+                                                </span>
+                                            </div>
+                                            <div class="box-task">
+                                                <div class="col-md-12">
+                                                    <ul style="margin:0;padding:0">
+                                                        <li *ngFor="let task of listTaskNew" class="ui-helper-clearfix"
+                                                            pDraggable="tasks"
+                                                            (onDragStart)="dragStart($event,task, 'NEW')"
+                                                            (onDragEnd)="dragEnd($event, 'NEW')">
+                                                            <div class="col-md-12">
+                                                                <span>{{task.taskCode}}: {{task.taskName}}
+                                                                    <i
+                                                                        class="pi pi-comments icon-comment"></i>{{task.noteNumber}}
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-md-12 mt-5 resource-infor">
+                                                                <p-splitButton label="Thao tác" icon=""
+                                                                    (onDropdownClick)="onChangeAction(task)"
+                                                                    [model]="actions" appendTo="body"
+                                                                    styleClass="ui-button-secondary">
+                                                                </p-splitButton>
+                                                                <i class="pi pi-user icon-user"></i>
+                                                                {{task.persionInChargedName}}
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 drop-column drag-column"
+                                            (onDrop)="drop($event, 'INPROGRESS')" pDroppable="tasks"
+                                            [ngClass]="{'ui-highlight-car':draggedTask}">
+                                            <div class="col-md-12"
+                                                style="padding: 10px; border: 1px solid #B5AFAF; border-bottom: none;">
+                                                <span style="font-weight: 700; font-size: 15px;">Đang thực
+                                                    hiện</span>
+                                                <span style="font-weight: 700; font-size: 15px;">
+                                                    {{listTaskInProgress.length}}
+                                                </span>
+                                            </div>
+                                            <div class="box-task">
+                                                <div class="col-md-12">
+                                                    <ul style="margin:0;padding:0">
+                                                        <li *ngFor="let task of listTaskInProgress"
+                                                            class="ui-helper-clearfix" pDraggable="tasks"
+                                                            (onDragStart)="dragStart($event,task, 'INPROGRESS')"
+                                                            (onDragEnd)="dragEnd($event, 'INPROGRESS')">
+                                                            <div class="col-md-12">
+                                                                <span>{{task.taskCode}}: {{task.taskName}}
+                                                                    <i
+                                                                        class="pi pi-comments icon-comment"></i>{{task.noteNumber}}
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-md-12 mt-5 resource-infor">
+                                                                <p-splitButton label="Thao tác" icon=""
+                                                                    (onDropdownClick)="onChangeAction(task)"
+                                                                    [model]="actions" appendTo="body"
+                                                                    styleClass="ui-button-secondary">
+                                                                </p-splitButton>
+                                                                <i class="pi pi-user icon-user"></i>
+                                                                {{task.persionInChargedName}}
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3" (onDrop)="drop($event, 'COMPLETE')" pDroppable="tasks"
+                                            [ngClass]="{'ui-highlight-car':draggedTask}">
+                                            <div class="col-md-12"
+                                                style="padding: 10px; border: 1px solid #B5AFAF; border-bottom: none;">
+                                                <span style="font-weight: 700; font-size: 15px;">Hoàn thành</span>
+                                                <span style="font-weight: 700; font-size: 15px;">
+                                                    {{listTaskComplete.length}}
+                                                </span>
+                                            </div>
+                                            <div class="box-task">
+                                                <div class="col-md-12">
+                                                    <ul style="margin:0;padding:0">
+                                                        <li *ngFor="let task of listTaskComplete"
+                                                            class="ui-helper-clearfix" pDraggable="tasks"
+                                                            (onDragStart)="dragStart($event,task, 'COMPLETE')"
+                                                            (onDragEnd)="dragEnd($event, 'COMPLETE')">
+                                                            <div class="col-md-12">
+                                                                <span>{{task.taskCode}}: {{task.taskName}}
+                                                                    <i
+                                                                        class="pi pi-comments icon-comment"></i>{{task.noteNumber}}
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-md-12 mt-5 resource-infor">
+                                                                <p-splitButton label="Thao tác" icon=""
+                                                                    (onDropdownClick)="onChangeAction(task)"
+                                                                    [model]="actions" appendTo="body"
+                                                                    styleClass="ui-button-secondary">
+                                                                </p-splitButton>
+                                                                <i class="pi pi-user icon-user"></i>
+                                                                {{task.persionInChargedName}}
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3" (onDrop)="drop($event, 'CLOSE')" pDroppable="tasks"
+                                            [ngClass]="{'ui-highlight-car':draggedTask}">
+                                            <div class="col-md-12"
+                                                style="padding: 10px; border: 1px solid #B5AFAF; border-bottom: none;">
+                                                <span style="font-weight: 700; font-size: 15px;">Đóng</span>
+                                                <span style="font-weight: 700; font-size: 15px;">
+                                                    {{listTaskClose.length}}
+                                                </span>
+                                            </div>
+                                            <div class="box-task">
+                                                <div class="col-md-12">
+                                                    <ul style="margin:0;padding:0">
+                                                        <li *ngFor="let task of listTaskClose"
+                                                            class="ui-helper-clearfix" pDraggable="tasks"
+                                                            (onDragStart)="dragStart($event,task,'CLOSE')"
+                                                            (onDragEnd)="dragEnd($event, 'CLOSE')">
+                                                            <div class="col-md-12">
+                                                                <span>{{task.taskCode}}: {{task.taskName}}
+                                                                    <i
+                                                                        class="pi pi-comments icon-comment"></i>{{task.noteNumber}}
+                                                                </span>
+                                                            </div>
+                                                            <div class="col-md-12 mt-5 resource-infor">
+                                                                <p-splitButton label="Thao tác" icon=""
+                                                                    (onDropdownClick)="onChangeAction(task)"
+                                                                    [model]="actions" appendTo="body"
+                                                                    styleClass="ui-button-secondary">
+                                                                </p-splitButton>
+                                                                <i class="pi pi-user icon-user"></i>
+                                                                {{task.persionInChargedName}}
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </p-accordionTab>
+                        </p-accordion>
+                    </div>
+                    <div class="row project-infor" style="padding-top: 10px; padding-bottom: 10px;" #time>
+                        <div class="col-md-12 time-line">
+                            <div class="row">
+                                <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                                    collapseIcon="pi pi-fw pi-chevron-circle-down">
+                                    <p-accordionTab header="Ghi chú" [selected]="true">
+                                        <div class='row'>
+                                            <div class="col-md-12">
+                                                <p-editor [(ngModel)]="noteContent"
+                                                    [ngModelOptions]="{standalone: true}"
+                                                    [style]="{'height':'180px', 'width': '100%'}"
+                                                    (onTextChange)="changeNoteContent($event)">
+                                                </p-editor>
+                                            </div>
+                                            <div class="col-md-12" style="text-align: right; margin-top: 5px;">
+                                                <div class="col-md-6" style="text-align: left; margin-top: 5px;">
+                                                    <div class="row buffer-bottom">
+                                                        <p-checkbox name="groupname1" [(ngModel)]="isSendEmailControl"
+                                                            binary="true" label="Không gửi thông báo qua email">
+                                                        </p-checkbox>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6" style="text-align: right; margin-top: 5px;">
+                                                    <button type="button" class="btn-cancel-note"
+                                                        (click)="cancelNote()">
+                                                        <span class="save-cancel-lable">Hủy</span>
+                                                    </button>
+                                                    <button type="button" class="btn-save-note" (click)="saveNote()">
+                                                        <span class="save-note-lable">{{isEditNote == true ?
+                                                            'Cập nhật
+                                                            ghi chú'
+                                                            :
+                                                            'Thêm ghi chú'}}</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </p-accordionTab>
+                                </p-accordion>
+                                <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                                    collapseIcon="pi pi-fw pi-chevron-circle-down">
+                                    <p-accordionTab header="Dòng thời gian" [selected]="true">
+                                        <div class="row">
+                                            <div class="timeline col-md-12 timeline-content">
+                                                <ul class="timeline">
+                                                    <li *ngFor="let note of noteHistory;let noteIndex = index;">
+                                                        <i *ngIf="note.type == 'ADD'"
+                                                            class="fa fa-file-text-o bg-blueX color-w"></i>
+                                                        <i *ngIf="note.type == 'NOT'"
+                                                            class="fa fa-commenting-o bg-blueX color-w"></i>
+                                                        <i *ngIf="note.type == 'EDT'"
+                                                            class="fa fa-user bg-blueX color-w"></i>
+                                                        <i *ngIf="note.type == 'NEW'"
+                                                            class="fa fa-user-plus bg-blueX color-w"></i>
+                                                        <div class="timeline-item" id="{{note.noteId}}">
+                                                            <span class="time onHover">
+                                                                <i *ngIf="note.type !== 'SYS' && ((note.description !== '' && note.description !== null) || note.noteDocList.length > 0) && actionEditNote"
+                                                                    (click)="onClickEditNote(note.noteId, note.description)"
+                                                                    class="pi pi-pencil style-edit"
+                                                                    pTooltip="{{ 'lead.tooltip.edit_note' | translate }}"
+                                                                    tooltipPosition="bottom"></i>
+                                                                <i *ngIf="actionEditNote && note.type !== 'SYS'"
+                                                                    pTooltip="Xóa ghi chú" tooltipPosition="bottom"
+                                                                    (click)="onClickDeleteNote(note.noteId)"
+                                                                    class="pi pi-trash style-delete"></i>
+                                                            </span>
+                                                            <h3 class="timeline-header">
+                                                                <span>
+                                                                    <i *ngIf="tooLong(note)"
+                                                                        class="trigger_node collapse-content-icon pi pi-chevron-right"
+                                                                        (click)="trigger_node(note.noteId,$event)"
+                                                                        style="cursor: pointer;"
+                                                                        pTooltip="{{ toggle_note_label }}"
+                                                                        tooltipPosition="bottom"></i>
+                                                                    <span class="alignment" style="padding: 0 12px;"
+                                                                        *ngIf="!tooLong(note)"></span>
+                                                                </span>
+                                                                <div>
+                                                                    <img *ngIf="note" [src]="defaultAvatar" height="30"
+                                                                        width="30" alt=""
+                                                                        class="timeline-user-avatar" />
+                                                                </div>
+                                                                <span class="note-user">{{note.responsibleName}}</span>
+                                                                <p class="time-note">
+                                                                    {{note.noteTitle}} Lúc
+                                                                    {{note.createdDate |
+                                                                    date:'HH:mm'}}
+                                                                    {{ 'lead.note.day' | translate }}
+                                                                    {{note.createdDate | date:'dd/MM/yyyy'}}
+                                                                </p>
+                                                            </h3>
+                                                            <div class="timeline-body">
+                                                                <div class="note-content">
+                                                                    <span class="short-content"
+                                                                        style="word-wrap: break-word;"></span>
+                                                                    <span class="full-content"
+                                                                        style="display: none;word-wrap: break-word;"></span>
+                                                                </div>
+
+                                                                <div *ngIf="note.noteDocList.length > 0"
+                                                                    class="row no-margin file-upload-zone"
+                                                                    style="padding: 0 12px; margin-bottom: 20px !important">
+                                                                    <div *ngFor="let item of note.noteDocList.slice(0,3); let i=index"
+                                                                        class="col-md-4 short-content-file"
+                                                                        style="padding: 5px 0">
+                                                                        <div class="row no-margin file-item"
+                                                                            style="background-color: rgb(228, 228, 228); padding: 5px 10px">
+                                                                            <div class="col-md-1">
+                                                                                <i class="pi pi-file"
+                                                                                    style="font-size: 1.55em;"></i>
+                                                                            </div>
+                                                                            <div class="col-md-10">
+                                                                                <div class="item-name"
+                                                                                    pTooltip="{{ item.documentName }}"
+                                                                                    tooltipPosition="bottom">
+                                                                                    <span>
+                                                                                        <a class="preview-doc"
+                                                                                            (click)="openItem(item.documentName, item.documentUrl)">
+                                                                                            {{
+                                                                                            item.documentName
+                                                                                            }}
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div
+                                                                                    style="font-size: 10px; padding: 0 !important">
+                                                                                    {{
+                                                                                    (item.documentSize)/1024/1024
+                                                                                    |
+                                                                                    number:'.2' }} MB
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-1">
+                                                                                <i class="pi pi-download"
+                                                                                    (click)="downloadNoteFile(item)"
+                                                                                    style="font-size: 1.55em; cursor: pointer;"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div *ngFor="let item of note.noteDocList;let i=index"
+                                                                        class="col-md-4 full-content-file"
+                                                                        style="display: none;padding: 5px 0">
+                                                                        <div class="row no-margin file-item"
+                                                                            style="background-color: rgb(228, 228, 228); padding: 5px 10px">
+                                                                            <div class="col-md-1">
+                                                                                <i class="pi pi-file"
+                                                                                    style="font-size: 1.55em;"></i>
+                                                                            </div>
+                                                                            <div class="col-md-10">
+                                                                                <div class="item-name"
+                                                                                    pTooltip="{{ item.documentName }}"
+                                                                                    tooltipPosition="bottom">
+                                                                                    <span>
+                                                                                        <a class="preview-doc"
+                                                                                            (click)="openItem(item.base64Url)">
+                                                                                            {{
+                                                                                            item.documentName
+                                                                                            }}
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div
+                                                                                    style="font-size: 10px; padding: 0 !important">
+                                                                                    {{
+                                                                                    item.documentSize/1024/1024
+                                                                                    |
+                                                                                    number:'.2'
+                                                                                    }} MB
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-1">
+                                                                                <i class="pi pi-file"
+                                                                                    (click)="downloadNoteFile(item)"
+                                                                                    style="font-size: 1.55em; cursor: pointer;"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p *ngIf="note.noteDocList.length > 3"
+                                                                        class="col-md-12 continue">
+                                                                        <b>...</b>
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <p-paginator #paginator [rows]="10" [totalRecords]="totalRecordsNote"
+                                                    (onPageChange)="paginate($event)" [rowsPerPageOptions]="[10,20,30]">
+                                                </p-paginator>
+                                            </div>
+                                        </div>
+                                    </p-accordionTab>
+                                </p-accordion>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- Footer -->
+        <main-footer></main-footer>
+    </div>
+</div>

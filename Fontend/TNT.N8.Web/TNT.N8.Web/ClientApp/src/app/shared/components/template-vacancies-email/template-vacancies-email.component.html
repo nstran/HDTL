@@ -1,0 +1,132 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right" key="popup"></p-toast>
+
+<div class="template-vacancies-email">
+  <div class="row no-margin">
+    <div class="col-md-12">
+      <form class="form-group" [formGroup]="formVacanciesEmail">
+        <div class="row">
+          <div class="col-md-2">Email người nhận</div>
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="text" class="w100" pInputText formControlName="emailControl"
+                  [ngClass]="(emailControl.invalid && (emailControl.dirty || emailControl.touched)) ? 'error-border': ''" />
+              </div>
+              <div class="col-md-12" [hidden]="emailControl.valid || emailControl.untouched">
+                <span *ngIf="emailControl.hasError('required')" class="error-message-span">Không được để trống</span>
+                <span *ngIf="emailControl.hasError('pattern')" class="error-message-span">Sai định dạng</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="row" style="margin-top: 10px;">
+          <div class="col-md-2">Cc</div>
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="text" class="w100" pInputText formControlName="ccEmailControl"
+                  [ngClass]="(ccEmailControl.invalid && (ccEmailControl.dirty || ccEmailControl.touched)) ? 'error-border': ''" />
+              </div>
+              <div class="col-md-12" [hidden]="ccEmailControl.valid || ccEmailControl.untouched">
+                <span *ngIf="ccEmailControl.hasError('required')" class="error-message-span">Không được để trống</span>
+                <span *ngIf="ccEmailControl.hasError('pattern')" class="error-message-span">Sai định dạng</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-md-2">Bcc</div>
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-md-12">
+                <input type="text" class="w100" pInputText formControlName="bccEmailControl"
+                  [ngClass]="(bccEmailControl.invalid && (bccEmailControl.dirty || bccEmailControl.touched)) ? 'error-border': ''" />
+              </div>
+              <div class="col-md-12" [hidden]="bccEmailControl.valid || bccEmailControl.untouched">
+                <span *ngIf="bccEmailControl.hasError('required')" class="error-message-span">Không được để trống</span>
+                <span *ngIf="bccEmailControl.hasError('pattern')" class="error-message-span">Sai định dạng</span>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-md-2">Tiêu đề</div>
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-md-12">
+                <input #autofocus type="text" class="w100" pInputText formControlName="titleControl"
+                  [ngClass]="(titleControl.invalid && (titleControl.dirty || titleControl.touched)) ? 'error-border': ''" />
+              </div>
+              <div class="col-md-12" [hidden]="titleControl.valid || titleControl.untouched">
+                <span *ngIf="titleControl.hasError('required')" class="error-message-span">Không được để trống</span>
+                <span *ngIf="titleControl?.errors?.forbiddenSpaceText" class="error-message-span">Tiêu đề không được để
+                  trắng</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+          <div class="col-md-2">Nội dung</div>
+          <div class="col-md-10">
+            <div class="row">
+              <div class="col-md-12">
+                <ejs-richtexteditor #templateRTE [height]="300" [toolbarSettings]='tools'
+                  formControlName="contentControl" (blur)="changeNoteContent($event)"
+                  [ngClass]="(contentControl.invalid  && (contentControl.dirty || contentControl.touched)) ? 'error-border': ''">
+                  <ng-template>
+                  </ng-template>
+                </ejs-richtexteditor>
+              </div>
+              <div class="col-md-12" [hidden]="contentControl.valid || contentControl.untouched">
+                <span *ngIf="contentControl.hasError('required')" class="error-message-span">Nội dung không được để
+                  trống</span>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 10px;margin-bottom: 10px;">
+              <div class="col-md-12">
+                <p-button (onClick)="selectEmailTemplate()" label="Chọn email mẫu" styleClass="ui-button-secondary"
+                  [style]="{'margin-right': '0.3rem'}"></p-button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 5px;">
+          <div class="col-md-2"></div>
+          <div class="col-md-10">
+            <p-fileUpload #fileUpload name="demo[]" [showUploadButton]="false" multiple="multiple"
+              accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+              [maxFileSize]="defaultLimitedFileSize" invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+              invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+              invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+              invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}." chooseLabel="Chọn file"
+              cancelLabel="Hủy toàn bộ file" (onSelect)="handleFile($event, fileUpload)" (onRemove)="removeFile($event)"
+              (onClear)="clearAllFile()">
+            </p-fileUpload>
+          </div>
+        </div>
+      </form>
+
+      <div class="row">
+        <div class="col-md-12" style="margin-top: 10px;">
+          <div class="group-button-footer">
+            <button type="button" class="cancel" (click)="cancel()"><span class="cancel-label">Đóng</span></button>
+            <button type="button" class="save" (click)="sendEmail()" [disabled]="awaitResult"><span
+                class="save-label">Gửi</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

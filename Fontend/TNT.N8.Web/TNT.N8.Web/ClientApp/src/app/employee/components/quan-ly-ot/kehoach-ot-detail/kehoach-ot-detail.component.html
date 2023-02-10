@@ -1,0 +1,881 @@
+<!-- Loading -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không"
+  [baseZIndex]="100000000">
+</p-confirmDialog>
+
+<div class="detail-keHoachOT">
+  <div class="row no-margin" style="margin-bottom: 10px!important;">
+    <div class="col-md-12 header" style="padding: 6px;">
+      <div class="row">
+        <div class="col-md-6 no-padding">
+          <div class="row no-margin">
+            <div class="col-md-1 col-sm-1 col-xs-3">
+              <div class="header-box-icon">
+                <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+              </div>
+            </div>
+            <div class="col-md-11 col-sm-10 col-xs-9">
+              <div>
+                <span class="customer-name">Chi tiết đề xuất kế hoạch OT</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="float: right;">
+                <button type="button" class="btn-remove" (click)="goBackToList()">
+                  <span class="btn-remove-text">Thoát</span>
+                </button>
+
+                <button #saveAndCreate class="btn-save-and-new" type="button" *ngIf="IsShowGuiXacNhan"
+                  style="width: 120px !important;" (click)="update(true)">
+                  <span class="btn-save-and-new-text">Gửi phê duyệt</span>
+                </button>
+
+                <button #save type="button" class="btn-save" (click)="update(false)" *ngIf="IsShowLuu && actionEdit">
+                  <span class="btn-save-text">Lưu</span>
+                </button>
+
+                <button *ngIf="IsShowHuyYeuCauXacNhan" class="btn-save-and-new" type="button" [disabled]="awaitResult"
+                  (click)="huyYeuCacXacNhan()" style="width: 160px !important;">
+                  <span class="btn-save-and-new-text">Hủy yêu cầu xác nhận</span>
+                </button>
+
+                <button #saveAndCreate class="btn-save-and-new" type="button"
+                  *ngIf="IsShowTuChoi && !IsPheDuyetTemLead  && trangThaiDeXuat != 10  && trangThaiDeXuat != 11"
+                  (click)="showLyDoTuChoi = true;lyDoTuChoi = '';tuChoiType = 'tuChoiKeHoachOrDangKyOT'">
+                  <span class="btn-save-and-new-text">Từ chối</span>
+                </button>
+
+                <button #save type="button" class="btn-save" (click)="xacNhan()" style="width:100px!important;"
+                  *ngIf="IsShowXacNhan && !IsPheDuyetTemLead && trangThaiDeXuat != 10  && trangThaiDeXuat != 11">
+                  <span class="btn-save-text">Phê duyệt</span>
+                </button>
+
+                <button #save type="button" class="btn-save" (click)="datVeMoi(null)"
+                  *ngIf="IsShowDatVeMoi && IsNguoiTao" style="width: 90px !important;">
+                  <span class="btn-save-text">Đặt về mới</span>
+                </button>
+
+                <button #save type="button" class="btn-save" (click)="isShowGiaHanKHOT = true"
+                  *ngIf="trangThaiDeXuat == 10" style="width: 120px !important;">
+                  <span class="btn-save-text">Gia hạn thêm</span>
+                </button>
+
+                <button #save type="button" class="btn-save" (click)="dangKyThem()"
+                  *ngIf="(trangThaiDeXuat == 9 || trangThaiDeXuat == 11) && IsNguoiTao" style="width: 120px !important;">
+                  <span class="btn-save-text">Đăng ký thêm</span>
+                </button>
+
+
+                <button #save type="button" class="btn-save" (click)="dangKyLai()"
+                  *ngIf="(trangThaiDeXuat == 9 || trangThaiDeXuat == 11) && IsNguoiTao" style="width: 90px !important;">
+                  <span class="btn-save-text">Đăng ký lại</span>
+                </button>
+              </div>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <ul class="nav nav-tabs slds-path__nav" style="padding-left: 21px;padding-right: 21px;">
+    <ng-container *ngFor="let item of listFormatStatusSupport">
+      <li *ngIf="item.categoryCode == 'TEMP'" data-toggle="tab" class="slds-path__item" [ngClass]="[item.isActive ? 'active': '',
+              item.isComplete ? 'slds-is-complete' : 'slds-is-incomplete',
+              item.isCurrent ? 'slds-is-current' : '']">
+        <p-dropdown [options]="item.children" optionLabel="nodeName" [(ngModel)]="selectedTempStatusSupport"
+          [autoDisplayFirst]="false" [style]="{'width': '100%'}">
+        </p-dropdown>
+      </li>
+      <li *ngIf="item.categoryCode != 'TEMP'" data-toggle="tab" class="slds-path__item" [ngClass]="[item.isActive ? 'active': '',
+              item.isComplete ? 'slds-is-complete' : 'slds-is-incomplete',
+              item.isCurrent ? 'slds-is-current' : '']">
+        <a class="tabHeader slds-path__link" href="#" pTooltip="{{item.nodeName}}" tooltipPosition="bottom"
+          tooltipStyleClass="custom-tooltip">
+          <span class="complete slds-path__stage">
+            <i class="fa fa-check" aria-hidden="true"></i>
+          </span>
+          <span class="slds-path__title">{{item.nodeName}}</span>
+        </a>
+      </li>
+    </ng-container>
+  </ul>
+
+  <form [formGroup]="keHoachOtFormGroup" class="form-horizontal">
+    <div class="row no-padding body-wrapper" style="margin-top: -10px;">
+      <div class="col-md-12">
+        <!-- Thông tin đề xuất -->
+        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+          <p-accordionTab header="Thông tin đề xuất" [selected]="true">
+            <div class="row m-0">
+              <div class="col-md-12 form-group">
+                <label *ngIf="trangThaiDeXuat == 1">Trạng thái: <strong>Mới</strong></label>
+                <label *ngIf="trangThaiDeXuat == 2">Trạng thái: <strong>Chờ phê duyệt</strong></label>
+                <label *ngIf="trangThaiDeXuat == 8">Trạng thái: <strong>Từ chối kế hoạch OT</strong></label>
+                <label *ngIf="trangThaiDeXuat == 3">Trạng thái: <strong>Đăng ký OT</strong></label>
+                <label *ngIf="trangThaiDeXuat == 4">Trạng thái: <strong>Chờ phê duyệt đăng ký OT</strong></label>
+                <label *ngIf="trangThaiDeXuat == 5">Trạng thái: <strong>Đã duyệt</strong></label>
+                <label *ngIf="trangThaiDeXuat == 9">Trạng thái: <strong>Từ chối đăng ký OT</strong></label>
+                <label *ngIf="trangThaiDeXuat == 6">Trạng thái: <strong>Đang thực hiện</strong></label>
+                <label *ngIf="trangThaiDeXuat == 7">Trạng thái: <strong>Hoàn thành</strong></label>
+                <label *ngIf="trangThaiDeXuat == 11">Trạng thái: <strong>Chờ phê duyệt đăng ký OT - hết
+                    hạn</strong></label>
+                <label *ngIf="trangThaiDeXuat == 10">Trạng thái: <strong>Chờ phê duyệt kế hoạch OT - hết
+                    hạn</strong></label>
+              </div>
+
+              <div class="col-md-4 form-group">
+                <label>Tên đề xuất <span class="required">*</span>:</label>
+                <input formControlName="tenKeHoachFormControl" type="text" maxlength="500"
+                  [ngClass]="(tenKeHoachFormControl.invalid && (tenKeHoachFormControl.dirty || tenKeHoachFormControl.touched)) ? 'error-border' : ''"
+                  class="w100" pInputText />
+                <p [hidden]="tenKeHoachFormControl.valid || tenKeHoachFormControl.untouched">
+                  <span
+                    *ngIf="tenKeHoachFormControl.hasError('required') || tenKeHoachFormControl.hasError('blankString') "
+                    class="error-message-span">
+                    Không được để trống
+                  </span>
+                </p>
+              </div>
+              <div class="col-md-4 form-group">
+                <label>Ngày đề xuất <span class="required">*</span>:</label>
+                <p-calendar formControlName="ngayDeXuatFormControl" dateFormat="dd/mm/yy"
+                  (keydown.enter)="$event.preventDefault()" [baseZIndex]="999" appendTo="body"
+                  [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  [ngClass]="(ngayDeXuatFormControl.invalid && (ngayDeXuatFormControl.dirty || ngayDeXuatFormControl.touched)) ? 'error-border' : ''">
+                </p-calendar>
+                <p [hidden]="ngayDeXuatFormControl.valid || ngayDeXuatFormControl.untouched">
+                  <span
+                    *ngIf="ngayDeXuatFormControl.hasError('required') || ngayDeXuatFormControl.hasError('blankString') "
+                    class="error-message-span">
+                    Không được để trống
+                  </span>
+                </p>
+              </div>
+              <div class="col-md-4 form-group">
+                <label>Người đề xuất:</label><span class="required">*</span>
+                <p-dropdown [options]="listEmp" optionLabel="employeeName" [filter]="true" [resetFilterOnHide]="true"
+                  [virtualScroll]="true" itemSize="10" formControlName="nguoiDeXuatIdFormControl"
+                  [ngClass]="(nguoiDeXuatIdFormControl.invalid  && (nguoiDeXuatIdFormControl.dirty ||  nguoiDeXuatIdFormControl.touched)) ? 'error-border': ''"
+                  (keydown.enter)="$event.preventDefault()" appendTo="body" [style]="{'width': '100%'}">
+                </p-dropdown>
+              </div>
+            </div>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+
+    <div class="row no-padding body-wrapper">
+      <div class="col-md-12">
+        <!-- Kế hoạch OT -->
+        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+          <p-accordionTab header="Kế hoạch OT" [selected]="true">
+            <div class="row m-0">
+              <div class="col-md-4 form-group">
+                <label>Loại OT <span class="required">*</span>:</label>
+                <p-dropdown [options]="listLoaiOt" optionLabel="categoryName" placeholder="Chọn loại OT" [filter]="true"
+                  [resetFilterOnHide]="true" [virtualScroll]="true" itemSize="10" formControlName="loaiOtFormControl"
+                  [ngClass]="(loaiOtFormControl.invalid  && (loaiOtFormControl.dirty ||  loaiOtFormControl.touched)) ? 'error-border': ''"
+                  (keydown.enter)="$event.preventDefault()" appendTo="body" [style]="{'width': '100%'}">
+                </p-dropdown>
+                <p [hidden]="loaiOtFormControl.valid || loaiOtFormControl.untouched">
+                  <span *ngIf="loaiOtFormControl.hasError('required') || loaiOtFormControl.hasError('blankString') "
+                    class="error-message-span">
+                    Không được để trống
+                  </span>
+                </p>
+              </div>
+              <div class="col-md-8 form-group">
+                <label>Địa điểm <span class="required">*</span>:</label>
+                <input formControlName="diaDiemFormControl" type="text" maxlength="500"
+                  [ngClass]="(diaDiemFormControl.invalid && (diaDiemFormControl.dirty || diaDiemFormControl.touched)) ? 'error-border' : ''"
+                  [style]="{'width': '100%'}" class="w100" pInputText />
+                <p [hidden]="diaDiemFormControl.valid || diaDiemFormControl.untouched">
+                  <span *ngIf="diaDiemFormControl.hasError('required') || diaDiemFormControl.hasError('blankString') "
+                    class="error-message-span">
+                    Không được để trống
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div class="row m-0">
+              <div class="col-md-4 form-group">
+                <label>Từ ngày <span class="required">*</span>:</label>
+                <p-calendar formControlName="ngayBatDauFormControl" dateFormat="dd/mm/yy"
+                  (ngModelChange)="changeTuNgay()" [maxDate]="ngayKetThucFormControl.value" [minDate]="toDay"
+                  (keydown.enter)="$event.preventDefault()" [baseZIndex]="999" appendTo="body"
+                  [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  [ngClass]="(ngayBatDauFormControl.invalid && (ngayBatDauFormControl.dirty || ngayBatDauFormControl.touched)) ? 'error-border' : ''">
+                </p-calendar>
+                <p [hidden]="ngayBatDauFormControl.valid || ngayBatDauFormControl.untouched">
+                  <span
+                    *ngIf="ngayBatDauFormControl.hasError('required') || ngayBatDauFormControl.hasError('blankString') "
+                    class="error-message-span">
+                    Không được để trống
+                  </span>
+                </p>
+              </div>
+              <div class="col-md-8 form-group">
+                <label>Phòng ban thực hiện <span class="required">*</span>:</label><a href="javascript:(0)"
+                  (click)="openOrgPopup()"> <u>(Xem sơ đồ tổ chức)</u></a>
+                <p-multiSelect formControlName="donViIdFormControl" class="customer-dropdown" [options]="listPhongBan"
+                  defaultLabel="Chọn phòng ban" optionLabel="organizationName" [virtualScroll]="true"
+                  (keydown.enter)="$event.preventDefault()" appendTo="body"
+                  [ngClass]="(donViIdFormControl.invalid  && (donViIdFormControl.dirty ||  donViIdFormControl.touched)) ? 'error-border': ''"
+                  [style]="{'width': '100%', 'display': 'none'}" [resetFilterOnHide]="true" [filter]="true"
+                  selectedItemsLabel="{0} phòng ban được chọn">
+                </p-multiSelect>
+
+                <p-chips formControlName="donViNameIdFormControl" optionLabel="organizationName"
+                  [style]="{'width': '100%'}" disabled="true">
+                </p-chips>
+
+                <p [hidden]="donViNameIdFormControl.valid || donViNameIdFormControl.untouched">
+                  <span
+                    *ngIf="donViNameIdFormControl.hasError('required') || donViNameIdFormControl.hasError('blankString') "
+                    class="error-message-span">
+                    Không được để trống
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div class="row m-0">
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-md-12 form-group">
+                    <label>Đến ngày <span class="required">*</span>:</label>
+                    <p-calendar formControlName="ngayKetThucFormControl" dateFormat="dd/mm/yy"
+                      (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+                      [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="body"
+                      [ngClass]="(ngayKetThucFormControl.invalid && (ngayKetThucFormControl.dirty || ngayKetThucFormControl.touched)) ? 'error-border' : ''">
+                    </p-calendar>
+                    <p [hidden]="ngayKetThucFormControl.valid || ngayKetThucFormControl.untouched">
+                      <span
+                        *ngIf="ngayKetThucFormControl.hasError('required') || ngayKetThucFormControl.hasError('blankString') "
+                        class="error-message-span">
+                        Không được để trống
+                      </span>
+                    </p>
+                  </div>
+                  <div class="col-md-12 form-group">
+                    <label>Loại ca <span class="required">*</span>:</label>
+                    <p-dropdown [options]="listLoaiCaOt" optionLabel="name" placeholder="Chọn loại ca" [filter]="true"
+                      [resetFilterOnHide]="true" formControlName="loaiCaOtControl"
+                      [ngClass]="(loaiCaOtControl.invalid && (loaiCaOtControl.dirty || loaiCaOtControl.touched)) ? 'error-border': ''"
+                      (keydown.enter)="$event.preventDefault()" appendTo="body" [style]="{'width': '100%'}"
+                      (onChange)="changeLoaiCaOt()">
+                    </p-dropdown>
+                    <p [hidden]="loaiCaOtControl.valid || loaiCaOtControl.untouched">
+                      <span *ngIf="loaiCaOtControl.hasError('required')" class="error-message-span">
+                        Không được để trống
+                      </span>
+                    </p>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <ng-container *ngIf="loaiCaOtControl?.value?.value == 3">
+                      <label>Giờ bắt đầu <span class="required">*</span>:</label>
+                      <p-calendar formControlName="gioBatDauFormControl" timeOnly="true" hourFormat="24"
+                        (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+                        [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="body"
+                        [ngClass]="(gioBatDauFormControl.invalid && (gioBatDauFormControl.dirty || gioBatDauFormControl.touched)) ? 'error-border' : ''">
+                      </p-calendar>
+                      <p [hidden]="gioBatDauFormControl.valid || gioBatDauFormControl.untouched">
+                        <span *ngIf="gioBatDauFormControl.hasError('required')" class="error-message-span">
+                          Không được để trống
+                        </span>
+                      </p>
+                    </ng-container>
+                    <ng-container *ngIf="loaiCaOtControl?.value?.value != 3">
+                      <label>Giờ bắt đầu <span class="required">*</span>: {{gioBatDau}}</label>
+                    </ng-container>
+                  </div>
+                  <div class="col-md-6 form-group">
+                    <ng-container *ngIf="loaiCaOtControl?.value?.value == 3">
+                      <label>Giờ kết thúc <span class="required">*</span>:</label>
+                      <p-calendar formControlName="gioKetThucFormControl" timeOnly="true" hourFormat="24"
+                        (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+                        [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="body"
+                        [ngClass]="(gioKetThucFormControl.invalid && (gioKetThucFormControl.dirty || gioKetThucFormControl.touched)) ? 'error-border' : ''">
+                      </p-calendar>
+                      <p [hidden]="gioKetThucFormControl.valid || gioKetThucFormControl.untouched">
+                        <span *ngIf="gioKetThucFormControl.hasError('required')" class="error-message-span">
+                          Không được để trống
+                        </span>
+                      </p>
+                    </ng-container>
+                    <ng-container *ngIf="loaiCaOtControl?.value?.value != 3">
+                      <label>Giờ kết thúc <span class="required">*</span>: {{gioKetThuc}}</label>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8 form-group">
+                <label>Lý do <span class="required">*</span>:</label>
+                <textarea [rows]="3" pInputTextarea formControlName="lyDoFormControl" class="w-100"
+                  style="height: calc(100% - 24px);"
+                  [ngClass]="(lyDoFormControl.invalid && (lyDoFormControl.dirty || lyDoFormControl.touched)) ? 'error-border' : ''"></textarea>
+                <p [hidden]="lyDoFormControl.valid || lyDoFormControl.untouched">
+                  <span *ngIf="lyDoFormControl.hasError('required') || lyDoFormControl.hasError('blankString') "
+                    class="error-message-span">
+                    Không được để trống
+                  </span>
+                </p>
+              </div>
+            </div>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+
+    <div class="row no-padding body-wrapper">
+      <div class="col-md-12">
+        <!-- Thời hạn đăng ký OT và phê duyệt -->
+        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+          <p-accordionTab header="Thời hạn đăng ký OT và phê duyệt" [selected]="true">
+            <div class="row m-0">
+              <div class="col-md-4 form-group">
+                <label>Thời hạn phê duyệt kế hoạch <span class="required">*</span>:</label>
+                <p-calendar formControlName="hanPheDuyetKeHoachFormControl" dateFormat="dd/mm/yy"
+                  (ngModelChange)="changeHanPheDuyetKH()" showTime=true hourFormat="24" [minDate]="toDay"
+                  (keydown.enter)="$event.preventDefault()" [baseZIndex]="999" appendTo="body"
+                  [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  [ngClass]="(hanPheDuyetKeHoachFormControl.invalid && (hanPheDuyetKeHoachFormControl.dirty || hanPheDuyetKeHoachFormControl.touched)) ? 'error-border' : ''">
+                </p-calendar>
+
+                <p [hidden]="hanPheDuyetKeHoachFormControl.valid || hanPheDuyetKeHoachFormControl.untouched">
+                  <span
+                    *ngIf="hanPheDuyetKeHoachFormControl.hasError('required') || hanPheDuyetKeHoachFormControl.hasError('blankString') "
+                    class="error-message-span">
+                    Không được để trống
+                  </span>
+                </p>
+              </div>
+              <div class="col-md-4 form-group">
+                <label>Thời hạn đăng ký OT <span class="required">*</span>:</label>
+                <p-calendar formControlName="hanDangKyOTFormControl" dateFormat="dd/mm/yy"
+                  (ngModelChange)="changeHanDangKy()" showTime=true hourFormat="24" [minDate]="toDay"
+                  (keydown.enter)="$event.preventDefault()" [baseZIndex]="999" appendTo="body"
+                  [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  [ngClass]="(hanDangKyOTFormControl.invalid && (hanDangKyOTFormControl.dirty || hanDangKyOTFormControl.touched)) ? 'error-border' : ''">
+                </p-calendar>
+                <p [hidden]="hanDangKyOTFormControl.valid || hanDangKyOTFormControl.untouched">
+                  <span
+                    *ngIf="hanDangKyOTFormControl.hasError('required') || hanDangKyOTFormControl.hasError('blankString') "
+                    class="error-message-span">
+                    Không được để trống
+                  </span>
+                </p>
+              </div>
+              <div class="col-md-4 form-group">
+                <label>Thời hạn phê duyệt đăng ký OT <span class="required">*</span>:</label>
+                <p-calendar formControlName="hanPheDuyetDangKyFormControl" dateFormat="dd/mm/yy" showTime=true
+                  hourFormat="24" (keydown.enter)="$event.preventDefault()" [minDate]="toDay" [baseZIndex]="999"
+                  appendTo="body" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  [ngClass]="(hanPheDuyetDangKyFormControl.invalid && (hanPheDuyetDangKyFormControl.dirty || hanPheDuyetDangKyFormControl.touched)) ? 'error-border' : ''">
+                </p-calendar>
+                <p [hidden]="hanPheDuyetDangKyFormControl.valid || hanPheDuyetDangKyFormControl.untouched">
+                  <span
+                    *ngIf="hanPheDuyetDangKyFormControl.hasError('required') || hanPheDuyetDangKyFormControl.hasError('blankString') "
+                    class="error-message-span">
+                    Không được để trống
+                  </span>
+                </p>
+              </div>
+            </div>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+  </form>
+
+  <div class="row no-padding body-wrapper" *ngIf="trangThaiDeXuat != 1 && trangThaiDeXuat != 2 && trangThaiDeXuat != 8">
+    <div class="col-md-12">
+      <!-- Danh sách đăng ký OT -->
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+        [ngStyle]="{'width': '100%'}">
+        <p-accordionTab header="Danh sách đăng ký OT" [selected]="true">
+          <div class="col-md-12 no-padding">
+            <div class="box-filter">
+              <div class="row no-margin" style="margin-bottom:10px!important;">
+                <div class="col-md-12 buffer-bottom-label" style="display:flex;justify-content:flex-end">
+                  <button type="button" class="btn-save" style="width:fit-content!important;"
+                    *ngIf="IsShowOtKeHoachKhac">
+                    <span class="btn-save-text">Bạn đã đăng ký OT ở kế hoạch khác có thời gian giao với kế hoạch OT
+                      hiện tại</span>
+                  </button>
+                  <button type="button" class="btn-save" style="width:90px!important;"
+                    (click)="DangKyOTOrHuyDangKyOT(true)" *ngIf="IsShowDangKyOT">
+                    <span class="btn-save-text">Đăng ký OT</span>
+                  </button>
+                  <button type="button" class="btn-save" style="width:150px!important;"
+                    (click)="DangKyOTOrHuyDangKyOT(false)" *ngIf="IsShowHuyDangKyOT">
+                    <span class="btn-save-text">Hủy đăng ký OT</span>
+                  </button>
+                  <button type="button" class="btn-save" style="width:150px!important;"
+                    (click)="showLyDoTuChoi = true;lyDoTuChoi = '';tuChoiType = 'tuChoiNhanVienOT'"
+                    *ngIf="!IsPheDuyetTemLead && trangThaiDeXuat == 4 && IsShowXacNhan">
+                    <span class="btn-save-text">Từ chối</span>
+                  </button>
+                </div>
+              </div>
+              <div class="row no-margin">
+                <div class="col-md-12">
+                  <!-- Bảng dùng cho trạng thái phê duyệt nhận viên đăng ký teamlead -->
+                  <p-table #myTable [columns]="dangKyOTColumns" [value]="dangKyOTList"
+                    *ngIf="!(!IsPheDuyetTemLead && trangThaiDeXuat == 4)" [resizableColumns]="true"
+                    [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th style="width: 2em; text-align: center;">
+                          #
+                        </th>
+                        <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                          [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.width}">
+                          <span>
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                          </span>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                      <tr>
+                        <td style="width: 2em; text-align: center;">
+                          {{i + 1}}
+                        </td>
+                        <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                          [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width' : col.width}">
+                          <span class="ui-column-title">{{col.header}}</span>
+
+                          <span *ngSwitchCase="'trangThai'">
+                            <span *ngIf="rowData[col.field] == 1">Đăng ký OT</span>
+                            <span *ngIf="rowData[col.field] == 2">Chờ phê duyệt</span>
+                            <span *ngIf="rowData[col.field] == 3">Đã duyệt</span>
+                            <span *ngIf="rowData[col.field] == 4">Từ chối</span>
+                          </span>
+
+                          <span *ngSwitchCase="'organizationName'" (click)="onViewDetailPhongBan(rowData)" class="link"
+                            style="display: inline-block;padding: 3px 3px;">{{rowData[col.field]}}
+                          </span>
+
+                          <span *ngSwitchDefault>
+                            {{rowData[col.field]}}
+                          </span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                  <!-- Bảng dùng cho phê duyệt nhân viên đăng ký OT tổng -->
+                  <p-table #myTable [columns]="thanhVienOTAllColumns" [value]="thanhVienOTList"
+                    *ngIf="!IsPheDuyetTemLead && trangThaiDeXuat == 4" [resizableColumns]="true"
+                    [(selection)]="selectedEmpCheckBoxPheDuyetTong" [rowsPerPageOptions]="[10,20,30]"
+                    [responsive]="true">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th style="width: 3em; text-align: center;">
+                          <p-checkbox (click)="tickAllNv(e.checked)" #e></p-checkbox>
+                        </th>
+                        <th style="width: 2em; text-align: center;">
+                          #
+                        </th>
+                        <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                          [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.width}">
+                          <span>
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                          </span>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                      <tr>
+                        <td style="width: 3em; text-align: center;">
+                          <p-tableCheckbox [value]="rowData" [disabled]="rowData['trangThai'] == 4 ? true : false">
+                          </p-tableCheckbox>
+                        </td>
+
+                        <td style="width: 2em; text-align: center;">
+                          {{i + 1}}
+                        </td>
+                        <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                          pEditableColumn
+                          [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width' : col.width}">
+                          <span class="ui-column-title">{{col.header}}</span>
+
+                          <span *ngSwitchCase="'trangThai'">
+                            <span *ngIf="rowData[col.field] == 1">Đăng ký OT</span>
+                            <span *ngIf="rowData[col.field] == 2">Chờ phê duyệt</span>
+                            <span *ngIf="rowData[col.field] == 3">Đã duyệt</span>
+                            <span *ngIf="rowData[col.field] == 4">Từ chối</span>
+                          </span>
+
+                          <span *ngSwitchCase="'organizationName'" (click)="onViewDetailPhongBan(rowData)" class="link"
+                            style="display: inline-block;padding: 3px 3px;">{{rowData[col.field]}}
+                          </span>
+
+                          <p-cellEditor *ngSwitchCase="'ghiChu'">
+                            <ng-template pTemplate="input" *ngIf="rowData['trangThai'] == 2">
+                              <input pInputText placeholder="" type="text" [(ngModel)]="rowData[col.field]"
+                                *ngIf="IsShowXacNhan" (change)="changeGhiChu(rowData)" maxlength="250" />
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                              {{rowData[col.field]}}
+                            </ng-template>
+                          </p-cellEditor>
+
+                          <span *ngSwitchDefault>
+                            {{rowData[col.field]}}
+                          </span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <div class="row no-padding body-wrapper" id="parent">
+    <div class="col-md-12">
+      <!-- Tài liệu liên quan -->
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Tài liệu liên quan" [selected]="true">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12 mt-5">
+                <p-fileUpload #fileUpload name="demo[]" customUpload="true" multiple="multiple"
+                  [showUploadButton]="true"
+                  accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+                  [maxFileSize]="defaultLimitedFileSize" invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+                  invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+                  invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+                  invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}."
+                  chooseLabel="Chọn file" cancelLabel="Hủy toàn bộ file" (onSelect)="handleFile($event, fileUpload)"
+                  (uploadHandler)="myUploader($event)" (onRemove)="removeFile($event)" (onClear)="clearAllFile()">
+                </p-fileUpload>
+              </div>
+
+              <div class="col-md-12 mt-5">
+                <p-table #dt [columns]="colsFile" [value]="arrayDocumentModel" [responsive]="true"
+                  [resizableColumns]="true" [paginator]="true" [rows]="10">
+                  <ng-template pTemplate="caption">
+                    <div style="text-align: right">
+                      <input type="text" pInputText size="50" placeholder="Tên tài liệu"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th *ngFor="let col of columns" pResizableColumn [ngStyle]="{'text-align': col.textAlign}">
+                        {{col.header}}
+                      </th>
+                      <th style="width:4em"></th>
+                      <th style="width:4em"></th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                      <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
+                        [ngStyle]="{'text-align': col.textAlign}">
+                        <span class="ui-column-title">{{col.header}}</span>
+                        <span *ngSwitchCase="'fileFullName'">
+                          {{rowData[col.field].substring(0,rowData[col.field].lastIndexOf('_'))}}.{{rowData[col.field].substring(rowData[col.field].lastIndexOf('.')+1,
+                          rowData[col.field].length)}}
+                        </span>
+                        <span *ngSwitchCase="'createdDate'">
+                          {{rowData[col.field] | date:'dd/MM/yyyy h:mm a'}}
+                        </span>
+                        <span *ngSwitchCase="'size'">
+                          <ng-container *ngIf="convertFileSize(rowData[col.field])">
+                            {{rowData[col.field] / 1024 | number}} KB
+                          </ng-container>
+                          <ng-container *ngIf="!convertFileSize(rowData[col.field])">
+                            {{rowData[col.field] / 1048576 | number}} MB
+                          </ng-container>
+                        </span>
+                        <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+                      </td>
+                      <td>
+                        <button pButton icon="pi pi-trash" (click)="deleteFile(rowData)"
+                          class="ui-button-danger"></button>
+                      </td>
+                      <td>
+                        <button pButton icon="pi pi-download" (click)="downloadFile(rowData)"></button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <div class="row no-padding body-wrapper">
+    <div class="col-md-12">
+      <app-note-time-line [viewNote]="viewNote" [viewTimeline]="viewTimeline" objectType="DXKHOT"
+        [objectNumber]="deXuatOTId" [actionAdd]="actionAdd" [actionEdit]="actionEdit" [actionDelete]="actionDelete"
+        [pageSize]="pageSize"></app-note-time-line>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="" [(visible)]="showLyDoTuChoi" [modal]="true" [responsive]="true" class='showImportForm'
+  [style]="{width: '550px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000" [closable]="true"
+  (onHide)="closeChooseFileImportDialog()">
+  <div class='detail-keHoachOT'>
+    <div class="col-md-12 buffer-bottom-label">
+      <span>Lý do từ chối<span class='required'>*</span>:</span>
+    </div>
+    <div class="col-md-12">
+      <textarea [(ngModel)]="lyDoTuChoi" type="text" rows="1" class="w100" pInputText
+        style="height:204px;width:540px;"></textarea>
+    </div>
+    <p-footer>
+      <div class="col-md-12" style="margin-bottom: 10px!important;">
+        <!-- Từ chối Kế hoạch hoặc đăng ký OT -->
+        <button #save type="button" class="btn-save" (click)="tuChoi()"
+          *ngIf="!IsPheDuyetTemLead  && tuChoiType == 'tuChoiKeHoachOrDangKyOT'"
+          style="background-color: #116fbf;color: #ffffff;border-color: #116fbf;float:right;">
+          <span class="btn-save-text">Xác nhận</span>
+        </button>
+        <!-- Từ chối phê duyệt nhận viên OT  tongPhe duyet -->
+        <button #save type="button" class="btn-save" (click)="tuChoiNhanVienOTTongPheDuyet()"
+          *ngIf="!IsPheDuyetTemLead && trangThaiDeXuat == 4 && tuChoiType == 'tuChoiNhanVienOT'"
+          style="background-color: #116fbf;color: #ffffff;border-color: #116fbf;float:right;">
+          <span class="btn-save-text">Xác nhận</span>
+        </button>
+        <button #save type="button" class="btn-remove" (click)="showLyDoTuChoi = false;lyDoTuChoi = ''"
+          style="border-color: black;background-color: white;color:black;float:right;">
+          <span class="btn-remove-text">Hủy</span>
+        </button>
+      </div>
+    </p-footer>
+  </div>
+</p-dialog>
+
+<p-dialog header="Danh sách đăng ký OT" [(visible)]="showChiTietNvOtPhonngBan" [modal]="true" [responsive]="true"
+  class='showImportForm' [style]="{width: '750px', minWidth: '700px'}" [minY]="70" [baseZIndex]="10000"
+  [closable]="true" (onHide)="showChiTietNvOtPhonngBan = false">
+  <div class="detail-keHoachOT">
+
+    <div class="col-md-12" style="display: flex;justify-content:center;align-items:center; margin-bottom: 8px;">
+      <div class="col-md-4 d-inline-flex">
+        <span>Phòng ban: <strong>{{phongBan != null ? phongBan.organizationName : ''}}</strong></span>
+      </div>
+      <div class="col-md-8 button-group text-right">
+        <input type="text" class="iput-text" [(ngModel)]="filterGlobal1" placeholder="Tìm kiếm trong danh sách"
+          (input)="myTable1.filterGlobal1($event.target.value.trim(), 'contains')">
+
+        <button #saveAndCreate class="btn-save" type="button" style="width:100px!important;"
+          *ngIf="IsPheDuyetTemLead && IsShowPheDuyetDangKyOTTheoPhongBan" (click)="pheDuyetThanhVienOT()">
+          <span class="btn-save-text">Phê duyệt</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="col-md-12">
+      <p-table #myTable1 [columns]="thanhVienOTColumns" [value]="thanhVienOTListShow" [resizableColumns]="true"
+        [style]="{'margin-bottom': '30px'}" [rowsPerPageOptions]="[10,20,30]" [responsive]="true"
+        [(selection)]="selectedEmpCheckBox">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 3em; text-align: center;">
+              <p-tableHeaderCheckbox [disabled]="trangThaiDeXuat == 4 ? false : true"></p-tableHeaderCheckbox>
+            </th>
+            <th style="width: 2em; text-align: center;">
+              #
+            </th>
+            <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.width}">
+              <span>
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </span>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+          <tr>
+            <td style="width: 3em; text-align: center;">
+              <p-tableCheckbox [value]="rowData" [disabled]="trangThaiDeXuat == 4 ? false : true">
+              </p-tableCheckbox>
+            </td>
+
+            <td style="width: 2em; text-align: center;">
+              {{i + 1}}
+            </td>
+            <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field" pEditableColumn
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width' : col.width}">
+              <span class="ui-column-title">{{col.header}}</span>
+
+
+              <span *ngSwitchCase="'ghiChu'">
+                <input [(ngModel)]="rowData[col.field]" (change)="changeGhiChu(rowData)" type="text" maxlength="500"
+                  class="w100" pInputText *ngIf="IsShowXacNhan" />
+              </span>
+
+              <span *ngSwitchCase="'trangThai'">
+                <span *ngIf="rowData[col.field] == 1">Đăng ký OT</span>
+                <span *ngIf="rowData[col.field] == 2">Chờ phê
+                  duyệt</span>
+                <span *ngIf="rowData[col.field] == 3">Đã duyệt</span>
+                <span *ngIf="rowData[col.field] == 4">Từ chối</span>
+              </span>
+
+              <span *ngSwitchDefault>
+                {{rowData[col.field]}}
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</p-dialog>
+
+
+
+<p-dialog header="" [(visible)]="isShowGiaHan" [modal]="true" [responsive]="true" [contentStyle]="{'overflow': 'unset'}"
+  [style]="{width: '550px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000" [closable]="true"
+  (onHide)="isShowGiaHan = false">
+  <form [formGroup]="giaHanThemPopUpFromGroup">
+    <div class="col-md-12 buffer-bottom-label">
+      <span>Thời hạn đăng ký OT</span><span class="required">*</span>
+    </div>
+    <div class="col-md-12">
+      <p-calendar formControlName="hanDangKyOTPopUpFormControl" dateFormat="dd/mm/yy" showTime=true hourFormat="24"
+        [minDate]="toDay" (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+        [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="showImportForm"
+        [ngClass]="(hanDangKyOTPopUpFormControl.invalid && (hanDangKyOTPopUpFormControl.dirty || hanDangKyOTPopUpFormControl.touched)) ? 'error-border' : ''">
+      </p-calendar>
+    </div>
+    <div class="col-md-12" [hidden]="hanDangKyOTPopUpFormControl.valid || hanDangKyOTPopUpFormControl.untouched">
+      <span
+        *ngIf="hanDangKyOTPopUpFormControl.hasError('required') || hanDangKyOTPopUpFormControl.hasError('blankString') "
+        class="error-message-span"> Không được để trống</span>
+    </div>
+    <div class="col-md-12 buffer-bottom-label">
+      <span>Thời hạn phê duyệt thời gian đăng ký OT</span><span class="required">*</span>
+    </div>
+    <div class="col-md-12">
+      <p-calendar formControlName="hanPheDuyetDangKyOTPopUpFormControl" dateFormat="dd/mm/yy" showTime=true
+        hourFormat="24" [minDate]="toDay" (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+        [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="showImportForm"
+        [ngClass]="(hanPheDuyetDangKyOTPopUpFormControl.invalid && (hanPheDuyetDangKyOTPopUpFormControl.dirty || hanPheDuyetDangKyOTPopUpFormControl.touched)) ? 'error-border' : ''">
+      </p-calendar>
+    </div>
+    <div class="col-md-12"
+      [hidden]="hanPheDuyetDangKyOTPopUpFormControl.valid || hanPheDuyetDangKyOTPopUpFormControl.untouched">
+      <span
+        *ngIf="hanPheDuyetDangKyOTPopUpFormControl.hasError('required') || hanPheDuyetDangKyOTPopUpFormControl.hasError('blankString') "
+        class="error-message-span"> Không được để trống</span>
+    </div>
+  </form>
+
+  <p-footer>
+    <div class="detail-keHoachOT">
+      <button #save type="button" class="btn-save" (click)="giaHanThemKeHoachOT(0)"
+        style="background-color: #116fbf;color: #ffffff;border-color: #116fbf;">
+        <span class="btn-create-text">Xác nhận</span>
+      </button>
+      <button #save type="button" class="btn-save" (click)="showLyDoTuChoi = false;lyDoTuChoi = '';isShowGiaHan = false"
+        style="border-color: black;background-color: white;color:black;">
+        <span class="btn-create-text">Hủy</span>
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>
+
+
+
+<p-dialog header="Gia hạn thêm thời gian phê duyệt kế hoạch OT" [(visible)]="isShowGiaHanKHOT" [modal]="true"
+  [responsive]="true" [contentStyle]="{'overflow': 'unset'}" [style]="{width: '550px', minWidth: '200px'}" [minY]="70"
+  [baseZIndex]="10000" [closable]="true" (onHide)="isShowGiaHanKHOT = false">
+  <form [formGroup]="giaHanThemKhotPopUpFromGroup">
+
+    <div class="col-md-12 buffer-bottom-label">
+      <span>Thời hạn phê duyệt kế hoạch OT</span><span class="required">*</span>
+    </div>
+    <div class="col-md-12">
+      <p-calendar formControlName="hanPheDuyeKhotFormControl" dateFormat="dd/mm/yy" showTime=true hourFormat="24"
+        [minDate]="toDay" (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+        [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="showImportForm"
+        [ngClass]="(hanPheDuyeKhotFormControl.invalid && (hanPheDuyeKhotFormControl.dirty || hanPheDuyeKhotFormControl.touched)) ? 'error-border' : ''">
+      </p-calendar>
+    </div>
+    <div class="col-md-12" [hidden]="hanPheDuyeKhotFormControl.valid || hanPheDuyeKhotFormControl.untouched">
+      <span *ngIf="hanPheDuyeKhotFormControl.hasError('required') || hanPheDuyeKhotFormControl.hasError('blankString') "
+        class="error-message-span"> Không được để trống</span>
+    </div>
+
+    <div class="col-md-12 buffer-bottom-label">
+      <span>Thời hạn đăng ký OT</span><span class="required">*</span>
+    </div>
+    <div class="col-md-12">
+      <p-calendar formControlName="hanDangKyOTGiaHanKhotFormControl" dateFormat="dd/mm/yy" showTime=true hourFormat="24"
+        [minDate]="toDay" (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+        [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="showImportForm"
+        [ngClass]="(hanDangKyOTGiaHanKhotFormControl.invalid && (hanDangKyOTGiaHanKhotFormControl.dirty || hanDangKyOTGiaHanKhotFormControl.touched)) ? 'error-border' : ''">
+      </p-calendar>
+    </div>
+    <div class="col-md-12"
+      [hidden]="hanDangKyOTGiaHanKhotFormControl.valid || hanDangKyOTGiaHanKhotFormControl.untouched">
+      <span
+        *ngIf="hanDangKyOTGiaHanKhotFormControl.hasError('required') || hanDangKyOTGiaHanKhotFormControl.hasError('blankString') "
+        class="error-message-span"> Không được để trống</span>
+    </div>
+    <div class="col-md-12 buffer-bottom-label">
+      <span>Thời hạn phê duyệt thời gian đăng ký OT</span><span class="required">*</span>
+    </div>
+    <div class="col-md-12">
+      <p-calendar formControlName="hanPheDuyetDangKyOTGiaHanKhotFormControl" dateFormat="dd/mm/yy" showTime=true
+        hourFormat="24" [minDate]="toDay" (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+        [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="showImportForm"
+        [ngClass]="(hanPheDuyetDangKyOTGiaHanKhotFormControl.invalid && (hanPheDuyetDangKyOTGiaHanKhotFormControl.dirty || hanPheDuyetDangKyOTGiaHanKhotFormControl.touched)) ? 'error-border' : ''">
+      </p-calendar>
+    </div>
+    <div class="col-md-12"
+      [hidden]="hanPheDuyetDangKyOTGiaHanKhotFormControl.valid || hanPheDuyetDangKyOTGiaHanKhotFormControl.untouched">
+      <span
+        *ngIf="hanPheDuyetDangKyOTGiaHanKhotFormControl.hasError('required') || hanPheDuyetDangKyOTGiaHanKhotFormControl.hasError('blankString') "
+        class="error-message-span"> Không được để trống</span>
+    </div>
+  </form>
+
+  <p-footer>
+    <div class="detail-keHoachOT">
+      <button #save type="button" class="btn-save" (click)="giaHanThemPheDuyetKHOT()"
+        style="background-color: #116fbf;color: #ffffff;border-color: #116fbf;">
+        <span class="btn-create-text">Xác nhận</span>
+      </button>
+      <button #save type="button" class="btn-save"
+        (click)="showLyDoTuChoi = false;lyDoTuChoi = '';isShowGiaHanKHOT = false"
+        style="border-color: black;background-color: white;color:black;">
+        <span class="btn-create-text">Hủy</span>
+      </button>
+    </div>
+  </p-footer>
+</p-dialog>

@@ -1,0 +1,28 @@
+<div class="chon-vn">
+  <div class="row no-margin">
+    <div class="col-md-12">
+      <p-pickList [source]="listEmployee" [target]="listSelectedEmployee" 
+        sourceHeader="Danh sách nhân viên" targetHeader="Danh sách nhân viên được chọn"
+        [responsive]="true" filterBy="employeeCodeName" dragdrop="false" 
+        sourceFilterPlaceholder="Tìm kiếm nhân viên" targetFilterPlaceholder="Tìm kiếm nhân viên" 
+        [sourceStyle]="{'height':'300px'}" [targetStyle]="{'height':'300px'}">
+        <ng-template let-emp pTemplate="item">
+          <div class="ui-helper-clearfix">
+            <div style="font-size:13px;">
+              {{emp.employeeCodeName}}
+            </div>
+          </div>
+        </ng-template>
+      </p-pickList>
+    </div>
+
+    <div class="col-md-12 mt-40 mb-10" style="text-align: right;">
+      <button class="btn-cancel" type="button" (click)="dong()">
+        Đóng
+      </button>
+      <button class="btn-create" (click)="xacNhan()">
+        Xác nhận
+      </button>
+    </div>
+  </div>
+</div>

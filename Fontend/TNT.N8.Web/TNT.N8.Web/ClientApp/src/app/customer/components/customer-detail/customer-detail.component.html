@@ -1,0 +1,505 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="customer-detail" id="parent">
+  <div class="row no-margin" [ngClass]="{'fixed': fixed}" [ngStyle]="{'width':withFiexd}">
+    <div class="col-md-12 header">
+      <div class="row">
+        <div class="col-md-3" style="padding: 10px 10px;">
+          <div class="row no-margin">
+            <div class="col-md-1 col-sm-1 col-xs-3 no-padding">
+              <div class="header-box-icon">
+                <img src="/assets/icons/components/noun_product.svg" class="header-icon">
+              </div>
+            </div>
+            <div class="col-md-11 col-sm-10 col-xs-9">
+              <div>
+                <span class="customer-name">{{customerNameLabel}}</span>
+              </div>
+              <div>
+                <span class="customer-type">{{customerTypeString}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-9" style="text-align: right;padding: 14px 10px;">
+          <button type="button" style="margin-right: 5px;" class="btn-remove" (click)="goBack()">
+            <span class="btn-remove-text">Quay lại</span>
+          </button>
+
+          <button (click)="del_customer()" *ngIf="countCustomer === 0 && actionDelete" type="button" class="btn-remove">
+            <span class="btn-remove-text">Xóa</span>
+          </button>
+
+          <!-- <button *ngIf="actionEdit && isEdit" type="button" class="btn-cancel-edit" (click)="isCancelEditCustomer()">
+            <span class="btn-remove-text">Hủy chỉnh sửa</span>
+          </button>
+
+          <button *ngIf="actionEdit && !isEdit" type="button" class="btn-save" (click)="isEditCustomer()">
+            <span class="btn-save-text">Sửa</span>
+          </button> -->
+
+          <button *ngIf="actionEdit && isEdit" type="button" class="btn-save" (click)="saveCustomer()">
+            <span class="btn-save-text">Lưu</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" style="padding-top: 10px;padding-bottom: 10px;">
+    <div class="col-md-12 customer-infor">
+      <div class="row">
+
+        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+          class="w-100">
+          <p-accordionTab header="Thông tin khách hàng" [selected]="true">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-2" style="text-align: center;">
+                  <img class="cus-avatar"
+                    [src]="contactModel?.AvatarUrl!=''?contactModel?.AvatarUrl:'/assets/images/no-avatar.png'" />
+                </div>
+
+                <!-- NẾU LÀ SỬA -->
+                <div class="col-md-10" *ngIf="isEdit">
+                  <div class="row">
+                    <div class="col-md-3">
+
+                      <form *ngIf="customerBaseForm" [formGroup]="customerBaseForm">
+                        <span class="infor-label">Mã khách hàng</span>
+                        <span class="infor-value" *ngIf="countCustomer !== 0">
+                          {{customerModel.CustomerCode}}
+                        </span>
+                        <div class="row" *ngIf="countCustomer === 0">
+                          <div class="col-md-12">
+                            <input type="text" class="w100" pInputText formControlName="cusCodeControl"
+                              (keypress)="customerCodePattern($event)"
+                              [ngClass]="(customerBaseForm.get('cusCodeControl').invalid && (customerBaseForm.get('cusCodeControl').dirty || customerBaseForm.get('cusCodeControl').touched)) ? 'error-border' : ''" />
+                          </div>
+                          <div class="col-md-12"
+                            [hidden]="customerBaseForm.get('cusCodeControl').valid || customerBaseForm.get('cusCodeControl').untouched">
+                            <span
+                              *ngIf="customerBaseForm.get('cusCodeControl').hasError('required') || customerBaseForm.get('cusCodeControl').hasError('blankString')"
+                              class="error-message-span">Không được để trống</span>
+                            <span *ngIf="customerBaseForm.get('cusCodeControl').hasError('duplicateCode')"
+                              class="error-message-span">Trùng mã khách hàng</span>
+                          </div>
+                        </div>
+
+
+                        <span class="infor-label">{{customerModel.CustomerType == 1 ? 'Tên công ty' : 'Họ và tên
+                          đệm'}}</span>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <input type="text" class="w100" pInputText formControlName="cusFirstNameControl"
+                              (keyup)="changeCustomerName()"
+                              [ngClass]="(cusFirstNameControl.invalid && (cusFirstNameControl.dirty || cusFirstNameControl.touched)) ? 'error-border': ''" />
+                          </div>
+                          <div class="col-md-12" [hidden]="cusFirstNameControl.valid || cusFirstNameControl.untouched">
+                            <span *ngIf="cusFirstNameControl.hasError('required')" class="error-message-span">Không
+                              được
+                              để trống</span>
+                            <span *ngIf="cusFirstNameControl?.errors?.forbiddenSpaceText" class="error-message-span">Nội
+                              dung không được để trắng</span>
+                            <span *ngIf="cusFirstNameControl?.errors?.maxlength" class="error-message-span">Tối đa
+                              100
+                              ký tự</span>
+                          </div>
+
+                        </div>
+
+                        <span class="infor-label">Tên</span><span class="required">*</span>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <input type="text" class="w100" pInputText formControlName="cusLastNameControl"
+                              (keyup)="changeCustomerName()"
+                              [ngClass]="(cusLastNameControl.invalid && (cusLastNameControl.dirty || cusLastNameControl.touched)) ? 'error-border': ''" />
+                          </div>
+                          <div class="col-md-12" [hidden]="cusLastNameControl.valid || cusLastNameControl.untouched">
+                            <span *ngIf="cusLastNameControl.hasError('required')" class="error-message-span">Không
+                              được
+                              để trống</span>
+                            <span *ngIf="cusLastNameControl?.errors?.forbiddenSpaceText" class="error-message-span">Nội
+                              dung không được để trắng</span>
+                            <span *ngIf="cusLastNameControl?.errors?.maxlength" class="error-message-span">Tối đa 50
+                              ký
+                              tự</span>
+                          </div>
+
+                        </div>
+                      </form>
+                    </div>
+
+                    <!-- NẾU LÀ SỬA -->
+                    <div class="col-md-9">
+                      <form *ngIf="(customerModel.CustomerType != 1) && customerPersonalInforForm && isEdit"
+                        [formGroup]="customerPersonalInforForm">
+                        <div class="row">
+                          <!-- Hàng 1 -->
+                          <div class="col-md-4">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <span>Giới tính</span>
+                              </div>
+                              <div class="col-md-12">
+                                <p-dropdown [options]="listGenders" formControlName="genderControl"
+                                  placeholder="Chọn giới tính" [showClear]="true" optionLabel="categoryName"
+                                  [style]="{'width': '100%'}"></p-dropdown>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-4">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <span>Ngày sinh</span>
+                              </div>
+                              <div class="col-md-12">
+                                <p-calendar formControlName="birthDayControl" [yearNavigator]="true"
+                                  yearRange="1960:2020" dateFormat="dd/mm/yy" [style]="{'width':'100%'}"
+                                  [inputStyle]="{'width':'100%'}" [baseZIndex]="999" showButtonBar="true"></p-calendar>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-4">
+
+
+                            <div class="row">
+                              <div class="col-md-12">
+                                <span>Số điện thoại</span><span class="required">*</span>
+                              </div>
+                              <div class="col-md-12">
+                                <input type="text" class="w100" pInputText formControlName="phoneControl"
+                                  (change)="checkDuplicateInforCustomer(2, phoneControl)"
+                                  [ngClass]="(phoneControl.invalid && (phoneControl.dirty || phoneControl.touched)) ? 'error-border': ''" />
+                              </div>
+                              <div class="col-md-12" [hidden]="phoneControl.valid || phoneControl.untouched">
+                                <span *ngIf="phoneControl.hasError('required')" class="error-message-span">Số điện
+                                  thoại không được để trống</span>
+                                <span *ngIf="phoneControl.hasError('pattern')" class="error-message-span">Sai định
+                                  dạng
+                                  số điện thoại. </span>
+                                <span *ngIf="phoneControl?.errors?.maxlength" class="error-message-span">Tối đa 50 ký
+                                  tự</span>
+                              </div>
+                            </div>
+                          </div>
+
+
+                        </div>
+
+                        <!-- Hàng 2 -->
+                        <div class="row" style="margin-top: 5px;">
+                          <div class="col-md-4">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <span>Email</span>
+                              </div>
+                              <div class="col-md-12">
+                                <input type="text" class="w100" pInputText formControlName="emailControl"
+                                  (change)="checkDuplicateInforCustomer(1, emailControl)"
+                                  [ngClass]="(emailControl.invalid && (emailControl.dirty || emailControl.touched)) ? 'error-border': ''" />
+                              </div>
+                              <div class="col-md-12" [hidden]="emailControl.valid || emailControl.untouched">
+                                <span *ngIf="emailControl.hasError('required')" class="error-message-span">Email
+                                  không
+                                  được để trống</span>
+                                <span *ngIf="emailControl.hasError('pattern')" class="error-message-span">Sai định
+                                  dạng. </span>
+                                <span *ngIf="emailControl?.errors?.maxlength" class="error-message-span">Tối đa 100
+                                  ký
+                                  tự</span>
+                              </div>
+
+                            </div>
+
+                          </div>
+
+                          <div class="col-md-4">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <span>Tỉnh/Thành phố</span>
+                              </div>
+                              <div class="col-md-12">
+                                <p-dropdown [options]="listProvince" formControlName="provinceControl"
+                                  [filter]="true" [showClear]="true" [resetFilterOnHide]="true"
+                                  placeholder="Chọn Tỉnh/Thành phố" optionLabel="provinceName"
+                                  [style]="{'width': '100%'}" (onChange)="changeProvince()">
+                                </p-dropdown>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-4">
+                            <div class="row">
+
+                              <div class="col-md-12">
+                                <span>Địa chỉ</span>
+                              </div>
+                              <div class="col-md-12">
+                                <input type="text" class="w100" pInputText formControlName="addressControl"
+                                  [ngClass]="(addressControl.invalid && (addressControl.dirty || addressControl.touched)) ? 'error-border': ''" />
+                              </div>
+                              <div class="col-md-12" [hidden]="addressControl.valid || addressControl.untouched">
+                                <span *ngIf="addressControl?.errors?.maxlength" class="error-message-span">Tối đa 250
+                                  ký tự</span>
+                              </div>
+
+
+                            </div>
+                          </div>
+
+                        </div>
+
+                      </form>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- NẾU LÀ HỦY SỬA -->
+                <div class="col-md-10 " *ngIf="!isEdit">
+                  <div class="row">
+                    <div class="col-md-3">
+                      <span class="infor-label">Mã khách hàng:</span> <strong
+                        style="margin-left:8px;">{{customerModel.CustomerCode}}</strong>
+                    </div>
+
+                    <div class="col-md-3">
+                      <span class="infor-label">Giới tính:</span> <strong style="margin-left:8px;">{{contactModel.Gender
+                        == "NU" ? "Nữ" : "Nam"}}</strong>
+                    </div>
+
+                    <div class="col-md-3">
+                      <span class="infor-label">Ngày sinh:</span> <strong
+                        style="margin-left:8px;">{{contactModel.DateOfBirth | date:'dd/MM/yyyy'}}</strong>
+                    </div>
+
+                    <div class="col-md-3">
+                      <span class="infor-label">Số điện thoại:</span> <strong
+                        style="margin-left:8px;">{{contactModel.Phone}}</strong>
+                    </div>
+
+
+                  </div>
+
+                  <div class="row" style="padding-top: 10px; word-break: break-word;">
+                    <div class="col-md-3">
+                      <span class="infor-label">{{customerModel.CustomerType == 1 ? 'Tên công ty:' : 'Họ và tên
+                        đệm:'}}</span> <strong style="margin-left:8px;">{{contactModel.FirstName}}</strong>
+                    </div>
+
+                    <div class="col-md-3">
+                      <span class="infor-label">Email:</span> <strong
+                        style="margin-left:8px;">{{contactModel.Email}}</strong>
+                    </div>
+
+                    <div class="col-md-3">
+                      <span class="infor-label">Tỉnh thành phố:</span> <strong
+                        style="margin-left:8px;">{{provinceLableName}}</strong>
+                    </div>
+
+                    <div class="col-md-3">
+                      <span class="infor-label">Địa chỉ cụ thể:</span> <strong
+                        style="margin-left:8px;">{{contactModel.Address}}</strong>
+                    </div>
+
+                  </div>
+
+                  <div class="row" style="padding-top: 10px; word-break: break-word;"
+                    *ngIf="customerModel.CustomerType != 1">
+
+                    <div class="col-md-3">
+                      <span class="infor-label">Tên:</span> <strong
+                        style="margin-left:8px;">{{contactModel.LastName}}</strong>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row no-margin" style="padding-top: 10px;padding-bottom: 10px;">
+    <div class="col-md-12 customer-infor">
+      <div class="row">
+        <div class="col-md-5">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+            <p-accordionTab header="Ghi chú" [selected]="true">
+              <div class="col-md-12">
+                <p-editor [(ngModel)]="noteContent" [style]="{'height':'180px', 'width': '100%'}"
+                  (onTextChange)="changeNoteContent($event)"></p-editor>
+              </div>
+              <div *ngIf="actionImport" class="col-md-12" style="margin-top: 5px;">
+                <p-fileUpload #fileUpload name="demo[]" [showUploadButton]="false" multiple="multiple"
+                  accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+                  maxFileSize="10000000" invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+                  invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+                  invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+                  invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}."
+                  chooseLabel="Chọn file" cancelLabel="Hủy toàn bộ file" (onSelect)="handleFile($event, fileUpload)"
+                  (onRemove)="removeFile($event)" (onClear)="clearAllFile()"></p-fileUpload>
+              </div>
+
+              <div *ngIf="(listUpdateNoteDocument.length > 0)" class="col-md-12" style="margin-top: 5px;">
+                <p-table [columns]="colsFile" [value]="listUpdateNoteDocument" [responsive]="true"
+                  [resizableColumns]="true">
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th *ngFor="let col of columns" pResizableColumn [ngStyle]="{'text-align': col.textAlign}">
+                        {{col.header}}
+                      </th>
+                      <th style="width:4em"></th>
+                      <th style="width:4em"></th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                      <td *ngFor="let col of columns" class="ui-resizable-column"
+                        [ngStyle]="{'text-align': col.textAlign}">
+                        <span>{{rowData[col.field]}}</span>
+                      </td>
+                      <td>
+                        <button *ngIf="actionDelete" pButton icon="pi pi-trash" (click)="deleteFile(rowData)"
+                          class="ui-button-danger"></button>
+                      </td>
+                      <td>
+                        <button pButton icon="pi pi-download" (click)="downloadFile(rowData)"></button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+
+              <div class="col-md-12" style="text-align: right; margin-top: 5px;">
+                <button type="button" class="btn-cancel-note" (click)="cancelNote()">
+                  <span class="save-cancel-lable">Hủy</span>
+                </button>
+                <button type="button" class="btn-save-note" (click)="saveNote()">
+                  <span class="save-note-lable">{{isEditNote == true ? 'Cập nhật ghi chú' : 'Thêm ghi chú'}}</span>
+                </button>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+        <div class="col-md-7">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+            <p-accordionTab header="Dòng thời gian" [selected]="true">
+              <div class="timeline col-md-12 timeline-content">
+                <ul class="timeline">
+                  <li *ngFor="let note of noteHistory;let noteIndex = index;">
+                    <i *ngIf="note.type == 'ADD'" class="fa fa-file-text-o bg-blueX color-w"></i>
+                    <i *ngIf="note.type == 'NOT'" class="fa fa-commenting-o bg-blueX color-w"></i>
+                    <i *ngIf="note.type == 'EDT'" class="fa fa-user bg-blueX color-w"></i>
+                    <i *ngIf="note.type == 'NEW'" class="fa fa-user-plus bg-blueX color-w"></i>
+                    <div class="timeline-item" id="{{note.noteId}}">
+                      <span class="time onHover">
+                        <i *ngIf="note.type === 'ADD' && ((note.description !== '' && note.description !== null) || note.noteDocList.length > 0) && actionEdit"
+                          (click)="onClickEditNote(note.noteId, note.description)" class="pi pi-pencil style-edit"
+                          pTooltip="{{ 'lead.tooltip.edit_note' | translate }}" tooltipPosition="bottom"></i>
+                        <i *ngIf="actionDelete" pTooltip="Xóa ghi chú" tooltipPosition="bottom"
+                          (click)="onClickDeleteNote(note.noteId)" class="pi pi-trash style-delete"></i>
+                      </span>
+                      <h3 class="timeline-header">
+                        <span>
+                          <i *ngIf="tooLong(note)" class="trigger_node collapse-content-icon pi pi-chevron-right"
+                            (click)="trigger_node(note.noteId,$event)" style="cursor: pointer;"
+                            pTooltip="{{ toggle_note_label }}" tooltipPosition="bottom"></i>
+                          <span class="alignment" style="padding: 0 12px;" *ngIf="!tooLong(note)"></span>
+                        </span>
+                        <div>
+                          <img *ngIf="note" [src]="defaultAvatar" height="30" width="30" alt=""
+                            class="timeline-user-avatar" />
+                        </div>
+                        <span class="note-user">{{note.responsibleName}}</span>
+                        <!-- <span>
+                          <i *ngIf="note.noteDocList.length > 0" style="position: absolute;"
+                             class="material-icons file-icon"
+                             matTooltip="{{'Đính kèm ' + note.noteDocList.length + ' tài liệu'}}">
+                            insert_drive_file
+                          </i>
+                        </span> -->
+                        <p class="time-note">
+                          {{note.noteTitle}} Lúc {{note.createdDate | date:'HH:mm'}} {{ 'lead.note.day' | translate }}
+                          {{note.createdDate | date:'dd/MM/yyyy'}}
+                        </p>
+                      </h3>
+                      <div class="timeline-body">
+                        <div class="note-content">
+                          <span class="short-content" style="word-wrap: break-word;"></span>
+                          <span class="full-content" style="display: none;word-wrap: break-word;"></span>
+                        </div>
+
+                        <div *ngIf="note.noteDocList.length > 0" class="row no-margin file-upload-zone"
+                          style="padding: 0 12px; margin-bottom: 20px !important">
+                          <div *ngFor="let item of note.noteDocList.slice(0,3); let i=index"
+                            class="col-md-4 short-content-file" style="padding: 5px 0">
+                            <div class="row no-margin file-item"
+                              style="background-color: rgb(228, 228, 228); padding: 5px 10px">
+                              <div class="col-md-1">
+                                <i class="pi pi-file" style="font-size: 1.55em;"></i>
+                              </div>
+                              <div class="col-md-11">
+                                <div class="item-name" pTooltip="{{ item.documentName }}" tooltipPosition="bottom">
+                                  <span>
+                                    <a class="preview-doc" (click)="openItem(item.documentName, item.documentUrl)">
+                                      {{ item.documentName }}
+                                    </a>
+                                  </span>
+                                </div>
+                                <div style="font-size: 10px; padding: 0 !important">
+                                  {{ item.documentSize/1024/1024 | number:'.2' }} MB
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div *ngFor="let item of note.noteDocList;let i=index" class="col-md-4 full-content-file"
+                            style="display: none;padding: 5px 0">
+                            <div class="row no-margin file-item"
+                              style="background-color: rgb(228, 228, 228); padding: 5px 10px">
+                              <div class="col-md-1">
+                                <i class="pi pi-file" style="font-size: 1.55em;"></i>
+                              </div>
+                              <div class="col-md-11">
+                                <div class="item-name" pTooltip="{{ item.documentName }}" tooltipPosition="bottom">
+                                  <span>
+                                    <a class="preview-doc" (click)="openItem(item.base64Url)">
+                                      {{ item.documentName }}
+                                    </a>
+                                  </span>
+                                </div>
+                                <div style="font-size: 10px; padding: 0 !important">
+                                  {{ item.documentSize/1024/1024 | number:'.2' }} MB
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <p *ngIf="note.noteDocList.length > 3" class="col-md-12 continue"><b>...</b></p>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

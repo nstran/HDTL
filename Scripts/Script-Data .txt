@@ -1,0 +1,592 @@
+INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
+VALUES ('0084a5b0-81c7-4acc-8317-26d6aced9a9e', 'Dịch vụ', 'SERVICE', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
+VALUES ('0084a5b0-81c7-4acc-8317-26d6aced9a9e', 'Tùy chọn dịch vụ', 'OPTIONTYPE', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
+VALUES ('008489b0-81c7-4acc-8317-26d6aced9a9e', 'Danh mục thuộc tính', 'ATTRIBUTE', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
+VALUES ('008489b0-81c7-4bde-8317-26d6aced9a9e', 'Danh mục tên dịch vụ', 'SERVICENAME', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
+VALUES ('cd7fe20b-9548-4edf-b0a4-000d0a0798ef', 'Quy trình bước thực hiện', 'ACTIONSTEP', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category" ("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId", "Active", "CreatedById", "CreatedDate","IsEdit","IsDefauld" ,"TenantId","SortOrder")
+VALUES ('cd7fe20b-9548-4edf-b0a4-000d0a5643ef', 'Tạo phiếu yêu cầu dịch vụ', 'CREATE','cd7fe20b-9548-4edf-b0a4-000d0a0798ef', true,'de2d55bf-e224-4ada-95e8-7769ecc494ea' ,'2022-11-22 09:23:10.849412',false, true,'04d0d35e-eacb-49da-87fd-cdc0913caeec',1) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category" ("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId", "Active", "CreatedById", "CreatedDate","IsEdit","IsDefauld" ,"TenantId","SortOrder")
+VALUES ('cd7fe20b-9548-4edf-b0a4-000d0a0798ef', 'Xác nhận thanh toán phiếu yêu cầu dịch vụ', 'CONFIRM','cd7fe20b-9548-4edf-b0a4-000d0a0798ef', true,'de2d55bf-e224-4ada-95e8-7769ecc494ea' ,'2022-11-22 09:23:10.849412',false, true,'04d0d35e-eacb-49da-87fd-cdc0913caeec',2) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category" ("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId", "Active", "CreatedById", "CreatedDate","IsEdit","IsDefauld" ,"TenantId","SortOrder")
+VALUES ('cd7fe20b-9345-4edf-b0a4-000d0a0798ef', 'Tạo phiếu hỗ trợ dịch vụ', 'CFORDER','cd7fe20b-9548-4edf-b0a4-000d0a0798ef', true,'de2d55bf-e224-4ada-95e8-7769ecc494ea' ,'2022-11-22 09:23:10.849412',false, true,'04d0d35e-eacb-49da-87fd-cdc0913caeec',3) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category" ("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId", "Active", "CreatedById", "CreatedDate","IsEdit","IsDefauld" ,"TenantId","SortOrder")
+VALUES ('cd7fe20b-9345-4edf-b0a4-000d1b2798ef', 'Cập nhật trạng thái, kết quả các điểm báo cáo', 'UPDATE','cd7fe20b-9548-4edf-b0a4-000d0a0798ef', true,'de2d55bf-e224-4ada-95e8-7769ecc494ea' ,'2022-11-22 09:23:10.849412',false, true,'04d0d35e-eacb-49da-87fd-cdc0913caeec',4) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category" ("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId", "Active", "CreatedById", "CreatedDate","IsEdit","IsDefauld" ,"TenantId","SortOrder")
+VALUES ('19af8e08-5878-4bbd-988b-a1718ff63f17', 'Xác nhận hoàn thành hỗ trợ dịch vụ', 'DONE','cd7fe20b-9548-4edf-b0a4-000d0a0798ef', true,'de2d55bf-e224-4ada-95e8-7769ecc494ea' ,'2022-11-22 09:23:10.849412',false, true,'04d0d35e-eacb-49da-87fd-cdc0913caeec',5) ON CONFLICT DO NOTHING;
+
+--Thêm folder cho các điểm báo cáo
+
+INSERT INTO "Folder"("FolderId", "ParentId", "Name", "URL", "isDelete" , "CreatedById", "CreatedDate", "TenantId", "FolderType", "FolderLevel", "Active")
+VALUES (
+	'3ccef5b1-4e90-45f8-b4f5-034c4514a12b', 
+	'feb4eb72-2acc-452c-b8b3-4c7955b196ad', 
+	'Report_Point',
+	'TRI NGHIA Demo\Report_Point',
+	false, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	'Report_Point',
+	1, 
+	true
+) ON CONFLICT DO NOTHING;
+
+
+--Thêm folder cho phiếu yêu cầu hỗ trợ
+INSERT INTO "Folder"("FolderId", "ParentId", "Name", "URL", "isDelete" , "CreatedById", "CreatedDate", "TenantId", "FolderType", "FolderLevel", "Active")
+VALUES (
+	'd11073ac-e85f-434b-9721-ad47478698f4', 
+	'feb4eb72-2acc-452c-b8b3-4c7955b196ad', 
+	'Order',
+	'TRI NGHIA Demo\Order',
+	false, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	'Order',
+	1, 
+	true
+) ON CONFLICT DO NOTHING;
+
+--Thêm folder cho phiếu hỗ trợ
+INSERT INTO "Folder"("FolderId", "ParentId", "Name", "URL", "isDelete" , "CreatedById", "CreatedDate", "TenantId", "FolderType", "FolderLevel", "Active")
+VALUES (
+	'cef8c8ee-90a9-4ed8-a5e1-1eb96d648379', 
+	'feb4eb72-2acc-452c-b8b3-4c7955b196ad', 
+	'Order_Action',
+	'TRI NGHIA Demo\Order_Action',
+	false, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	'Order_Action',
+	1, 
+	true
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "CategoryType"("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "Active", "CreatedById", "CreatedDate", "TenantId")
+VALUES (
+	'd11073ac-e85f-434b-9721-ad47478698f4', 
+	'Cấu hình thông báo', 
+	'NOTIFICATIONCONFIG',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec'
+) ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit")
+VALUES (
+	'd11073ac-e85f-434b-9721-ad47478698f4', 
+	'Đặt dịch vụ', 
+	'OrService',
+	'd11073ac-e85f-434b-9721-ad47478698f4',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	true
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit")
+VALUES (
+	'd11073ac-e85f-434b-9721-ad47475678f4', 
+	'Gửi phê duyệt yêu cầu bổ sung', 
+	'Request',
+	'd11073ac-e85f-434b-9721-ad47478698f4',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	true
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit")
+VALUES (
+	'd11073ac-e68f-434b-9721-ad47475678f4', 
+	'Phê duyệt yêu cầu dịch vụ bổ sung', 
+	'A',
+	'd11073ac-e85f-434b-9721-ad47478698f4',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	true
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit")
+VALUES (
+	'd22073ac-e68f-434b-9721-ad47475678f4', 
+	'Từ chối yêu cầu dịch vụ bổ sung', 
+	'B',
+	'd11073ac-e85f-434b-9721-ad47478698f4',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	true
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit")
+VALUES (
+	'd22073ac-e68f-484b-9721-ad47475678f4', 
+	'Xác nhận chi phí dịch vụ bổ sung', 
+	'C',
+	'd11073ac-e85f-434b-9721-ad47478698f4',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	true
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit")
+VALUES (
+	'd44073ac-e68f-484b-9721-ad47475678f4', 
+	'Xác nhận thanh toán thành công', 
+	'D',
+	'd11073ac-e85f-434b-9721-ad47478698f4',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	true
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit")
+VALUES (
+	'd55073ac-e68f-484b-9721-ad47475678f4', 
+	'Hủy đặt dịch vụ', 
+	'E',
+	'd11073ac-e85f-434b-9721-ad47478698f4',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	true
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit")
+VALUES (
+	'd66073ac-e68f-484b-9721-ad47475678f4', 
+	'Xác nhận hoàn thành tạo phiếu hỗ trợ', 
+	'F',
+	'd11073ac-e85f-434b-9721-ad47478698f4',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	true
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit")
+VALUES (
+	'd77073ac-e68f-484b-9721-ad47475678f4', 
+	'Cập nhật trạng thái  điểm báo cáo', 
+	'G',
+	'd11073ac-e85f-434b-9721-ad47478698f4',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	true
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit")
+VALUES (
+	'd88073ac-e68f-484b-9721-ad47475678f4', 
+	'Cảnh báo hạn báo cáo', 
+	'H',
+	'd11073ac-e85f-434b-9721-ad47478698f4',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	true
+) ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit")
+VALUES (
+	'd99073ac-e68f-484b-9721-ad47475678f4', 
+	'Cập nhật thay đổi phiếu hỗ trợ dịch vụ', 
+	'I',
+	'd11073ac-e85f-434b-9721-ad47478698f4',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	true
+) ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit")
+VALUES (
+	'd00079ac-e68f-484b-9721-ad47475678f4', 
+	'Hoàn thành bước thực hiện trong quy trình', 
+	'K',
+	'd11073ac-e85f-434b-9721-ad47478698f4',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	true
+) ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
+VALUES ('cca041dd-a79d-4adf-95ce-4632626d9b2e', 'Danh mục nhiệm vụ', 'EmpMission', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+
+delete from "ActionResource" where "ActionResource" like '%customer/request-approval%';
+delete from "ActionResource" where "ActionResource" like '%product/price-list%';
+delete from "ActionResource" where "ActionResource" like '%sales/dashboard%';
+delete from "ActionResource" where "ActionResource" like '%sales/contract-create%';
+delete from "ActionResource" where "ActionResource" like '%sales/contract-list%';
+delete from "ActionResource" where "ActionResource" like '%sales/contract-detail%';
+delete from "ActionResource" where "ActionResource" like '%sales/contract-dashboard%';
+delete from "ActionResource" where "ActionResource" like '%bill-sale/create%';
+delete from "ActionResource" where "ActionResource" like '%bill-sale/detail%';
+delete from "ActionResource" where "ActionResource" like '%bill-sale/list%';
+delete from "ActionResource" where "ActionResource" like '%order/list-profit-according-customers%';
+delete from "ActionResource" where "ActionResource" like '%order/order-detail%';
+delete from "ActionResource" where "ActionResource" like '%sales/top-revenue%';
+delete from "ActionResource" where "ActionResource" like '%sales/product-revenue%';
+delete from "ActionResource" where "ActionResource" like '%employee/dashboard%';
+delete from "ActionResource" where "ActionResource" like '%vendor/list-vendor-price%';
+delete from "ActionResource" where "ActionResource" like '%vendor/list-vendor-quote%';
+delete from "ActionResource" where "ActionResource" like '%vendor/vendor-quote-create%';
+delete from "ActionResource" where "ActionResource" like '%vendor/vendor-quote-detail%';
+delete from "ActionResource" where "ActionResource" like '%procurement-request/create%';
+delete from "ActionResource" where "ActionResource" like '%procurement-request/list%';
+delete from "ActionResource" where "ActionResource" like '%procurement-request/list-report%';
+delete from "ActionResource" where "ActionResource" like '%procurement-request/view%';
+delete from "ActionResource" where "ActionResource" like '%vendor/create-order%';
+delete from "ActionResource" where "ActionResource" like '%vendor/list-order%';
+delete from "ActionResource" where "ActionResource" like '%vendor/detail-order%';
+delete from "ActionResource" where "ActionResource" like '%vendor/vendor-order-report%';
+delete from "ActionResource" where "ActionResource" like '%order/pay-order-service%';
+delete from "ActionResource" where "ActionResource" like '%order/order-service-create%';
+delete from "ActionResource" where "ActionResource" like '%vendor/dashboard%';
+delete from "ActionResource" where "ActionResource" like '%vendor/dashboard/create%';
+delete from "ActionResource" where "ActionResource" like '%employee/quy-luong%';
+delete from "ActionResource" where "ActionResource" like '%product/detail%';
+delete from "ActionResource" where "ActionResource" like '%product/list%';
+delete from "ActionResource" where "ActionResource" like '%product/create%';
+
+
+update "ActionResource" set "ActionResource" = 'cusOrder/order/create/add' where "ActionResource" = 'sal/order/create/add';
+update "ActionResource" set "ActionResource" = 'cusOrder/order/create/view' where "ActionResource" = 'sal/order/create/view';
+update "ActionResource" set "ActionResource" = 'cusOrder/order/list/view' where "ActionResource" = 'sal/order/list/view';
+update "ActionResource" set "ActionResource" = 'cusOrder/order/list/download' where "ActionResource" = 'sal/order/list/download';
+update "ActionResource" set "ActionResource" = 'cusOrder/order/list/add' where "ActionResource" = 'sal/order/list/add';
+
+
+
+---orderProcess
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'07df1f8b-6b6c-4f23-918c-6357de656483', 
+	'cusOrder/orderProcess/create/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'b6e70868-383c-4ba3-885d-cdb0b7a64e95', 
+	'cusOrder/orderProcess/create/view'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'31135376-4814-428a-af50-44ab4966da94', 
+	'cusOrder/orderProcess/list/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'3bac4eb7-f994-4e9d-8a52-b4ffbb863478', 
+	'cusOrder/orderProcess/list/view'
+) ON CONFLICT DO NOTHING;
+
+
+---orderAction
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'77d15435-b6f8-44ff-bb4a-b5a632f53b6c', 
+	'cusOrder/orderAction/create/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'23454b60-047f-4029-aca0-24e3c15eef0f', 
+	'cusOrder/orderAction/create/view'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'517cd2db-a833-4e29-8866-f7b58bac885b', 
+	'cusOrder/orderAction/list/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'af869cf9-ee22-49a2-a7c9-bf7d64c8b334', 
+	'cusOrder/orderAction/list/view'
+) ON CONFLICT DO NOTHING;
+
+
+---option
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'7f2d0af7-255d-42de-84f1-082943efbdaf', 
+	'sal/options/create/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'd3b0fbf4-61d4-44b9-ab34-75d6addabd6a', 
+	'sal/options/create/view'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'2e722687-5221-4353-8fd1-96ea5872c980', 
+	'sal/options/list/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'4a7d6622-3084-4589-97cb-12062283db6e', 
+	'sal/options/list/view'
+) ON CONFLICT DO NOTHING;
+
+
+---servicePacket
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'80acb531-b36b-4278-98ae-6f01544d5c75', 
+	'sal/servicePacket/create/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'71a7f367-a65f-4e4b-aa99-9c1e8218fade', 
+	'sal/servicePacket/create/view'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'f9e1c492-196e-46b6-b438-1f5b183003f5', 
+	'sal/servicePacket/list/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'6154e00e-cc15-4838-9a30-7045ba478b5f', 
+	'sal/servicePacket/list/view'
+) ON CONFLICT DO NOTHING;
+
+
+delete from "ActionResource" where "ActionResourceId" = '07df1f8b-6b6c-4f23-918c-6357de656483';
+delete from "ActionResource" where "ActionResourceId" =  'b6e70868-383c-4ba3-885d-cdb0b7a64e95';
+delete from "ActionResource" where "ActionResourceId" =  '31135376-4814-428a-af50-44ab4966da94';
+delete from "ActionResource" where "ActionResourceId" =  '3bac4eb7-f994-4e9d-8a52-b4ffbb863478';
+delete from "ActionResource" where "ActionResourceId" =  '77d15435-b6f8-44ff-bb4a-b5a632f53b6c';
+delete from "ActionResource" where "ActionResourceId" =  '23454b60-047f-4029-aca0-24e3c15eef0f';
+delete from "ActionResource" where "ActionResourceId" =  '517cd2db-a833-4e29-8866-f7b58bac885b';
+delete from "ActionResource" where "ActionResourceId" =  'af869cf9-ee22-49a2-a7c9-bf7d64c8b334';
+delete from "ActionResource" where "ActionResourceId" =  '7f2d0af7-255d-42de-84f1-082943efbdaf';
+delete from "ActionResource" where "ActionResourceId" =  'd3b0fbf4-61d4-44b9-ab34-75d6addabd6a';
+delete from "ActionResource" where "ActionResourceId" =  '2e722687-5221-4353-8fd1-96ea5872c980';
+delete from "ActionResource" where "ActionResourceId" =  '4a7d6622-3084-4589-97cb-12062283db6e';
+delete from "ActionResource" where "ActionResourceId" =  '80acb531-b36b-4278-98ae-6f01544d5c75';
+delete from "ActionResource" where "ActionResourceId" =  '71a7f367-a65f-4e4b-aa99-9c1e8218fade';
+delete from "ActionResource" where "ActionResourceId" =  'f9e1c492-196e-46b6-b438-1f5b183003f5';
+delete from "ActionResource" where "ActionResourceId" =  '6154e00e-cc15-4838-9a30-7045ba478b5f';
+
+
+
+---orderProcess
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'07df1f8b-6b6c-4f23-918c-6357de656483', 
+	'cusOrder/order/orderProcess/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'b6e70868-383c-4ba3-885d-cdb0b7a64e95', 
+	'cusOrder/order/orderProcess/view'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'31135376-4814-428a-af50-44ab4966da94', 
+	'cusOrder/order/orderProcessList/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'3bac4eb7-f994-4e9d-8a52-b4ffbb863478', 
+	'cusOrder/order/orderProcessList/view'
+) ON CONFLICT DO NOTHING;
+
+
+---orderAction
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'77d15435-b6f8-44ff-bb4a-b5a632f53b6c', 
+	'cusOrder/order/orderAction/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'23454b60-047f-4029-aca0-24e3c15eef0f', 
+	'cusOrder/order/orderAction/view'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'517cd2db-a833-4e29-8866-f7b58bac885b', 
+	'cusOrder/order/orderActionList/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'af869cf9-ee22-49a2-a7c9-bf7d64c8b334', 
+	'cusOrder/order/orderActionList/view'
+) ON CONFLICT DO NOTHING;
+
+---option
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'7f2d0af7-255d-42de-84f1-082943efbdaf', 
+	'sal/product/product-option-list/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'd3b0fbf4-61d4-44b9-ab34-75d6addabd6a', 
+	'sal/product/product-option-list/view'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'2e722687-5221-4353-8fd1-96ea5872c980', 
+	'sal/product/product-option-detail/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'4a7d6622-3084-4589-97cb-12062283db6e', 
+	'sal/product/product-option-detail/view'
+) ON CONFLICT DO NOTHING;
+
+
+---servicePacket
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'80acb531-b36b-4278-98ae-6f01544d5c75', 
+	'sal/product/list-product-packet/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'71a7f367-a65f-4e4b-aa99-9c1e8218fade', 
+	'sal/product/list-product-packet/view'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'f9e1c492-196e-46b6-b438-1f5b183003f5', 
+	'sal/product/product-packet-createOrUpdate/add'
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'6154e00e-cc15-4838-9a30-7045ba478b5f', 
+	'sal/product/product-packet-createOrUpdate/view'
+) ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "Province"("ProvinceId", "ProvinceName", "ProvinceCode", "ProvinceType", "Active")
+VALUES (
+	'4fe84073-f2d6-484f-a41c-5082d32bc252', 
+	'Toàn quốc',
+	'65',
+	'Toàn quốc',
+	'true'
+) ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "Role" ("RoleId", "RoleValue", "Description", "TenantId")
+VALUES ('214d7013-4940-4101-9393-d500988a8ca0', '1', '1', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+INSERT INTO "Role" ("RoleId", "RoleValue", "Description", "TenantId")
+VALUES ('b21aa322-1404-4591-b856-0a0ac36e8c82', '1', '1', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+INSERT INTO "Role" ("RoleId", "RoleValue", "Description", "TenantId")
+VALUES ('a749f1a7-1cbe-41c2-a1a7-2c035db603ca', '1', '1', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+INSERT INTO "Role" ("RoleId", "RoleValue", "Description", "TenantId")
+VALUES ('a37c9152-478d-417f-b60f-e74403966fe5', '1', '1', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+
+
+INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
+VALUES ('a94e6824-82f8-4975-b16c-4af67908369a', 'Danh mục cấu hình thanh toán', 'PaymentMethod', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+--Thêm folder cho tiến độ đặt dịch vụ
+INSERT INTO "Folder"("FolderId", "ParentId", "Name", "URL", "isDelete" , "CreatedById", "CreatedDate", "TenantId", "FolderType", "FolderLevel", "Active")
+VALUES (
+	'a51b23c3-24a9-4678-bc46-68631503f07a', 
+	'feb4eb72-2acc-452c-b8b3-4c7955b196ad', 
+	'ORDERPROCESS',
+	'TRI NGHIA Demo\ORDERPROCESS',
+	false, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	'ORDERPROCESS',
+	1, 
+	true
+) ON CONFLICT DO NOTHING;
+
+
+Update "SystemParameter" set "Active" = 'true'
+where "SystemParameterId" in(
+'c53b590d-764e-4acf-a56a-c4adf72808e9',
+'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+'b50ac4e9-2de1-4153-ad8b-e31376a710aa',
+'115fb9de-231d-4517-857d-ea2c83aee51b',
+'8a577860-9560-4444-b6ce-2260286c5686');
+
+
+Update "CategoryType" set "Active" = 'false'
+where "CategoryTypeId" not in(
+'a94e6824-82f8-4975-b16c-4af67908369a',
+'cca041dd-a79d-4adf-95ce-4632626d9b2e',
+'d11073ac-e85f-434b-9721-ad47478698f4',
+'0084a5b0-81c7-4acc-8317-26d6aced9a9e',
+'c0a2f501-2a8e-e811-80d3-8cec4b4327a4',
+'566ca279-2122-4ea8-bde3-0d416ced6bd5',
+'cd7fe20b-9548-4edf-b0a4-000d0a0798ef',
+'008489b0-81c7-4acc-8317-26d6aced9a9e'
+);
+
+

@@ -1,0 +1,56 @@
+.emp-pq .mt-10 {
+  margin-top: 10px;
+}
+
+.emp-pq .mb-10 {
+  margin-bottom: 10px;
+}
+
+.emp-pq .mt-20 {
+  margin-top: 20px;
+}
+
+.emp-pq .mb-20 {
+  margin-bottom: 20px;
+}
+
+.emp-pq .icons {
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.emp-pq .icons-check {
+  color: #3dd52a;
+}
+
+.emp-pq .icons-times {
+  color: red;
+}
+
+::ng-deep .emp-pq legend {
+  width: auto;
+  font-size: 13px;
+  font-weight: 900;
+  border-bottom: 0px;
+  margin-bottom: 0;
+}
+
+::ng-deep .emp-pq .ui-fieldset {
+  border: 2px solid #c8c8c8;
+  margin-bottom: 15px;
+}
+
+.emp-pq .hyperlink {
+  color: #007ad9;
+  cursor: pointer;
+}
+
+.emp-pq .title-tab {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.emp-pq .form-row {
+  padding-left: 20px;
+}

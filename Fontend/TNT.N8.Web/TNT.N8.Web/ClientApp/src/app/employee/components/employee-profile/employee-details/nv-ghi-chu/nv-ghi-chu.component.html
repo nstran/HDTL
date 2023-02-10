@@ -1,0 +1,130 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="emp-gc">
+  <div class="col-md-12 box-define">
+    <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+      <p-accordionTab header="Ghi chú" [selected]="false">
+        <div class="col-md-12">
+          <p-editor [(ngModel)]="noteContent" [style]="{'height':'180px', 'width': '100%'}"></p-editor>
+        </div>
+        <div class="col-md-12" style="margin-top: 5px;">
+          <p-fileUpload #fileNoteUpload name="demo[]" [showUploadButton]="false" multiple="multiple"
+            accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt" maxFileSize="10000000"
+            invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+            invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+            invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+            invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}." chooseLabel="Chọn file"
+            cancelLabel="Hủy toàn bộ file" (onSelect)="handleFile($event)" (onRemove)="removeFile($event)"
+            (onClear)="clearAllFile()"></p-fileUpload>
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin-top: 5px;">
+          <button type="button" class="btn-save-note" (click)="saveNote()">
+            <span class="save-note-lable">Thêm ghi chú</span>
+          </button>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+
+  <div class="col-md-12 box-define">
+    <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+      <p-accordionTab header="Dòng thời gian" [selected]="false">
+        <div class="row bottom-buffer">
+          <div class="col-md-12">
+            <div class="row">
+              <ul class="timeline">
+                <li *ngFor="let note of noteHistory;let noteIndex = index;">
+                  <i *ngIf="note.type == 'ADD'" class="fa fa-file-text-o bg-blueX color-w"></i>
+                  <i *ngIf="note.type == 'NOT'" class="fa fa-commenting-o bg-blueX color-w"></i>
+                  <i *ngIf="note.type == 'EDT'" class="fa fa-user bg-blueX color-w"></i>
+                  <i *ngIf="note.type == 'NEW'" class="fa fa-user-plus bg-blueX color-w"></i>
+                  <div class="timeline-item" id="{{note.noteId}}">
+                    <h3 class="timeline-header">
+                      <span>
+                        <i *ngIf="tooLong(note)" class="trigger_node collapse-content-icon pi pi-chevron-right"
+                          (click)="trigger_node(note.noteId,$event)" style="cursor: pointer;"
+                          pTooltip="{{ toggle_note_label }}" tooltipPosition="bottom"></i>
+                        <span class="alignment" style="padding: 0 12px;" *ngIf="!tooLong(note)"></span>
+                      </span>
+                      <div>
+                        <img *ngIf="note" [src]="defaultAvatar" height="30" width="30" alt=""
+                          class="timeline-user-avatar" />
+                      </div>
+                      <span class="note-user">{{note.responsibleName}}</span>
+
+                      <p class="time-note">
+                        {{note.noteTitle}} Lúc {{note.createdDate | date:'HH:mm'}}
+                        {{ 'lead.note.day' | translate }}
+                        {{note.createdDate | date:'dd/MM/yyyy'}}
+                      </p>
+                    </h3>
+                    <div class="timeline-body">
+                      <div class="note-content">
+                        <span class="short-content" style="word-wrap: break-word;"></span>
+                        <span class="full-content" style="display: none;word-wrap: break-word;"></span>
+                      </div>
+
+                      <div *ngIf="note.listFile.length > 0" class="row no-margin file-upload-zone"
+                        style="padding: 0 12px; margin-bottom: 20px !important">
+                        <div *ngFor="let item of note.listFile.slice(0,3); let i=index"
+                          class="col-md-4 short-content-file" style="padding: 5px 0">
+                          <div class="row no-margin file-item"
+                            style="background-color: rgb(228, 228, 228); padding: 5px 10px">
+                            <div class="col-md-1">
+                              <i class="pi pi-file" style="font-size: 1.55em;"></i>
+                            </div>
+                            <div class="col-md-11">
+                              <div class="item-name" pTooltip="{{ item.fileName }}" tooltipPosition="bottom">
+                                <span>
+                                  <a class="preview-doc"
+                                    (click)="openItem(item.fileName, item.fileExtension, item.fileInFolderId)">
+                                    {{ item.fileName }}
+                                  </a>
+                                </span>
+                              </div>
+                              <div style="font-size: 10px; padding: 0 !important">
+                                {{ item.size/1024/1024 | number:'.2' }} MB
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div *ngFor="let item of note.listFile;let i=index" class="col-md-4 full-content-file"
+                          style="display: none;padding: 5px 0">
+                          <div class="row no-margin file-item"
+                            style="background-color: rgb(228, 228, 228); padding: 5px 10px">
+                            <div class="col-md-1">
+                              <i class="pi pi-file" style="font-size: 1.55em;"></i>
+                            </div>
+                            <div class="col-md-11">
+                              <div class="item-name" pTooltip="{{ item.fileName }}" tooltipPosition="bottom">
+                                <span>
+                                  <a class="preview-doc"
+                                    (click)="openItem(item.fileName, item.fileExtension, item.fileInFolderId)">
+                                    {{ item.fileName }}
+                                  </a>
+                                </span>
+                              </div>
+                              <div style="font-size: 10px; padding: 0 !important">
+                                {{ item.size/1024/1024 | number:'.2' }} MB
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <p *ngIf="note.listFile.length > 3" class="col-md-12 continue"><b>...</b></p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </p-accordionTab>
+    </p-accordion>
+  </div>
+</div>

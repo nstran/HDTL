@@ -1,0 +1,263 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right" [baseZIndex]="10000"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="emp-tq">
+  <div class="row no-margin">
+    <div class="col-md-12 page-header">
+      <div class="col-md-2">
+        <div class="header-box-icon">
+          <img src="/assets/icons/components/noun_product.svg" class="header-icon">
+        </div>
+        <span class="page-title">Chi tiết nhân viên</span>
+      </div>
+
+      <div class="col-md-10" style="text-align: right;">
+        <button type="button" style="margin-right: 5px;" class="quay-lai" (click)="goBack()">
+          <span>Quay lại</span>
+        </button>
+        <button *ngIf="isAllowReset" class="dat-lai-mk" (click)="datLaiMatKhau()">
+          <span>Đặt lại Mật khẩu</span>
+        </button>
+
+        <!-- <button class="dat-lai-mk" (click)="chooseContractType()">
+          <span>Xuất HDLD</span>
+        </button> -->
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <!-- Phần bên trái -->
+    <!-- Thông tin cá nhân -->
+    <!-- <div class="col-md-3" style="padding: 0px 10px 0px 0px;">
+      <form [formGroup]="thongTinCaNhanForm">
+        <div class="row no-margin box-define">
+          <div class="col-md-12 no-padding" style="text-align: right;">
+            <i *ngIf="!isEdit && actionEdit" (click)="enabledForm()" class="pi pi-pencil icons"></i>
+            <i *ngIf="isEdit" (click)="saveForm()" class="pi pi-check icons icons-check"></i>
+            <i *ngIf="isEdit" (click)="disabledForm()" class="pi pi-times icons icons-times"></i>
+          </div>
+          <div class="col-md-12" style="text-align: center;">
+            <img class="emp-avatar" [src]="(thongTinCaNhan.avatarUrl != '' && thongTinCaNhan.avatarUrl != null) ?
+              thongTinCaNhan.avatarUrl : '../../../../assets/images/no-avatar.png'">
+          </div>
+          <div *ngIf="!isEdit" class="col-md-12 mt-10 center">
+            <span>{{ thongTinCaNhan.employeeCode + ' - ' + thongTinCaNhan.employeeName }}</span>
+          </div>
+          <div *ngIf="!isEdit" class="col-md-12 mt-10 center">
+            <span>{{ thongTinCaNhan.gender == 'NAM' ? 'Nam' : 'Nữ' }}</span>
+          </div>
+          <div *ngIf="isEdit" class="col-md-12 mt-20 center">
+            <div class="row can-giua">
+              <div class="col-md-1">
+                <i class="fas fa-file-signature"></i>
+              </div>
+              <div class="col-md-11">
+                <input type="text" formControlName="maNhanVienControl" [style]="{'width':'100%'}" pInputText
+                  placeholder="Mã nhân viên"
+                  [ngClass]="maNhanVienControl.invalid && maNhanVienControl.touched ? 'error-border': ''" />
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isEdit" class="col-md-12 mt-10 center">
+            <div class="row can-giua">
+              <div class="col-md-1">
+                <i class="fas fa-file-signature"></i>
+              </div>
+              <div class="col-md-11">
+                <input type="text" formControlName="hoTenDemControl" [style]="{'width':'100%'}" pInputText
+                  placeholder="Họ tên đệm"
+                  [ngClass]="hoTenDemControl.invalid && hoTenDemControl.touched ? 'error-border': ''" />
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isEdit" class="col-md-12 mt-10 center">
+            <div class="row can-giua">
+              <div class="col-md-1">
+                <i class="fas fa-file-signature"></i>
+              </div>
+              <div class="col-md-11">
+                <input type="text" formControlName="tenControl" [style]="{'width':'100%'}" pInputText placeholder="Tên"
+                  [ngClass]="tenControl.invalid && tenControl.touched ? 'error-border': ''" />
+              </div>
+            </div>
+          </div>
+          <div *ngIf="isEdit" class="col-md-12 mt-10">
+            <div class="row can-giua">
+              <div class="col-md-1">
+                <i class="fas fa-venus-mars"></i>
+              </div>
+              <div class="col-md-11">
+                <p-dropdown [options]="listGioiTinh" formControlName="gioiTinhControl" placeholder="Chọn giới tính"
+                  optionLabel="name" [style]="{'width': '100%'}">
+                </p-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mt-10 center">
+            <div class="row can-giua">
+              <div class="col-md-1">
+                <i class="fas fa-birthday-cake"></i>
+              </div>
+              <div class="col-md-11">
+                <p-calendar placeholder="Ngày sinh" dateFormat="dd/mm/yy" [baseZIndex]="9999"
+                  formControlName="ngaySinhControl" [style]="{'width':'100%'}" showButtonBar="true"
+                  [inputStyle]="{'width':'100%'}">
+                </p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mt-10 center">
+            <div class="row can-giua">
+              <div class="col-md-1">
+                <i class="fas fa-phone"></i>
+              </div>
+              <div class="col-md-11">
+                <input type="text" formControlName="soDienThoaiControl" [style]="{'width':'100%'}" pInputText
+                  placeholder="Số điện thoại" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mt-10 center">
+            <div class="row can-giua">
+              <div class="col-md-1">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <div class="col-md-11">
+                <input type="text" formControlName="emailControl" [style]="{'width':'100%'}" pInputText
+                  placeholder="Email" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 mt-10 center">
+            <div class="row can-giua">
+              <div class="col-md-1">
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <div class="col-md-11">
+                <input type="text" formControlName="diaChiControl" [style]="{'width':'100%'}" pInputText
+                  placeholder="Địa chỉ" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="mt-10">
+        <div class="row no-margin box-define">
+          <div class="col-md-12 center" style="margin-bottom: 15px;">
+            <span style="color: #3f51b5; font-size: 16px;">
+              Tình hình công việc
+            </span>
+          </div>
+          <div class="col-md-12">
+            Số buổi nghỉ có phép: {{thongTinCaNhan.soBuoiNghiCoPhep}}
+          </div>
+          <div class="col-md-12 mt-10">
+            Số buổi nghỉ không phép: {{thongTinCaNhan.soBuoiNghiKhongPhep}}
+          </div>
+          <div class="col-md-12 mt-10">
+            Số buổi phép năm: {{thongTinCaNhan.soBuoiPhepNam}}
+          </div>
+          <div class="col-md-12 mt-10">
+            Số buổi phép còn: {{thongTinCaNhan.soBuoiPhepCon}}
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- Phần bên phải -->
+    <div class="col-md-12 no-padding">
+      <!-- Thông tin chung -->
+      <div class="row no-margin">
+        <div class="col-md-12 no-padding">
+          <p-tabView [(activeIndex)]="tabIndex" class="custom-tabview">
+            <p-tabPanel header="Thông tin chung">
+              <ng-container *ngIf="tabIndex == 0">
+                <app-thong-tin-chung style="width: 100%;" [employeeId]="employeeId" [listPosition]="listPosition"
+                  [listLoaiHopDong]="listLoaiHopDong" [listOrganization]="listOrganization" [actionEdit]="actionEdit">
+                </app-thong-tin-chung>
+              </ng-container>
+            </p-tabPanel>
+            <!-- <p-tabPanel header="Thông tin nhân sự">
+              <ng-container *ngIf="tabIndex == 1">
+                <app-thong-tin-nhan-su style="width: 100%;" [employeeId]="employeeId" [actionEdit]="actionEdit"
+                  [listQuocGia]="listQuocGia" [listNganHang]="listNganHang">
+                </app-thong-tin-nhan-su>
+              </ng-container>
+            </p-tabPanel>
+            <p-tabPanel header="Lương và trợ cấp">
+              <ng-container *ngIf="tabIndex == 2">
+                <app-luong-va-tro-cap style="width: 100%;" [employeeId]="employeeId" [actionEdit]="actionEdit">
+                </app-luong-va-tro-cap>
+              </ng-container>
+            </p-tabPanel>
+            <p-tabPanel header="Thông tin hợp đồng">
+              <ng-container *ngIf="tabIndex == 3">
+                <app-thong-tin-hop-dong [employeeId]="employeeId" [actionEdit]="actionEdit"></app-thong-tin-hop-dong>
+              </ng-container>
+            </p-tabPanel>
+            <p-tabPanel header="Theo dõi chức vụ">
+              <ng-container *ngIf="tabIndex == 4">
+                <app-theo-doi-chuc-vu [employeeId]="employeeId" [actionEdit]="actionEdit"></app-theo-doi-chuc-vu>
+              </ng-container>
+            </p-tabPanel>
+            <p-tabPanel header="Bảo hiểm & thuế">
+              <ng-container *ngIf="tabIndex == 5">
+                <app-bao-hiem-va-thue [employeeId]="employeeId" [actionEdit]="actionEdit"></app-bao-hiem-va-thue>
+              </ng-container>
+            </p-tabPanel>
+            <p-tabPanel header="Checklist tài liệu">
+              <ng-container *ngIf="tabIndex == 6">
+                <app-tai-lieu [employeeId]="employeeId" [actionEdit]="actionEdit"></app-tai-lieu>
+              </ng-container>
+            </p-tabPanel>
+            <p-tabPanel header="Học vấn & tuyển dụng">
+              <ng-container *ngIf="tabIndex == 7">
+                <app-hoc-van-va-tuyen-dung [employeeId]="employeeId" [actionEdit]="actionEdit">
+                </app-hoc-van-va-tuyen-dung>
+              </ng-container>
+            </p-tabPanel>
+            <p-tabPanel header="Thông tin gia đình">
+              <ng-container *ngIf="tabIndex == 8">
+                <app-thong-tin-gia-dinh [employeeId]="employeeId" [actionEdit]="actionEdit"></app-thong-tin-gia-dinh>
+              </ng-container>
+            </p-tabPanel>
+        
+            <p-tabPanel header="Thông tin khác">
+              <ng-container *ngIf="tabIndex == 10">
+                <app-thong-tin-khac [employeeId]="employeeId" [actionEdit]="actionEdit"></app-thong-tin-khac>
+              </ng-container>
+            </p-tabPanel>
+            <p-tabPanel header="Cấp phát tài sản">
+              <ng-container *ngIf="tabIndex == 11">
+                <app-cap-phat-tai-san [employeeId]="employeeId" [actionEdit]="actionEdit"></app-cap-phat-tai-san>
+              </ng-container>
+            </p-tabPanel> -->
+
+            <p-tabPanel header="Thông tin phân quyền">
+              <ng-container *ngIf="tabIndex == 1">
+                <app-cau-hinh-phan-quyen style="width: 100%;" [employeeId]="employeeId" [actionEdit]="actionEdit"
+                  [listOrganization]="listOrganization" [listRole]="listRole">
+                </app-cau-hinh-phan-quyen>
+              </ng-container>
+            </p-tabPanel>
+          </p-tabView>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

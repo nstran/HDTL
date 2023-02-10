@@ -1,0 +1,81 @@
+<div class="row project-infor">
+    <p-accordion class="col-md-12" expandIcon="pi pi-fw pi-chevron-circle-right"
+        collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Thông tin dự án" [selected]="true">
+            <div class="row">
+                <div class="col-md-4 mt-7">
+                    <table class="table borderless mt-25">
+                        <tbody>
+                            <tr>
+                                <th class="col-md-6 infor-label">Loại dự án</th>
+                                <td class="col-md-6 infor-value">{{project?.projectTypeName}}</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-6 infor-label">Mức độ ưu tiên</th>
+                                <td class="col-md-6 infor-value">{{project?.priorityName}}</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-6 infor-label">Trạng thái</th>
+                                <td class="col-md-6 infor-value">{{project?.projectStatusName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4 mt-7">
+                    <table class="table borderless mt-25">
+                        <tbody>
+                            <tr>
+                                <th class="col-md-8 infor-label">Thời gian dự kiến thực hiện (Giờ)
+                                </th>
+                                <td class="col-md-4 infor-value">{{totalEstimateTime}}</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-8 infor-label">Ngày bắt đầu dự kiến</th>
+                                <td class="col-md-4 infor-value">{{project?.projectStartDate |
+                                    date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-8 infor-label">Ngày kết thúc dự kiến</th>
+                                <td class="col-md-4 infor-value">{{project?.projectEndDate |
+                                    date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                            <tr *ngIf="project?.budgetNgayCong != null">
+                                <th class="col-md-6 infor-label">Hiệu quả sử dụng nguồn lực(EE)</th>
+                                <td class="col-md-6 infor-value">{{totalEE | number:'1.0-2'}}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4 mt-7">
+                    <table class="table borderless mt-25">
+                        <tbody>
+                            <tr>
+                                <th class="col-md-6 infor-label">Tiến độ hoàn thành dự án</th>
+                                <td class="col-md-6 infor-value">
+                                    <div class="col-md-12 infor-value">
+                                        <p-progressBar [value]="totalPercent">
+                                        </p-progressBar>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-6 infor-label">Thời gian đã sử dụng (giờ)</th>
+                                <td class="col-md-6 infor-value">{{totalHourUsed | number}}</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-6 infor-label">Ngày bắt đầu thực tế</th>
+                                <td class="col-md-6 infor-value">{{project?.actualStartDate |
+                                    date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-6 infor-label">Ngày kết thúc thực tế</th>
+                                <td class="col-md-6 infor-value">{{project?.actualEndDate |
+                                    date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </p-accordionTab>
+    </p-accordion>
+</div>

@@ -1,0 +1,26 @@
+::ng-deep .chon-nhieu-dv .ui-tree {
+  width: 100%;
+}
+
+.chon-nhieu-dv .mt-20 {
+  margin-top: 20px;
+}
+
+.chon-nhieu-dv .btn-cancel {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.chon-nhieu-dv .btn-create {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  margin-left: 5px;
+  color: #fff;
+}

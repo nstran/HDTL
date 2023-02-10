@@ -1,0 +1,80 @@
+.them-qtpd .btn-plus {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  float: right;
+}
+
+.them-qtpd .btn-minus {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #e21a2a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+}
+
+.them-qtpd .icon-plus {
+  color: #ffffff;
+}
+
+.them-qtpd .mt-10 {
+  margin-top: 10px;
+}
+
+.them-qtpd .mt-20 {
+  margin-top: 20px;
+}
+
+.them-qtpd .mt-40 {
+  margin-top: 40px;
+}
+
+.them-qtpd .mb-10 {
+  margin-bottom: 10px;
+}
+
+::ng-deep .them-qtpd .ui-chips-input-token {
+  width: 100%;
+}
+
+::ng-deep .them-qtpd .ui-inputtext {
+  width: 100%;
+}
+
+::ng-deep .them-qtpd .ui-chips > ul.ui-inputtext .ui-chips-token {
+  margin-top: 5px;
+}
+
+.them-qtpd .hyperlink {
+  color: #007ad9;
+  cursor: pointer;
+}
+
+.them-qtpd .btn-cancel {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.them-qtpd .btn-create {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  margin-left: 5px;
+  color: #fff;
+}

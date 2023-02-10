@@ -1,0 +1,232 @@
+.total-production-order-create .box-header {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  width: 100% !important;
+  height: auto;
+}
+
+.total-production-order-create .box-header-icon {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+}
+
+.total-production-order-create .ic_library_add_24px {
+  width: 20.4px;
+  height: 18.5px;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.total-production-order-create .box-header-title {
+  font-weight: bold;
+  font-family: 'Inter UI';
+  font-size: 20px;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.total-production-order-create .cancel {
+  width: 64px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.total-production-order-create .cancel .text-cancel {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.total-production-order-create .save-and-new {
+  width: 142px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left: 5px;
+}
+
+.total-production-order-create .save-and-new .text-save-and-new {
+  width: 102px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.total-production-order-create .save {
+  width: 86px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  margin-left: 5px;
+}
+
+.total-production-order-create .save .text-save {
+  width: 25px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.total-production-order-create .box-content {
+  margin: 10px 0px;
+  padding: 10px 0px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  width: 100% !important;
+  height: auto;
+}
+
+.total-production-order-create .link {
+  font-family: 'Inter UI';
+  color: #007ad9;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/*Begin: Customize Accordion */
+
+::ng-deep .total-production-order-create .ui-accordion .ui-accordion-header a {
+  border: 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+  font-size: 16px;
+}
+
+::ng-deep .total-production-order-create .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background-color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  color: #121619 !important;
+}
+
+::ng-deep .total-production-order-create .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .total-production-order-create .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .total-production-order-create .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  color: #121619 !important;
+}
+
+::ng-deep .total-production-order-create .ui-accordion .ui-accordion-content {
+  border: 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/*End: Customize Accordion */
+
+.total-production-order-create .input-text {
+  min-height: 2.55em !important;
+}
+
+.total-production-order-create .w100 {
+  width: 100% !important;
+}
+
+.total-production-order-create .require {
+  color: #F94E4E;
+}
+
+.total-production-order-create .error-message-span {
+  color: red !important;
+}
+
+.total-production-order-create .add {
+  width: 156px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #34A835;
+}
+
+.total-production-order-create .icon-add {
+  color: #ffffff;
+  vertical-align: middle;
+}
+
+.total-production-order-create .text-add {
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  color: #ffffff;
+  vertical-align: middle;
+}
+
+.total-production-order-create .box-right-header {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  height: auto;
+  width: 100% !important;
+}
+
+.total-production-order-create .right-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.total-production-order-create .box-right-content {
+  background-color: #ffffff;
+  height: auto;
+  width: 100% !important;
+  border-top: 1px solid #cccccc;
+  padding: 10px 0px;
+}
+
+.total-production-order-create .mt-10 {
+  margin-top: 10px;
+}
+
+.total-production-order-create .box-right-footer {
+  background-color: #ffffff;
+  height: auto;
+  width: 100% !important;
+  border-top: 1px solid #cccccc;
+  padding: 10px 0px;
+}
+
+.total-production-order-create .right-footer-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+::ng-deep .total-production-order-create .ui-datepicker {
+  top: 31px !important;
+}

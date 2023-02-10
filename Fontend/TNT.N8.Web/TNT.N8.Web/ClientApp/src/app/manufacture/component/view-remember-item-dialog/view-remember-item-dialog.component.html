@@ -1,0 +1,143 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"></p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right" key="popup"></p-toast>
+
+<div class="view-remember-item-dialog">
+  <div class="row no-margin">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-12">
+              <span>Lệnh số</span>
+            </div>
+            <div class="col-md-12">
+              <input type="text" class="code-text" [(ngModel)]="productionOrderCode">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-12">
+              <span>Chủng loại</span>
+            </div>
+            <div class="col-md-12">
+              <input type="text" class="code-text" [(ngModel)]="productName">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-12">
+              <span>Độ dày</span>
+            </div>
+            <div class="col-md-12">
+              <input type="text" [(ngModel)]="productThickness" class="number-input"
+                [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '4'}">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 5px;">
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-12">
+              <span>Từ ngày</span>
+            </div>
+            <div class="col-md-12">
+              <p-calendar [(ngModel)]="fromDate"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" showButtonBar="true"
+                [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="row">
+            <div class="col-md-12">
+              <span>Đến ngày</span>
+            </div>
+            <div class="col-md-12">
+              <p-calendar [(ngModel)]="toDate"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%'}" showButtonBar="true"
+                [inputStyle]="{'width':'100%'}" [baseZIndex]="999"></p-calendar>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px;">
+        <div class="col-md-12">
+          <div style="text-align: right;">
+            <button type="button" class="btn-refresh" (click)="refreshFilter()">
+              <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+            </button>
+            <button type="button" class="btn-filter" (click)="search()">
+              <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+              <span class="btn-filter-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="listRememberItem.length > 0" class="col-md-12" style="margin-top: 10px;">
+      <p-table [columns]="cols" [value]="listRememberItem" 
+        [paginator]="true" [rows]="5">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns"
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display}">
+              {{col.header}}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td *ngFor="let col of columns" pEditableColumn
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display}"
+              [ngSwitch]="col.field">
+              <span *ngSwitchCase="'description'">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input type="text" class="code-text" [(ngModel)]="rowData.description" 
+                      (change)="changeItem(rowData)"
+                      [ngModelOptions]="{standalone: true}">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{rowData.description}}
+                  </ng-template>
+                </p-cellEditor>
+              </span>
+              <span *ngSwitchCase="'isCheck'">
+                <p-checkbox [(ngModel)]="rowData.isCheck" [ngModelOptions]="{standalone: true}" 
+                  (onChange)="changeItem(rowData)" [binary]="true">
+                </p-checkbox>
+              </span>
+              <span *ngSwitchDefault>
+                {{rowData[col.field]}}
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div *ngIf="!(listRememberItem.length > 0)" class="col-md-12 no-data" style="margin-top: 10px;">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12" style="text-align: right; margin-top: 20px;">
+      <button class="cancel" type="button" (click)="cancel()">
+        <span class="text-cancel">Đóng</span>
+      </button>
+    </div>
+  </div>
+</div>

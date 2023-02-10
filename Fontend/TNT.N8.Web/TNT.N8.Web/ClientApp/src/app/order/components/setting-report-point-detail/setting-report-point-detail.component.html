@@ -1,0 +1,93 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"
+    [baseZIndex]="99999">
+  </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right" key="popup"></p-toast>
+
+<div class="order-detail-dialog">
+  <div class="col-md-12" style="margin-bottom:13px;max-height:400px;overflow-y: scroll;">
+
+    <div class="row form-input">
+
+      <div class="col-md-12 form-input">
+        <div class="row">
+          <div class="col-md-6">
+            <label>Tên điểm báo cáo:</label><span class="required">*</span><b>{{name}}</b>
+          </div>
+
+          <div class="col-md-6">
+            <label>Nhân viên báo cáo:</label><span class="required">*</span><b>{{empName}}</b>
+          </div>
+
+
+        </div>
+      </div>
+
+      <div class="col-md-12 form-input">
+        <div class="row">
+          <div class="col-md-6">
+            <label>Thuộc dịch vụ:</label><b>{{optionName}}</b>
+          </div>
+          <div class="col-md-6">
+            <label>Hạn báo cáo:</label><b>{{deadline != null ? ( deadline | date: "dd/MM/yyyy") : "" }}</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 form-input">
+        <div class="row">
+          <div class="col-md-12">
+            <p-checkbox [binary]="true" [(ngModel)]="isCusView" label="Khách hàng được xem nội dung điểm báo cáo"
+              [disabled]="true">
+            </p-checkbox>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-12 form-input">
+        <div class="row">
+          <div class="col-md-3">
+            <label>Nội dung cần báo cáo:</label>
+          </div>
+          <div class="col-md-9">
+            <b>{{content}}</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12 form-input">
+        <div class="row">
+          <div class="col-md-12">
+            <label>Nội dung báo cáo:</label><span class="required">*</span>
+          </div>
+
+        </div>
+      </div>
+
+      <app-note-time-line [viewNote]="viewNote" [viewTimeline]="viewTimeline" objectType="Report_Point"
+        [statusOrderAction]="orderStatus" [ngStyle]="{  width: '100%' }" [isReportPoint]="isReportPoint"
+        [objectId]="rowData.id" [actionAdd]="actionAdd" [actionEdit]="actionEdit" [actionDelete]="actionDelete"
+        [pageSize]="pageSize"></app-note-time-line>
+
+    </div>
+  </div>
+
+  <div class="col-md-12 mt-5" style="padding-bottom: 20px;">
+    <div class="group-button-footer">
+      <button type="button" class="cancel" (click)="cancel()">
+        <span class="cancel-label">Đóng</span></button>
+      <button type="button" class="save" (click)="save(2)" style="width:140px;" *ngIf="rowData.status == 1">
+        <span class="save-label">Bắt đầu thực
+          hiện</span>
+      </button>
+      <button type="button" class="save" (click)="save(3)" style="width:100px;" *ngIf="rowData.status == 2">
+        <span class="save-label">Hoàn thành</span></button>
+    </div>
+  </div>
+
+</div>

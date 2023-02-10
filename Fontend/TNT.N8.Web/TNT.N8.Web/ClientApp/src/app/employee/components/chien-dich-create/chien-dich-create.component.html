@@ -1,0 +1,272 @@
+<!-- Loading -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+
+<!-- Message -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="chien-dich">
+    <div class="row no-margin" id="parent">
+        <div class="col-md-12 header" style="padding: 6px;">
+            <div class="row">
+                <div class="col-md-6 no-padding">
+                    <div class="row no-margin">
+                        <div class="col-md-1 col-sm-1 col-xs-3">
+                            <div class="header-box-icon">
+                                <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+                            </div>
+                        </div>
+                        <div class="col-md-11 col-sm-10 col-xs-9  no-margin no-padding">
+                            <div>
+                                <span class="customer-name">Tạo chiến dịch tuyển dụng</span>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12" style="display: flex; justify-content: flex-end; margin-top: 5px;">
+                            <button type="button" class="btn-remove">
+                                <span (click)="goBackToList()" class="btn-remove-text">Thoát</span>
+                            </button>
+                            <button #save (click)="create(true)" type="button" class="btn-save-and-new"
+                                [disabled]="awaitResult">
+                                <span class="btn-save-and-new-text">Lưu và Thêm mới</span>
+                            </button>
+                            <button #save (click)="create(false)" type="button" class="btn-save"
+                                [disabled]="awaitResult">
+                                <span class="btn-save-text">Lưu</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row no-padding body-wrapper" id="parent">
+        <div class="col-md-12">
+            <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+                <p-accordionTab header="Thông tin chiến dịch tuyển dụng" [selected]="true">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form [formGroup]="thongTinChienDichFormGroup">
+                                <div class="row top-buffer bottom-buffer" style="margin-top: 15px;">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Tên chiến dịch tuyển dụng </span><span
+                                                        class="required">*</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input formControlName="tenChienDichFormControl" type="text"
+                                                        maxlength="500"
+                                                        [ngClass]="(tenChienDichFormControl.invalid && (tenChienDichFormControl.dirty || tenChienDichFormControl.touched)) ? 'error-border' : ''"
+                                                        class="w100" pInputText />
+                                                </div>
+                                                <div class="col-md-12"
+                                                    [hidden]="tenChienDichFormControl.valid || tenChienDichFormControl.untouched">
+                                                    <span
+                                                        *ngIf="tenChienDichFormControl.hasError('required') || tenChienDichFormControl.hasError('blankString') "
+                                                        class="error-message-span">
+                                                        Không được để trống
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Ngày bắt đầu </span><span class="required">*</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <p-calendar #start formControlName="ngayBatDauFormControl"
+                                                        dateFormat="dd/mm/yy" showButtonBar="true"
+                                                        [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}"
+                                                        [monthNavigator]="true"
+                                                        [styleClass]="(ngayBatDauFormControl.invalid && (ngayBatDauFormControl.dirty || ngayBatDauFormControl.touched)) ? 'error-border' : ''"
+                                                        (keydown.enter)="$event.preventDefault()"
+                                                        (onSelect)="resetEndDate()" [style]="{'width':'100%'}"
+                                                        [inputStyle]="{'width':'100%'}" [baseZIndex]="999"
+                                                        appendTo="body">
+                                                    </p-calendar>
+                                                </div>
+                                                <div class="col-md-12"
+                                                    [hidden]="ngayBatDauFormControl.valid || ngayBatDauFormControl.untouched">
+                                                    <span
+                                                        *ngIf="ngayBatDauFormControl.hasError('required') || ngayBatDauFormControl.hasError('blankString') "
+                                                        class="error-message-span">
+                                                        Không được để trống
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="col-md-4">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Người phụ trách vị trí tuyển dụng</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <p-multiSelect [options]="listPhuTrachViTriTuyenDung"
+                                                        formControlName="phuTrachViTriTuyenDungFormControl"
+                                                        defaultLabel="Chọn người phụ trách vị trí tuyển dụng"
+                                                        [filter]="true" [virtualScroll]="true" [itemSize]="31"
+                                                        optionLabel="employeeCodeName" [style]="{'width': '100%'}"
+                                                        [resetFilterOnHide]="true"
+                                                        selectedItemsLabel="{0} người được chọn"></p-multiSelect>
+                                                </div>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Người phụ trách chiến dịch</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input formControlName="phuTrachChienDichFormControl" type="text"
+                                                        class="w100" pInputText />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Ngày kết thúc </span><span class="required">*</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <p-calendar #start formControlName="ngayKetThucFormControl"
+                                                        dateFormat="dd/mm/yy" showButtonBar="true"
+                                                        [minDate]="ngayBatDauFormControl.value" [yearNavigator]="true"
+                                                        yearRange="1990:{{today.getFullYear()}}" [monthNavigator]="true"
+                                                        [styleClass]="(ngayKetThucFormControl.invalid && (ngayKetThucFormControl.dirty || ngayKetThucFormControl.touched)) ? 'error-border' : ''"
+                                                        (keydown.enter)="$event.preventDefault()"
+                                                        [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                                                        [baseZIndex]="999" appendTo="body">
+                                                    </p-calendar>
+                                                </div>
+                                                <div class="col-md-12"
+                                                    [hidden]="ngayKetThucFormControl.valid || ngayKetThucFormControl.untouched">
+                                                    <span
+                                                        *ngIf="ngayKetThucFormControl.hasError('required') || ngayKetThucFormControl.hasError('blankString') "
+                                                        class="error-message-span">
+                                                        Không được để trống
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="col-md-12">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Nội dung chiến dịch</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <p-editor formControlName="NoiDungChienDichFormControl"
+                                                        [style]="{'height':'180px', 'width': '100%'}">
+                                                    </p-editor>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+        <div class="col-md-12">
+            <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+                <p-accordionTab header="Tài liệu liên quan" [selected]="true">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-12 mt-5">
+                                <p-fileUpload #fileUpload name="demo[]" customUpload="true" multiple="multiple"
+                                    [showUploadButton]="false"
+                                    accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+                                    [maxFileSize]="defaultLimitedFileSize"
+                                    invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+                                    invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+                                    invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+                                    invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}."
+                                    chooseLabel="Chọn file" cancelLabel="Hủy toàn bộ file"
+                                    [disabled]="statusCode !== null" (onSelect)="handleFile($event, fileUpload)"
+                                    (onRemove)="removeFile($event)" (onClear)="clearAllFile()">
+                                </p-fileUpload>
+                            </div>
+
+                            <div class="col-md-12 mt-5">
+                                <p-table #dt [columns]="colsFile" [value]="arrayDocumentModel" [responsive]="true"
+                                    [resizableColumns]="true" [paginator]="true" [rows]="10">
+                                    <ng-template pTemplate="caption">
+                                        <div style="text-align: right">
+                                            <input type="text" pInputText size="50" placeholder="Tên tài liệu"
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                style="width:auto">
+                                        </div>
+                                    </ng-template>
+                                    <ng-template pTemplate="header" let-columns>
+                                        <tr>
+                                            <th *ngFor="let col of columns" pResizableColumn
+                                                [ngStyle]="{'text-align': col.textAlign}">
+                                                {{col.header}}
+                                            </th>
+                                            <th style="width:4em"></th>
+                                            <th style="width:4em"></th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                        <tr>
+                                            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                                                class="ui-resizable-column" [ngStyle]="{'text-align': col.textAlign}">
+                                                <span class="ui-column-title">{{col.header}}</span>
+
+
+                                                <span *ngSwitchCase="'fileName'">
+                                                    {{rowData[col.field].substring(0,rowData[col.field].lastIndexOf('_'))}}.{{rowData[col.field].fileExtension}}
+                                                </span>
+                                                <span *ngSwitchCase="'createdDate'">
+                                                    {{rowData[col.field] | date:'dd/MM/yyyy h:mm a'}}
+                                                </span>
+                                                <span *ngSwitchCase="'size'">
+                                                    <ng-container *ngIf="convertFileSize(rowData[col.field])">
+                                                        {{rowData[col.field] / 1024 | number}} KB
+                                                    </ng-container>
+                                                    <ng-container *ngIf="!convertFileSize(rowData[col.field])">
+                                                        {{rowData[col.field] / 1048576 | number}} MB
+                                                    </ng-container>
+                                                </span>
+                                                <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+                                            </td>
+                                            <td>
+                                                <button *ngIf="actionDelete && isAllowDeleteFile" pButton
+                                                    icon="pi pi-trash" (click)="deleteFile(rowData)"
+                                                    class="ui-button-danger"></button>
+                                            </td>
+                                            <td>
+                                                <button pButton icon="pi pi-download"
+                                                    (click)="downloadFile(rowData)"></button>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                        </div>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>
+        </div>
+    </div>
+</div>

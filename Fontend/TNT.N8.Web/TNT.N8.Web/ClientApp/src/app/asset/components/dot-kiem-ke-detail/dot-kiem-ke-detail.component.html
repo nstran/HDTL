@@ -1,0 +1,379 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+
+<div class="detail-chucVu">
+  <div class="row no-margin" style="margin-bottom: 10px!important;">
+    <div class="col-md-12 header" style="padding: 6px;">
+      <div class="row">
+        <div class="col-md-6 no-padding">
+          <div class="row no-margin">
+            <div class="col-md-1 col-sm-1 col-xs-3">
+              <div class="header-box-icon">
+                <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+              </div>
+            </div>
+            <div class="col-md-11 col-sm-10 col-xs-9">
+              <div>
+                <span class="customer-name">Chi tiết đợt kiểm kê</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="float: right;">
+                <button type="button" class="btn-remove" (click)="thoat()">
+                  <span class="btn-remove-text">Thoát</span>
+                </button>
+
+                <button #save type="button" class="btn-save" *ngIf="trangThaiDeXuat != 3" (click)="capNhatDoiKiemKe()">
+                  <span class="btn-save-text">Lưu</span>
+                </button>
+              </div>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-padding body-wrapper">
+    <div class="col-md-12">
+      <!-- Thông tin đề xuất -->
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+        [ngStyle]="{'width': '100%'}">
+        <p-accordionTab header="Thông tin đợt kiểm kê" [selected]="true">
+          <form [formGroup]="dotKiemKeFormGroup">
+
+            <div class="col-md-12 buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span *ngIf="trangThaiDeXuat == 1">Trạng thái:
+                  <strong>Chưa bắt đầu</strong></span>
+                <span *ngIf="trangThaiDeXuat == 2">Trạng thái: <strong>Đang thực hiện</strong></span>
+                <span *ngIf="trangThaiDeXuat == 3">Trạng thái: <strong>Hoàn thành</strong></span>
+              </div>
+            </div>
+
+            <div class="col-md-6 buffer-bottom">
+
+              <div class="col-md-12 buffer-bottom-label">
+                <span>Tên đợt kiểm kê</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input formControlName="tenDotKiemKeControl" type="text" maxlength="500"
+                  [ngClass]="(tenDotKiemKeControl.invalid && (tenDotKiemKeControl.dirty || tenDotKiemKeControl.touched)) ? 'error-border' : ''"
+                  class="w100" pInputText />
+              </div>
+              <div class="col-md-12" [hidden]="tenDotKiemKeControl.valid || tenDotKiemKeControl.untouched">
+                <span *ngIf="tenDotKiemKeControl.hasError('required') || tenDotKiemKeControl.hasError('blankString') "
+                  class="error-message-span"> Không được để trống</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span>Ngày bắt đầu</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="ngayBatDauControl" dateFormat="dd/mm/yy" showButtonBar="true"
+                  [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}" [style]="{'width':'100%'}"
+                  [monthNavigator]="true"
+                  [styleClass]="(ngayBatDauControl.invalid && (ngayBatDauControl.dirty || ngayBatDauControl.touched)) ? 'error-border' : ''"
+                  (keydown.enter)="$event.preventDefault()" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"
+                  appendTo="body">
+                </p-calendar>
+              </div>
+              <div class="col-md-12" [hidden]="ngayBatDauControl.valid || ngayBatDauControl.untouched">
+                <span *ngIf="ngayBatDauControl.hasError('required') || ngayBatDauControl.hasError('blankString') "
+                  class="error-message-span"> Không được để trống</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span>Ngày kết thúc</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="ngayKetThucControl" dateFormat="dd/mm/yy" showButtonBar="true"
+                  [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}" [style]="{'width':'100%'}"
+                  [monthNavigator]="true"
+                  [styleClass]="(ngayKetThucControl.invalid && (ngayKetThucControl.dirty || ngayKetThucControl.touched)) ? 'error-border' : ''"
+                  (keydown.enter)="$event.preventDefault()" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"
+                  appendTo="body">
+                </p-calendar>
+              </div>
+              <div class="col-md-12" [hidden]="ngayKetThucControl.valid || ngayKetThucControl.untouched">
+                <span *ngIf="ngayKetThucControl.hasError('required') || ngayKetThucControl.hasError('blankString') "
+                  class="error-message-span"> Không được để trống</span>
+              </div>
+            </div>
+          </form>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <div class="row no-padding body-wrapper">
+    <div class="col-md-12">
+      <!-- Danh sách đề xuất -->
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+        [ngStyle]="{'width': '100%'}">
+        <p-accordionTab header="Danh sách tài sản kiểm kê" [selected]="true">
+          <div class="col-md-12 no-padding">
+            <div class="box-filter-ds">
+              <div class="row no-margin" style="margin-bottom:10px!important;">
+                <div class="col-md-6 buffer-bottom-label" style="display:flex;justify-content:flex-start">
+                  <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" defaultLabel="Chọn cột"
+                    [ngModelOptions]="{standalone: true}" optionLabel="header" [style]="{'width': '100%'}"
+                    [resetFilterOnHide]="true" selectedItemsLabel="{0} cột được chọn">
+                  </p-multiSelect>
+                </div>
+
+                <div class="col-md-6 buffer-bottom-label" style="display:flex;justify-content:flex-end">
+                  <button type="button" class="btn-refresh" (click)="refreshFilter()" style="margin-right:5px;">
+                    <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+                  </button>
+                  <button type="button" class="btn-filter" (click)="showFilter()"
+                    style="width:90px!important;margin-right: 5px;">
+                    <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                    <span class="btn-filter-text">Bộ lọc</span>
+                  </button>
+                  <input type="text" maxlength="500" pInputText style="width:240px!important"
+                    placeholder="Tìm kiếm trong danh sách" [(ngModel)]="filterGlobal"
+                    (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')" />
+
+                  <button type="button" class="btn-save" style="width:90px!important;" (click)="exportExcel()">
+                    <span class="btn-save-text">Xuất file</span>
+                  </button>
+
+                </div>
+              </div>
+              <div class="row no-margin">
+                <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+                  <div class="box-filter">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 mt-5">
+                        <span>Khu vực</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-multiSelect [(ngModel)]="provinceSearch" [options]="listProvince" defaultLabel="Chọn khu vực"
+                          optionLabel="provinceName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                          (keydown.enter)="$event.preventDefault()" selectedItemsLabel="{0} khu vực được chọn">
+                        </p-multiSelect>
+                      </div>
+                    </div>
+
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 mt-5">
+                        <span>Loại tài sản</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-multiSelect [(ngModel)]="phanLoaiTaiSanSearch" [options]="listPhanLoaiTaiSan"
+                          defaultLabel="Chọn loại tài sản" optionLabel="categoryName" [style]="{'width': '100%'}"
+                          [resetFilterOnHide]="true" (keydown.enter)="$event.preventDefault()"
+                          selectedItemsLabel="{0} loại tài sản được chọn">
+                        </p-multiSelect>
+                      </div>
+                    </div>
+
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 mt-5">
+                        <span>Trạng thái</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-dropdown [options]="listHienTrangTaiSan" optionLabel="name" [showClear]="true"
+                          [(ngModel)]="hienTrangTaiSanSearch" placeholder="Chọn trạng thái" [style]="{'width': '100%'}"
+                          (keydown.enter)="$event.preventDefault()">
+                        </p-dropdown>
+                      </div>
+                    </div>
+
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 mt-5">
+                        <span>Người kiểm kê</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-multiSelect [(ngModel)]="nguoiKiemKeSearch" [options]="listNguoiKiemKe"
+                          defaultLabel="Chọn người kiểm kê" optionLabel="employeeName" [style]="{'width': '100%'}"
+                          [resetFilterOnHide]="true" (keydown.enter)="$event.preventDefault()"
+                          selectedItemsLabel="{0} người kiểm kê được chọn">
+                        </p-multiSelect>
+                      </div>
+                    </div>
+
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 mt-5">
+                        <span>Ngày kiểm kê</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-calendar [(ngModel)]="ngayKiemKeSearch" showButtonBar="true" [yearNavigator]="true"
+                          yearRange="1990:{{today.getFullYear()}}" [monthNavigator]="true" view="month"
+                          dateFormat="mm/yy" (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+                          [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="body">
+                        </p-calendar>
+                      </div>
+                    </div>
+
+                    <div class="row no-margin pb-1">
+                      <div class="col-md-12 mt-5" style="text-align: right">
+                        <button type="button" class="btn-save" (click)="getMasterData()">
+                          <span class="btn-save-text">Tìm kiếm</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-{{leftColNumber}}">
+                  <p-table #myTable [columns]="selectedColumns" [value]="listTaiSan" [resizableColumns]="true"
+                    [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th style="width: 3.5em; text-align: center;">
+                          STT
+                        </th>
+                        <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                          [ngStyle]="{'text-align': 'center', 'display': col.display, 'width': col.width}">
+                          <span>
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                          </span>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                      <tr>
+                        <td style="width: 3.5em; text-align: center;">
+                          {{i + 1}}
+                        </td>
+                        <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                          pEditableColumn
+                          [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width' : col.width}">
+                          <span class="ui-column-title">{{col.header}}</span>
+                          <span *ngSwitchCase="'createdDate'">
+                            {{ rowData[col.field] | date:'dd/MM/yyyy' }}
+                          </span>
+
+                          <span *ngSwitchCase="'giaTriTinhKhauHao'">
+                            {{ rowData[col.field] | number }}
+                          </span>
+
+                          <span *ngSwitchCase="'khauHaoLuyKe'">
+                            {{ rowData[col.field] | number }}
+                          </span>
+
+                          <span *ngSwitchCase="'giaTriConLai'">
+                            {{ rowData[col.field] | number}}
+                          </span>
+
+
+
+                          <span *ngSwitchDefault>
+                            {{rowData[col.field]}}
+                          </span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+
+                <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+                  <div class="box-filter">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 mt-5">
+                        <span>Khu vực</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-multiSelect [(ngModel)]="provinceSearch" [options]="listProvince" defaultLabel="Chọn khu vực"
+                          optionLabel="provinceName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                          (keydown.enter)="$event.preventDefault()" selectedItemsLabel="{0} khu vực được chọn">
+                        </p-multiSelect>
+                      </div>
+                    </div>
+
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 mt-5">
+                        <span>Loại tài sản</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-multiSelect [(ngModel)]="phanLoaiTaiSanSearch" [options]="listPhanLoaiTaiSan"
+                          defaultLabel="Chọn loại tài sản" optionLabel="categoryName" [style]="{'width': '100%'}"
+                          [resetFilterOnHide]="true" (keydown.enter)="$event.preventDefault()"
+                          selectedItemsLabel="{0} loại tài sản được chọn">
+                        </p-multiSelect>
+                      </div>
+                    </div>
+
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 mt-5">
+                        <span>Trạng thái</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-dropdown [options]="listHienTrangTaiSan" optionLabel="name" [showClear]="true"
+                          [(ngModel)]="hienTrangTaiSanSearch" placeholder="Chọn trạng thái" [style]="{'width': '100%'}"
+                          (keydown.enter)="$event.preventDefault()">
+                        </p-dropdown>
+                      </div>
+                    </div>
+
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 mt-5">
+                        <span>Người kiểm kê</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-multiSelect [(ngModel)]="nguoiKiemKeSearch" [options]="listNguoiKiemKe"
+                          defaultLabel="Chọn người kiểm kê" optionLabel="employeeName" [style]="{'width': '100%'}"
+                          [resetFilterOnHide]="true" (keydown.enter)="$event.preventDefault()"
+                          selectedItemsLabel="{0} người kiểm kê được chọn">
+                        </p-multiSelect>
+                      </div>
+                    </div>
+
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 mt-5">
+                        <span>Ngày kiểm kê</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-calendar [(ngModel)]="ngayKiemKeSearch" showButtonBar="true"
+                          yearRange="1990:{{today.getFullYear()}}" dateFormat="dd/mm/yy"
+                          (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+                          [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="body">
+                        </p-calendar>
+                      </div>
+                    </div>
+
+                    <div class="row no-margin pb-1">
+                      <div class="col-md-12 mt-5" style="text-align: right">
+                        <button type="button" class="btn-save" (click)="getMasterData()">
+                          <span class="btn-save-text">Tìm kiếm</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <div class="row no-padding body-wrapper">
+    <div class="col-md-12">
+      <app-note-time-line [viewNote]="viewNote" [viewTimeline]="viewTimeline" objectType="KIEMKE"
+        [objectNumber]="dotKiemKeId" [actionAdd]="actionAdd" [actionEdit]="actionEdit" [actionDelete]="actionDelete"
+        [pageSize]="pageSize"></app-note-time-line>
+    </div>
+  </div>
+</div>

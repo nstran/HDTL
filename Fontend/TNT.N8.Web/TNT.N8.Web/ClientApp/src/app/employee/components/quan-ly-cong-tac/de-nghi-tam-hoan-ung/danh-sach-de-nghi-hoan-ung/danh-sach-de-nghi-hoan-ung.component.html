@@ -1,0 +1,226 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="danh-sach-de-nghi-hoan-ung">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="/assets/images/product.svg" class="Money-2">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title">Danh sách đề nghị hoàn ứng công tác
+                  </div>
+                  <div class="box-header-subtitle">
+                    {{listDeNghiTamHoanUng.length}} bản ghi - Cập nhật ngày {{today}} - Sắp xếp theo ngày tạo
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12" style="text-align: right;">
+            <button type="button" class="btn-create" *ngIf="actionAdd" (click)="goToCreate()"><span
+                class="btn-create-text">Tạo mới</span></button>
+            <div style="clear: both;"></div>
+          </div>
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                <span class="btn-filter-text">Bộ lọc</span>
+              </button>
+              <input (keypress)="checkEnterPress($event)" [(ngModel)]="filterGlobal" type="text" class="iput-text"
+                placeholder="Tìm kiếm trong danh sách"
+                (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+      <form [formGroup]="searchForm">
+        <div class="box-filter">
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Mã hồ sơ</span>
+            </div>
+            <div class="col-md-12">
+              <input formControlName="maDeNghiControl" type="text" maxlength="500" class="w100" pInputText />
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Người đề nghị</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listEmployee" [(ngModel)]="selectedNguoiYC" defaultLabel="Chọn người đề nghị"
+                [ngModelOptions]="{standalone: true}" optionLabel="employeeCodeName" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} người đề nghị được chọn">
+              </p-multiSelect>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12">
+              <span>Trạng thái</span>
+            </div>
+            <div class="col-md-12">
+              <p-dropdown [options]="listTrangThai" formControlName="trangThaiControl" placeholder="Chọn trạng thái"
+                optionLabel="name">
+              </p-dropdown>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <button type="button" class="btn-search" (click)="searchDeNghiTamUng()">
+                <span class="btn-search-text">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="listDeNghiTamHoanUng.length > 0" class="col-md-{{leftColNumber}} no-padding">
+      <div class="col-md-12">
+        <p-table #myTable [columns]="selectedColumns" [value]="listDeNghiTamHoanUng" [resizableColumns]="true"
+          columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true"
+          [scrollable]="true">
+          <ng-template pTemplate="caption">
+            <div style="text-align:left">
+              <p-multiSelect [options]="colsList" [(ngModel)]="selectedColumns" [ngModelOptions]="{standalone: true}"
+                optionLabel="header" selectedItemsLabel="{0} cột được chọn" [style]="{minWidth: '200px'}"
+                defaultLabel="Chọn cột"></p-multiSelect>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="text-align: center;width:30px">#</th>
+              <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                [ngStyle]="{ 'text-align': 'center', 'display': col.display, 'width': col.width }">
+                <span>
+                  {{col.header}}
+                  <p-sortIcon [field]=" col.field">
+                  </p-sortIcon>
+                </span>
+              </th>
+              <th style="text-align: center;width:50px">Thao tác</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+            <tr>
+              <td style="text-align: center;width:30px">
+                {{i + 1}}
+              </td>
+              <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.width }">
+                <span class="ui-column-title">{{col.header}}</span>
+                <span *ngSwitchCase="'maDeNghi'" (click)="goToDetail(rowData)" class="link">
+                  {{rowData[col.field]}}
+                </span>
+
+                <span *ngSwitchCase="'trangThaiString'" class="status"
+                  [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}" 
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">
+                  {{rowData[col.field]}}
+                </span>
+
+                <span *ngSwitchCase="'tienTamUng'">
+                  {{ rowData[col.field] | number:0 }}
+                </span>
+
+                <span *ngSwitchCase="'tongTienThanhToan'">
+                  {{ rowData[col.field] | number:0 }}
+                </span>
+
+                <span *ngSwitchCase="'ngayDeNghi'">
+                  {{ rowData[col.field] | date:'dd/MM/yyyy' }}
+                </span>
+
+                <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+              </td>
+              <td style="text-align: center;width:50px">
+                <button pButton icon="pi pi-trash" *ngIf="rowData['trangThai']== 1" class="ui-button-danger"
+                  (click)="delItem(rowData)"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+    <div *ngIf="!(listDeNghiTamHoanUng.length > 0)" class="col-md-{{leftColNumber}} no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+      <form [formGroup]="searchForm">
+        <div class="box-filter">
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Mã đề nghị</span>
+            </div>
+            <div class="col-md-12">
+              <input formControlName="maDeNghiControl" [style]="{'width': '100%'}" type="text" maxlength="500"
+                class="w100" pInputText />
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Người đề nghị</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listEmployee" [(ngModel)]="selectedNguoiYC" defaultLabel="Chọn người đề nghị"
+                [ngModelOptions]="{standalone: true}" optionLabel="employeeCodeName" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} người đề nghị được chọn">
+              </p-multiSelect>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12">
+              <span>Trạng thái</span>
+            </div>
+            <div class="col-md-12">
+              <p-dropdown [options]="listTrangThai" [style]="{'width': '100%'}" formControlName="trangThaiControl"
+                placeholder="Chọn trạng thái" optionLabel="name">
+              </p-dropdown>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <button type="button" class="btn-search" (click)="searchDeNghiTamUng()">
+                <span class="btn-search-text">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

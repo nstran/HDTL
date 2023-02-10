@@ -1,0 +1,30 @@
+<div class="chon-nhieu-dv">
+  <div class="row no-margin">
+    <div class="col-md-12 mt-20" style="font-style: italic;">
+      <ng-container *ngIf="mode == 1">
+        <i class="fas fa-info-circle"></i> 
+        <span style="margin-left: 10px;">Nhấn tổ hợp phím "Ctrl + Chuột trái" để chọn nhiều phòng ban</span>
+      </ng-container>
+    </div>
+    <div class="col-md-12 mt-20">
+      <ng-container *ngIf="mode == 1">
+        <p-tree [value]="listTree" selectionMode="multiple" [(selection)]="listSelectedNode" scrollHeight="200px"
+          (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
+        </p-tree>
+      </ng-container>
+      <ng-container *ngIf="mode == 2">
+        <p-tree [value]="listTree" selectionMode="single" [(selection)]="selectedNode" scrollHeight="200px"
+          (onNodeSelect)="nodeSelect($event)" (onNodeUnselect)="nodeUnselect($event)">
+        </p-tree>
+      </ng-container>
+    </div>
+    <div class="col-md-12 mt-20" style="text-align: right;">
+      <button class="btn-cancel" type="button" (click)="cancel()">
+        Thoát
+      </button>
+      <button class="btn-create" (click)="chon()">
+        Chọn
+      </button>
+    </div>
+  </div>
+</div>

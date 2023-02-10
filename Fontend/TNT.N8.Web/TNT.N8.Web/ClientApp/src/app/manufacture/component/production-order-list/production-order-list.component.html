@@ -1,0 +1,619 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="product-order-list">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="/assets/icons/components/money-2.svg" class="Money-2">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title d-contents">Danh sách lệnh sản xuất</div>
+                  <div class="box-header-subtitle">
+                    {{listProductOrder.length}} bản ghi
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                <span class="btn-filter-text">Bộ lọc</span>
+              </button>
+              <input type="text" class="iput-text" placeholder="Tìm kiếm trong danh sách"
+                (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Lệnh số</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="order-code-text" placeholder="Nhập lệnh số" [(ngModel)]="productionOrderCode">
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Tên khách hàng</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="order-code-text" placeholder="Nhập tên khách hàng" [(ngModel)]="customerName">
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Lệnh tổng</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="order-code-text" placeholder="Nhập số lệnh tổng"
+              [(ngModel)]="totalProductionOrderCode">
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày sản xuất</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="fromDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+              dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [maxDate]="toDate" placeholder="dd/mm/yy"
+              showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày dự kiến trả</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="toDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+              dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [minDate]="fromDate" [maxDate]="maxEndDate"
+              placeholder="dd/mm/yy" showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999">
+            </p-calendar>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ghi chú KT</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="order-code-text" placeholder="Nhập ghi chú KT" [(ngModel)]="noteTechnique">
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Trạng thái</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listStatus" [(ngModel)]="listSelectedStatus" defaultLabel="Chọn trạng thái"
+              optionLabel="categoryName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} trạng thái được chọn"></p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Loại lệnh SX:</span>
+          </div>
+          <div class="col-md-12">
+            <p-dropdown [options]="listTypeProductionOrder" [style]="{'width': '100%'}" showClear="true"
+              [(ngModel)]="selectedTypeProductionOrder" placeholder="Tất cả" optionLabel="name"></p-dropdown>
+          </div>
+        </div>
+
+        <div class="row no-margin"
+          *ngIf="selectedTypeProductionOrder!= null && selectedTypeProductionOrder.value == true">
+          <div class="col-md-12 mt-5">
+            <span>Chọn tổ:</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listOrganization" [(ngModel)]="listSelectedOrganization" defaultLabel="Chọn tổ"
+              optionLabel="organizationName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} tổ được chọn"></p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <p-checkbox [(ngModel)]="isError" [binary]="true" label="Lệnh sản xuất lỗi"></p-checkbox>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <button type="button" class="btn-search" (click)="searchProductionOrder()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="listProductOrder.length > 0" class="col-md-{{leftColNumber}} no-padding">
+      <p-table #myTable [columns]="selectedColumns" [value]="listProductOrder" 
+        [globalFilterFields]="selectedColumns" [resizableColumns]="true"
+        (sortFunction)="customSort($event)" [customSort]="true" columnResizeMode="expand" [paginator]="true" [rows]="10"
+        [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+        <ng-template pTemplate="caption">
+          <div style="text-align:left">
+            <p-multiSelect [options]="colsListProductionOrder" [(ngModel)]="selectedColumns"
+              [ngModelOptions]="{standalone: true}" optionLabel="header" selectedItemsLabel="{0} cột được chọn"
+              defaultLabel="Chọn cột"></p-multiSelect>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+              [ngStyle]="{'width':col.width}" [ngSwitch]="col.field">
+              {{col.header}}
+              <!-- <p-sortIcon *ngSwitchCase="'productionOrderCode'" [field]="col.field"></p-sortIcon> -->
+              <p-sortIcon *ngSwitchCase="'customerName'" [field]="col.field"></p-sortIcon>
+              <p-sortIcon *ngSwitchCase="'totalProductionOrderCode'" [field]="col.field"></p-sortIcon>
+              <p-sortIcon *ngSwitchCase="'startDate'" [field]="col.field"></p-sortIcon>
+              <p-sortIcon *ngSwitchCase="'endDate'" [field]="col.field"></p-sortIcon>
+              <!-- <p-sortIcon *ngSwitchCase="'statusName'" [field]="col.field"></p-sortIcon> -->
+              <!-- <p-sortIcon *ngSwitchCase="'noteTechnique'" [field]="col.field"></p-sortIcon> -->
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData" 
+            *ngIf="nextDateNow >= rowData['endDate'] && rowData['endDate'] >= dateTimeNow"
+            style="color: #0000ff;">
+            <td *ngFor="let col of columns" [ngSwitch]="col.field" pEditableColumn
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display}">
+              <span *ngSwitchCase="'productionOrderCode'"
+                (click)="gotoProductionOrderDetail(rowData['productionOrderId'])" class="link">
+                {{rowData[col.field]}}
+              </span>
+              <span *ngSwitchCase="'startDate'">
+                {{rowData[col.field] | date:'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'endDate'">
+                {{rowData[col.field] | date:'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'especially'">
+                <p-checkbox *ngIf="actionEdit && rowData['statusCode'] != 'PEND' 
+                  && rowData['statusCode'] != 'COMP'
+                  && rowData['statusCode'] != 'CANC'" 
+                  [disabled]="rowData['parentId'] != null"
+                  [(ngModel)]="rowData[col.field]" [binary]="true"
+                  (onChange)="updateEspecially(rowData['productionOrderId'], rowData['especially'])"></p-checkbox>
+              </span>
+              <span *ngSwitchCase="'totalProductionOrderCode'">
+                <p *ngFor="let total of rowData['totalProductionOrderCode']">
+                  <span>{{total}}</span>
+                </p>
+              </span>
+              <span *ngSwitchCase="'note'">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input *ngIf="actionAdd" type="text" class="code-text" [(ngModel)]="rowData.note"
+                      (change)="changeNote(rowData)"
+                      [ngModelOptions]="{standalone: true}">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{rowData.note}}
+                  </ng-template>
+                </p-cellEditor>
+              </span>
+              <div *ngIf="rowData['isError'] == true && actionAdd">
+                <button class="btn btn-danger" pTooltip="Tạo lệnh bổ sung" tooltipPosition="left"
+                  (click)="showDialog(rowData['productionOrderId'])" *ngSwitchCase="'xxx'">
+                  <i class="fas fa-plus-circle"></i>
+                </button>
+              </div>
+              <span *ngSwitchCase="'isChangeTech'">
+                <button *ngIf="rowData['isChangeTech'] == true && actionAdd" pTooltip="Đổi quy trình" tooltipPosition="bottom"
+                  [tooltipDisabled]="false" type="button" (click)="changeTechForItem(rowData)"
+                  class="btn-ban">
+                  <i class="pi pi-ban icon-ban"></i>
+                </button>
+              </span>
+              <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+            </td>
+          </tr>
+          <tr [pSelectableRow]="rowData" *ngIf="dateTimeNow > rowData['endDate']" style="color: red;">
+            <td *ngFor="let col of columns" [ngSwitch]="col.field" pEditableColumn
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display}">
+              <span *ngSwitchCase="'productionOrderCode'"
+                (click)="gotoProductionOrderDetail(rowData['productionOrderId'])" class="link">
+                {{rowData[col.field]}}
+              </span>
+              <span *ngSwitchCase="'startDate'">
+                {{rowData[col.field] | date:'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'endDate'">
+                {{rowData[col.field] | date:'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'especially'">
+                <p-checkbox *ngIf="actionEdit && rowData['statusCode'] != 'PEND' 
+                  && rowData['statusCode'] != 'COMP'
+                  && rowData['statusCode'] != 'CANC'" 
+                  [disabled]="rowData['parentId'] != null"
+                  [(ngModel)]="rowData[col.field]" [binary]="true"
+                  (onChange)="updateEspecially(rowData['productionOrderId'], rowData['especially'])"></p-checkbox>
+              </span>
+              <span *ngSwitchCase="'note'">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input *ngIf="actionAdd" type="text" class="code-text" [(ngModel)]="rowData.note"
+                      (change)="changeNote(rowData)"
+                      [ngModelOptions]="{standalone: true}">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{rowData.note}}
+                  </ng-template>
+                </p-cellEditor>
+              </span>
+              <div *ngIf="rowData['isError'] == true && actionAdd">
+                <button class="btn btn-danger" pTooltip="Tạo lệnh bổ sung" tooltipPosition="left"
+                  (click)="showDialog(rowData['productionOrderId'])" *ngSwitchCase="'xxx'">
+                  <i class="fas fa-plus-circle"></i>
+                </button>
+              </div>
+              <span *ngSwitchCase="'isChangeTech'">
+                <button *ngIf="rowData['isChangeTech'] == true && actionAdd" pTooltip="Đổi quy trình" tooltipPosition="bottom"
+                  [tooltipDisabled]="false" type="button" (click)="changeTechForItem(rowData)"
+                  class="btn-ban">
+                  <i class="pi pi-ban icon-ban"></i>
+                </button>
+              </span>
+              <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+            </td>
+          </tr>
+          <tr [pSelectableRow]="rowData" *ngIf="rowData['endDate'] > nextDateNow">
+            <td *ngFor="let col of columns" [ngSwitch]="col.field" pEditableColumn
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display}">
+              <span *ngSwitchCase="'productionOrderCode'"
+                (click)="gotoProductionOrderDetail(rowData['productionOrderId'])" class="link">
+                {{rowData[col.field]}}
+              </span>
+              <span *ngSwitchCase="'startDate'">
+                {{rowData[col.field] | date:'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'endDate'">
+                {{rowData[col.field] | date:'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'especially'">
+                <p-checkbox *ngIf="actionEdit && rowData['statusCode'] != 'PEND' 
+                && rowData['statusCode'] != 'COMP'
+                && rowData['statusCode'] != 'CANC'" 
+                [disabled]="rowData['parentId'] != null"
+                [(ngModel)]="rowData[col.field]" [binary]="true"
+                (onChange)="updateEspecially(rowData['productionOrderId'], rowData['especially'])"></p-checkbox>
+              </span>
+              <span *ngSwitchCase="'note'">
+                <p-cellEditor>
+                  <ng-template pTemplate="input">
+                    <input *ngIf="actionAdd" type="text" class="code-text" [(ngModel)]="rowData.note"
+                      (change)="changeNote(rowData)"
+                      [ngModelOptions]="{standalone: true}">
+                  </ng-template>
+                  <ng-template pTemplate="output">
+                    {{rowData.note}}
+                  </ng-template>
+                </p-cellEditor>
+              </span>
+              <div *ngIf="rowData['isError'] == true && actionAdd">
+                <button class="btn btn-danger" pTooltip="Tạo lệnh bổ sung" tooltipPosition="left"
+                  (click)="showDialog(rowData['productionOrderId'])" *ngSwitchCase="'xxx'">
+                  <i class="fas fa-plus-circle"></i>
+                </button>
+              </div>
+              <span *ngSwitchCase="'isChangeTech'">
+                <button *ngIf="rowData['isChangeTech'] == true && actionAdd" pTooltip="Đổi quy trình" tooltipPosition="bottom"
+                  [tooltipDisabled]="false" type="button" (click)="changeTechForItem(rowData)"
+                  class="btn-ban">
+                  <i class="pi pi-ban icon-ban"></i>
+                </button>
+              </span>
+              <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div *ngIf="!(listProductOrder.length> 0)" class="col-md-{{leftColNumber}} no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12">
+            <span>Lệnh số</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="order-code-text" placeholder="Nhập lệnh số" [(ngModel)]="productionOrderCode">
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Tên khách hàng</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="order-code-text" placeholder="Nhập tên khách hàng" [(ngModel)]="customerName">
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Lệnh tổng</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="order-code-text" placeholder="Nhập lệnh tổng"
+              [(ngModel)]="totalProductionOrderCode">
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày sản xuất</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="fromDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+              dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy" showButtonBar="true"
+              [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày dự kiến trả</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="toDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+              dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy" showButtonBar="true"
+              [inputStyle]="{'width':'100%'}" [baseZIndex]="9999">
+            </p-calendar>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ghi chú KT</span>
+          </div>
+          <div class="col-md-12">
+            <input type="text" class="order-code-text" placeholder="Nhập ghi chú KT" [(ngModel)]="noteTechnique">
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Trạng thái</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listStatus" [(ngModel)]="listSelectedStatus" defaultLabel="Chọn trạng thái"
+              optionLabel="categoryName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} trạng thái được chọn"></p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Loại lệnh SX:</span>
+          </div>
+          <div class="col-md-12">
+            <p-dropdown [options]="listTypeProductionOrder" [style]="{'width': '100%'}" showClear="true"
+              [(ngModel)]="selectedTypeProductionOrder" placeholder="Tất cả" optionLabel="name"></p-dropdown>
+          </div>
+        </div>
+
+        <div class="row no-margin"
+          *ngIf="selectedTypeProductionOrder!= null && selectedTypeProductionOrder.value == true">
+          <div class="col-md-12 mt-5">
+            <span>Chọn tổ:</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listOrganization" [(ngModel)]="listSelectedOrganization" defaultLabel="Chọn tổ"
+              optionLabel="organizationName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              selectedItemsLabel="{0} tổ được chọn"></p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <p-checkbox [(ngModel)]="isError" [binary]="true" label="Lệnh sản xuất lỗi"></p-checkbox>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5" style="text-align: right;">
+            <button type="button" class="btn-search" (click)="searchProductionOrder()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p-dialog header="Tạo lệnh bổ sung" [(visible)]="display" [modal]="true" [responsive]="true"
+      [style]="{width: '90%', minWidth: '500px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+      <div class="row m-0 mt-5 py-15">
+        <div class="col-md-12">
+          <button [disabled]="awaitResponse" (click)="createAll()" class="btn btn-primary float-right">Tạo lệnh bổ sung</button>
+        </div>
+        <div class="col-md-12">
+          <h4>Thông tin sản phẩm</h4>
+          <p-table [columns]="colsListProduct" [value]="listProduct" [(selection)]="selectedProduct" dataKey="index">
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th style="width: 3em">
+                  <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th *ngFor="let col of columns" [ngStyle]="{'width':col.width}">
+                  <span> {{col.header}}</span>
+                </th>
+                <th style="width: 4em">Thao tác</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <tr [pSelectableRow]="rowData">
+                <td>
+                  <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+                </td>
+                <td *ngFor="let col of columns" pEditableColumn
+                  [ngSwitch]="col.field"
+                  [ngStyle]="{'text-align': col.textAlign, 'display': col.display,'width':col.width}">
+                  <span *ngSwitchDefault> {{rowData[col.field]}}</span>
+                  <span *ngSwitchCase="'note'">
+                    <p-cellEditor>
+                      <ng-template pTemplate="input">
+                        <input type="text" class="code-text" [(ngModel)]="rowData.note"
+                          [ngModelOptions]="{standalone: true}">
+                      </ng-template>
+                      <ng-template pTemplate="output">
+                        {{rowData.note}}
+                      </ng-template>
+                    </p-cellEditor>
+                  </span>
+                </td>
+                <td>
+                  <button *ngIf="isCreateProductionOrderAdd" pTooltip="Tạo lệnh bổ sung" tooltipPosition="top" 
+                    class="btn btn-primary" [disabled]="awaitResponse"
+                    (click)="createProduction(rowData)"><i class="fas fa-plus-circle"></i></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </p-dialog>
+
+    <p-dialog header="Đổi quy trình kính cắt hạ" [(visible)]="displayChangeTech" [modal]="true" [responsive]="true"
+      [style]="{width: '90%', minWidth: '500px'}" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+      <div class="row m-0 mt-5 py-15">
+        <!-- <div class="col-md-12">
+          <button (click)="createAll()" class="btn btn-primary float-right">Tạo lệnh bổ sung</button>
+        </div> -->
+        <div class="col-md-12">
+          <h4>Thông tin sản phẩm</h4>
+          <div class="row" style="padding: 10px 0px;">
+            <div class="col-md-12">
+              Quy trình : <span>{{ listWorkflow }}</span>
+            </div>
+          </div>
+          <p-treeTable [value]="dataTree" [columns]="colsItem">
+              <ng-template pTemplate="header" let-columns>
+                  <tr [ttRow]="rowNode">
+                      <th *ngFor="let col of columns">
+                          {{col.header}}
+                      </th>
+                  </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                <tr>
+                  <td *ngFor="let col of columns; let i = index"
+                    ttEditableColumn [ngSwitch]="col.field"
+                    [ngClass]="{'created-color': rowData['isCreated'] == true}"
+                  >
+                    <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                    <span *ngSwitchCase="'productOrderWorkflowName'">
+                      <span class="link" (click)="showWorkflow(rowData['productOrderWorkflowId'])">
+                        {{rowData[col.field]}}
+                      </span>
+                    </span>
+                    <span *ngSwitchCase="'productName'">
+                      <span *ngIf="!rowData['isAddItem']">
+                        {{rowData[col.field]}}
+                      </span>
+                      <span *ngIf="rowData['isAddItem']">
+                        <p-treeTableCellEditor>
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]" (click)="checkKey(rowData)"
+                              [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                          </ng-template>
+                          <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+                      </span>
+                    </span>
+                    <span *ngSwitchCase="'productThickness'">
+                      <span *ngIf="!rowData['isAddItem']">
+                        {{rowData[col.field]}}
+                      </span>
+                      <span *ngIf="rowData['isAddItem']">
+                        <p-treeTableCellEditor>
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]" (click)="checkKey(rowData)"
+                              [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                          </ng-template>
+                          <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+                      </span>
+                    </span>
+                    <span *ngSwitchCase="'productGroupCode'">
+                      <span *ngIf="!rowData['isAddItem']">
+                        {{rowData[col.field]}}
+                      </span>
+                      <span *ngIf="rowData['isAddItem']">
+                        <p-treeTableCellEditor>
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]" (click)="checkKey(rowData)"
+                              [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                          </ng-template>
+                          <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+                      </span>
+                    </span>
+                    <span *ngSwitchDefault>
+                      {{rowData[col.field]}}
+                    </span>
+                  </td>
+                </tr>
+              </ng-template>
+          </p-treeTable>
+        </div>
+        <div class="col-md-12" style="margin-top: 30px; text-align: right;">
+          <button type="button" class="btn-cancel" (click)="cancelDialogCatHa()">
+            <span class="btn-save-cancel">Hủy</span>
+          </button>
+          <button type="button" class="btn-save" (click)="saveCatHa()" [disabled]="isDisableSaveCatHa">
+            <span class="btn-save-text">Lưu</span>
+          </button>
+        </div>
+      </div>
+    </p-dialog>
+  </div>
+</div>

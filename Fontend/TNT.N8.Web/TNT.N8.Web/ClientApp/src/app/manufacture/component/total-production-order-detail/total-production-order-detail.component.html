@@ -1,0 +1,240 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="total-production-order-detail">
+  <div class="row no-margin">
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-12 box-header">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="row" style="display: flex; align-items: center;">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="/assets/icons/components/ic_library_add_24px.svg" class="ic_library_add_24px">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title">Chi tiết Lệnh tổng</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row" style="display: flex; align-items: center;">
+                <div class="col-md-12" style="text-align: right;">
+                  <button class="cancel" type="button" (click)="cancel()">
+                    <span class="text-cancel">Hủy</span>
+                  </button>
+                  <!-- <button #saveAndCreate class="save-and-new" type="button" [disabled]="awaitResult" (click)="createTotalProductionOrder(true)">
+                    <span class="text-save-and-new">Lưu và Thêm mới</span>
+                  </button> -->
+                  <button #save *ngIf="actionEdit" class="save" type="button" [disabled]="awaitResult" (click)="updateTotalProductionOrder()">
+                    <span class="text-save">Lưu</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 box-content">
+          <form [formGroup]="totalProductionOrderForm" style="height: 100%;">
+            <div class="row no-margin">
+              <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+                <p-accordionTab header="Thông tin lệnh tổng" [selected]="true">
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <span>Mã lệnh tổng: <span>{{totalProductionOrder.code}}</span></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- <div class="col-md-6" style="margin-top: 10px;">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <span>Trạng thái</span>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <p-dropdown [options]="listCurrentStatus"
+                              [styleClass]="(statusControl.invalid && (statusControl.dirty || statusControl.touched)) ? 'error-border' : ''"
+                              placeholder="Chọn trạng thái"
+                              formControlName="statusControl"
+                              optionLabel="categoryName"
+                              showClear="true"
+                              [style]="{'width': '100%'}"
+                              [disabled]="disabled_status"></p-dropdown>
+                          </div>
+                          <div class="col-md-12"
+                            [hidden]="statusControl.valid || statusControl.untouched">
+                            <span *ngIf="statusControl.hasError('required')" class="error-message-span">Chưa
+                              chọn trạng thái</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> -->
+
+                  <div class="col-md-6" style="margin-top: 10px;">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <span>Ngày sản xuất</span>
+                      </div>
+                      <div class="col-md-5">
+                        <div class="row">
+                          <div class="col-md-12">
+                            <p-calendar formControlName="startDateControl"
+                              [styleClass]="(startDateControl.invalid  && (startDateControl.dirty || startDateControl.touched)) ? 'error-pcalendar': ''"
+                              dateFormat="dd/mm/yy" [style]="{'width':'100%'}" showButtonBar="true"
+                              [inputStyle]="{'width':'100%'}" [baseZIndex]="999"
+                              [disabled]="disabled_startDate"></p-calendar>
+                          </div>
+                          <div class="col-md-12"
+                            [hidden]="startDateControl.valid || startDateControl.untouched">
+                            <span *ngIf="startDateControl.hasError('required')" class="error-message-span">Không được để trống</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </p-accordionTab>
+              </p-accordion>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-md-12 box-content">
+          <div class="row no-margin">
+            <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+              <p-accordionTab header="Lệnh sản xuất" [selected]="true">
+                <div class="col-md-12" style="text-align: right; padding-bottom: 10px;">
+                  <button *ngIf="actionEdit" type="button" class="add" (click)="openAddProductionOrderDialog()">
+                    <i class="pi pi-plus icon-add"></i> <span class="text-add">Thêm lệnh sản xuất</span>
+                  </button>
+                </div>
+                <div class="col-md-12">
+                  <p-table #dt [columns]="cols" [value]="listProductionOrder" [paginator]="true" [rows]="10"
+                    [globalFilterFields]="['productionOrderCode']">
+                    <ng-template pTemplate="caption">
+                      <div style="text-align: right">        
+                        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                        <input type="text" pInputText size="50" placeholder="Nhập lệnh số" (input)="dt.filterGlobal($event.target.value.trim(), 'contains')" style="width:auto">
+                      </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th *ngFor="let col of columns"
+                          [ngStyle]="{'text-align': col.textAlign, 'display': col.display}">
+                          {{col.header}}
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                      <tr>
+                        <td *ngFor="let col of columns" 
+                          [ngStyle]="{'text-align': col.textAlign, 'display': col.display}"
+                          [ngSwitch]="col.field">
+                          <span *ngSwitchCase="'productionOrderCode'" (click)="goToDetail(rowData['productionOrderId'])" class="link">
+                            {{rowData[col.field]}}
+                          </span>
+                          <span *ngSwitchCase="'endDate'">
+                            {{rowData[col.field] | date:'dd/MM/yyyy'}}
+                          </span>
+                          <span *ngSwitchCase="'view'">
+                            <button pTooltip="Xem chi tiết lệnh sản xuất" tooltipPosition="top"
+                              [tooltipDisabled]="false" type="button" class="btn-view" (click)="openViewItemDialog(rowData)">
+                              <i class="fas fa-eye icon-view"></i>
+                            </button>
+                          </span>
+                          <span *ngSwitchCase="'delete'">
+                            <button *ngIf="rowData['isDelete'] && actionEdit" pButton icon="pi pi-trash" (click)="deleteItem(rowData)"
+                              class="ui-button-danger"></button>
+                          </span>
+                          <span *ngSwitchDefault>
+                            {{rowData[col.field]}}
+                          </span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="row no-margin box-right-header">
+        <div class="col-md-12" style="padding: 16px;">
+          <span class="right-title">Thống kê lệnh tổng</span>
+        </div>
+        <div class="col-md-12 box-right-content">
+          <div class="row no-margin">
+            <div class="col-md-7 mt-10">
+              <span>Tổng số tấm:</span>
+            </div>
+            <div class="col-md-5 mt-10">
+              <span>{{totalQuantity}}</span>
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-7 mt-10">
+              <span>Tổng m2:</span>
+            </div>
+            <div class="col-md-5 mt-10">
+              <span>{{this.totalArea}} m2</span>
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-7 mt-10">
+              <span>Ngày trả gần nhất:</span>
+            </div>
+            <div class="col-md-5 mt-10">
+              <span>{{minEndDate | date:'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-7 mt-10">
+              <span>Ngày trả xa nhất:</span>
+            </div>
+            <div class="col-md-5 mt-10">
+              <span>{{maxEndDate | date:'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 box-right-footer">
+          <!-- <div class="row no-margin">
+            <div class="col-md-12">
+              <span class="right-footer-title">Tổng hợp theo các quy trình SX</span>
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-6 mt-10">
+              <span>Cắt:</span>
+            </div>
+            <div class="col-md-6 mt-10">
+              <span>300 m2</span>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

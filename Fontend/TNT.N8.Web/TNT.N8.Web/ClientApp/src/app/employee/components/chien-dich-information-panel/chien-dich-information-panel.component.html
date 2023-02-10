@@ -1,0 +1,54 @@
+<div class="col-md-12 recruitment-infor" style="margin-bottom: 15px;">
+    <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Thông tin chiến dịch" [selected]="true">
+            <div class="row">
+                <div class="col-md-4 mt-7">
+                    <table class="table borderless mt-25">
+                        <tbody>
+                            <tr>
+                                <th class="col-md-6 infor-label">Tên chiến dịch</th>
+                                <td class="col-md-6 infor-value">{{recruitmentCampaign?.recruitmentCampaignName}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-6 infor-label">Người phụ trách</th>
+                                <td class="col-md-6 infor-value">{{recruitmentCampaign?.personInChargeName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4 mt-7">
+                    <table class="table borderless mt-25">
+                        <tbody>
+                            <tr>
+                                <th class="col-md-8 infor-label">Ngày bắt đầu</th>
+                                <td class="col-md-4 infor-value">{{recruitmentCampaign?.startDate |
+                                    date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-8 infor-label">Ngày kết thúc</th>
+                                <td class="col-md-4 infor-value">{{recruitmentCampaign?.endDateDate |
+                                    date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4 mt-7">
+                    <table class="table borderless mt-25">
+                        <tbody>
+                            <tr>
+                                <th class="col-md-6 infor-label">Trạng thái</th>
+                                <td class="col-md-6 infor-value">{{recruitmentCampaign?.statusName}}</td>
+                            </tr>
+                            <tr>
+                                <th class="col-md-6 infor-label">Số lượng tuyển dụng</th>
+                                <td class="col-md-6 infor-value">{{recruitmentCampaign?.quantityVacancies | number}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </p-accordionTab>
+    </p-accordion>
+</div>

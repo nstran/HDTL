@@ -1,0 +1,874 @@
+.thu-hoi-tai-san .btn-move {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+.thu-hoi-tai-san .mr-5 {
+  margin-right: 5px;
+}
+
+.thu-hoi-tai-san .icons-move {
+  font-size: 10px !important;
+}
+
+.thu-hoi-tai-san {
+  font-family: 'Inter UI';
+}
+
+.thu-hoi-tai-san .thu-hoi-tai-san-content {
+  margin: 0 !important;
+  border-radius: 4px;
+  border: 1px solid #dde1e6;
+}
+
+.thu-hoi-tai-san .button-group {
+  width: 100%;
+  height: 'auto';
+  border-radius: 4px;
+  background: #f2f4f8;
+  border-bottom: 1px solid #dde1e6;
+  padding: 5px 0px;
+}
+
+.thu-hoi-tai-san .fixed {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  background: #eee;
+  border: 1px solid #cccccc;
+}
+
+.thu-hoi-tai-san .ios-warning {
+  position: relative;
+  top: 5px;
+  width: 16.2px;
+  height: 15px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.thu-hoi-tai-san .box-waring {
+  display: inline-block;
+  width: 49px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #ffcc00;
+  text-align: center;
+  cursor: pointer;
+}
+
+.thu-hoi-tai-san .ios-warning-active {
+  position: relative;
+  top: 5px;
+  width: 16.2px;
+  height: 15px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.thu-hoi-tai-san .notification {
+  position: absolute;
+  top: 38px;
+  width: 307px;
+  box-shadow: 0 6px 12px 0 rgba(18, 22, 25, 0.16);
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+/*Begin: Tạo góc nhọn trên hộp thoại */
+
+.thu-hoi-tai-san .notification::before {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  display: block;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  content: " ";
+  border-left: solid transparent;
+  border-right: solid transparent;
+  border-bottom: solid #ffffff;
+  border-width: 8px;
+  border-bottom-color: #d1d5da;
+}
+
+.thu-hoi-tai-san .notification::after {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  display: block;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  content: " ";
+  border-left: solid transparent;
+  border-right: solid transparent;
+  border-bottom: solid transparent;
+  margin-bottom: -1px;
+  border-width: 8px;
+  border-bottom-color: #ffffff;
+}
+
+/*End: Tạo góc nhọn trên hộp thoại */
+
+.thu-hoi-tai-san .notification .notifi-row {
+  width: 100%;
+  border-bottom: 1px solid #dde1e6;
+  padding: 10px 0px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.thu-hoi-tai-san .notification .notifi-row .ios-alert {
+  position: absolute;
+  left: 15px;
+  width: 15.9px;
+  height: 15.9px;
+  object-fit: contain;
+}
+
+.thu-hoi-tai-san .notification .notifi-row .notifi-text {
+  position: relative;
+  left: 50px;
+  width: 100%;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ff3b30;
+}
+
+.thu-hoi-tai-san .notification .notifi-row-footer {
+  width: 100%;
+  padding: 10px 10px;
+  text-align: right;
+}
+
+.thu-hoi-tai-san .notification .notifi-row-footer .notifi-text-footer {
+  width: 100%;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  color: #121619;
+}
+
+.thu-hoi-tai-san .cancel {
+  width: 64px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.thu-hoi-tai-san .cancel .text-cancel {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.thu-hoi-tai-san .save-and-new {
+  width: 160px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left: 5px;
+}
+
+.thu-hoi-tai-san .save-and-new .text-save-and-new {
+  width: 102px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.thu-hoi-tai-san .save {
+  width: 86px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  margin-left: 5px;
+}
+
+.thu-hoi-tai-san .save .text-save {
+  width: 25px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+/*Begin: Customize Accordion */
+
+::ng-deep .thu-hoi-tai-san .ui-accordion .ui-accordion-header a {
+  border: 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+  font-size: 16px;
+}
+
+::ng-deep .thu-hoi-tai-san .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background-color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  color: #121619 !important;
+}
+
+::ng-deep .thu-hoi-tai-san .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .thu-hoi-tai-san .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .thu-hoi-tai-san .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  color: #121619 !important;
+}
+
+::ng-deep .thu-hoi-tai-san .ui-accordion .ui-accordion-content {
+  border: 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/*End: Customize Accordion */
+
+.thu-hoi-tai-san .text-order-code {
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #4d5358;
+}
+
+.thu-hoi-tai-san .sub-text-order-code {
+  font-size: 13px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.thu-hoi-tai-san .mt-5 {
+  margin-top: 5px;
+}
+
+.thu-hoi-tai-san .mt-10 {
+  margin-top: 10px;
+}
+
+::ng-deep .thu-hoi-tai-san .ui-datepicker {
+  top: 31px !important;
+}
+
+.thu-hoi-tai-san .require {
+  color: #F94E4E;
+}
+
+.thu-hoi-tai-san .error-message-span {
+  color: red !important;
+}
+
+.thu-hoi-tai-san .w100 {
+  width: 100%;
+}
+
+.thu-hoi-tai-san .option-customer {
+  height: 64px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #f2f4f8;
+}
+
+.thu-hoi-tai-san .border-customer-infor {
+  /* border-right: 1px dashed #ccc;
+    border-bottom: 1px dashed #ccc;
+    border-left: 1px dashed #ccc; */
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+/*
+  .thu-hoi-tai-san .input-text {
+    min-height: 2.55em !important;
+  } */
+
+.thu-hoi-tai-san .ios-add-circle-outline {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.thu-hoi-tai-san .add-product-text {
+  width: 146px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #0f62fe;
+  cursor: pointer;
+}
+
+/* Phần tổng hợp bên phải */
+
+.thu-hoi-tai-san .overview {
+  border-radius: 4px;
+  border: 1px solid #dde1e6;
+}
+
+.thu-hoi-tai-san .overview .button-group {
+  width: 100% !important;
+  height: 42px;
+  border-radius: 4px;
+  background: #ffffff;
+  border-bottom: 1px solid #dde1e6;
+  padding-top: 10px;
+}
+
+.thu-hoi-tai-san .overview .button-group .text-title {
+  width: 152px;
+  height: 17px;
+  font-family: 'Inter UI';
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.thu-hoi-tai-san .overview .button-group .ios-print {
+  width: 17.5px;
+  height: 17.5px;
+  object-fit: contain;
+  float: right;
+  cursor: pointer;
+}
+
+.thu-hoi-tai-san .box-part-1 {
+  border-bottom: 1px solid #cccccc;
+  padding: 10px 0px;
+}
+
+.thu-hoi-tai-san .overview .total-monney-label {
+  height: 14px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #4d5358;
+}
+
+.thu-hoi-tai-san .overview .total-monney-number {
+  height: 13px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: right;
+  color: #121619;
+}
+
+.thu-hoi-tai-san .result-monney-label {
+  height: 14px;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.thu-hoi-tai-san .result-monney-number {
+  height: 13px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: right;
+  color: #ffffff;
+}
+
+.thu-hoi-tai-san .result-monney-text {
+  height: 14px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: right;
+  color: #ffffff;
+}
+
+.thu-hoi-tai-san span.ui-column-title {
+  width: 200px;
+}
+
+/* End */
+
+/*iphone 6/7/8*/
+
+@media only screen and (max-width: 375px) {
+  .thu-hoi-tai-san .save {
+    margin-left: 0px;
+    margin-top: 10px;
+  }
+  .thu-hoi-tai-san .button-group .cancel {
+    width: 68px;
+  }
+  .thu-hoi-tai-san .button-group .save-and-new {
+    width: 140px;
+    margin-right: 4px;
+  }
+  .thu-hoi-tai-san .save {
+    width: 65px;
+  }
+  .thu-hoi-tai-san .fixed {
+    position: relative;
+    /* padding-right: 35px; */
+  }
+  ::ng-deep body .ui-tabview.ui-tabview-top .ui-tabview-nav li {
+    font-size: 12px;
+    min-width: 102px;
+  }
+  ::ng-deep .ui-dialog {
+    width: 90% !important;
+  }
+}
+
+/*iphone 6/7/8 plus*/
+
+@media only screen and (max-width:414px) and (min-width:376px) {
+  .thu-hoi-tai-san .fixed {
+    position: relative;
+  }
+  ::ng-deep body .ui-tabview.ui-tabview-top .ui-tabview-nav li {
+    min-width: 113px;
+  }
+  ::ng-deep .ui-dialog {
+    width: 90% !important;
+  }
+}
+
+@media only screen and (min-width: 415px) and (max-width:1024px) {
+  ::ng-deep .ui-dialog {
+    width: 70% !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  ::ng-deep .add-edit-product-dialog .group-button-footer {
+    display: inline-block !important;
+    width: 100%;
+  }
+  ::ng-deep .add-edit-product-dialog .group-button-footer>div:not(.btn-group) {
+    text-align: left;
+    margin-bottom: 15px;
+  }
+}
+
+.thu-hoi-tai-san .view {
+  width: 120px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #169bd5;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #169bd5;
+  margin-left: 5px;
+}
+
+.thu-hoi-tai-san .view-text {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+.thu-hoi-tai-san .asset-header {
+    width: 119px;
+    height: 20px;
+    font-family: 'Inter UI';
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    text-align: left;
+    color: #121619;
+}
+
+.thu-hoi-tai-san .btn-save-and-new {
+    width           : 142px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #0f62fe;
+    background-color: #ffffff;
+    margin-left     : 5px;
+  }
+
+.thu-hoi-tai-san .btn-save-and-new .btn-save-and-new-text {
+    width         : 102px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #0f62fe;
+  }
+
+  .thu-hoi-tai-san .button-group .btn-long {
+  width: 100px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+ .thu-hoi-tai-san .btn-refresh {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.mt-5
+{
+  margin-top: 5px;
+}
+
+.mt-15
+{
+  margin-top: 15px;
+}
+
+.mb-5
+{
+  margin-bottom: 5px;
+}
+
+.mb-15
+{
+  margin-bottom: 15px;
+}
+.showImportForm .choose-file {
+    width: 170px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #f2f4f8;
+  }
+
+  .showImportForm .text-choose-file {
+    /* width: 170px; */
+    height: 32px;
+    font-family: "Inter UI";
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #121619;
+  }
+  .showImportForm .vendor-product-price-list .text-import-file {
+    width: 24px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+    text-align: left;
+    color: #121619;
+  }
+
+  .showImportForm .import-file {
+    width: 170px;
+    height: 32px;
+    border-radius: 4px;
+    color: black;
+    border: solid 1px #c1c7cd;
+  }
+
+  .showImportForm .text-import {
+    color: white;
+  }
+  .showImportForm .btn-create {
+    float: right;
+    width: 98px;
+    height: 31px;
+    border-radius: 4px;
+    border: 1px solid #cccccc;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #007aff;
+  }
+  .showImportForm .btn-create-text {
+    width: 50px;
+    height: 16px;
+    font-family: "Inter UI";
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+  }
+  .mt-25
+  {
+    margin-top: 25px;
+  }
+
+
+
+
+
+
+
+
+/* Thông báo lỗi */
+
+.thu-hoi-tai-san .error-border,
+.thu-hoi-tai-san .error-border:focus {
+  border-color: #f44336;
+}
+
+.thu-hoi-tai-san .error-border:focus {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset, 0 0 8px #f44336;
+}
+
+.thu-hoi-tai-san .box-waring {
+  display: inline-block;
+  width: 49px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #ffcc00;
+  text-align: center;
+  cursor: pointer;
+}
+
+.thu-hoi-tai-san .ios-warning {
+  position: relative;
+  top: 5px;
+  width: 16.2px;
+  height: 15px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.thu-hoi-tai-san .ios-warning-active {
+  position: relative;
+  top: 5px;
+  width: 16.2px;
+  height: 15px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.thu-hoi-tai-san .notification {
+  position: absolute;
+  top: 38px;
+  width: 380px;
+  box-shadow: 0 6px 12px 0 rgba(18, 22, 25, 0.16);
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+/*Begin: Tạo góc nhọn trên hộp thoại */
+.thu-hoi-tai-san .notification::before {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  display: block;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  content: " ";
+  border-left: solid transparent;
+  border-right: solid transparent;
+  border-bottom: solid #ffffff;
+  border-width: 8px;
+  border-bottom-color: #d1d5da;
+}
+
+.thu-hoi-tai-san .notification::after {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  display: block;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  content: " ";
+  border-left: solid transparent;
+  border-right: solid transparent;
+  border-bottom: solid transparent;
+  margin-bottom: -1px;
+  border-width: 8px;
+  border-bottom-color: #ffffff;
+}
+/*End: Tạo góc nhọn trên hộp thoại */
+
+.thu-hoi-tai-san .notification .notifi-row {
+  width: 100%;
+  border-bottom: 1px solid #dde1e6;
+  padding: 10px 0px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.thu-hoi-tai-san .notification .notifi-row .ios-alert {
+  position: absolute;
+  left: 15px;
+  width: 15.9px;
+  height: 15.9px;
+  object-fit: contain;
+}
+
+.thu-hoi-tai-san .notification .notifi-row .notifi-text {
+  position: relative;
+  left: 50px;
+  width: 100%;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ff3b30;
+}
+
+.thu-hoi-tai-san .notification .notifi-row-footer {
+  width: 100%;
+  padding: 10px 10px;
+  text-align: right;
+}
+
+.thu-hoi-tai-san .notification .notifi-row-footer .notifi-text-footer {
+  width: 100%;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  color: #121619;
+}
+
+.thu-hoi-tai-san .header-box-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.thu-hoi-tai-san .header-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.thu-hoi-tai-san .buffer-top {
+  margin-top: 1.2rem;
+}
+
+.thu-hoi-tai-san .buffer-bottom {
+  margin-bottom: 1.2rem;
+}
+
+.thu-hoi-tai-san .buffer-bottom-label {
+  margin-bottom: 3px;
+}
+
+.thu-hoi-tai-san .required {
+  color: red;
+}
+
+.thu-hoi-tai-san .error-message-span {
+  color: red;
+}

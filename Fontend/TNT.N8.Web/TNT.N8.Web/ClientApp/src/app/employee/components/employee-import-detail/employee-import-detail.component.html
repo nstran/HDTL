@@ -1,0 +1,227 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{ width: '50px', height: '50px' }" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+
+<section class="customer-import-detail">
+  <p-table #myTable [columns]="columns" [value]="listTaiSanImport" [scrollable]="true" scrollHeight="300px"
+    selectionMode="multiple" [(selection)]="selectedEmployeeImport" [resizableColumns]="true" [style]="{width:'100%'}"
+    [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,50,100]">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style='width: 40px !important;'>
+          <p-checkbox (click)="selectRow(e.checked)" #e></p-checkbox>
+        </th>
+        <th *ngFor="let col of columns" pResizableColumn [ngSwitch]="col.field"
+          [ngStyle]="{'width': col.width, 'text-align': 'center'}">
+          <span *ngSwitchDefault>
+            <span *ngIf="col.isRequired">
+              <span>{{col.header}}<span class="required">:*</span></span>
+            </span>
+            <span *ngIf="!col.isRequired">
+              {{col.header}}
+            </span>
+          </span>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template late pTemplate="body" let-rowData let-columns="columns">
+      <tr [style.color]="!rowData.isValid ? 'red' : 'black' ">
+        <td style='width: 40px !important;'>
+          <p-tableCheckbox [value]="rowData" [disabled]="rowData['isValid'] == true ? false : true"></p-tableCheckbox>
+        </td>
+        <td *ngFor="let col of columns;" class="ui-resizable-column"
+          [ngStyle]="{'width': col.width, 'text-align': col.textAlign , 'overflow': 'unset'}" [ngSwitch]="col.field"
+          pEditableColumn>
+          <div *ngSwitchDefault>
+            <p-cellEditor *ngIf="col.type == 'text' && !col.isList">
+              <ng-template pTemplate="input">
+                <input (change)="checkStatus(true)" type="text" maxlength="500" [(ngModel)]="rowData[col.field]"
+                  class="w100" pInputText />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData[col.field]}}
+              </ng-template>
+            </p-cellEditor>
+
+            <p-cellEditor *ngIf="col.type == 'date' && !col.isList">
+              <ng-template pTemplate="input">
+                <input (change)="checkStatus(true)" pInputText placeholder="" type="date"
+                  [(ngModel)]="rowData[col.field]" maxlength="250" />
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData[col.field] | date:'dd/MM/yyyy'}}
+              </ng-template>
+            </p-cellEditor>
+
+            <p-cellEditor *ngIf="col.type == 'numberInt' && !col.isList">
+              <ng-template pTemplate="input">
+                <p-inputNumber [min]="0" class="w-100" (change)="checkStatus(true)" [(ngModel)]="rowData[col.field]">
+                </p-inputNumber>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData[col.field]}}
+              </ng-template>
+            </p-cellEditor>
+
+            <p-cellEditor *ngIf="col.type == 'number' && !col.isList">
+              <ng-template pTemplate="input">
+                <input type="text" class="number-input" (change)="checkStatus(true)" [(ngModel)]="rowData[col.field]"
+                  (keydown.enter)="$event.preventDefault()"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}"
+                  [style]="{'width': '100%', 'display':'inline-grid'}">
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData[col.field]}}
+              </ng-template>
+            </p-cellEditor>
+
+
+            <!-- các list -->
+            <p-cellEditor *ngIf="col.type == 'text' && col.field == 'GradeTestingName' && col.isList">
+              <ng-template pTemplate="input">
+                <p-dropdown [options]="ListCapBac" optionLabel="categoryName" (onChange)="checkStatus(true)"
+                  [(ngModel)]="rowData['GradeTestingId']" placeholder="Chọn cấp bậc" [style]="{'width': '100%'}"
+                  (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{ rowData['GradeTestingName']}}
+              </ng-template>
+            </p-cellEditor>
+
+            <p-cellEditor *ngIf="col.type == 'text' && col.field == 'DeptCodeValueName' && col.isList">
+              <ng-template pTemplate="input">
+                <p-dropdown [options]="ListDeptCode" optionLabel="name" (onChange)="checkStatus(true)"
+                  [(ngModel)]="rowData['DeptCodeValueId']" placeholder="Chọn Dept Code" [style]="{'width': '100%'}"
+                  (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData['DeptCodeValueName'] }}
+              </ng-template>
+            </p-cellEditor>
+
+            <p-cellEditor *ngIf="col.type == 'text' && col.field == 'SubCode1ValueName' && col.isList">
+              <ng-template pTemplate="input">
+                <p-dropdown [options]="ListSubCode1" optionLabel="name" (onChange)="checkStatus(true)"
+                  [(ngModel)]="rowData['SubCode1ValueId']" placeholder="Chọn SubCode1" [style]="{'width': '100%'}"
+                  (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData['SubCode1ValueName'] }}
+              </ng-template>
+            </p-cellEditor>
+
+            <p-cellEditor *ngIf="col.type == 'text' && col.field == 'SubCode2ValueName' && col.isList">
+              <ng-template pTemplate="input">
+                <p-dropdown [options]="ListSubCode2" optionLabel="name" (onChange)="checkStatus(true)"
+                  [(ngModel)]="rowData['SubCode2ValueId']" placeholder="Chọn SubCode2" [style]="{'width': '100%'}"
+                  (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData['SubCode2ValueName'] }}
+              </ng-template>
+            </p-cellEditor>
+
+
+            <p-cellEditor *ngIf="col.type == 'text' && col.field == 'OrganizationIdName' && col.isList">
+              <ng-template pTemplate="input">
+                <p-dropdown [options]="ListPhongBan" optionLabel="organizationName" (onChange)="checkStatus(true)"
+                  [(ngModel)]="rowData['OrganizationId']" placeholder="Chọn phòng ban" [style]="{'width': '100%'}"
+                  (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData['OrganizationIdName']}}
+              </ng-template>
+            </p-cellEditor>
+
+            <p-cellEditor *ngIf="col.type == 'text' && col.field == 'ProvinceIdName' && col.isList">
+              <ng-template pTemplate="input">
+                <p-dropdown [options]="ListProvince" optionLabel="provinceName" (onChange)="checkStatus(true)"
+                  [(ngModel)]="rowData['ProvinceId']" placeholder="Chọn nơi làm việc" [style]="{'width': '100%'}"
+                  (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData['ProvinceIdName'] }}
+              </ng-template>
+            </p-cellEditor>
+
+            <p-cellEditor *ngIf="col.type == 'text' && col.field == 'KyNangTayNgheName' && col.isList">
+              <ng-template pTemplate="input">
+                <p-dropdown [options]="ListKyNangTayNghe" optionLabel="name" (onChange)="checkStatus(true)"
+                  [(ngModel)]="rowData['KyNangTayNgheId']" placeholder="Chọn kỹ năng tay nghề"
+                  [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData['KyNangTayNgheName'] }}
+              </ng-template>
+            </p-cellEditor>
+
+            <p-cellEditor *ngIf="col.type == 'text' && col.field == 'BangCapCaoNhatDatDuocIdName' && col.isList">
+              <ng-template pTemplate="input">
+                <p-dropdown [options]="ListBangCap" optionLabel="categoryName" (onChange)="checkStatus(true)"
+                  [(ngModel)]="rowData['BangCapCaoNhatDatDuocId']" placeholder="Chọn bằng cấp cao nhất đạt được"
+                  [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData['BangCapCaoNhatDatDuocIdName'] }}
+              </ng-template>
+            </p-cellEditor>
+
+            <p-cellEditor *ngIf="col.type == 'text' && col.field == 'PhuongThucTuyenDungIdName' && col.isList">
+              <ng-template pTemplate="input">
+                <p-dropdown [options]="ListPTTD" optionLabel="categoryName" (onChange)="checkStatus(true)"
+                  [(ngModel)]="rowData['PhuongThucTuyenDungId']" placeholder="Chọn phương thức tuyển dụng"
+                  [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData['PhuongThucTuyenDungIdName']}}
+              </ng-template>
+            </p-cellEditor>
+
+            <p-cellEditor *ngIf="col.type == 'text' && col.field == 'NguonTuyenDungIdName' && col.isList">
+              <ng-template pTemplate="input">
+                <p-dropdown [options]="ListKenhTd" optionLabel="categoryName" (onChange)="checkStatus(true)"
+                  [(ngModel)]="rowData['NguonTuyenDungId']" placeholder="Chọn nguồn tuyển dụng "
+                  [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+              </ng-template>
+              <ng-template pTemplate="output">
+                {{rowData['NguonTuyenDungIdName'] }}
+              </ng-template>
+            </p-cellEditor>
+
+
+            <span *ngIf="col.type == 'listStatus'">
+              <ul>
+                <li *ngFor="let status of rowData[col.field]; let i=index">
+                  <span>{{status.name}}</span>
+                </li>
+              </ul>
+            </span>
+
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <div class="buttons" style="padding-top: 1rem; display: flex; justify-content: flex-end;">
+    <button type="button" class="btn-remove" style="margin-right: 0.75rem;" (click)="onCancel()">
+      <span class="btn-remove-text">Hủy</span>
+    </button>
+    <button type="button" class="btn-save" (click)="importCustomer()">
+      <span class="btn-save-text">Lưu</span>
+    </button>
+  </div>
+</section>

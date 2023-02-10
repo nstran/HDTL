@@ -1,0 +1,219 @@
+<!-- Loading... -->
+
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="employee-list">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="\assets\icons\components\noun_product.svg" class="noun-product">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title">Danh sách kế hoạch OT</div>
+                  <div class="box-header-subtitle">
+                    {{listKeHoachOT.length}} đầu mục - Sắp xếp theo ngày gần nhất - Cập nhật
+                    {{nowDate | date:'dd/MM/yyyy'}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12" style="text-align: right;">
+            <button type="button" class="btn-save" style="width:90px!important;margin-right: 7px;"
+              (click)="exportExcel()">
+              <span class="btn-create-text">Xuất file</span>
+            </button>
+
+            <button type="button" class="btn-create" *ngIf="actionAdd" (click)="goToCreate()"><span
+                class="btn-create-text">Tạo mới</span></button>
+            <div style="clear: both;"></div>
+          </div>
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                <span class="btn-filter-text">Bộ lọc</span>
+              </button>
+              <input type="text" class="iput-text" [(ngModel)]="filterGlobal" placeholder="Tìm kiếm trong danh sách"
+                (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Trạng thái</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [(ngModel)]="searchValue" [options]="trangThai" defaultLabel="Lựa chọn trạng thái"
+              optionLabel="name" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              (keydown.enter)="$event.preventDefault()" selectedItemsLabel="{0} trạng thái được chọn">
+            </p-multiSelect>
+
+            <!-- <p-dropdown [options]="cities" placeholder="Select a City" optionLabel="name" [(ngModel)]="searchValue">
+            </p-dropdown> -->
+          </div>
+        </div>
+        <div class="row no-margin pb-1">
+          <div class="col-md-12 mt-5" style="text-align: right">
+            <button type="button" class="btn-search" (click)="getData()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="listKeHoachOT.length > 0" class="col-md-{{leftColNumber}}">
+      <p-table #myTable [columns]="selectedColumns" [value]="listKeHoachOT" [resizableColumns]="true"
+        [(selection)]="selection" columnResizeMode="expand" [paginator]="true" [rows]="10"
+        [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+        <ng-template pTemplate="caption">
+
+          <div style="text-align: left;">
+            <p-multiSelect [options]="colsList" optionLabel="header" [(ngModel)]="selectedColumns"
+              [ngModelOptions]="{ standalone: true }" selectedItemsLabel="{0} cột được chọn"
+              [style]="{ minWidth: '200px' }" defaultLabel="Chọn cột"></p-multiSelect>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 3.5em; text-align: center;" class="col-md-2">
+              #
+            </th>
+            <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+              [ngStyle]="{ 'text-align': col.textAlign, display: col.display }" class="col-md-7">
+              {{col.header}}
+            </th>
+            <th class="col-md-3">
+              Thao tác
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+          <tr>
+            <td style="text-align: center;">
+              {{rowData.index | json}}
+            </td>
+
+            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+              [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+              <span *ngSwitchCase="'tenKeHoach'" (click)="onViewDetail(rowData)" class="link" style="display: inline-block;
+            padding: 3px 3px;">
+                {{rowData[col.field]}}
+              </span>
+              <span *ngSwitchCase="'trangThai'">
+                <span *ngIf="rowData[col.field] == 1" [ngStyle]="{'background-color': '#797979'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Tạo
+                  mới</span>
+
+                <span *ngIf="rowData[col.field] == 10" [ngStyle]="{'background-color': 'rgb(231 109 5)'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Hết hạn phê duyệt kế hoạch OT</span>
+                <span *ngIf="rowData[col.field] == 11" [ngStyle]="{'background-color': 'rgb(231 109 5)'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Hết hạn phê duyệt đăng ký OT</span>
+
+                <span *ngIf="rowData[col.field] == 2" [ngStyle]="{'background-color': '#f29505'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Chờ phê
+                  duyệt</span>
+                <span *ngIf="rowData[col.field] == 3" [ngStyle]="{'background-color': '#05a4f2'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Đăng ký
+                  OT</span>
+                <span *ngIf="rowData[col.field] == 4" [ngStyle]="{'background-color': '#35ee86'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Chờ phê
+                  duyệt đăng ký OT</span>
+
+                <span *ngIf="rowData[col.field] == 5" [ngStyle]="{'background-color': '#0c8742'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Đã
+                  duyệt</span>
+                <span *ngIf="rowData[col.field] == 6" [ngStyle]="{'background-color': 'rgb(17, 152, 185)'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Đang thực
+                  hiện</span>
+                <span *ngIf="rowData[col.field] == 7" [ngStyle]="{'background-color': 'black'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Hoàn
+                  thành</span>
+                <span *ngIf="rowData[col.field] == 8" [ngStyle]="{'background-color': 'rgb(177, 116, 116)'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Từ chối kế
+                  hoạch OT</span>
+                <span *ngIf="rowData[col.field] == 9" [ngStyle]="{'background-color': 'rgb(240, 39, 39)'}"
+                  style="display: inline-block;padding: 3px 3px;color: white;width: 100%;text-align: center;">Từ chối
+                  đăng ký OT</span>
+              </span>
+
+              <span *ngSwitchCase="'thoiGian'">
+                {{rowData.ngayBatDau | date : 'dd/MM/yyyy'}} {{rowData.gioBatDau}} -
+                {{rowData.ngayKetThuc| date : 'dd/MM/yyyy'}} {{rowData.gioKetThuc}}
+              </span>
+              <span *ngSwitchDefault>
+                {{ rowData[col.field]}}
+              </span>
+            </td>
+            <td style="text-align: center;">
+              <button style="width: 3rem; margin-left: 0.5rem;" class="ui-button-danger" pButton
+                (click)="deleteDeXuat(rowData)" *ngIf="rowData['trangThai'] == 1 && actionDelete" icon="pi pi-trash"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div *ngIf="!(listKeHoachOT.length > 0)" class="col-md-{{leftColNumber}} no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Trạng thái</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [(ngModel)]="searchValue" [options]="trangThai" defaultLabel="Lựa chọn trạng thái"
+              optionLabel="name" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+              (keydown.enter)="$event.preventDefault()" selectedItemsLabel="{0} trạng thái được chọn">
+            </p-multiSelect>
+          </div>
+        </div>
+        <div class="row no-margin pb-1">
+          <div class="col-md-12 mt-5" style="text-align: right">
+            <button type="button" class="btn-search" (click)="getData()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

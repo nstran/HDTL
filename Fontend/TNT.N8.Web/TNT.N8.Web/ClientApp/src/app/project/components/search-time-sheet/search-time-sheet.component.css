@@ -1,0 +1,629 @@
+.list-time-sheet {
+    width              : 100%;
+    box-shadow         : 0 1px 2px 0 rgba(18, 22, 25, 0.08);
+    /* border          : solid 1px #c1c7cd; */
+    /* background-color: #ffffff; */
+}
+
+.content {
+    padding: 30px;
+}
+
+.list-time-sheet .box-header {
+    width              : 100%;
+    border             : solid 1px #c1c7cd;
+    background-color   : #ffffff;
+    border-radius      : 4px;
+    /* background-image: linear-gradient(to top, #f2f4f8, #dde1e6); */
+}
+
+.list-time-sheet .project-infor {
+    width           : 100%;
+    border          : solid 1px #c1c7cd;
+    background-color: #ffffff;
+    border-radius   : 4px;
+    margin-top      : 15px;
+    margin-left     : 0;
+    margin-right    : 0;
+}
+
+.list-time-sheet .box-content {
+    width           : 100%;
+    border          : solid 1px #c1c7cd;
+    background-color: #ffffff;
+    border-radius   : 4px;
+}
+
+.list-time-sheet .cancel {
+    /* width: 64px; */
+    min-width       : 90px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #ffffff;
+    margin-left     : 10px;
+    float           : right;
+}
+
+.list-time-sheet .text-title {
+    width         : 152px;
+    height        : 17px;
+    font-family   : 'Inter UI';
+    font-size     : 16px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.25;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+}
+
+.list-time-sheet .ios-print {
+    width     : 17.5px;
+    height    : 17.5px;
+    object-fit: contain;
+    float     : right;
+    cursor    : pointer;
+}
+
+::ng-deep .list-time-sheet .ui-splitbutton .ui-button-text-only {
+    display: none;
+}
+
+::ng-deep .list-time-sheet .ui-buttonset.ui-button-secondary>.ui-button.ui-state-default {
+    border-radius   : 50% !important;
+    height          : 35px !important;
+    width           : 35px !important;
+    background-color: #d7dbe0;
+}
+
+.list-time-sheet .btn-create {
+    float           : right;
+    width           : 98px;
+    margin-left     : 10px;
+    height          : 31px;
+    border-radius   : 4px;
+    border          : 1px solid #cccccc;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+}
+
+.list-time-sheet .btn-create-text {
+    width         : 50px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+}
+
+.list-time-sheet .box-header-group {
+    margin-top: 10px;
+}
+
+.list-time-sheet .box-header-icon {
+    border-radius   : 50%;
+    width           : 40px;
+    height          : 40px;
+    background-color: #0f62fe;
+    text-align      : center;
+}
+
+.list-time-sheet .Money-2 {
+    width     : 20.4px;
+    height    : 18.5px;
+    object-fit: contain;
+    margin-top: 10px;
+}
+
+.list-time-sheet .box-header-title {
+    width         : auto;
+    height        : 24px;
+    font-family   : 'Inter UI';
+    font-size     : 18px;
+    font-weight   : 600;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+}
+
+.list-time-sheet .box-header-title-2 {
+    height        : 24px;
+    font-family   : 'Inter UI';
+    font-size     : 17px;
+    font-weight   : 600;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+}
+
+.list-time-sheet .box-header-subtitle {
+    font-family   : 'Inter UI';
+    font-size     : 11px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.36;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #4d5358;
+}
+
+.list-time-sheet .box-header-group-btn {
+    text-align : right;
+    padding-top: 5px;
+}
+
+.list-time-sheet .btn-refresh {
+    width           : 32px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #ffffff;
+    margin-left     : 5px;
+}
+
+.list-time-sheet .ios-refresh {
+    width     : 12px;
+    height    : 14px;
+    object-fit: contain;
+}
+
+.list-time-sheet .btn-approval {
+    width           : 104px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: white;
+    margin-left     : 5px;
+}
+
+.list-time-sheet .btn-approval-text {
+    width         : 36px;
+    height        : 13px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : black;
+}
+
+.list-time-sheet .btn-show-all {
+    width           : 200px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: white;
+    margin-left     : 5px;
+}
+
+.list-time-sheet .btn-filter {
+    width           : 104px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #007aff;
+    background-color: #007aff;
+    margin-left     : 5px;
+}
+
+.list-time-sheet .ios-funnel {
+    width       : 12.3px;
+    height      : 11.3px;
+    object-fit  : contain;
+    margin-right: 5px;
+}
+
+.list-time-sheet .btn-filter-text {
+    width         : 36px;
+    height        : 13px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #ffffff;
+}
+
+.list-time-sheet .iput-text {
+    width           : 248px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #f2f4f8;
+    padding-left    : 5px;
+    margin-left     : 5px;
+}
+
+.list-time-sheet .box-filter {
+    border          : solid 1px #c1c7cd;
+    background-color: #f2f4f8;
+    padding         : 10px 0px;
+}
+
+.list-time-sheet .quote-code-text {
+    width           : 100%;
+    height          : 32px;
+    font-family     : 'Inter UI';
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #ffffff;
+    padding-left    : 5px;
+}
+
+.list-time-sheet .quote-code-text:focus {
+    border-color: #007ad9;
+    outline     : 0 none;
+}
+
+.list-time-sheet .mt-5 {
+    margin-top: 5px;
+}
+
+.list-time-sheet .mt-7 {
+    margin-top: 7px;
+}
+
+.list-time-sheet .btn-search {
+    width           : 72px;
+    height          : 32px;
+    border          : solid 1px #cccccc;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+}
+
+.btnPheDuyet, .btnTuChoi {
+    width           : 85px;
+    height          : 32px;
+    border          : solid 1px #cccccc;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: white;
+}
+
+.btnPheDuyet-text {
+    width         : 36px;
+    height        : 13px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : black;
+}
+
+.list-time-sheet .btn-search:focus {
+    border-color: #007ad9;
+    outline     : 0 none;
+}
+
+.list-time-sheet .btn-search-text {
+    width         : 36px;
+    height        : 13px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #ffffff;
+}
+
+/* Config rows Per Page Options */
+
+::ng-deep .list-time-sheet .ui-inputtext {
+    padding: 0.3em;
+}
+
+.list-time-sheet .link {
+    font-family: 'Inter UI';
+    color      : #007ad9;
+    cursor     : pointer;
+    font-size  : 13px;
+}
+
+.list-time-sheet .no-data {
+    height          : 330px;
+    border          : solid 1px #d7dbe0;
+    background-color: #f2f4f8;
+    text-align      : center;
+}
+
+.list-time-sheet .box-no-data {
+    position: relative;
+    top     : 25%;
+}
+
+.list-time-sheet .box-icon {
+    width     : 57.1px;
+    height    : 58px;
+    object-fit: contain;
+}
+
+.list-time-sheet .sp-button-right {
+    float: right;
+}
+
+.list-time-sheet .project-name {
+    width         : 119px;
+    height        : 20px;
+    font-family   : 'Inter UI';
+    font-size     : 16px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 2.25;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+}
+
+.list-time-sheet .infor-label {
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+}
+
+.list-time-sheet .infor-value {
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : 600;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+    padding-left  : 0px !important;
+    padding-right : 0px !important;
+}
+
+.borderless td,
+.borderless th {
+    border: none !important;
+}
+
+.list-time-sheet .week-input {
+    width     : calc(100% - 375px);
+    text-align: center;
+    height    : 32px;
+    border    : none;
+}
+
+::ng-deep .list-time-sheet .ui-progressbar .ui-progressbar-value {
+    background: #56b40b;
+}
+
+.mr-3 {
+    margin-right: 3px;
+}
+
+.mr-5 {
+    margin-right: 5px;
+}
+
+.w100 {
+    width: 100%;
+}
+
+/* ::ng-deep .list-time-sheet .ui-datepicker {
+    top: 28px !important;
+  } */
+
+::ng-deep .list-time-sheet .ui-selectbutton .ui-button {
+    background-color: white;
+    height          : 31.5px;
+    width           : 100px;
+    position        : relative;
+    top             : 12px;
+}
+
+/* Máy để bàn */
+
+/*Begin: Customize Accordion */
+
+::ng-deep .list-time-sheet .ui-accordion .ui-accordion-header a {
+    border          : 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+    font-size       : 16px;
+}
+
+::ng-deep .list-time-sheet .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    background-color: #ffffff !important;
+    border          : 1px solid #ffffff !important;
+    color           : #121619 !important;
+}
+
+::ng-deep .list-time-sheet .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+}
+
+::ng-deep .list-time-sheet .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+}
+
+::ng-deep .list-time-sheet .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    color: #121619 !important;
+}
+
+::ng-deep .list-time-sheet .ui-accordion .ui-accordion-content {
+    border          : 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+/*End: Customize Accordion */
+
+::ng-deep .timesheet-dialog {
+    width: 50% !important;
+}
+
+@media only screen and (min-width: 1025px) and (max-width: 1423px) {
+    .list-time-sheet .width-status {
+        width: 60%;
+    }
+
+    .list-time-sheet .week-input {
+        width     : calc(100% - 225px);
+        text-align: center;
+        height    : 32px;
+        border    : none;
+    }
+
+    ::ng-deep .ui-dialog .timesheet-dialog .ui-dialog-content {
+        padding: 10px 30px;
+    }
+}
+
+/* Ipad Pro */
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .list-time-sheet .box-header-icon {
+        width : 27px;
+        height: 27px;
+    }
+
+    .list-time-sheet .Money-2 {
+        width     : 15.4px;
+        height    : 11.5px;
+        margin-top: 7px;
+    }
+
+    .list-time-sheet .iput-text {
+        margin-top: 5px;
+    }
+
+    .list-time-sheet .width-status {
+        width: 100%;
+    }
+
+    .list-time-sheet .week-input {
+        width     : calc(100% -125px);
+        text-align: center;
+        height    : 32px;
+        border    : none;
+    }
+}
+
+/* Ipad */
+
+@media only screen and (min-width: 415px) and (max-width: 768px) {
+    .list-time-sheet .btn-create {
+        margin-top: 5px;
+    }
+
+    .list-time-sheet .width-status {
+        width: 100%;
+    }
+}
+
+/* Iphone 6/7/8 Plus */
+
+@media only screen and (min-width: 376px) and (max-width: 414px) {
+    .list-time-sheet .iput-text {
+        margin-top: 5px;
+    }
+
+    .list-time-sheet .btn-filter {
+        width: auto;
+    }
+
+    .list-time-sheet .btn-approval {
+        width: auto;
+    }
+
+    .list-time-sheet .width-status {
+        width: 100%;
+    }
+}
+
+/* Iphone 6/7/8/X */
+
+@media only screen and (max-width: 375px) {
+    .list-time-sheet .iput-text {
+        margin-top: 5px;
+    }
+
+    .list-time-sheet .btn-filter {
+        width: auto;
+    }
+
+    .list-time-sheet .btn-approval {
+        width: auto;
+    }
+
+    .list-time-sheet .iput-text {
+        width: 210px;
+    }
+
+    .list-time-sheet span.ui-column-title {
+        width: 150px;
+    }
+
+    .list-time-sheet .width-status {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    ::ng-deep .timesheet-dialog {
+        width: 40% !important;
+    }
+}
+
+/*Begin: Customize dropdown */
+
+::ng-deep .list-time-sheet .header-title .ui-dropdown {
+    background : #ffffff;
+    /* border  : 1px solid #a6a6a6; */
+    border     : none;
+    margin-left: 5px;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-label {
+    padding-right: 2em;
+    font-size    : 16px !important;
+    font-weight  : bold;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-panel {
+    width: max-content !important;
+}
+
+::ng-deep .header-title .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
+    outline       : 0 none;
+    outline-offset: 0;
+    /* box-shadow : 0 0 0 0.2em #8dcdff; */
+    border-color  : #007ad9;
+}
+
+/*End: Customize dropdown */

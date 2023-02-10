@@ -1,0 +1,195 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{ width: '50px', height: '50px' }" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<section class="phan-bo-import-detail">
+  <p-table [columns]="columns" [value]="listAssetImport" [scrollable]="true" scrollHeight="300px"
+    selectionMode="multiple" [(selection)]="selectedAssetImport" [resizableColumns]="true" [style]="{width:'100%'}"
+    [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,50,100]">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th style='width: 40px !important;'>
+        </th>
+        <th *ngFor="let col of columns" pResizableColumn [ngSwitch]="col.field"
+          [ngStyle]="{'width': col.width, 'text-align': 'center'}">
+          <span *ngSwitchCase="'maTaiSan'">
+            {{col.header}}<span class="required">*</span>
+          </span>
+          <span *ngSwitchCase="'tenTaiSan'">
+            {{col.header}}
+          </span>
+          <span *ngSwitchCase="'maCode'">
+            {{col.header}}
+          </span>
+          <span *ngSwitchCase="'employeeCode'">
+            {{col.header}}<span class="required">*</span>
+          </span>
+
+          <span *ngSwitchCase="'employeeName'">
+            {{col.header}}
+          </span>
+          <span *ngSwitchCase="'organizationName'">
+            {{col.header}}
+          </span>
+          <span *ngSwitchCase="'positionName'">
+            {{col.header}}
+          </span>
+
+          <span *ngSwitchCase="'maMucDichSuDung'">
+            {{col.header}}<span class="required">*</span>
+          </span>
+
+          <span *ngSwitchCase="'ngayBatDau'">
+            {{col.header}}<span class="required">*</span>
+          </span>
+
+          <span *ngSwitchCase="'ngayKetThuc'">
+            {{col.header}}
+          </span>
+
+          <span *ngSwitchCase="'lyDo'">
+            {{col.header}}
+          </span>
+          <span *ngSwitchCase="'listStatus'">
+            {{col.header}}
+          </span>
+          <span *ngSwitchDefault>
+            {{col.header}}
+          </span>
+        </th>
+      </tr>
+    </ng-template>
+
+    <ng-template late pTemplate="body" let-rowData let-columns="columns">
+      <tr [style.color]="!rowData.isValid ? 'red' : 'black' ">
+        <td style='width: 40px !important;'>
+          <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+        </td>
+        <td *ngFor="let col of columns;" class="ui-resizable-column"
+          [ngStyle]="{'width': col.width, 'text-align': col.textAlign}" [ngSwitch]="col.field" pEditableColumn>
+
+          <p-cellEditor *ngSwitchCase="'maTaiSan'">
+            <ng-template pTemplate="input">
+              <input (change)="checkStatus(true)" pInputText placeholder="" type="text" [(ngModel)]="rowData[col.field]"
+                maxlength="250" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData[col.field]}}
+            </ng-template>
+          </p-cellEditor>
+          <p-cellEditor *ngSwitchCase="'tenTaiSan'">
+            <ng-template pTemplate="input">
+              <input pInputText placeholder="" type="text" [(ngModel)]="rowData[col.field]" maxlength="250" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData[col.field]}}
+            </ng-template>
+          </p-cellEditor>
+          <p-cellEditor *ngSwitchCase="'maCode'">
+            <ng-template pTemplate="input">
+              <input pInputText placeholder="" type="text" [(ngModel)]="rowData[col.field]" maxlength="250" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData[col.field]}}
+            </ng-template>
+          </p-cellEditor>
+          <p-cellEditor *ngSwitchCase="'employeeCode'">
+            <ng-template pTemplate="input">
+              <input (change)="checkStatus(true)" pInputText placeholder="" type="text" [(ngModel)]="rowData[col.field]"
+                maxlength="250" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData[col.field]}}
+            </ng-template>
+          </p-cellEditor>
+
+          <p-cellEditor *ngSwitchCase="'employeeName'">
+            <ng-template pTemplate="input">
+              <input pInputText placeholder="" type="text" [(ngModel)]="rowData[col.field]" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData[col.field]}}
+            </ng-template>
+          </p-cellEditor>
+
+          <p-cellEditor *ngSwitchCase="'organizationName'">
+            <ng-template pTemplate="input">
+              <input pInputText placeholder="" type="text" [(ngModel)]="rowData[col.field]" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData[col.field]}}
+            </ng-template>
+          </p-cellEditor>
+
+          <p-cellEditor *ngSwitchCase="'positionName'">
+            <ng-template pTemplate="input">
+              <input pInputText placeholder="" type="text" [(ngModel)]="rowData[col.field]" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData[col.field]}}
+            </ng-template>
+          </p-cellEditor>
+
+          <p-cellEditor *ngSwitchCase="'mucDichSuDung'">
+            <ng-template pTemplate="input">
+              <input (change)="checkStatus(true)" pInputText placeholder="" type="text"
+                [(ngModel)]="rowData[col.field]" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData[col.field]}}
+            </ng-template>
+          </p-cellEditor>
+
+          <p-cellEditor *ngSwitchCase="'ngayBatDau'">
+            <ng-template pTemplate="input">
+              <input (change)="checkStatus(true)" pInputText placeholder="" type="date"
+                [(ngModel)]="rowData[col.field]" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData[col.field] | date:'dd/MM/yyyy'}}
+            </ng-template>
+          </p-cellEditor>
+          <p-cellEditor *ngSwitchCase="'ngayKetThuc'">
+            <ng-template pTemplate="input">
+              <input (change)="checkStatus(true)" pInputText placeholder="" type="date" [(ngModel)]="rowData[col.field]"
+                maxlength="250" />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData[col.field] | date:'dd/MM/yyyy'}}
+            </ng-template>
+          </p-cellEditor>
+
+
+          <p-cellEditor *ngSwitchCase="'lyDo'">
+            <ng-template pTemplate="input">
+              <input pInputText placeholder="" type="number" [(ngModel)]="rowData[col.field]" maxlength="250"
+                readonly />
+            </ng-template>
+            <ng-template pTemplate="output">
+              {{rowData[col.field]}}
+            </ng-template>
+          </p-cellEditor>
+
+          <div *ngSwitchCase="'listStatus'">
+            <ul>
+              <li *ngFor="let status of rowData[col.field]; let i=index">
+                <span>{{status.name}}</span>
+              </li>
+            </ul>
+          </div>
+          <div *ngSwitchDefault>
+            {{rowData[col.field]}}
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+  <div class="buttons" style="padding-top: 1rem; display: flex; justify-content: flex-end;">
+    <button type="button" class="btn-remove" style="margin-right: 0.75rem;" (click)="onCancel()">
+      <span class="btn-remove-text">Hủy</span>
+    </button>
+    <button type="button" class="btn-save" (click)="importAsset()">
+      <span class="btn-save-text">Lưu</span>
+    </button>
+  </div>
+</section>

@@ -1,0 +1,361 @@
+::ng-deep .content-wrapper {
+    background-color: #fff !important;
+  }
+
+  .asset-create {
+    font-family: "Inter UI";
+  }
+
+  .asset-create .body-wrapper {
+    background-color: #fff;
+    border          : solid 1px #cccccc;
+  }
+
+  .asset-create .header {
+    background-color: #ffffff;
+    border-radius   : 4px;
+    border          : solid 1px #cccccc;
+  }
+
+  .asset-create .header-box-icon {
+    width        : 40px;
+    height       : 40px;
+    border-radius: 50%;
+  }
+
+  .asset-create .header-icon {
+    width      : 18px;
+    height     : 18px;
+    object-fit : contain;
+    margin-top : 13px;
+    margin-left: 10px;
+  }
+
+  .asset-create .buffer-top {
+    margin-top: 1.2rem;
+  }
+
+  .asset-create .buffer-bottom {
+    margin-bottom: 1.2rem;
+  }
+
+  .asset-create .buffer-bottom-label {
+    margin-bottom: 3px;
+  }
+
+  .asset-create .required {
+    color: red;
+  }
+
+  .asset-create .error-message-span {
+    color: red;
+  }
+
+  .asset-create .customer-name {
+    width         : 119px;
+    height        : 20px;
+    font-family   : 'Inter UI';
+    font-size     : 19px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 2.25;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+  }
+
+  .asset-create .btn-remove {
+    width           : 72px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #ffffff;
+    margin-left     : 5px;
+  }
+
+  .asset-create .btn-remove-text {
+    width         : 24px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #121619;
+  }
+
+  .asset-create .btn-save-and-new {
+    width           : 142px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #0f62fe;
+    background-color: #ffffff;
+    margin-left     : 5px;
+  }
+
+  .asset-create .btn-save-and-new .btn-save-and-new-text {
+    width         : 102px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #0f62fe;
+  }
+
+  ::ng-deep .asset-create .ui-dropdown {
+    min-width: 0px !important;
+  }
+
+  ::ng-deep .asset-create .ui-menu ul {
+    text-align: left;
+  }
+
+  .asset-create .btn-save {
+    width           : 72px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border          : solid 1px #cccccc;
+    margin-left     : 5px;
+  }
+
+  .asset-create .btn-save-text {
+    width         : 24px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+  }
+
+  .asset-create .body-wrapper {
+    margin-top  : 20px;
+    margin-left : 0px;
+    margin-right: 0px;
+  }
+
+  .asset-create .w100 {
+    width: 100% !important;
+  }
+
+  .asset-create .my-form-control {
+    display    : flex;
+    align-items: center;
+  }
+
+  /*Begin: Customize Accordion */
+
+  ::ng-deep .asset-create .ui-accordion .ui-accordion-header a {
+    border          : 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+    font-size       : 16px;
+  }
+
+  ::ng-deep .asset-create .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    background-color: #ffffff !important;
+    border          : 1px solid #ffffff !important;
+    color           : #121619 !important;
+  }
+
+  ::ng-deep .asset-create .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+  }
+
+  ::ng-deep .asset-create .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+  }
+
+  ::ng-deep .asset-create .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    color: #121619 !important;
+  }
+
+  ::ng-deep .asset-create .ui-accordion .ui-accordion-content {
+    border          : 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+  }
+
+  /*End: Customize Accordion */
+
+/* Thông báo lỗi */
+
+.asset-create .error-border,
+.asset-create .error-border:focus {
+  border-color: #f44336;
+}
+
+.asset-create .error-border:focus {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset, 0 0 8px #f44336;
+}
+
+.asset-create .box-waring {
+  display: inline-block;
+  width: 49px;
+  height: 30px;
+  border-radius: 4px;
+  background-color: #ffcc00;
+  text-align: center;
+  cursor: pointer;
+}
+
+.asset-create .ios-warning {
+  position: relative;
+  top: 5px;
+  width: 16.2px;
+  height: 15px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.asset-create .ios-warning-active {
+  position: relative;
+  top: 5px;
+  width: 16.2px;
+  height: 15px;
+  object-fit: contain;
+  cursor: pointer;
+}
+
+.asset-create .notification {
+  position: absolute;
+  top: 38px;
+  width: 380px;
+  box-shadow: 0 6px 12px 0 rgba(18, 22, 25, 0.16);
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+/*Begin: Tạo góc nhọn trên hộp thoại */
+.asset-create .notification::before {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  display: block;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  content: " ";
+  border-left: solid transparent;
+  border-right: solid transparent;
+  border-bottom: solid #ffffff;
+  border-width: 8px;
+  border-bottom-color: #d1d5da;
+}
+
+.asset-create .notification::after {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  display: block;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  content: " ";
+  border-left: solid transparent;
+  border-right: solid transparent;
+  border-bottom: solid transparent;
+  margin-bottom: -1px;
+  border-width: 8px;
+  border-bottom-color: #ffffff;
+}
+/*End: Tạo góc nhọn trên hộp thoại */
+
+.asset-create .notification .notifi-row {
+  width: 100%;
+  border-bottom: 1px solid #dde1e6;
+  padding: 10px 0px;
+  cursor: pointer;
+  text-align: left;
+}
+
+.asset-create .notification .notifi-row .ios-alert {
+  position: absolute;
+  left: 15px;
+  width: 15.9px;
+  height: 15.9px;
+  object-fit: contain;
+}
+
+.asset-create .notification .notifi-row .notifi-text {
+  position: relative;
+  left: 50px;
+  width: 100%;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ff3b30;
+}
+
+.asset-create .notification .notifi-row-footer {
+  width: 100%;
+  padding: 10px 10px;
+  text-align: right;
+}
+
+.asset-create .notification .notifi-row-footer .notifi-text-footer {
+  width: 100%;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  color: #121619;
+}
+
+.asset-create .header-box-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.asset-create .header-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.asset-create .buffer-top {
+  margin-top: 1.2rem;
+}
+
+.asset-create .buffer-bottom {
+  margin-bottom: 1.2rem;
+}
+
+.asset-create .buffer-bottom-label {
+  margin-bottom: 3px;
+}
+
+.asset-create .required {
+  color: red;
+}
+
+.asset-create .error-message-span {
+  color: red;
+}

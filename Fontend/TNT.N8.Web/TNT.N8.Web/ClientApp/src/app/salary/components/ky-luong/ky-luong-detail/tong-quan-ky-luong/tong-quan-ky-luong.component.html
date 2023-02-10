@@ -1,0 +1,1351 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="tq-ky-luong">
+  <div class="row header-page no-margin">
+    <div class="col-md-6 no-padding header-box-icon">
+      <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+      <span class="page-title">Chi tiết kỳ lương</span>
+    </div>
+    <div class="col-md-6 no-padding">
+      <div class="row">
+        <div class="col-md-12" style="text-align: right;">
+          <button *ngIf="!isEdit" [disabled]="awaitResult" type="button" class="btn-white" (click)="back()">
+            Thoát
+          </button>
+          <button *ngIf="actionEdit && !isEdit && isShowSua" [disabled]="awaitResult" type="button" class="btn-send"
+                  style="width: 160px;" (click)="capNhatBangLuong()">
+            Cập nhật bảng lương
+          </button>
+          <button *ngIf="actionEdit && !isEdit && isShowSua" [disabled]="awaitResult" type="button" class="btn-white"
+                  (click)="sua()">
+            Sửa
+          </button>
+          <button *ngIf="isEdit" [disabled]="awaitResult" type="button" class="btn-white" (click)="huySua()">
+            Hủy sửa
+          </button>
+          <button *ngIf="actionEdit && isEdit" [disabled]="awaitResult" type="button" class="btn-create"
+                  (click)="save()">
+            Lưu
+          </button>
+          <button *ngIf="kyLuong?.trangThai == 3 || kyLuong?.trangThai == 5" [disabled]="awaitResult" type="button"
+                  class="btn-white" (click)="xuatBaoCao()">
+            Xuất báo cáo
+          </button>
+          <!-- <button type="button" class="btn-white" (click)="xuatBaoCao3()">
+            Xuất báo cáo 3
+          </button> -->
+          <button *ngIf="actionEdit && kyLuong?.trangThai == 3 && actionComplete" [disabled]="awaitResult" type="button"
+                  class="btn-create" (click)="complete()">
+            Hoàn thành
+          </button>
+          <button *ngIf="actionDelete && !isEdit && isShowXoa" [disabled]="awaitResult" type="button" class="btn-red"
+                  (click)="xoa()">
+            Xóa
+          </button>
+          <button *ngIf="actionEdit && !isEdit && isShowGuiPheDuyet" [disabled]="awaitResult" type="button"
+                  class="btn-send" (click)="guiPheDuyet()">
+            Gửi phê duyệt
+          </button>
+          <button *ngIf="actionEdit && !isEdit && isShowTuChoi" [disabled]="awaitResult" type="button" class="btn-gray"
+                  (click)="showLyDoTuChoiDialog()">
+            Từ chối
+          </button>
+          <button *ngIf="actionEdit && !isEdit && isShowPheDuyet" [disabled]="awaitResult" type="button"
+                  class="btn-send" (click)="pheDuyet()">
+            Phê duyệt
+          </button>
+          <button *ngIf="actionEdit && !isEdit && isShowDatVeMoi" [disabled]="awaitResult" type="button"
+                  class="btn-white" (click)="datVeMoi()">
+            Đặt về mới
+          </button>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <div class="col-md-12 no-padding" style="margin-top: 15px;">
+      <p-fieldset>
+        <p-header>Thông tin phê duyệt</p-header>
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="slds-path__nav" style="padding-left: 21px;padding-right: 21px;">
+              <ng-container *ngFor="let item of listDuLieuQuyTrinh">
+                <li data-toggle="tab" class="slds-path__item" [ngClass]="[item.isActive ? 'active': '',
+                            item.isComplete ? 'slds-is-complete' : 'slds-is-incomplete',
+                            item.isCurrent ? 'slds-is-current' : '']">
+                  <a #container class="tabHeader slds-path__link" href="#" [appendTo]="container"
+                     pTooltip="{{item.tooltip}}" [escape]="false" tooltipPosition="bottom">
+                    <span class="complete slds-path__stage">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    </span>
+                    <span class="slds-path__title">{{item.nodeName}}</span>
+                  </a>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <div class="col-md-12 no-padding">
+      <p-fieldset>
+        <p-header>Thông tin kỳ lương</p-header>
+        <div [formGroup]="kyluongForm" class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-2">
+                Trạng thái:
+              </div>
+              <div class="col-md-10">
+                <strong>{{kyLuong?.tenTrangThai}}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3">
+                Người tạo:
+              </div>
+              <div class="col-md-9">
+                <strong>{{kyLuong?.createdName}}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-2">
+                Tên kỳ lương:
+              </div>
+              <div *ngIf="!isEdit" class="col-md-10">
+                <strong>{{kyLuong?.tenKyLuong}}</strong>
+              </div>
+              <div *ngIf="isEdit" class="col-md-6">
+                <input formControlName="tenKyLuongControl" type="text" maxlength="500"
+                       [ngClass]="(tenKyLuongControl.invalid && (tenKyLuongControl.dirty || tenKyLuongControl.touched)) ? 'error-border' : ''"
+                       class="w-100" pInputText />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-3">
+                Số ngày làm việc:
+              </div>
+              <div *ngIf="!isEdit" class="col-md-9">
+                <strong>{{kyLuong?.soNgayLamViec}}</strong>
+              </div>
+              <div *ngIf="isEdit" class="col-md-6">
+                <input type="text" class="number-input" formControlName="soNgayLamViecControl"
+                       [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}"
+                       [ngClass]="(soNgayLamViecControl.invalid && (soNgayLamViecControl.dirty || soNgayLamViecControl.touched)) ? 'error-border': ''" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-2">
+                Ngày bắt đầu:
+              </div>
+              <div *ngIf="!isEdit" class="col-md-10">
+                <strong>{{kyLuong?.tuNgay | date: 'dd/MM/yyyy'}}</strong>
+              </div>
+              <div *ngIf="isEdit" class="col-md-6">
+                <p-calendar formControlName="tuNgayControl" dateFormat="dd/mm/yy" placeholder="dd/mm/yyyy"
+                            [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" appendTo="body" [baseZIndex]="1031"
+                            [maxDate]="denNgayControl.value ? denNgayControl.value : null"
+                            [styleClass]="(tuNgayControl.invalid && (tuNgayControl.dirty || tuNgayControl.touched)) ? 'error-pcalendar' : ''">
+                </p-calendar>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-3">
+                Ngày kết thúc:
+              </div>
+              <div *ngIf="!isEdit" class="col-md-9">
+                <strong>{{kyLuong?.denNgay | date: 'dd/MM/yyyy'}}</strong>
+              </div>
+              <div *ngIf="isEdit" class="col-md-6">
+                <p-calendar formControlName="denNgayControl" dateFormat="dd/mm/yy" placeholder="dd/mm/yyyy"
+                            [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" appendTo="body" [baseZIndex]="1031"
+                            [minDate]="tuNgayControl.value ? tuNgayControl.value : null"
+                            [styleClass]="(denNgayControl.invalid && (denNgayControl.dirty || denNgayControl.touched)) ? 'error-pcalendar' : ''">
+                </p-calendar>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="kyLuong?.trangThai == 4" class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-2">
+                Lý do từ chối:
+              </div>
+              <div class="col-md-10" style="color: #CC3C00">
+                <strong innerText="{{kyLuong?.lyDoTuChoi}}"></strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <div class="col-md-12 no-padding">
+      <p-tabView [(activeIndex)]="tabIndex">
+        <p-tabPanel header="Tổng hợp chấm công">
+          <div class="row">
+            <div *ngIf="listTongHopChamCong.length" class="col-md-12 mt-10">
+              <p-table [columns]="cols1" [value]="listTongHopChamCong" class="table-border" [paginator]="true"
+                       [frozenColumns]="frozenCols1" [scrollable]="true" frozenWidth="590px" [rows]="10"
+                       [resizableColumns]="true" [scrollable]="true" [rowsPerPageOptions]="[10, 20, 50]">
+
+                <ng-template pTemplate="colgroup" let-columns>
+                  <colgroup>
+                    <col *ngFor="let col of columns" [style.width]="col.width">
+                  </colgroup>
+                </ng-template>
+
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns"
+                        [ngStyle]="{'text-align': col.textAlign, 'width': col.width, 'height': col.height}">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                  <tr>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                        [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+
+                      <span *ngSwitchCase="'stt'">
+                        {{rowIndex + 1}}
+                      </span>
+
+                      <span *ngSwitchDefault>
+                        {{rowData[col.field]}}
+                      </span>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+            <div *ngIf="!listTongHopChamCong.length" class="col-md-12 mt-10 no-padding no-data">
+              <div class="box-no-data">
+                <img src="/assets/icons/components/box.svg" class="box-icon">
+                <div>
+                  <span>Hiện tại không có dữ liệu</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Bảng lương chi tiết">
+          <div class="row">
+            <div class="col-md-12">
+              <button *ngIf="actionEdit && kyLuong?.trangThai == 1" [disabled]="awaitResult" type="button"
+                      class="btn-send" (click)="importBangLuongChiTiet()" style="margin-left: 5px;">
+                Import
+              </button>
+            </div>
+          </div>
+          <div class="row mt-10">
+            <div class="col-md-12 custom-tabview">
+              <p-tabView class="">
+                <p-tabPanel header="Trợ cấp cố định">
+                  <div class="row">
+                    <div *ngIf="listDataTroCapCoDinh.length" class="col-md-12 mt-10" style="text-align: right;">
+                      <input type="text" class="iput-text-search" placeholder="Tìm kiếm trong danh sách"
+                             (input)="myTable3?.filterGlobal($event?.target?.value?.trim(), 'contains')">
+                    </div>
+                    <div *ngIf="listDataTroCapCoDinh.length" class="col-md-12 mt-10">
+                      <p-table #myTable3 [columns]="cols3" [value]="listDataTroCapCoDinh" [scrollable]="true"
+                               [frozenColumns]="frozenCols3" frozenWidth="600px" [responsive]="true" [paginator]="true"
+                               [rows]="10" [rowsPerPageOptions]="[10, 20, 50]">
+                        <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                          </colgroup>
+                        </ng-template>
+                        <ng-template pTemplate="frozenheader">
+                          <ng-container *ngFor="let item of trRowTroCapCoDinhFrozen">
+                            <tr>
+                              <ng-container *ngFor="let _item of item">
+                                <th style="text-align: center;" [attr.rowspan]="_item.rowspan != 0 ? _item.rowspan : ''"
+                                    [attr.colspan]="_item.colspan != 0 ? _item.colspan : ''"
+                                    [ngStyle]="{'width': item.width, 'height': '50px'}">
+                                  {{_item.columnValue}}
+                                </th>
+                              </ng-container>
+                            </tr>
+                          </ng-container>
+                        </ng-template>
+
+                        <ng-template pTemplate="header">
+                          <ng-container *ngFor="let item of trRowTroCapCoDinh">
+                            <tr>
+                              <ng-container *ngFor="let _item of item">
+                                <th style="text-align: center;" [attr.rowspan]="_item.rowspan != 0 ? _item.rowspan : ''"
+                                    [attr.colspan]="_item.colspan != 0 ? _item.colspan : ''"
+                                    [ngStyle]="{'width': _item.width, 'height': '50px'}">
+                                  {{_item.columnValue}}
+                                </th>
+                              </ng-container>
+                            </tr>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                          <tr>
+                            <td *ngFor="let col of columns"
+                                [ngStyle]="{'width': col.width, 'text-align': col.textAlign}"
+                                (click)="showDieuKienTroCapCoDinh(rowData, col.field)">
+                              <ng-container *ngIf="col.field.includes('index_') == true">
+                                <span>
+                                  {{rowData[col.field] | number}}
+                                </span>
+                              </ng-container>
+                              <ng-container *ngIf="col.field.includes('index_') == false">
+                                <span>
+                                  {{rowData[col.field]}}
+                                </span>
+                              </ng-container>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <div *ngIf="!listDataTroCapCoDinh.length" class="col-md-12 mt-10 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </p-tabPanel>
+                <p-tabPanel header="Trợ cấp khác">
+                  <div class="row mt-10">
+                    <div class="col-md-9">
+                      <label>Chọn loại trợ cấp:</label>
+                      <p-multiSelect [options]="listLoaiTroCapKhac" [(ngModel)]="listSelectedLoaiTroCapKhac"
+                                     [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} loại trợ cấp được chọn"
+                                     defaultLabel="Chọn loại trợ cấp" appendTo="body" [baseZIndex]="1031" optionLabel="categoryName"
+                                     [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()">
+                      </p-multiSelect>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label style="color: #fff;">Thêm trợ cấp khác:</label>
+                        </div>
+                        <div class="col-md-12">
+                          <button *ngIf="actionEdit && kyLuong?.trangThai == 1" [disabled]="awaitResult" type="button"
+                                  class="btn-white" (click)="themTroCapKhac()">
+                            OK
+                          </button>
+                          <button *ngIf="actionEdit && kyLuong?.trangThai == 1" [disabled]="awaitResult" type="button"
+                                  class="btn-send" (click)="importTroCapKhac()" style="margin-left: 5px;">
+                            Import
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="listDataTroCapKhac.length" class="col-md-12 mt-10" style="text-align: right;">
+                      <input type="text" class="iput-text-search" placeholder="Tìm kiếm trong danh sách"
+                             (input)="myTable4?.filterGlobal($event?.target?.value?.trim(), 'contains')">
+                    </div>
+                    <div *ngIf="listDataTroCapKhac.length" class="col-md-12 mt-10">
+                      <p-table #myTable4 [columns]="cols4" [value]="listDataTroCapKhac" [scrollable]="true"
+                               [responsive]="true" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 50]"
+                               [frozenColumns]="frozenCols4" frozenWidth="60
+                        0px">
+                        <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                          </colgroup>
+                        </ng-template>
+                        <ng-template pTemplate="frozenheader">
+                          <ng-container *ngFor="let item of trRowTroCapKhacFrozen">
+                            <tr>
+                              <ng-container *ngFor="let _item of item">
+                                <th style="text-align: center;" [attr.rowspan]="_item.rowspan != 0 ? _item.rowspan : ''"
+                                    [attr.colspan]="_item.colspan != 0 ? _item.colspan : ''"
+                                    [ngStyle]="{'width': item.width, 'height': '60px'}">
+                                  {{_item.columnValue}}
+                                </th>
+                              </ng-container>
+                            </tr>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                          <ng-container *ngFor="let item of trRowTroCapKhac">
+                            <tr>
+                              <ng-container *ngFor="let _item of item">
+                                <th style="text-align: center;" [attr.rowspan]="_item.rowspan != 0 ? _item.rowspan : ''"
+                                    [attr.colspan]="_item.colspan != 0 ? _item.colspan : ''"
+                                    [ngStyle]="{'width': _item.width, 'height': '60px'}">
+                                  {{_item.columnValue}}
+                                </th>
+                              </ng-container>
+                            </tr>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                          <tr>
+                            <td *ngFor="let col of columns"
+                                [ngStyle]="{'width': col.width, 'text-align': col.textAlign}"
+                                (click)="showDieuKienTroCapKhac(rowData, col.field)">
+                              <ng-container *ngIf="col.field.includes('index_') == true">
+                                <span>
+                                  {{rowData[col.field] | number}}
+                                </span>
+                              </ng-container>
+                              <ng-container *ngIf="col.field.includes('index_') == false">
+                                <span>
+                                  {{rowData[col.field]}}
+                                </span>
+                              </ng-container>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <div *ngIf="!listDataTroCapKhac.length" class="col-md-12 mt-10 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </p-tabPanel>
+                <p-tabPanel header="Trợ cấp OT">
+                  <div class="row">
+                    <div *ngIf="listDataTroCapOt.length" class="col-md-12 mt-10" style="text-align: right;">
+                      <input type="text" class="iput-text-search" placeholder="Tìm kiếm trong danh sách"
+                             (input)="myTable5?.filterGlobal($event?.target?.value?.trim(), 'contains')">
+                    </div>
+                    <div *ngIf="listDataTroCapOt.length" class="col-md-12 mt-10">
+                      <p-table #myTable5 [columns]="cols5" [value]="listDataTroCapOt" [scrollable]="true"
+                               [responsive]="true" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 20, 50]"
+                               [frozenColumns]="frozenCols5" frozenWidth="600px">
+                        <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                          </colgroup>
+                        </ng-template>
+                        <ng-template pTemplate="frozenheader">
+                          <ng-container *ngFor="let item of trRowTroCapOtFrozen">
+                            <tr>
+                              <ng-container *ngFor="let _item of item">
+                                <th style="text-align: center;" [attr.rowspan]="_item.rowspan != 0 ? _item.rowspan : ''"
+                                    [attr.colspan]="_item.colspan != 0 ? _item.colspan : ''"
+                                    [ngStyle]="{'width': item.width, 'height': '60px'}">
+                                  {{_item.columnValue}}
+                                </th>
+                              </ng-container>
+                            </tr>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template pTemplate="header">
+                          <ng-container *ngFor="let item of trRowTroCapOt">
+                            <tr>
+                              <ng-container *ngFor="let _item of item">
+                                <th style="text-align: center;" [attr.rowspan]="_item.rowspan != 0 ? _item.rowspan : ''"
+                                    [attr.colspan]="_item.colspan != 0 ? _item.colspan : ''"
+                                    [ngStyle]="{'width': _item.width, 'height': '60px'}">
+                                  {{_item.columnValue}}
+                                </th>
+                              </ng-container>
+                            </tr>
+                          </ng-container>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                          <tr>
+                            <td *ngFor="let col of columns"
+                                [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+                              <ng-container *ngIf="col.field.includes('index_') == true">
+                                <span>
+                                  {{rowData[col.field] | number}}
+                                </span>
+                              </ng-container>
+                              <ng-container *ngIf="col.field == 'mucLuongHienTai'">
+                                <span>
+                                  {{rowData[col.field] | number}}
+                                </span>
+                              </ng-container>
+                              <ng-container *ngIf="col.field == 'tongLuongOt'">
+                                <span>
+                                  {{rowData[col.field] | number}}
+                                </span>
+                              </ng-container>
+                              <ng-container *ngIf="col.field == 'luongOtTinhThue'">
+                                <span>
+                                  {{rowData[col.field] | number}}
+                                </span>
+                              </ng-container>
+                              <ng-container *ngIf="col.field.includes('index_') == false &&
+                                col.field != 'mucLuongHienTai' &&
+                                col.field != 'tongLuongOt' &&
+                                col.field != 'luongOtTinhThue'">
+                                <span>
+                                  {{rowData[col.field]}}
+                                </span>
+                              </ng-container>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <div *ngIf="!listDataTroCapOt.length" class="col-md-12 mt-10 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </p-tabPanel>
+                <p-tabPanel header="Bảo hiểm">
+                  <div class="row">
+                    <div *ngIf="listLuongCtBaoHiem.length" class="col-md-12 mt-10" style="text-align: right;">
+                      <input type="text" class="iput-text-search" placeholder="Tìm kiếm trong danh sách"
+                             (input)="myTable7?.filterGlobal($event?.target?.value?.trim(), 'contains')">
+                      <button *ngIf="actionEdit && kyLuong?.trangThai == 1" [disabled]="awaitResult" type="button"
+                              class="btn-send" (click)="saveBaoHiem()" style="margin-left: 5px;">
+                        Lưu
+                      </button>
+                    </div>
+                    <div *ngIf="listLuongCtBaoHiem.length" class="col-md-12 mt-10">
+                      <p-table #myTable7 [columns]="cols7" [value]="listLuongCtBaoHiem" class="table-border"
+                               [paginator]="true" [rows]="10" [scrollable]="true" [rowsPerPageOptions]="[10, 20, 50]"
+                               [frozenColumns]="frozenCols7" frozenWidth="611px">
+                        <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                          </colgroup>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                          <tr>
+                            <th *ngFor="let col of columns"
+                                [ngStyle]="{'text-align': 'center', 'width': col.width, 'height': '100px'}">
+                              {{col.header}}
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                          <tr>
+                            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                              <span *ngSwitchCase="'stt'">
+                                {{rowIndex + 1}}
+                              </span>
+                              <span *ngSwitchCase="'baseBhxh'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'bhxh'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'bhyt'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'bhtn'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'bhtnnn'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'other'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongBaoHiem()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'sum'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchDefault>
+                                {{rowData[col.field]}}
+                              </span>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <div *ngIf="!listLuongCtBaoHiem.length" class="col-md-12 mt-10 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </p-tabPanel>
+                <p-tabPanel header="Thu nhập chỉ đưa vào tính thuế">
+                  <div class="row">
+                    <div *ngIf="listLuongCtThuNhapTinhThue.length" class="col-md-12 mt-10" style="text-align: right;">
+                      <input type="text" class="iput-text-search" placeholder="Tìm kiếm trong danh sách"
+                             (input)="myTable6?.filterGlobal($event?.target?.value?.trim(), 'contains')">
+                      <button *ngIf="actionEdit && kyLuong?.trangThai == 1" [disabled]="awaitResult" type="button"
+                              class="btn-send" (click)="saveThuNhapTinhThue()" style="margin-left: 5px;">
+                        Lưu
+                      </button>
+                    </div>
+                    <div *ngIf="listLuongCtThuNhapTinhThue.length" class="col-md-12 mt-10">
+                      <p-table #myTable6 [columns]="cols6" [value]="listLuongCtThuNhapTinhThue" class="table-border"
+                               [paginator]="true" [rows]="10" [scrollable]="true" [rowsPerPageOptions]="[10, 20, 50]"
+                               [frozenColumns]="frozenCols6" frozenWidth="611px">
+                        <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                          </colgroup>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                          <tr>
+                            <th *ngFor="let col of columns"
+                                [ngStyle]="{'text-align': 'center', 'width': col.width, 'height': '100px'}">
+                              {{col.header}}
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                          <tr>
+                            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                              <span *ngSwitchCase="'stt'">
+                                {{rowIndex + 1}}
+                              </span>
+                              <span *ngSwitchCase="'netToGross'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongThuNhapTinhThue()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'month13'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongThuNhapTinhThue()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'gift'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongThuNhapTinhThue()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'other'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongThuNhapTinhThue()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'sum'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchDefault>
+                                {{rowData[col.field]}}
+                              </span>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <div *ngIf="!listLuongCtThuNhapTinhThue.length" class="col-md-12 mt-10 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </p-tabPanel>
+                <p-tabPanel header="Khoản giảm trừ trước thuế">
+                  <div class="row">
+                    <div *ngIf="listLuongCtGiamTruTruocThue.length" class="col-md-12 mt-10" style="text-align: right;">
+                      <input type="text" class="iput-text-search" placeholder="Tìm kiếm trong danh sách"
+                             (input)="myTable8?.filterGlobal($event?.target?.value?.trim(), 'contains')">
+                      <button *ngIf="actionEdit && kyLuong?.trangThai == 1" [disabled]="awaitResult" type="button"
+                              class="btn-send" (click)="saveGiamTruTruocThue()" style="margin-left: 5px;">
+                        Lưu
+                      </button>
+                    </div>
+                    <div *ngIf="listLuongCtGiamTruTruocThue.length" class="col-md-12 mt-10">
+                      <p-table #myTable8 [columns]="cols8" [value]="listLuongCtGiamTruTruocThue" class="table-border"
+                               [paginator]="true" [rows]="10" [scrollable]="true" [rowsPerPageOptions]="[10, 20, 50]"
+                               [frozenColumns]="frozenCols8" frozenWidth="611px">
+                        <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                          </colgroup>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                          <tr>
+                            <th *ngFor="let col of columns"
+                                [ngStyle]="{'text-align': 'center', 'width': col.width, 'height': '90px'}">
+                              {{col.header}}
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                          <tr>
+                            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                              <span *ngSwitchCase="'stt'">
+                                {{rowIndex + 1}}
+                              </span>
+                              <span *ngSwitchCase="'giamTruCaNhan'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'giamTruNguoiPhuThuoc'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'tienDongBaoHiem'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'giamTruKhac'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongGiamTruTruocThue()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'sum'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchDefault>
+                                {{rowData[col.field]}}
+                              </span>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <div *ngIf="!listLuongCtGiamTruTruocThue.length" class="col-md-12 mt-10 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </p-tabPanel>
+                <p-tabPanel header="Khoản giảm trừ sau thuế">
+                  <div class="row">
+                    <div *ngIf="listLuongCtGiamTruSauThue.length" class="col-md-12 mt-10" style="text-align: right;">
+                      <input type="text" class="iput-text-search" placeholder="Tìm kiếm trong danh sách"
+                             (input)="myTable9?.filterGlobal($event?.target?.value?.trim(), 'contains')">
+                      <button *ngIf="actionEdit && kyLuong?.trangThai == 1" [disabled]="awaitResult" type="button"
+                              class="btn-send" (click)="saveGiamTruSauThue()" style="margin-left: 5px;">
+                        Lưu
+                      </button>
+                    </div>
+                    <div *ngIf="listLuongCtGiamTruSauThue.length" class="col-md-12 mt-10">
+                      <p-table #myTable9 [columns]="cols9" [value]="listLuongCtGiamTruSauThue" class="table-border"
+                               [paginator]="true" [rows]="10" [scrollable]="true" [rowsPerPageOptions]="[10, 20, 50]"
+                               [frozenColumns]="frozenCols9" frozenWidth="611px">
+                        <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                          </colgroup>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                          <tr>
+                            <th *ngFor="let col of columns"
+                                [ngStyle]="{'text-align': 'center', 'width': col.width, 'height': '90px'}">
+                              {{col.header}}
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                          <tr>
+                            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                              <span *ngSwitchCase="'stt'">
+                                {{rowIndex + 1}}
+                              </span>
+                              <span *ngSwitchCase="'kinhPhiCongDoan'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'quyetToanThueTncn'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongGiamTruSauThue()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'other'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongGiamTruSauThue()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'sum'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchDefault>
+                                {{rowData[col.field]}}
+                              </span>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <div *ngIf="!listLuongCtGiamTruSauThue.length" class="col-md-12 mt-10 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </p-tabPanel>
+                <p-tabPanel header="Khoản hoàn lại sau thuế">
+                  <div class="row">
+                    <div *ngIf="listLuongCtHoanLaiSauThue.length" class="col-md-12 mt-10" style="text-align: right;">
+                      <input type="text" class="iput-text-search" placeholder="Tìm kiếm trong danh sách"
+                             (input)="myTable10?.filterGlobal($event?.target?.value?.trim(), 'contains')">
+                      <button *ngIf="actionEdit && kyLuong?.trangThai == 1" [disabled]="awaitResult" type="button"
+                              class="btn-send" (click)="saveHoanLaiSauThue()" style="margin-left: 5px;">
+                        Lưu
+                      </button>
+                    </div>
+                    <div *ngIf="listLuongCtHoanLaiSauThue.length" class="col-md-12 mt-10">
+                      <p-table #myTable10 [columns]="cols10" [value]="listLuongCtHoanLaiSauThue" class="table-border"
+                               [paginator]="true" [rows]="10" [scrollable]="true" [rowsPerPageOptions]="[10, 20, 50]"
+                               [frozenColumns]="frozenCols10" frozenWidth="611px">
+                        <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                          </colgroup>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                          <tr>
+                            <th *ngFor="let col of columns"
+                                [ngStyle]="{'text-align': 'center', 'width': col.width, 'height': '80px'}">
+                              {{col.header}}
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                          <tr>
+                            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                              <span *ngSwitchCase="'stt'">
+                                {{rowIndex + 1}}
+                              </span>
+                              <span *ngSwitchCase="'thueTncn'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongHoanLaiSauThue()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'other'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongHoanLaiSauThue()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'sum'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchDefault>
+                                {{rowData[col.field]}}
+                              </span>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <div *ngIf="!listLuongCtHoanLaiSauThue.length" class="col-md-12 mt-10 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </p-tabPanel>
+                <p-tabPanel header="Khoản công ty phải đóng">
+                  <div class="row">
+                    <div *ngIf="listLuongCtCtyDong.length" class="col-md-12 mt-10" style="text-align: right;">
+                      <input type="text" class="iput-text-search" placeholder="Tìm kiếm trong danh sách"
+                             (input)="myTable11?.filterGlobal($event?.target?.value?.trim(), 'contains')">
+                      <button *ngIf="actionEdit && kyLuong?.trangThai == 1" [disabled]="awaitResult" type="button"
+                              class="btn-send" (click)="saveCtyDong()" style="margin-left: 5px;">
+                        Lưu
+                      </button>
+                    </div>
+                    <div *ngIf="listLuongCtCtyDong.length" class="col-md-12 mt-10">
+                      <p-table #myTable11 [columns]="cols11" [value]="listLuongCtCtyDong" class="table-border"
+                               [paginator]="true" [rows]="10" [scrollable]="true" [rowsPerPageOptions]="[10, 20, 50]"
+                               [frozenColumns]="frozenCols11" frozenWidth="611px">
+                        <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                          </colgroup>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                          <tr>
+                            <th *ngFor="let col of columns"
+                                [ngStyle]="{'text-align': 'center', 'width': col.width, 'height': '110px'}">
+                              {{col.header}}
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                          <tr>
+                            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                              <span *ngSwitchCase="'stt'">
+                                {{rowIndex + 1}}
+                              </span>
+                              <span *ngSwitchCase="'baseBhxh'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'bhxh'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'bhyt'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'bhtn'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'bhtnnn'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'kinhPhiCongDoan'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchCase="'other'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongCtyDong()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'fundOct'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongCtyDong()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'sum'">
+                                {{rowData[col.field] | number}}
+                              </span>
+                              <span *ngSwitchDefault>
+                                {{rowData[col.field]}}
+                              </span>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <div *ngIf="!listLuongCtCtyDong.length" class="col-md-12 mt-10 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </p-tabPanel>
+                <p-tabPanel header="Các khoản khác">
+                  <div class="row">
+                    <div *ngIf="listLuongCtOther.length" class="col-md-12 mt-10" style="text-align: right;">
+                      <input type="text" class="iput-text-search" placeholder="Tìm kiếm trong danh sách"
+                             (input)="myTable12?.filterGlobal($event?.target?.value?.trim(), 'contains')">
+                      <button *ngIf="actionEdit && kyLuong?.trangThai == 1" [disabled]="awaitResult" type="button"
+                              class="btn-send" (click)="saveOther()" style="margin-left: 5px;">
+                        Lưu
+                      </button>
+                    </div>
+                    <div *ngIf="listLuongCtOther.length" class="col-md-12 mt-10">
+                      <p-table #myTable12 [columns]="cols12" [value]="listLuongCtOther" class="table-border"
+                               [paginator]="true" [rows]="10" [scrollable]="true" [rowsPerPageOptions]="[10, 20, 50]"
+                               [frozenColumns]="frozenCols12" frozenWidth="611px">
+                        <ng-template pTemplate="colgroup" let-columns>
+                          <colgroup>
+                            <col *ngFor="let col of columns" [style.width]="col.width">
+                          </colgroup>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                          <tr>
+                            <th *ngFor="let col of columns"
+                                [ngStyle]="{'text-align': 'center', 'width': col.width, 'height': '110px'}">
+                              {{col.header}}
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                          <tr>
+                            <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                              <span *ngSwitchCase="'stt'">
+                                {{rowIndex + 1}}
+                              </span>
+                              <span *ngSwitchCase="'khoanBuTruThangTruoc'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongOther()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'troCapKhacKhongTinhThue'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongOther()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'khauTruHoanLaiTruocThue'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongOther()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchCase="'luongTamUng'">
+                                <ng-container *ngIf="kyLuong?.trangThai == 1">
+                                  <input type="text" class="number-input" [(ngModel)]="rowData[col.field]"
+                                         [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                         (change)="tinhTongOther()" />
+                                </ng-container>
+                                <ng-container *ngIf="kyLuong?.trangThai != 1">
+                                  {{rowData[col.field] | number}}
+                                </ng-container>
+                              </span>
+                              <span *ngSwitchDefault>
+                                {{rowData[col.field]}}
+                              </span>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                    <div *ngIf="!listLuongCtOther.length" class="col-md-12 mt-10 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </p-tabPanel>
+              </p-tabView>
+            </div>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Bảng lương tổng hợp">
+          <div class="row">
+            <div *ngIf="listLuongTongHop.length" class="col-md-12 mt-10">
+              <p-table [columns]="cols2" [value]="listLuongTongHop" class="table-border" [paginator]="true" [rows]="10"
+                       [frozenColumns]="frozenCols2" frozenWidth="611px" [scrollable]="true"
+                       [rowsPerPageOptions]="[10, 20, 50]" [resizableColumns]="true">
+                <ng-template pTemplate="colgroup" let-columns>
+                  <colgroup>
+                    <col *ngFor="let col of columns" [style.width]="col.width">
+                  </colgroup>
+                </ng-template>
+
+                <ng-template pTemplate="frozenheader" let-frozenColumns>
+                  <tr>
+                    <th *ngFor="let col of frozenColumns"
+                        [ngStyle]="{'text-align': col.textAlign, 'width': col.width, 'height': '130px'}">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns"
+                        [ngStyle]="{'text-align': 'center', 'width': col.width, 'height': '130px'}">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                  <tr>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                        [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                      <span *ngSwitchCase="'stt'">
+                        {{rowIndex + 1}}
+                      </span>
+                      <span *ngSwitchCase="'tongNgayTinhLuong'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'mucLuongCu'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'soNgayMucLuongCu'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'mucLuongHienTai'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'luongThucTe'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'khoanBuTruThangTruoc'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'luongOtTinhThue'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'luongOtKhongTinhThue'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'tongTroCapCoDinh'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'tongTroCapKhac'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'troCapKhacKhongTinhThue'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'khauTruHoanLaiTruocThue'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'tongThuNhapBaoGomThueVaKhongThue'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'tongThuNhapSauKhiBoCacKhoanKhongTinhThue'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'giamTruTruocThue'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'thuNhapChiDuaVaoTinhThue'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'tongThuNhapChiuThueSauGiamTru'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'tongThueTncnCtyVaNld'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'thueTncnNld'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'luongCoBanDongBh'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'tongTienBhNldPhaiDong'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'tongTienBhCtyPhaiDong'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'thuNhapThucNhanTruocKhiBuTruThue'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'cacKhoanGiamTruSauThue'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'cacKhoanHoanLaiSauThue'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'thuNhapThucNhan'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'luongTamUng'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'luongConLai'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'cacKhoanCtyPhaiTraKhac'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'tongChiPhiCtyPhaiTra'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchDefault>
+                        {{rowData[col.field]}}
+                      </span>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+            <div *ngIf="!listLuongTongHop.length" class="col-md-12 mt-10 no-padding no-data">
+              <div class="box-no-data">
+                <img src="/assets/icons/components/box.svg" class="box-icon">
+                <div>
+                  <span>Hiện tại không có dữ liệu</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <div class="col-md-12 no-padding mt-20">
+      <app-note-time-line [viewNote]="true" [viewTimeline]="true" objectType="KYLUONG" [objectNumber]="kyLuongId"
+                          [actionAdd]="true" [actionEdit]="false" [actionDelete]="false" [pageSize]="10" [refresh]="refreshNote">
+      </app-note-time-line>
+    </div>
+  </div>
+
+  <p-dialog [(visible)]="showLyDoTuChoi" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
+            [resizable]="false" [closable]="false">
+    <p-header [style]="{'display': 'flex', 'justify-content': 'center'}">
+      <span>Lý do từ chối</span>
+    </p-header>
+    <div [formGroup]="lyDoTuChoiForm">
+      <div class="row no-margin">
+        <div class="col-md-12">
+          <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" class="w-100"
+                    formControlName="lyDoTuChoiControl"
+                    [ngClass]="(lyDoTuChoiControl.invalid && (lyDoTuChoiControl.dirty || lyDoTuChoiControl.touched)) ? 'error-border': ''">
+          </textarea>
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin: 20px 0px;">
+          <button [disabled]="awaitResult" pButton class="btn btn-green my-2" type="button" label="Đồng ý"
+                  style="padding: 0 25px; background: #169BD5;" (click)="tuChoi()">
+          </button>
+          <button [disabled]="awaitResult" pButton type="button" label="Đóng" class="btn ml-2"
+                  style="padding: 0 25px; background: white; color: black" (click)="closeLyDoTuChoi()">
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog header="Nhập file excel" [(visible)]="displayDialogImport" [modal]="true" [responsive]="true"
+            [style]="{width: '550px', minWidth: '200px'}" [minY]="100" (onHide)="cancelFileTroCapKhac()">
+    <div class="row no-margin">
+      <div class="col-md-3 mt-25">
+        <span>Chọn file</span>
+      </div>
+      <div class="col-md-9 mt-25" style="margin-bottom: 25px;">
+        <button class="btn btn-primary btn-file import-file">
+          <span class="text-import">Chọn file</span>
+          <input type="file" #attachment id="inputFile" (change)="chooseFileTroCapKhac($event)" accept=".xlsx, .xls">
+        </button>
+      </div>
+    </div>
+    <div class="row no-margin">
+      <div class="col-md-12">
+        <span>{{fileName}}</span>
+        <span *ngIf="fileName" (click)="cancelFileTroCapKhac()" style="cursor: pointer; margin-left: 10px;">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+
+    <p-footer>
+      <button [disabled]="awaitResult" class="btn btn-primary btn-file import-file" type="button"
+              (click)="importExcel()">
+        <span class="text-import">Lưu</span>
+      </button>
+    </p-footer>
+  </p-dialog>
+
+  <p-dialog header="Dữ liệu lỗi" [(visible)]="displayErrorDialog" [modal]="true" [responsive]="true"
+            [style]="{width: '70vw'}" [minY]="100">
+    <div class="row no-margin">
+      <div class="col-md-12 mt-10">
+        Mã nhân viên không có trong hệ thống: <strong>{{messEmpHeThong}}</strong>
+      </div>
+      <div class="col-md-12 mt-10">
+        Mã nhân viên không có trong bảng chấm công: <strong>{{messEmpBangLuong}}</strong>
+      </div>
+      <div *ngIf="typeImport == 1" class="col-md-12 mt-10">
+        Loại trợ cấp khác không được chọn trong kỳ lương: <strong>{{messLoaiTroCap}}</strong>
+      </div>
+    </div>
+
+    <p-footer>
+      <button type="button" class="export-exel" (click)="closeErrorDialog()">
+        Đóng
+      </button>
+    </p-footer>
+  </p-dialog>
+
+</div>

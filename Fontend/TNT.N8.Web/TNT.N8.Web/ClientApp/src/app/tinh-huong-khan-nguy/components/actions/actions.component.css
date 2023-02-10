@@ -1,0 +1,89 @@
+.thkn-actions .header{
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: solid 1px #cccccc;
+}
+
+.thkn-actions .header-box-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.thkn-actions .header-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+.thkn-actions .page-title {
+  width: 119px;
+  height: 20px;
+  font-family: 'Inter UI';
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.thkn-actions .background-box {
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: none;
+  border: solid 1px #cccccc;
+  padding-bottom: 10px;
+}
+
+.thkn-actions .w100 {
+  width: 100% !important;
+}
+
+.thkn-actions .mt-10 {
+  margin-top: 10px;
+}
+
+.thkn-actions .mt-20 {
+  margin-top: 20px;
+}
+
+.thkn-actions .center {
+  display: flex;
+  align-items: center;
+}
+
+.thkn-actions .btn-save {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border: solid 1px #cccccc;
+  margin-left: 5px;
+}
+
+.thkn-actions .btn-save-text {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.thkn-actions .link {
+  font-family: 'Inter UI';
+  color: #007ad9;
+  cursor: pointer;
+  font-size: 13px;
+}

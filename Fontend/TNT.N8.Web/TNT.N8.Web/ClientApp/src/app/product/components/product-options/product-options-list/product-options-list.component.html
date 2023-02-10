@@ -1,0 +1,155 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+<div class="list-product">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="/assets/images/product.svg" class="Money-2">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title">Danh sách tùy chọn dịch vụ
+                  </div>
+                  <div class="box-header-subtitle">
+                    {{listOption.length}} bản ghi cập nhật ngày {{today | date : 'dd/MM/yyyy'}} - sắp xếp theo ngày
+                    cập nhật mới nhất
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <button type="button" class="btn-create"><span class="btn-create-text" (click)="addNew()">Tạo
+                mới</span></button>
+          </div>
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                <span class="btn-filter-text">Bộ lọc</span>
+              </button>
+              <input (keypress)="checkEnterPress($event)" [(ngModel)]="filterGlobal" type="text" class="iput-text"
+                placeholder="Tìm kiếm trong danh sách"
+                (input)="table.filterGlobal($event.target.value.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="list-product ">
+  <div class="row no-margin">
+    <div class="col-md-{{leftColNumber}}">
+      <p-table #table [value]="listOption" [columns]="cols" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" >
+   
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th style="width: 3.5em; text-align: center;">
+              #
+            </th>
+            <th *ngFor="let col of columns" innerHTML>
+              {{ col.header }}
+            </th>
+            <th style="text-align: center; width: 10rem;">
+              Thao tác
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-index="rowIndex" let-rowData let-columns="columns">
+          <tr>
+            <td style="text-align: center;">
+              {{index + 1}}
+            </td>
+            <td *ngFor="let col of columns" [ngSwitch]="col.field">
+              <div *ngSwitchCase="'description'">
+                <div [innerHTML]="rowData[col.field]"></div>
+              </div>
+              <span *ngSwitchCase="'price'">
+                {{rowData[col.field] | number}}
+              </span>
+
+
+              <div *ngSwitchDefault>
+                {{rowData[col.field]}}
+              </div>
+            </td>
+            <td style="text-align: center; width: 10rem; color: #0f62fe;">
+              <button pButton type="button" icon="pi pi-pencil" class="ui-button-info margin-btn"
+                (click)="goToDetail(rowData['optionId'])" matTooltip="Chi tiết tùy chọn dịch vụ"></button>
+              <button class="ui-button-danger margin-btn" pButton icon="pi pi-trash"
+                (click)="deleteOption(rowData['optionId'])"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} ">
+      <div class="box-filter">
+        <div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Loại dịch vụ</span>
+              <p-multiSelect [options]="listOptionCategory" [filter]="true" [(ngModel)]="listCategory"
+                [style]="{'width': '100%'}" optionLabel="categoryName" defaultLabel="Chọn loại dịch vụ"
+                [ngModelOptions]="{standalone: true}" required>
+              </p-multiSelect>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Đơn giá từ</span>
+            </div>
+            <div class="col-md-12">
+              <input type="number" class="bank-payments-code-text" placeholder="0"
+                [(ngModel)]="fromPrice">
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Đơn giá đến</span>
+            </div>
+            <div class="col-md-12">
+              <input type="number" class="bank-payments-code-text" 
+              placeholder="0" 
+              [(ngModel)]="toPrice"
+              (ngModelChange)="onPropertyChange(toPrice)"
+              name="toPrice"
+              >
+            </div>
+          </div>
+          <div class="row no-margin pb-1">
+            <div class="col-md-12 mt-5" style="text-align: right">
+              <button type="button" class="btn-filter" (click)="searchOptionData()">
+                <span class="btn-filter-text">{{ 'procurement-request.list.search' | translate }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

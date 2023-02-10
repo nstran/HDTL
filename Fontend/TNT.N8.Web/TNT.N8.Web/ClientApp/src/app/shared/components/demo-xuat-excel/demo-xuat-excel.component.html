@@ -1,0 +1,20 @@
+<p-toast></p-toast>
+
+<div class="col-md-12" style="margin: 20px 0 200px 20px">
+    <div class="row">
+        <div class="col-md-4">
+            <p-dropdown [options]="listBaoCao" [(ngModel)]="loaiBaoCao" placeholder="Chọn mẫu báo cáo"
+                optionLabel="name">
+            </p-dropdown>
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="export-excel" (click)="exportExcel()">
+                Xuất Excel
+            </button>
+        </div>
+    </div>
+
+
+
+
+</div>

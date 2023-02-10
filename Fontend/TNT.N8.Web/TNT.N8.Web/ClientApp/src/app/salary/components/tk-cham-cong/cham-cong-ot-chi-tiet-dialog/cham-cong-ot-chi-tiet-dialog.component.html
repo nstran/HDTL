@@ -1,0 +1,130 @@
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<div class="cham-cong-ot-ct">
+  <div class="row no-margin">
+    <div class="col-md-12" style="margin-top: 20px;">
+      Họ tên nhân viên: <strong>{{name}}</strong>
+    </div>
+    <div class="col-md-12" style="margin-top: 10px;">
+      Code: <strong>{{code}}</strong>
+    </div>
+    <div class="col-md-5" style="margin-top: 10px;">
+      <div class="row">
+        <div class="col-md-12">
+          Từ ngày:
+        </div>
+        <div class="col-md-12">
+          <p-calendar [(ngModel)]="tuNgay" dateFormat="dd/mm/yy" [style]="{'width':'100%'}"
+            appendTo="body" baseZIndex="1031"
+            [maxDate]="denNgay" placeholder="dd/mm/yyyy" [inputStyle]="{'width':'100%'}">
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5" style="margin-top: 10px;">
+      <div class="row">
+        <div class="col-md-12">
+          Đến ngày:
+        </div>
+        <div class="col-md-12">
+          <p-calendar [(ngModel)]="denNgay" dateFormat="dd/mm/yy" [style]="{'width':'100%'}"
+            appendTo="body" baseZIndex="1031"
+            [minDate]="tuNgay" placeholder="dd/mm/yyyy" [inputStyle]="{'width':'100%'}">
+          </p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2" style="margin-top: 10px;">
+      <div class="row">
+        <div class="col-md-12" style="color: #fff;">
+          Tìm kiếm:
+        </div>
+        <div class="col-md-12">
+          <button pButton icon="fa fa-search" class="button-edit" (click)="getData()"></button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="listData.length" class="col-md-12" style="margin-top: 20px">
+      <p-table #myTable [columns]="cols" [value]="listData" [scrollable]="true" 
+        [responsive]="true" [paginator]="true"
+        [rows]="10" [rowsPerPageOptions]="[10, 15, 20, 50]">
+        <ng-template pTemplate="header">
+          <ng-container *ngFor="let item of trRow">
+            <tr>
+              <ng-container *ngFor="let _item of item">
+                <th style="text-align: center;" [attr.rowspan]="_item.rowspan != 0 ? _item.rowspan : ''"
+                  [attr.colspan]="_item.colspan != 0 ? _item.colspan : ''" [ngStyle]="{'width': _item.width}">
+                  {{_item.columnValue}}
+                </th>
+              </ng-container>
+            </tr>
+          </ng-container>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td *ngFor="let col of columns" [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+              <ng-container *ngIf="col.field.includes('index_') == true">
+                <span (click)="changeGio(rowData, col.field)">
+                  {{rowData[col.field]}}
+                </span>
+              </ng-container>
+              <ng-container *ngIf="col.field.includes('index_') == false">
+                <span>
+                  {{rowData[col.field]}}
+                </span>
+              </ng-container>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div *ngIf="!listData.length" class="col-md-12 no-padding no-data" style="margin-top: 20px">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12" style="text-align: right; margin-top: 20px">
+      <button pButton [disabled]="awaitRes" class="btn ml-2" type="button" label="Đóng"
+        style="padding: 0 25px; background: white; color: black" (click)="close()">
+      </button>
+    </div>
+  </div>
+
+  <p-dialog [(visible)]="displayUpdate" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
+    [resizable]="false" [closable]="false">
+    <p-header>Cập nhật chấm công</p-header>
+    <div>
+      <div class="row no-margin">
+        <div class="col-md-12">
+          Ngày: <strong>{{ngayChamCong | date: 'dd/MM/yyyy'}}</strong>
+        </div>
+
+        <div class="col-md-12" style="margin-top: 10px;">
+          Loại OT: <strong>{{loaiOt}}</strong>
+        </div>
+
+        <div class="col-md-12" style="margin-top: 20px;">
+          <label>Giờ {{ca}}:</label>
+          <p-calendar [(ngModel)]="thoiGian" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+            [timeOnly]="true" appendTo="body" [baseZIndex]="1031">
+          </p-calendar>
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin: 20px 0px;">
+          <button [disabled]="awaitRes" pButton class="btn btn-green my-2" type="button" label="Lưu"
+            style="padding: 0 25px; background: #169BD5;" (click)="update()">
+          </button>
+          <button [disabled]="awaitRes" pButton type="button" label="Đóng" class="btn  ml-2"
+            style="padding: 0 25px; background: white; color: black" (click)="closeUpdate()">
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>

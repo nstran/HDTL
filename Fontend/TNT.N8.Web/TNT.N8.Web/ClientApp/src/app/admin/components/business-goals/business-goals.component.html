@@ -1,0 +1,401 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<div class="business-goals-content">
+    <div class="row no-margin">
+        <div class="col-md-12 no-padding">
+            <div class="row no-margin">
+                <div class="col-md-12 header" style="padding: 6px;">
+                    <div class="row">
+                        <div class="col-md-6 no-padding">
+                            <div class="row no-margin">
+                                <div class="col-md-1 col-sm-1 col-xs-3">
+                                    <div class="header-box-icon">
+                                        <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+                                    </div>
+                                </div>
+                                <div class="col-md-11 col-sm-10 col-xs-9">
+                                    <div>
+                                        <span class="title-page">Kế hoạch kinh doanh</span>
+                                    </div>
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12" style="margin-top: 5px; text-align: right;">
+                                    <button class="save" type="button" (click)="save()">
+                                        <span class="text-save">Lưu</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="height: 20px;"></div>
+            <div class="row no-margin"
+                style="padding-top: 20px;padding-bottom: 10px; border: 1px solid #CCCCCC; margin-top: 20px;">
+                <div class="row no-margin">
+                    <form [formGroup]="businessGoalsFrom">
+                        <div class="col-md-3 mt-10">
+                            <div class="row no-margin">
+                                <div class="col-md-12 no-padding">
+                                    <label>Chọn năm<span class="required">*</span></label>
+                                </div>
+                                <div class="col-md-12 no-padding">
+                                    <p-dropdown [options]="listYear" optionLabel="label" formControlName="yearControl"
+                                        [styleClass]="(businessGoalsFrom.get('yearControl').invalid && (businessGoalsFrom.get('yearControl').dirty || businessGoalsFrom.get('yearControl').touched)) ? 'error-border' : ''"
+                                        placeholder="Chọn năm" [style]="{'width': '100%'}" (onChange)="changeYear()"
+                                        (keydown.enter)="$event.preventDefault()">
+                                    </p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mt-10">
+                            <div class="row no-margin">
+                                <div class="col-md-12 no-padding">
+                                    <label>Chọn phòng ban<span class="required">*</span></label>
+                                    <a href="javascript:(0)" (click)="openOrgPopup()" style="float: right;">
+                                        <u>(Xem sơ đồ tổ chức)</u></a>
+                                </div>
+                                <div class="col-md-12 no-padding">
+                                    <input class="w100" type="text" formControlName="organizationControl" pInputText
+                                        [ngClass]="(businessGoalsFrom.get('organizationControl').invalid && (businessGoalsFrom.get('organizationControl').dirty || businessGoalsFrom.get('organizationControl').touched)) ? 'error-border' : ''"
+                                        readonly [style]="{'width': '100%'}">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="row no-margin" style="padding-top: 20px;">
+                    <p-accordion expandIcon="pi pi-fw pi-chevron-right" collapseIcon="pi pi-fw pi-chevron-down"
+                        [multiple]="true">
+                        <p-accordionTab header="Doanh số" [selected]="true">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label style="float: right; color: cornflowerblue; cursor: pointer;"
+                                        (click)="addProductCategoryBusinessGoalsSales()">
+                                        <img src="/assets/icons/components/ios-add-circle-outline.svg"
+                                            class="ios-add-circle-outline">&nbsp;Thêm chỉ tiêu
+                                    </label>
+                                </div>
+                                <div class="col-md-12" style="margin-top: 5px;">
+                                    <p-table [columns]="cols" [value]="listBusinessGoalsSalesDetail" [responsive]="true"
+                                        [resizableColumns]="true" class="table-border">
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr>
+                                                <th *ngFor="let col of columns" pResizableColumn
+                                                    [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                                                    {{col.header}}
+                                                </th>
+                                                <th style="width:4em"></th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-columns="columns"
+                                            let-rowIndex="rowIndex">
+                                            <tr>
+                                                <td pEditableColumn *ngFor="let col of columns"
+                                                    class="ui-resizable-column" [ngSwitch]="col.field"
+                                                    [ngStyle]="{'text-align': col.textAlignContent, 'width': col.width}">
+                                                    <span class="ui-column-title">{{col.header}}</span>
+                                                    <span *ngSwitchCase="'productCategoryName'">
+                                                        <p-cellEditor>
+                                                            <ng-template pTemplate="input">
+                                                                <p-dropdown [options]="listProductCategory"
+                                                                    optionLabel="productCategoryName"
+                                                                    placeholder="Chọn nhóm sản phẩm"
+                                                                    (keydown.enter)="$event.preventDefault()"
+                                                                    [autoDisplayFirst]="false"
+                                                                    [style]="{'width':'100%'}"
+                                                                    (onChange)="changeProductCategorySales($event, rowData, rowIndex)"
+                                                                    appendTo="body">
+                                                                </p-dropdown>
+                                                            </ng-template>
+                                                            <ng-template pTemplate="output">
+                                                                {{rowData.productCategoryName}}
+                                                            </ng-template>
+                                                        </p-cellEditor>
+                                                    </span>
+                                                    <span *ngSwitchDefault pTooltip="{{rowData[col.field]}}"
+                                                        tooltipPosition="bottom">
+                                                        <p-cellEditor>
+                                                            <ng-template pTemplate="input">
+                                                                <input pInputText type="text"
+                                                                    [(ngModel)]="rowData[col.field]"
+                                                                    (change)="calculate()"
+                                                                    [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}">
+                                                            </ng-template>
+                                                            <ng-template pTemplate="output">
+                                                                {{rowData[col.field]}}
+                                                            </ng-template>
+                                                        </p-cellEditor>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <button *ngIf="actionDelete" pButton icon="pi pi-trash"
+                                                        (click)="deleteBusinessGoalProductCategory(rowData, 'SALES')"
+                                                        class="ui-button-danger"></button>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="footer">
+
+                                        </ng-template>
+                                    </p-table>
+
+                                    <p-table [value]="listBusinessGoalsSalesDetailChild" [columns]="cols"
+                                        [responsive]="true" [resizableColumns]="true" class="table-border">
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr>
+                                                <th *ngFor="let col of columns" pResizableColumn
+                                                    [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                                                </th>
+                                                <th style="width:4em"></th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowDataChild let-rowIndex="rowIndex"
+                                            let-columns="columns">
+                                            <tr class="ui-widget-header"
+                                                *ngIf="rowGroupMetadataDoanhSo[rowDataChild.organizationId].index === rowIndex">
+                                                <td colspan="14">
+                                                    <span
+                                                        style="font-weight:bold">{{rowDataChild.organizationName}}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td *ngFor="let col of columns" class="ui-resizable-column"
+                                                    [ngStyle]="{'text-align': col.textAlignContent, 'width': col.width}"
+                                                    [ngSwitch]="col.field">
+                                                    <span *ngSwitchCase="'january'">{{ rowDataChild[col.field] |
+                                                        number}}</span>
+                                                    <span *ngSwitchCase="'february'">{{ rowDataChild[col.field] |
+                                                        number}}</span>
+                                                    <span *ngSwitchCase="'march'">{{ rowDataChild[col.field] |
+                                                        number}}</span>
+                                                    <span *ngSwitchCase="'april'">{{ rowDataChild[col.field] |
+                                                        number}}</span>
+                                                    <span *ngSwitchCase="'may'">{{ rowDataChild[col.field] |
+                                                        number}}</span>
+                                                    <span *ngSwitchCase="'june'">{{ rowDataChild[col.field] |
+                                                        number}}</span>
+                                                    <span *ngSwitchCase="'july'">{{ rowDataChild[col.field] |
+                                                        number}}</span>
+                                                    <span *ngSwitchCase="'august'">{{ rowDataChild[col.field] |
+                                                        number}}</span>
+                                                    <span *ngSwitchCase="'september'">{{ rowDataChild[col.field] |
+                                                        number}}</span>
+                                                    <span *ngSwitchCase="'october'">{{ rowDataChild[col.field] |
+                                                        number}}</span>
+                                                    <span *ngSwitchCase="'november'">{{ rowDataChild[col.field] |
+                                                        number}}</span>
+                                                    <span *ngSwitchCase="'december'">{{ rowDataChild[col.field] |
+                                                        number}}</span>
+                                                    <span *ngSwitchDefault>{{ rowDataChild[col.field]}}</span>
+                                                </td>
+                                                <td style="width:50px"></td>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="footer">
+                                            <tr>
+                                                <td class="title-tr">Tổng : </td>
+                                                <td class="title-td">{{totalSalesT1 |
+                                                    number}}</td>
+                                                <td class="title-td">{{totalSalesT2 |
+                                                    number}}</td>
+                                                <td class="title-td">{{totalSalesT3 |
+                                                    number}}</td>
+                                                <td class="title-td">{{totalSalesT4 |
+                                                    number}}</td>
+                                                <td class="title-td">{{totalSalesT5 |
+                                                    number}}</td>
+                                                <td class="title-td">{{totalSalesT6 |
+                                                    number}}</td>
+                                                <td class="title-td">{{totalSalesT7 |
+                                                    number}}</td>
+                                                <td class="title-td">{{totalSalesT8 |
+                                                    number}}</td>
+                                                <td class="title-td">{{totalSalesT9 |
+                                                    number}}</td>
+                                                <td class="title-td">{{totalSalesT10 |
+                                                    number}}</td>
+                                                <td class="title-td">{{totalSalesT11 |
+                                                    number}}</td>
+                                                <td class="title-td">{{totalSalesT12 |
+                                                    number}}</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </p-accordionTab>
+                    </p-accordion>
+                </div>
+                <div class="row no-margin" style="padding-top: 10px;">
+                    <p-accordion expandIcon="pi pi-fw pi-chevron-right" collapseIcon="pi pi-fw pi-chevron-down"
+                        [multiple]="true">
+                        <p-accordionTab header="Doanh thu" [selected]="true">
+                            <div class="col-md-12">
+                                <label style="float: right; color: cornflowerblue; cursor: pointer;"
+                                    (click)="addProductCategoryBusinessGoalsRevenue()"><img
+                                        src="/assets/icons/components/ios-add-circle-outline.svg"
+                                        class="ios-add-circle-outline">&nbsp;Thêm chỉ tiêu</label>
+                            </div>
+                            <div class="col-md-12" style="margin-top: 5px;">
+                                <p-table [columns]="cols" [value]="listBusinessGoalsRevenueDetail" [responsive]="true"
+                                    [resizableColumns]="true" class="table-border">
+                                    <ng-template pTemplate="header" let-columns>
+                                        <tr>
+                                            <th *ngFor="let col of columns" pResizableColumn
+                                                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                                                {{col.header}}
+                                            </th>
+                                            <th style="width:4em"></th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowData let-columns="columns"
+                                        let-rowIndex="rowIndex">
+                                        <tr>
+                                            <td pEditableColumn *ngFor="let col of columns" class="ui-resizable-column"
+                                                [ngSwitch]="col.field"
+                                                [ngStyle]="{'text-align': col.textAlignContent, 'width': col.width}">
+                                                <span class="ui-column-title">{{col.header}}</span>
+                                                <span *ngSwitchCase="'productCategoryName'">
+                                                    <p-cellEditor>
+                                                        <ng-template pTemplate="input">
+                                                            <p-dropdown [options]="listProductCategory"
+                                                                optionLabel="productCategoryName"
+                                                                placeholder="Chọn nhóm sản phẩm"
+                                                                (keydown.enter)="$event.preventDefault()"
+                                                                [autoDisplayFirst]="false" [style]="{'width':'100%'}"
+                                                                (onChange)="changeProductCategoryRevenue($event, rowData, rowIndex)"
+                                                                appendTo="body">
+                                                            </p-dropdown>
+                                                        </ng-template>
+                                                        <ng-template pTemplate="output">
+                                                            {{rowData.productCategoryName}}
+                                                        </ng-template>
+                                                    </p-cellEditor>
+                                                </span>
+                                                <span *ngSwitchDefault pTooltip="{{rowData[col.field]}}"
+                                                    tooltipPosition="bottom">
+                                                    <p-cellEditor>
+                                                        <ng-template pTemplate="input">
+                                                            <input pInputText type="text"
+                                                                [(ngModel)]="rowData[col.field]" (change)="calculate()"
+                                                                [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}">
+                                                        </ng-template>
+                                                        <ng-template pTemplate="output">
+                                                            {{rowData[col.field]}}
+                                                        </ng-template>
+                                                    </p-cellEditor>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <button *ngIf="actionDelete" pButton icon="pi pi-trash"
+                                                    (click)="deleteBusinessGoalProductCategory(rowData, 'REVENUE')"
+                                                    class="ui-button-danger"></button>
+                                            </td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+
+                                <p-table [value]="listBusinessGoalsRevenueDetailChild" [columns]="cols"
+                                    [responsive]="true" [resizableColumns]="true" class="table-border">
+                                    <ng-template pTemplate="header" let-columns>
+                                        <tr>
+                                            <th *ngFor="let col of columns" pResizableColumn
+                                                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                                            </th>
+                                            <th style="width:4em"></th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-rowDataChild let-rowIndex="rowIndex"
+                                        let-columns="columns">
+                                        <tr class="ui-widget-header"
+                                            *ngIf="rowGroupMetadataDoanhThu[rowDataChild.organizationId].index === rowIndex">
+                                            <td colspan="14">
+                                                <span style="font-weight:bold">{{rowDataChild.organizationName}}</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td *ngFor="let col of columns" class="ui-resizable-column"
+                                                [ngStyle]="{'text-align': col.textAlignContent, 'width': col.width}"
+                                                [ngSwitch]="col.field">
+                                                <span *ngSwitchCase="'january'">{{ rowDataChild[col.field] |
+                                                    number}}</span>
+                                                <span *ngSwitchCase="'february'">{{ rowDataChild[col.field] |
+                                                    number}}</span>
+                                                <span *ngSwitchCase="'march'">{{ rowDataChild[col.field] |
+                                                    number}}</span>
+                                                <span *ngSwitchCase="'april'">{{ rowDataChild[col.field] |
+                                                    number}}</span>
+                                                <span *ngSwitchCase="'may'">{{ rowDataChild[col.field] | number}}</span>
+                                                <span *ngSwitchCase="'june'">{{ rowDataChild[col.field] |
+                                                    number}}</span>
+                                                <span *ngSwitchCase="'july'">{{ rowDataChild[col.field] |
+                                                    number}}</span>
+                                                <span *ngSwitchCase="'august'">{{ rowDataChild[col.field] |
+                                                    number}}</span>
+                                                <span *ngSwitchCase="'september'">{{ rowDataChild[col.field] |
+                                                    number}}</span>
+                                                <span *ngSwitchCase="'october'">{{ rowDataChild[col.field] |
+                                                    number}}</span>
+                                                <span *ngSwitchCase="'november'">{{ rowDataChild[col.field] |
+                                                    number}}</span>
+                                                <span *ngSwitchCase="'december'">{{ rowDataChild[col.field] |
+                                                    number}}</span>
+
+                                                <span *ngSwitchDefault>{{ rowDataChild[col.field]}}</span>
+                                            </td>
+                                            <td style="width:50px"></td>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="footer">
+                                        <tr>
+                                            <td class="title-tr">Tổng : </td>
+                                            <td class="title-td">{{totalRevenueT1 |
+                                                number}}</td>
+                                            <td class="title-td">{{totalRevenueT2 |
+                                                number}}</td>
+                                            <td class="title-td">{{totalRevenueT3 |
+                                                number}}</td>
+                                            <td class="title-td">{{totalRevenueT4 |
+                                                number}}</td>
+                                            <td class="title-td">{{totalRevenueT5 |
+                                                number}}</td>
+                                            <td class="title-td">{{totalRevenueT6 |
+                                                number}}</td>
+                                            <td class="title-td">{{totalRevenueT7 |
+                                                number}}</td>
+                                            <td class="title-td">{{totalRevenueT8 |
+                                                number}}</td>
+                                            <td class="title-td">{{totalRevenueT9 |
+                                                number}}</td>
+                                            <td class="title-td">{{totalRevenueT10 |
+                                                number}}</td>
+                                            <td class="title-td">{{totalRevenueT11 |
+                                                number}}</td>
+                                            <td class="title-td">{{totalRevenueT12 |
+                                                number}}</td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                            </div>
+                        </p-accordionTab>
+                    </p-accordion>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

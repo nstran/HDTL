@@ -1,0 +1,194 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<div class="technique-request-list">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon d-flex item-center">
+                    <img src="/assets/icons/components/noun_product.svg" class="noun-product m-0-auto">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title d-content">Danh sách tiến trình</div>
+                  <div class="box-header-subtitle">
+                    {{techniqueRequestList.length}} bản ghi
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12 button-group">
+            <div class="d-inline float-right">
+              <button type="button" class="btn-create" *ngIf="actionAdd" (click)="goToCreate()"><span
+                  class="btn-create-text">Tạo mới</span></button>
+            </div>
+            <div style="clear: both;">
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                <span class="btn-filter-text">Bộ lọc</span>
+              </button>
+              <input type="text" class="iput-text" placeholder="Tìm kiếm trong danh sách"
+                (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row no-margin" style="background-color: #f2f4f8;">
+      <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+        <div class="box-filter">
+          <div class="row no-margin">
+            <div class="col-md-12">
+              <span>Tên tiến trình</span>
+            </div>
+            <div class="col-md-12">
+              <input type="text" class="code-text" placeholder="Nhập tên tiến trình" [(ngModel)]="techniqueName">
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Phòng ban</span>
+            </div>
+            <div class="col-md-12">
+              <p-dropdown [options]="listOrganization" placeholder="Tất cả" [(ngModel)]="selectedOrganization"
+                optionLabel="organizationName" showClear="true" [style]="{'width': '100%'}">
+              </p-dropdown>
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Mô tả</span>
+            </div>
+            <div class="col-md-12">
+              <input type="text" class="code-text" placeholder="Nhập mô tả" [(ngModel)]="description">
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5" style="text-align: right;">
+              <button type="button" class="btn-search" (click)="searchTechniqueRequest()">
+                <span class="btn-search-text">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="techniqueRequestList.length > 0" class="col-md-{{leftColNumber}} no-padding">
+        <p-table #myTable [columns]="selectedColumns" [value]="techniqueRequestList" [resizableColumns]="true"
+          columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+          [responsive]="true">
+          <ng-template pTemplate="caption">
+            <div style="text-align:left">
+              <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" [ngModelOptions]="{standalone: true}"
+                optionLabel="header" selectedItemsLabel="{0} cột được chọn" [style]="{minWidth: '200px'}"
+                defaultLabel="Chọn cột"></p-multiSelect>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                [ngStyle]="{'text-align': col.textAlign, 'display': col.display}">
+                <span>
+                  {{col.header}}
+                  <p-sortIcon [field]="col.field"></p-sortIcon>
+                </span>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                [ngStyle]="{'text-align': col.textAlign, 'display': col.display}">
+                <span class="ui-column-title">{{col.header}}</span>
+                <span *ngSwitchCase="'techniqueName'" (click)="goToDetail(rowData['techniqueRequestId'])" class="link">
+                  {{rowData[col.field]}}
+                </span>
+                <span *ngSwitchCase="'techniqueName'">
+                  {{rowData[col.field]}}
+                </span>
+                <span *ngSwitchCase="'parentName'">
+                  {{rowData[col.field]}}
+                </span>
+                <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <div *ngIf="!(techniqueRequestList.length > 0)" class="col-md-{{leftColNumber}} no-padding no-data">
+        <div class="box-no-data">
+          <img src="/assets/icons/components/box.svg" class="box-icon">
+          <div>
+            <span>Hiện tại không có dữ liệu</span>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+        <div class="box-filter">
+          <div class="row no-margin">
+            <div class="col-md-12">
+              <span>Tên tiến trình</span>
+            </div>
+            <div class="col-md-12">
+              <input type="text" class="code-text" placeholder="Nhập tên tiến trình" [(ngModel)]="techniqueName">
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Phòng ban</span>
+            </div>
+            <div class="col-md-12">
+              <p-dropdown [options]="listOrganization" placeholder="Tất cả" [(ngModel)]="selectedOrganization"
+                optionLabel="organizationName" showClear="true" [style]="{'width': '100%'}">
+              </p-dropdown>
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Mô tả</span>
+            </div>
+            <div class="col-md-12">
+              <input type="text" class="code-text" placeholder="Nhập mô tả" [(ngModel)]="description">
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5" style="text-align: right;">
+              <button type="button" class="btn-search" (click)="searchTechniqueRequest()">
+                <span class="btn-search-text">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

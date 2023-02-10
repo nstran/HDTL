@@ -1,0 +1,198 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="product-order-workflow-detail">
+  <div class="row no-margin">
+    <div class="col-md-12 box-header">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-1 col-xs-2">
+              <div class="box-header-icon">
+                <img src="/assets/icons/components/noun_product.svg" class="noun_product">
+              </div>
+            </div>
+            <div class="col-md-11 col-xs-10">
+              <div class="box-header-title">Chi tiết Quy trình sản xuất</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-12" style="text-align: right;">
+              <button class="cancel" type="button" (click)="cancel()">
+                <span class="text-cancel">Hủy</span>
+              </button>
+              <button #save *ngIf="actionEdit" class="save" type="button" (click)="updateProductOrderWorkflow()">
+                <span class="text-save">Lưu</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 box-content">
+      <form [formGroup]="productOrderWorkflowForm" style="height: 100%;">
+        <div class="row no-margin">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+            <p-accordionTab header="Thông tin Quy trình" [selected]="true">
+              <div class="col-md-6">
+                <div class="row" style="margin: 10px 0px;">
+                  <div class="col-md-4">
+                    <span>Mã quy trình<span class="require">*</span></span>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <input class="w100 input-text" type="text" formControlName="codeControl" pInputText
+                          (keydown.enter)="$event.preventDefault()"
+                          [ngClass]="(codeControl.invalid && (codeControl.dirty || codeControl.touched)) ? 'error-border' : ''"/>
+                      </div>
+                      <div class="col-md-12" [hidden]="codeControl.valid || codeControl.untouched">
+                        <span
+                          *ngIf="codeControl.hasError('required') || codeControl?.errors?.forbiddenSpaceText"
+                          class="error-message-span">Không được để trống</span>
+                        <span *ngIf="codeControl.hasError('duplicateCode')" class="error-message-span">Trùng
+                          mã Quy trình</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="margin: 10px 0px;">
+                  <div class="col-md-4">
+                    <span>Tên quy trình<span class="require">*</span></span>
+                  </div>
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <input class="w100 input-text" type="text" formControlName="nameControl" pInputText
+                          (keydown.enter)="$event.preventDefault()"
+                          [ngClass]="(nameControl.invalid && (nameControl.dirty || nameControl.touched)) ? 'error-border' : ''"/>
+                      </div>
+                      <div class="col-md-12" [hidden]="nameControl.valid || nameControl.untouched">
+                        <span
+                          *ngIf="nameControl.hasError('required') || nameControl?.errors?.forbiddenSpaceText"
+                          class="error-message-span">Không được để trống</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <div class="row" style="margin: 10px 0px;">
+                  <div class="col-md-4">
+                    <span>Hoạt động</span>
+                  </div>
+                  <div class="col-md-8">
+                    <p-checkbox [binary]="true" formControlName="activeControl"></p-checkbox>
+                  </div>
+                </div> -->
+
+                <div class="row" style="margin: 10px 0px;">
+                  <div class="col-md-4">
+                    <span>Quy trình mặc định</span>
+                  </div>
+                  <div class="col-md-8">
+                    <p-checkbox [binary]="true" formControlName="isDefaultControl" (onChange)="checkIsDefault()"></p-checkbox>
+                  </div>
+                </div>
+
+                <div class="row" style="margin: 10px 0px;">
+                  <div class="col-md-4">
+                    <span>Mô tả</span>
+                  </div>
+                  <div class="col-md-8">
+                    <textarea rows="5" cols="30" formControlName="descriptionControl" pInputTextarea class="w100"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="row" style="margin: 10px 0px;">
+                  <div class="col-md-2">
+                    <span>Tiến trình</span>
+                  </div>
+                  <div class="col-md-6">
+                    <p-dropdown [options]="listTechniqueRequest"
+                      placeholder="Chọn tiến trình"
+                      [(ngModel)]="selectedTechniqueRequest"
+                      [ngModelOptions]="{standalone: true}"
+                      optionLabel="techniqueName"
+                      showClear="true"
+                      [style]="{'width': '100%'}">
+                    </p-dropdown>
+                  </div>
+                  <div class="col-md-2">
+                    <button *ngIf="actionAdd" type="button" (click)="addTechniqueRequest()" class="btn-add" pTooltip="Thêm tiến trình vào quy trình" tooltipPosition="top"><i class="pi pi-plus"></i></button>
+                  </div>
+                </div>
+
+                <div class="row" style="margin: 10px 0px;">
+                  <div class="col-md-12">
+                    <p-table [columns]="cols" [value]="listAdd" [reorderableColumns]="true">
+                      <ng-template pTemplate="header" let-columns>
+                        <tr>
+                          <th style="width:2.5em"></th>
+                          <th *ngFor="let col of columns" pReorderableColumn
+                            [ngStyle]="{'text-align': col.textAlign, 'display': col.display}">
+                            {{col.header}}
+                          </th>
+                          <th style="text-align: center;">Thao tác</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+                        <tr [pReorderableRow]="index">
+                          <td>
+                            <i class="fa fa-bars" pReorderableRowHandle></i>
+                          </td>
+                          <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                            [ngStyle]="{'text-align': col.textAlign, 'display': col.display}"
+                            pEditableColumn>
+                            <span *ngSwitchCase="'techniqueOrder'">
+                              {{index + 1}}
+                            </span>
+                            <!-- <span *ngSwitchCase="'rate'">
+                              <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                  <input type="text" class="number-input"
+                                    [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                    [(ngModel)]="rowData.rate" [ngModelOptions]="{standalone: true}">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                  {{rowData.rate}}
+                                </ng-template>
+                              </p-cellEditor>
+                            </span> -->
+                            <!-- <span *ngSwitchCase="'isDefault'">
+                              <p-checkbox [(ngModel)]="rowData[col.field]" [binary]="true" 
+                                [ngModelOptions]="{standalone: true}"></p-checkbox>
+                            </span> -->
+                            <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                          </td>
+                          <td style="text-align: center;">
+                            <button *ngIf="actionDelete" pButton icon="pi pi-trash" class="ui-button-danger"
+                              (click)="deleteItem(rowData)"></button>
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
+                  </div>
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

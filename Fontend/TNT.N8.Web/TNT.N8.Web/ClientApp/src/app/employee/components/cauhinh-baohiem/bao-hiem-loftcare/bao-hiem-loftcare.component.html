@@ -1,0 +1,49 @@
+<!-- Loading -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="cauhinh-baohiem">
+  <div class="row mt-1">
+    <div class="col-md-6">
+      <p class="text-bold">Cấu hình bảo hiểm Loftcare</p>
+    </div>
+    <div class="col-md-6 text-right">
+      <button pButton type="button" label="Thêm mới" class="btn btn-create" (click)="addNamCauHinh()"></button>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-12">
+      <p-treeTable [value]="cauHinhBaoHiemLoftCare">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th class="text-center">Năm/Nhóm bảo hiểm/Quyền lợi</th>
+            <th class="text-center column-action" style="width: 150px">Thao tác</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+          <tr [ttRow]="rowNode">
+            <td>
+              <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+              {{rowData?.name}}
+            </td>
+            <td class="text-center">
+              <button *ngIf="rowNode.level < 2" pButton pRipple class="ui-button-primary" icon="pi pi-plus" (click)="addNode(rowNode)"></button>
+              <button pButton pRipple class="ml-1" icon="pi pi-pencil" (click)="editNode(rowData, rowNode)"></button>
+              <button pButton pRipple class="ui-button-danger ml-1" icon="pi pi-trash" (click)="deleteNode(rowData, rowNode)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-treeTable>
+    </div>
+  </div>
+
+</div>

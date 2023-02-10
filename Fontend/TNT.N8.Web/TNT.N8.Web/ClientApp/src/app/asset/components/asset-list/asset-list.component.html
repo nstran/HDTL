@@ -1,0 +1,594 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="asset-list">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-2 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="/assets/images/product.svg" class="Money-2">
+                  </div>
+                </div>
+                <div class="col-md-10 col-xs-10">
+                  <div class="box-header-title">Danh sách tài sản
+                  </div>
+                  <div class="box-header-subtitle">
+                    {{listAsset.length}} bản ghi - Cập nhật ngày {{today}} - Sắp xếp theo thời gian phân bổ
+                  </div>
+                  <!-- <span *ngIf="!isInvalidForm">
+                    <img src="/assets/icons/components/ios-warning.svg" class="ios-warning">
+                  </span>
+                  <div class="box-waring" *ngIf="isInvalidForm" #toggleButton (click)="toggleNotifiError()">
+                    <img src="/assets/icons/components/ios-warning-active.svg" class="ios-warning-active">
+                  </div>
+                  <div class="notification" #notifi *ngIf="isOpenNotifiError">
+                    <div *ngFor="let mes of messErrFile" class="notifi-row">
+                      <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                      <span *ngIf="!isValidation" class="notifi-text">{{mes}}</span>
+                    </div>
+                  </div> -->
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-12" style="text-align: right;">
+            <button type="button" class="btn-create" *ngIf="actionAdd" (click)="goToCreate()"><span
+                class="btn-create-text">Tạo mới</span></button>
+
+            <button type="button" class="btn-create" *ngIf="actionAdd" (click)="onpenDialogChoseFileExcel()"><span
+                class="btn-create-text">Nhập excel</span></button>
+
+            <button pButton type="button" class="excel" label="Xuất excel" (click)="exportExcel()"></button>
+
+            <button pButton type="button" class="excel" label="In nhãn" (click)="inNhan()"></button>
+
+            <button type="button" class="btn-other" (click)="thuHoiTaiSan()"><span class="btn-create-text">Thu hồi tài
+                sản</span></button>
+
+            <button type="button" class="btn-other" (click)="phanBoTaiSan()"><span class="btn-create-text">Phân bổ tài
+                sản</span></button>
+
+            <button pButton type="button" class="excel" style="width: 135px !important;" label="Báo cáo phân bổ"
+              (click)="baoCaoPhanBo()"></button>
+            <button pButton type="button" class="excel" style="width: 140px !important;" label="Báo cáo khấu hao"
+              (click)="baoCaoKhauHao()"></button>
+            <div style="clear: both;"></div>
+          </div>
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                <span class="btn-filter-text">Bộ lọc</span>
+              </button>
+              <input (keypress)="checkEnterPress($event)" [(ngModel)]="filterGlobal" type="text" class="iput-text"
+                placeholder="Tìm kiếm trong danh sách"
+                (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+      <form [formGroup]="searchAssetForm">
+        <div class="box-filter">
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Mã tài sản</span>
+            </div>
+            <div class="col-md-12">
+              <input formControlName="maTaiSanControl" type="text" maxlength="500" class="w100" pInputText />
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Tên tài sản</span>
+            </div>
+            <div class="col-md-12">
+              <input formControlName="tenTaiSanControl" type="text" maxlength="500" class="w100" pInputText />
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Người sử dụng</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listEmployee" [(ngModel)]="selectedNguoiSD" defaultLabel="Chọn người sử dụng"
+                [ngModelOptions]="{standalone: true}" optionLabel="employeeCodeName" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} người sử dụng được chọn">
+              </p-multiSelect>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Trạng thái</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listHienTrangTS" [(ngModel)]="selectedTrangThai" defaultLabel="Chọn trạng thái"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} trạng thái được chọn">
+              </p-multiSelect>
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Loại tài sản</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listLoaiTaiSan" [(ngModel)]="selectedLoaiTS" defaultLabel="Chọn loại tài sản"
+                [ngModelOptions]="{standalone: true}" optionLabel="categoryName" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} tài sản được chọn">
+              </p-multiSelect>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Khu vực</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listKhuVuc" [(ngModel)]="selectedKhuVuc" defaultLabel="Chọn khu vực"
+                [ngModelOptions]="{standalone: true}" optionLabel="provinceName" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} tài sản được chọn">
+              </p-multiSelect>
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <button type="button" class="btn-search" (click)="searchAsset(1)">
+                <span class="btn-search-text">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="listAsset.length > 0" class="col-md-{{leftColNumber}} no-padding">
+      <div class="col-md-{{leftColGridNumber}}">
+        <p-table #myTable [columns]="selectedColumns" [value]="listAsset" [resizableColumns]="true"
+                 [(selection)]="listAssetSelected" columnResizeMode="expand" [paginator]="true" [rows]="10"
+                 [rowsPerPageOptions]="[10,20,30]" [responsive]="true" [scrollable]="true">
+          <ng-template pTemplate="caption">
+            <div style="text-align:left">
+              <p-multiSelect [options]="colsList" [(ngModel)]="selectedColumns" [ngModelOptions]="{standalone: true}"
+                             optionLabel="header" selectedItemsLabel="{0} cột được chọn" [style]="{minWidth: '200px'}"
+                             defaultLabel="Chọn cột"></p-multiSelect>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="width: 3rem;">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+              </th>
+
+              <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                  [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.width }">
+                <span>
+                  {{col.header}}
+                  <p-sortIcon [field]=" col.field">
+                  </p-sortIcon>
+                </span>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td style="width: 3rem;">
+                <p-tableCheckbox [value]="rowData"></p-tableCheckbox>
+              </td>
+              <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                  [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.width }">
+                <span class="ui-column-title">{{col.header}}</span>
+                <span *ngSwitchCase="'maTaiSan'" (click)="goToDetail(rowData)" class="link">
+                  {{rowData[col.field]}}
+                </span>
+
+                <span *ngSwitchCase="'ngayVaoSo'">
+                  {{ rowData[col.field] | date:'dd/MM/yyyy' }}
+                </span>
+                <span *ngSwitchCase="'hienTrangTaiSanString'" class="status"
+                      [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}" style="display: inline-block;
+                                                                                          padding: 3px 3px;
+                                                                                          color: white;
+                                                                                          width: 100%;
+                                                                                          text-align: center;">
+                  {{rowData[col.field]}}
+                </span>
+
+                <span *ngSwitchCase="'giaTriNguyenGia'">
+                  {{ rowData[col.field] | number:0 }}
+                </span>
+
+                <span *ngSwitchCase="'giaTriTinhKhauHao'">
+                  {{ rowData[col.field] |number:0 }}
+                </span>
+
+                <span *ngSwitchCase="'tiLeKhauHaoTheoThang'">
+                  {{ rowData[col.field] | number:0 }}
+                </span>
+
+                <span *ngSwitchCase="'giaTriKhauHaoTheoThang'">
+                  {{ rowData[col.field] |number:0 }}
+                </span>
+                <span *ngSwitchCase="'tiLeKhauHaoTheoNam'">
+                  {{ rowData[col.field] |number:0 }}
+                </span>
+                <span *ngSwitchCase="'giaTriKhauHaoTheoNam'">
+                  {{ rowData[col.field] | number:0}}
+                </span>
+
+                <span *ngSwitchCase="'giaTriKhauHaoLuyKe'">
+                  {{ rowData[col.field] | number:0 }}
+                </span>
+
+                <span *ngSwitchCase="'giaTriConLai'">
+                  {{ rowData[col.field] | number:0 }}
+                </span>
+
+                <span *ngSwitchCase="'thoiGianTinhKhauHaoDen'">
+                  {{ rowData[col.field] | date:'dd/MM/yyyy' }}
+                </span>
+                <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+      <div class="col-md-4 mb-10" *ngIf="isShowDetail">
+        <!-- <div class="row no-margin" style="background: #ffffff;">-->
+        <div class="col-md-12" style="background: #ffffff; padding: 0px;">
+          <div class="row" style="text-align-last: center">
+            <div class="col-md-12 mt-5" id="qrcode">
+              <qrcode [elementType]="canvas" [width]="150" *ngIf="isShowQRCode" [qrdata]="qrCode" [size]="300">
+              </qrcode>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-1 mt-5">
+              <i class="pi pi-id-card" style="color: #0f62fe;"></i>
+            </div>
+            <div class="col-md-4 mt-5" style="align-content: center;display: grid">
+              <label class="asset-detail-label">Tên tài sản</label>
+            </div>
+            <div class="col-md-7 mt-5">
+              <label class="asset-detail-info">: {{taiSanDetail.tenTaiSan}}</label>
+            </div>
+          </div>
+          <!-- Mã tài sản -->
+          <div class="row">
+            <div class="col-md-1 mt-5">
+              <i class="pi pi-info-circle" style="color: #0f62fe;"></i>
+            </div>
+            <div class="col-md-4 mt-5" style="align-content: center;display: grid">
+              <label class="asset-detail-label">Mã tài sản</label>
+            </div>
+            <div class="col-md-7 mt-5">
+              <label class="asset-detail-info">: {{taiSanDetail.maTaiSan}}</label>
+            </div>
+          </div>
+
+          <!-- Mã code  -->
+          <div class="row">
+            <div class="col-md-1 mt-5">
+              <i class="pi pi-th-large" style="color: #0f62fe;"></i>
+            </div>
+            <div class="col-md-4 mt-5" style="align-content: center;display: grid">
+              <label class="asset-detail-label">Mã code</label>
+            </div>
+            <div class="col-md-7 mt-5">
+              <label class="asset-detail-info">: {{taiSanDetail.maCode}}</label>
+            </div>
+          </div>
+
+          <!-- Số seria    -->
+          <div class="row">
+            <div class="col-md-1 mt-5">
+              <i class="pi pi-sliders-h" style="color: #0f62fe;"></i>
+            </div>
+            <div class="col-md-4 mt-5" style="align-content: center;display: grid">
+              <label class="asset-detail-label">Số seria</label>
+            </div>
+            <div class="col-md-7 mt-5">
+              <label class="asset-detail-info">: {{taiSanDetail.soSerial}}</label>
+            </div>
+          </div>
+
+          <!-- Model -->
+          <div class="row">
+            <div class="col-md-1 mt-5">
+              <i class="pi pi-ticket" style="color: #0f62fe;"></i>
+            </div>
+            <div class="col-md-4 mt-5" style="align-content: center;display: grid">
+              <label class="asset-detail-label">Model</label>
+            </div>
+            <div class="col-md-7 mt-5">
+              <label class="asset-detail-info">: {{taiSanDetail.model}}</label>
+            </div>
+          </div>
+
+          <!-- Phân loại -->
+          <div class="row">
+            <div class="col-md-1 mt-5">
+              <i class="pi pi-tablet" style="color: #0f62fe;"></i>
+            </div>
+            <div class="col-md-4 mt-5" style="align-content: center;display: grid">
+              <label class="asset-detail-label">Phân loại</label>
+            </div>
+            <div class="col-md-7 mt-5">
+              <label class="asset-detail-info">: {{taiSanDetail.phanLoaiTaiSan}}</label>
+            </div>
+          </div>
+          <!-- Trạng thái -->
+          <div class="row">
+            <div class="col-md-1 mt-5">
+              <i class="pi pi-exclamation-circle" style="color: #0f62fe;"></i>
+            </div>
+            <div class="col-md-4 mt-5" style="align-content: center;display: grid">
+              <label class="asset-detail-label">Trạng thái</label>
+            </div>
+            <div class="col-md-7 mt-5">
+              <label class="asset-detail-info">: {{taiSanDetail.hienTrangTaiSanString}}</label>
+            </div>
+          </div>
+          <!-- Người sử dụng -->
+          <div class="row">
+            <div class="col-md-1 mt-5">
+              <i class="pi pi-user" style="color: #0f62fe;"></i>
+            </div>
+            <div class="col-md-11 mt-5" style="align-content: center;display: grid">
+              <label class="asset-detail-label">Người sử dụng</label>
+            </div>
+          </div>
+          <!-- Mã nhân viên -->
+          <div class="row">
+            <div class="col-md-1 mt-5">
+              &nbsp;&nbsp;
+            </div>
+            <div class="col-md-4 mt-5">
+              <label class="asset-detail-label">Mã nhân viên</label>
+            </div>
+            <div class="col-md-7 mt-5">
+              <label class="asset-detail-info">: {{taiSanDetail.maNV}}</label>
+            </div>
+          </div>
+          <!-- Họ tên  -->
+          <div class="row">
+            <div class="col-md-1 mt-5">
+              &nbsp;&nbsp;
+            </div>
+            <div class="col-md-4 mt-5">
+              <label class="asset-detail-label">Họ tên</label>
+            </div>
+            <div class="col-md-7 mt-5">
+              <label class="asset-detail-info">: {{taiSanDetail.hoVaTen}}</label>
+            </div>
+          </div>
+          <!-- Vị trí làm việc  -->
+          <div class="row">
+            <div class="col-md-1 mt-5">
+              &nbsp;&nbsp;
+            </div>
+            <div class="col-md-4 mt-5">
+              <label class="asset-detail-label">Vị trí làm việc</label>
+            </div>
+            <div class="col-md-7 mt-5">
+              <label class="asset-detail-info">: {{taiSanDetail.viTriLamViec}}</label>
+            </div>
+          </div>
+
+          <!-- Xem chi tiết -->
+          <div class="row">
+            <div class="col-md-12 mt-5 mb-10" style="text-align: center;">
+              <button type="button" class="btn-detail" (click)="xemChiTietTS()"><span class="btn-create-text">Chi
+                  tiết</span></button>
+
+              <button type="button" class="btn-print" (click)="inQRCode()"><span class="btn-print-text">In mã tài
+                  sản</span></button>
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+    <div *ngIf="!(listAsset.length > 0)" class="col-md-{{leftColNumber}} no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+      <form [formGroup]="searchAssetForm">
+        <div class="box-filter">
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Mã tài sản</span>
+            </div>
+            <div class="col-md-12">
+              <input formControlName="maTaiSanControl" [style]="{'width': '100%'}" type="text" maxlength="500"
+                class="w100" pInputText />
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Tên tài sản</span>
+            </div>
+            <div class="col-md-12">
+              <input formControlName="tenTaiSanControl" [style]="{'width': '100%'}" type="text" maxlength="500"
+                class="w100" pInputText />
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Người sử dụng</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listEmployee" [(ngModel)]="selectedNguoiSD" defaultLabel="Chọn người sử dụng"
+                [ngModelOptions]="{standalone: true}" optionLabel="employeeCodeName" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} người sử dụng được chọn">
+              </p-multiSelect>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Trạng thái</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listHienTrangTS" [(ngModel)]="selectedTrangThai" defaultLabel="Chọn trạng thái"
+                [ngModelOptions]="{standalone: true}" optionLabel="name" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} trạng thái được chọn">
+              </p-multiSelect>
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Loại tài sản</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listLoaiTaiSan" [(ngModel)]="selectedLoaiTS" defaultLabel="Chọn loại tài sản"
+                [ngModelOptions]="{standalone: true}" optionLabel="categoryName" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} tài sản được chọn">
+              </p-multiSelect>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Khu vực</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listKhuVuc" [(ngModel)]="selectedKhuVuc" defaultLabel="Chọn khu vực"
+                [ngModelOptions]="{standalone: true}" optionLabel="provinceName" [style]="{'width': '100%'}"
+                [resetFilterOnHide]="true" selectedItemsLabel="{0} tài sản được chọn">
+              </p-multiSelect>
+            </div>
+          </div>
+
+          <!-- <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Hiển thị báo cáo</span>
+            </div>
+            <div class="col-md-12">
+              <p-dropdown [options]="listLoaiBaoCao" [style]="{'width': '100%'}" formControlName="loaiBaoCaoControl"
+                placeholder="Chọn loại báo cáo" optionLabel="name">
+              </p-dropdown>
+            </div>
+          </div> -->
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <button type="button" class="btn-search" (click)="searchAsset(1)">
+                <span class="btn-search-text">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Báo cáo khấu hao" [(visible)]="displayKhauHao" [modal]="true" [responsive]="true"
+  [contentStyle]="{'overflow': 'unset'}" [style]="{width: '500px', minWidth: '200px'}" [minY]="70" [closable]="true"
+  [baseZIndex]="10000" (onHide)="closeKhauHao()">
+
+  <div class="col-md-12" style="margin-top: 15px">
+    Loại tài sản:<span class="required">*</span>
+  </div>
+  <div class="col-md-12">
+    <p-multiSelect [options]="listLoaiTaiSan" [(ngModel)]="selectedLoaiTSBaoCao" defaultLabel="Chọn loại tài sản"
+      [baseZIndex]="100000" [baseZIndex]="9999" [ngModelOptions]="{standalone: true}" optionLabel="categoryName"
+      [style]="{'width': '100%'}" [resetFilterOnHide]="true" selectedItemsLabel="{0} loại tài sản được chọn">
+    </p-multiSelect>
+  </div>
+
+  <div class="col-md-12" style="margin-top: 15px">
+    <span>Trạng thái:</span><span class="required">*</span>
+  </div>
+  <div class="col-md-12">
+    <p-multiSelect [options]="listHienTrangTS" [(ngModel)]="selectedTrangThaiBaoCao" defaultLabel="Chọn trạng thái"
+      [ngModelOptions]="{standalone: true}" optionLabel="name" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+      [baseZIndex]="9999" selectedItemsLabel="{0} trạng thái được chọn">
+    </p-multiSelect>
+  </div>
+
+  <div class="col-md-12" style="margin-top: 15px;">
+    <span>Thời gian tính khấu hao đến</span>
+  </div>
+  <div class="col-md-12">
+    <p-calendar [(ngModel)]="thoiGianTinhKhauHaoDen" showButtonBar="true" [yearNavigator]="true"
+      yearRange="1990:{{todayDate.getFullYear()}}" [monthNavigator]="true" view="month" dateFormat="mm/yy"
+      (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+      [baseZIndex]="9999" appendTo="body">
+    </p-calendar>
+    <!-- formControlName="ngayTinhKhauHaoDenControl" -->
+  </div>
+
+  <p-footer style="margin-top: 15px;">
+    <button pButton type="button" label="Xác nhận" style="width: 85px;" (click)="xemBaoCao()"></button>
+    <button pButton type="button" label="Hủy" class="ui-button-secondary" style="width: 85px; margin-left: 5px;"
+      (click)="closeKhauHao()"></button>
+  </p-footer>
+</p-dialog>
+
+
+
+<p-dialog header="Nhập file excel" [(visible)]="displayChooseFileImportDialog" [modal]="true" [responsive]="true"
+          [style]="{width: '550px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000" [closable]="true"
+          (onHide)="closeChooseFileImportDialog()">
+  <div class="asset-list" style="border:unset">
+    <div class="col-md-4 mt-25">
+      <span>File mẫu</span>
+    </div>
+    <div class="col-md-8 mt-25" style="margin-bottom:15px;">
+      <button class="choose-file" type="button" (click)="downloadTemplateExcel()">
+        <span class="text-choose-file">Tải file mẫu</span>
+      </button>
+    </div>
+    <div class="col-md-4 mt-25">
+      <span>Chọn file</span>
+    </div>
+    <div class="col-md-8 mt-25" style="margin-bottom: 15px;">
+      <button class="btn btn-primary btn-file import-file">
+        <span class="text-import">Chọn file</span>
+        <input type="file" id="importFileProduct" (click)="onClickImportBtn($event)" (change)="chooseFile($event)"
+               accept=".xlsx, .xls">
+      </button>
+      <div>{{fileName}}</div>
+    </div>
+    <p-footer>
+      <button class="btn-create" type="button" #save (click)="importExcel()">
+        <span class="btn-create-text">Nhập</span>
+      </button>
+    </p-footer>
+  </div>
+
+</p-dialog>

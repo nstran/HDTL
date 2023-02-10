@@ -1,0 +1,187 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="emp-ns">
+  <form class="form-horizontal" [formGroup]="thongTinNhanSuForm">
+    <div class="row mt-10">
+      <div class="col-md-12 list-btn-edit" style="text-align: right;">
+        <i *ngIf="!isEdit && isShowButtonSua" class="pi pi-pencil icons" (click)="enabledForm()"></i>
+        <i *ngIf="isEdit" class="pi pi-check icons icons-check" (click)="saveForm()"></i>
+        <i *ngIf="isEdit" class="pi pi-times icons icons-times" (click)="disabledForm()"></i>
+      </div>
+    </div>
+    <p class="title-tab">Thông tin nhân sự</p>
+    <div class="row">
+      <div class="col-md-3 form-group">
+        <label>Code máy chấm công <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="codeMayChamCong" class="w-100"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.codeMayChamCong.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.codeMayChamCong.errors">{{
+          error['codeMayChamCong'] }}
+        </p>
+      </div>
+      <div class="col-md-3 form-group">
+        <label>Họ tên trên máy chấm công <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="tenMayChamCong" class="w-100"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.tenMayChamCong.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.tenMayChamCong.errors">{{
+          error['tenMayChamCong'] }}
+        </p>
+      </div>
+      <div class="col-md-3 form-group">
+        <label>Sub code 1 <span class="required">*</span>:</label>
+        <p-dropdown [options]="listSubCode1" formControlName="subCode1" optionLabel="name" [style]="{'width': '100%'}"
+          placeholder="Chọn Sub code 1"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.subCode1.errors ? 'error-border': ''">
+        </p-dropdown>
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.subCode1.errors">{{
+          error['subCode1'] }}
+        </p>
+      </div>
+      <div class="col-md-3 form-group">
+        <label>Sub code 2 <span class="required">*</span>:</label>
+        <p-dropdown [options]="listSubCode2" formControlName="subCode2" optionLabel="name" [style]="{'width': '100%'}"
+          placeholder="Chọn Sub code 2"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.subCode2.errors ? 'error-border': ''">
+        </p-dropdown>
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.subCode2.errors">{{
+          error['subCode2'] }}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3 form-group">
+        <label>Dept code <span class="required">*</span>:</label>
+        <p-dropdown [options]="listDeptCode" formControlName="deptCode" optionLabel="name" [style]="{'width': '100%'}"
+          placeholder="Chọn Dept code"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.deptCode.errors ? 'error-border': ''">
+        </p-dropdown>
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.deptCode.errors">{{
+          error['deptCode'] }}
+        </p>
+      </div>
+      <div class="col-md-3 form-group">
+        <label>Cấp bậc:</label>
+        <p-dropdown [options]="listCapBac" formControlName="capBac" [filter]="true" [resetFilterOnHide]="true"
+          optionLabel="categoryName" [showClear]="true" placeholder="Chọn cấp bậc" [style]="{'width': '100%'}">
+        </p-dropdown>
+      </div>
+      <div class="col-md-3 form-group">
+        <label>Mã testing:</label>
+        <input type="text" pInputText formControlName="maTest" class="w-100" />
+      </div>
+      <div class="col-md-3 form-group">
+        <label>Điểm test:</label>
+        <input type="text" pInputText formControlName="diemTest" class="w-100" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <label>Số CMND/Hộ chiếu <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="identityId" class="w-100"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.identityId.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.identityId.errors">{{
+          error['identityId'] }}
+        </p>
+      </div>
+      <div class="col-md-6 form-group">
+        <label>Ngày cấp <span class="required">*</span>:</label>
+        <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2030" dateFormat="dd/mm/yy"
+          [baseZIndex]="9999" formControlName="identityIddateOfIssue" [style]="{'width':'100%'}" showButtonBar="true"
+          [inputStyle]="{'width':'100%'}"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.identityIddateOfIssue.errors ? 'error-border': ''">
+        </p-calendar>
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.identityIddateOfIssue.errors">{{
+          error['identityIddateOfIssue'] }}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <label>Nơi cấp tiếng việt <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="identityIdplaceOfIssue" class="w-100"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.identityIdplaceOfIssue.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.identityIdplaceOfIssue.errors">{{
+          error['identityIdplaceOfIssue'] }}
+        </p>
+      </div>
+      <div class="col-md-6 form-group">
+        <label>Nơi cấp tiếng anh <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="noiCapCmndtiengAnh" class="w-100"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.noiCapCmndtiengAnh.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.noiCapCmndtiengAnh.errors">{{
+          error['noiCapCmndtiengAnh'] }}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <label>Nguyên quán <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="nguyenQuan" class="w-100"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.nguyenQuan.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.nguyenQuan.errors">{{
+          error['nguyenQuan'] }}
+        </p>
+      </div>
+      <div class="col-md-6 form-group">
+        <label>Nơi sinh <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="noiSinh" class="w-100"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.noiSinh.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.noiSinh.errors">{{
+          error['noiSinh'] }}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <label>Hộ khẩu thường trú <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="hoKhauThuongTruTv" class="w-100"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.hoKhauThuongTruTv.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.hoKhauThuongTruTv.errors">{{
+          error['hoKhauThuongTruTv'] }}
+        </p>
+      </div>
+      <div class="col-md-6 form-group">
+        <label>Hộ khẩu thường trú tiếng anh <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="hoKhauThuongTruTa" class="w-100"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.hoKhauThuongTruTa.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.hoKhauThuongTruTa.errors">{{
+          error['hoKhauThuongTruTa'] }}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 form-group">
+        <label>Nơi ở hiện tại <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="address" class="w-100"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.address.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.address.errors">{{
+          error['address'] }}
+        </p>
+      </div>
+      <div class="col-md-6 form-group">
+        <label>Nơi ở hiện tại - tiếng anh <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="addressTiengAnh" class="w-100"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.addressTiengAnh.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.addressTiengAnh.errors">{{
+          error['addressTiengAnh'] }}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 form-group">
+        <label>Địa điểm làm việc <span class="required">*</span>:</label>
+        <p-dropdown [options]="listProvince" formControlName="provinceId" optionLabel="provinceName"
+          [style]="{'width': '100%'}" placeholder="Chọn Địa điểm làm việc"
+          [ngClass]="submitted && thongTinNhanSuForm.controls.provinceId.errors ? 'error-border': ''">
+        </p-dropdown>
+        <p class="required" *ngIf="submitted && thongTinNhanSuForm.controls.provinceId.errors">{{
+          error['provinceId'] }}
+        </p>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,787 @@
+.list-task {
+  width              : 100%;
+  box-shadow         : 0 1px 2px 0 rgba(18, 22, 25, 0.08);
+  /* border          : solid 1px #c1c7cd; */
+  /* background-color: #ffffff; */
+}
+
+.content {
+  padding: 30px;
+}
+
+.list-task .box-header {
+  width              : 100%;
+  border             : solid 1px #c1c7cd;
+  background-color   : #ffffff;
+  border-radius      : 4px;
+  /* background-image: linear-gradient(to top, #f2f4f8, #dde1e6); */
+}
+
+.list-task .project-infor {
+  width           : 100%;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+  border-radius   : 4px;
+  margin-top      : 15px;
+  margin-left     : 0;
+  margin-right    : 0;
+}
+
+.list-task .box-content {
+  width           : 100%;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+  border-radius   : 4px;
+}
+
+.list-task .cancel {
+  /* width: 64px; */
+  min-width       : 90px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left     : 10px;
+  float           : right;
+}
+
+.list-task .text-title {
+  width         : 152px;
+  height        : 17px;
+  font-family   : 'Inter UI';
+  font-size     : 16px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.25;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #121619;
+}
+
+.list-task .ios-print {
+  width     : 17.5px;
+  height    : 17.5px;
+  object-fit: contain;
+  float     : right;
+  cursor    : pointer;
+}
+
+::ng-deep .list-task .ui-splitbutton .ui-button-text-only {
+  display: none;
+}
+
+::ng-deep .list-task .ui-buttonset.ui-button-secondary>.ui-button.ui-state-default {
+  border-radius   : 50% !important;
+  height          : 35px !important;
+  width           : 35px !important;
+  background-color: #d7dbe0;
+}
+
+.list-task .btn-create {
+  float           : right;
+  width           : 98px;
+  margin-left     : 10px;
+  height          : 31px;
+  border-radius   : 4px;
+  border          : 1px solid #cccccc;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+
+.list-task .btn-create-text {
+  width         : 50px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+
+.list-task .box-header-group {
+  margin-top: 10px;
+}
+
+.list-task .box-header-icon {
+  border-radius   : 50%;
+  width           : 40px;
+  height          : 40px;
+  background-color: #0f62fe;
+  text-align      : center;
+}
+
+.list-task .Money-2 {
+  width     : 20.4px;
+  height    : 18.5px;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.list-task .box-header-title {
+  width         : 220px;
+  height        : 24px;
+  font-family   : 'Inter UI';
+  font-size     : 18px;
+  font-weight   : 600;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #121619;
+}
+
+.list-task .box-header-title-2 {
+  height        : 24px;
+  font-family   : 'Inter UI';
+  font-size     : 17px;
+  font-weight   : 600;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #121619;
+}
+
+.list-task .box-header-subtitle {
+  font-family   : 'Inter UI';
+  font-size     : 11px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.36;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #4d5358;
+}
+
+.list-task .box-header-group-btn {
+  text-align : right;
+  padding-top: 5px;
+}
+
+.list-task .btn-refresh {
+  width           : 32px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.list-task .ios-refresh {
+  width     : 12px;
+  height    : 14px;
+  object-fit: contain;
+}
+
+.list-task .btn-filter {
+  width           : 104px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #007aff;
+  background-color: #007aff;
+  margin-left     : 5px;
+}
+
+.list-task .ios-funnel {
+  width       : 12.3px;
+  height      : 11.3px;
+  object-fit  : contain;
+  margin-right: 5px;
+}
+
+.list-task .btn-filter-text {
+  width         : 36px;
+  height        : 13px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #ffffff;
+}
+
+.list-task .iput-text {
+  width           : 248px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding-left    : 5px;
+  margin-left     : 5px;
+}
+
+.list-task .box-filter {
+  border          : solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding         : 10px 0px;
+}
+
+.list-task .quote-code-text {
+  width           : 100%;
+  height          : 32px;
+  font-family     : 'Inter UI';
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+  padding-left    : 5px;
+}
+
+.list-task .quote-code-text:focus {
+  border-color: #007ad9;
+  outline     : 0 none;
+}
+
+.list-task .mt-5 {
+  margin-top: 5px;
+}
+
+.list-task .mt-10 {
+  margin-top: 10px;
+}
+
+.list-task .mt-7 {
+  margin-top: 7px;
+}
+
+.list-task .btn-search {
+  width           : 72px;
+  height          : 32px;
+  border          : solid 1px #cccccc;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+
+.list-task .btn-search:focus {
+  border-color: #007ad9;
+  outline     : 0 none;
+}
+
+.list-task .btn-search-text {
+  width         : 36px;
+  height        : 13px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #ffffff;
+}
+
+/* Config rows Per Page Options */
+
+::ng-deep .list-task .ui-inputtext {
+  padding: 0.3em;
+}
+
+.list-task .link {
+  font-family: 'Inter UI';
+  color      : #007ad9;
+  cursor     : pointer;
+  font-size  : 13px;
+}
+
+.list-task .no-data {
+  height          : 330px;
+  border          : solid 1px #d7dbe0;
+  background-color: #f2f4f8;
+  text-align      : center;
+}
+
+.list-task .box-no-data {
+  position: relative;
+  top     : 25%;
+}
+
+.list-task .box-icon {
+  width     : 57.1px;
+  height    : 58px;
+  object-fit: contain;
+}
+
+.list-task .sp-button-right {
+  float: right;
+}
+
+.list-task .project-name {
+  width         : 119px;
+  height        : 20px;
+  font-family   : 'Inter UI';
+  font-size     : 16px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 2.25;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #121619;
+}
+
+.list-task .infor-label {
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #121619;
+}
+
+.list-task .infor-value {
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : 600;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #121619;
+  padding-left  : 0px !important;
+  padding-right : 0px !important;
+}
+
+.borderless td,
+.borderless th {
+  border: none !important;
+}
+
+::ng-deep .list-task .ui-progressbar .ui-progressbar-value {
+  background: #56b40b;
+}
+
+.list-task ul.slds-path__nav {
+  display       : flex;
+  align-items   : flex-start;
+  /* overflow   : hidden; */
+  list-style    : none;
+  border        : 0;
+  padding-bottom: 20px;
+}
+
+.list-task ul.slds-path__nav li a:hover,
+.list-task ul.slds-path__nav li.active a {
+  background      : unset;
+  background-color: unset;
+  border          : 0;
+}
+
+.list-task .slds-path__item {
+  position    : relative;
+  flex        : 1;
+  margin-left : .375rem;
+  margin-right: .4375rem;
+  min-width   : 5rem;
+  text-align  : center;
+}
+
+.list-task .slds-path__item:first-child {
+  border-right             : 0;
+  margin-left              : 0;
+  border-top-left-radius   : var(--lwc-heightSalesPath, 2rem);
+  border-bottom-left-radius: var(--lwc-heightSalesPath, 2rem);
+  padding-left             : .625rem;
+  background               : #eaeaea;
+}
+
+.list-task .slds-path__item:last-child {
+  border-top-right-radius   : var(--lwc-heightSalesPath, 2rem);
+  border-bottom-right-radius: var(--lwc-heightSalesPath, 2rem);
+  padding-right             : .625rem;
+}
+
+.list-task .slds-path__item:first-child:before,
+.list-task .slds-path__item:first-child:after {
+  left: 1.525rem;
+}
+
+.list-task .slds-path__item:last-child:before,
+.list-task .slds-path__item:last-child:after {
+  right: .625rem;
+}
+
+.list-task .slds-path__title,
+.list-task .slds-path__stage {
+  display                    : block;
+  transition                 : transform .2s linear;
+  -webkit-backface-visibility: hidden;
+  backface-visibility        : hidden;
+}
+
+.list-task .slds-path__stage {
+  position : absolute;
+  top      : 50%;
+  left     : 50%;
+  transform: translate(-50%, -50%) rotateX(-180deg);
+}
+
+.list-task .slds-path__nav .slds-is-complete,
+.list-task .slds-path__nav .slds-is-complete:before,
+.list-task .slds-path__nav .slds-is-complete:after {
+  background: var(--lwc-colorBackgroundPathComplete, rgb(75, 202, 129));
+}
+
+.list-task .slds-path__nav .slds-is-complete .slds-path__stage {
+  transform: translate(-50%, -50%) rotateX(0deg);
+}
+
+.list-task .slds-path__nav .slds-is-complete .slds-path__title {
+  transform: rotateX(180deg);
+}
+
+.list-task .slds-path__nav .slds-is-complete .slds-path__link,
+::ng-deep .list-task .slds-path__nav .slds-is-complete p-dropdown .ui-dropdown,
+::ng-deep .list-task .slds-path__nav .slds-is-complete p-dropdown .ui-dropdown .ui-dropdown-label,
+::ng-deep.list-task .slds-path__nav .slds-is-complete p-dropdown .ui-dropdown .ui-dropdown-trigger {
+  color: var(--lwc-colorTextInverse, rgb(255, 255, 255));
+}
+
+.list-task .slds-path__nav .slds-is-complete:hover .slds-path__stage {
+  transform: translate(-50%, -50%) rotateX(-180deg);
+}
+
+.list-task .slds-path__nav .slds-is-complete:hover .slds-path__title {
+  transform: rotateX(0deg);
+}
+
+.list-task .slds-path__nav .slds-is-complete:hover,
+.list-task .slds-path__nav .slds-is-complete:hover:before,
+.list-task .slds-path__nav .slds-is-complete:hover:after {
+  background: var(--lwc-colorBackgroundPathCompleteHover, rgb(4, 132, 75));
+}
+
+.list-task .slds-path__nav .slds-is-incomplete:before,
+.list-task .slds-path__nav .slds-is-incomplete:after {
+  background: var(--lwc-colorBackgroundPathIncomplete, rgb(236, 235, 234));
+}
+
+.list-task .slds-path__nav .slds-is-incomplete:not(.slds-is-current):hover:before,
+.list-task .slds-path__nav .slds-is-incomplete:not(.slds-is-current):hover:after {
+  background: var(--lwc-colorBackgroundPathIncompleteHover, rgb(221, 219, 218));
+}
+
+.list-task .slds-path__nav .slds-is-current {
+  background-color: var(--lwc-colorBackgroundPathCurrent, rgb(255, 255, 255));
+}
+
+.list-task .slds-path__nav .slds-is-current:before,
+.list-task .slds-path__nav .slds-is-current:after {
+  background-color : var(--lwc-colorBackgroundPathCurrent, rgb(255, 255, 255));
+  background-image : linear-gradient(90deg, var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)), var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)) 0.125rem, transparent 0.125rem), linear-gradient(90deg, var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)), var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)) 0.125rem, transparent 0.125rem), linear-gradient(var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)), var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)) 0.125rem, transparent 0.125rem);
+  background-repeat: no-repeat;
+  background-size  : .125rem 100%, .125rem 100%, 100% .125rem;
+}
+
+.list-task .slds-path__nav .slds-is-current:before {
+  background-position: top right, top left, top left;
+}
+
+.list-task .slds-path__nav .slds-is-current:after {
+  background-position: top right, top left, bottom left;
+}
+
+.list-task .slds-path__nav .slds-is-current:hover:before,
+.list-task .slds-path__nav .slds-is-current:hover:after {
+  background-image: linear-gradient(90deg, var(--lwc-colorBorderPathCurrentHover, rgb(0, 57, 107)), var(--lwc-colorBorderPathCurrentHover, rgb(0, 57, 107)) 0.125rem, transparent 0.125rem), linear-gradient(90deg, var(--lwc-colorBorderPathCurrentHover, rgb(0, 57, 107)), var(--lwc-colorBorderPathCurrentHover, rgb(0, 57, 107)) 0.125rem, transparent 0.125rem), linear-gradient(var(--lwc-colorBorderPathCurrentHover, rgb(0, 57, 107)), var(--lwc-colorBorderPathCurrentHover, rgb(0, 57, 107)) 0.125rem, transparent 0.125rem);
+}
+
+.list-task .slds-path__nav .slds-is-current:hover a,
+.list-task .slds-path__nav .slds-is-current:hover a {
+  color: #00396b;
+}
+
+.list-task .slds-path__nav .slds-is-current:first-child {
+  border      : 2px solid var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178));
+  border-right: 0;
+}
+
+.list-task .slds-path__nav .slds-is-current:first-child:before {
+  background-color: transparent;
+  background-image: linear-gradient(90deg, var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)), var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)) 0.125rem, transparent 0.125rem);
+  top             : -.125rem;
+  left            : 1.125rem;
+}
+
+.list-task .slds-path__nav .slds-is-current:first-child:after {
+  left            : 1.125rem;
+  background-color: transparent;
+  background-image: linear-gradient(90deg, var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)), var(--lwc-colorBorderPathCurrent, rgb(0, 95, 178)) 0.125rem, transparent 0.125rem);
+  bottom          : -.125rem;
+}
+
+.list-task .slds-path__nav .slds-is-current:first-child a {
+  height: 2.35rem;
+}
+
+.list-task .width-status {
+  width: 40%;
+}
+
+::ng-deep .list-task .slds-path__item p-dropdown .ui-dropdown,
+::ng-deep .list-task .slds-path__item p-dropdown .ui-dropdown .ui-dropdown-label,
+::ng-deep .list-task .slds-path__item p-dropdown .ui-dropdown .ui-dropdown-trigger {
+  background: unset;
+  border    : 0;
+  color     : #121619;
+}
+
+.list-task .slds-path__nav .slds-is-incomplete.slds-is-current:not(.active) .slds-path__title,
+::ng-deep .list-task .slds-path__item.slds-is-current p-dropdown .ui-dropdown,
+::ng-deep .list-task .slds-path__item.slds-is-current p-dropdown .ui-dropdown .ui-dropdown-label,
+::ng-deep .list-task .slds-path__item.slds-is-current p-dropdown .ui-dropdown .ui-dropdown-trigger {
+  color: #005fb2;
+}
+
+::ng-deep .list-task .slds-is-current.active p-dropdown .ui-dropdown,
+::ng-deep .list-task .slds-is-current.active p-dropdown .ui-dropdown .ui-dropdown-label,
+::ng-deep .list-task .slds-is-current.active p-dropdown .ui-dropdown .ui-dropdown-trigger {
+  color: #ffffff;
+}
+
+::ng-deep .list-task .slds-path__item p-dropdown .ui-dropdown.ui-state-focus {
+  outline   : 0;
+  box-shadow: unset;
+  border    : 0;
+}
+
+.list-task .slds-path__nav .slds-is-incomplete.active:first-child,
+.list-task .slds-path__nav .slds-is-complete.active,
+.list-task .slds-path__nav .slds-path__item.active:before,
+.list-task .slds-path__nav .slds-path__item.active:after {
+  background: var(--lwc-colorBackgroundPathActive, rgb(0, 95, 178));
+}
+
+.list-task .slds-path__nav .slds-path__item.active .slds-path__link,
+::ng-deep .list-task .slds-path__item.active p-dropdown .ui-dropdown,
+::ng-deep .list-task .slds-path__item.active p-dropdown .ui-dropdown .ui-dropdown-label,
+::ng-deep .list-task .slds-path__item.active p-dropdown .ui-dropdown .ui-dropdown-trigger {
+  color: var(--lwc-colorTextInverse, rgb(255, 255, 255));
+}
+
+.list-task .slds-path__nav .slds-path__item.active:first-child:hover,
+.list-task .slds-path__nav .slds-is-complete.active:hover,
+.list-task .slds-path__nav .slds-path__item.active:hover:before,
+.list-task .slds-path__nav .slds-path__item.active:hover:after {
+  background: var(--lwc-colorBackgroundPathActiveHover, rgb(0, 57, 107));
+}
+
+.list-task .slds-is-complete.active .slds-path__stage {
+  display: none;
+}
+
+.list-task .slds-path__nav .slds-is-complete.active .slds-path__title,
+.list-task .slds-path__nav .slds-is-complete.active:hover .slds-path__title {
+  transform: unset;
+}
+
+.list-task .slds-path__item:before {
+  top      : 0;
+  height   : 1.3rem;
+  transform: skew(30deg) translate3d(0, 0, 0);
+}
+
+.list-task .slds-path__item:before,
+.list-task .slds-path__item:after {
+  content : '';
+  position: absolute;
+  left    : -.25rem;
+  right   : -.3125rem;
+  cursor  : pointer;
+}
+
+.list-task .slds-path__link,
+.list-task .slds-path__item p-dropdown {
+  position       : relative;
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+  height         : 2.6rem;
+  padding        : var(--lwc-spacingXSmall, 0.5rem) var(--lwc-spacingXxSmall, 0.25rem) var(--lwc-spacingXSmall, 0.5rem) var(--lwc-spacingXSmall, 0.5rem);
+  text-decoration: none;
+  z-index        : 5;
+  cursor         : pointer;
+  color          : #121619;
+}
+
+.list-task .slds-path__item p-dropdown {
+  z-index: 100 !important;
+}
+
+.list-task .slds-path__item:after {
+  bottom   : 0;
+  height   : 1.3rem;
+  transform: skew(-30deg) translate3d(0, 0, 0);
+}
+
+/* ::ng-deep .list-task .ui-datepicker {
+  top: 28px !important;
+} */
+
+::ng-deep .list-task .ui-selectbutton .ui-button {
+  background-color: white;
+  height          : 38px;
+  width           : 145px;
+}
+
+::ng-deep .list-task .ui-button.ui-button-text-only .ui-button-text {
+  padding: 0.72em 1em
+}
+
+/* Máy để bàn */
+
+/*Begin: Customize Accordion */
+
+::ng-deep .list-task .ui-accordion .ui-accordion-header a {
+  border          : 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+  font-size       : 16px;
+}
+
+::ng-deep .list-task .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background-color: #ffffff !important;
+  border          : 1px solid #ffffff !important;
+  color           : #121619 !important;
+}
+
+::ng-deep .list-task .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .list-task .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .list-task .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  color: #121619 !important;
+}
+
+::ng-deep .list-task .ui-accordion .ui-accordion-content {
+  border          : 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/*End: Customize Accordion */
+
+@media only screen and (min-width: 1025px) and (max-width: 1423px) {
+  .list-task .width-status {
+    width: 60%;
+  }
+}
+
+/* Ipad Pro */
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .list-task .box-header-icon {
+    width : 27px;
+    height: 27px;
+  }
+
+  .list-task .Money-2 {
+    width     : 15.4px;
+    height    : 11.5px;
+    margin-top: 7px;
+  }
+
+  .list-task .iput-text {
+    margin-top: 5px;
+  }
+
+  .list-task .width-status {
+    width: 100%;
+  }
+}
+
+/* Ipad */
+
+@media only screen and (min-width: 415px) and (max-width: 768px) {
+  .list-task .btn-create {
+    margin-top: 5px;
+  }
+
+  .list-task .width-status {
+    width: 100%;
+  }
+}
+
+/* Iphone 6/7/8 Plus */
+
+@media only screen and (min-width: 376px) and (max-width: 414px) {
+  .list-task .iput-text {
+    margin-top: 5px;
+  }
+
+  .list-task .btn-filter {
+    width: auto;
+  }
+
+  .list-task .width-status {
+    width: 100%;
+  }
+}
+
+/* Iphone 6/7/8/X */
+
+@media only screen and (max-width: 375px) {
+  .list-task .iput-text {
+    margin-top: 5px;
+  }
+
+  .list-task .btn-filter {
+    width: auto;
+  }
+
+  .list-task .iput-text {
+    width: 210px;
+  }
+
+  .list-task span.ui-column-title {
+    width: 150px;
+  }
+
+  .list-task .width-status {
+    width: 100%;
+  }
+}
+
+/*Begin: Customize dropdown */
+
+::ng-deep .list-task .header-title .ui-dropdown {
+  background : #ffffff;
+  /* border  : 1px solid #a6a6a6; */
+  border     : none;
+  margin-left: 5px;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-label {
+  padding-right: 2em;
+  font-size    : 16px !important;
+  font-weight  : bold;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-panel {
+  width: max-content !important;
+}
+
+::ng-deep .header-title .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
+  outline       : 0 none;
+  outline-offset: 0;
+  /* box-shadow : 0 0 0 0.2em #8dcdff; */
+  border-color  : #007ad9;
+}
+
+/*End: Customize dropdown */

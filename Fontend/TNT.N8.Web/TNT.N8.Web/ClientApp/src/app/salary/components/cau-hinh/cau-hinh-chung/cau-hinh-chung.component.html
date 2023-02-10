@@ -1,0 +1,564 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<p-toast position="bottom-right"></p-toast>
+
+<div class="ch-chung">
+  <div class="row header-page no-margin">
+    <div class="col-md-12 no-padding header-box-icon">
+      <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+      <span class="page-title">Cấu hình chung</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <p-tabView [(activeIndex)]="tabIndex">
+        <p-tabPanel header="Trợ cấp">
+          <div class="row">
+            <div class="col-md-12 mt-35 header-section">
+              <span class="title-section">Trợ cấp theo ngày công thực tế</span>
+              <button *ngIf="actionAdd" pButton icon="fa fa-plus" class="button-add" (click)="themTroCap(1)"
+                pTooltip="Thêm cấu hình" style="margin-left: 10px !important;">
+              </button>
+            </div>
+            <div *ngIf="listTroCapCoDinh.length" class="col-md-12 mt-10">
+              <p-table [columns]="cols" [value]="listTroCapCoDinh" class="table-border" [paginator]="true" [rows]="5"
+                [rowsPerPageOptions]="[5,10,20]">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns" [ngStyle]="{'text-align': 'center', 'width': col.width}">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                  <tr>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                      [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                      <span *ngSwitchCase="'stt'">
+                        {{rowIndex + 1}}
+                      </span>
+                      <span *ngSwitchCase="'mucTroCap'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'chucVuText'" [innerHtml]="rowData[col.field]">
+                        
+                      </span>
+                      <span *ngSwitchCase="'loaiHopDongText'" [innerHtml]="rowData[col.field]">
+                        
+                      </span>
+                      <span *ngSwitchCase="'dieuKienHuongText'" [innerHtml]="rowData[col.field]">
+                        
+                      </span>
+                      <span *ngSwitchCase="'action'">
+                        <button *ngIf="actionEdit" pButton icon="fa fa-pencil" class="button-edit"
+                          (click)="suaTroCap(1, rowData)">
+                        </button>
+                        <button *ngIf="actionDelete" pButton icon="fa fa-trash" class="button-delete"
+                          (click)="xoaTroCap(1, rowData)">
+                        </button>
+                      </span>
+                      <span *ngSwitchDefault>
+                        {{rowData[col.field]}}
+                      </span>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+            <div *ngIf="!listTroCapCoDinh.length" class="col-md-12 mt-10 no-padding no-data">
+              <div class="box-no-data">
+                <img src="/assets/icons/components/box.svg" class="box-icon">
+                <div>
+                  <span>Hiện tại không có dữ liệu</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mt-35 header-section">
+              <span class="title-section">Trợ cấp theo ngày nghỉ</span>
+              <button *ngIf="troCapNgayNghiForm.disabled && actionAdd && actionEdit" pButton icon="fa fa-pencil"
+                class="button-edit" (click)="suaTroCapNgayNghi()">
+              </button>
+              <button [disabled]="awaitResult" pButton icon="fa fa-check" class="button-save" (click)="saveTroCapNgayNghi()"
+                *ngIf="troCapNgayNghiForm.enabled" pTooltip="Lưu cấu hình">
+              </button>
+              <button [disabled]="awaitResult" pButton icon="fa fa-times" class="button-undo"
+                (click)="huySuaTroCapNgayNghi()" *ngIf="troCapNgayNghiForm.enabled" pTooltip="Hủy sửa cấu hình">
+              </button>
+            </div>
+            <div [formGroup]="troCapNgayNghiForm" class="col-md-12 mt-10">
+              <div class="row no-margin" style="border: solid 1px #ccc; padding: 20px 20px;">
+                <div class="col-md-3">
+                  <label>Loại trợ cấp<span class="required">*</span>:</label>
+                  <p-dropdown [options]="listLoaiTroCapChuyenCanNgayCong" placeholder="Chọn loại" [style]="{'width': '100%'}"
+                    formControlName="loaiTroCapNgayNghiControl" optionLabel="categoryName"
+                    [styleClass]="(loaiTroCapNgayNghiControl.invalid && (loaiTroCapNgayNghiControl.dirty || loaiTroCapNgayNghiControl.touched)) ? 'error-border': ''">
+                  </p-dropdown>
+                </div>
+                <div class="col-md-3">
+                  <label>Mức trợ cấp<span class="required">*</span>:</label>
+                  <input type="text" class="number-input" formControlName="mucTroCapNgayNghiControl"
+                    [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                    [ngClass]="{ 'error-border' : (mucTroCapNgayNghiControl.invalid && (mucTroCapNgayNghiControl.dirty || mucTroCapNgayNghiControl.touched)),
+                    'input-disable': mucTroCapNgayNghiControl.disabled }"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Chức vụ hưởng<span class="required">*</span>:</label>
+                  <p-multiSelect [options]="listPosition" formControlName="chucVuNgayNghiControl"
+                    [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} chức vụ được chọn" 
+                    defaultLabel="Chọn chức vụ" appendTo="body" [baseZIndex]="1031"
+                    optionLabel="positionName" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+                    [styleClass]="(chucVuNgayNghiControl.invalid && (chucVuNgayNghiControl.dirty || chucVuNgayNghiControl.touched)) ? 'error-border': ''"
+                  >
+                  </p-multiSelect>
+                </div>
+                <div class="col-md-3">
+                  <label>Loại hợp đồng hưởng<span class="required">*</span>:</label>
+                  <p-multiSelect [options]="listLoaiHopDong" formControlName="loaiHopDongNgayNghiControl"
+                    [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} loại hợp đồng được chọn" 
+                    defaultLabel="Chọn loại hợp đồng" appendTo="body" [baseZIndex]="1031"
+                    optionLabel="categoryName" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+                    [styleClass]="(loaiHopDongNgayNghiControl.invalid && (loaiHopDongNgayNghiControl.dirty || loaiHopDongNgayNghiControl.touched)) ? 'error-border': ''"
+                  >
+                  </p-multiSelect>
+                </div>
+                <div class="col-md-3 mt-10">
+                  <label>Điều kiện hưởng khác:</label>
+                  <p-multiSelect [options]="listDieuKienHuong" formControlName="dieuKienHuongNgayNghiControl"
+                    [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} điều kiện được chọn" 
+                    defaultLabel="Chọn điều kiện" appendTo="body" [baseZIndex]="1031"
+                    optionLabel="categoryName" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+                  >
+                  </p-multiSelect>
+                </div>
+                <div class="col-md-12 mt-10">
+                  <strong style="font-size: 15px;">Cách tính mức hưởng:</strong>
+                  <button *ngIf="troCapNgayNghiForm.enabled && actionAdd" pButton icon="fa fa-plus" class="button-add" (click)="openAddMucHuongNgayNghi()"
+                    pTooltip="Thêm cấu hình" style="margin-left: 10px !important;">
+                  </button>
+                </div>
+                <div *ngIf="listMucHuongTheoNgayNghi.length" class="col-md-12 mt-10">
+                  <p-table [columns]="colsMucHuongNgayNghi" [value]="listMucHuongTheoNgayNghi" class="table-border" [paginator]="true" [rows]="5"
+                    [rowsPerPageOptions]="[5,10,20]">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th *ngFor="let col of columns" [ngStyle]="{'text-align': 'center', 'width': col.width}">
+                          {{col.header}}
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                      <tr>
+                        <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                          [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                          <span *ngSwitchCase="'stt'">
+                            {{rowIndex + 1}}
+                          </span>
+                          <span *ngSwitchCase="'action'">
+                            <button *ngIf="troCapNgayNghiForm.enabled && actionEdit" pButton icon="fa fa-pencil" class="button-edit"
+                              (click)="suaMucHuongNgayNghi(rowData)">
+                            </button>
+                            <button *ngIf="troCapNgayNghiForm.enabled && actionDelete" pButton icon="fa fa-trash" class="button-delete"
+                              (click)="xoaMucHuongNgayNghi(rowData)">
+                            </button>
+                          </span>
+                          <span *ngSwitchDefault>
+                            {{rowData[col.field]}}
+                          </span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+                <div *ngIf="!listMucHuongTheoNgayNghi.length" class="col-md-12 mt-10 no-padding no-data">
+                  <div class="box-no-data">
+                    <img src="/assets/icons/components/box.svg" class="box-icon">
+                    <div>
+                      <span>Hiện tại không có dữ liệu</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mt-35 header-section">
+              <span class="title-section">Trợ cấp theo số lần đi muộn về sớm</span>
+              <button *ngIf="troCapDmvsForm.disabled && actionAdd && actionEdit" pButton icon="fa fa-pencil"
+                class="button-edit" (click)="suaTroCapDmvs()">
+              </button>
+              <button [disabled]="awaitResult" pButton icon="fa fa-check" class="button-save" (click)="saveTroCapDmvs()"
+                *ngIf="troCapDmvsForm.enabled" pTooltip="Lưu cấu hình">
+              </button>
+              <button [disabled]="awaitResult" pButton icon="fa fa-times" class="button-undo"
+                (click)="huySuaTroCapDmvs()" *ngIf="troCapDmvsForm.enabled" pTooltip="Hủy sửa cấu hình">
+              </button>
+            </div>
+            <div [formGroup]="troCapDmvsForm" class="col-md-12 mt-10">
+              <div class="row no-margin" style="border: solid 1px #ccc; padding: 20px 20px;">
+                <div class="col-md-3">
+                  <label>Loại trợ cấp<span class="required">*</span>:</label>
+                  <p-dropdown [options]="listLoaiTroCapChuyenCanDmvs" placeholder="Chọn loại" [style]="{'width': '100%'}"
+                    formControlName="loaiTroCapDmvsControl" optionLabel="categoryName"
+                    [styleClass]="(loaiTroCapDmvsControl.invalid && (loaiTroCapDmvsControl.dirty || loaiTroCapDmvsControl.touched)) ? 'error-border': ''">
+                  </p-dropdown>
+                </div>
+                <div class="col-md-3">
+                  <label>Mức trợ cấp<span class="required">*</span>:</label>
+                  <input type="text" class="number-input" formControlName="mucTroCapDmvsControl"
+                    [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                    [ngClass]="{ 'error-border' : (mucTroCapDmvsControl.invalid && (mucTroCapDmvsControl.dirty || mucTroCapDmvsControl.touched)),
+                    'input-disable': mucTroCapDmvsControl.disabled }"/>
+                </div>
+                <div class="col-md-3">
+                  <label>Chức vụ hưởng<span class="required">*</span>:</label>
+                  <p-multiSelect [options]="listPosition" formControlName="chucVuDmvsControl"
+                    [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} chức vụ được chọn" 
+                    defaultLabel="Chọn chức vụ" appendTo="body" [baseZIndex]="1031"
+                    optionLabel="positionName" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+                    [styleClass]="(chucVuDmvsControl.invalid && (chucVuDmvsControl.dirty || chucVuDmvsControl.touched)) ? 'error-border': ''"
+                  >
+                  </p-multiSelect>
+                </div>
+                <div class="col-md-3">
+                  <label>Loại hợp đồng hưởng<span class="required">*</span>:</label>
+                  <p-multiSelect [options]="listLoaiHopDong" formControlName="loaiHopDongDmvsControl"
+                    [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} loại hợp đồng được chọn" 
+                    defaultLabel="Chọn loại hợp đồng" appendTo="body" [baseZIndex]="1031"
+                    optionLabel="categoryName" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+                    [styleClass]="(loaiHopDongDmvsControl.invalid && (loaiHopDongDmvsControl.dirty || loaiHopDongDmvsControl.touched)) ? 'error-border': ''"
+                  >
+                  </p-multiSelect>
+                </div>
+                <div class="col-md-3 mt-10">
+                  <label>Điều kiện hưởng khác:</label>
+                  <p-multiSelect [options]="listDieuKienHuong" formControlName="dieuKienHuongDmvsControl"
+                    [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} điều kiện được chọn" 
+                    defaultLabel="Chọn điều kiện" appendTo="body" [baseZIndex]="1031"
+                    optionLabel="categoryName" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+                  >
+                  </p-multiSelect>
+                </div>
+                <div class="col-md-12 mt-10">
+                  <strong style="font-size: 15px;">Cách tính mức hưởng:</strong>
+                  <button *ngIf="troCapDmvsForm.enabled && actionAdd" pButton icon="fa fa-plus" class="button-add" (click)="openAddMucHuongDmvs()"
+                    pTooltip="Thêm cấu hình" style="margin-left: 10px !important;">
+                  </button>
+                </div>
+                <div *ngIf="listMucHuongDmvs.length" class="col-md-12 mt-10">
+                  <p-table [columns]="colsMucHuongDmvs" [value]="listMucHuongDmvs" class="table-border" [paginator]="true" [rows]="5"
+                    [rowsPerPageOptions]="[5,10,20]">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th *ngFor="let col of columns" [ngStyle]="{'text-align': 'center', 'width': col.width}">
+                          {{col.header}}
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                      <tr>
+                        <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                          [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                          <span *ngSwitchCase="'stt'">
+                            {{rowIndex + 1}}
+                          </span>
+                          <span *ngSwitchCase="'mucTru'">
+                            <ng-container *ngIf="rowData.hinhThucTru == 1">
+                              {{convertNumber(rowData[col.field]) | number}}/lần
+                            </ng-container>
+                            <ng-container *ngIf="rowData.hinhThucTru == 2">
+                              {{rowData[col.field]}}%
+                            </ng-container>
+                          </span>
+                          <span *ngSwitchCase="'action'">
+                            <button *ngIf="troCapDmvsForm.enabled && actionEdit" pButton icon="fa fa-pencil" class="button-edit"
+                              (click)="suaMucHuongDmvs(rowData)">
+                            </button>
+                            <button *ngIf="troCapDmvsForm.enabled && actionDelete" pButton icon="fa fa-trash" class="button-delete"
+                              (click)="xoaMucHuongDmvs(rowData)">
+                            </button>
+                          </span>
+                          <span *ngSwitchDefault>
+                            {{rowData[col.field]}}
+                          </span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+                <div *ngIf="!listMucHuongDmvs.length" class="col-md-12 mt-10 no-padding no-data">
+                  <div class="box-no-data">
+                    <img src="/assets/icons/components/box.svg" class="box-icon">
+                    <div>
+                      <span>Hiện tại không có dữ liệu</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mt-35 header-section">
+              <span class="title-section">Trợ cấp khác (Mức hưởng tối đa)</span>
+              <button *ngIf="actionAdd" pButton icon="fa fa-plus" class="button-add" (click)="themTroCap(4)"
+                pTooltip="Thêm cấu hình" style="margin-left: 10px !important;">
+              </button>
+            </div>
+            <div *ngIf="listTroCapKhac.length" class="col-md-12 mt-10">
+              <p-table [columns]="cols" [value]="listTroCapKhac" class="table-border" [paginator]="true" [rows]="5"
+                [rowsPerPageOptions]="[5,10,20]">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns" [ngStyle]="{'text-align': 'center', 'width': col.width}">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                  <tr>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                      [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                      <span *ngSwitchCase="'stt'">
+                        {{rowIndex + 1}}
+                      </span>
+                      <span *ngSwitchCase="'mucTroCap'">
+                        {{rowData[col.field] | number}}
+                      </span>
+                      <span *ngSwitchCase="'chucVuText'" [innerHtml]="rowData[col.field]">
+                        
+                      </span>
+                      <span *ngSwitchCase="'loaiHopDongText'" [innerHtml]="rowData[col.field]">
+                        
+                      </span>
+                      <span *ngSwitchCase="'dieuKienHuongText'" [innerHtml]="rowData[col.field]">
+                        
+                      </span>
+                      <span *ngSwitchCase="'action'">
+                        <button *ngIf="actionEdit" pButton icon="fa fa-pencil" class="button-edit"
+                          (click)="suaTroCap(4, rowData)">
+                        </button>
+                        <button *ngIf="actionDelete" pButton icon="fa fa-trash" class="button-delete"
+                          (click)="xoaTroCap(4, rowData)">
+                        </button>
+                      </span>
+                      <span *ngSwitchDefault>
+                        {{rowData[col.field]}}
+                      </span>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+            <div *ngIf="!listTroCapKhac.length" class="col-md-12 mt-10 no-padding no-data">
+              <div class="box-no-data">
+                <img src="/assets/icons/components/box.svg" class="box-icon">
+                <div>
+                  <span>Hiện tại không có dữ liệu</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12 mt-35">
+              <app-note-time-line [viewNote]="true" [viewTimeline]="true" 
+                objectType="CHTROCAP" [objectNumber]="1" 
+                [actionAdd]="true" [actionEdit]="false" [actionDelete]="false" 
+                [pageSize]="10" [refresh]="refreshNote">
+              </app-note-time-line>
+            </div>
+          </div>
+        </p-tabPanel>
+
+        <p-tabPanel header="Tính lương">
+          <!-- <ng-container *ngIf="tabIndex == 1"> -->
+            <app-luong [actionAdd]="actionAdd" [actionEdit]="actionEdit" [actionDelete]="actionDelete"></app-luong>
+          <!-- </ng-container> -->
+        </p-tabPanel>
+
+        <p-tabPanel header="Đọc dữ liệu chấm công">
+
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+
+  <p-dialog [(visible)]="showTroCapForm" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
+    [resizable]="false" [closable]="false">
+    <p-header></p-header>
+    <div [formGroup]="troCapForm">
+      <div class="row no-margin">
+        <div class="col-md-6 mt-10">
+          <label>Loại trợ cấp<span class="required">*</span>:</label>
+          <ng-container *ngIf="typeId == 1">
+            <p-dropdown [options]="listLoaiTroCapCoDinh" placeholder="Chọn loại" [style]="{'width': '100%'}"
+              formControlName="loaiTroCapControl" optionLabel="categoryName"
+              [styleClass]="(loaiTroCapControl.invalid && (loaiTroCapControl.dirty || loaiTroCapControl.touched)) ? 'error-border': ''">
+            </p-dropdown>
+          </ng-container>
+          <ng-container *ngIf="typeId == 4">
+            <p-dropdown [options]="listLoaiTroCapKhac" placeholder="Chọn loại" [style]="{'width': '100%'}"
+              formControlName="loaiTroCapControl" optionLabel="categoryName"
+              [styleClass]="(loaiTroCapControl.invalid && (loaiTroCapControl.dirty || loaiTroCapControl.touched)) ? 'error-border': ''">
+            </p-dropdown>
+          </ng-container>
+        </div>
+
+        <div class="col-md-6 mt-10">
+          <label>Mức trợ cấp<span class="required">*</span>:</label>
+          <input type="text" class="number-input" formControlName="mucTroCapControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+            [ngClass]="(mucTroCapControl.invalid && (mucTroCapControl.dirty || mucTroCapControl.touched)) ? 'error-border': ''" />
+        </div>
+
+        <div class="col-md-6 mt-10">
+          <label>Chức vụ hưởng<span class="required">*</span>:</label>
+          <p-multiSelect [options]="listPosition" formControlName="chucVuControl"
+            [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} chức vụ được chọn" 
+            defaultLabel="Chọn chức vụ" appendTo="body" [baseZIndex]="1031"
+            optionLabel="positionName" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+            [styleClass]="(chucVuControl.invalid && (chucVuControl.dirty || chucVuControl.touched)) ? 'error-border': ''"
+          >
+          </p-multiSelect>
+        </div>
+
+        <div class="col-md-6 mt-10">
+          <label>Loại hợp đồng hưởng<span class="required">*</span>:</label>
+          <p-multiSelect [options]="listLoaiHopDong" formControlName="loaiHopDongControl"
+            [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} loại hợp đồng được chọn" 
+            defaultLabel="Chọn loại hợp đồng" appendTo="body" [baseZIndex]="1031"
+            optionLabel="categoryName" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+            [styleClass]="(loaiHopDongControl.invalid && (loaiHopDongControl.dirty || loaiHopDongControl.touched)) ? 'error-border': ''"
+          >
+          </p-multiSelect>
+        </div>
+
+        <div class="col-md-12 mt-10">
+          <label>Điều kiện hưởng khác:</label>
+          <p-multiSelect [options]="listDieuKienHuong" formControlName="dieuKienHuongControl"
+            [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} điều kiện được chọn" 
+            defaultLabel="Chọn điều kiện" appendTo="body" [baseZIndex]="1031"
+            optionLabel="categoryName" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+          >
+          </p-multiSelect>
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin: 20px 0px;">
+          <button [disabled]="awaitResult" pButton class="btn btn-green my-2" type="button" label="Lưu"
+            style="padding: 0 25px; background: #169BD5;" (click)="saveTroCap()">
+          </button>
+          <button [disabled]="awaitResult" pButton type="button" label="Đóng" class="btn  ml-2"
+            style="padding: 0 25px; background: white; color: black" (click)="closeTroCap()">
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog [(visible)]="showMucHuongNgayNghi" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
+    [resizable]="false" [closable]="false">
+    <p-header></p-header>
+    <div [formGroup]="mucHuongNgayNghiForm">
+      <div class="row no-margin">
+        <div class="col-md-6 mt-10">
+          <label>Loại ngày nghỉ:</label>
+          <p-dropdown [options]="listLoaiNgayNghi" placeholder="Chọn loại" [style]="{'width': '100%'}"
+            formControlName="loaiNgayNghiControl" optionLabel="name" [showClear]="true"
+            [styleClass]="(loaiNgayNghiControl.invalid && (loaiNgayNghiControl.dirty || loaiNgayNghiControl.touched)) ? 'error-border': ''">
+          </p-dropdown>
+        </div>
+
+        <div class="col-md-6 mt-10">
+          <label>Mức hưởng (%)<span class="required">*</span>:</label>
+          <input type="text" class="number-input" formControlName="mucHuongPhanTramControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}"
+            [ngClass]="(mucHuongPhanTramControl.invalid && (mucHuongPhanTramControl.dirty || mucHuongPhanTramControl.touched)) ? 'error-border': ''" 
+            (change)="changeMucHuongPhanTram()"/>
+        </div>
+
+        <div class="col-md-6 mt-10">
+          <label>Số ngày nghỉ trên<span class="required">*</span>:</label>
+          <input type="text" class="number-input" formControlName="soNgayTuControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '1'}"
+            [ngClass]="(soNgayTuControl.invalid && (soNgayTuControl.dirty || soNgayTuControl.touched)) ? 'error-border': ''" />
+        </div>
+
+        <div class="col-md-6 mt-10">
+          <label>Số ngày nghỉ đến:</label>
+          <input type="text" class="number-input" formControlName="soNgayDenControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '1'}"
+            [ngClass]="(soNgayDenControl.invalid && (soNgayDenControl.dirty || soNgayDenControl.touched)) ? 'error-border': ''" />
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin: 20px 0px;">
+          <button [disabled]="awaitResult" pButton class="btn btn-green my-2" type="button" label="Lưu"
+            style="padding: 0 25px; background: #169BD5;" (click)="addMucHuongNgayNghi()">
+          </button>
+          <button [disabled]="awaitResult" pButton type="button" label="Đóng" class="btn  ml-2"
+            style="padding: 0 25px; background: white; color: black" (click)="closeMucHuongNgayNghi()">
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+
+  <p-dialog [(visible)]="showMucHuongDmvs" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
+    [resizable]="false" [closable]="false">
+    <p-header></p-header>
+    <div [formGroup]="mucHuongDmvsForm">
+      <div class="row no-margin">
+        <div class="col-md-6 mt-10">
+          <label>Hình thức trừ:</label>
+          <p-dropdown [options]="listHinhThucTru" placeholder="Chọn hình thức" [style]="{'width': '100%'}"
+            formControlName="hinhThucTruControl" optionLabel="name"
+            [styleClass]="(hinhThucTruControl.invalid && (hinhThucTruControl.dirty || hinhThucTruControl.touched)) ? 'error-border': ''"
+            (onChange)="checkMucTru()">
+          </p-dropdown>
+        </div>
+
+        <div class="col-md-6 mt-10">
+          <label>Mức trừ<span class="required">*</span>:</label>
+          <input type="text" class="number-input" formControlName="mucTruControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}"
+            [ngClass]="(mucTruControl.invalid && (mucTruControl.dirty || mucTruControl.touched)) ? 'error-border': ''" 
+            (change)="checkMucTru()"/>
+        </div>
+
+        <div class="col-md-6 mt-10">
+          <label>Số lần đi muộn về sớm trên<span class="required">*</span>:</label>
+          <input type="text" class="number-input" formControlName="soLanTuControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+            [ngClass]="(soLanTuControl.invalid && (soLanTuControl.dirty || soLanTuControl.touched)) ? 'error-border': ''" />
+        </div>
+
+        <div class="col-md-6 mt-10">
+          <label>Số lần đi muộn về sớm đến:</label>
+          <input type="text" class="number-input" formControlName="soLanDenControl"
+            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+            [ngClass]="(soLanDenControl.invalid && (soLanDenControl.dirty || soLanDenControl.touched)) ? 'error-border': ''" />
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin: 20px 0px;">
+          <button [disabled]="awaitResult" pButton class="btn btn-green my-2" type="button" label="Lưu"
+            style="padding: 0 25px; background: #169BD5;" (click)="addMucHuongDmvs()">
+          </button>
+          <button [disabled]="awaitResult" pButton type="button" label="Đóng" class="btn  ml-2"
+            style="padding: 0 25px; background: white; color: black" (click)="closeMucHuongDmvs()">
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>

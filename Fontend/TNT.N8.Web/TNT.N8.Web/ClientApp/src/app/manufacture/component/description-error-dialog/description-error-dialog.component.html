@@ -1,0 +1,115 @@
+<!-- Message Response... -->
+<p-toast position="bottom-right" key="popup"></p-toast>
+
+<div class="description-error-dialog">
+  <div class="row no-margin">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-6">
+          <p-radioButton name="groupname" value="a" [(ngModel)]="isError" label="Lỗi"></p-radioButton>
+        </div>
+        <div class="col-md-6">
+          <p-radioButton name="groupname" value="b" [(ngModel)]="isError" label="Nhầm"></p-radioButton>
+        </div>
+      </div>
+
+      <form [formGroup]="descriptionErrorForm">
+      <div *ngIf="isError == 'a'" class="row">
+        <div class="col-md-6">
+          <div class="row" style="margin-top: 10px;">
+            <div *ngIf="showError" class="col-md-6">
+              <p-radioButton name="groupnamea" value="bb" (onClick)="changeType()" [(ngModel)]="isErrorPre" [ngModelOptions]="{standalone: true}" 
+                label="Tấm quy trình này"></p-radioButton>
+            </div>
+            <div *ngIf="showIsErrorPre" class="col-md-6">
+              <p-radioButton name="groupnamea" value="aa" (onClick)="changeType()" [(ngModel)]="isErrorPre" [ngModelOptions]="{standalone: true}" 
+                label="Tấm quy trình trước"></p-radioButton>
+            </div>
+            <div *ngIf="showIsErrorPrePart" class="col-md-6">
+              <p-radioButton name="groupnamea" value="cc" (onClick)="changeType()" [(ngModel)]="isErrorPre" [ngModelOptions]="{standalone: true}" 
+                label="Bán thành phẩm"></p-radioButton>
+            </div>
+          </div>
+
+          <!-- <div *ngIf="isErrorPre == 'aa'" class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+              <span>Số tấm hỏng</span>
+            </div>
+            <div class="col-md-12">
+              <input type="text" class="number-input" formControlName="quantityUnitErrControl"
+                [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                (change)="changeQuantityUnitErr()">
+            </div>
+          </div> -->
+
+          <div *ngIf="isErrorPre == 'cc'" class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+              <span>Chọn bán thành phẩm</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="listProductionOrderMapping"
+                defaultLabel="Chọn bán thành phẩm"
+                optionLabel="productName"
+                formControlName="childrentControl"
+                [styleClass]="(childrentControl.invalid && (childrentControl.dirty || childrentControl.touched)) ? 'error-border' : ''"
+                [style]="{'width': '100%'}"
+                resetFilterOnHide="true"
+                (onChange)="choosePartItem()"
+              >
+              </p-multiSelect>
+            </div>
+            <div class="col-md-12" [hidden]="childrentControl.valid || childrentControl.untouched">
+              <span *ngIf="childrentControl.hasError('required')" style="color: red">Không được để trống</span>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+              <span>Chủng loại: <b>{{productName}}</b></span>
+            </div>
+
+            <div class="col-md-12" style="margin-top: 10px;">
+              <span>Chiều dài: <b>{{productLength}}</b></span>
+            </div>
+
+            <div class="col-md-12" style="margin-top: 10px;">
+              <span>Chiều rộng: <b>{{productWidth}}</b></span>
+            </div>
+
+            <div class="col-md-12" style="margin-top: 10px;">
+              <span>Độ dày: <b>{{productThickness}}</b></span>
+            </div>
+          </div>
+
+          <div class="row" style="margin-top: 10px;">
+            <div class="col-md-12">
+              <span>Mô tả</span>
+            </div>
+            <div class="col-md-12">
+              <textarea rows="5" cols="30" formControlName="descriptionControl" pInputTextarea class="w100"
+                [ngClass]="(descriptionControl.invalid && (descriptionControl.dirty || descriptionControl.touched)) ? 'error-border' : ''">
+              </textarea>
+            </div>
+            <div class="col-md-12" [hidden]="descriptionControl.valid || descriptionControl.untouched">
+              <span
+                *ngIf="descriptionControl.hasError('required') || descriptionControl?.errors?.forbiddenSpaceText"
+                class="error-message-span">Không được để trống</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" [ngClass]="isError == 'a' ? 'min-heig-70' : 'min-heig-200'">
+        <div class="col-md-12" style="text-align: right; margin-top: 20px; position: absolute; bottom: 0;">
+          <button class="cancel" type="button" (click)="cancel()">
+            <span class="text-cancel">Hủy</span>
+          </button>
+          <button class="save" type="button" (click)="save()">
+            <span class="text-save">Lưu</span>
+          </button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,358 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+<div class="add-project-resource">
+
+  <!-- THÊM NGUỒN LỤC NỘI BỘ -->
+  <form [formGroup]="createProjectResourceInternalForm" *ngIf="isInternal">
+    <div class="row top-buffer bottom-buffer">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Loại nguồn lực<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown [options]="listResourceType" optionLabel="categoryName" [autoDisplayFirst]="false"
+                  (onChange)="changeResourceType($event)" formControlName="resourceTypeControl" [showClear]="true"
+                  [resetFilterOnHide]="true" [filter]="true" placeholder="Chọn loại nguồn" [style]="{'width': '100%'}"
+                  [styleClass]="(resourceTypeControl.invalid && (resourceTypeControl.dirty || resourceTypeControl.touched)) ? 'error-border' : ''">
+                </p-dropdown>
+
+              </div>
+              <div class="col-md-12" [hidden]="resourceTypeControl.valid || resourceTypeControl.untouched">
+                <span *ngIf="resourceTypeControl.hasError('required')" class="error-message-span">Chưa chọn loại nguồn
+                  lực</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Tên nguồn lực<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown [options]="listEmployee" optionLabel="employeeCodeName" [autoDisplayFirst]="false"
+                  formControlName="resourceNameControl" [showClear]="true" [resetFilterOnHide]="true"
+                  placeholder="Chọn nguồn lực" [style]="{'width': '100%'}" [filter]="true"
+                  [styleClass]="(resourceNameControl.invalid && (resourceNameControl.dirty || resourceNameControl.touched)) ? 'error-border' : ''">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12" [hidden]="resourceNameControl.valid || resourceNameControl.untouched">
+                <span *ngIf="resourceNameControl.hasError('required')" class="error-message-span">Chưa chọn tên nguồn
+                  lực</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Vai trò
+              </div>
+              <div class="col-md-12">
+                <p-dropdown [options]="listResourceRole" optionLabel="categoryName" [autoDisplayFirst]="false"
+                  formControlName="roleControl" [showClear]="true" [resetFilterOnHide]="true" placeholder="Chọn vai trò"
+                  [filter]="true" [style]="{'width': '100%'}">
+                </p-dropdown>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row buffer-bottom">
+      <div class="col-md-12 buffer-bottom-label">
+        <span style="font-weight: 700; color: #121619;">
+          Thời gian dự
+          kiến
+        </span>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-6 in_country" style="padding-right: unset !important; padding-left: unset !important;">
+            <div class="col-md-12 buffer-bottom-label">
+              Ngày bắt đầu<span class="required">*</span>
+            </div>
+            <div class="col-md-12">
+              <p-calendar formControlName="projectStartTimeInternalControl"
+                [styleClass]="(projectStartTimeInternalControl.invalid && (projectStartTimeInternalControl.dirty || projectStartTimeInternalControl.touched)) ? 'error-border' : ''"
+                [minDate]="minDate"
+                [maxDate]="projectEndTimeInternalControl.value != null ? projectEndTimeInternalControl.value : maxDate"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%', 'top': '0px !important'}" showButtonBar="true"
+                [inputStyle]="{'width':'100%'}">
+              </p-calendar>
+            </div>
+            <div class="col-md-12"
+              [hidden]="projectStartTimeInternalControl.valid || projectStartTimeInternalControl.untouched">
+              <span *ngIf="projectStartTimeInternalControl.hasError('required')" class="error-message-span">Chưa chọn
+                ngày bắt đầu</span>
+            </div>
+          </div>
+          <div class="col-md-6 in_country" style="padding-right: unset !important; padding-left: unset !important;">
+            <div class="col-md-12 buffer-bottom-label">
+              Ngày Kết thúc<span class="required">*</span>
+            </div>
+            <div class="col-md-12">
+              <p-calendar formControlName="projectEndTimeInternalControl" [maxDate]="maxDate"
+                [minDate]="projectStartTimeInternalControl.value != null ? projectStartTimeInternalControl.value: minDate"
+                [styleClass]="(projectEndTimeInternalControl.invalid && (projectEndTimeInternalControl.dirty || projectEndTimeInternalControl.touched)) ? 'error-border' : ''"
+                dateFormat="dd/mm/yy" [style]="{'width':'100%', 'top': '0px !important'}" showButtonBar="true"
+                [inputStyle]="{'width':'100%'}">
+              </p-calendar>
+            </div>
+            <div class="col-md-12"
+              [hidden]="projectEndTimeInternalControl.valid || projectEndTimeInternalControl.untouched">
+              <span *ngIf="projectEndTimeInternalControl.hasError('required')" class="error-message-span">Chưa chọn
+                ngày kết thúc</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="row no-margin">
+        <div class="col-md-12 top-buffer">
+          <p-checkbox name="groupname1" formControlName="isWeekendControlNoiBo" binary="true" label="Tính cuối tuần">
+          </p-checkbox>
+        </div>
+      </div>
+
+      <div class="row top-buffer">
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12 buffer-bottom-label">
+                Phần trăm phân bổ<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown [options]="listDistributionRate" optionLabel="name" [autoDisplayFirst]="false"
+                  formControlName="distributionRateInternalControl" [resetFilterOnHide]="true"
+                  [styleClass]="(distributionRateInternalControl.invalid && (distributionRateInternalControl.dirty || distributionRateInternalControl.touched)) ? 'error-border' : ''"
+                  [filter]="true" placeholder="Chọn phần trăm phân bổ"
+                  [style]="{'width':'100%', 'top': '0px !important'}">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12"
+                [hidden]="distributionRateInternalControl.valid || distributionRateInternalControl.untouched">
+                <span *ngIf="distributionRateInternalControl.hasError('required')" class="error-message-span">Chưa chọn
+                  phần
+                  trăm
+                  phân bổ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row top-buffer buffer-bottom">
+      <div class="col-md-12" style="display: flex; justify-content: flex-end;">
+        <button (click)="cancel()" type="button" class="btn-remove">
+          <span class="btn-remove-text">Thoát</span>
+        </button>
+        <button (click)="save()" type="button" class="btn-save">
+          <span class="btn-save-text">Lưu</span>
+        </button>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- THÊM NGUÔN LỰC THUÊ NGOÀI -->
+  <form [formGroup]="createProjectResourceExternalForm" *ngIf="!isInternal">
+    <div class="outsource">
+      <div class="row top-buffer">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <div class="row bottom-buffer">
+                <div class="col-md-12 buffer-bottom-label">
+                  Nhóm nhà thầu<span class="required">*</span>
+                </div>
+                <div class="col-md-12">
+                  <p-dropdown [options]="listVendorGroup" optionLabel="categoryName" [autoDisplayFirst]="false"
+                    formControlName="vendorGroupControl" [showClear]="true" [resetFilterOnHide]="true"
+                    placeholder="Chọn loại nguồn" [filter]="true" [style]="{'width': '100%'}"
+                    [styleClass]="(vendorGroupControl.invalid && (vendorGroupControl.dirty || vendorGroupControl.touched)) ? 'error-border' : ''">
+                  </p-dropdown>
+                </div>
+                <div class="col-md-12">
+                  <span
+                    [hidden]="createProjectResourceExternalForm.get('vendorGroupControl').valid || createProjectResourceExternalForm.get('vendorGroupControl').untouched"
+                    *ngIf="createProjectResourceExternalForm.get('vendorGroupControl').hasError('required')"
+                    class="error-message-span">
+                    Chưa chọn nhóm nhà
+                    thầu</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row bottom-buffer">
+                <div class="col-md-12 buffer-bottom-label">
+                  Nhà thầu<span class="required">*</span>
+                </div>
+                <div class="col-md-12">
+                  <p-dropdown [options]="listVendor" optionLabel="vendorName" [autoDisplayFirst]="false"
+                    (onChange)="changeVendor($event)" formControlName="vendorControl" [showClear]="true"
+                    [resetFilterOnHide]="true" placeholder="Chọn nhà thầu" [filter]="true" [style]="{'width': '100%'}"
+                    [styleClass]="(vendorControl.invalid && (vendorControl.dirty || vendorControl.touched)) ? 'error-border' : ''">
+                  </p-dropdown>
+                </div>
+                <div class="col-md-12">
+                  <span
+                    [hidden]="createProjectResourceExternalForm.get('vendorControl').valid || createProjectResourceExternalForm.get('vendorControl').untouched"
+                    *ngIf="createProjectResourceExternalForm.get('vendorControl').hasError('required')"
+                    class="error-message-span">
+                    Chưa chọn nhà thầu</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row buffer-bottom">
+        <div class="col-md-12 buffer-bottom-label">
+          <span style="font-weight: 700; color: #121619;">
+            Thời gian dự
+            kiến
+          </span>
+        </div>
+
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6 in_country" style="padding-right: unset !important; padding-left: unset !important;">
+              <div class="col-md-12 buffer-bottom-label">
+                Ngày bắt đầu<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="projectStartTimeControl" yearRange="{{minYear}}:{{currentYear}}"
+                  [minDate]="minDate"
+                  [maxDate]="projectEndTimeControl.value != null ? projectEndTimeControl.value : maxDate"
+                  [styleClass]="(projectStartTimeControl.invalid && (projectStartTimeControl.dirty || projectStartTimeControl.touched)) ? 'error-border' : ''"
+                  dateFormat="dd/mm/yy" [style]="{'width':'100%', 'top': '0px !important'}" showButtonBar="true"
+                  [inputStyle]="{'width':'100%'}">
+                </p-calendar>
+              </div>
+              <div class="col-md-12" [hidden]="projectStartTimeControl.valid || projectStartTimeControl.untouched">
+                <span *ngIf="projectStartTimeControl.hasError('required')" class="error-message-span">Chưa chọn
+                  ngày bắt đầu</span>
+              </div>
+            </div>
+            <div class="col-md-6 in_country" style="padding-right: unset !important; padding-left: unset !important;">
+              <div class="col-md-12 buffer-bottom-label">
+                Ngày Kết thúc<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="projectEndTimeControl" dateFormat="dd/mm/yy"
+                  [minDate]="projectStartTimeControl.value != null ? projectStartTimeControl.value: minDate"
+                  [maxDate]="maxDate" yearRange="{{minYear}}:{{currentYear}}" [style]="{'width':'100%'}"
+                  [styleClass]="(projectEndTimeControl.invalid && (projectEndTimeControl.dirty || projectEndTimeControl.touched)) ? 'error-border' : ''"
+                  showButtonBar="true" [inputStyle]="{'width':'100%'}">
+                </p-calendar>
+              </div>
+              <div class="col-md-12" [hidden]="projectEndTimeControl.valid || projectEndTimeControl.untouched">
+                <span *ngIf="projectEndTimeControl.hasError('required')" class="error-message-span">Chưa chọn
+                  ngày kết thúc</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-6 top-buffer">
+            <p-checkbox name="groupname1" formControlName="isWeekendControlNgoai" binary="true" label="Tính cuối tuần">
+            </p-checkbox>
+          </div>
+          <div class="col-md-6 top-buffer">
+            <div class="row">
+              <div class="col-md-12">
+                Chi phí theo giờ:
+              </div>
+              <div class="col-md-12">
+                <input formControlName="chiPhiTheoGioControl" class="number-input"
+                  type="text"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row top-buffer">
+          <div class="col-md-12">
+            <div class="col-md-6">
+              <div class="row top-buffer bottom-buffer">
+                <div class="col-md-12 buffer-bottom-label">
+                  Phần trăm phân bổ<span class="required">*</span>
+                </div>
+                <div class="col-md-12">
+                  <p-dropdown [options]="listDistributionRate" optionLabel="name" [autoDisplayFirst]="false"
+                    formControlName="distributionRateControl" [resetFilterOnHide]="true"
+                    [styleClass]="(distributionRateControl.invalid && (distributionRateControl.dirty || distributionRateControl.touched)) ? 'error-border' : ''"
+                    [filter]="true" [showClear]="true" [resetFilterOnHide]="true" placeholder="Chọn phần trăm phân bổ"
+                    [style]="{'width': '100%'}">
+                  </p-dropdown>
+                </div>
+
+                <div class="col-md-12">
+                  <span
+                    [hidden]="createProjectResourceExternalForm.get('distributionRateControl').valid || createProjectResourceExternalForm.get('distributionRateControl').untouched"
+                    *ngIf="createProjectResourceExternalForm.get('distributionRateControl').hasError('required')"
+                    class="error-message-span">
+                    Chưa phần trăm
+                    phân bổ</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row top-buffer bottom-buffer">
+                <div class="row">
+                  <div class="col-md-10" style="margin-left:30px;margin-top:10px">
+                    <div class="row top-buffer buffer-bottom">
+                      <p-checkbox name="groupname" *ngIf="!isExitsVendorAccount" formControlName="isCreateVendor"
+                        binary="true" label="Tạo tài khoản nhà thầu">
+                      </p-checkbox>
+
+                      <label *ngIf="isExitsVendorAccount">
+                        Đã tồn tại tài khoản nhà thầu
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row top-buffer">
+        <div class="col-md-12" style="display: flex; justify-content: flex-end;">
+          <button (click)="cancel()" type="button" class="btn-remove">
+            <span class="btn-remove-text">Thoát</span>
+          </button>
+          <button (click)="save()" type="button" class="btn-save">
+            <span class="btn-save-text">Lưu</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,134 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="product-order-workflow-create">
+  <div class="row no-margin">
+    <div class="col-md-12 box-header">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-1 col-xs-2">
+              <div class="box-header-icon">
+                <img src="/assets/icons/components/ic_library_add_24px.svg" class="ic_library_add_24px">
+              </div>
+            </div>
+            <div class="col-md-11 col-xs-10">
+              <div class="box-header-title">Thêm mới Quy trình sản xuất</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-12" style="text-align: right;">
+              <button class="cancel" type="button" (click)="cancel()">
+                <span class="text-cancel">Hủy</span>
+              </button>
+              <button #saveAndCreate *ngIf="actionAdd" class="save-and-new" type="button" [disabled]="awaitResult" (click)="createProductOrderWorkflow(true)">
+                <span class="text-save-and-new">Lưu và Thêm mới</span>
+              </button>
+              <button #save *ngIf="actionAdd" class="save" type="button" [disabled]="awaitResult" (click)="createProductOrderWorkflow(false)">
+                <span class="text-save">Lưu</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 box-content">
+      <form [formGroup]="productOrderWorkflowForm" style="height: 100%;">
+        <div class="row no-margin">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+            <p-accordionTab header="Thông tin Quy trình" [selected]="true">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-2">
+                    <span>Mã quy trình<span class="require">*</span></span>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <input class="w100 input-text" type="text" formControlName="codeControl" pInputText
+                          [ngClass]="(codeControl.invalid && (codeControl.dirty || codeControl.touched)) ? 'error-border' : ''"/>
+                      </div>
+                      <div class="col-md-12" [hidden]="codeControl.valid || codeControl.untouched">
+                        <span
+                          *ngIf="codeControl.hasError('required') || codeControl?.errors?.forbiddenSpaceText"
+                          class="error-message-span">Không được để trống</span>
+                        <span *ngIf="codeControl.hasError('duplicateCode')" class="error-message-span">Trùng
+                          mã Quy trình</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-12" style="margin-top: 10px;">
+                <div class="row">
+                  <div class="col-md-2">
+                    <span>Tên quy trình<span class="require">*</span></span>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <input class="w100 input-text" type="text" formControlName="nameControl" pInputText
+                          [ngClass]="(nameControl.invalid && (nameControl.dirty || nameControl.touched)) ? 'error-border' : ''"/>
+                      </div>
+                      <div class="col-md-12" [hidden]="nameControl.valid || nameControl.untouched">
+                        <span
+                          *ngIf="nameControl.hasError('required') || nameControl?.errors?.forbiddenSpaceText"
+                          class="error-message-span">Không được để trống</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="col-md-12" style="margin-top: 10px;">
+                <div class="row">
+                  <div class="col-md-2">
+                    <span>Hoạt động</span>
+                  </div>
+                  <div class="col-md-3">
+                    <p-checkbox [binary]="true" formControlName="activeControl"></p-checkbox>
+                  </div>
+                </div>
+              </div> -->
+              
+              <div class="col-md-12" style="margin-top: 10px;">
+                <div class="row">
+                  <div class="col-md-2">
+                    <span>Quy trình mặc định</span>
+                  </div>
+                  <div class="col-md-3">
+                    <p-checkbox [binary]="true" formControlName="isDefaultControl" (onChange)="checkIsDefault()"></p-checkbox>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-12" style="margin: 10px 0px;">
+                <div class="row">
+                  <div class="col-md-2">
+                    <span>Mô tả</span>
+                  </div>
+                  <div class="col-md-3">
+                    <textarea rows="5" cols="30" formControlName="descriptionControl" pInputTextarea class="w100"></textarea>
+                  </div>
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

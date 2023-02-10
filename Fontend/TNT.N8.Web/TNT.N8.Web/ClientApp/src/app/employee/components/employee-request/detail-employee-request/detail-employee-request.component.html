@@ -1,0 +1,301 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="dxxn-ct">
+  <div class="row header-page no-margin">
+    <div class="col-md-6 no-padding header-box-icon">
+      <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+      <span class="page-title">Chi tiết xuất xin nghỉ</span>
+    </div>
+    <div class="col-md-6 no-padding">
+      <div class="row">
+        <div class="col-md-12" style="text-align: right;">
+          <button *ngIf="!isEdit" [disabled]="awaitResponse" type="button" class="btn-white" (click)="back()">
+            Thoát
+          </button>
+          <button *ngIf="!isEdit && isShowSua" [disabled]="awaitResponse" type="button" class="btn-white"
+            (click)="sua()">
+            Sửa
+          </button>
+          <button *ngIf="isEdit" [disabled]="awaitResponse" type="button" class="btn-white" (click)="huySua()">
+            Hủy sửa
+          </button>
+          <button *ngIf="actionEdit && isEdit" [disabled]="awaitResponse" type="button" class="btn-create"
+            (click)="luuDeXuat()">
+            Lưu
+          </button>
+          <button *ngIf="actionDelete && !isEdit && isShowXoa" [disabled]="awaitResponse" type="button" class="btn-red"
+            (click)="xoa()">
+            Xóa
+          </button>
+          <button *ngIf="actionEdit && !isEdit && isShowGuiPheDuyet" [disabled]="awaitResponse" type="button"
+            class="btn-send" (click)="guiPheDuyet()">
+            Gửi phê duyệt
+          </button>
+          <button *ngIf="actionEdit && !isEdit && isShowTuChoi" [disabled]="awaitResponse" type="button"
+            class="btn-gray" (click)="showLyDoTuChoiDialog()">
+            Từ chối
+          </button>
+          <button *ngIf="actionEdit && !isEdit && isShowPheDuyet" [disabled]="awaitResponse" type="button"
+            class="btn-send" (click)="pheDuyet()">
+            Phê duyệt
+          </button>
+          <button *ngIf="actionEdit && !isEdit && isShowDatVeMoi" [disabled]="awaitResponse" type="button"
+            class="btn-white" (click)="datVeMoi()">
+            Đặt về mới
+          </button>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <div class="col-md-12 no-padding" style="margin-top: 15px;">
+      <p-fieldset>
+        <p-header>Thông tin phê duyệt</p-header>
+        <div class="row">
+          <div class="col-md-12">
+            <ul class="slds-path__nav" style="padding-left: 21px;padding-right: 21px;">
+              <ng-container *ngFor="let item of listDuLieuQuyTrinh">
+                <li data-toggle="tab" class="slds-path__item" [ngClass]="[item.isActive ? 'active': '',
+                            item.isComplete ? 'slds-is-complete' : 'slds-is-incomplete',
+                            item.isCurrent ? 'slds-is-current' : '']">
+                  <a #container class="tabHeader slds-path__link" href="#" [appendTo]="container"
+                    pTooltip="{{item.tooltip}}" [escape]="false" tooltipPosition="bottom">
+                    <span class="complete slds-path__stage">
+                      <i class="fa fa-check" aria-hidden="true"></i>
+                    </span>
+                    <span class="slds-path__title">{{item.nodeName}}</span>
+                  </a>
+                </li>
+              </ng-container>
+            </ul>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <div class="col-md-12 no-padding">
+      <p-fieldset>
+        <p-header>Thông tin phiếu đề xuất</p-header>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-2">
+                Trạng thái:
+              </div>
+              <div class="col-md-10">
+                <strong>{{deXuatXinNghi?.statusName}}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3">
+                Người đề xuất:
+              </div>
+              <div class="col-md-9">
+                <strong>{{deXuatXinNghi?.employeeCodeName}}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-2">
+                Mã phiếu:
+              </div>
+              <div class="col-md-10">
+                <strong>{{deXuatXinNghi?.code}}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-3">
+                Phòng ban:
+              </div>
+              <div class="col-md-9">
+                <strong>{{deXuatXinNghi?.organizationName}}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-2">
+                Ngày tạo:
+              </div>
+              <div class="col-md-10">
+                <strong>{{deXuatXinNghi?.createdDate | date: 'dd/MM/yyyy'}}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-3">
+                Chức vụ:
+              </div>
+              <div class="col-md-9">
+                <strong>{{deXuatXinNghi?.positionName}}</strong>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="deXuatXinNghi?.trangThaiId == 1" class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-2">
+                Lý do từ chối:
+              </div>
+              <div class="col-md-10" style="color: #CC3C00">
+                <strong innerText="{{deXuatXinNghi?.lyDoTuChoi}}"></strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <div class="col-md-12 no-padding">
+      <p-fieldset>
+        <p-header>Nội dung phiếu đề xuất</p-header>
+        <div [formGroup]="dxxnForm" class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                Loại đề xuất:<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown [options]="listKyHieuChamCong" placeholder="Chọn loại" [style]="{'width': '100%'}"
+                  formControlName="loaiDeXuatControl" optionLabel="name" (onChange)="changeLoaiDeXuat()"
+                  [styleClass]="(loaiDeXuatControl.invalid && (loaiDeXuatControl.dirty || loaiDeXuatControl.touched)) ? 'error-border': ''">
+                </p-dropdown>
+              </div>
+            </div>
+            <div *ngIf="loaiDeXuatControl?.value?.value == 1 && deXuatXinNghi?.trangThaiId == 0" class="row mt-10">
+              <div class="col-md-12">
+                Tổng số ngày phép còn lại: <strong>{{deXuatXinNghi?.soNgayPhepConLai}}</strong>
+              </div>
+            </div>
+            <div class="row mt-10">
+              <div class="col-md-12">
+                Chọn ngày:<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="ngayNghiControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  appendTo="body" selectionMode="multiple" [readonlyInput]="true" dateFormat="dd/mm/yy"
+                  (onClose)="tinhSoNgayNghi()"
+                  [styleClass]="(ngayNghiControl.invalid && (ngayNghiControl.dirty || ngayNghiControl.touched)) ? 'error-pcalendar' : ''">
+                </p-calendar>
+              </div>
+            </div>
+            <div *ngIf="isShowTuDen" class="row mt-10">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    Từ ca làm việc:<span class="required">*</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown [options]="listLoaiCaLamViec" placeholder="Chọn ca" [style]="{'width': '100%'}"
+                      formControlName="tuCaControl" optionLabel="name" (onChange)="tinhSoNgayNghi()"
+                      [styleClass]="(tuCaControl.invalid && (tuCaControl.dirty || tuCaControl.touched)) ? 'error-border': ''">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    Đến ca làm việc:<span class="required">*</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown [options]="listLoaiCaLamViec" placeholder="Chọn ca" [style]="{'width': '100%'}"
+                      formControlName="denCaControl" optionLabel="name" (onChange)="tinhSoNgayNghi()"
+                      [styleClass]="(denCaControl.invalid && (denCaControl.dirty || denCaControl.touched)) ? 'error-border': ''">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!isShowTuDen" class="row mt-10">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    Ca làm việc:<span class="required">*</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown [options]="listLoaiCaLamViec" placeholder="Chọn ca" [style]="{'width': '100%'}"
+                      formControlName="caControl" optionLabel="name" (onChange)="tinhSoNgayNghi()"
+                      [styleClass]="(caControl.invalid && (caControl.dirty || caControl.touched)) ? 'error-border': ''">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-10">
+              <div class="col-md-12">
+                Tổng số {{isShowTuDen ? 'ngày' : 'lần'}} nghỉ: <strong>{{deXuatXinNghi?.tongNgayNghi | number}}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                Lý do xin nghỉ:<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <textarea [rows]="8" [cols]="30" pInputTextarea autoResize="autoResize" class="w-100"
+                  formControlName="lyDoControl"
+                  [ngClass]="(lyDoControl.invalid && (lyDoControl.dirty || lyDoControl.touched)) ? 'error-border': ''">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <div class="col-md-12 no-padding">
+      <app-note-time-line [viewNote]="false" [viewTimeline]="true" objectType="DXXN" [objectNumber]="deXuatXinNghiId"
+        [actionAdd]="false" [actionEdit]="false" [actionDelete]="false" [pageSize]="10" [refresh]="refreshNote">
+      </app-note-time-line>
+    </div>
+  </div>
+
+  <p-dialog [(visible)]="showLyDoTuChoi" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
+    [resizable]="false" [closable]="false">
+    <p-header [style]="{'display': 'flex', 'justify-content': 'center'}">
+      <span>Lý do từ chối</span>
+    </p-header>
+    <div [formGroup]="lyDoTuChoiForm">
+      <div class="row no-margin">
+        <div class="col-md-12">
+          <textarea [rows]="5" [cols]="30" pInputTextarea autoResize="autoResize" class="w-100"
+            formControlName="lyDoTuChoiControl"
+            [ngClass]="(lyDoTuChoiControl.invalid && (lyDoTuChoiControl.dirty || lyDoTuChoiControl.touched)) ? 'error-border': ''">
+          </textarea>
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin: 20px 0px;">
+          <button [disabled]="awaitResponse" pButton class="btn btn-green my-2" type="button" label="Đồng ý"
+            style="padding: 0 25px; background: #169BD5;" (click)="tuChoi()">
+          </button>
+          <button [disabled]="awaitResponse" pButton type="button" label="Đóng" class="btn ml-2"
+            style="padding: 0 25px; background: white; color: black" (click)="closeLyDoTuChoi()">
+          </button>
+        </div>
+      </div>
+    </div>
+  </p-dialog>
+</div>

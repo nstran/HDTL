@@ -1,0 +1,77 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast key="popup" position="bottom-right"></p-toast>
+
+<div class="add-constraint">
+    <form [formGroup]="createConstraintForm" style="height: 100%;">
+        <div class="row top-buffer bottom-buffer">
+            <!-- HÀNG I -->
+            <div class="col-md-12">
+                <div class="row bottom-buffer">
+                    <div class="col-md-3 buffer-bottom-label">
+                        Công việc hoàn thành trước<span class="required">*</span>:
+                    </div>
+                    <div class="col-md-9">
+                        <p-dropdown formControlName="taskControl" [options]="listTask" optionLabel="taskName"
+                            placeholder="Chọn công việc" [filter]="true" [showClear]="true" [resetFilterOnHide]="true"
+                            [styleClass]="createConstraintForm.get('taskControl').invalid &&
+                                                    (createConstraintForm.get('taskControl').dirty || createConstraintForm.get('taskControl').touched) ? 'error-border' : ''"
+                            [style]="{'width': '100%'}" [virtualScroll]="true" itemSize="30"
+                            (keydown.enter)="$event.preventDefault()">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row bottom-buffer">
+                    <div class="col-md-3 buffer-bottom-label">
+                        Loại ràng buộc<span class="required">*</span>:
+                    </div>
+                    <div class="col-md-6">
+                        <p-dropdown formControlName="constraintTypeControl" [options]="listConstraint"
+                            optionLabel="categoryName" placeholder="Chọn loại công việc" [filter]="true"
+                            [styleClass]="createConstraintForm.get('constraintTypeControl').invalid &&
+                            (createConstraintForm.get('constraintTypeControl').dirty || createConstraintForm.get('constraintTypeControl').touched) ? 'error-border' : ''" [showClear]="true"
+                            [resetFilterOnHide]="true" [style]="{'width': '100%'}" [virtualScroll]="true" itemSize="30"
+                            (keydown.enter)="$event.preventDefault()">
+                        </p-dropdown>
+                    </div>
+                    <div class="col-md-2" class="mt-6">
+                        <p-checkbox name="groupname" formControlName="constraintRequriedControl" binary="true"
+                            label="Bắt buộc">
+                        </p-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row bottom-buffer">
+                    <div class="col-md-3 buffer-bottom-label">
+                        Độ trễ:
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" class="number-input" formControlName="delayTimeControl"
+                            (keydown.enter)="$event.preventDefault()"
+                            [cleave]="{numeral: true, numeralDecimalScale: 'defaultNumberType'}">
+                    </div>
+                    <div class="col-md-3 buffer-bottom-label">
+                        ngày
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="display: flex; justify-content: flex-end; margin-top: 40px;">
+                <button (click)="cancel()" type="button" class="btn-remove">
+                    <span class="btn-remove-text">Hủy</span>
+                </button>
+                <button (click)="save()" type="button" class="btn-save">
+                    <span class="btn-save-text">Lưu</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

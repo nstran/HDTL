@@ -1,0 +1,204 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+
+<div class="dxxn">
+  <div class="row header-page no-margin">
+    <div class="col-md-6 no-padding header-box-icon">
+      <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+      <span class="page-title">Tạo đề xuất xin nghỉ</span>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12 no-padding" style="text-align: right;">
+          <button [disabled]="awaitResponse" type="button" class="btn-white" (click)="back()">
+            Thoát
+          </button>
+          <button *ngIf="actionAdd" [disabled]="awaitResponse" type="button" class="btn-create"
+            style="margin-left: 5px;" (click)="taoDeXuat(false)">
+            Lưu
+          </button>
+          <button *ngIf="actionAdd" [disabled]="awaitResponse" type="button" class="btn-send" style="margin-left: 5px;"
+            (click)="taoDeXuat(true)">
+            Gửi phê duyệt
+          </button>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <div class="col-md-12 no-padding">
+      <p-fieldset>
+        <p-header>Thông tin phiếu đề xuất</p-header>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-2">
+                Trạng thái:
+              </div>
+              <div class="col-md-10">
+                <strong>Mới</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-3">
+                Người đề xuất:
+              </div>
+              <div class="col-md-9">
+                <strong>{{employeeName}}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-2">
+                Mã phiếu:
+              </div>
+              <div class="col-md-10">
+                <strong>Hệ thống tự tạo sau khi lưu</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-3">
+                Phòng ban:
+              </div>
+              <div class="col-md-9">
+                <strong>{{organizationName}}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-2">
+                Ngày tạo:
+              </div>
+              <div class="col-md-10">
+                <strong>{{nowDate | date: 'dd/MM/yyyy'}}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mt-10">
+            <div class="row">
+              <div class="col-md-3">
+                Chức vụ:
+              </div>
+              <div class="col-md-9">
+                <strong>{{positionName}}</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <div class="col-md-12 no-padding">
+      <p-fieldset>
+        <p-header>Nội dung phiếu đề xuất</p-header>
+        <div [formGroup]="dxxnForm" class="row">
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                Loại đề xuất:<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown [options]="listKyHieuChamCong" placeholder="Chọn loại" [style]="{'width': '100%'}"
+                  formControlName="loaiDeXuatControl" optionLabel="name" (onChange)="changeLoaiDeXuat()"
+                  [styleClass]="(loaiDeXuatControl.invalid && (loaiDeXuatControl.dirty || loaiDeXuatControl.touched)) ? 'error-border': ''">
+                </p-dropdown>
+              </div>
+            </div>
+            <div *ngIf="loaiDeXuatControl?.value?.value == 1" class="row mt-10">
+              <div class="col-md-12">
+                Tổng số ngày phép còn lại: <strong>{{soNgayPhepConLai}}</strong>
+              </div>
+            </div>
+            <div class="row mt-10">
+              <div class="col-md-12">
+                Chọn ngày:<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="ngayNghiControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                  appendTo="body" selectionMode="multiple" [readonlyInput]="true" dateFormat="dd/mm/yy"
+                  (onClose)="tinhSoNgayNghi()"
+                  [styleClass]="(ngayNghiControl.invalid && (ngayNghiControl.dirty || ngayNghiControl.touched)) ? 'error-pcalendar' : ''">
+                </p-calendar>
+              </div>
+            </div>
+            <div *ngIf="isShowTuDen" class="row mt-10">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    Từ ca làm việc:<span class="required">*</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown [options]="listLoaiCaLamViec" placeholder="Chọn ca" [style]="{'width': '100%'}"
+                      formControlName="tuCaControl" optionLabel="name" (onChange)="tinhSoNgayNghi()"
+                      [styleClass]="(tuCaControl.invalid && (tuCaControl.dirty || tuCaControl.touched)) ? 'error-border': ''">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    Đến ca làm việc:<span class="required">*</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown [options]="listLoaiCaLamViec" placeholder="Chọn ca" [style]="{'width': '100%'}"
+                      formControlName="denCaControl" optionLabel="name" (onChange)="tinhSoNgayNghi()"
+                      [styleClass]="(denCaControl.invalid && (denCaControl.dirty || denCaControl.touched)) ? 'error-border': ''">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="!isShowTuDen" class="row mt-10">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    Ca làm việc:<span class="required">*</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown [options]="listLoaiCaLamViec" placeholder="Chọn ca" [style]="{'width': '100%'}"
+                      formControlName="caControl" optionLabel="name" (onChange)="tinhSoNgayNghi()"
+                      [styleClass]="(caControl.invalid && (caControl.dirty || caControl.touched)) ? 'error-border': ''">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-10">
+              <div class="col-md-12">
+                Tổng số {{isShowTuDen ? 'ngày' : 'lần'}} nghỉ: <strong>{{tongNgayNghi | number}}</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-12">
+                Lý do xin nghỉ:<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <textarea [rows]="8" [cols]="30" pInputTextarea autoResize="autoResize" class="w-100"
+                  formControlName="lyDoControl"
+                  [ngClass]="(lyDoControl.invalid && (lyDoControl.dirty || lyDoControl.touched)) ? 'error-border': ''">
+                </textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+  </div>
+</div>

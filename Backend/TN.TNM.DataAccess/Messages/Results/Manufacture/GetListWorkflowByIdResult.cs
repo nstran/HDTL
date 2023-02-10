@@ -1,0 +1,11 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace TN.TNM.DataAccess.Messages.Results.Manufacture
+{
+    public class GetListWorkflowByIdResult : BaseResult
+    {
+        public string ListWorkflow { get; set; }
+    }
+}

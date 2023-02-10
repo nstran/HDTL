@@ -1,0 +1,1296 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{ width: '50px', height: '50px' }" strokeWidth="8" fill="#EEEEEE"
+        animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="layout-project">
+    <app-top-header-project></app-top-header-project>
+
+    <div class="wrapper" style="height: auto;">
+        <app-project-header></app-project-header>
+        <!-- <main-header></main-header> -->
+        <!-- Menu Left -->
+        <app-menu-left-project></app-menu-left-project>
+
+        <!-- Content -->
+        <div class="content-wrapper" style="height: auto; min-height: 100vh;">
+            <section class="row content" style="min-height: inherit;">
+                <div class="detail-project-task">
+                    <div class="row no-margin" id="parent">
+                        <div class="col-md-12 header" style="padding: 6px" [ngClass]="{ fixed:
+                fixed }" [ngStyle]="{ width: withFiexd }">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="box-header-title-2">[{{project?.projectCode}}]: {{project?.projectName}}
+                                    </div>
+                                </div>
+                                <div class="col-md-6 no-padding">
+                                    <div class="row no-margin">
+                                        <div class="col-md-1 col-sm-1 col-xs-2">
+                                            <div class="header-box-icon">
+                                                <img src="/assets/icons/components/create_lead.svg"
+                                                    class="header-icon" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-11 col-sm-11 col-xs-10" style="display: contents">
+                                            <div>
+                                                <span class="customer-name">Chi tiết công việc</span>
+                                            </div>
+                                            <div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12" style="display: flex;
+                                justify-content: flex-end; margin-top: 5px">
+                                            <div style="padding-right: 10px">
+                                                <span *ngIf="!isInvalidForm">
+                                                    <img src="/assets/icons/components/ios-warning.svg"
+                                                        class="ios-warning" />
+                                                </span>
+                                                <div class="box-waring" *ngIf="isInvalidForm" #toggleButton
+                                                    (click)="toggleNotifiError()">
+                                                    <img src="/assets/icons/components/ios-warning-active.svg"
+                                                        class="ios-warning-active" />
+                                                </div>
+                                                <div class="notification" #notifi *ngIf="isOpenNotifiError">
+                                                    <div *ngIf="((updateProjectTaskFrom.get('taskNameControl').hasError('required')))"
+                                                        class="notifi-row" (click)="scroll(boxTaskName)">
+                                                        <img src="/assets/icons/components/ios-alert.svg"
+                                                            class="ios-alert">
+                                                        <span class="notifi-text">Chưa nhập tên công việc</span>
+                                                    </div>
+                                                    <div *ngIf="((updateProjectTaskFrom.get('taskNameControl')?.errors?.forbiddenSpaceText))"
+                                                        class="notifi-row" (click)="scroll(boxTaskName)">
+                                                        <img src="/assets/icons/components/ios-alert.svg"
+                                                            class="ios-alert">
+                                                        <span class="notifi-text">Tên công việc không được để
+                                                            trắng</span>
+                                                    </div>
+                                                    <div *ngIf="((updateProjectTaskFrom.get('startTimeControl').hasError('required')))"
+                                                        class="notifi-row" (click)="scroll(boxStartTime)">
+                                                        <img src="/assets/icons/components/ios-alert.svg"
+                                                            class="ios-alert">
+                                                        <span class="notifi-text">Ngày bắt đầu dự kiến không được để
+                                                            trống</span>
+                                                    </div>
+                                                    <div *ngIf="((updateProjectTaskFrom.get('endTimeControl').hasError('required')))"
+                                                        class="notifi-row" (click)="scroll(boxEndTime)">
+                                                        <img src="/assets/icons/components/ios-alert.svg"
+                                                            class="ios-alert">
+                                                        <span class="notifi-text">Ngày kết thúc dự kiến không được để
+                                                            trống</span>
+                                                    </div>
+                                                    <div *ngIf="((updateProjectTaskFrom.get('hourControl').hasError('required')))"
+                                                        class="notifi-row" (click)="scroll(boxHour)">
+                                                        <img src="/assets/icons/components/ios-alert.svg"
+                                                            class="ios-alert">
+                                                        <span class="notifi-text">Số giờ dự kiến không được để
+                                                            trống</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button (click)="cancel()" type="button" class="btn-remove">
+                                                <span class="btn-remove-text">Quay lại</span>
+                                            </button>
+                                            <button *ngIf="actionAdd" #save [disabled]="awaitResult"
+                                                (click)="updateProjectTask(false)" type="button" class="btn-save">
+                                                <span class="btn-save-text">Lưu</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form [formGroup]="updateProjectTaskFrom">
+                        <div class="row no-margin" style="padding-top: 10px; padding-bottom: 10px">
+                            <div class="col-md-12 customer-infor">
+                                <div class="row no-margin">
+                                    <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                                        collapseIcon="pi pi-fw pi-chevron-circle-down" styleClass="custom-accordion">
+                                        <p-accordionTab header="Thông tin công việc" [selected]="true">
+                                            <!-- HÀNG I -->
+                                            <div class="row buffer-bottom no-margin">
+                                                <div class="col-md-3">
+                                                    <div class="row buffer-bottom">
+                                                        <div class="col-md-12 buffer-bottom-label">
+                                                            <span>Mã công việc</span>
+                                                        </div>
+                                                        <div class="col-md-12" style="margin-top: 10px;">
+                                                            <span><strong>{{task?.taskCode}}</strong></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="row buffer-bottom">
+                                                        <div class="col-md-12 buffer-bottom-label">
+                                                            <span>Tên công việc</span><span class="required">*</span>
+                                                        </div>
+                                                        <div #boxTaskName class="col-md-12">
+                                                            <input formControlName="taskNameControl"
+                                                                [ngClass]="updateProjectTaskFrom.get('taskNameControl').invalid &&
+                                                    (updateProjectTaskFrom.get('taskNameControl').dirty || updateProjectTaskFrom.get('taskNameControl').touched) ? 'error-border' : ''"
+                                                                type="text" class="w100" pInputText placeholder=""
+                                                                (keydown.enter)="$event.preventDefault()"
+                                                                maxlength="500" />
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <span
+                                                                [hidden]="updateProjectTaskFrom.get('taskNameControl').valid || updateProjectTaskFrom.get('taskNameControl').untouched"
+                                                                *ngIf="updateProjectTaskFrom.get('taskNameControl').hasError('required')"
+                                                                class="error-message-span">
+                                                                Nhập tên công việc</span>
+                                                            <span
+                                                                [hidden]="updateProjectTaskFrom.get('taskNameControl').valid || updateProjectTaskFrom.get('taskNameControl').untouched"
+                                                                *ngIf="updateProjectTaskFrom.get('taskNameControl')?.errors?.forbiddenSpaceText"
+                                                                class="error-message-span">
+                                                                Tên công việc không được để trắng</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="row buffer-bottom">
+                                                        <div class="col-md-12 buffer-bottom-label">
+                                                            <span>Dự án</span>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <input formControlName="projectNameControl" type="text"
+                                                                class="w100" pInputText placeholder=""
+                                                                (keydown.enter)="$event.preventDefault()"
+                                                                maxlength="250" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-3">
+                                                    <div class="row buffer-bottom">
+                                                        <div class="col-md-12 buffer-bottom-label">
+                                                            <span>Hạng mục</span>
+                                                            <span *ngIf="!isDisable" (click)="openProjetScopeDialog()"
+                                                                class="link" style="float: right;">Chọn hạng mục</span>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <input formControlName="scopeControl" type="text"
+                                                                class="w100" pInputText placeholder=""
+                                                                (keydown.enter)="$event.preventDefault()"
+                                                                maxlength="250" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- HÀNG II -->
+                                            <div class="row buffer-bottom no-margin">
+                                                <div class="col-md-12">
+                                                    <div class="row buffer-bottom">
+                                                        <div class="col-md-12 buffer-bottom-label">
+                                                            <span>Mô tả</span>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <ejs-richtexteditor #templateRTE [height]="350"
+                                                                [toolbarSettings]='tools'
+                                                                formControlName="descriptionControl"
+                                                                [readonly]="isDisable">
+                                                                <ng-template>
+                                                                </ng-template>
+                                                            </ejs-richtexteditor>
+                                                            <!-- <textarea pInputTextarea rows="5" style="width: 100%;"
+                                                                formControlName="descriptionControl"></textarea> -->
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p-accordionTab>
+                                    </p-accordion>
+                                </div>
+                                <div class="row no-margin">
+                                    <p-tabView>
+                                        <p-tabPanel header="Cấu hình công việc"
+                                            [headerStyle]="{width: '145px', 'text-align': 'center'}">
+                                            <div class="row no-margin">
+                                                <!--HÀNG I-->
+                                                <div class="row buffer-bottom no-margin mt-15">
+                                                    <div class="col-md-4">
+                                                        <div class="row buffer-bottom">
+                                                            <div class="col-md-12 buffer-bottom-label">
+                                                                <span>Loại công việc</span>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <p-dropdown formControlName="taskTypeControl"
+                                                                    [options]="listTaskType" optionLabel="categoryName"
+                                                                    placeholder="Chọn loại công việc" [filter]="true"
+                                                                    [showClear]="true" [resetFilterOnHide]="true"
+                                                                    [style]="{'width': '100%'}" [virtualScroll]="true"
+                                                                    itemSize="30"
+                                                                    (keydown.enter)="$event.preventDefault()">
+                                                                    <ng-template let-item pTemplate="selectedItem">
+                                                                        <i class="{{item.value.icon}}"
+                                                                            style="width:16px;vertical-align:middle"></i>
+                                                                        <span
+                                                                            style="vertical-align:middle; margin-left: .5em">{{item.label}}</span>
+                                                                    </ng-template>
+                                                                    <ng-template let-item pTemplate="item">
+                                                                        <div class="ui-helper-clearfix"
+                                                                            style="position: relative;height: 25px;">
+                                                                            <i class="{{item.value.icon}}"
+                                                                                style="font-size:16px;position:absolute;top:5px;left:5px"></i>
+                                                                            <div
+                                                                                style="font-size:14px;margin-top:4px;margin-left: 35px">
+                                                                                {{item.label}}
+                                                                            </div>
+                                                                        </div>
+                                                                    </ng-template>
+                                                                </p-dropdown>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row buffer-bottom">
+                                                            <div class="col-md-12 buffer-bottom-label">
+                                                                <span>Trạng thái</span>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <p-dropdown formControlName="statusControl"
+                                                                    [options]="listStatus" optionLabel="categoryName"
+                                                                    placeholder="Chọn trạng thái" [filter]="true"
+                                                                    [resetFilterOnHide]="true"
+                                                                    [style]="{'width': '100%'}" [virtualScroll]="true"
+                                                                    itemSize="30"
+                                                                    (keydown.enter)="$event.preventDefault()">
+                                                                </p-dropdown>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="row buffer-bottom">
+                                                            <div class="col-md-12 buffer-bottom-label">
+                                                                <span>Mức độ ưu tiên</span><span
+                                                                    class="required">*</span>
+                                                            </div>
+                                                            <div class="col-md-12 mt-5 no-padding">
+                                                                <div class="col-md-4">
+                                                                    <p-radioButton name="group1" value="0" label="Thấp"
+                                                                        [(ngModel)]="selectedObjectType"
+                                                                        (keydown.enter)="$event.preventDefault()"
+                                                                        [disabled]="status?.categoryCode == 'CLOSE' || !isCreateTask || (status?.categoryCode == 'DL' && !this.isManager) || (status?.categoryCode == 'HT' && !this.isManager)"
+                                                                        [ngModelOptions]="{standalone: true}">
+                                                                    </p-radioButton>
+                                                                </div>
+                                                                <div class="col-md-4" style="margin-top: 5px;">
+                                                                    <p-radioButton name="group1" value="1"
+                                                                        label="Trung bình"
+                                                                        [(ngModel)]="selectedObjectType"
+                                                                        (keydown.enter)="$event.preventDefault()"
+                                                                        [disabled]="status?.categoryCode == 'CLOSE'|| !isCreateTask || (status?.categoryCode == 'DL' && !this.isManager) || (status?.categoryCode == 'HT' && !this.isManager)"
+                                                                        [ngModelOptions]="{standalone: true}">
+                                                                    </p-radioButton>
+                                                                </div>
+                                                                <div class="col-md-4" style="margin-top: 5px;">
+                                                                    <p-radioButton name="group1" value="2" label="Cao"
+                                                                        [(ngModel)]="selectedObjectType"
+                                                                        (keydown.enter)="$event.preventDefault()"
+                                                                        [disabled]="status?.categoryCode == 'CLOSE'|| !isCreateTask || (status?.categoryCode == 'DL' && !this.isManager) || (status?.categoryCode == 'HT' && !this.isManager)"
+                                                                        [ngModelOptions]="{standalone: true}">
+                                                                    </p-radioButton>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--HÀNG II-->
+                                                <div class="row buffer-bottom no-margin mt-15">
+                                                    <div class="col-md-4">
+                                                        <div class="row buffer-bottom">
+                                                            <div class="col-md-12 buffer-bottom-label">
+                                                                <span>Mốc dự án</span>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <p-dropdown formControlName="milestonesControl"
+                                                                    [options]="listMilestones" optionLabel="name"
+                                                                    placeholder="Chọn mốc dự án" [filter]="true"
+                                                                    [showClear]="true" [resetFilterOnHide]="true"
+                                                                    [style]="{'width': '100%'}" [virtualScroll]="true"
+                                                                    itemSize="30"
+                                                                    (keydown.enter)="$event.preventDefault()">
+                                                                </p-dropdown>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="row buffer-bottom">
+                                                            <div class="col-md-12 buffer-bottom-label">
+                                                                <span>Phần trăm hoàn thành</span>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <p-dropdown formControlName="percentControl"
+                                                                    [options]="listPhanTram" optionLabel="label"
+                                                                    placeholder="Chọn phần trăm" [filter]="true"
+                                                                    [showClear]="true" [resetFilterOnHide]="true"
+                                                                    [style]="{'width': '100%'}" [virtualScroll]="true"
+                                                                    itemSize="30"
+                                                                    (keydown.enter)="$event.preventDefault()">
+                                                                </p-dropdown>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-4">
+                                                        <div class="row buffer-bottom">
+                                                          <div class="col-md-12 buffer-bottom-label">
+                                                            <span>Công việc liên quan</span>
+                                                          </div>
+                                                          <div class="col-md-12">
+                                                              <p-multiSelect [options]="listRelateTaskShow" (onChange)="AddRelateTask($event)" formControlName="listRelateTaskChose"
+                                                              [virtualScroll]="true" defaultLabel="Chọn công việc liên quan" optionLabel="taskName"
+                                                              [style]="{'width': '100%'}" [resetFilterOnHide]="true" selectedItemsLabel="{0} công việc"
+                                                              [filter]="true">
+                                                            </p-multiSelect>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+
+                                                </div>
+                                                <!--HÀNG III-->
+                                                <div class="row buffer-bottom mt-15">
+                                                    <div class="col-md-6">
+                                                        <p-fieldset legend="Thời gian dự kiến">
+                                                            <div class="row buffer-bottom no-margin">
+                                                                <div class="col-md-6">
+                                                                    <div class="row buffer-bottom">
+                                                                        <div class="col-md-12 buffer-bottom-label">
+                                                                            <span>Ngày bắt đầu</span><span
+                                                                                class="required">*</span>
+                                                                        </div>
+                                                                        <div class="col-md-12" #boxStartTime>
+                                                                            <p-calendar
+                                                                                formControlName="startTimeControl"
+                                                                                [styleClass]="(startTimeControl.invalid  && (startTimeControl.dirty ||  startTimeControl.touched)) ? 'error-pcalendar': ''"
+                                                                                showButtonBar="true"
+                                                                                [yearNavigator]="true"
+                                                                                yearRange="{{minYear}}:{{currentYear}}"
+                                                                                dateFormat="dd/mm/yy"
+                                                                                [style]="{'width':'100%'}"
+                                                                                [minDate]="minDateProject"
+                                                                                [maxDate]="endTimeControl.value != null ? endTimeControl.value : maxDateProject"
+                                                                                [inputStyle]="{'width':'100%'}"
+                                                                                [baseZIndex]="9999"
+                                                                                (keydown.enter)="$event.preventDefault()">
+                                                                            </p-calendar>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <span
+                                                                                [hidden]="updateProjectTaskFrom.get('startTimeControl').valid || updateProjectTaskFrom.get('startTimeControl').untouched"
+                                                                                *ngIf="updateProjectTaskFrom.get('startTimeControl').hasError('required')"
+                                                                                class="error-message-span">
+                                                                                Không được để trống</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="row buffer-bottom">
+                                                                        <div class="col-md-12 buffer-bottom-label">
+                                                                            <span>Ngày kết thúc</span><span
+                                                                                class="required">*</span>
+                                                                        </div>
+                                                                        <div class="col-md-12" #boxEndTime>
+                                                                            <p-calendar formControlName="endTimeControl"
+                                                                                [styleClass]="(endTimeControl.invalid  && (endTimeControl.dirty ||  endTimeControl.touched)) ? 'error-pcalendar': ''"
+                                                                                showButtonBar="true"
+                                                                                [yearNavigator]="true"
+                                                                                yearRange="{{minYear}}:{{currentYear}}"
+                                                                                dateFormat="dd/mm/yy"
+                                                                                [style]="{'width':'100%'}"
+                                                                                [minDate]="startTimeControl.value != null ? startTimeControl.value: minDateProject"
+                                                                                [maxDate]="maxDateProject"
+                                                                                [inputStyle]="{'width':'100%'}"
+                                                                                [baseZIndex]="9999"
+                                                                                (keydown.enter)="$event.preventDefault()">
+                                                                            </p-calendar>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <span
+                                                                                [hidden]="updateProjectTaskFrom.get('endTimeControl').valid || updateProjectTaskFrom.get('endTimeControl').untouched"
+                                                                                *ngIf="updateProjectTaskFrom.get('endTimeControl').hasError('required')"
+                                                                                class="error-message-span">
+                                                                                Không được để trống</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="buffer-bottom mt-5">
+                                                                <div class="col-md-6">
+                                                                    <div class="row buffer-bottom">
+                                                                        <div class="col-md-12 buffer-bottom-label">
+                                                                            <span>Số giờ thực hiện</span><span
+                                                                                class="required">*</span>
+                                                                        </div>
+                                                                        <div class="col-md-12" #boxHour>
+                                                                            <input type="text" class="number-input"
+                                                                                [ngClass]="(updateProjectTaskFrom.get('hourControl').invalid && (updateProjectTaskFrom.get('hourControl').dirty || updateProjectTaskFrom.get('hourControl').touched)) ? 'error-border' : ''"
+                                                                                formControlName="hourControl" pInputText
+                                                                                (change)="thayDoiThoiGianThucHien()"
+                                                                                [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}">
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <span
+                                                                                [hidden]="updateProjectTaskFrom.get('hourControl').valid || updateProjectTaskFrom.get('hourControl').untouched"
+                                                                                *ngIf="updateProjectTaskFrom.get('hourControl').hasError('required')"
+                                                                                class="error-message-span">
+                                                                                Không được để trống</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="row buffer-bottom">
+                                                                        <div class="col-md-12 buffer-bottom-label">
+                                                                            <span style="color: transparent;">Tính cuối
+                                                                                tuần</span>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <p-checkbox name="groupname"
+                                                                                formControlName="isWeekendControl"
+                                                                                binary="true" label="Tính cuối tuần">
+                                                                            </p-checkbox>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </p-fieldset>
+                                                    </div>
+                                                    <div class="col-md-6 ">
+                                                        <p-fieldset legend="Thời gian thực tế">
+                                                            <div class="row buffer-bottom no-margin">
+                                                                <div class="col-md-6 ">
+                                                                    <div class="row buffer-bottom">
+                                                                        <div class="col-md-12 buffer-bottom-label">
+                                                                            <span>Ngày bắt đầu</span>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <p-calendar
+                                                                                formControlName="actualStartTimeControl"
+                                                                                showButtonBar="true"
+                                                                                [yearNavigator]="true"
+                                                                                yearRange="{{minYear}}:{{currentYear}}"
+                                                                                dateFormat="dd/mm/yy"
+                                                                                [style]="{'width':'100%'}"
+                                                                                [maxDate]="actualEndTimeControl.value"
+                                                                                [inputStyle]="{'width':'100%'}"
+                                                                                [baseZIndex]="9999"
+                                                                                (keydown.enter)="$event.preventDefault()">
+                                                                            </p-calendar>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="row buffer-bottom">
+                                                                        <div class="col-md-12 buffer-bottom-label">
+                                                                            <span>Ngày kết thúc</span>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <p-calendar
+                                                                                formControlName="actualEndTimeControl"
+                                                                                showButtonBar="true"
+                                                                                [yearNavigator]="true"
+                                                                                yearRange="{{minYear}}:{{currentYear}}"
+                                                                                dateFormat="dd/mm/yy"
+                                                                                [style]="{'width':'100%'}"
+                                                                                [minDate]="actualStartTimeControl.value"
+                                                                                [inputStyle]="{'width':'100%'}"
+                                                                                [baseZIndex]="9999"
+                                                                                (keydown.enter)="$event.preventDefault()">
+                                                                            </p-calendar>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="buffer-bottom mt-5">
+                                                                <div class="col-md-5">
+                                                                    <div class="row buffer-bottom">
+                                                                        <div class="col-md-12 buffer-bottom-label">
+                                                                            <span>Số giờ đã sử dụng</span>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <input type="text" class="number-input"
+                                                                                formControlName="actualHourControl"
+                                                                                pInputText pInputText
+                                                                                (keydown.enter)="$event.preventDefault()"
+                                                                                [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-1">
+                                                                    <div class="row buffer-bottom">
+                                                                        <div class="col-md-12 buffer-bottom-label">
+                                                                            <span
+                                                                                style="color: transparent;">TimeSheet</span>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <button pButton icon="pi pi-plus"
+                                                                                class="ui-button-primary"
+                                                                                (click)="openAddTimeSheetDialog()"></button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="row buffer-bottom">
+                                                                        <div class="col-md-12 buffer-bottom-label">
+                                                                            <span>Số lần mở lại</span>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            <input type="text" class="number-input" formControlName="soLanMoLaiControl" pInputText >
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </p-fieldset>
+                                                    </div>
+                                                </div>
+                                                <!--HÀNG IV-->
+                                                <div class="col-md-12 form-group mt-15">
+                                                    <div class="col-md-12 form-group box-title ">
+                                                        <div class="title-2">
+                                                            <i class="pi pi-user-edit" style="font-size: 26px;"></i>
+                                                            &nbsp;Phân công công việc
+                                                            <span style="font-weight: 400; font-size: 13px;">(
+                                                                {{numberPic}}
+                                                                nguời phụ
+                                                                trách, {{numerChecker}} người kiểm tra )
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 form-group">
+                                                        <div class="col-md-3">
+                                                            <p-radioButton name="group2" value="auto"
+                                                                label="Chia thời gian tự động"
+                                                                [(ngModel)]="selecteTimeSetting"
+                                                                (keydown.enter)="$event.preventDefault()"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [disabled]="status?.categoryCode == 'CLOSE'"
+                                                                (onClick)="clickAutoTime()">
+                                                            </p-radioButton>
+                                                        </div>
+                                                        <div class="col-md-3" style="margin-top: 5px;">
+                                                            <p-radioButton name="group2" value="hand"
+                                                                label="Tùy chỉnh thời gian"
+                                                                [(ngModel)]="selecteTimeSetting"
+                                                                (keydown.enter)="$event.preventDefault()"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [disabled]="status?.categoryCode == 'CLOSE'"
+                                                                (onClick)="clickHandTime()">
+                                                            </p-radioButton>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <input type="text" class="iput-text"
+                                                                placeholder="Tìm kiếm trong danh sách" id="text-search"
+                                                                pInputText [ngModelOptions]="{standalone: true}"
+                                                                [(ngModel)]="isGlobalFilter"
+                                                                (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="listResource.length > 0" class="col-md-12 form-group">
+                                                        <p-table #myTable [columns]="selectedColumns"
+                                                            [value]="listResource" columnResizeMode="expand"
+                                                            [paginator]="true" [rows]="10"
+                                                            [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+                                                            <ng-template pTemplate="header" let-columns>
+                                                                <tr>
+                                                                    <th *ngFor="let col of columns" pResizableColumn
+                                                                        [pSortableColumn]="col.field"
+                                                                        [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+                                                                        {{col.header}}
+                                                                    </th>
+                                                                    <th class="table-row-checkbox">Phụ trách</th>
+                                                                    <th class="table-row-checkbox"></th>
+                                                                    <th class="table-row-checkbox">Kiểm tra</th>
+                                                                </tr>
+                                                            </ng-template>
+                                                            <ng-template pTemplate="body" let-rowData
+                                                                let-columns="columns">
+                                                                <tr>
+                                                                    <td *ngFor="let col of columns"
+                                                                        [ngSwitch]="col.field"
+                                                                        [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+                                                                        <span
+                                                                            class="ui-column-title">{{col.header}}</span>
+                                                                        <span *ngSwitchCase="'nameResource'"><i
+                                                                                class="pi pi-user" style="font-size: 24px;
+                                                                    position:relative; top: 4px;"></i>
+                                                                            {{rowData[col.field]}}
+                                                                        </span>
+                                                                        <span *ngSwitchDefault>
+                                                                            <span>{{rowData[col.field]}}</span>
+                                                                        </span>
+                                                                    </td>
+                                                                    <td style="text-align:center">
+                                                                        <span class="ui-column-title">Phụ trách</span>
+                                                                        <p-checkbox name="pic" binary="true"
+                                                                            [(ngModel)]="rowData.isPic"
+                                                                            [ngModelOptions]="{standalone: true}"
+                                                                            [disabled]="rowData.isActive ==false ||status?.categoryCode == 'CLOSE'"
+                                                                            (onChange)="changePic()">
+                                                                        </p-checkbox>
+                                                                    </td>
+                                                                    <td style="text-align: center;">
+                                                                        <input type="text" class="number-input"
+                                                                            [(ngModel)]="rowData.hours"
+                                                                            (keydown.enter)="$event.preventDefault()"
+                                                                            [ngModelOptions]="{standalone: true}"
+                                                                            pInputText
+                                                                            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}"
+                                                                            [disabled]="selecteTimeSetting =='auto'">
+                                                                    </td>
+                                                                    <td style="text-align: center;">
+                                                                        <span class="ui-column-title">Kiểm tra</span>
+                                                                        <p-checkbox name="check" binary="true"
+                                                                            [(ngModel)]="rowData.isCheck"
+                                                                            [disabled]="rowData.isActive ==false ||status?.categoryCode == 'CLOSE'"
+                                                                            [ngModelOptions]="{standalone: true}"
+                                                                            (onChange)="changeChecker()">
+                                                                        </p-checkbox>
+                                                                    </td>
+                                                                </tr>
+                                                            </ng-template>
+                                                        </p-table>
+                                                    </div>
+
+                                                    <div *ngIf="!(listResource.length > 0)"
+                                                        class="col-md-12 form-group no-padding no-data">
+                                                        <div class="box-no-data">
+                                                            <img src="/assets/icons/components/box.svg"
+                                                                class="box-icon">
+                                                            <div>
+                                                                <span>Hiện tại không có dữ liệu</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br />
+                                                    <div class="col-md-12 form-group">
+                                                        <div class="row buffer-bottom">
+                                                            <p-checkbox name="groupname1"
+                                                                formControlName="isSendEmailControl" binary="true"
+                                                                label="Không gửi thông báo qua email">
+                                                            </p-checkbox>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p-tabPanel>
+                                        <p-tabPanel header="Tài liệu công việc"
+                                            [headerStyle]="{width: '170px', 'text-align': 'center'}">
+                                            <div class="row">
+                                                <p-fileUpload #fileUpload name="demo[]" [showUploadButton]="false"
+                                                    multiple="multiple"
+                                                    accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+                                                    [maxFileSize]="defaultLimitedFileSize"
+                                                    invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+                                                    invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+                                                    invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+                                                    invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}."
+                                                    chooseLabel="Chọn file" cancelLabel="Hủy file đã chọn"
+                                                    (onSelect)="handleFile($event, fileUpload)"
+                                                    (onRemove)="removeFile($event)" (onClear)="clearAllFile()">
+                                                    <ng-template pTemplate="content" let-files>
+                                                        <div *ngIf="uploadedFiles.length == 0"
+                                                            style="padding-top: 30px; padding-bottom: 30px;">
+                                                            <i class="fa fa-upload" aria-hidden="true"
+                                                                style=" font-size: 36px;"></i>
+                                                            <div style="margin-top: 5px;">Kéo thả file để upload</div>
+                                                        </div>
+                                                    </ng-template>
+                                                </p-fileUpload>
+                                                <div class="col-md-12 mt-5">
+                                                    <p-table #dt [columns]="colsFile" [paginator]="true" [rows]="5"
+                                                        [value]="listTaskDocument" [responsive]="true"
+                                                        [resizableColumns]="true"
+                                                        [globalFilterFields]="['documentName']">
+                                                        <ng-template pTemplate="caption">
+                                                            <div style="text-align: right">
+                                                                <input type="text" pInputText size="50"
+                                                                    placeholder="Tên tài liệu"
+                                                                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                                    style="width:auto">
+                                                            </div>
+                                                        </ng-template>
+                                                        <ng-template pTemplate="header" let-columns>
+                                                            <tr>
+                                                                <th *ngFor="let col of columns" pResizableColumn
+                                                                    [ngStyle]="{'text-align': col.textAlign}">
+                                                                    {{col.header}}
+                                                                </th>
+                                                                <th style="width:4em"></th>
+                                                                <th style="width:4em"></th>
+                                                            </tr>
+                                                        </ng-template>
+                                                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                                            <tr>
+                                                                <td *ngFor="let col of columns"
+                                                                    class="ui-resizable-column"
+                                                                    [ngStyle]="{'text-align': col.textAlign}">
+                                                                    <span class="ui-column-title">{{col.header}}</span>
+                                                                    <span *ngIf="col.type === 'date'">{{rowData[col.field]
+                                                                        |date:'dd/MM/yyyy
+                                                                        h:mma'}}</span>
+                                                                    <span
+                                                                        *ngIf="col.type === 'string'">{{rowData[col.field]}}</span>
+                                                                    <span
+                                                                        *ngIf="col.type === 'number' && convertFileSize(rowData[col.field])">
+                                                                        {{
+                                                                        rowData[col.field]
+                                                                        / 1024 | number
+                                                                        }}
+                                                                        KB
+                                                                    </span>
+                                                                    <span
+                                                                        *ngIf="col.type === 'number' && !convertFileSize(rowData[col.field])">
+                                                                        {{
+                                                                        rowData[col.field]
+                                                                        / 1048576 | number
+                                                                        }}
+                                                                        MB
+                                                                    </span>
+                                                                </td>
+                                                                <td>
+                                                                    <button *ngIf="actionDelete" pButton
+                                                                        icon="pi pi-trash" (click)="deleteFile(rowData)"
+                                                                        class="ui-button-danger"></button>
+                                                                </td>
+                                                                <td>
+                                                                    <button pButton icon="pi pi-download"
+                                                                        (click)="downloadFile(rowData)"></button>
+                                                                </td>
+                                                            </tr>
+                                                        </ng-template>
+                                                    </p-table>
+                                                </div>
+                                            </div>
+                                        </p-tabPanel>
+                                        <p-tabPanel header="Ràng buộc công việc"
+                                            [headerStyle]="{width: '180px', 'text-align': 'center'}">
+                                            <div class="row no-margin">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6 mt-15 no-padding">
+                                                        <label class="title-2"
+                                                            style="padding-top: 10px; padding-bottom: 10px;">
+                                                            Công việc hoàn thành trước
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 mt-15 no-padding">
+                                                        <div class="row buffer-bottom">
+                                                            <div class="col-md-12 mt-5">
+                                                                <button type="button" class="btn-add"
+                                                                    (click)="openCreateContrantDialog()">
+                                                                    <span class="btn-save-text">Thêm mới</span>
+                                                                </button>
+                                                                <button type="button" class="btn-add"
+                                                                    (click)="openCreateContrantDialog()">
+                                                                    <span class="btn-save-text">Bộ lọc</span>
+                                                                </button>
+                                                                <input type="text" class="iput-text"
+                                                                    placeholder="Tìm kiếm trong danh sách"
+                                                                    id="text-search" pInputText
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="isGlobalFilterOne"
+                                                                    (input)="tableBefore.filterGlobal($event.target.value.trim(), 'contains')">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="(listTaskContraintBefore.length > 0)" class="col-md-12">
+                                                    <p-table #tableBefore [columns]="selectedColumnsConstraintBefore"
+                                                        [value]="listTaskContraintBefore" columnResizeMode="expand"
+                                                        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                                                        [responsive]="true">
+                                                        <ng-template pTemplate="header" let-columns>
+                                                            <tr>
+                                                                <th *ngFor="let col of columns" pResizableColumn
+                                                                    [pSortableColumn]="col.field"
+                                                                    [ngStyle]="{ 'text-align': col.textAlign, display: col.display, 'width':col.width }">
+                                                                    {{col.header}}
+                                                                </th>
+                                                                <th class="table-row-checkbox">Bắt buộc</th>
+                                                                <th style="width: 70px; text-align: center">Thao tác
+                                                                </th>
+                                                            </tr>
+                                                        </ng-template>
+                                                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                                            <tr>
+                                                                <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                                                                    [ngStyle]="{ 'text-align': col.textAlign, display: col.display, 'width':col.width }">
+                                                                    <span class="ui-column-title">{{col.header}}</span>
+                                                                    <span *ngSwitchCase="'taskCode'" (click)="viewJobDetail(rowData)">
+                                                                        {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'statusName'" class="status"
+                                                                        [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}"
+                                                                        style="display: inline-block;
+                                                                                padding: 3px 3px;
+                                                                                color: white;
+                                                                                width: 100%;
+                                                                                text-align: center;">
+                                                                        {{rowData[col.field]}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'planStartTime'">
+                                                                        {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'planEndTime'">
+                                                                        {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+                                                                    </span>
+                                                                    <span *ngSwitchDefault>
+                                                                        <span>{{rowData[col.field]}}</span>
+                                                                    </span>
+                                                                </td>
+                                                                <td style="text-align: center;">
+                                                                    <p-checkbox name="check" binary="true"
+                                                                        [(ngModel)]="rowData.constraingRequired"
+                                                                        (onChange)="changeRequired(rowData)"
+                                                                        [ngModelOptions]="{standalone: true}">
+                                                                    </p-checkbox>
+                                                                </td>
+                                                                <td style="width: 70px; text-align: center">
+                                                                    <button pButton icon="pi pi-trash"
+                                                                        (click)="deleteConstraint(rowData)"
+                                                                        class="ui-button-danger"></button>
+                                                                </td>
+                                                            </tr>
+                                                        </ng-template>
+                                                    </p-table>
+                                                </div>
+                                                <div *ngIf="!(listTaskContraintBefore.length > 0)"
+                                                    class="col-md-12 no-padding no-data">
+                                                    <div class="box-no-data">
+                                                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                                                        <div>
+                                                            <span>Hiện tại không có dữ liệu</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row no-margin" style="padding-top: 20px">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6 mt-15 no-padding">
+                                                        <label class="title-2"
+                                                            style="padding-top: 10px; padding-bottom: 10px;">
+                                                            Công việc hoàn thành sau
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 mt-15 no-padding">
+                                                        <div class="row buffer-bottom">
+                                                            <div class="col-md-12 mt-5">
+                                                                <input type="text" class="iput-text"
+                                                                    placeholder="Tìm kiếm trong danh sách"
+                                                                    id="text-search" pInputText
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="isGlobalFilterTwo"
+                                                                    (input)="tableAfter.filterGlobal($event.target.value.trim(), 'contains')">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="(listTaskContraintAfter.length > 0)" class="col-md-12">
+                                                    <p-table #tableAfter [columns]="selectedColumnsConstrantAfter"
+                                                        [value]="listTaskContraintAfter" columnResizeMode="expand"
+                                                        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                                                        [responsive]="true">
+                                                        <ng-template pTemplate="header" let-columns>
+                                                            <tr>
+                                                                <th *ngFor="let col of columns" pResizableColumn
+                                                                    [pSortableColumn]="col.field"
+                                                                    [ngStyle]="{ 'text-align': col.textAlign, display: col.display,'width':col.width }">
+                                                                    {{col.header}}
+                                                                </th>
+                                                                <th class="table-row-checkbox">Bắt buộc</th>
+                                                                <th style="width: 70px; text-align: center">Thao tác
+                                                                </th>
+                                                            </tr>
+                                                        </ng-template>
+                                                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                                            <tr>
+                                                                <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                                                                    [ngStyle]="{ 'text-align': col.textAlign, display: col.display, 'width':col.width }">
+                                                                    <span class="ui-column-title">{{col.header}}</span>
+                                                                    <span *ngSwitchCase="'statusName'" class="status"
+                                                                        [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}"
+                                                                        style="display: inline-block;
+                                                                            padding: 3px 3px;
+                                                                            color: white;
+                                                                            width: 100%;
+                                                                            text-align: center;">
+                                                                        {{rowData[col.field]}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'planStartTime'">
+                                                                        {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'planEndTime'">
+                                                                        {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+                                                                    </span>
+                                                                    <span *ngSwitchDefault>
+                                                                        <span>{{rowData[col.field]}}</span>
+                                                                    </span>
+                                                                </td>
+                                                                <td style="text-align: center;">
+                                                                    <p-checkbox name="check" binary="true"
+                                                                        [(ngModel)]="rowData.constraingRequired"
+                                                                        (onChange)="changeRequired(rowData)"
+                                                                        [ngModelOptions]="{standalone: true}">
+                                                                    </p-checkbox>
+                                                                </td>
+                                                                <td style="width: 70px; text-align: center">
+                                                                    <button pButton icon="pi pi-trash"
+                                                                        (click)="deleteConstraint(rowData)"
+                                                                        class="ui-button-danger"></button>
+                                                                </td>
+                                                            </tr>
+                                                        </ng-template>
+                                                    </p-table>
+                                                </div>
+
+                                                <div *ngIf="!(listTaskContraintAfter.length > 0)"
+                                                    class="col-md-12 no-padding no-data">
+                                                    <div class="box-no-data">
+                                                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                                                        <div>
+                                                            <span>Hiện tại không có dữ liệu</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p-tabPanel>
+
+
+                                        <p-tabPanel header="Công việc liên quan"
+                                            [headerStyle]="{width: '180px', 'text-align': 'center'}">
+                                            <div class="row no-margin">
+                                                <div class="col-md-12">
+                                                    <div class="col-md-6 mt-15 no-padding">
+                                                        <label class="title-2"
+                                                            style="padding-top: 10px; padding-bottom: 10px;">
+                                                            Công việc liên quan
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-md-6 mt-15 no-padding">
+                                                        <div class="row buffer-bottom">
+                                                            <div class="col-md-12 mt-5">
+                                                                <!-- <button type="button" class="btn-add"
+                                                                    (click)="openCreateRelateTaskDialog()">
+                                                                    <span class="btn-save-text">Thêm mới</span>
+                                                                </button>
+                                                                <button type="button" class="btn-add"
+                                                                    (click)="openCreateRelateTaskDialog()">
+                                                                    <span class="btn-save-text">Bộ lọc</span>
+                                                                </button> -->
+                                                                <input type="text" class="iput-text"
+                                                                    placeholder="Tìm kiếm trong danh sách"
+                                                                    id="text-search" pInputText
+                                                                    [ngModelOptions]="{standalone: true}"
+                                                                    [(ngModel)]="isGlobalFilterOne"
+                                                                    (input)="tableRelateTask.filterGlobal($event.target.value.trim(), 'contains')">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div *ngIf="(listRelateTask.length > 0)" class="col-md-12">
+                                                    <p-table #tableRelateTask [columns]="selectedColumnsRelateTask"
+                                                        [value]="listRelateTask" columnResizeMode="expand"
+                                                        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                                                        [responsive]="true">
+                                                        <ng-template pTemplate="header" let-columns>
+                                                            <tr>
+                                                                <th *ngFor="let col of columns" pResizableColumn
+                                                                    [pSortableColumn]="col.field"
+                                                                    [ngStyle]="{ 'text-align': col.textAlign, display: col.display, 'width':col.width }">
+                                                                    {{col.header}}
+                                                                </th>
+                                                                <th style="width: 70px; text-align: center">Thao tác
+                                                                </th>
+                                                            </tr>
+                                                        </ng-template>
+                                                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                                            <tr>
+                                                                <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                                                                    [ngStyle]="{ 'text-align': col.textAlign, display: col.display, 'width':col.width }">
+                                                                    <span class="ui-column-title">{{col.header}}</span>
+                                                                    <span *ngSwitchCase="'taskCode'" (click)="viewJobDetailRelateTask(rowData)" class="link" style="corsor:pointer">
+                                                                        {{rowData[col.field]}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'statusName'" class="status"
+                                                                        [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}"
+                                                                        style="display: inline-block;
+                                                                                padding: 3px 3px;
+                                                                                color: white;
+                                                                                width: 100%;
+                                                                                text-align: center;">
+                                                                        {{rowData[col.field]}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'expectedEndDate'">
+                                                                        {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+                                                                    </span>
+                                                                    <span *ngSwitchCase="'expectedStartDate'">
+                                                                        {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+                                                                    </span>
+                                                                    <span *ngSwitchDefault>
+                                                                        <span>{{rowData[col.field]}}</span>
+                                                                    </span>
+                                                                </td>
+                                                                <td style="width: 70px; text-align: center">
+                                                                    <button pButton icon="pi pi-trash"
+                                                                        (click)="deleteRelateTask(rowData)"
+                                                                        class="ui-button-danger"></button>
+                                                                </td>
+                                                            </tr>
+                                                        </ng-template>
+                                                    </p-table>
+                                                </div>
+                                                <div *ngIf="!(listRelateTask.length > 0)"
+                                                    class="col-md-12 no-padding no-data">
+                                                    <div class="box-no-data">
+                                                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                                                        <div>
+                                                            <span>Hiện tại không có dữ liệu</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </p-tabPanel>
+                                    </p-tabView>
+                                </div>
+                                <div class="row no-margin" style="padding-top: 10px; padding-bottom: 10px;" #time>
+                                    <div class="col-md-12 time-line">
+                                        <div class="row">
+                                            <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                                                collapseIcon="pi pi-fw pi-chevron-circle-down">
+                                                <p-accordionTab header="Ghi chú" [selected]="true">
+                                                    <div class='row'>
+                                                        <div class="col-md-12">
+                                                            <p-editor [(ngModel)]="noteContent"
+                                                                [ngModelOptions]="{standalone: true}"
+                                                                [style]="{'height':'180px', 'width': '100%'}"
+                                                                (onTextChange)="changeNoteContent($event)">
+                                                            </p-editor>
+                                                        </div>
+                                                        <!-- <div class="col-md-12" style="margin-top: 5px;">
+                                                            <p-fileUpload #fileUploadNote name="demo[]"
+                                                                [showUploadButton]="false" multiple="multiple"
+                                                                accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+                                                                maxFileSize="10000000"
+                                                                invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+                                                                invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+                                                                invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+                                                                invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}."
+                                                                chooseLabel="Chọn file" cancelLabel="Hủy file đã chọn"
+                                                                (onSelect)="handleFile($event, fileUpload)"
+                                                                (onRemove)="removeFile($event)"
+                                                                (onClear)="clearAllFile()">
+                                                                <ng-template pTemplate="content" let-files>
+                                                                    <div *ngIf="uploadedFiles.length == 0"
+                                                                        style="padding-top: 30px; padding-bottom: 30px;">
+                                                                        <i class="fa fa-upload" aria-hidden="true"
+                                                                            style="font-size: 36px;"></i>
+                                                                        <div style="margin-top: 5px;">Kéo thả file để
+                                                                            upload
+                                                                        </div>
+                                                                    </div>
+                                                                </ng-template>
+                                                            </p-fileUpload>
+                                                        </div> -->
+                                                        <div class="col-md-12"
+                                                            style="text-align: right; margin-top: 5px;">
+                                                            <button type="button" class="btn-cancel-note"
+                                                                (click)="cancelNote()">
+                                                                <span class="save-cancel-lable">Hủy</span>
+                                                            </button>
+                                                            <button type="button" class="btn-save-note"
+                                                                (click)="saveNote()">
+                                                                <span class="save-note-lable">{{isEditNote == true ?
+                                                                    'Cập nhật
+                                                                    ghi chú'
+                                                                    :
+                                                                    'Thêm ghi chú'}}</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </p-accordionTab>
+                                            </p-accordion>
+                                            <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                                                collapseIcon="pi pi-fw pi-chevron-circle-down">
+                                                <p-accordionTab header="Dòng thời gian" [selected]="true">
+                                                    <div class="row">
+                                                        <div class="timeline col-md-12 timeline-content">
+                                                            <ul class="timeline">
+                                                                <li
+                                                                    *ngFor="let note of noteHistory;let noteIndex = index;">
+                                                                    <i *ngIf="note.type == 'ADD'"
+                                                                        class="fa fa-file-text-o bg-blueX color-w"></i>
+                                                                    <i *ngIf="note.type == 'NOT'"
+                                                                        class="fa fa-commenting-o bg-blueX color-w"></i>
+                                                                    <i *ngIf="note.type == 'EDT'"
+                                                                        class="fa fa-user bg-blueX color-w"></i>
+                                                                    <i *ngIf="note.type == 'NEW'"
+                                                                        class="fa fa-user-plus bg-blueX color-w"></i>
+                                                                    <div class="timeline-item" id="{{note.noteId}}">
+                                                                        <span class="time onHover">
+                                                                            <i *ngIf="note.type === 'ADD' && ((note.description !== '' && note.description !== null) || note.noteDocList.length > 0) && actionEditNote"
+                                                                                (click)="onClickEditNote(note.noteId, note.description)"
+                                                                                class="pi pi-pencil style-edit"
+                                                                                pTooltip="{{ 'lead.tooltip.edit_note' | translate }}"
+                                                                                tooltipPosition="bottom"></i>
+                                                                            <i *ngIf="actionEditNote && note.type !== 'SYS'"
+                                                                                pTooltip="Xóa ghi chú"
+                                                                                tooltipPosition="bottom"
+                                                                                (click)="onClickDeleteNote(note.noteId)"
+                                                                                class="pi pi-trash style-delete"></i>
+                                                                        </span>
+                                                                        <h3 class="timeline-header">
+                                                                            <span>
+                                                                                <i *ngIf="tooLong(note)"
+                                                                                    class="trigger_node collapse-content-icon pi pi-chevron-right"
+                                                                                    (click)="trigger_node(note.noteId,$event)"
+                                                                                    style="cursor: pointer;"
+                                                                                    pTooltip="{{ toggle_note_label }}"
+                                                                                    tooltipPosition="bottom"></i>
+                                                                                <span class="alignment"
+                                                                                    style="padding: 0 12px;"
+                                                                                    *ngIf="!tooLong(note)"></span>
+                                                                            </span>
+                                                                            <div>
+                                                                                <img *ngIf="note" [src]="defaultAvatar"
+                                                                                    height="30" width="30" alt=""
+                                                                                    class="timeline-user-avatar" />
+                                                                            </div>
+                                                                            <span
+                                                                                class="note-user">{{note.responsibleName}}</span>
+                                                                            <p class="time-note">
+                                                                                {{note.noteTitle}} Lúc
+                                                                                {{note.createdDate |
+                                                                                date:'HH:mm'}}
+                                                                                {{ 'lead.note.day' | translate }}
+                                                                                {{note.createdDate | date:'dd/MM/yyyy'}}
+                                                                            </p>
+                                                                        </h3>
+                                                                        <div class="timeline-body">
+                                                                            <div class="note-content">
+                                                                                <span class="short-content"
+                                                                                    style="word-wrap: break-word;"></span>
+                                                                                <span class="full-content"
+                                                                                    style="display: none;word-wrap: break-word;"></span>
+                                                                            </div>
+
+                                                                            <div *ngIf="note.noteDocList.length > 0"
+                                                                                class="row no-margin file-upload-zone"
+                                                                                style="padding: 0 12px; margin-bottom: 20px !important">
+                                                                                <div *ngFor="let item of note.noteDocList.slice(0,3); let i=index"
+                                                                                    class="col-md-4 short-content-file"
+                                                                                    style="padding: 5px 0">
+                                                                                    <div class="row no-margin file-item"
+                                                                                        style="background-color: rgb(228, 228, 228); padding: 5px 10px">
+                                                                                        <div class="col-md-1">
+                                                                                            <i class="pi pi-file"
+                                                                                                style="font-size: 1.55em;"></i>
+                                                                                        </div>
+                                                                                        <div class="col-md-10">
+                                                                                            <div class="item-name"
+                                                                                                pTooltip="{{ item.documentName }}"
+                                                                                                tooltipPosition="bottom">
+                                                                                                <span>
+                                                                                                    <a class="preview-doc"
+                                                                                                        (click)="openItem(item.documentName, item.documentUrl)">
+                                                                                                        {{
+                                                                                                        item.documentName
+                                                                                                        }}
+                                                                                                    </a>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                style="font-size: 10px; padding: 0 !important">
+                                                                                                {{
+                                                                                                (item.documentSize)/1024/1024
+                                                                                                |
+                                                                                                number:'.2' }} MB
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-1">
+                                                                                            <i class="pi pi-download"
+                                                                                                (click)="downloadNoteFile(item)"
+                                                                                                style="font-size: 1.55em; cursor: pointer;"></i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div *ngFor="let item of note.noteDocList;let i=index"
+                                                                                    class="col-md-4 full-content-file"
+                                                                                    style="display: none;padding: 5px 0">
+                                                                                    <div class="row no-margin file-item"
+                                                                                        style="background-color: rgb(228, 228, 228); padding: 5px 10px">
+                                                                                        <div class="col-md-1">
+                                                                                            <i class="pi pi-file"
+                                                                                                style="font-size: 1.55em;"></i>
+                                                                                        </div>
+                                                                                        <div class="col-md-10">
+                                                                                            <div class="item-name"
+                                                                                                pTooltip="{{ item.documentName }}"
+                                                                                                tooltipPosition="bottom">
+                                                                                                <span>
+                                                                                                    <a class="preview-doc"
+                                                                                                        (click)="openItem(item.base64Url)">
+                                                                                                        {{
+                                                                                                        item.documentName
+                                                                                                        }}
+                                                                                                    </a>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                            <div
+                                                                                                style="font-size: 10px; padding: 0 !important">
+                                                                                                {{
+                                                                                                item.documentSize/1024/1024
+                                                                                                |
+                                                                                                number:'.2'
+                                                                                                }} MB
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        <div class="col-md-1">
+                                                                                            <i class="pi pi-file"
+                                                                                                (click)="downloadNoteFile(item)"
+                                                                                                style="font-size: 1.55em; cursor: pointer;"></i>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <p *ngIf="note.noteDocList.length > 3"
+                                                                                    class="col-md-12 continue">
+                                                                                    <b>...</b>
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </ul>
+                                                            <p-paginator #paginator [rows]="10"
+                                                                [totalRecords]="totalRecordsNote"
+                                                                (onPageChange)="paginate($event)"
+                                                                [rowsPerPageOptions]="[10,20,30]">
+                                                            </p-paginator>
+                                                        </div>
+                                                    </div>
+                                                </p-accordionTab>
+                                            </p-accordion>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+        <!-- Footer -->
+        <main-footer></main-footer>
+    </div>
+</div>

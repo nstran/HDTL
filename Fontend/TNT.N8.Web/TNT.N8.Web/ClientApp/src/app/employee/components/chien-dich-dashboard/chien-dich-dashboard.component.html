@@ -1,0 +1,193 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="dashboard">
+  <div class="row no-margin" style="padding-bottom: 10px;">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-12" class="header-title">
+          <span class="title">DASHBOARD</span>
+        </div>
+        <div class="col-md-12">
+          <span>{{ currentTimeString }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" style="padding-top: 20px;">
+    <div class="col-md-12">
+      <div class="row">
+        <!-- Tỉ lệ ứng viên theo trạng thái -->
+        <div class="col-md-6" style="margin-top: 10px;">
+          <div class="row box-chart no-margin">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <span class="chart-1-title">TỈ LỆ ỨNG VIÊN THEO TRẠNG THÁI</span>
+                </div>
+                <div class="col-md-12">
+                  <div class="choose-month">
+                    <p-dropdown [options]="listTime" [(ngModel)]="selectedTime" optionLabel="label"
+                      (onChange)="changeChooseTime($event.value)">
+                    </p-dropdown>
+                  </div>
+                  <div style="clear: both;"></div>
+                </div>
+                <div class="col-md-12">
+                  <div class="row">
+                    <div *ngIf="listChartCandidateFollowStatus.length > 0" class="col-md-12">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div [chart]="doughnutChartStatus"></div>
+                        </div>
+                        <div class="col-md-12 icon-chart">
+                          <div *ngFor="let item of listChartCandidateFollowStatus" class="row buffer-text-row">
+                            <div class="col-md-8 col-xs-8" style="padding-right: 0;">
+                              <span class="color-icon" [ngStyle]="{'background-color': item['color']}"></span>
+                              <span class="color-text">{{item.statusName}}</span>
+                            </div>
+                            <div class="col-md-2 col-xs-2 rating-text" style="padding-left: 0;">{{item.percentValue}}%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div *ngIf="!(listChartCandidateFollowStatus.length > 0)" class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SỐ LƯỢNG ỨNG VIÊN THEO KÊNH TUYỂN DỤNG -->
+        <div class="col-md-6" style="margin-top: 10px;">
+          <div class="row box-chart no-margin">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <span class="chart-1-title">SỐ LƯỢNG ỨNG VIÊN THEO KÊNH TUYỂN DỤNG</span>
+                </div>
+                <div class="col-md-12">
+                  <div class="choose-month">
+                    <p-dropdown [options]="listTime" [(ngModel)]="selectedTime" optionLabel="label"
+                      (onChange)="changeChooseTime($event.value)">
+                    </p-dropdown>
+                  </div>
+                  <div style="clear: both;"></div>
+                </div>
+                <div class="col-md-12">
+                  <div *ngIf="(listNumberCandidateFollowRecruitmentChannel.length > 0)" class="row">
+                    <div class="col-md-12 chart">
+                      <div id="container">
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div class="row buffer-text-row">
+                        <div class="col-md-4 col-xs-4" style="padding-right: 0;">
+                          <span class="color-icon" style="background-color: #FACD91;"></span>
+                          <span class="color-text">Tổng CV nhận</span>
+                        </div>
+                        <div class="col-md-4 col-xs-4" style="padding-right: 0;">
+                          <span class="color-icon" style="background-color: #78A9FF;"></span>
+                          <span class="color-text">Ứng viên hẹn PV</span>
+                        </div>
+                        <div class="col-md-4 col-xs-4" style="padding-right: 0;">
+                          <span class="color-icon" style="background-color: #2DC258;"></span>
+                          <span class="color-text">Ứng viên thành nv/thử việc</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!(listNumberCandidateFollowRecruitmentChannel.length > 0)" class="row">
+                    <div class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" style="padding-top: 20px;">
+    <div class="col-md-12">
+      <div class="row">
+        <!-- SỐ LƯỢNG NV/THỬ VIỆC TUYỂN ĐƯỢC THEO NHÂN VIÊN -->
+        <div class="col-md-12" style="margin-top: 10px;">
+          <div class="row box-chart no-margin">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-12">
+                  <span class="chart-1-title">SỐ LƯỢNG NV/THỬ VIỆC TUYỂN ĐƯỢC THEO NHÂN VIÊN</span>
+                </div>
+                <div class="col-md-12">
+                  <div class="choose-month">
+                    <p-dropdown [options]="listTime" [(ngModel)]="selectedTime" optionLabel="label"
+                      (onChange)="changeChooseTime($event.value)">
+                    </p-dropdown>
+                  </div>
+                  <div style="clear: both;"></div>
+                </div>
+                <div class="col-md-12">
+                  <div *ngIf="(listNumberCandidateTurnEmployeeFollowEmployee.length > 0)" class="row">
+                    <div class="col-md-12 chart">
+                      <div id="container1">
+                      </div>
+                    </div>
+                  </div>
+                  <div *ngIf="!(listNumberCandidateTurnEmployeeFollowEmployee.length > 0)" class="row">
+                    <div class="col-md-12 no-padding no-data">
+                      <div class="box-no-data">
+                        <img src="/assets/icons/components/box.svg" class="box-icon">
+                        <div>
+                          <span>Hiện tại không có dữ liệu</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!--START : LỊCH HẸN PHỎNG VẤN -->
+  <!-- <div class="row no-margin" style="padding-top: 20px;">
+    <div class="col-md-12 no-margin">
+      <p-fullCalendar #calendar [events]="events" [options]="options">
+      </p-fullCalendar>
+    </div>
+  </div> -->
+  <!--END : LỊCH HẸN PHỎNG VẤN -->
+
+</div>

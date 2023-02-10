@@ -1,0 +1,1286 @@
+.wrapper {
+    background: #ecf0f5;
+}
+
+.create-project-task .header {
+    background-color: #ffffff;
+    border-radius   : 4px;
+    border          : solid 1px #cccccc;
+}
+
+.create-project-task .header-box-icon {
+    width        : 40px;
+    height       : 40px;
+    border-radius: 50%;
+}
+
+.create-project-task .header-icon {
+    width      : 18px;
+    height     : 18px;
+    object-fit : contain;
+    margin-top : 16px;
+    margin-left: 10px;
+}
+
+.create-project-task .buffer-top {
+    margin-top: 1.2rem;
+}
+
+.create-project-task .buffer-bottom {
+    margin-bottom: 15px;
+}
+
+.create-project-task .buffer-bottom-label {
+    margin-bottom: 3px;
+}
+
+.create-project-task .btn-move {
+    width : 20px !important;
+    height: 20px !important;
+}
+
+.create-project-task .mr-5 {
+    margin-right: 5px;
+}
+
+.create-project-task .icons-move {
+    font-size: 10px !important;
+}
+
+.create-project-task .required {
+    color: red;
+}
+
+.create-project-task .error-message-span {
+    color: red;
+}
+
+.create-project-task .title {
+    font-size  : 15px;
+    font-weight: bold !important;
+    color      : black;
+}
+
+.create-project-task .title-2 {
+    font-size  : 16px;
+    font-weight: bold !important;
+    color      : black;
+}
+
+.create-project-task .customer-name {
+    width         : 119px;
+    height        : 18px;
+    font-family   : 'Inter UI';
+    font-size     : 22px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 2.25;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+}
+
+.create-project-task .add-product-text {
+    width         : 146px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #0f62fe;
+    cursor        : pointer;
+}
+
+.create-project-task .customer-type {
+    width         : 106px;
+    height        : 14px;
+    font-family   : 'Inter UI';
+    font-size     : 11px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.36;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #4d5358;
+}
+
+.create-project-task .btn-remove {
+    width           : 72px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #ffffff;
+}
+
+.create-project-task .btn-remove-text {
+    width         : 24px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #121619;
+}
+
+.create-project-task .save-and-new {
+    width           : 142px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #0f62fe;
+    background-color: #ffffff;
+    margin-left     : 5px;
+}
+
+.create-project-task .save-and-new .text-save-and-new {
+    width         : 102px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #0f62fe;
+}
+
+::ng-deep .create-project-task .ui-dropdown {
+    min-width: 0px !important;
+}
+
+::ng-deep .create-project-task .ui-menu ul {
+    text-align: left;
+}
+
+.create-project-task .btn-save {
+    width           : 72px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border          : solid 1px #cccccc;
+    margin-left     : 5px;
+}
+
+.create-project-task .btn-add {
+    width           : 120px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border          : solid 1px #cccccc;
+    margin-left     : 5px;
+    float           : right;
+}
+
+.create-project-task .btn-save-text {
+    width         : 24px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+}
+
+.create-project-task .btn-create-company {
+    width           : 125px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border          : solid 1px #cccccc;
+    margin-left     : 5px;
+}
+
+.create-project-task .btn-create-company-text {
+    width         : 24px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+}
+
+.create-project-task .customer-infor {
+    background-color: #ffffff;
+    border-radius   : 4px;
+    border          : none;
+    border          : solid 1px #cccccc;
+    padding-bottom  : 10px;
+}
+
+/*Begin: Customize Accordion */
+
+::ng-deep .create-project-task .ui-accordion .ui-accordion-header a {
+    border          : 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+    font-size       : 16px;
+}
+
+::ng-deep .create-project-task .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    background-color: #ffffff !important;
+    border          : 1px solid #ffffff !important;
+    color           : #121619 !important;
+}
+
+::ng-deep .create-project-task .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+}
+
+::ng-deep .create-project-task .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+}
+
+::ng-deep .create-project-task .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    color: #121619 !important;
+}
+
+::ng-deep .create-project-task .ui-accordion .ui-accordion-content {
+    border          : 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+/*End: Customize Accordion */
+
+.create-project-task .box-handle-infor {
+    border-right: 1px dashed;
+}
+
+.create-project-task .cus-avatar {
+    width        : 50%;
+    border-radius: 50%;
+}
+
+.create-project-task .error-message-span {
+    color: red !important;
+}
+
+.create-project-task .infor-label {
+    width         : 97px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #4d5358;
+}
+
+.create-project-task .infor-value {
+    width         : 67px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : 600;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+}
+
+.create-project-task .box-level {
+    width           : 125px;
+    height          : 32px;
+    border-radius   : 20px;
+    background-color: rgba(255, 59, 48, 0.1);
+    margin-left     : 25px;
+    padding-top     : 5px;
+}
+
+.create-project-task .level-text {
+    width         : 93px;
+    height        : 14px;
+    font-family   : 'Inter UI';
+    font-size     : 11px;
+    font-weight   : 600;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.36;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #ff3b30;
+}
+
+.create-project-task .point-text {
+    width         : 98px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #4d5358;
+}
+
+.create-project-task .point-number {
+    width         : 37px;
+    height        : 34px;
+    font-family   : 'Inter UI';
+    font-size     : 28px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.21;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #0f62fe;
+}
+
+.create-project-task .box-money {
+    height          : 158px;
+    border-radius   : 4px;
+    border          : solid 1px #dde1e6;
+    background-color: #ffffff;
+    padding         : 5px 5px;
+}
+
+.create-project-task .money-label {
+    width         : 81px;
+    height        : 20px;
+    font-family   : 'Inter UI';
+    font-size     : 16px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.25;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+}
+
+.create-project-task .box-money-number {
+    margin-top: 20%;
+    text-align: center;
+}
+
+.create-project-task .money-number {
+    width         : 170px;
+    height        : 34px;
+    font-family   : 'Inter UI';
+    font-size     : 15px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.21;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+}
+
+.create-project-task .btn-cancel-note {
+    width           : 72px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #ffffff;
+}
+
+.create-project-task .save-cancel-lable {
+    width         : 24px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #121619;
+}
+
+.create-project-task .btn-save-note {
+    width           : 158px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border          : solid 1px #cccccc;
+    margin-left     : 5px;
+}
+
+.create-project-task .save-note-lable {
+    width         : 110px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+}
+
+.create-project-task .w100 {
+    width : 100%;
+    height: 34px;
+}
+
+.create-project-task .link {
+    font-family: 'Inter UI';
+    color      : #007ad9;
+    cursor     : pointer;
+    font-size  : 13px;
+}
+
+.create-project-task .btn-send-email {
+    width           : 132px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #af52de;
+    border          : solid 1px #cccccc;
+}
+
+.create-project-task .btn-send-email-icon {
+    width     : 16px;
+    height    : 10.2px;
+    object-fit: contain;
+}
+
+.create-project-task .btn-send-email-text {
+    width         : 60px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+}
+
+.create-project-task .btn-send-sms {
+    width           : 132px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #ffcc00;
+    border          : solid 1px #cccccc;
+}
+
+.create-project-task .btn-send-sms-icon {
+    width     : 22px;
+    height    : 15px;
+    object-fit: contain;
+}
+
+.create-project-task .btn-choose-time {
+    width           : 150px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #f2f4f8;
+    padding-top     : 6px;
+}
+
+.create-project-task .icon-choose-left {
+    position: relative;
+    cursor  : pointer;
+    left    : 5px;
+}
+
+.create-project-task .choose-label {
+    position: relative;
+    left    : 16px;
+}
+
+.create-project-task .icon-choose-right {
+    position: relative;
+    cursor  : pointer;
+    right   : -28px;
+}
+
+.create-project-task .btn-send-sms-text {
+    width         : 54px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #121619;
+}
+
+.create-project-task .btn-send-gift {
+    width           : 132px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border          : solid 1px #cccccc;
+}
+
+.create-project-task .btn-send-gift-icon {
+    width     : 13px;
+    height    : 14.9px;
+    object-fit: contain;
+}
+
+.create-project-task .btn-send-gift-text {
+    width         : 58px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+}
+
+.create-project-task .no-data {
+    height          : 330px;
+    width           : 100%;
+    border          : solid 1px #d7dbe0;
+    background-color: #f2f4f8;
+    text-align      : center;
+}
+
+.create-project-task .box-no-data {
+    position: relative;
+    top     : 25%;
+}
+
+.create-project-task .box-icon {
+    width     : 57.1px;
+    height    : 58px;
+    object-fit: contain;
+}
+
+/* CSS time line */
+
+.create-project-task .timeline>li {
+    margin-right: 0 !important;
+}
+
+.create-project-task .style-delete {
+    color    : #FE747A;
+    cursor   : pointer;
+    font-size: 1.55em;
+}
+
+.create-project-task .style-edit {
+    cursor   : pointer;
+    font-size: 1.55em;
+}
+
+.create-project-task .note-user {
+    font-family: 'Inter UI';
+    font-weight: bold;
+}
+
+.create-project-task .timeline>li>.timeline-item {
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.create-project-task .timeline-content {
+    margin-top: 20px;
+}
+
+.create-project-task .bg-blueX {
+    background-color: #4E6BA5 !important;
+}
+
+.create-project-task .color-w {
+    color: #fff !important;
+}
+
+.create-project-task .timeline-item .onHover {
+    display: none;
+}
+
+.create-project-task .timeline-item:hover .onHover {
+    display: block;
+}
+
+.create-project-task .material-icons {
+    cursor: pointer;
+}
+
+.create-project-task .timeline-user-avatar {
+    border-radius: 50%;
+    margin-right : 5px;
+    float        : left;
+}
+
+.create-project-task .note-title {
+    font-size  : 11px !important;
+    color      : #222 !important;
+    font-weight: normal !important;
+}
+
+.create-project-task .time-note {
+    font-size  : 10px !important;
+    color      : #5d5a5a !important;
+    font-weight: normal !important;
+}
+
+.create-project-task .timeline-body {
+    padding: 10px 15px;
+}
+
+.create-project-task .file-upload-zone .col-md-4:nth-child(3n+1) {
+    padding-right: 5px !important;
+}
+
+.create-project-task .file-upload-zone .col-md-4:nth-child(3n+2) {
+    padding-right: 5px !important;
+    padding-left : 5px !important;
+}
+
+.create-project-task .file-upload-zone .col-md-4:nth-child(3n) {
+    padding-left: 5px !important;
+}
+
+.create-project-task .file-upload-zone .col-md-4:nth-child(3n+1) {
+    padding-right: 5px !important;
+}
+
+.create-project-task .file-upload-zone .col-md-4:nth-child(3n+2) {
+    padding-right: 5px !important;
+    padding-left : 5px !important;
+}
+
+.create-project-task .file-upload-zone .col-md-4:nth-child(3n) {
+    padding-left: 5px !important;
+}
+
+.create-project-task .file-item div:nth-child(1),
+.create-project-task .file-item div:nth-child(3) {
+    padding-left: 0 !important;
+}
+
+.create-project-task .file-item div:nth-child(2) {
+    padding: 0 5px !important;
+}
+
+.create-project-task .item-name {
+    text-overflow: ellipsis !important;
+    white-space  : nowrap !important;
+    overflow     : hidden !important;
+}
+
+.create-project-task .preview-doc {
+    cursor: pointer;
+}
+
+.create-project-task .box-search {
+    text-align: right;
+    margin-top: 15px;
+}
+
+.create-project-task .text-search {
+    width           : 364px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #dde1e6;
+    background-color: #ffffff;
+    padding-left    : 10px;
+    padding-right   : 10px;
+}
+
+.create-project-task .btn-create {
+    width           : 116px;
+    height          : 32px;
+    border          : solid 1px #c1c7cd;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    margin-left     : 5px;
+}
+
+.create-project-task .btn-create-text {
+    width         : 68px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+}
+
+/* End */
+
+.create-project-task .btn-choose-time {
+    width           : 150px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #f2f4f8;
+    padding-top     : 6px;
+}
+
+.create-project-task .icon-choose-left {
+    position: relative;
+    cursor  : pointer;
+    left    : 5px;
+}
+
+.create-project-task .choose-label {
+    position: relative;
+    left    : 16px;
+}
+
+.create-project-task .icon-choose-right {
+    position: relative;
+    cursor  : pointer;
+    right   : -28px;
+}
+
+.create-project-task .btn-send-email {
+    width           : 132px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #af52de;
+    border          : solid 1px #cccccc;
+}
+
+.create-project-task .btn-send-email-icon {
+    width     : 16px;
+    height    : 10.2px;
+    object-fit: contain;
+}
+
+.create-project-task .btn-send-email-text {
+    width         : 60px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+}
+
+.create-project-task .btn-send-sms {
+    width           : 132px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #ffcc00;
+    border          : solid 1px #cccccc;
+}
+
+.create-project-task .btn-send-sms-icon {
+    width     : 22px;
+    height    : 15px;
+    object-fit: contain;
+}
+
+.create-project-task .btn-send-sms-text {
+    width         : 54px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #121619;
+}
+
+.create-project-task .btn-send-gift {
+    width           : 132px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border          : solid 1px #cccccc;
+}
+
+.create-project-task .btn-send-gift-icon {
+    width     : 13px;
+    height    : 14.9px;
+    object-fit: contain;
+}
+
+.create-project-task .btn-send-gift-text {
+    width         : 58px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+}
+
+.create-project-task .cskh-header-timeline {
+    border-bottom: solid 1px #cccccc;
+    padding      : 5px 5px;
+    width        : 144px;
+}
+
+.create-project-task .cskh-header-week {
+    border-left  : solid 1px #cccccc;
+    border-bottom: solid 1px #cccccc;
+    padding      : 5px 5px;
+    text-align   : center;
+    width        : 170.5px;
+}
+
+.create-project-task .cskh-body-emp {
+    border-bottom: solid 1px #cccccc;
+    padding      : 5px 0px;
+}
+
+.create-project-task .cskh-body-emp-name {
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : 500;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+}
+
+.create-project-task .cskh-body-emp-position {
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #878d96;
+}
+
+.create-project-task .cskh-body-week {
+    vertical-align: top;
+    border-left   : solid 1px #cccccc;
+    border-bottom : solid 1px #cccccc;
+}
+
+.create-project-task .cskh-body-week-block {
+    width        : 148px;
+    height       : 46px;
+    border-radius: 12px;
+    padding-top  : 6px;
+    padding-left : 13px;
+    margin-left  : 10px;
+    margin-top   : 5px;
+    margin-bottom: 5px;
+}
+
+.create-project-task .cskh-body-week-title {
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : 500;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+}
+
+.create-project-task .cskh-body-week-sub-title {
+    height        : 12px;
+    font-family   : 'Inter UI';
+    font-size     : 10px;
+    font-weight   : 500;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.9;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #878d96;
+    cursor        : pointer;
+}
+
+.create-project-task .fixed {
+    position  : fixed;
+    top       : 0;
+    z-index   : 999;
+    background: #eee;
+}
+
+.create-project-task .mt-5 {
+    margin-top: 5px;
+}
+
+.create-project-task .mt-15 {
+    margin-top: 15px;
+}
+
+.create-project-task .box-icon {
+    width     : 57.1px;
+    height    : 58px;
+    object-fit: contain;
+}
+
+.create-project-task .table-row-checkbox {
+    width     : 150px;
+    text-align: center;
+}
+
+.create-project-task .box-title {
+    border    : 1px solid lightgray;
+    margin-top: 15px;
+}
+
+.create-project-task .box-header-title-2 {
+    height        : 24px;
+    font-family   : 'Inter UI';
+    font-size     : 20px;
+    font-weight   : 600;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+    padding-top   : 5px;
+    padding-left  : 5px;
+}
+
+.create-project-task .iput-text {
+    width           : 248px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #f2f4f8;
+    padding-left    : 5px;
+    margin-left     : 5px;
+    float           : right;
+}
+
+/* ::ng-deep .create-project-task .ui-inputtext{
+    height: 36px;
+} */
+
+::ng-deep .create-project-task .ui-multiselect {
+    height: 34px;
+}
+
+::ng-deep .create-project-task .number-input {
+    height: 34px;
+}
+
+::ng-deep .create-project-task .ui-dropdown {
+    height: 34px;
+}
+
+::ng-deep .create-project-task .ui-fileupload-content {
+    text-align: center;
+}
+
+::ng-deep .create-project-task .ui-fieldset-legend {
+    box-shadow   : none !important;
+    border       : none !important;
+    width        : auto !important;
+    margin-bottom: 10px !important;
+}
+
+::ng-deep .create-project-task .ui-fieldset-legend .ui-fieldset-legend-text {
+    font-size  : 16px;
+    font-weight: bold !important;
+    color      : black;
+}
+
+::ng-deep .create-project-task .error-pcalendar .ui-inputtext {
+    border    : 1px solid #f44336 !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset, 0 0 0.75rem #f4433685;
+}
+
+.ios-warning {
+    position  : relative;
+    top       : 5px;
+    width     : 16.2px;
+    height    : 15px;
+    object-fit: contain;
+    cursor    : pointer;
+}
+
+.ios-warning-active {
+    position  : relative;
+    top       : 5px;
+    width     : 16.2px;
+    height    : 15px;
+    object-fit: contain;
+    cursor    : pointer;
+}
+
+.box-waring {
+    display         : inline-block;
+    width           : 49px;
+    height          : 30px;
+    border-radius   : 4px;
+    background-color: #ffcc00;
+    text-align      : center;
+    cursor          : pointer;
+}
+
+.notification {
+    position        : absolute;
+    top             : 38px;
+    width           : 350px;
+    box-shadow      : 0 6px 12px 0 rgba(18, 22, 25, 0.16);
+    border          : solid 1px #dde1e6;
+    background-color: #ffffff;
+    z-index         : 1;
+}
+
+/*Begin: Tạo góc nhọn trên hộp thoại */
+
+.notification::before {
+    position           : absolute;
+    bottom             : 100%;
+    left               : 16px;
+    display            : block;
+    width              : 0;
+    height             : 0;
+    pointer-events     : none;
+    content            : " ";
+    border-left        : solid transparent;
+    border-right       : solid transparent;
+    border-bottom      : solid #ffffff;
+    border-width       : 8px;
+    border-bottom-color: #d1d5da;
+}
+
+.notification::after {
+    position           : absolute;
+    bottom             : 100%;
+    left               : 16px;
+    display            : block;
+    width              : 0;
+    height             : 0;
+    pointer-events     : none;
+    content            : " ";
+    border-left        : solid transparent;
+    border-right       : solid transparent;
+    border-bottom      : solid transparent;
+    margin-bottom      : -1px;
+    border-width       : 8px;
+    border-bottom-color: #ffffff;
+}
+
+/*End: Tạo góc nhọn trên hộp thoại */
+
+.notification .notifi-row {
+    width        : 100%;
+    border-bottom: 1px solid #dde1e6;
+    padding      : 10px 0px;
+    cursor       : pointer;
+    text-align   : left;
+}
+
+.notification .notifi-row .ios-alert {
+    position  : absolute;
+    left      : 15px;
+    width     : 15.9px;
+    height    : 15.9px;
+    object-fit: contain;
+}
+
+.notification .notifi-row .notifi-text {
+    position      : relative;
+    left          : 50px;
+    width         : 100%;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #ff3b30;
+}
+
+.notification .notifi-row-footer {
+    width     : 100%;
+    padding   : 10px 10px;
+    text-align: right;
+}
+
+.notification .notifi-row-footer .notifi-text-footer {
+    width         : 100%;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    color         : #121619;
+}
+
+@media only screen and (max-width: 375px) {
+    .create-project-task {
+        margin-left: 0px !important;
+    }
+
+    .create-project-task .box-handle-infor {
+        border-right: none;
+    }
+
+    .create-project-task .box-level {
+        margin-left: 80px;
+    }
+
+    .create-project-task .text-search {
+        width: 264px;
+    }
+
+    .create-project-task .btn-create {
+        margin-top: 5px;
+    }
+
+    .create-project-task span.ui-column-title {
+        width: 150px;
+    }
+}
+
+@media only screen and (max-width: 414px) and (min-width: 376px) {
+    .create-project-task {
+        margin-left: 0px !important;
+    }
+
+    .create-project-task .box-handle-infor {
+        border-right: none;
+    }
+
+    .create-project-task .box-level {
+        margin-left: 105px;
+    }
+
+    .create-project-task .text-search {
+        width: 303px;
+    }
+
+    .create-project-task .btn-create {
+        margin-top: 5px;
+    }
+
+    .create-project-task span.ui-column-title {
+        width: 170px;
+    }
+}
+
+@media only screen and (max-width: 768px) and (min-width: 415px) {
+    .create-project-task {
+        margin-left: 0px !important;
+    }
+
+    .create-project-task .box-handle-infor {
+        border-right: none;
+    }
+
+    .create-project-task .box-level {
+        margin-left: 160px;
+    }
+
+    .create-project-task .text-search {
+        width: 427px;
+    }
+
+    .create-project-task .btn-create {
+        margin-top: 5px;
+    }
+}
+
+@media only screen and (max-width: 1423px) and (min-width: 769px) {
+    .create-project-task {
+        margin-left: 0px !important;
+    }
+
+    .create-project-task .box-handle-infor {
+        border-right: none;
+    }
+
+    .create-project-task .box-level {
+        margin-left: 18px;
+    }
+
+    .create-project-task .money-number {
+        font-size: 14px;
+    }
+}
+
+/*Begin: Customize dropdown */
+
+::ng-deep .create-project-task .header-title .ui-dropdown {
+    background : #ffffff;
+    /* border  : 1px solid #a6a6a6; */
+    border     : none;
+    margin-left: 5px;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-label {
+    padding-right: 2em;
+    font-size    : 16px !important;
+    font-weight  : bold;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-panel {
+    width: max-content !important;
+}
+
+::ng-deep .header-title .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
+    outline       : 0 none;
+    outline-offset: 0;
+    /* box-shadow : 0 0 0 0.2em #8dcdff; */
+    border-color  : #007ad9;
+}
+
+/*End: Customize dropdown */

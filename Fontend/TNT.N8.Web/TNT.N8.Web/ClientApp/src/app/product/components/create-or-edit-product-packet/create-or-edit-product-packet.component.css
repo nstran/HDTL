@@ -1,0 +1,407 @@
+.margin-auto {
+  margin: auto;
+  float: right;
+}
+  
+.actions {
+  float: right;
+}
+  
+.btn-back {
+  border-radius: 4px;
+  border: 1px solid #000;
+  box-shadow: 0 1px 1px 0 rgb(18 22 25 / 8%);
+  background-color: #fff;
+  padding: 0.65rem 1rem;
+  margin-right: 10px;
+}
+  
+.btn-edit {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 1px 0 rgb(18 22 25 / 8%);
+  background-color: #5867dd;
+  padding: 0.65rem 1rem;
+  margin-right: 10px;
+}
+  
+.btn-save {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 1px 0 rgb(18 22 25 / 8%);
+  background-color: #5867dd;
+  padding: 0.65rem 1rem;
+  margin-right: 10px;
+}
+
+.text-black {
+  color: #000;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.service-infor {
+  padding-bottom: 20px;
+}
+
+.service-type {
+  padding-bottom: 10px;
+}
+  
+.description {
+  padding-top: 20px;
+}
+
+.mt-2 {
+  margin-top: 20px;
+}
+
+.row-dialog {
+  padding: 15px 0 15px 0;
+}
+
+p-header {
+  font-size: 16px;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+p-inputswitch {
+  position: absolute;
+  bottom: 0;
+}
+
+validation-messages {
+  position: absolute;
+}
+
+.padding-10 {
+  padding: 10px 0;
+}
+
+.justify-content-end {
+  justify-content: end;
+}
+
+.image-wrapper {
+  vertical-align: middle;
+  text-align: center;
+  border: 1px solid #cccccc;
+  margin-bottom: 10px;
+}
+
+.image-wrapper img {
+  width: 100%;
+}
+
+.pb-10 {
+  padding-bottom: 10px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.pr-0 {
+  padding-right: 0;
+}
+
+.btn-danger {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 1px 0 rgb(18 22 25 / 8%);
+  padding: 5px;
+}
+
+.image img {
+  width: 100%;
+  height: 100%;
+}
+
+.wh375-375 {
+  width: 250px;
+  height: 200px;
+}
+
+.wh188-375 {
+  width: 250px;
+  height: 375px;
+}
+
+.wh375-188 {
+  width: 375px;
+  height: 200px;
+}
+
+.w375{
+  width: 375px;
+}
+
+.w188{
+  width: 250px;
+}
+
+.upload-background-image {
+  width: 375px;
+}
+
+.upload-icon-image {
+  width: 375px;
+}
+
+.margin-btn {
+  margin: 5px;
+}
+
+.padding-bottom-160 {
+  padding-bottom: 160px;
+}
+
+.pt-15 {
+  padding-top: 15px;
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-color: #eee;
+  border-radius: 5px;
+}
+
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+  /* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.noti-checkbox{
+  padding-left: 20px;
+}
+
+.row-checkbox {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.Notification-Recipient {
+  width: 80%;
+  display: block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.chi-tiet-qt .page-header {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.chi-tiet-qt .w100 {
+  width: 100% !important;
+}
+
+.chi-tiet-qt .mt-10 {
+  margin-top: 10px;
+}
+
+.chi-tiet-qt .mt-20 {
+  margin-top: 20px;
+}
+
+.chi-tiet-qt .can-giua-dong {
+  display: flex;
+  align-items: center;
+}
+
+.chi-tiet-qt .header-box-icon {
+  width: 40px;
+  height: 40px;
+  color: #007AFF;
+  border-radius: 50%;
+}
+
+.chi-tiet-qt .header-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+.chi-tiet-qt .page-title {
+  margin-left: 5px;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.chi-tiet-qt .delete {
+  width: 140px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: crimson;
+  color: #fff;
+  font-size: 13px;
+}
+
+.chi-tiet-qt .quay-lai {
+  width: 140px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left: 5px;
+  font-size: 13px;
+}
+
+.chi-tiet-qt .save {
+  width: 142px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px ;
+  background-color: #0f62fe;
+  margin-left: 5px;
+  font-size: 13px;
+  color: #fff;
+}
+
+.chi-tiet-qt .page-section {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+::ng-deep .chi-tiet-qt legend {
+  width: auto;
+  font-size: 13px;
+  font-weight: 900;
+  border-bottom: 0px;
+  margin-bottom: 0;
+}
+
+::ng-deep .chi-tiet-qt .ui-fieldset {
+  border: 2px solid #c8c8c8;
+  margin-bottom: 15px;
+}
+
+.chi-tiet-qt .btn-plus {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+
+.chi-tiet-qt .icon-plus {
+  color: #ffffff;
+}
+
+.chi-tiet-qt .btn-plus-qt {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #34A835;
+}
+
+::ng-deep .chi-tiet-qt .e-content {
+  min-height: 150px !important;
+}
+
+.btn-minus {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #e21a2a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+}

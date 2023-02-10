@@ -1,0 +1,130 @@
+.tk-di-muon-ve-som {
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(18, 22, 25, 0.08);
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.tk-di-muon-ve-som .box-header {
+  width: 100%;
+  background-image: linear-gradient(to top, #f2f4f8, #dde1e6);
+}
+
+.tk-di-muon-ve-som .btn-create {
+  float: right;
+  width: 98px;
+  height: 31px;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.tk-di-muon-ve-som .box-header-group {
+  margin-top: 10px;
+}
+
+.tk-di-muon-ve-som .box-header-icon {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: #0f62fe;
+  text-align: center;
+}
+
+.tk-di-muon-ve-som .box-header-title {
+  width: 229px;
+  height: 24px;
+  font-family: 'Inter UI';
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.tk-di-muon-ve-som .noun-product {
+  width: 20.4px;
+  height: 18.5px;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.tk-di-muon-ve-som .export-exel {
+  width: 112px;
+  height: 31px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-right: 5px;
+  color :#121619;
+  font-size: 13px;
+}
+
+.tk-di-muon-ve-som .btn-refresh {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.tk-di-muon-ve-som .ios-refresh {
+  width: 12px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.tk-di-muon-ve-som .btn-filter {
+  width: 104px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #007aff;
+  background-color: #007aff;
+  margin-left: 5px;
+}
+
+.tk-di-muon-ve-som .ios-funnel {
+  width: 12.3px;
+  height: 11.3px;
+  object-fit: contain;
+  margin-right: 5px;
+}
+
+.tk-di-muon-ve-som .btn-filter-text {
+  width: 36px;
+  height: 13px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.tk-di-muon-ve-som .mt-10 {
+  margin-top: 10px;
+}
+
+::ng-deep .tk-di-muon-ve-som .ui-table .ui-table-thead > tr > th {
+  border: 1px solid #c8c8c8 !important;
+}
+
+::ng-deep .tk-di-muon-ve-som .ui-table .ui-table-tbody > tr > td {
+  border: 1px solid #c8c8c8 !important;
+}
+
+::ng-deep .tk-di-muon-ve-som .ui-table .ui-table-tbody>tr.ui-state-highlight, 
+::ng-deep .tk-di-muon-ve-som .ui-table .ui-table-tbody>tr:nth-child(even).ui-state-highlight {
+  background-color: #283078f7;
+  color: #ffff;
+  border-left: none;
+}

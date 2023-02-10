@@ -1,0 +1,49 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+<div class="list-product">
+  <sub-header>
+    <ng-container iconSubHeader>
+      <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+    </ng-container>
+    <ng-container subHeaderTitle>
+      Chi tiết tùy chọn dịch vụ
+    </ng-container>
+    <ng-container actions>
+      <div class="actions">
+        <button type="button" class="btn-back" [routerLink]="'/product/product-option-list'">
+          <span class="text-black">Quay lại</span>
+        </button>
+        <!-- <button type="button" class="btn-edit">
+          <span class="text-white">Hủy</span>
+        </button>-->
+        <!-- <button type="button" class="btn-edit">
+          <span class="text-white" (click)="save()">Lưu</span>
+        </button> -->
+      </div>
+    </ng-container>
+  </sub-header>
+</div>
+<div style="padding-top: 10px;">
+  <p-tabView>
+    <p-tabPanel header="Thông tin chung">
+      <app-info></app-info>
+    </p-tabPanel>
+    <p-tabPanel header="Thông tin bổ sung" *ngIf="id != null">
+      <app-properties></app-properties>
+    </p-tabPanel>
+    <p-tabPanel header="Danh sách nhà cung cấp" *ngIf="id != null">
+      <app-list-vendor></app-list-vendor>
+    </p-tabPanel>
+    <p-tabPanel header="Danh sách điểm báo cáo" *ngIf="id != null">
+      <app-list-mission></app-list-mission>
+    </p-tabPanel>
+  </p-tabView>
+</div>

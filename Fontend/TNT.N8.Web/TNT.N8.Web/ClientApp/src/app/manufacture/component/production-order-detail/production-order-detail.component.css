@@ -1,0 +1,456 @@
+.production-order-detail {
+    font-family: 'Inter UI';
+}
+.production-order-detail .bg-white {
+    background-color: #ffffff;
+}
+.production-order-detail .btn-save {
+    width: 142px;
+    height: 36px;
+    border-radius: 4px;
+    border: solid 1px #bebebe;
+    background-color: #6d98e7;
+    margin-left: 10px;
+}
+.production-order-detail .m-0 {
+    margin: 0px;
+}
+.production-order-detail .d-inline-block {
+    display: inline-block;
+}
+.production-order-detail .bg-e4e4e4 {
+    background-color: #e4e4e4;
+}
+.production-order-detail .text-white {
+    color:#ffffff;
+}
+.production-order-detail .text-title {
+    font-family: 'Inter UI';
+    font-size: 25px;
+    line-height: 1.25;
+    letter-spacing: normal;
+    text-align: left;
+    color: #121619;
+}
+.production-order-detail .p-10 {
+    padding: 10px;
+}
+.production-order-detail .mb-15 {
+    margin-bottom: 15px;
+}
+.production-order-detail .border-dde1e6{
+    border: 1px solid #dde1e6;
+}
+.production-order-detail .mb-10 {
+    margin-bottom: 10px;
+}
+.production-order-detail .float-right {
+    float: right;
+}
+.production-order-detail .px-15 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.production-order-detail .p-0 {
+    padding: 0;
+}
+.production-order-detail .d-flex {
+    display: flex;
+}
+.production-order-detail .item-center {
+    align-items: center;
+}
+.production-order-detail .timeline-content {
+    margin-top: 20px;
+}
+
+.production-order-detail .timeline>li {
+    margin-right: 0 !important;
+}
+
+.production-order-detail .style-delete {
+    color: #FE747A;
+    cursor: pointer;
+    font-size: 1.55em;
+}
+
+.production-order-detail .style-edit {
+    cursor: pointer;
+    font-size: 1.55em;
+}
+
+.production-order-detail .note-user {
+    font-family: 'Inter UI';
+    font-weight: bold;
+}
+
+.production-order-detail .timeline>li>.timeline-item {
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.production-order-detail .timeline-content {
+    margin-top: 20px;
+}
+
+.production-order-detail .bg-blueX {
+    background-color: #4E6BA5 !important;
+}
+
+.production-order-detail .color-w {
+    color: #fff !important;
+}
+
+.production-order-detail .timeline-item .onHover {
+    display: none;
+}
+
+.production-order-detail .timeline-item:hover .onHover {
+    display: block;
+}
+
+.production-order-detail .material-icons {
+    cursor: pointer;
+}
+
+.production-order-detail .timeline-user-avatar {
+    border-radius: 50%;
+    margin-right: 5px;
+    float: left;
+}
+
+.production-order-detail .note-title {
+    font-size: 11px !important;
+    color: #222 !important;
+    font-weight: normal !important;
+}
+
+.production-order-detail .time-note {
+    font-size: 10px !important;
+    color: #5d5a5a !important;
+    font-weight: normal !important;
+}
+
+.production-order-detail .timeline-body {
+    padding: 10px 15px;
+}
+::ng-deep .production-order-detail .ui-accordion .ui-accordion-header a {
+    border: 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+    font-size: 16px;
+}
+
+::ng-deep .production-order-detail .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    background-color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+    color: #121619 !important;
+}
+
+::ng-deep .production-order-detail .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+}
+
+::ng-deep .production-order-detail .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+}
+
+::ng-deep .production-order-detail .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    color: #121619 !important;
+}
+
+::ng-deep .production-order-detail .ui-accordion .ui-accordion-content {
+    border: 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+}
+.production-order-detail .btn-cancel-note {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+}
+.production-order-detail .btn-save-note {
+    width: 158px;
+    height: 32px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border: solid 1px #cccccc;
+    margin-left: 5px;
+}
+.production-order-detail .save-cancel-lable {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #121619;
+}
+.production-order-detail .save-note-lable {
+    width: 110px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+::ng-deep .production-order-detail .ui-dropdown {
+  height: auto !important;
+  border-left: 1px solid #c8c8c8;
+  border-right: 1px solid #c8c8c8;
+}
+.production-order-detail .w-100 {
+    width: 100%;
+}
+::ng-deep .production-order-detail .ui-calendar {
+    width: 100%;
+}
+::ng-deep .production-order-detail .ui-calendar input {
+    width: 100%;
+}
+::ng-deep .production-order-detail .ui-datepicker {
+    top:30px !important;
+}
+
+.production-order-detail .cancel {
+   width: 64px;
+   height: 32px;
+   border-radius: 4px;
+   border: solid 1px #c1c7cd;
+   background-color: #ffffff;
+}
+  
+.production-order-detail .cancel .text-cancel {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+  
+.production-order-detail .save {
+  width: 86px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  margin-left: 5px;
+}
+  
+.production-order-detail .save .text-save {
+  width: 25px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+.production-order-detail .bg-F5F5F5 {
+  background-color: #F5F5F5;
+}
+.production-order-detail .mr-10 {
+  margin-right: 10px;
+}
+.production-order-detail .btn-add {
+    border: none;
+    background: #F5F5F5;
+    color: green;
+    font-size: 15px;
+}
+.production-order-detail .button {
+    outline-style: none;
+}
+.production-order-detail .d-none {
+    display: none;
+}
+.production-order-detail .showButton .d-none {
+    display: block !important;
+}
+button:focus {
+    border: none;
+    outline: none;
+}
+::ng-deep .production-order-detail .checkbox label {
+    padding-left: 10px;
+}
+.production-order-detail .dialog input {
+    width: 95%;
+}
+.production-order-detail .ml-5 {
+    margin-left:5px ;
+}
+.production-order-detail .pb-15 {
+    padding-bottom:15px ;
+}
+.production-order-detail .btn-cancel-dialog {
+    padding: 5px 10px;
+    border: 1px solid #e4e4e4;
+}
+.production-order-detail .btn-save-dialog {
+    padding: 5px 10px;
+    border: 1px solid #e4e4e4;
+    background-color: blue;
+    color: white;
+    margin-left: 5px;
+}
+.production-order-detail .px-8 {
+    padding-left:8px ;
+    padding-right: 8px;
+}
+.production-order-detail .py-3 {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.production-order-detail .text-right {
+    text-align: right;
+}
+::ng-deep .production-order-detail .ui-editing-cell {
+    padding: 0 !important;
+}
+
+::ng-deep .production-order-detail .ui-toggler-column .ui-editing-cell {
+    padding-left: 0.857em !important;
+}
+
+::ng-deep .production-order-detail .ui-dropdown {
+    display: block !important;
+}
+
+.production-order-detail .file-item div:nth-child(1),
+.production-order-detail .file-item div:nth-child(3) {
+  padding-left: 0 !important;
+}
+
+.production-order-detail .file-item div:nth-child(2) {
+  padding: 0 5px !important;
+}
+
+
+.production-order-detail .btn-save-note {
+    width: 158px;
+    height: 32px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border: solid 1px #cccccc;
+    margin-left: 5px;
+  }
+  
+  .production-order-detail .save-note-lable {
+    width: 110px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+  }
+  
+  /* CSS time line */
+  .production-order-detail .timeline>li {
+    margin-right: 0 !important;
+  }
+  
+  .production-order-detail .style-delete {
+    color: #FE747A;
+    cursor: pointer;
+    font-size: 1.55em;
+  }
+  
+  .production-order-detail .style-edit {
+    cursor: pointer;
+    font-size: 1.55em;
+  }
+  
+  .production-order-detail .note-user {
+    font-family: 'Inter UI';
+    font-weight: bold;
+  }
+  
+  .production-order-detail .timeline>li>.timeline-item {
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  .production-order-detail .timeline-content {
+    margin-top: 20px;
+  }
+  
+  .production-order-detail .bg-blueX {
+    background-color: #4E6BA5 !important;
+  }
+  
+  .production-order-detail .color-w {
+    color: #fff !important;
+  }
+  
+  .production-order-detail .timeline-item .onHover {
+    display: none;
+  }
+  
+  .production-order-detail .timeline-item:hover .onHover {
+    display: block;
+  }
+  
+  .production-order-detail .material-icons {
+    cursor: pointer;
+  }
+  
+  .production-order-detail .timeline-user-avatar {
+    border-radius: 50%;
+    margin-right: 5px;
+    float: left;
+  }
+  
+  .production-order-detail .note-title {
+    font-size: 11px !important;
+    color: #222 !important;
+    font-weight: normal !important;
+  }
+  
+  .production-order-detail .time-note {
+    font-size: 10px !important;
+    color: #5d5a5a !important;
+    font-weight: normal !important;
+  }
+  
+  .production-order-detail .timeline-body {
+    padding: 10px 15px;
+  }
+
+  .production-order-detail .link :hover {
+    cursor: pointer;
+  }
+.production-order-detail .error-border {
+   border:red 1px solid;
+}
+.production-order-detail .over-flow {
+    max-height: 550px;
+    overflow-y:auto;
+    overflow-x:hidden
+}

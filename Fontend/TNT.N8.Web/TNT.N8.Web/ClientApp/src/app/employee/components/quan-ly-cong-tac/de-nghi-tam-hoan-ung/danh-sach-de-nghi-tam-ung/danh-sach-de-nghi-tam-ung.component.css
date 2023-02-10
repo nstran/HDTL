@@ -1,0 +1,374 @@
+.danh-sach-de-nghi-tam-ung {
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(18, 22, 25, 0.08);
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.danh-sach-de-nghi-tam-ung .box-header {
+  width: 100%;
+  background-image: linear-gradient(to top, #f2f4f8, #dde1e6);
+}
+
+.danh-sach-de-nghi-tam-ung .btn-create {
+  float: right;
+  width: 98px;
+  height: 31px;
+  margin-left: 10px;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+.danh-sach-de-nghi-tam-ung .btn-other {
+  float: right;
+  width: 120px;
+  height: 31px;
+  border-radius: 4px;
+    margin-left: 10px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+.danh-sach-de-nghi-tam-ung .btn-create-text {
+  width: 50px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.danh-sach-de-nghi-tam-ung .box-header-group {
+  margin-top: 10px;
+}
+
+.danh-sach-de-nghi-tam-ung .box-header-icon {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: #0f62fe;
+  text-align: center;
+}
+
+.danh-sach-de-nghi-tam-ung .Money-2 {
+  width: 20.4px;
+  height: 18.5px;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.danh-sach-de-nghi-tam-ung .box-header-title {
+  width: 600px;
+  height: 24px;
+  font-family: 'Inter UI';
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.danh-sach-de-nghi-tam-ung .noun-product {
+  width: 20.4px;
+  height: 18.5px;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.danh-sach-de-nghi-tam-ung .box-header-subtitle {
+  font-family: 'Inter UI';
+  font-size: 11px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.36;
+  letter-spacing: normal;
+  text-align: left;
+  color: #4d5358;
+}
+
+.danh-sach-de-nghi-tam-ung .box-header-group-btn {
+  text-align: right;
+  padding-top: 5px;
+}
+
+.danh-sach-de-nghi-tam-ung .btn-refresh {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.danh-sach-de-nghi-tam-ung .ios-refresh {
+  width: 12px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.danh-sach-de-nghi-tam-ung .btn-filter {
+  width: 104px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #007aff;
+  background-color: #007aff;
+  margin-left: 5px;
+}
+
+.danh-sach-de-nghi-tam-ung .ios-funnel {
+  width: 12.3px;
+  height: 11.3px;
+  object-fit: contain;
+  margin-right: 5px;
+}
+
+.danh-sach-de-nghi-tam-ung .btn-filter-text {
+  width: 36px;
+  height: 13px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.danh-sach-de-nghi-tam-ung .iput-text {
+  width: 248px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding-left: 5px;
+  margin-left: 5px;
+}
+
+.danh-sach-de-nghi-tam-ung .box-filter {
+  border: solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding: 10px 0px;
+}
+
+.danh-sach-de-nghi-tam-ung .bank-payments-code-text {
+  width: 100%;
+  height: 32px;
+  font-family: 'Inter UI';
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  padding-left: 5px;
+}
+
+.danh-sach-de-nghi-tam-ung .mt-5 {
+  margin-top: 5px;
+}
+
+.danh-sach-de-nghi-tam-ung .btn-search {
+  width: 72px;
+  height: 32px;
+  border: solid 1px #cccccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+
+.danh-sach-de-nghi-tam-ung .btn-search:focus {
+  border-color: #007ad9;
+  outline: 0 none;
+}
+
+.danh-sach-de-nghi-tam-ung .btn-search-text {
+  width: 36px;
+  height: 13px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+/* Config rows Per Page Options */
+::ng-deep .danh-sach-de-nghi-tam-ung .ui-inputtext {
+  padding: 0.3em;
+}
+
+.danh-sach-de-nghi-tam-ung .link {
+  font-family: 'Inter UI';
+  color: #007ad9;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.danh-sach-de-nghi-tam-ung .no-data {
+  height: 435px;
+  border: solid 1px #d7dbe0;
+  background-color: #f2f4f8;
+  text-align: center;
+}
+
+.danh-sach-de-nghi-tam-ung .box-no-data {
+  position: relative;
+  top: 25%;
+}
+
+.danh-sach-de-nghi-tam-ung .box-icon {
+  width: 57.1px;
+  height: 58px;
+  object-fit: contain;
+}
+
+::ng-deep .danh-sach-de-nghi-tam-ung .ui-datepicker {
+  top: 28px !important;
+}
+
+/* ::ng-deep .danh-sach-de-nghi-tam-ung .ui-multiselect .ui-multiselect-panel {
+  display: contents;
+} */
+
+/* Máy để bàn */
+@media only screen and (min-width: 1025px) and (max-width: 1423px)  {
+
+}
+
+/* Ipad Pro */
+@media only screen and (min-width: 769px) and (max-width: 1024px)  {
+  .danh-sach-de-nghi-tam-ung .box-header-icon {
+    width: 27px;
+    height: 27px;
+  }
+
+  .danh-sach-de-nghi-tam-ung .Money-2 {
+    width: 15.4px;
+    height: 11.5px;
+    margin-top: 7px;
+  }
+
+  .danh-sach-de-nghi-tam-ung .iput-text {
+    margin-top: 5px;
+  }
+}
+
+/* Ipad */
+@media only screen and (min-width: 375px) and (max-width: 768px) {
+  .danh-sach-de-nghi-tam-ung .btn-create {
+    margin-top: 5px;
+  }
+
+  .danh-sach-de-nghi-tam-ung .entered-the-book {
+    width: auto;
+  }
+}
+
+/* Iphone 6/7/8 Plus */
+@media only screen and (min-width: 375px) and (max-width: 414px) {
+  .danh-sach-de-nghi-tam-ung .iput-text {
+    margin-top: 5px;
+  }
+
+  .danh-sach-de-nghi-tam-ung .box-header-subtitle {
+    font-size: 14px;
+  }
+
+  .danh-sach-de-nghi-tam-ung .btn-filter {
+    width: auto;
+  }
+
+  .danh-sach-de-nghi-tam-ung[_ngcontent-ng-cli-universal-c8] .box-header-group-btn[_ngcontent-ng-cli-universal-c8] {
+    padding: 0px;
+  }
+}
+
+/* Iphone 6/7/8/X */
+@media only screen and (max-width: 375px) {
+  /* .danh-sach-de-nghi-tam-ung .iput-text {
+    margin-top: 5px;
+  } */
+
+  .danh-sach-de-nghi-tam-ung .box-header-subtitle {
+    font-size: 13px;
+  }
+
+  .danh-sach-de-nghi-tam-ung .btn-filter {
+    width: auto;
+  }
+
+  .danh-sach-de-nghi-tam-ung .iput-text {
+    width: 210px;
+  }
+
+  .danh-sach-de-nghi-tam-ung[_ngcontent-ng-cli-universal-c8] .box-header-group-btn[_ngcontent-ng-cli-universal-c8] {
+    padding: 0px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  ::ng-deep table tr td span.entered-the-book {
+    width: 130px !important;
+  }
+}
+
+.asset-detail-label
+{
+
+}
+.asset-detail-info
+{
+  text-align: left;
+  font-weight: bold !important;
+}
+.qrcode
+{
+  text-align: center;
+}
+
+.mt-5
+{
+  margin-top: 5px;
+}
+
+.mb-10
+{
+  margin-bottom: 10px;
+}
+
+.danh-sach-de-nghi-tam-ung .btn-detail {
+  width: 120px;
+  height: 31px;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+
+.danh-sach-de-nghi-tam-ung .excel {
+  float: right;
+  width: 120px;
+    margin-left: 10px;
+  color: #121619;
+  height: 31px;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #ffffff;
+}
+
+.pi
+{
+  font-size: 2.25em !important;
+}

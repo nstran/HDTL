@@ -1,0 +1,14 @@
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\bin\Debug\netcoreapp2.1\Select.Html.dep
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\bin\Debug\netcoreapp2.1\TN.TNM.DataAccess.deps.json
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\bin\Debug\netcoreapp2.1\TN.TNM.DataAccess.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\bin\Debug\netcoreapp2.1\TN.TNM.DataAccess.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\bin\Debug\netcoreapp2.1\TN.TNM.Common.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\bin\Debug\netcoreapp2.1\TN.TNM.Common.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\obj\Debug\netcoreapp2.1\TN.TNM.DataAccess.csproj.AssemblyReference.cache
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\obj\Debug\netcoreapp2.1\TN.TNM.DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\obj\Debug\netcoreapp2.1\TN.TNM.DataAccess.AssemblyInfoInputs.cache
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\obj\Debug\netcoreapp2.1\TN.TNM.DataAccess.AssemblyInfo.cs
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\obj\Debug\netcoreapp2.1\TN.TNM.DataAccess.csproj.CoreCompileInputs.cache
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\obj\Debug\netcoreapp2.1\TN.TNM.DataAccess.csproj.CopyComplete
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\obj\Debug\netcoreapp2.1\TN.TNM.DataAccess.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\obj\Debug\netcoreapp2.1\TN.TNM.DataAccess.pdb

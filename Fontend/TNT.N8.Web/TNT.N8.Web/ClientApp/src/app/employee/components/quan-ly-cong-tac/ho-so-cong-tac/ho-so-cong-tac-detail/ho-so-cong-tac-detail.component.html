@@ -1,0 +1,421 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="{{ 'order.messages_title.title_confirm' | translate }}" icon="pi pi-exclamation-triangle"
+  acceptLabel="{{ 'order.buttons.accept' | translate }}" rejectLabel="{{ 'order.buttons.reject' | translate }}">
+</p-confirmDialog>
+
+
+<div class="chi-tiet-ho-so-cong-tac">
+  <div class="row no-margin" id="parent">
+    <div class="col-md-12 header" style="padding: 6px;">
+      <div class="row">
+        <div class="col-md-4 no-padding">
+          <div class="row no-margin">
+            <div class="col-md-1 col-sm-1 col-xs-3">
+              <div class="header-box-icon">
+                <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+              </div>
+            </div>
+            <div class="col-md-11 col-sm-10 col-xs-9">
+              <div>
+                <span class="customer-name">Chi tiết hồ sơ công tác</span>
+              </div>
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="float: right;">
+                <button class="btn-remove" type="button" (click)="cancel()">
+                  <span class="btn-remove-text">Thoát</span>
+                </button>
+
+                <button *ngIf="hoSoCongTacModel.trangThai == 0" class="btn-save-and-new" type="button" [disabled]="awaitResult" 
+                  (click)="taoDeNghiTamUng()">
+                  <span class="btn-save-and-new-text">Tạo đề nghị tạm ứng</span>
+                </button>
+
+                <button *ngIf="hoSoCongTacModel.trangThai == 0" class="btn-save-and-new" type="button" [disabled]="awaitResult" 
+                  (click)="taoDeNghiHoanUng()">
+                  <span class="btn-save-and-new-text">Tạo đề nghị hoàn ứng</span>
+                </button>
+
+                <button *ngIf="hoSoCongTacModel.trangThai == 0" class="btn-save" type="button" [disabled]="awaitResult" 
+                  (click)="hoanThanh()"
+                  style="width: 100px !important;">
+                  <span class="btn-save-text">Hoàn thành</span>
+                </button>
+
+                <button *ngIf="actionAdd && hoSoCongTacModel.trangThai == 0" #save class="btn-save" type="button" [disabled]="awaitResult"
+                  (click)="capNhapHoSoCongTac()">
+                  <span class="btn-save-text">Lưu</span>
+                </button>
+              </div>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DANH SÁCH NHÂN SỰ ĐI CÔNG TÁC -->
+  <div class="row no-padding body-wrapper" id="parent">
+    <div class="col-md-12">
+      <div class="row top-buffer bottom-buffer" style="margin-top: 15px;">
+
+        <div class="col-md-12 mt-10" style="margin-left: 15px;">
+          <div class="col-md-4">
+            <span class="buffer-bottom-label">Trạng thái: </span>
+            <span class="label-bold">{{hoSoCongTacModel.trangThaiText}}</span>
+          </div>
+          <div class="col-md-4">
+            <div class="row buffer-bottom">
+              <div class="col-md-12">
+                <span class="buffer-bottom-label">Mã hồ sơ</span><span class="required">*</span><span>:  </span>
+                <span class="label-bold">{{hoSoCongTacModel.maHoSoCongTac}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-10">
+            <div class="row buffer-bottom">
+              <div class="col-md-12">
+                <span class="buffer-bottom-label">Theo quyết định công tác</span><span class="required">*</span><span>: 
+                </span>
+                <span class="label-bold">{{hoSoCongTacModel.deXuatCongTac}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Danh sách nhân sự đi công tác" [selected]="true">
+
+          <div class="row no-margin" style="background-color: #ffffff; padding: 10px 0px" id="parent">
+            <div class="col-md-12">
+              <p-table #myTable [columns]="colsList" [value]="listNhanVienCT" [responsive]="true"
+                [resizableColumns]="true" selectionMode="single" [paginator]="true" [rows]="10"
+                [rowsPerPageOptions]="[10,30,100]" class="table-border">
+                <ng-template pTemplate="caption">
+                  <div style="text-align: right">
+                    <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" class="search" pInputText size="50" placeholder="Nhập từ khóa tìm kiếm"
+                      (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th style="width:50px">STT</th>
+                    <th *ngFor="let col of columns" pResizableColumn [ngStyle]="{'text-align': 'center'}">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                  <tr [pSelectableRow]="rowData">
+                    <td style="text-align: center;">
+                      {{i + 1}}
+                    </td>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
+                      [ngStyle]="{'text-align': col.textAlign}">
+                      <span class="ui-column-title">{{col.header}}</span>
+
+                      <span *ngSwitchCase="'employeeName'"
+                        style="display: inline-block; padding: 3px 3px;">{{rowData[col.field]}}</span>
+
+                      <span *ngSwitchCase="'dateOfBirth'">
+                        {{rowData[col.field]| date:'dd/MM/yyyy'}}
+                      </span>
+                      <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <!-- THÔNG TIN CÔNG TÁC -->
+  <div class="row no-padding body-wrapper" id="parent">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Thông tin công tác" [selected]="true">
+          <!--HÀNG I-->
+          <div class="row buffer-bottom no-margin mt-10">
+            <div class="col-md-6">
+              <div class="row buffer-bottom">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Đơn vị nơi đến công tác</span><span class="required">*</span>
+                </div>
+                <div class="col-md-12">
+                  <span class="label-bold"> {{hoSoCongTacModel.donViDen}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 no-padding">
+              <div class="col-md-6">
+                <div class="row buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Thời gian đi công tác</span>
+                  </div>
+                  <div class="col-md-12">
+                    <span class="label-bold">Từ: {{hoSoCongTacModel.ngayBatDau| date:'dd/MM/yyyy'}} - Đến: {{hoSoCongTacModel.ngayKetThuc| date:'dd/MM/yyyy'}}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--HÀNG II-->
+          <div class="row buffer-bottom no-margin mt-10">
+            <div class="col-md-6">
+              <div class="row buffer-bottom">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Địa điểm đến công tác</span><span class="required">*</span>
+                </div>
+                <div class="col-md-12">
+                  <span class="label-bold">{{hoSoCongTacModel.diaDiem}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row buffer-bottom">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Phương tiện đi công tác</span>
+                </div>
+                <div class="col-md-12">
+                  <span class="label-bold"> {{hoSoCongTacModel.phuongTien}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--HÀNG III-->
+          <div class="row buffer-bottom no-margin mt-10">
+            <div class="col-md-12">
+              <div class="row buffer-bottom">
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Nhiệm vụ đi công tác</span>
+                </div>
+                <div class="col-md-12">
+                  <span class="label-bold" style="white-space: pre;">{{hoSoCongTacModel.nhiemVu}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <!-- Đề nghị tạm ứng/hoàn ứng -->
+  <div class="row no-padding body-wrapper" id="parent">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Đề nghị tạm ứng/hoàn ứng" [selected]="true">
+          <div class="row">
+            <div class="col-md-12">
+              <p-tabView>
+                <p-tabPanel header="Đề nghị tạm ứng">
+                  <p-table [columns]="colsHTU" [value]="listDeNghiTamUng" [responsive]="true" [resizableColumns]="true"
+                    selectionMode="single" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,100]"
+                    class="table-border">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th style="width:50px">STT</th>
+                        <th *ngFor="let col of columns" pResizableColumn
+                          [ngStyle]="{'text-align': 'center','width': col.width}">
+                          {{col.header}}
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                      <tr [pSelectableRow]="rowData">
+                        <td style="text-align: center;">
+                          {{i + 1}}
+                        </td>
+                        <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
+                          [ngStyle]="{'text-align': col.textAlign,'width': col.width}">
+                          <span class="ui-column-title">{{col.header}}</span>
+
+                          <span *ngSwitchCase="'maDeNghi'" (click)="chiTietDeNghi(rowData)" class="link"
+                            style="display: inline-block; padding: 3px 3px;">{{rowData[col.field]}}</span>
+
+                          <span *ngSwitchCase="'trangThaiString'" class="status"
+                            [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}"
+                            style="display: inline-block; padding: 3px 3px;color: white;width: 100%;text-align: center;">
+                            {{rowData[col.field]}}
+                          </span>
+                          <span *ngSwitchCase="'tongTienThanhToan'">
+                            {{rowData[col.field]| number :0}}
+                          </span>
+                          <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </p-tabPanel>
+                <p-tabPanel header="Đề nghị hoàn ứng">
+                  <p-table [columns]="colsHTU" [value]="listDeNghiHoanUng" [responsive]="true" [resizableColumns]="true"
+                    selectionMode="single" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,30,100]"
+                    class="table-border">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th style="width:50px">STT</th>
+                        <th *ngFor="let col of columns" pResizableColumn [ngStyle]="{'text-align': 'center'}">
+                          {{col.header}}
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                      <tr [pSelectableRow]="rowData">
+                        <td style="text-align: center;">
+                          {{i + 1}}
+                        </td>
+                        <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
+                          [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                          <span class="ui-column-title">{{col.header}}</span>
+                          <span *ngSwitchCase="'maDeNghi'" (click)="chiTietDeNghi(rowData)" class="link"
+                            style="display: inline-block; padding: 3px 3px;">{{rowData[col.field]}}</span>
+
+                          <span *ngSwitchCase="'trangThaiString'" class="status"
+                            [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}"
+                            style="display: inline-block; padding: 3px 3px;color: white;width: 100%;text-align: center;">
+                            {{rowData[col.field]}}
+                          </span>
+                          <span *ngSwitchCase="'tongTienThanhToan'">
+                            {{rowData[col.field]| number :0}}
+                          </span>
+                          <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </p-tabPanel>
+              </p-tabView>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <!-- KẾT QUẢ CÔNG TÁC -->
+  <div class="row no-padding body-wrapper" id="parent">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Kết quả công tác" [selected]="true">
+          <form [formGroup]="hoSoCongTacForm">
+            <div class="col-md-12" style="margin-bottom: 10px;">
+              <p-editor formControlName="ketQuaCTControl" [style]="{'height':'180px', 'width': '100%'}">
+              </p-editor>
+            </div>
+          </form>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <!-- TÀI LIỆU LIÊN QUAN -->
+  <div class="row no-padding body-wrapper" id="parent">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Tài liệu liên quan" [selected]="true">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12 mt-5">
+                <p-fileUpload #fileUpload name="demo[]" customUpload="true" multiple="multiple"
+                  [showUploadButton]="true"
+                  accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+                  [maxFileSize]="defaultLimitedFileSize" invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+                  invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+                  invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+                  invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}."
+                  chooseLabel="Chọn file" cancelLabel="Hủy toàn bộ file" (onSelect)="handleFile($event, fileUpload)"
+                  (uploadHandler)="myUploader($event)" (onRemove)="removeFile($event)" (onClear)="clearAllFile()">
+                </p-fileUpload>
+              </div>
+
+              <div class="col-md-12 mt-5">
+                <p-table #dt [columns]="colsFile" [value]="arrayDocumentModel" [responsive]="true"
+                  [resizableColumns]="true" [paginator]="true" [rows]="10">
+                  <ng-template pTemplate="caption">
+                    <div style="text-align: right">
+                      <input type="text" pInputText size="50" placeholder="Tên tài liệu"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th *ngFor="let col of columns" pResizableColumn [ngStyle]="{'text-align': col.textAlign}">
+                        {{col.header}}
+                      </th>
+                      <th style="width:4em"></th>
+                      <th style="width:4em"></th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                      <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
+                        [ngStyle]="{'text-align': col.textAlign}">
+                        <span class="ui-column-title">{{col.header}}</span>
+                        <span *ngSwitchCase="'fileFullName'">
+                          {{rowData[col.field].substring(0,rowData[col.field].lastIndexOf('_'))}}.{{rowData[col.field].substring(rowData[col.field].lastIndexOf('.')+1,
+                          rowData[col.field].length)}}
+                        </span>
+                        <span *ngSwitchCase="'createdDate'">
+                          {{rowData[col.field] | date:'dd/MM/yyyy h:mm a'}}
+                        </span>
+                        <span *ngSwitchCase="'size'">
+                          <ng-container *ngIf="convertFileSize(rowData[col.field])">
+                            {{rowData[col.field] / 1024 | number}} KB
+                          </ng-container>
+                          <ng-container *ngIf="!convertFileSize(rowData[col.field])">
+                            {{rowData[col.field] / 1048576 | number}} MB
+                          </ng-container>
+                        </span>
+                        <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+                      </td>
+                      <td>
+                        <button pButton icon="pi pi-trash" (click)="deleteFile(rowData)"
+                          class="ui-button-danger"></button>
+                      </td>
+                      <td>
+                        <button pButton icon="pi pi-download" (click)="downloadFile(rowData)"></button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <!-- GHI CHÚ -->
+  <div class="row no-padding body-wrapper">
+    <app-note-time-line style="width: 100%;" [viewNote]="true" [viewTimeline]="true" 
+      objectType="HOSOCT" [objectNumber]="hoSoCongTacId" 
+      [actionAdd]="true" [actionEdit]="false" [actionDelete]="false" 
+      [pageSize]="10" [refresh]="refreshNote">
+    </app-note-time-line>
+  </div>
+</div>

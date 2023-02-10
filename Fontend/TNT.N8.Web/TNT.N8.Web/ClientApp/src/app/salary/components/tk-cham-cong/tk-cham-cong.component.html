@@ -1,0 +1,130 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="tk-di-muon-ve-som">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row" style="display: flex; align-items: center;">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="\assets\icons\components\noun_product.svg" class="noun-product">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title">Thống kê chấm công</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12" style="text-align: right;">
+            <button [disabled]="awaitResponse" type="button" class="export-exel" *ngIf="actionDownload" (click)="exportExcel()">
+              Xuất Excel
+            </button>
+            <button [disabled]="awaitResponse" type="button" class="btn-create" *ngIf="actionImport" (click)="showDialogImport()">
+              Import File
+            </button>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div class="col-md-12" style="margin-bottom: 10px;">
+      <p-tabView [(activeIndex)]="tabIndex">
+        <p-tabPanel header="Đi muộn về sớm">
+          <app-cham-cong-thuong #chamCongThuong [actionEdit]="actionEdit" [actionDownload]="actionDownload"
+            [actionImport]="actionImport" [listEmployee]="listEmployee" [listKyHieuChamCong]="listKyHieuChamCong">
+          </app-cham-cong-thuong>
+        </p-tabPanel>
+
+        <p-tabPanel header="Chấm công OT">
+          <app-cham-cong-ot #chamCongOt [actionEdit]="actionEdit" [actionDownload]="actionDownload" 
+            [actionImport]="actionImport" [listEmployee]="listEmployee">
+          </app-cham-cong-ot>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+
+  <p-dialog header="Nhập file excel" [(visible)]="displayDialogImport" [modal]="true" [responsive]="true"
+    [style]="{width: '550px', minWidth: '200px'}" [minY]="100" (onHide)="cancelFile()">
+    <div class="row no-margin">
+      <div class="col-md-3 mt-25">
+        <span>Chọn file</span>
+      </div>
+      <div class="col-md-9 mt-25" style="margin-bottom: 25px;">
+        <button class="btn btn-primary btn-file import-file">
+          <span class="text-import">Chọn file</span>
+          <input type="file" #attachment id="inputFile" (change)="chooseFile($event)" accept=".xlsx, .xls">
+        </button>
+      </div>
+    </div>
+    <div class="row no-margin">
+      <div class="col-md-12">
+        <span>{{fileName}}</span>
+        <span *ngIf="fileName" (click)="cancelFile()" style="cursor: pointer; margin-left: 10px;">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </span>
+      </div>
+    </div>
+
+    <p-footer>
+      <button [disabled]="awaitResponse" class="btn btn-primary btn-file import-file" type="button" (click)="importExcel()">
+        <span class="text-import">Lưu</span>
+      </button>
+    </p-footer>
+  </p-dialog>
+
+  <p-dialog header="Dữ liệu lỗi" [(visible)]="displayErrorDialog" [modal]="true" [responsive]="true"
+    [style]="{width: '70vw'}" [minY]="100">
+    <div class="row no-margin">
+      <div class="col-md-12 mt-10" style="margin-bottom: 25px;">
+        <p-table [columns]="colsErrorDialog" [value]="listDataError"
+          [responsive]="true" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[5, 15, 20, 50]">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" [ngStyle]="{'text-align': 'center', 'width': col.width}">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                <span *ngSwitchCase="'noteError'" [innerHtml]="rowData[col.field]"></span>
+                <span *ngSwitchDefault>
+                  {{rowData[col.field]}}
+                </span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </div>
+
+    <p-footer>
+      <button type="button" class="export-exel" (click)="close()">
+        Hủy
+      </button>
+    </p-footer>
+  </p-dialog>
+</div>

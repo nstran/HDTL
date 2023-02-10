@@ -1,0 +1,21 @@
+.lich-su-phe-duyet .iput-text {
+  width: 248px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding-left: 5px;
+  margin-left: 5px;
+}
+
+.lich-su-phe-duyet .mt-10 {
+  margin-top: 10px;
+}
+
+.lich-su-phe-duyet .mt-20 {
+  margin-top: 20px;
+}
+
+.lich-su-phe-duyet .mb-20 {
+  margin-bottom: 20px;
+}

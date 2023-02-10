@@ -1,0 +1,694 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="{{ 'order.messages_title.title_confirm' | translate }}" icon="pi pi-exclamation-triangle"
+  acceptLabel="{{ 'order.buttons.accept' | translate }}" rejectLabel="{{ 'order.buttons.reject' | translate }}">
+</p-confirmDialog>
+
+
+<div class="asset-create">
+  <div class="row no-margin" id="parent">
+    <div class="col-md-12 header" style="padding: 6px;">
+      <div class="row">
+        <div class="col-md-6 no-padding">
+          <div class="row no-margin">
+            <div class="col-md-1 col-sm-1 col-xs-3">
+              <div class="header-box-icon">
+                <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+              </div>
+            </div>
+            <div class="col-md-11 col-sm-10 col-xs-9">
+              <div>
+                <span class="customer-name">Tạo mới tài sản</span>
+              </div>
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="float: right;">
+
+                <span *ngIf="!isInvalidForm" style="margin-right: 30px;">
+                  <img src="/assets/icons/components/ios-warning.svg" class="ios-warning">
+                </span>
+                <div class="box-waring" *ngIf="isInvalidForm" #toggleButton (click)="toggleNotifiError()">
+                  <img src="/assets/icons/components/ios-warning-active.svg" class="ios-warning-active">
+                </div>
+                <div class="notification" #notifi *ngIf="isOpenNotifiError">
+                  <div *ngIf="(maTaiSanControl.invalid && (maTaiSanControl.dirty || maTaiSanControl.touched))"
+                    class="notifi-row">
+                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                    <span class="notifi-text">Vui lòng nhập mã tài sản</span>
+                  </div>
+
+                  <div *ngIf="(phanLoaiTSControl.invalid && (phanLoaiTSControl.dirty || phanLoaiTSControl.touched))"
+                    class="notifi-row">
+                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                    <span class="notifi-text">Vui lòng chọn phân loại tài sản</span>
+                  </div>
+
+                  <div *ngIf="(khuVucTSControl.invalid && (khuVucTSControl.dirty || khuVucTSControl.touched))"
+                    class="notifi-row">
+                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                    <span class="notifi-text">Vui lòng chọn khu vực</span>
+                  </div>
+
+                  <div *ngIf="(tenTaiSanControl.invalid && (tenTaiSanControl.dirty || tenTaiSanControl.touched))"
+                    class="notifi-row">
+                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                    <span class="notifi-text">Vui lòng nhập tên tài sản</span>
+                  </div>
+
+                  <div *ngIf="(ngayVaoSoControl.invalid && (ngayVaoSoControl.dirty || ngayVaoSoControl.touched))"
+                    class="notifi-row">
+                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                    <span class="notifi-text">Vui lòng nhập ngày vào sổ</span>
+                  </div>
+
+                  <div *ngIf="(donViControl.invalid && (donViControl.dirty || donViControl.touched))"
+                    class="notifi-row">
+                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                    <span class="notifi-text">Vui lòng nhập ngày vào sổ</span>
+                  </div>
+
+                  <div *ngIf="(serialControl.invalid && (serialControl.dirty || serialControl.touched))"
+                    class="notifi-row">
+                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                    <span class="notifi-text">Vui lòng nhập serial</span>
+                  </div>
+
+                  <div *ngIf="(modelControl.invalid && (modelControl.dirty || modelControl.touched))"
+                    class="notifi-row">
+                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                    <span class="notifi-text">Vui lòng nhập model</span>
+                  </div>
+
+                  <div
+                    *ngIf="(thoiGianKhauHaoControl.invalid && (thoiGianKhauHaoControl.dirty || thoiGianKhauHaoControl.touched))"
+                    class="notifi-row">
+                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                    <span class="notifi-text">Vui lòng nhập thời gian khấu hao</span>
+                  </div>
+
+                  <div
+                    *ngIf="(giaTriTinhKhauHaoControl.invalid && (giaTriTinhKhauHaoControl.dirty || giaTriTinhKhauHaoControl.touched))"
+                    class="notifi-row">
+                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                    <span class="notifi-text">Vui lòng nhập giá trị khấu hao</span>
+                  </div>
+
+                  <div
+                    *ngIf="(thoiDiemTinhKhauHaoControl.invalid && (thoiDiemTinhKhauHaoControl.dirty || thoiDiemTinhKhauHaoControl.touched))"
+                    class="notifi-row">
+                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                    <span class="notifi-text">Vui lòng nhập thời điểm khấu hao</span>
+                  </div>
+
+                  <div
+                    *ngIf="(phuongPhapTinhKhauHaoControl.invalid && (phuongPhapTinhKhauHaoControl.dirty || phuongPhapTinhKhauHaoControl.touched))"
+                    class="notifi-row">
+                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                    <span class="notifi-text">Vui lòng nhập phương pháp khấu hao</span>
+                  </div>
+                </div>
+                <button class="btn-remove" type="button" (click)="cancel()">
+                  <span class="btn-remove-text">Thoát</span>
+                </button>
+
+                <button (click)="createAsset(true)" type="button" class="btn-save-and-new" [disabled]="awaitResult">
+                  <span class="btn-save-and-new-text">Lưu và Thêm mới</span>
+                </button>
+
+                <button class="btn-save" *ngIf="actionAdd" type="button" [disabled]="awaitResult"
+                  (click)="createAsset(false)">
+                  <span class="btn-save-text">Lưu</span>
+                </button>
+              </div>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="createAssetForm">
+    <div class="row no-padding body-wrapper" id="parent">
+      <div class="col-md-12">
+        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+          <p-accordionTab header="Thông tin chung" [selected]="true">
+            <div class="row">
+              <div class="col-md-12">
+
+                <div class="row top-buffer bottom-buffer" style="margin-top: 15px;">
+                  <div class="col-md-12 mt-10">
+                    <!-- Mã tài sản -->
+                    <div class="col-md-4">
+                      <div class="row buffer-bottom">
+                        <div class="col-md-12 buffer-bottom-label">
+                          <span>Mã tài sản</span><span class="required">*</span>
+                        </div>
+                        <div class="col-md-12">
+                          <input formControlName="maTaiSanControl" type="text" maxlength="500"
+                            [ngClass]="(maTaiSanControl.invalid && (maTaiSanControl.dirty || maTaiSanControl.touched)) ? 'error-border' : ''"
+                            class="w100" pInputText />
+                        </div>
+                        <div class="col-md-12" [hidden]="maTaiSanControl.valid || maTaiSanControl.untouched">
+                          <span *ngIf="maTaiSanControl.hasError('required') || maTaiSanControl.hasError('blankString') "
+                            class="error-message-span">
+                            Không được để trống
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Phân loại tài sản -->
+                    <div class="col-md-4">
+                      <div class="row buffer-bottom">
+                        <div class="col-md-12 buffer-bottom-label">
+                          <span>Phân loại tài sản</span><span class="required">*</span>
+                        </div>
+                        <div class="col-md-12">
+                          <p-dropdown [options]="listPhanLoaiTS" formControlName="phanLoaiTSControl"
+                            [styleClass]="(phanLoaiTSControl.invalid  && (phanLoaiTSControl.dirty ||  phanLoaiTSControl.touched)) ? 'error-border': ''"
+                            placeholder="Chọn phân loại tài sản" optionLabel="categoryName" [style]="{'width': '100%'}">
+                          </p-dropdown>
+                        </div>
+                        <div class="col-md-12" [hidden]="phanLoaiTSControl.valid || phanLoaiTSControl.untouched">
+                          <span
+                            *ngIf="phanLoaiTSControl.hasError('required') || phanLoaiTSControl.hasError('blankString') "
+                            class="error-message-span">
+                            Không được để trống
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="row buffer-bottom">
+                        <div class="col-md-12 buffer-bottom-label">
+                          <span>Đơn vị</span><span class="required">*</span>
+                        </div>
+                        <div class="col-md-12">
+                          <p-dropdown [options]="listDonVi" formControlName="donViControl"
+                            [styleClass]="(donViControl.invalid  && (donViControl.dirty ||  donViControl.touched)) ? 'error-border': ''"
+                            placeholder="Chọn đơn vị" optionLabel="categoryName" [style]="{'width': '100%'}">
+                          </p-dropdown>
+                        </div>
+                        <div class="col-md-12" [hidden]="donViControl.valid || donViControl.untouched">
+                          <span *ngIf="donViControl.hasError('required') || donViControl.hasError('blankString') "
+                            class="error-message-span">
+                            Không được để trống
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 mt-10">
+                    <!-- Tên tài sản -->
+                    <div class="col-md-4">
+                      <div class="row buffer-bottom">
+                        <div class="col-md-12 buffer-bottom-label">
+                          <span>Tên tài sản</span><span class="required">*</span>
+                        </div>
+                        <div class="col-md-12">
+                          <input formControlName="tenTaiSanControl" type="text" maxlength="500"
+                            [ngClass]="(tenTaiSanControl.invalid && (tenTaiSanControl.dirty || tenTaiSanControl.touched)) ? 'error-border' : ''"
+                            class="w100" pInputText />
+                        </div>
+                        <div class="col-md-12" [hidden]="tenTaiSanControl.valid || tenTaiSanControl.untouched">
+                          <span
+                            *ngIf="tenTaiSanControl.hasError('required') || tenTaiSanControl.hasError('blankString') "
+                            class="error-message-span">
+                            Không được để trống
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Mã code -->
+                    <div class="col-md-4">
+                      <div class="row buffer-bottom">
+                        <div class="col-md-12 buffer-bottom-label">
+                          <span>Khu vực</span><span class="required">*</span>
+                        </div>
+                        <div class="col-md-12">
+                          <p-dropdown [options]="listKhuVuc" formControlName="khuVucTSControl"
+                            [styleClass]="(khuVucTSControl.invalid  && (khuVucTSControl.dirty ||  khuVucTSControl.touched)) ? 'error-border': ''"
+                            placeholder="Chọn khu vực" optionLabel="provinceName" [style]="{'width': '100%'}">
+                          </p-dropdown>
+                        </div>
+                        <div class="col-md-12" [hidden]="khuVucTSControl.valid || khuVucTSControl.untouched">
+                          <span *ngIf="khuVucTSControl.hasError('required') || khuVucTSControl.hasError('blankString') "
+                            class="error-message-span">
+                            Không được để trống
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Ngày vào sổ / Khu vực-->
+                    <div class="col-md-4">
+                      <div class="row buffer-bottom">
+                        <div class="col-md-12 buffer-bottom-label">
+                          <span>Ngày vào sổ</span><span class="required">*</span>
+                        </div>
+                        <div class="col-md-12">
+                          <p-calendar #start formControlName="ngayVaoSoControl" dateFormat="dd/mm/yy"
+                            showButtonBar="true" [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}"
+                            [monthNavigator]="true"
+                            [styleClass]="(ngayVaoSoControl.invalid && (ngayVaoSoControl.dirty || ngayVaoSoControl.touched)) ? 'error-border' : ''"
+                            (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+                            [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="body">
+                          </p-calendar>
+                        </div>
+                        <div class="col-md-12" [hidden]="ngayVaoSoControl.valid || ngayVaoSoControl.untouched">
+                          <span
+                            *ngIf="ngayVaoSoControl.hasError('required') || ngayVaoSoControl.hasError('blankString') "
+                            class="error-message-span">
+                            Không được để trống
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Mô tả -->
+                  <div class="col-md-12 mt-10">
+                    <div class="col-md-12">
+                      <div class="row buffer-bottom">
+                        <div class="col-md-12 buffer-bottom-label">
+                          <span>Mô tả</span>
+                        </div>
+                        <div class="col-md-12">
+                          <textarea pInputTextarea autoResize="autoResize" rows="3" [style]="{'width': '100%'}"
+                            formControlName="moTaControl"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+    <div class="row no-padding body-wrapper" id="parent">
+      <div class="col-md-12">
+        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+          <p-accordionTab header="Thông tin chi tiết" [selected]="true">
+            <p-tabView>
+              <p-tabPanel header="Chi tiết" [headerStyle]="{width: '145px', 'text-align': 'center'}">
+
+                <!--HÀNG I-->
+                <div class="row buffer-bottom no-margin mt-10">
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Serial</span><span class="required">*</span>
+                      </div>
+                      <div class="col-md-12">
+                        <input formControlName="serialControl" type="text"
+                          [ngClass]="(serialControl.invalid && (serialControl.dirty || serialControl.touched)) ? 'error-border' : ''"
+                          class="w100" pInputText />
+                      </div>
+                      <div class="col-md-12" [hidden]="serialControl.valid || serialControl.untouched">
+                        <span *ngIf="serialControl.hasError('required') || serialControl.hasError('blankString') "
+                          class="error-message-span">
+                          Không được để trống
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Năm sản xuất</span>
+                      </div>
+                      <div class="col-md-12">
+                        <input formControlName="namSXControl" type="number" class="w100" pInputText />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Ngày mua</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-calendar #start formControlName="ngayMuaControl" dateFormat="dd/mm/yy" showButtonBar="true"
+                          [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}" [monthNavigator]="true"
+                          (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+                          [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="body">
+                        </p-calendar>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--HÀNG II-->
+                <div class="row buffer-bottom no-margin mt-10">
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Model</span><span class="required">*</span>
+                      </div>
+                      <div class="col-md-12">
+                        <input formControlName="modelControl" type="text"
+                          [ngClass]="(modelControl.invalid && (modelControl.dirty || modelControl.touched)) ? 'error-border' : ''"
+                          class="w100" pInputText />
+                      </div>
+                      <div class="col-md-12" [hidden]="modelControl.valid || modelControl.untouched">
+                        <span *ngIf="modelControl.hasError('required') || modelControl.hasError('blankString') "
+                          class="error-message-span">
+                          Không được để trống
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Nước sản xuất</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-dropdown [options]="listNuocSX" formControlName="nuocSXControl"
+                          placeholder="Chọn nước sản xuất" optionLabel="categoryName" [style]="{'width': '100%'}">
+                        </p-dropdown>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Thời hạn bảo hành (tháng)</span>
+                      </div>
+                      <div class="col-md-12">
+                        <input type="text" class="number-input" formControlName="thoiHanBHControl"
+                          (keydown.enter)="$event.preventDefault()"
+                          [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}"
+                          [style]="{'width': '100%', 'display':'inline-grid'}">
+                        <!-- <p-inputNumber formControlName="thoiHanBHControl" [min]="0"
+                                  [style]="{'width': '100%', 'display':'inline-grid'}">
+                                </p-inputNumber> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--HÀNG III-->
+                <div class="row buffer-bottom no-margin mt-10">
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Số hiệu</span>
+                      </div>
+                      <div class="col-md-12">
+                        <input formControlName="soHieuControl" type="text" class="w100" pInputText />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Hãng sản xuất</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-dropdown [options]="listHangSX" formControlName="hangSXControl"
+                          placeholder="Chọn hãng sản xuất" optionLabel="categoryName" [style]="{'width': '100%'}">
+                        </p-dropdown>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Bảo dưỡng định kỳ (tháng)</span>
+                      </div>
+                      <div class="col-md-12">
+                        <!-- <input formControlName="baoDuongDinhKyControl" type="number" class="w100" pInputText /> -->
+                        <input type="text" class="number-input" formControlName="baoDuongDinhKyControl"
+                          (keydown.enter)="$event.preventDefault()"
+                          [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}"
+                          [style]="{'width': '100%', 'display':'inline-grid'}">
+                        <!-- <p-inputNumber formControlName="baoDuongDinhKyControl" [min]="0" mode="decimal"
+                                  [minFractionDigits]="2" [maxFractionDigits]="2"
+                                  [style]="{'width': '100%', 'display':'inline-grid'}">
+                                </p-inputNumber> -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--HÀNG IV-->
+                <div class="row buffer-bottom no-margin mt-10">
+                  <div class="col-md-6">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Thông tin nơi mua</span>
+                      </div>
+                      <div class="col-md-12">
+                        <textarea pInputTextarea autoResize="autoResize" rows="4" [style]="{'width': '100%'}"
+                          formControlName="thongTinNoiMuaControl"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Thông tin nơi bảo trì/bảo dưỡng</span>
+                      </div>
+                      <div class="col-md-12">
+                        <textarea pInputTextarea autoResize="autoResize" rows="4" [style]="{'width': '100%'}"
+                          formControlName="thongTinNoiBaoHanhControl"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </p-tabPanel>
+
+              <p-tabPanel header="Khấu hao" [headerStyle]="{width: '145px', 'text-align': 'center'}">
+                <div class="row buffer-bottom no-margin mt-10">
+                  <p><strong>Cấu hình khấu hao</strong></p>
+                </div>
+                <!--HÀNG I-->
+                <div class="row buffer-bottom no-margin mt-10">
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Giá trị nguyên giá</span>
+                      </div>
+                      <div class="col-md-12">
+                        <input pInputText type="text" formControlName="giaTriNguyenGiaControl"
+                          [style]="{'width': '100%', 'text-align': 'right'}"
+                          [cleave]="{ numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 0 }">
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Thời điểm kết thúc khấu hao</span>
+                      </div>
+                      <div class="col-md-12">
+                        <label style="font-weight:bold !important;">{{thoiDiemKetThucKhauHao}}</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Tỉ lệ khấu hao theo năm (%)</span>
+                      </div>
+                      <div class="col-md-12">
+                        <label style="font-weight:bold !important;">{{tiLeKhauHaoTheoNam|number:0}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--HÀNG II-->
+                <div class="row buffer-bottom no-margin mt-10">
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Giá trị tính khấu hao</span><span class="required">*</span>
+                      </div>
+                      <div class="col-md-12">
+                        <input pInputText type="text" formControlName="giaTriTinhKhauHaoControl"
+                          [style]="{'width': '100%', 'text-align': 'right'}" (onChange)="tinhThoiGianKhauHao()"
+                          [ngClass]="(giaTriTinhKhauHaoControl.invalid && (giaTriTinhKhauHaoControl.dirty || giaTriTinhKhauHaoControl.touched)) ? 'error-border' : ''"
+                          [cleave]="{ numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 0 }">
+                      </div>
+                      <div class="col-md-12"
+                        [hidden]="giaTriTinhKhauHaoControl.valid || giaTriTinhKhauHaoControl.untouched">
+                        <span
+                          *ngIf="giaTriTinhKhauHaoControl.hasError('required') || giaTriTinhKhauHaoControl.hasError('blankString') "
+                          class="error-message-span">
+                          Không được để trống
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Phương pháp khấu khao</span><span class="required">*</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-dropdown [options]="listPhuongPhapKhauHao" formControlName="phuongPhapTinhKhauHaoControl"
+                          [styleClass]="(phuongPhapTinhKhauHaoControl.invalid  && (phuongPhapTinhKhauHaoControl.dirty ||  phuongPhapTinhKhauHaoControl.touched)) ? 'error-border': ''"
+                          [autoDisplayFirst]="true" optionLabel="name" [style]="{'width': '100%'}">
+                        </p-dropdown>
+                      </div>
+                      <!-- <div class="col-md-12"
+                                [hidden]="phuongPhapTinhKhauHaoControl.valid || phuongPhapTinhKhauHaoControl.untouched">
+                                <span
+                                  *ngIf="phuongPhapTinhKhauHaoControl.hasError('required') || phuongPhapTinhKhauHaoControl.hasError('blankString') "
+                                  class="error-message-span">
+                                  Không được để trống
+                                </span>
+                              </div> -->
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Giá trị khấu hao theo năm</span>
+                      </div>
+                      <div class="col-md-12">
+                        <label style="font-weight:bold !important;">{{giaTriKhauHaoTheoNam|number:0}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--HÀNG III-->
+                <div class="row buffer-bottom no-margin mt-10">
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Thời gian khấu hao (tháng)</span><span class="required">*</span>
+                      </div>
+                      <div class="col-md-12">
+                        <!-- <p-inputNumber formControlName="thoiGianKhauHaoControl" [min]="0"
+                                  (onBlur)="tinhThoiGianKhauHao()" [style]="{'width': '100%', 'display':'inline-grid'}">
+                                </p-inputNumber> -->
+                        <input type="text" class="number-input" formControlName="thoiGianKhauHaoControl"
+                          (keydown.enter)="$event.preventDefault()"
+                          [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}"
+                          (change)="tinhThoiGianKhauHao()"
+                          [ngClass]="(thoiGianKhauHaoControl.invalid && (thoiGianKhauHaoControl.dirty || thoiGianKhauHaoControl.touched)) ? 'error-border' : ''"
+                          [style]="{'width': '100%', 'display':'inline-grid'}">
+                      </div>
+                      <div class="col-md-12"
+                        [hidden]="thoiGianKhauHaoControl.valid || thoiGianKhauHaoControl.untouched">
+                        <span
+                          *ngIf="thoiGianKhauHaoControl.hasError('required') || thoiGianKhauHaoControl.hasError('blankString') "
+                          class="error-message-span">
+                          Không được để trống
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Tỉ lệ khấu hao theo tháng (%)</span>
+                      </div>
+                      <div class="col-md-12">
+                        <label style="font-weight:bold !important;">{{tiLeKhauHaoTheoThang|number:0}}</label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Giá trị khấu hao lũy kế</span>
+                      </div>
+                      <div class="col-md-12">
+                        <label style="font-weight:bold !important;">{{giaTriKhauHaoLuyKe|number:0}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!--HÀNG IV-->
+                <div class="row buffer-bottom no-margin mt-10">
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Thời điểm bắt đầu tính khấu hao</span><span class="required">*</span>
+                      </div>
+                      <div class="col-md-12">
+                        <p-calendar #start formControlName="thoiDiemTinhKhauHaoControl" showButtonBar="true"
+                          [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}" [monthNavigator]="true"
+                          view="month" dateFormat="mm/yy"
+                          [styleClass]="(thoiDiemTinhKhauHaoControl.invalid && (thoiDiemTinhKhauHaoControl.dirty || thoiDiemTinhKhauHaoControl.touched)) ? 'error-border' : ''"
+                          (onClose)="tinhThoiGianKhauHao()" (keydown.enter)="$event.preventDefault()"
+                          [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" [baseZIndex]="999" appendTo="body">
+                        </p-calendar>
+                      </div>
+                      <div class="col-md-12"
+                        [hidden]="thoiDiemTinhKhauHaoControl.valid || thoiDiemTinhKhauHaoControl.untouched">
+                        <span
+                          *ngIf="thoiDiemTinhKhauHaoControl.hasError('required') || thoiDiemTinhKhauHaoControl.hasError('blankString') "
+                          class="error-message-span">
+                          Không được để trống
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Giá trị khấu hao theo tháng</span>
+                      </div>
+                      <div class="col-md-12">
+                        <label style="font-weight:bold !important;">
+                          {{giaTriKhauHaoTheoThang|number:0}}
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Giá trị còn lại</span>
+                      </div>
+                      <div class="col-md-12">
+                        <label style="font-weight:bold !important;">{{giaTriConLai|number:0}}</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </p-tabPanel>
+            </p-tabView>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+  </form>
+</div>

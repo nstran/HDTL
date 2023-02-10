@@ -1,0 +1,388 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="{{ 'order.messages_title.title_confirm' | translate }}" icon="pi pi-exclamation-triangle"
+  acceptLabel="{{ 'order.buttons.accept' | translate }}" rejectLabel="{{ 'order.buttons.reject' | translate }}">
+</p-confirmDialog>
+
+
+<div class="phan-bo-tai-san">
+  <div class="row no-margin">
+    <div class="row phan-bo-tai-san-content" id="parent">
+      <div class="row no-margin button-group">
+        <div class="col-md-6 no-padding">
+          <div class="row no-margin">
+            <div class="col-md-1 col-sm-1 col-xs-3">
+              <div class="header-box-icon">
+                <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+              </div>
+            </div>
+            <div class="col-md-11 col-sm-10 col-xs-9">
+              <div>
+                <span class="asset-header">Phân bổ tài sản</span>
+              </div>
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="float: right;">
+                <button class="cancel" type="button" (click)="cancel()">
+                  <span class="text-cancel">Thoát</span>
+                </button>
+                &nbsp;
+                <button class="btn-long" type="button" (click)="importAsset()">
+                  <span class="text-cancel">Import file</span>
+                </button>
+
+                <button #save class="save" *ngIf="actionAdd" type="button" [disabled]="awaitResult"
+                  (click)="taoPhanBoTaiSan()">
+                  <span class="text-save">Lưu</span>
+                </button>
+              </div>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row no-padding body-wrapper" id="parent">
+        <div class="col-md-12">
+          <form [formGroup]="phanBoTaiSanForm">
+            <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+              <p-accordionTab header="Tạo phân bổ" [selected]="true">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="row top-buffer bottom-buffer" style="margin-top: 15px;">
+                      <!-- HÀNG 1 -->
+                      <div class="col-md-12 mb-5">
+                        <!-- Loại phân bổ tài sản -->
+                        <div class="col-md-3">
+                          <div class="row buffer-bottom">
+                            <div class="col-md-12 buffer-bottom-label">
+                              <span>Loại tài sản phân bổ</span><span class="required">*</span>
+                            </div>
+                            <div class="col-md-12">
+                              <p-dropdown [disabled]="disableForm" [options]="listLoaiTSPB"
+                                formControlName="loaiTaiSanPBControl"
+                                [styleClass]="(loaiTaiSanPBControl.invalid  && (loaiTaiSanPBControl.dirty ||  loaiTaiSanPBControl.touched)) ? 'error-border': ''"
+                                (onChange)="thayDoiLoaiTaiSan($event.value)" placeholder="Chọn loại tài sản phân bổ"
+                                optionLabel="categoryName" [style]="{'width': '100%'}">
+                              </p-dropdown>
+                            </div>
+                            <div class="col-md-12"
+                              [hidden]="loaiTaiSanPBControl.valid || loaiTaiSanPBControl.untouched">
+                              <span
+                                *ngIf="loaiTaiSanPBControl.hasError('required') || loaiTaiSanPBControl.hasError('blankString') "
+                                class="error-message-span">
+                                Không được để trống
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Tên tài sản phân bổ -->
+                        <div class="col-md-3">
+                          <div class="row col-md-12 buffer-bottom">
+                            <div class="col-md-12 buffer-bottom-label">
+                              <span>Tên tài sản phân bổ</span><span class="required">*</span>
+                            </div>
+                            <div class="col-md-12">
+                              <p-dropdown [disabled]="disableForm" [options]="listTaiSan"
+                                formControlName="taiSanPBControl" [filter]="true" [resetFilterOnHide]="true"
+                                [virtualScroll]="true" itemSize="10"
+                                [styleClass]="(taiSanPBControl.invalid  && (taiSanPBControl.dirty ||  taiSanPBControl.touched)) ? 'error-border': ''"
+                                (onChange)="thayDoiTaiSan($event.value)" placeholder="Chọn phân loại tài sản"
+                                optionLabel="tenTaiSanCode" [style]="{'width': '100%'}">
+                              </p-dropdown>
+                            </div>
+                            <div class="col-md-12" [hidden]="taiSanPBControl.valid || taiSanPBControl.untouched">
+                              <span
+                                *ngIf="taiSanPBControl.hasError('required') || taiSanPBControl.hasError('blankString') "
+                                class="error-message-span">
+                                Không được để trống
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="row buffer-bottom">
+                            <div class="col-md-12 buffer-bottom-label">
+                              <span>Mã tài sản</span>
+                            </div>
+                            <div class="col-md-12">
+                              <input id="input" type="text" size="30" value="{{taiSanModel.tenTaiSan}}" pInputText
+                                [ngStyle]="{'width': '100%'}" disabled="true">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="row buffer-bottom">
+                            <div class="col-md-12 buffer-bottom-label">
+                              <span>Mã code</span>
+                            </div>
+                            <div class="col-md-12">
+                              <input id="input" type="text" size="30" value="{{taiSanModel.maCode}}" pInputText
+                                [ngStyle]="{'width': '100%'}" disabled="true">
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+
+                      <!-- HÀNG 2 -->
+                      <div class="col-md-12 mb-5">
+                        <div class="col-md-3">
+                          <div class="row buffer-bottom">
+                            <div class="col-md-12 buffer-bottom-label">
+                              <span>Mã nhân viên</span><span class="required">*</span>
+                            </div>
+                            <div class="col-md-12">
+                              <p-dropdown [options]="listEmployee" formControlName="nhanVienControl"
+                                [styleClass]="(nhanVienControl.invalid  && (nhanVienControl.dirty ||  nhanVienControl.touched)) ? 'error-border': ''"
+                                [filter]="true" [resetFilterOnHide]="true" [virtualScroll]="true" itemSize="10"
+                                (onChange)="thayDoiNhanVien($event)" placeholder="Chọn nhân viên"
+                                optionLabel="employeeCodeName" [style]="{'width': '100%'}">
+                              </p-dropdown>
+                            </div>
+                            <div class="col-md-12" [hidden]="nhanVienControl.valid || nhanVienControl.untouched">
+                              <span
+                                *ngIf="nhanVienControl.hasError('required') || nhanVienControl.hasError('blankString') "
+                                class="error-message-span">
+                                Không được để trống
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="row col-md-12 buffer-bottom">
+                            <div class="col-md-12 buffer-bottom-label">
+                              <span>Họ tên</span>
+                            </div>
+                            <div class="col-md-12">
+                              <input id="input" type="text" size="30" value="{{employeeModel.employeeName}}" pInputText
+                                [ngStyle]="{'width': '100%'}" disabled="true">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="row buffer-bottom">
+                            <div class="col-md-12 buffer-bottom-label">
+                              <span>Phòng ban</span>
+                            </div>
+                            <div class="col-md-12">
+                              <input id="input" type="text" size="30" value="{{employeeModel.organizationName}}"
+                                pInputText [ngStyle]="{'width': '100%'}" disabled="true">
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="row buffer-bottom">
+                            <div class="col-md-12 buffer-bottom-label">
+                              <span>Vị trí làm việc</span>
+                            </div>
+                            <div class="col-md-12">
+                              <input id="input" type="text" size="30" value="{{employeeModel.positionName}}" pInputText
+                                [ngStyle]="{'width': '100%'}" disabled="true">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- HÀNG 3 -->
+                      <div class="col-md-12 mb-5">
+                        <div class="col-md-3">
+                          <div class="row buffer-bottom">
+                            <div class="col-md-12 buffer-bottom-label">
+                              <span>Mục đích sử dụng</span><span class="required">*</span>
+                            </div>
+                            <div class="col-md-12">
+                              <p-dropdown [options]="listMucDichSuDung" formControlName="mucDichSuDungControl"
+                                [styleClass]="(mucDichSuDungControl.invalid  && (mucDichSuDungControl.dirty ||  mucDichSuDungControl.touched)) ? 'error-border': ''"
+                                [filter]="true" [resetFilterOnHide]="true" [virtualScroll]="true" itemSize="10"
+                                placeholder="Chọn mục đích sử dụng" optionLabel="categoryName"
+                                [style]="{'width': '100%'}">
+                              </p-dropdown>
+                            </div>
+                            <div class="col-md-12"
+                              [hidden]="mucDichSuDungControl.valid || mucDichSuDungControl.untouched">
+                              <span
+                                *ngIf="mucDichSuDungControl.hasError('required') || mucDichSuDungControl.hasError('blankString') "
+                                class="error-message-span">
+                                Không được để trống
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="row col-md-12 buffer-bottom">
+                            <div class="col-md-12 buffer-bottom-label">
+                              <span>Thời gian sử dụng từ</span><span class="required">*</span>
+                            </div>
+                            <div class="col-md-12">
+                              <p-calendar #start formControlName="ngayBatDauControl" dateFormat="dd/mm/yy"
+                                showButtonBar="true" [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}"
+                                [style]="{'width':'100%'}" [maxDate]="ngayKetThucControl.value" [monthNavigator]="true"
+                                [styleClass]="(ngayBatDauControl.invalid && (ngayBatDauControl.dirty || ngayBatDauControl.touched)) ? 'error-border' : ''"
+                                (keydown.enter)="$event.preventDefault()" [inputStyle]="{'width':'100%'}"
+                                [baseZIndex]="999" appendTo="body">
+                              </p-calendar>
+                            </div>
+                            <div class="col-md-12" [hidden]="ngayBatDauControl.valid || ngayBatDauControl.untouched">
+                              <span
+                                *ngIf="ngayBatDauControl.hasError('required') || ngayBatDauControl.hasError('blankString') "
+                                class="error-message-span">
+                                Không được để trống
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="col-md-3">
+                          <div class="row buffer-bottom">
+                            <div class="col-md-12 buffer-bottom-label">
+                              <span>Thời gian sử dụng đến</span>
+                            </div>
+                            <div class="col-md-12">
+                              <p-calendar #start formControlName="ngayKetThucControl" dateFormat="dd/mm/yy"
+                                showButtonBar="true" [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}"
+                                [style]="{'width':'100%'}" [minDate]="ngayBatDauControl.value" [monthNavigator]="true"
+                                (keydown.enter)="$event.preventDefault()" [inputStyle]="{'width':'100%'}"
+                                [baseZIndex]="999" appendTo="body">
+                              </p-calendar>
+                            </div>
+                          </div>
+                        </div>
+
+
+                        <div class="col-md-3">
+                          <div class="row buffer-bottom">
+                            <div class="col-md-12 buffer-bottom-label">
+                              <span>Lý do</span>
+                            </div>
+                            <div class="col-md-12">
+                              <textarea formControlName="lyDoPBControl" type="text" rows="1" class="w100"
+                                pInputText></textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- HÀNG 4 -->
+                      <div class="col-md-12 mb-5 mt-15">
+
+                        <button #save class="save" style="float: right;" *ngIf="!isUpdate" type="button"
+                          (click)="createPBTSTemp()" [disabled]="awaitResult"><span
+                            class="text-save">Thêm</span></button>
+
+                        <button #save class="save" style="float: right;" *ngIf="isUpdate" type="button"
+                          (click)="updatePBTSTemp()" [disabled]="awaitResult"><span class="text-save">Cập
+                            nhật</span></button>
+
+                        <button type="button" class="btn-refresh" style="float: right;" (click)="refreshForm()">
+                          <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+                        </button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </p-accordionTab>
+            </p-accordion>
+          </form>
+
+          <div class="row no-margin" style="background-color: #ffffff; padding: 10px 0px" id="parent">
+            <div class="col-md-12" style="margin-top: 20px;">
+              <p-table #myTable [columns]="selectedColumns" [value]="listTaiSanPBTemp" [responsive]="true"
+                [resizableColumns]="true" selectionMode="single" [paginator]="true" [rows]="10"
+                [rowsPerPageOptions]="[10,30,100]" class="table-border">
+                <ng-template pTemplate="caption">
+                  <div style="text-align: right">
+                    <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                    <input type="text" class="search" pInputText size="50" placeholder="Nhập từ khóa tìm kiếm"
+                      (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th style="width:50px">STT</th>
+                    <th *ngFor="let col of columns" pResizableColumn [ngStyle]="{'text-align': col.textAlign}">
+                      {{col.header}}
+                    </th>
+                    <th style="width:100px"></th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                  <tr [pSelectableRow]="rowData">
+                    <td style="text-align: center;">
+                      {{i + 1}}
+                    </td>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
+                      [ngStyle]="{'text-align': col.textAlign}">
+                      <span class="ui-column-title">{{col.header}}</span>
+
+                      <span *ngSwitchCase="'ngayBatDauString'">{{rowData[col.field]}}</span>
+                      <span *ngSwitchCase="'ngayKetThucString'">{{rowData[col.field]}}</span>
+                      <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                    </td>
+                    <td style="width:100px">
+                      <button pButton icon="fa fa-pencil" class="ui-button-primary"
+                        (click)="reShowAsset(rowData)"></button>
+                      &nbsp;
+                      <button pButton icon="pi pi-trash" class="ui-button-danger"
+                        (click)="delAssetTemp(rowData)"></button>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Import file excel" [(visible)]="displayChooseFileImportDialog" [modal]="true" [responsive]="true"
+  class='showImportForm' [style]="{width: '550px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000"
+  [closable]="true" (onHide)="closeChooseFileImportDialog()">
+  <div class="col-md-4 mt-25">
+    <span>File mẫu</span>
+  </div>
+  <div class="col-md-8 mt-25">
+    <button class="choose-file" type="button" (click)="downloadTemplateExcel()">
+      <span class="text-choose-file">Tải file mẫu</span>
+    </button>
+  </div>
+  <div class="col-md-4 mt-25">
+    <span>Chọn file</span>
+  </div>
+  <div class="col-md-8 mt-25" style="margin-bottom: 25px;">
+    <button class="btn btn-primary btn-file import-file">
+      <span class="text-import">Chọn file</span>
+      <input type="file" id="importFileProduct" (click)="onClickImportBtn($event)" (change)="chooseFile($event)"
+        accept=".xlsx, .xls">
+    </button>
+    <div>{{fileName}}</div>
+  </div>
+  <p-footer>
+    <button class="btn-create" type="button" #save (click)="importExcel()">
+      <span class="btn-create-text">Nhập</span>
+    </button>
+  </p-footer>
+</p-dialog>

@@ -1,0 +1,234 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div style="background-color: #fff;">
+  <div class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding">
+          <span class="col-md-12">
+            <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+            <span class="customer-name">Báo cáo chi phí</span>
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loại biểu đồ -->
+  <div class="col-md-12 detail-box no-padding">
+    <div class="box-bieuDo">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding">
+          <form [formGroup]="thongTinSearch">
+            <span class="col-md-4 no-padding">
+              <div class="col-md-12">
+                Loại biểu đồ:
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="searchLoaiBieuDo" [options]="loaiBieuDo" placeholder="Lựa loại biểu đồ"
+                  optionLabel="name" [style]="{'width': '100%'}"
+                  [ngClass]="searchLoaiBieuDo.invalid && (searchLoaiBieuDo.dirty || searchLoaiBieuDo.touched) ? 'error-border' : ''"
+                  (onChange)="thayDoiBieuDo($event)">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12" [hidden]="searchLoaiBieuDo.valid || searchLoaiBieuDo.untouched">
+                <span *ngIf="searchLoaiBieuDo.hasError('required') || searchLoaiBieuDo.hasError('blankString') "
+                  class="error-message-span"> Không được để trống</span>
+              </div>
+            </span>
+
+            <span class="col-md-2 no-padding">
+              <div class="col-md-12">
+                Từ:
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="thoiGianTu" [style]="{'width': '80%'}" [inputStyle]="{'width':'125%'}"
+                  view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true"
+                  [ngClass]="thoiGianTu.invalid && (thoiGianTu.dirty || thoiGianTu.touched) ? 'error-border' : ''">
+                </p-calendar>
+              </div>
+              <div class="col-md-12" [hidden]="thoiGianTu.valid || thoiGianTu.untouched">
+                <span *ngIf="thoiGianTu.hasError('required') || thoiGianTu.hasError('blankString') "
+                  class="error-message-span"> Không được để trống</span>
+              </div>
+
+            </span>
+
+            <span class="col-md-2 no-padding">
+              <div class="col-md-12">
+                Đến:
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="thoiGianDen" [style]="{'width': '80%'}" [inputStyle]="{'width':'125%'}"
+                  view="month" dateFormat="mm/yy" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true"
+                  [ngClass]="thoiGianDen.invalid && (thoiGianDen.dirty || thoiGianDen.touched) ? 'error-border' : ''">
+                </p-calendar>
+              </div>
+              <div class="col-md-12" [hidden]="thoiGianDen.valid || thoiGianDen.untouched">
+                <span *ngIf="thoiGianDen.hasError('required') || thoiGianDen.hasError('blankString') "
+                  class="error-message-span"> Không được để trống</span>
+              </div>
+            </span>
+
+            <span class="col-md-3 no-padding">
+              <div class="col-md-12">
+                Tỉ giá chuyển đổi:
+              </div>
+              <div class="col-md-12">
+                <span style="font-weight: bold;">1 USD = </span>
+                <span>
+                  <input formControlName="tiGia" type="text" pInputText pKeyFilter="num" style="width: 70px;"
+                    [ngClass]="tiGia.invalid && (tiGia.dirty || tiGia.touched) ? 'error-border' : ''">
+                </span>
+                <span style="font-weight: bold;"> VND</span>
+              </div>
+              <div class="col-md-12" [hidden]="tiGia.valid || tiGia.untouched">
+                <span *ngIf="tiGia.hasError('required') || tiGia.hasError('blankString')" class="error-message-span">
+                  Không được để trống</span>
+              </div>
+            </span>
+
+            <span class="col-md-1 no-padding">
+              <span class="col-md-12" style=" margin-top: 17px;">
+                <button type="button" class="btn-ok" (click)="showBieuDo()">
+                  <span class="btn-filter-text">Ok</span>
+                </button>
+              </span>
+            </span>
+          </form>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Biểu đồ thống kê -->
+  <!-- chart 2 -->
+  <div [hidden]="!showChart2" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart2"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- chart 3 -->
+  <div [hidden]="!showChart3" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart3"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- chart 4 -->
+  <div [hidden]="!showChart4" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart4"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- chart 5 -->
+  <div [hidden]="!showChart5" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart5"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- chart 6 -->
+  <div [hidden]="!showChart6" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart6"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- chart 7 -->
+  <div [hidden]="!showChart7" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart7"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- chart 8 -->
+  <div [hidden]="!showChart8" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart8"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- chart 9 -->
+  <div [hidden]="!showChart9" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart9"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- chart 10 -->
+  <div [hidden]="!showChart10" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart10"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- chart 11 -->
+  <div [hidden]="!showChart11" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart11"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- chart 12 -->
+  <div [hidden]="!showChart12" class="col-md-12 detail-box no-padding">
+    <div class="box-filter">
+      <div class="row no-margin">
+        <span class="col-md-12 no-padding formatChart">
+          <span class="col-md-12" id="chart12"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+</div>

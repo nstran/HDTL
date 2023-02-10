@@ -1,0 +1,241 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{ width: '50px', height: '50px' }" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="create-customer col-md-12">
+  <div class="header-top">
+    <div class="row bottom-buffer" [ngClass]="{'fixed': fixed}" [ngStyle]="{'width':withFiexd}">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12 more-customers">
+            <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+            <div class="header">Thêm khách hàng</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 header-botton">
+        <div class="row" style="display: flex; justify-content: flex-end; margin-right: 0px;">
+          <div style="padding-right: 10px;" *ngIf="customerType == 2">
+            <span *ngIf="!isInvalidFormCN">
+              <img src="/assets/icons/components/ios-warning.svg" class="ios-warning">
+            </span>
+            <div class="box-waring" *ngIf="isInvalidFormCN" #toggleButton (click)="toggleNotifiErrorCN()">
+              <img src="/assets/icons/components/ios-warning-active.svg" class="ios-warning-active">
+            </div>
+            <div class="notification" #notifi *ngIf="isOpenNotifiErrorCN">
+              <div
+                *ngIf="((personalCustomerForm.get('FirstName').hasError('required') || personalCustomerForm.get('FirstName').hasError('blankString') ||
+                            personalCustomerForm.get('LastName').hasError('required') || personalCustomerForm.get('LastName').hasError('blankString')))"
+                class="notifi-row">
+                <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                <span class="notifi-text">Chưa nhập họ tên khách hàng</span>
+              </div>
+              <div
+                *ngIf="((personalCustomerForm.get('PersonalPhone').hasError('required') ||
+                            personalCustomerForm.get('PersonalPhoneWork').hasError('required') || personalCustomerForm.get('PersonalPhoneOther').hasError('required')))"
+                class="notifi-row">
+                <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                <span class="notifi-text">Chưa nhập số điện thoại</span>
+              </div>
+              <div *ngIf="(((personalCustomerForm.get('provinceControl').invalid && (personalCustomerForm.get('provinceControl').dirty || personalCustomerForm.get('provinceControl').touched)) ||
+                            (personalCustomerForm.get('districtControl').invalid && (personalCustomerForm.get('districtControl').dirty || personalCustomerForm.get('districtControl').touched)) ||
+                            (personalCustomerForm.get('wardControl').invalid && (personalCustomerForm.get('wardControl').dirty || personalCustomerForm.get('wardControl').touched)) ||
+                            (personalCustomerForm.get('addressControl').invalid && (personalCustomerForm.get('addressControl').dirty || personalCustomerForm.get('addressControl').touched))
+                            ))" class="notifi-row">
+                <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                <span class="notifi-text">Chưa nhập thông tin địa chỉ</span>
+              </div>
+
+              <div *ngIf="(personalCustomerForm.get('PersonalPhone').hasError('pattern') || personalCustomerForm.get('PersonalPhoneWork').hasError('pattern') ||
+                            personalCustomerForm.get('PersonalPhoneOther').hasError('pattern'))" class="notifi-row">
+                <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                <span class="notifi-text">Sai định dạng số điện thoại</span>
+              </div>
+              <div *ngIf="(personalCustomerForm.get('PersonalEmail').hasError('pattern') || personalCustomerForm.get('PersonalEmailWork').hasError('pattern')
+                            || personalCustomerForm.get('PersonalEmailOther').hasError('pattern'))" class="notifi-row">
+                <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                <span class="notifi-text">Sai định dạng email</span>
+              </div>
+
+            </div>
+          </div>
+
+          <button (click)="onCancel()" pButton type="button" class="cancel-cus-btn" style="margin-right: 1rem;"><span
+              class="cancel-cus-btn-text">Thoát</span></button>
+          <button *ngIf="actionAdd" #saveAndCreate (click)="onSaveCustomer('save_new')" pButton type="button"
+            class="save-create-cus-btn" style="margin-right: 1rem;"><span class="save-create-cus-btn-text">Lưu và tạo
+              mới</span></button>
+          <button *ngIf="actionAdd" #save (click)="onSaveCustomer('save')" pButton type="button"
+            class="save-cus-btn"><span class="save-cus-btn-text">Lưu</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-top" style="margin-top:10px;">
+    <div class="row bottom-buffer" id="parent" *ngIf="customerType == 2">
+      <div class="col-md-12" >
+        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+          <p-accordionTab header="Thông tin khách hàng" [selected]="true">
+            <div class="col-md-12">
+              <!-- khach hang ca nhan -->
+              <div *ngIf="customerType == 2" class="col-md-12">
+                <form [formGroup]="personalCustomerForm">
+                  <div class="row top-buffer bottom-buffer">
+                    <div class="col-md-3">
+                      <div class="row bottom-buffer">
+                        <div class="col-md-12 buffer-bottom-label">
+                          Họ và tên đệm
+                        </div>
+                        <div class="col-md-12">
+                          <input maxlength="100" formControlName="FirstName" type="text" pInputText
+                            placeholder="Họ và tên đệm"
+                            [ngClass]="(personalCustomerForm.get('FirstName').invalid && (personalCustomerForm.get('FirstName').dirty || personalCustomerForm.get('FirstName').touched)) ? 'error-border' : ''" />
+                        </div>
+                        <div class="col-md-12"
+                          [hidden]="personalCustomerForm.get('FirstName').valid || personalCustomerForm.get('FirstName').untouched">
+                          <span
+                            *ngIf="personalCustomerForm.get('FirstName').hasError('required') || personalCustomerForm.get('FirstName').hasError('blankString')"
+                            class="error-message-span">Không được để trống</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="row bottom-buffer">
+                        <div class="col-md-12 buffer-bottom-label">
+                          Tên
+                        </div>
+                        <div class="col-md-12">
+                          <input maxlength="32" formControlName="LastName" type="text" pInputText placeholder="Tên"
+                            [ngClass]="(personalCustomerForm.get('LastName').invalid && (personalCustomerForm.get('LastName').dirty || personalCustomerForm.get('LastName').touched)) ? 'error-border' : ''" />
+                        </div>
+                        <div class="col-md-12"
+                          [hidden]="personalCustomerForm.get('LastName').valid || personalCustomerForm.get('LastName').untouched">
+                          <span
+                            *ngIf="personalCustomerForm.get('LastName').hasError('required') || personalCustomerForm.get('LastName').hasError('blankString')"
+                            class="error-message-span">Không được để trống</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="row bottom-buffer">
+                        <div class="col-md-12 buffer-bottom-label">
+                          Giới tính
+                        </div>
+                        <div class="col-md-12">
+                          <p-dropdown class="customer-dropdown" formControlName="Gender" [options]="listGenders"
+                            optionLabel="name" [autoDisplayFirst]="true" placeholder="">
+                          </p-dropdown>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="row bottom-buffer">
+                        <div class="col-md-12 buffer-bottom-label">
+                          Ngày sinh
+                        </div>
+                        <div class="col-md-12">
+                          <p-calendar formControlName="DateOfBirth" [yearNavigator]="true" yearRange="1960:2020"
+                            dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                            [baseZIndex]="999" showButtonBar="true"></p-calendar>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="row bottom-buffer">
+                        <div class="col-md-12 buffer-bottom-label">
+                          Số điện thoại<span class="required">*</span>
+                        </div>
+                        <div class="col-md-12">
+                          <input (change)="checkDuplicateInforCustomer(2,  personalCustomerForm.get('PersonalPhone'))"
+                            maxlength="32" formControlName="PersonalPhone" type="text" pInputText placeholder="Cá nhân"
+                            (focusout)="onCheckInvail(personalCustomerForm.get('PersonalPhone'))"
+                            (keypress)="PhonePattern($event)"
+                            [ngClass]="(personalCustomerForm.get('PersonalPhone').invalid && (personalCustomerForm.get('PersonalPhone').dirty || personalCustomerForm.get('PersonalPhone').touched)) ? 'error-border' : ''" />
+                        </div>
+                        <div class="col-md-12"
+                          [hidden]="personalCustomerForm.get('PersonalPhone').valid || personalCustomerForm.get('PersonalPhone').untouched">
+                          <span *ngIf="personalCustomerForm.get('PersonalPhone').hasError('required')"
+                            class="error-message-span">Nhập Số điện thoại</span>
+                          <span *ngIf="personalCustomerForm.get('PersonalPhone').hasError('pattern')"
+                            class="error-message-span">Sai định dạng Số điện thoại</span>
+                        </div>
+                        <div class="col-md-12"
+                          [hidden]="!personalCustomerForm.get('PersonalPhone').valid && !personalCustomerForm.get('PersonalPhone').untouched">
+                          &nbsp;
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="row bottom-buffer">
+                        <div class="col-md-12 buffer-bottom-label">
+                          Email
+                        </div>
+                        <div class="col-md-12">
+                          <input (change)="checkDuplicateInforCustomer(1,  personalCustomerForm.get('PersonalEmail'))"
+                            maxlength="100" formControlName="PersonalEmail" type="text" pInputText placeholder="Cá nhân"
+                            [ngClass]="(personalCustomerForm.get('PersonalEmail').invalid && (personalCustomerForm.get('PersonalEmail').dirty || personalCustomerForm.get('PersonalEmail').touched)) ? 'error-border' : ''" />
+                        </div>
+                        <div class="col-md-12"
+                          [hidden]="personalCustomerForm.get('PersonalEmail').valid || personalCustomerForm.get('PersonalEmail').untouched">
+                          <span *ngIf="personalCustomerForm.get('PersonalEmail').hasError('pattern')"
+                            class="error-message-span">Sai định dạng Email</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-2">
+                      <div class="row bottom-buffer">
+                        <div class="col-md-12 buffer-bottom-label">
+                          Tỉnh/Thành phố
+                        </div>
+                      </div>
+                      <div class="row bottom-buffer">
+                        <div class="col-md-4 range" *ngIf="isInland == 1">
+                          <p-dropdown class="customer-dropdown" (onChange)="changeProvince($event)"
+                            formControlName="provinceControl" [options]="listProvince"
+                            [styleClass]="(personalCustomerForm.get('provinceControl').invalid && (personalCustomerForm.get('provinceControl').dirty || personalCustomerForm.get('provinceControl').touched)) ? 'error-border' : ''"
+                            optionLabel="provinceName" [autoDisplayFirst]="false" placeholder="Tỉnh/Thành phố"
+                            [showClear]="true" [filter]="true" [resetFilterOnHide]="true">
+                          </p-dropdown>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="row bottom-buffer">
+                        <div class="col-md-12 buffer-bottom-label">
+                          Địa chỉ cụ thể
+                        </div>
+                      </div>
+
+                      <div class="row bottom-buffer">
+                        <div class="col-md-12">
+                          <input maxlength="100" formControlName="addressControl" type="text" pInputText
+                            placeholder="Địa chỉ"
+                            [ngClass]="(contactCustomerForm.get('addressControl').invalid && (contactCustomerForm.get('addressControl').dirty || contactCustomerForm.get('addressControl').touched)) ? 'error-border' : ''" />
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+
+    </div>
+  </div>
+
+</div>

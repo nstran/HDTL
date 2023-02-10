@@ -1,0 +1,101 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration="1.5s">
+  </p-progressSpinner>
+</div>
+<div class="row no-margin">
+  <div class="actions" style="margin-bottom:10px;">
+    <button type="button" class="btn-edit" (click)="open()">
+      <span class="text-white"> + Thêm mới</span>
+    </button>
+  </div>
+  <div>
+    <p-table #dt [columns]="cols" [value]="listCategoryAtrributes" [resizableColumns]="true" columnResizeMode="expand"
+      [rowsPerPageOptions]="[10, 20, 30]" [paginator]="true" [filterDelay]="0" [rows]="rows">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width: 3.5em; text-align: center;">
+            #
+          </th>
+          <th *ngFor="let col of columns">
+            {{col.header}}
+          </th>
+          <th style="text-align: center; width: 10rem;">
+            <span>Thao tác</span>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-index="rowIndex" let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+          <td style="text-align: center;">
+            {{index + 1}}
+          </td>
+          <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
+            [ngStyle]="{'text-align': col.textAlign}">
+            <span *ngSwitchCase="'categoryName'">{{rowData[col.field]}}</span>
+            <span *ngSwitchCase="'dataType'">{{rowData[col.field]}}</span>
+          </td>
+          <td style="text-align: center;  width: 10rem;">
+            <button pButton type="button" icon="pi pi-pencil" class="ui-button-info" 
+            (click)="onRowEditInit(rowData)"></button>
+
+            <button class="ui-button-danger" pButton icon="pi pi-trash" style="margin-left:10px;"
+              (click)="deleteAttributeConfigure(rowData['id'])"></button>
+        
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+
+</div>
+
+<p-dialog [(visible)]="showModal" [modal]="true" [style]="{width: '40vw'}" [draggable]="false" [resizable]="false"
+  [closable]="false">
+  <p-header>Thêm mới thuộc tính</p-header>
+  <form [formGroup]="createForm">
+    <div class="row no-margin" style="padding-top: 10px;padding-bottom: 10px;">
+
+      <div class="col-md-12 .form-input">
+        <span class="font-weight-bold">Tên thuộc tính:</span>
+        <div>
+          <p-dropdown [filter]="true" [showClear]="true" [resetFilterOnHide]="true" optionLabel="categoryName" [disabled]="rowDataControl.value != null"
+            [baseZIndex]="999" appendTo="body" formControlName="attrControl" [options]="listAtrributes"
+            placeholder="Chọn tên thuộc tính" [showClear]="true" [style]="{'width': '100%'}">
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="col-md-12 .form-input" [hidden]="attrControl.valid || attrControl.untouched">
+        <span *ngIf="attrControl.hasError('required')" class="error-message-span">
+          Tên thuộc tính không được để trống!</span>
+      </div>
+
+
+      <div class="col-md-12 .form-input">
+        <span class="font-weight-bold">Kiểu giá trị:</span>
+        <div>
+          <p-dropdown [filter]="true" [showClear]="true" [resetFilterOnHide]="true" optionLabel="name"
+            [baseZIndex]="999" appendTo="body" formControlName="dataTypeControl" [options]="listDatatype"
+            placeholder="Chọn loại giá trị" [showClear]="true" [style]="{'width': '100%'}">
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="col-md-12 .form-input" [hidden]="dataTypeControl.valid || dataTypeControl.untouched">
+        <span *ngIf="dataTypeControl.hasError('required')" class="error-message-span">
+          Kiểu giá trị không được để trống!</span>
+      </div>
+
+    </div>
+  </form>
+
+  <div class="actions">
+    <button type="button" class="btn-back" (click)="close()">
+      <span class="text-black">Hủy</span>
+    </button>
+    <button type="button" class="btn-edit" (click)="save()">
+      <span class="text-white">Lưu</span>
+    </button>
+  </div>
+</p-dialog>

@@ -1,0 +1,65 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast key="popup" position="bottom-right"></p-toast>
+
+<div class="add-constraint">
+    <form [formGroup]="createRelateForm" style="height: 100%;">
+        <div class="row top-buffer bottom-buffer">
+            <!-- HÀNG I -->
+            <div class="col-md-12">
+                <div class="row bottom-buffer">
+                    <div class="col-md-4 buffer-bottom-label">
+                        Loại công việc<span class="required">*</span>:
+                    </div>
+                    <div class="col-md-8">
+                        <p-dropdown formControlName="taskTypeControl" [options]="listTaskType" optionLabel="categoryName"
+                            (onChange) = "changeTaskType()"
+                            placeholder="Chọn công việc" [filter]="true" [showClear]="true" [resetFilterOnHide]="true"
+                            [styleClass]="createRelateForm.get('taskTypeControl').invalid &&
+                            (createRelateForm.get('taskTypeControl').dirty || createRelateForm.get('taskTypeControl').touched) ? 'error-border' : ''" 
+                            [style]="{'width': '100%'}" [virtualScroll]="true" itemSize="30"
+                            (keydown.enter)="$event.preventDefault()">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row bottom-buffer">
+                    <div class="col-md-4 buffer-bottom-label">
+                        Công việc liên quan<span class="required">*</span>:
+                    </div>
+                    <div class="col-md-8">
+                        <p-dropdown formControlName="taskRelateControl" [options]="listRelateTaskShow"
+                            optionLabel="taskName" placeholder="Chọn loại công việc" [filter]="true"
+                            [styleClass]="createRelateForm.get('taskRelateControl').invalid &&
+                            (createRelateForm.get('taskRelateControl').dirty || createRelateForm.get('taskRelateControl').touched) ? 'error-border' : ''" [showClear]="true"
+                            [resetFilterOnHide]="true" [style]="{'width': '100%'}" [virtualScroll]="true" itemSize="30"
+                            (keydown.enter)="$event.preventDefault()">
+                        </p-dropdown>
+                    </div>
+                </div>
+                <div class="row bottom-buffer">
+                    <div class="col-md-4" >
+                    </div>
+                    <div class="col-md-8" [hidden]="taskRelateControl.valid || taskRelateControl.untouched">
+                        <span *ngIf="taskRelateControl.hasError('required')" class="error-message-span">Không được để trống</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="display: flex; justify-content: flex-end; margin-top: 40px;">
+                <button (click)="cancel()" type="button" class="btn-remove">
+                    <span class="btn-remove-text">Hủy</span>
+                </button>
+                <button (click)="save()" type="button" class="btn-save">
+                    <span class="btn-save-text">Lưu</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

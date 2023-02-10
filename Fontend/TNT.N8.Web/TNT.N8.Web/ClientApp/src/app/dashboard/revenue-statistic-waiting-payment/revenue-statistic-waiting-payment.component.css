@@ -1,0 +1,38 @@
+.btn-edit {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 1px 0 rgb(18 22 25 / 8%);
+    background-color: #0f62fe;
+    padding: 0.65rem 1rem;
+    margin-right: 10px;
+    color: #fff;
+    float: right;
+    width: 100px;
+}
+
+.btn-edit span {
+    padding-right: 5px;
+}
+
+button:disabled,
+button[disabled]{
+    background-color: #5867dd;
+    border-color: #5867dd;
+}
+
+.line-height {
+    line-height: 2.5;
+    margin: 0;
+}
+
+.font-weiht-bold{
+    font-weight: bold;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.mb-40{
+    margin-top: 40px;
+}

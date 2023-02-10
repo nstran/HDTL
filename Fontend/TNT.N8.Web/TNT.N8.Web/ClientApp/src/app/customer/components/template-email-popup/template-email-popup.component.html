@@ -1,0 +1,96 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right" key="popup"></p-toast>
+
+<div class="row no-margin" style="padding-bottom: 10px;">
+
+</div>
+
+<div class="template-email-popup">
+    <div class="row no-margin">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <div style="display: flex; justify-content: flex-end;">
+                            <div style="text-align: right">
+                                <input type="text" pInputText placeholder="Nhập tên mẫu email"
+                                    (input)="table.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="margin-top: 5px;">
+                        <p-table #table [columns]="selectedColumns" [value]="listEmailTemplateName"
+                            [resizableColumns]="true" columnResizeMode="expand" [paginator]="true" [rows]="5"
+                            [rowsPerPageOptions]="[5, 10, 15]" [responsive]="true" class="table-border">
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th *ngFor="let col of columns" pResizableColumn
+                                        [ngStyle]="{ 'text-align': 'center', 'width': col.width }">
+                                        <span>
+                                            {{ col.header }}
+                                        </span>
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                <tr [pSelectableRow]="rowData">
+                                    <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                                        [ngStyle]="{ 'text-align': 'left', 'width': col.width }">
+                                        <span class="ui-column-title">{{
+                                            col.header}}</span>
+                                        <span *ngSwitchCase="'emailTemplateName'" class="color-link"
+                                            (click)="showEmailContent(rowData)">
+                                            {{ rowData[col.field]}}
+                                        </span>
+                                        <span *ngSwitchDefault>
+                                            {{ rowData[col.field]}}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </div>
+                <div class="col-md-8" style="border-left: 1px solid black;">
+                    <div class="row" style="margin-top: 10px;">
+                        <div class="col-md-12"
+                            style="text-align: center; font-weight: bold; font-size: large; margin-bottom: 5px">Nội dung
+                            Email</div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <!-- <p-editor [(ngModel)]="emailContent" [style]="{'height':'400px', 'width': '100%'}"
+                                        readonly="true">
+                                    </p-editor> -->
+
+                                    <ejs-richtexteditor #templateRTE [height]="550" [toolbarSettings]='tools'
+                                        [(ngModel)]="emailContent" readonly="true">
+                                        <ng-template>
+                                        </ng-template>
+                                    </ejs-richtexteditor>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12" style="margin-top: 10px;">
+                    <div class="group-button-footer">
+                        <button type="button" class="cancel" (click)="cancel()"><span
+                                class="cancel-label">Đóng</span></button>
+                        <button type="button" class="save" (click)="saveTemplate()"><span
+                                class="save-label">Chọn</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

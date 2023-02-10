@@ -1,0 +1,194 @@
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\TN.TNM.Api.exe
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Select.Html.dep
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\4.Inv_ImportSerial.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\ExcelAssistantList.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\ExcelEmployeeMonthySalaryTemplate.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\ExcelEmployeeRevenue.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\ExcelExportAssistantMonthySalaryTemplate.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\ExcelExportEmployeeMonthySalaryTemplate.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\ExcelExportTeacherMonthySalaryTemplate.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\ExcelTeacherMonthySalaryTemplate.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\ExcelTemplate.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\ExportReceivableCustomers.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\TemplateTimeSheet.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Customer_CN.xlsm
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Customer_CN_Old.xlsm
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Customer_DN.xlsm
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Customer_DN_Old.xlsm
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Customer_HKD.xlsm
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_import_Bng_gi_bn.xls
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_import_BOM_lines.xls
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Import_Customers.xls
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Import_DeXuatChucVu.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Import_DeXuatTangLuong.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Import_HopDongNhanSu.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Import_Nhap_Employee.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Import_Nhap_tai_san.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Import_Product.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Import_UngVien.xls
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Import_Vendor_Product_Price.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_Lead.xlsm
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_PhanBo_TaiSan.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_ThuHoi_TaiSan.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExcelTemplate\Template_YeuCauTaiSan.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExportedPDF\ExportedBankPayable.pdf
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExportedPDF\ExportedBankReceipt.pdf
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExportedPDF\ExportedCustomerOrder.pdf
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExportedPDF\ExportedPayable.pdf
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ExportedPDF\ExportedReceipt.pdf
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\FileUpload\1581584806411.JPEG
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\FileUpload\CMTND.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\FileUpload\HƯỚNG DẪN CHẠY PROJECT N8.docx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\FileUpload\package-lock.json
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ProductImage\2021515162424_16225444160001.png
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ProductImage\2021523173351_16225444160002.png
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ProductImage\202152317484_16225444160000.png
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ProductImage\Capture001.png
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\SendEmailTemplateImage\Estimate.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\SendEmailTemplateImage\Estimate_4.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\SendEmailTemplateImage\logo.png
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\SendEmailTemplate\IspeakingOrderTemplatePDF.html
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\SendEmailTemplate\SendEmailAssistantPayslip.html
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\SendEmailTemplate\SendEmailCustomerOrder.html
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\SendEmailTemplate\SendEmailEmployeePayslip.html
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\SendEmailTemplate\SendEmailPersonApprove.html
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\SendEmailTemplate\SendEmailPersonCreate.html
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\SendEmailTemplate\SendEmailPersonNotify.html
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\SendEmailTemplate\SendEmailQuoteApprove.html
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\SendEmailTemplate\SendEmailTeacherPayslip.html
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ServicePacketImage\Capture001.png
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\ServicePacketImage\nature.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TNM Demo\Quan_Ly_Nhan_Su\De_Xuat_Chuc_Vu\logo_137fa6ba-6647-4b85-9761-8816ff23d79a.PNG
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TNM Demo\Quan_Ly_Nhan_Su\Quan_Ly_Danh_Gia\Phieu Danh Gia\QĐ bổ nhiệm_cd5a2108-3bfb-4c41-bb71-64b8d9cb2b85.docx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TNM Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Chu Đức Nhân_9afa047d-0942-417a-b7fd-7060f3406292.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TNM Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Danh sách vị trí tuyển dụng (2)_579dad91-3d30-4596-9819-09b2422b2390.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TNM Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Danh sách vị trí tuyển dụng (2)_85c9b554-d457-4ce3-ae60-3d18eaeedfea.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TNM Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Loft3di-Công tác.drawio_14b6b10f-7e54-49f6-9250-2fcfe4b2a60c.png
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TNM Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Lê Trường Giang_10521dab-9d78-4355-bd27-9ab24919d7b9.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TNM Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Lê Trường Giang_e142070d-283b-4b1a-99d5-0c69f6b7d686.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TNM Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\nguyễn anh hùng_fb30b78f-f922-4f77-a681-accf5bacf12f.png
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TNM Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\nguyễn thị thủy_7809ad61-49cc-4a3b-bd9f-de11acd34b50.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TNM Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Nguyễn Thị Tuyết_3ab65906-e8e2-4be5-8a07-772cc3ea8682.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TNM Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\test 1_092e071e-06f2-400d-923f-0c8e645e1971.PNG
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\De_Xuat_Chuc_Vu\logo_137fa6ba-6647-4b85-9761-8816ff23d79a.PNG
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Danh_Gia\Phieu Danh Gia\QĐ bổ nhiệm_cd5a2108-3bfb-4c41-bb71-64b8d9cb2b85.docx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Chu Đức Nhân_9afa047d-0942-417a-b7fd-7060f3406292.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Danh sách vị trí tuyển dụng (2)_579dad91-3d30-4596-9819-09b2422b2390.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Danh sách vị trí tuyển dụng (2)_85c9b554-d457-4ce3-ae60-3d18eaeedfea.xlsx
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Loft3di-Công tác.drawio_14b6b10f-7e54-49f6-9250-2fcfe4b2a60c.png
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Lê Trường Giang_10521dab-9d78-4355-bd27-9ab24919d7b9.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Lê Trường Giang_e142070d-283b-4b1a-99d5-0c69f6b7d686.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\nguyễn anh hùng_fb30b78f-f922-4f77-a681-accf5bacf12f.png
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\nguyễn thị thủy_7809ad61-49cc-4a3b-bd9f-de11acd34b50.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Nguyễn Thị Tuyết_3ab65906-e8e2-4be5-8a07-772cc3ea8682.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Nguyễn Văn Cườngg_fa0be90b-55fd-4c78-9fbd-2e9698c14c12.jpg
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\test 1_092e071e-06f2-400d-923f-0c8e645e1971.PNG
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\wwwroot\TRI NGHIA Demo\Quan_Ly_Nhan_Su\Quan_Ly_Nhan_Vien\Trần Đức Toán fdsd_3ed2473a-e7cb-4a55-8bd3-3f705b20859a.png
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Nlog.config
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\web.config
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\appsettings.Development.json
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\appsettings.json
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Template\PdfTemplate\search.json
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\TN.TNM.Api.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\TN.TNM.Api.runtimeconfig.json
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\TN.TNM.Api.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\AutoMapper.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\KellermanSoftware.Compare-NET-Objects.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Dapper.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\DinkToPdf.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\EPPlus.Core.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\FirebaseAdmin.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Firebase.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Google.Api.Gax.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Google.Api.Gax.Rest.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Google.Apis.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Google.Apis.Auth.PlatformServices.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Google.Apis.Auth.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Google.Apis.Core.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Google.Apis.Gmail.v1.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Hangfire.AspNetCore.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Hangfire.Core.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Hangfire.PostgreSql.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Hangfire.SqlServer.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\iTextSharp.LGPLv2.Core.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\LiteDB.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\log4net.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\MailKit.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.Authentication.AzureAD.UI.Views.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.Authentication.AzureAD.UI.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.Connections.Abstractions.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.Server.Kestrel.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.Server.Kestrel.Core.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.Server.Kestrel.Https.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.SignalR.Common.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.SignalR.Core.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.CodeAnalysis.Workspaces.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.IdentityModel.Logging.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.IdentityModel.Tokens.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\dotnet-aspnet-codegenerator-design.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.EntityFrameworkCore.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.Templating.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Microsoft.Win32.SystemEvents.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\MimeKit.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\NETCore.MailKit.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Newtonsoft.Json.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\NLog.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\NLog.Extensions.Logging.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\NLog.Web.AspNetCore.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Npgsql.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\NuGet.Frameworks.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\BouncyCastle.Crypto.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Select.HtmlToPdf.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Syncfusion.Compression.Portable.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Syncfusion.HtmlConverter.Portable.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\Syncfusion.Pdf.Portable.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Composition.AttributedModel.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Composition.Convention.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Composition.Hosting.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Composition.Runtime.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Composition.TypedParts.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Drawing.Common.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.IdentityModel.Tokens.Jwt.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Interactive.Async.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Private.ServiceModel.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Reactive.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Runtime.CompilerServices.Unsafe.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.ServiceModel.Http.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.ServiceModel.Primitives.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.ServiceModel.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Text.Encodings.Web.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Text.Json.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Threading.Channels.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\System.Xml.XPath.XmlDocument.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\ca\Hangfire.Core.resources.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\de\Hangfire.Core.resources.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\es\Hangfire.Core.resources.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\fa\Hangfire.Core.resources.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\fr\Hangfire.Core.resources.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\nb\Hangfire.Core.resources.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\nl\Hangfire.Core.resources.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\pt-BR\Hangfire.Core.resources.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\pt-PT\Hangfire.Core.resources.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\pt\Hangfire.Core.resources.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\zh-TW\Hangfire.Core.resources.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\zh\Hangfire.Core.resources.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\TN.TNM.BusinessLogic.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\TN.TNM.Common.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\TN.TNM.DataAccess.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\TN.TNM.BusinessLogic.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\TN.TNM.DataAccess.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\TN.TNM.Common.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Release\netcoreapp2.1\win-x64\PubTmp\Out\TN.TNM.Api.deps.json

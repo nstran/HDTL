@@ -1,0 +1,125 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="add-project-target">
+  <form [formGroup]="createProjectTargetForm">
+    <div class="row no-margin">
+      <div class="col-md-6">
+        <div class="row bottom-buffer">
+          <div class="col-md-12 buffer-bottom-label">
+            Loại mục tiêu<span class="required">*</span>
+          </div>
+          <div class="col-md-12">
+            <p-dropdown formControlName="targetTypeControl"
+              [styleClass]="(createProjectTargetForm.get('targetTypeControl').invalid && (createProjectTargetForm.get('targetTypeControl').dirty || createProjectTargetForm.get('targetTypeControl').touched)) ? 'error-border' : ''"
+              [showClear]="true" [resetFilterOnHide]="true" [options]="listTargetType" optionLabel="categoryName"
+              placeholder="Chọn loại mục tiêu" [style]="{'width': '100%'}"></p-dropdown>
+          </div>
+          <div class="col-md-12">
+            <span
+              [hidden]="createProjectTargetForm.get('targetTypeControl').valid || createProjectTargetForm.get('targetTypeControl').untouched"
+              *ngIf="createProjectTargetForm.get('targetTypeControl').hasError('required')" class="error-message-span">
+              Chọn loại mục tiêu
+            </span>
+          </div>
+        </div>
+        <div class="row bottom-buffer">
+          <div class="col-md-12 buffer-bottom-label">
+            Tên mục tiêu<span class="required">*</span>
+          </div>
+          <div class="col-md-12">
+            <input
+              [ngClass]="(createProjectTargetForm.get('targetNameControl').invalid && (createProjectTargetForm.get('targetNameControl').dirty || createProjectTargetForm.get('targetNameControl').touched)) ? 'error-border' : ''"
+              formControlName="targetNameControl" type="text" class="full-width" pInputText />
+          </div>
+          <div class="col-md-12"
+            [hidden]="createProjectTargetForm.get('targetNameControl').valid || createProjectTargetForm.get('targetNameControl').untouched">
+            <span
+              *ngIf="createProjectTargetForm.get('targetNameControl').hasError('required') || createProjectTargetForm.get('targetNameControl').hasError('blankString') "
+              class="error-message-span">
+              Không được để trống
+            </span>
+          </div>
+        </div>
+        <!--<div class="row bottom-buffer">
+      <div class="col-md-12 buffer-bottom-label">
+        Email
+      </div>
+      <div class="col-md-12">
+        <input [ngClass]="(createProjectTargetForm.get('Email').invalid && (createProjectTargetForm.get('Email').dirty || createProjectTargetForm.get('Email').touched)) ? 'error-border' : ''"
+               formControlName="Email" type="text" class="full-width" pInputText />
+      </div>
+      <div class="col-md-12"
+           [hidden]="createProjectTargetForm.get('Email').valid || createProjectTargetForm.get('Email').untouched">
+        <span *ngIf="createProjectTargetForm.get('Email').hasError('pattern')" class="error-message-span">
+          Sai định dạng Email
+        </span>
+        <span *ngIf="createProjectTargetForm.get('Email').hasError('duplicateEmailLead')"
+              class="error-message-span">
+          Email đã được đăng ký
+        </span>
+      </div>
+    </div>-->
+      </div>
+      <div class="col-md-6">
+        <div class="row bottom-buffer">
+          <div class="col-md-12 buffer-bottom-label">
+            Đơn vị
+          </div>
+          <div class="col-md-12">
+            <p-dropdown [options]="listTargetUnit" optionLabel="categoryName" [autoDisplayFirst]="false"
+              formControlName="targetUnitControl" [showClear]="true" [resetFilterOnHide]="true"
+              placeholder="Chọn đơn vị" [style]="{'width': '100%'}">
+            </p-dropdown>
+          </div>
+        </div>
+        <div class="row bottom-buffer">
+          <div class="col-md-12 buffer-bottom-label">
+            Giá trị
+          </div>
+          <div class="col-md-12">
+            <input formControlName="targetValueControl" class="number-input" type="text"
+              [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}" />
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row buffer-bottom">
+          <div class="col-md-12 buffer-bottom-label">
+            <span>Ghi chú</span>
+          </div>
+          <div class="col-md-12">
+            <!-- <textarea rows="5" cols="60" pInputTextarea formControlName="targetDescriptionControl" class="w100" style="width: 100%;"></textarea> -->
+            <ejs-richtexteditor #templateRTE [height]="250" [toolbarSettings]='tools' formControlName="targetDescriptionControl">
+              <ng-template>
+              </ng-template>
+            </ejs-richtexteditor>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row no-margin">
+      <div class="col-md-12" style="margin-top: 15px;">
+        <div class="group-button-footer">
+          <button type="button" class="cancel" (click)="cancel()"><span class="cancel-label">Thoát</span></button>
+          <button *ngIf="this.statusCode != 'TDU' && this.statusCode != 'HUY'" type="button" class="save"
+            (click)="save()"><span class="save-label">Lưu</span></button>
+        </div>
+        <!-- <div class="group-button-footer">
+          <button type="button" class="cancel" (click)="cancel()"><span class="cancel-label">Thoát</span></button>
+          <button *ngIf="this.statusCode != 'TDU' && this.statusCode != 'HUY' && !this.isApproveProject" type="button" class="save"
+            (click)="save()"><span class="save-label">Lưu</span></button>
+        </div> -->
+      </div>
+    </div>
+  </form>
+</div>

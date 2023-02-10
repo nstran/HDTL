@@ -1,0 +1,295 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"
+    [baseZIndex]="99999">
+  </p-progressSpinner>
+</div>
+
+<div class="col-md-12 background-white" *ngIf="!isReportPoint">
+  <div class="note-timeline">
+    <!-- Ghi chú -->
+    <div class="row" *ngIf="viewNote">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" [ngStyle]="{'width': '100%'}"
+        collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Ghi chú" [selected]="true">
+          <div class="col-md-12">
+            <p-editor [(ngModel)]="noteContent" [style]="{'height':'180px', 'width': '100%'}">
+            </p-editor>
+          </div>
+          <div class="col-md-12" style="margin-top: 5px;">
+            <p-fileUpload #fileNoteUpload name="demo[]" [showUploadButton]="false" multiple="multiple"
+              accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+              [maxFileSize]="defaultLimitedFileSize" invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+              invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+              invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+              invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}." chooseLabel="Chọn file"
+              cancelLabel="Hủy toàn bộ file" (onSelect)="handleNoteFile($event, fileNoteUpload)"
+              (onRemove)="removeNoteFile($event)" (onClear)="clearAllNoteFile()">
+            </p-fileUpload>
+          </div>
+
+          <div *ngIf="(listUpdateNoteDocument.length > 0)" class="col-md-12" style="margin-top: 5px;">
+            <p-table [columns]="colsNoteFile" [value]="listUpdateNoteDocument" [responsive]="true"
+              [resizableColumns]="true" class="table-border">
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns" pResizableColumn [ngStyle]="{'text-align': col.textAlign}">
+                    {{col.header}}
+                  </th>
+                  <th style="width:4em"></th>
+                  <th style="width:4em"></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                  <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                    [ngStyle]="{'text-align': col.textAlign}">
+                    <span class="ui-column-title">{{col.header}}</span>
+                    <span *ngSwitchCase="'documentSize'">
+                      <ng-container *ngIf="convertFileSize(rowData[col.field])">
+                        {{rowData[col.field] / 1024 | number}} KB
+                      </ng-container>
+                      <ng-container *ngIf="!convertFileSize(rowData[col.field])">
+                        {{rowData[col.field] / 1048576 | number}} MB
+                      </ng-container>
+                    </span>
+                    <span *ngSwitchCase="'updatedDate'">
+                      {{rowData[col.field] | date:'dd/MM/yyyy h:mm a'}}
+                    </span>
+                    <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                  </td>
+                  <td>
+                    <button *ngIf="actionDelete" pButton icon="pi pi-trash" (click)="deleteNoteFile(rowData)"
+                      class="ui-button-danger"></button>
+                  </td>
+                  <td>
+                    <button pButton icon="pi pi-download"
+                      (click)="openItem(rowData.documentName, rowData.documentUrl)"></button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+
+          <div class="col-md-12 text-right mt-1" *ngIf="actionAdd || isEditNote">
+            <button type="button" class="btn-cancel-note" (click)="cancelNote()">
+              <span class="save-cancel-lable">Hủy</span>
+            </button>
+            <button type="button" class="btn-save-note" (click)="saveNote()">
+              <span class="save-note-lable">
+                {{ isEditNote == true ? 'Cập nhật ghi chú' : 'Thêm ghi chú'}}
+              </span>
+            </button>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+
+    <!-- Dòng thời gian -->
+    <div [class]="viewNote ? 'row' : 'row'" *ngIf="viewTimeline">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" [ngStyle]="{'width': '100%'}"
+        collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Dòng thời gian" [selected]="true">
+          <div class="timeline col-md-12 timeline-content" *ngIf="noteHistory.length > 0">
+            <ul class="timeline">
+              <li *ngFor="let note of noteHistory;let noteIndex = index;">
+                <i class="fa fa-file-text-o bg-blueX color-w"></i>
+                <div class="timeline-item" id="{{note.noteId}}">
+                  <span class="time onHover">
+                    <i *ngIf="note.type === 'ADD' && ((note.description !== '' && note.description !== null) || note.noteDocList.length > 0) && actionEdit &&  isEditNote == true"
+                      (click)="onClickEditNote(note.noteId, note.description)" class="pi pi-pencil style-edit"
+                      pTooltip="{{ 'lead.tooltip.edit_note' | translate }}" tooltipPosition="bottom"></i>
+                    <i *ngIf="actionDelete &&  isEditNote == true" pTooltip="Xóa ghi chú" tooltipPosition="bottom"
+                      (click)="onClickDeleteNote(note.noteId)" class="pi pi-trash style-delete"></i>
+                  </span>
+                  <h3 class="timeline-header">
+                    <span>
+                      <i class="trigger_node collapse-content-icon pi pi-chevron-right"
+                        (click)="trigger_node(note.noteId,$event)" style="cursor: pointer;"
+                        pTooltip="{{ toggle_note_label }}" tooltipPosition="bottom"></i>
+                    </span>
+                    <div>
+                      <img *ngIf="note" [src]="defaultAvatar" height="30" width="30" alt=""
+                        class="timeline-user-avatar" />
+                    </div>
+                    <span class="note-user">{{note.responsibleName}}</span>
+                    <p class="time-note">
+                      {{note.noteTitle}} Lúc {{note.createdDate | date:'HH:mm'}}
+                      {{ 'lead.note.day' | translate }}
+                      {{note.createdDate | date:'dd/MM/yyyy'}}
+                    </p>
+                  </h3>
+                  <div class="timeline-body">
+                    <div class="note-content">
+                      <div class="short-contents" [innerHtml]="note.description"></div>
+                      <div class="full-contents" [innerHtml]="note.description"></div>
+                    </div>
+
+                    <div class="d-flex align-items-center flex-wrap">
+                      <ng-container *ngFor="let item of note.noteDocList">
+                        <div class="p-chip mr-2 mb-2" (click)="openItem(item.documentName, item.documentUrl)">
+                          <span class="pi pi-file p-chip-icon"></span>
+                          <div class="p-chip-text">{{item.documentName + ' - ' + (item.documentSize/1024/1024 |
+                            number:'.2')
+                            + 'MB'}}</div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-12 paginator-timeline mb-1" *ngIf="showPaginator && noteHistory.length > 0">
+            <p-paginator #paginator [first]="first" (onPageChange)="paginate($event)" [rows]="pageSize"
+              [totalRecords]="totalRecordsNote"></p-paginator>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+</div>
+
+
+<!-- Điểm báo cáo -->
+<div class="col-md-12 background-white" *ngIf="isReportPoint">
+  <div class="note-timeline">
+    <!-- báo cáo -->
+    <div class="row" *ngIf="viewNote">
+
+      <div class="col-md-12"  *ngIf="statusOrderAction != 3">
+        <p-editor [(ngModel)]="noteContent" [style]="{'height':'180px', 'width': '100%'}">
+        </p-editor>
+      </div>
+      <div class="col-md-12" style="margin-top: 5px;"  *ngIf="statusOrderAction != 3">
+        <p-fileUpload #fileNoteUpload name="demo[]" [showUploadButton]="false" multiple="multiple"
+          accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+          [maxFileSize]="defaultLimitedFileSize" invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+          invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+          invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+          invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}." chooseLabel="Chọn file"
+          cancelLabel="Hủy toàn bộ file" (onSelect)="handleNoteFile($event, fileNoteUpload)"
+          (onRemove)="removeNoteFile($event)" (onClear)="clearAllNoteFile()">
+        </p-fileUpload>
+      </div>
+
+      <div *ngIf="(listUpdateNoteDocument.length > 0)" class="col-md-12" style="margin-top: 5px;">
+        <p-table [columns]="colsNoteFile" [value]="listUpdateNoteDocument" [responsive]="true" [resizableColumns]="true"
+          class="table-border">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" pResizableColumn [ngStyle]="{'text-align': col.textAlign}">
+                {{col.header}}
+              </th>
+              <th style="width:4em"></th>
+              <th style="width:4em"></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr>
+              <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                [ngStyle]="{'text-align': col.textAlign}">
+                <span class="ui-column-title">{{col.header}}</span>
+                <span *ngSwitchCase="'documentSize'">
+                  <ng-container *ngIf="convertFileSize(rowData[col.field])">
+                    {{rowData[col.field] / 1024 | number}} KB
+                  </ng-container>
+                  <ng-container *ngIf="!convertFileSize(rowData[col.field])">
+                    {{rowData[col.field] / 1048576 | number}} MB
+                  </ng-container>
+                </span>
+                <span *ngSwitchCase="'updatedDate'">
+                  {{rowData[col.field] | date:'dd/MM/yyyy h:mm a'}}
+                </span>
+                <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+              </td>
+              <td>
+                <button *ngIf="actionDelete" pButton icon="pi pi-trash" (click)="deleteNoteFile(rowData)"
+                  class="ui-button-danger"></button>
+              </td>
+              <td>
+                <button pButton icon="pi pi-download"
+                  (click)="openItem(rowData.documentName, rowData.documentUrl)"></button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+      <div class="col-md-12 text-right mt-1" *ngIf="actionAdd || isEditNote">
+        <button type="button" class="btn-cancel-note" (click)="cancelNote()" *ngIf="statusOrderAction != 3">
+          <span class="save-cancel-lable">Hủy</span>
+        </button>
+        <button type="button" class="btn-save-note" (click)="saveNote()" *ngIf="statusOrderAction != 3">
+          <span class="save-note-lable">
+            {{ isEditNote == true ? 'Cập nhật báo cáo' : 'Thêm báo cáo'}}
+          </span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Dòng thời gian -->
+    <div [class]="viewNote ? 'row' : 'row'" *ngIf="viewTimeline">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" [ngStyle]="{'width': '100%'}"
+        collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Dòng thời gian" [selected]="true">
+          <div class="timeline col-md-12 timeline-content" *ngIf="noteHistory.length > 0">
+            <ul class="timeline">
+              <li *ngFor="let note of noteHistory;let noteIndex = index;">
+                <i class="fa fa-file-text-o bg-blueX color-w"></i>
+                <div class="timeline-item" id="{{note.noteId}}">
+                  <span class="time onHover">
+                    <i *ngIf="note.type === 'ADD' && ((note.description !== '' && note.description !== null) || note.noteDocList.length > 0) && actionEdit && statusOrderAction == 2"
+                      (click)="onClickEditNote(note.noteId, note.description)" class="pi pi-pencil style-edit"
+                      pTooltip="{{ 'lead.tooltip.edit_note' | translate }}" tooltipPosition="bottom"></i>
+                    <i *ngIf="actionDelete && statusOrderAction == 2" pTooltip="Xóa ghi chú" tooltipPosition="bottom"
+                      (click)="onClickDeleteNote(note.noteId)" class="pi pi-trash style-delete"></i>
+                  </span>
+                  <h3 class="timeline-header">
+                    <span>
+                      <i class="trigger_node collapse-content-icon pi pi-chevron-right"
+                        (click)="trigger_node(note.noteId,$event)" style="cursor: pointer;"
+                        pTooltip="{{ toggle_note_label }}" tooltipPosition="bottom"></i>
+                    </span>
+                    <div>
+                      <img *ngIf="note" [src]="defaultAvatar" height="30" width="30" alt=""
+                        class="timeline-user-avatar" />
+                    </div>
+                    <span class="note-user">{{note.responsibleName}}</span>
+                    <p class="time-note">
+                      {{note.noteTitle}} Lúc {{note.createdDate | date:'HH:mm'}}
+                      {{ 'lead.note.day' | translate }}
+                      {{note.createdDate | date:'dd/MM/yyyy'}}
+                    </p>
+                  </h3>
+                  <div class="timeline-body">
+                    <div class="note-content">
+                      <div class="short-contents" [innerHtml]="note.description"></div>
+                      <div class="full-contents" [innerHtml]="note.description"></div>
+                    </div>
+
+                    <div class="d-flex align-items-center flex-wrap">
+                      <ng-container *ngFor="let item of note.noteDocList">
+                        <div class="p-chip mr-2 mb-2" (click)="openItem(item.documentName, item.documentUrl)">
+                          <span class="pi pi-file p-chip-icon"></span>
+                          <div class="p-chip-text">{{item.documentName + ' - ' + (item.documentSize/1024/1024 |
+                            number:'.2')
+                            + 'MB'}}</div>
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-12 paginator-timeline mb-1" *ngIf="showPaginator && noteHistory.length > 0">
+            <p-paginator #paginator [first]="first" (onPageChange)="paginate($event)" [rows]="pageSize"
+              [totalRecords]="totalRecordsNote"></p-paginator>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,264 @@
+::ng-deep .content-wrapper {
+  background-color: #fff !important;
+}
+
+.tao-doiChucVu {
+  font-family: "Inter UI";
+}
+
+.tao-doiChucVu .body-wrapper {
+  background-color: #fff;
+  border          : solid 1px #cccccc;
+}
+
+.tao-doiChucVu .header {
+  background-color: #ffffff;
+  border-radius   : 4px;
+  border          : solid 1px #cccccc;
+}
+
+.tao-doiChucVu .header-box-icon {
+  width        : 40px;
+  height       : 40px;
+  border-radius: 50%;
+}
+
+.tao-doiChucVu .header-icon {
+  width      : 18px;
+  height     : 18px;
+  object-fit : contain;
+  margin-top : 13px;
+  margin-left: 10px;
+}
+
+.tao-doiChucVu .buffer-top {
+  margin-top: 1.2rem;
+}
+
+.tao-doiChucVu .buffer-bottom {
+  margin-bottom: 1.2rem;
+}
+
+.tao-doiChucVu .buffer-bottom-label {
+  margin-bottom: 3px;
+}
+
+.tao-doiChucVu .required {
+  color: red;
+}
+
+.tao-doiChucVu .error-message-span {
+  color: red;
+}
+
+.tao-doiChucVu .customer-name {
+  width         : 119px;
+  height        : 20px;
+  font-family   : 'Inter UI';
+  font-size     : 19px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 2.25;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #121619;
+}
+
+.tao-doiChucVu .btn-remove {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left     : 5px;
+}
+
+.tao-doiChucVu .btn-remove-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #121619;
+}
+
+.tao-doiChucVu .btn-save-and-new {
+  width           : 142px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #0f62fe;
+  background-color: #ffffff;
+  margin-left     : 5px;
+}
+
+.tao-doiChucVu .btn-save-and-new .btn-save-and-new-text {
+  width         : 102px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #0f62fe;
+}
+
+::ng-deep .tao-doiChucVu .ui-dropdown {
+  min-width: 0px !important;
+}
+
+::ng-deep .tao-doiChucVu .ui-menu ul {
+  text-align: left;
+}
+
+.tao-doiChucVu .btn-save {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border          : solid 1px #cccccc;
+  margin-left     : 5px;
+}
+
+.tao-doiChucVu .btn-save-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+
+.tao-doiChucVu .body-wrapper {
+  margin-top  : 20px;
+  margin-left : 0px;
+  margin-right: 0px;
+}
+
+.tao-doiChucVu .w100 {
+  width: 100% !important;
+}
+
+.tao-doiChucVu .my-form-control {
+  display    : flex;
+  align-items: center;
+}
+
+
+
+.tao-doiChucVu .btn-filter {
+  width: 104px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #007aff;
+  background-color: #007aff;
+  margin-left: 5px;
+}
+
+
+.tao-doiChucVu .btn-filter-text {
+  width: 36px;
+  height: 13px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.tao-doiChucVu .btn-filter {
+  width: auto;
+}
+
+.tao-doiChucVu .btn-filter {
+  width: auto;
+}
+
+.tao-doiChucVu .btn-refresh {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+
+.tao-doiChucVu .btn-save-and-new {
+  width           : 142px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #0f62fe;
+  background-color: #ffffff;
+  margin-left     : 5px;
+}
+
+.tao-doiChucVu .btn-save-and-new .btn-save-and-new-text {
+  width         : 102px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #0f62fe;
+}
+
+
+
+/*Begin: Customize Accordion */
+
+::ng-deep .tao-doiChucVu .ui-accordion .ui-accordion-header a {
+  border          : 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+  font-size       : 16px;
+}
+
+::ng-deep .tao-doiChucVu .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background-color: #ffffff !important;
+  border          : 1px solid #ffffff !important;
+  color           : #121619 !important;
+}
+
+::ng-deep .tao-doiChucVu .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .tao-doiChucVu .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .tao-doiChucVu .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  color: #121619 !important;
+}
+
+::ng-deep .tao-doiChucVu .ui-accordion .ui-accordion-content {
+  border          : 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+::ng-deep .ui-table-resizable .ui-table-tbody>tr>td .custom-table-td {
+  overflow: unset !important
+}
+
+/*End: Customize Accordion */

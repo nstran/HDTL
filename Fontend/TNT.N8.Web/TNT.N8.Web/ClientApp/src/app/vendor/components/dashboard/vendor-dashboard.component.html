@@ -1,0 +1,467 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner
+    [style]="{ width: '50px', height: '50px' }"
+    strokeWidth="8"
+    fill="#EEEEEE"
+    animationDuration=".5s"
+  >
+  </p-progressSpinner>
+</div>
+<p-toast position="bottom-right"></p-toast>
+
+<div class="vendor-dashboard">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-10">
+          <span class="title">Dashboard mua hàng</span>
+        </div>
+        <div class="col-md-2">
+          <button type="button" class="btn-create" (click)="goToCreateOrder()">
+            <span class="btn-create-text"> Tạo đơn hàng </span>
+          </button>
+          <div style="clear: both"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <span style="font-size: 15px">{{ currentTimeString }}</span>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-content">
+      <div class="row box-table-1 m-0">
+        <div class="col-md-12 pb-15">
+          <div class="col-md-12 select-time-sales">
+            <div class="col-md-3">
+              <label>Từ ngày:</label>
+              <p-calendar
+                styleClass="d-block"
+                inputStyleClass="w100"
+                [(ngModel)]="model.OrderStartDate"
+                showButtonBar="true"
+                dateFormat="dd/mm/yy"
+              >
+              </p-calendar>
+            </div>
+            <div class="col-md-3">
+              <label>Đến ngày:</label>
+              <p-calendar
+                styleClass="d-block"
+                inputStyleClass="w100"
+                [(ngModel)]="model.OrderEndDate"
+                showButtonBar="true"
+                dateFormat="dd/mm/yy"
+              ></p-calendar>
+            </div>
+            <div class="col-md-3" *ngIf="isManager">
+              <a role="button" (click)="openOrgDialog()" class="p-9"
+                >Chọn đơn vị
+              </a>
+              <input
+                class="w100"
+                type="text"
+                pInputText
+                [(ngModel)]="orgNameDisplay"
+                readonly
+                style="margin-top: 5px"
+              />
+            </div>
+            <div class="col-md-3 button-search" style="margin-top: 18px">
+              <button
+                style="margin-top: 5px"
+                (click)="getMasterDataTotalCost()"
+                matTooltip="Lọc"
+                class="btn-search"
+              >
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row pt-10 d-flex">
+          <div class="col-md-12" style="margin-left: 15px">
+            <span class="box-table-1-title">
+              Tổng chi phí mua hàng theo kỳ đã chọn:
+              {{ totalCost | number }} VND
+              <!--Tổng chi phí mua hàng theo kỳ đã chọn: {{total_money_search | number}}-->
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-content">
+      <div class="row mb-20">
+        <div class="col-md-6 mb-mb-15"></div>
+        <div class="col-md-6 mb-mb-15"></div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row box-table-1 m-0">
+            <div class="row m-0 pb-10">
+              <div class="col-md-6">
+                <span class="box-table-1-title">
+                  Tỉ lệ mua hàng theo nhóm SP/DV</span
+                >
+              </div>
+              <div class="col-md-6">
+                <mat-form-field class="w100">
+                  <mat-select
+                    name="LevelGroupProduct"
+                    [(ngModel)]="LevelGroupProduct"
+                    placeholder="{{ 'sales.level' | translate }}"
+                    (selectionChange)="changeDoughnutManager($event.value)"
+                  >
+                    <mat-option
+                      *ngFor="let item of listLevelGroupProduct"
+                      [value]="item.LevelGroupProduct"
+                    >
+                      {{ item.LevelGroupProductName }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <ng-container *ngIf="chartShowByProductCategoryGorup">
+              <div class="row">
+                <canvas #canvas id="canvas">{{ chart }}</canvas>
+              </div>
+              <div class="row mt-40 legend">
+                <div
+                  class="col-md-6 legend-chart"
+                  *ngFor="let data of doughnutData.labels; let i = index"
+                >
+                  <span
+                    class="color-icon"
+                    [style.background]="
+                      doughnutData.datasets[0].backgroundColor[i]
+                    "
+                  ></span>
+                  <span class="legend-text"
+                    >{{ doughnutData.labels[i] }}:
+                    {{ doughnutData.datasets[0].data[i] }}%</span
+                  >
+                </div>
+              </div>
+            </ng-container>
+            <div
+              *ngIf="!chartShowByProductCategoryGorup"
+              class="col-md-12 no-data"
+            >
+              <div class="col-md-12 item-center min-height-440">
+                <div class="box-no-data col-md-12">
+                  <img
+                    src="/assets/icons/components/box.svg"
+                    class="box-icon"
+                  />
+                  <div>
+                    <span>Không có chi phí trong kỳ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row box-table-1 m-0">
+            <div class="row m-0 pb-10" style="height: 67px">
+              <div class="col-md-8">
+                <span class="box-table-1-title">
+                  Tỉ lệ mua hàng theo nhóm nhà cung cấp</span
+                >
+              </div>
+            </div>
+            <ng-container *ngIf="chartShowByVendor">
+              <div class="row">
+                <canvas #canvasVendor id="canvasVendor">{{
+                  chartVendor
+                }}</canvas>
+              </div>
+              <div class="row mt-40 legend">
+                <div
+                  class="col-md-6 legend-chart"
+                  *ngFor="let data of doughnutVendorData.labels; let i = index"
+                >
+                  <span
+                    class="color-icon"
+                    [style.background]="
+                      doughnutVendorData.datasets[0].backgroundColor[i]
+                    "
+                  ></span>
+                  <span class="legend-text"
+                    >{{ doughnutVendorData.labels[i] }}:
+                    {{ doughnutVendorData.datasets[0].data[i] }}%</span
+                  >
+                </div>
+              </div>
+            </ng-container>
+            <div *ngIf="!chartShowByVendor" class="col-md-12 no-data">
+              <div class="col-md-12 item-center min-height-440">
+                <div class="box-no-data col-md-12">
+                  <img
+                    src="/assets/icons/components/box.svg"
+                    class="box-icon"
+                  />
+                  <div>
+                    <span>Không có chi phí trong kỳ</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 20px">
+        <div class="col-md-6">
+          <div class="row box-table-1 m-0">
+            <div class="row m-0 pb-10">
+              <div class="col-md-12">
+                <span class="box-table-1-title">
+                  Giá trị đề xuất và giá trị thực tế</span
+                >
+              </div>
+              <div class="col-md-10" style="float: right">
+                <div class="col-md-6 col-xs-6 timer">
+                  <div class="col-md-12">
+                    <label>Đến ngày</label>
+                  </div>
+                  <div class="col-md-12">
+                    <p-calendar
+                      styleClass="d-block"
+                      inputStyleClass="w100"
+                      [(ngModel)]="endDate"
+                      (onSelect)="getMonthsOrder()"
+                      (onBlur)="getMonthsOrder()"
+                      [showButtonBar]="false"
+                      dateFormat="dd/mm/yy"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+                <div class="col-md-6 col-xs-6 timer">
+                  <div class="col-md-12 pl4">
+                    <label>Khoảng thời gian</label>
+                  </div>
+                  <div class="col-md-12 pl4">
+                    <p-dropdown
+                      [options]="listMonthOption"
+                      [(ngModel)]="months"
+                      [autoDisplayFirst]="true"
+                      [resetFilterOnHide]="true"
+                      optionLabel="name"
+                      (onChange)="getMonthsOrder()"
+                      [style]="{ width: '100%' }"
+                    ></p-dropdown>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div *ngIf="chartBarShow3">
+                <div id="container3"></div>
+              </div>
+            </div>
+            <div *ngIf="!chartBarShow3" class="col-md-12 no-data">
+              <div class="col-md-12 item-center min-height-440">
+                <div class="box-no-data col-md-12">
+                  <img
+                    src="/assets/icons/components/box.svg"
+                    class="box-icon"
+                  />
+                  <div>
+                    <span>Không có dữ liệu hiển thị</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row box-table-1 m-0">
+            <div class="row m-0 pb-10">
+              <div class="col-md-12">
+                <span class="box-table-1-title">
+                  Chi phí mua hàng và doanh thu bán hàng</span
+                >
+              </div>
+              <div class="col-md-10" style="float: right">
+                <div class="col-md-6 col-xs-6 timer">
+                  <div class="col-md-12">
+                    <label>Đến ngày</label>
+                  </div>
+                  <div class="col-md-12">
+                    <p-calendar
+                      styleClass="d-block"
+                      inputStyleClass="w100"
+                      [(ngModel)]="endDate"
+                      (onSelect)="getMonthsOrder()"
+                      (onBlur)="getMonthsOrder()"
+                      [showButtonBar]="false"
+                      dateFormat="dd/mm/yy"
+                    >
+                    </p-calendar>
+                  </div>
+                </div>
+                <div class="col-md-6 col-xs-6 timer">
+                  <div class="col-md-12 pl4">
+                    <label>Khoảng thời gian</label>
+                  </div>
+                  <div class="col-md-12 pl4">
+                    <p-dropdown
+                      [options]="listMonthOption"
+                      [(ngModel)]="months"
+                      [autoDisplayFirst]="true"
+                      [resetFilterOnHide]="true"
+                      optionLabel="name"
+                      (onChange)="getMonthsOrder()"
+                      [style]="{ width: '100%' }"
+                    ></p-dropdown>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div *ngIf="chartBarShowMonth">
+                <div id="container"></div>
+              </div>
+            </div>
+            <div *ngIf="!chartBarShowMonth" class="col-md-12 no-data">
+              <div class="col-md-12 item-center min-height-440">
+                <div class="box-no-data col-md-12">
+                  <img
+                    src="/assets/icons/components/box.svg"
+                    class="box-icon"
+                  />
+                  <div>
+                    <span>Không có dữ liệu hiển thị</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 20px;"> 
+        <div class="col-md-6 " style="margin-bottom:15px;">
+          <div class="row box-table-1 m-0">
+            <div class="row m-0 pb-10">
+              <div class="col-md-8">
+                <span class="box-table-1-title"> Danh sách đề xuất chờ phê duyệt</span>
+              </div>
+              <div class="col-md-4">
+                <div class="view-all box-table-1-handle" style="text-align: right;" (click)="goToRequestList();">
+                  <img src="/assets/icons/components/Double-Arrow-Left-3.svg" class="mr-3">
+                  <a role="button">Xem tất cả</a>
+                </div>
+              </div>
+            </div>
+            <div class="example-container mat-elevation-z8" *ngIf="listProcurementWaitingForApproval.length > 0">
+              <p-table [columns]="colsRequest" [value]="listProcurementWaitingForApproval" [rows]="5" [paginator]="true"
+                [rowsPerPageOptions]="[5,15,30]" [responsive]="true">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                      [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width':col.width}">
+                      <span>
+                        {{col.header}}
+                      </span>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field"  [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width':col.width}">
+                      <span class="ui-column-title">{{col.header}}</span>
+                      <a *ngSwitchCase="'procurementCode'" class="link-name" role="button" matTooltip="{{rowData[col.field]}}"
+                        (click)="goToDetailRequest(rowData['procurementRequestId'])">{{rowData[col.field]}}</a>
+                      <span style=" display: inline-block;" *ngSwitchCase="'totalMoney'"
+                        class="color-link color-link-text">{{rowData[col.field]| number:0}}</span>
+                      <!-- <a *ngSwitchCase="'customerName'" class="link-name" role="button"
+                        matTooltip="{{rowData[col.field]}}"
+                        (click)="onViewOrderDetail(rowData['customerId'])">{{rowData[col.field]?.trim().length > 33 ?
+                        rowData[col.field]?.trim().slice(0,30)+'...' : rowData[col.field]?.trim()}}</a> -->
+                      <span style="display: inline-block;" *ngSwitchCase="'createdDate'" class="color-link color-link-text">{{
+                        rowData[col.field] | date:'dd/MM/yyyy' }}</span>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+            <div *ngIf="listProcurementWaitingForApproval.length == 0" class="col-md-12 no-data">
+              <div class="col-md-12 item-center">
+                <div class="box-no-data col-md-12">
+                  <img src="/assets/icons/components/box.svg" class="box-icon">
+                  <div>
+                    <span>Hiện tại không có dữ liệu</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 ">
+          <div class="row box-table-1 m-0">
+            <div class="row m-0 pb-10">
+              <div class="col-md-8">
+                <span class="box-table-1-title"> Danh sách đơn hàng mua chờ phê duyệt</span>
+              </div>
+              <div class="col-md-4">
+                <div class="view-all box-table-1-handle" style="text-align: right;" (click)="goToVendorOrderList();">
+                  <img src="/assets/icons/components/Double-Arrow-Left-3.svg" class="mr-3">
+                  <a role="button">Xem tất cả</a>
+                </div>
+              </div>
+            </div>
+            <div class="example-container mat-elevation-z8" *ngIf="listVendorOrderWaitingForApproval.length > 0">
+              <p-table [columns]="colsVendorOrder" [value]="listVendorOrderWaitingForApproval" [rows]="5" [paginator]="true"
+                [rowsPerPageOptions]="[5,15,30]" [responsive]="true">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                      [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width':col.width}">
+                      <span>
+                        {{col.header}}
+                      </span>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field"  [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width':col.width}">
+                      <span class="ui-column-title">{{col.header}}</span>
+                      <a *ngSwitchCase="'vendorOrderCode'" class="link-name" role="button"
+                        (click)="goToDetailVendorOrder(rowData['vendorOrderId'])">{{rowData[col.field]}}</a>
+                      <span style=" display: inline-block;" *ngSwitchCase="'amount'"
+                        class="color-link color-link-text">{{rowData[col.field]| number:0}}</span>
+                      <!-- <a *ngSwitchCase="'customerName'" class="link-name" role="button"
+                        matTooltip="{{rowData[col.field]}}"
+                        (click)="onViewOrderDetail(rowData['customerId'])">{{(rowData[col.field]==null||rowData[col.field]==undefined)?
+                        "": (rowData[col.field].trim().length > 33 ? rowData[col.field].trim().slice(0,30)+'...' :
+                        rowData[col.field].trim())}}</a> -->
+                      <span style=" display: inline-block;" *ngSwitchCase="'vendorOrderDate'" class="color-link-text color-link">{{
+                        rowData[col.field]| date:'dd/MM/yyyy' }}</span>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+            <div *ngIf="listVendorOrderWaitingForApproval.length == 0" class="col-md-12 no-data">
+              <div class="col-md-12 item-center">
+                <div class="box-no-data col-md-12">
+                  <img src="/assets/icons/components/box.svg" class="box-icon">
+                  <div>
+                    <span>Hiện tại không có dữ liệu</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

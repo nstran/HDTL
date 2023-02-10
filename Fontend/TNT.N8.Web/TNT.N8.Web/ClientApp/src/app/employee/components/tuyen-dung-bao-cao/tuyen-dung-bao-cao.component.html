@@ -1,0 +1,240 @@
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="bao-cao">
+    <div class="row no-margin">
+        <div class="box-header">
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box-header-group">
+                            <div class="row">
+                                <div class="col-md-1 col-xs-2">
+                                    <div class="box-header-icon">
+                                        <img src="\assets\icons\components\noun_product.svg" class="noun-product">
+                                    </div>
+                                </div>
+                                <div class="col-md-11 col-xs-10">
+                                    <div class="box-header-title">Báo cáo tuyển dụng</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box-header-group-btn">
+                            <button type="button" class="btn-export-excel" (click)="exportExcel()">
+                                <i class="fa fa-file-excel-o" aria-hidden="true"
+                                    style="color: #ffff; margin-right: 5px;"></i>
+                                <span class="btn-filter-text">Xuất Excel</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Content -->
+    <div class="row no-margin" style="background-color: #f2f4f8;">
+        <div class="col-md-12 no-padding">
+            <div class="box-filter">
+                <div class="row no-margin">
+                    <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                Nhập năm
+                            </div>
+                            <div class="col-md-12">
+                                <p-dropdown [options]="listNam" [(ngModel)]="selectedNam" [filter]="true"
+                                    [resetFilterOnHide]="true" placeholder="Chọn năm" optionLabel="name"
+                                    [style]="{'width': '100%'}">
+                                </p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                Chọn tháng
+                            </div>
+                            <div class="col-md-12">
+                                <p-dropdown [options]="listThang" [(ngModel)]="selectedThang" [filter]="true"
+                                    [resetFilterOnHide]="true" placeholder="Chọn tháng" optionLabel="name"
+                                    [style]="{'width': '100%'}">
+                                </p-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                Chọn chiến dịch
+                            </div>
+                            <div class="col-md-12">
+                                <p-multiSelect [options]="listRecruitmentCampaign"
+                                    optionLabel="recruitmentCampaignYearName" [(ngModel)]="selectedRecruitmentCampaign"
+                                    selectedItemsLabel="{0} chiến dịch được chọn" [filter]="true"
+                                    [resetFilterOnHide]="true" [style]="{'width': '100%'}"
+                                    defaultLabel="Chưa có chiến dịch nào được chọn" [virtualScroll]="true" itemSize="30"
+                                    (onChange)="changeRecruitmentCampaign()">
+                                </p-multiSelect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                Chọn vị trí tuyển dụng
+                            </div>
+                            <div class="col-md-12">
+                                <p-multiSelect [options]="listVacancies" optionLabel="vacanciesName"
+                                    [(ngModel)]="selectedVacancies" selectedItemsLabel="{0} vị trí được chọn"
+                                    [filter]="true" [resetFilterOnHide]="true" [style]="{'width': '100%'}"
+                                    defaultLabel="Chưa có vị trí nào được chọn" [virtualScroll]="true" itemSize="30"
+                                    (onChange)="changeVacancies()">
+                                </p-multiSelect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                Chọn nhân viên phụ trách
+                            </div>
+                            <div class="col-md-12">
+                                <p-multiSelect [options]="listEmployee" optionLabel="employeeCodeName"
+                                    [(ngModel)]="selectedEmployee" selectedItemsLabel="{0} phụ trách được chọn"
+                                    [filter]="true" [resetFilterOnHide]="true" [style]="{'width': '100%'}"
+                                    defaultLabel="Chưa có phụ trách nào được chọn" [virtualScroll]="true" itemSize="30">
+                                </p-multiSelect>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row">
+                            <div class="col-md-12">
+                                &nbsp;
+                            </div>
+                            <div class="col-md-12">
+                                <button pButton type="button" icon="pi pi-refresh" class="ui-button-secondary"
+                                    (click)="resetFilter()">
+                                </button>
+                                <button style="justify-content: center;align-items: center ;" pButton type="button"
+                                    icon="pi pi-search" label="Tìm kiếm" (click)="getBaoCaoTuyenDung()">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <p-table #dt1 [columns]="cols1" [value]="listData" [scrollable]="true" [responsive]="true"
+                [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20, 50]" class="table-border">
+                <ng-template pTemplate="caption">
+                    <div class="row">
+                        <div class="col-md-6" style="text-align: left">
+                            <!-- <button style="margin-left: 5px;" pButton type="button" label="Xuất excel"
+                      (click)="xuatExcel()">
+                    </button> -->
+                        </div>
+                        <div class="col-md-6" style="text-align: right">
+                            <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+                            <input type="text" pInputText size="50" placeholder="Tìm trong danh sách"
+                                (input)="dt1.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <ng-container *ngFor="let item of listHeaderRow1">
+                            <th [attr.rowspan]="item.rowspan != 0 ? item.rowspan : ''"
+                                [attr.colspan]="item.colspan != 0 ? item.colspan : ''"
+                                [ngStyle]="{'width': item.width, 'text-align': item.textAlign}">
+                                {{item.columnValue}}
+                            </th>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <ng-container *ngFor="let item of listHeaderRow2">
+                            <th [ngStyle]="{'text-align': item.textAlign}">
+                                {{item.columnValue}}
+                            </th>
+                        </ng-container>
+                    </tr>
+                </ng-template>
+                <!-- <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                        <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                            [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+                            <span class="ui-column-title">{{col.header}}</span>
+                            <span *ngSwitchDefault>
+                                <ng-container
+                                    *ngIf="(col.field).includes('new') || (col.field).includes('henPV') || (col.field).includes('datPV') || (col.field).includes('guiOff') || (col.field).includes('tuChoiOff') || (col.field).includes('khongDat') ;else tempText">
+                                    {{rowData[col.field] | number}}
+                                </ng-container>
+                                <ng-template #tempText>
+                                    {{rowData[col.field]}}
+                                </ng-template>
+                            </span>
+                        </td>
+                    </tr>
+                </ng-template> -->
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                    <tr>
+                        <td style="width: 50px;text-align:center">{{rowIndex +1 }}</td>
+                        <td style="width: 200px;text-align:left"
+                            *ngIf="rowGroupMetadata[rowData.recruitName].index === rowIndex"
+                            [attr.rowspan]="rowGroupMetadata[rowData.recruitName].size">
+                            {{rowData.recruitName}}
+                        </td>
+                        <td style="width: 200px;text-align:left">{{rowData.vacanciesName}}</td>
+                        <td style="width: 150px;text-align:left"
+                            *ngIf="rowGroupMetadata[rowData.recruitName][rowData.employeeName].index === rowIndex"
+                            [attr.rowspan]="rowGroupMetadata[rowData.recruitName][rowData.employeeName].size">
+                            {{rowData.employeeName}}
+                        </td>
+                        <td style="width: 80px;text-align:left">{{rowData.quantity}}</td>
+                        <td style="width: 80px;text-align:left">{{rowData.totalCV}}</td>
+                        <td style="width: 80px;text-align:left">{{rowData.totalConvert}}</td>
+                        <td style="width: 80px;text-align:left">{{rowData.new}}</td>
+                        <td style="width: 80px;text-align:left">{{rowData.henPV}}</td>
+                        <td style="width: 80px;text-align:left">{{rowData.datPV}}</td>
+                        <td style="width: 80px;text-align:left">{{rowData.guiOff}}</td>
+                        <td style="width: 80px;text-align:left">{{rowData.tuChoiOff}}</td>
+                        <td style="width: 80px;text-align:left">{{rowData.khongDat}}</td>
+                        <td style="width: 80px;text-align:left">{{rowData.uuTien}}</td>
+                        <td style="width: 80px;text-align:left">{{rowData.ptDat}}</td>
+                        <td style="width: 80px;text-align:left">{{rowData.ptHieuSuat}}</td>
+                    </tr>
+                </ng-template>
+                <!-- <ng-template pTemplate="footer">
+                    <tr>
+                        <ng-container *ngFor="let item of listDataFooter">
+                            <td [ngStyle]="{'width': item.width, 'text-align': item.textAlign, 'font-weight': '700'}"
+                                [attr.rowspan]="(item.rowspan != 0 && item.rowspan != null) ? item.rowspan : ''"
+                                [attr.colspan]="(item.colspan != 0 && item.colspan != null) ? item.colspan : ''">
+                                <ng-container *ngIf="item.valueType == 1">
+                                    {{item.columnValue | number}}
+                                </ng-container>
+                                <ng-container *ngIf="item.valueType == 0">
+                                    {{item.columnValue}}
+                                </ng-container>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-template> -->
+            </p-table>
+        </div>
+    </div>
+</div>

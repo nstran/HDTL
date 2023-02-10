@@ -1,0 +1,172 @@
+::ng-deep .custom-tabview .ui-tabview {
+  width: 100%;
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+::ng-deep .custom-tabview .ui-tabview .ui-tabview-nav {
+  display: inline-grid;
+  width: 250px;
+}
+
+::ng-deep .custom-tabview .ui-tabview .ui-tabview-panels{
+  width: calc(100% - 250px);
+  border: 0;
+  border-left: 1px solid #dde1e6;
+}
+
+::ng-deep .custom-tabview .ui-tabview .ui-tabview-panels .ui-tabview-panel {
+  padding: 15px;
+}
+
+.title-tab {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.emp-tq .page-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  background-color: #fff;
+  border: 1px solid #dde1e6;
+  border-radius: 5px;
+  margin-bottom: 0;
+  background-image: linear-gradient(to top, #f2f4f8, #dde1e6);
+  border-bottom: 0;
+}
+
+.emp-tq .header-box-icon {
+  width: 25px;
+  height: 25px;
+  background-color: #0f62fe;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emp-tq .header-icon {
+  width: 16px;
+  height: 16px;
+}
+
+.emp-tq .page-title {
+  margin-left: 5px;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.emp-tq .quay-lai {
+  width: 140px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  font-size: 13px;
+}
+
+.emp-tq .dat-lai-mk {
+	width: 142px;
+	height: 32px;
+	border-radius: 4px;
+	border: solid 1px #0f62fe;
+	background-color: #ffffff;
+  margin-left: 5px;
+  font-size: 13px;
+  color: #0f62fe;
+}
+
+.emp-tq .emp-avatar {
+	width: 50%;
+	border-radius: 50%;
+}
+
+.emp-tq .box-define {
+  padding: 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.emp-tq .icons {
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.emp-tq .icons-check {
+  color: #3dd52a;
+}
+
+.emp-tq .icons-times {
+  color: red;
+}
+
+.emp-tq .mt-10 {
+  margin-top: 10px;
+}
+
+.emp-tq .mt-20 {
+  margin-top: 20px;
+}
+
+.emp-tq .center {
+  text-align: center;
+}
+
+.emp-tq .can-giua {
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .emp-tq p-tabview .ui-tabview.ui-tabview-top .ui-tabview-nav li {
+  /* width: 20%;
+  display: inline-flex;
+  justify-content: center; */
+  margin: 0;
+}
+
+::ng-deep .emp-tq .custom-tabview {
+  margin-top: -13px;
+  display: inherit;
+}
+
+::ng-deep .emp-tq .ui-tabview {
+  width: 100%;
+  display: inline-flex;
+  align-items: flex-start;
+  padding: 0 !important;
+  background: #ffffff;
+  border: solid 1px #dde1e6 !important;
+  border-top: 0 !important
+}
+
+::ng-deep .emp-tq p-tabview .ui-tabview.ui-tabview-top .ui-tabview-nav li {
+  background-color: #fff;
+  border: 0;
+  border-bottom: 1px solid #dde1e6;
+  border-right: 1px solid #dde1e6;
+  border-radius: 0;
+}
+
+::ng-deep .emp-tq p-tabview .ui-tabview.ui-tabview-top .ui-tabview-nav li a{
+  padding: 15px 20px;
+}
+
+::ng-deep .emp-tq p-tabview .ui-tabview.ui-tabview-top .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover,
+::ng-deep .emp-tq p-tabview .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active {
+  border: 0;
+  border-bottom: 1px solid #dde1e6;
+  border-right: 1px solid #0f62fe;
+  background-color: #fff;
+}
+
+::ng-deep .emp-tq p-tabview .ui-tabview.ui-tabview-top .ui-tabview-nav li:not(.ui-state-active):not(.ui-state-disabled):hover a,
+::ng-deep .emp-tq p-tabview .ui-tabview.ui-tabview-top .ui-tabview-nav li.ui-state-active a {
+  color: #0f62fe;
+}
+
+::ng-deep .ui-tabview.ui-tabview-top .ui-tabview-nav li:focus {
+  box-shadow: unset !important;
+}

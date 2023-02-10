@@ -1,0 +1,105 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="bao-hiem-thue">
+  <div class="row">
+    <div class="col-md-6">
+      <p class="title-tab">Thông tin hợp đồng</p>
+    </div>
+    <div class="col-md-6 text-right">
+      <button *ngIf="isShowButton" pButton type="button" label="Tạo mới" class="btn btn-create"
+              (click)="addHopDong()"></button>
+
+      <!-- <button *ngIf="isShowButton" pButton type="button" label="Import hợp đồng" class="btn btn-create" style="margin-left: 7px;"
+        (click)="onpenDialogChoseFileExcel()"></button> -->
+
+    </div>
+  </div>
+  <div class="row mt-1">
+    <div class="col-md-12">
+      <p-table #myTable [columns]="cols" [value]="listHopDong" [responsive]="true" class="table-border"
+               [scrollable]="true">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns"
+                [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.colWith }">
+              <span>
+                {{col.header}}
+              </span>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+          <tr>
+            <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.colWith }">
+              <span class="ui-column-title">{{col.header}}</span>
+              <span *ngSwitchCase="'stt'">
+                {{ index + 1}}
+              </span>
+              <span *ngSwitchCase="'ngayKyHopDong'">
+                {{ rowData[col.field] | date: 'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'ngayBatDauLamViec'">
+                {{ rowData[col.field] | date: 'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'ngayKetThucHopDong'">
+                {{ rowData[col.field] | date: 'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'mucLuong'">
+                {{ rowData[col.field] | number}}
+              </span>
+              <span *ngSwitchCase="'action'">
+                <button class="ui-button-secondary" pButton icon="pi pi-list" (click)="viewHopDong(rowData)"></button>
+                <button *ngIf="isShowButton" class=" ml-1" pButton icon="pi pi-pencil"
+                        (click)="addHopDong(rowData)"></button>
+                <button *ngIf="isShowButton && !rowData.isPhatSinhKyLuong" class="ui-button-danger ml-1" pButton
+                        icon="pi pi-trash" (click)="deleteHopDong(rowData)"></button>
+              </span>
+              <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage" let-columns>
+          <tr>
+            <td [attr.colspan]="columns.length">
+              Hiện tại không có dữ liệu
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Nhập file excel" [(visible)]="displayChooseFileImportDialog" [modal]="true" [responsive]="true"
+          [style]="{width: '550px', minWidth: '200px'}" [minY]="70" [closable]="true" (onHide)="closeChooseFileImportDialog()">
+  <div class="importExcel" style="border:unset;">
+    <div class="col-md-4 mt-25">
+      <span>File mẫu</span>
+    </div>
+    <div class="col-md-8 mt-25" style="margin-bottom:15px;">
+      <button type="button" class="export-exel" (click)="downloadTemplateExcel()">
+        <span class="export-exel-text">Tải file mẫu</span>
+      </button>
+    </div>
+    <div class="col-md-4 mt-25">
+      <span>Chọn file</span>
+    </div>
+    <div class="col-md-8 mt-25" style="margin-bottom: 15px;">
+      <button class="btn btn-primary btn-file import-file">
+        <span class="text-import">Chọn file</span>
+        <input type="file" id="importFileProduct" (click)="onClickImportBtn($event)" (change)="chooseFile($event)"
+               accept=".xlsx, .xls">
+      </button>
+      <div>{{fileName}}</div>
+    </div>
+    <p-footer>
+      <button class="btn-create" type="button" #save (click)="importHopDong()">
+        <span class="btn-create-text">Nhập</span>
+      </button>
+    </p-footer>
+  </div>
+</p-dialog>

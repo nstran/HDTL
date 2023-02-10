@@ -1,0 +1,23 @@
+<!-- Loading... -->
+
+  <!-- Message Response... -->
+  <p-toast position="bottom-right"></p-toast>
+  <!-- Confirm... -->
+  <p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+  </p-confirmDialog>
+  <div style="padding-top: 10px;">
+    <p-tabView>
+      <p-tabPanel header="Thông tin chung">
+        <app-info></app-info>
+      </p-tabPanel>
+      <p-tabPanel header="Thông tin bổ sung" >
+        <app-properties ></app-properties>
+      </p-tabPanel>
+      <p-tabPanel header="Danh sách nhà cung cấp" >
+        <app-list-vendor></app-list-vendor>
+      </p-tabPanel>
+      <p-tabPanel header="Danh sách điểm báo cáo" >
+        <app-list-mission></app-list-mission>
+      </p-tabPanel>
+    </p-tabView>
+  </div>

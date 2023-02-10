@@ -1,0 +1,115 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<section class="row content" style="min-height:inherit;">
+  <div class="bc-th-cda">
+    <div class="col-md-12 mt-20">
+      <span class="bc-title">Báo cáo tổng hợp các dự án</span>
+    </div>
+    <div class="col-md-12 mt-10">
+      <p-table #dt1 [columns]="cols" [value]="listProjectPipeline" [scrollable]="true" [responsive]="true"
+        selectionMode="single" [(selection)]="selectedRow" dataKey="stt"
+        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10, 15, 20, 50]" class="table-border">
+        <ng-template pTemplate="caption">
+          <div class="row">
+            <div class="col-md-6" style="text-align: left">
+              <!-- <button style="margin-left: 5px;" pButton type="button" label="Xuất excel"
+                (click)="xuatExcel()">
+              </button> -->
+            </div>
+            <div class="col-md-6" style="text-align: right">
+              <i class="pi pi-search" style="margin:4px 4px 0 0"></i>
+              <input type="text" pInputText size="50" placeholder="Tìm trong danh sách"
+                (input)="dt1.filterGlobal($event.target.value, 'contains')" style="width:auto">
+            </div>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th rowspan="2" style="width: 80px; text-align: center;">STT</th>
+            <th rowspan="2" style="width: 170px; text-align: left;">Tên dự án/Khách hàng</th>
+            <th rowspan="2" style="width: 160px; text-align: center;">Ngày bắt đầu dự kiến</th>
+            <th rowspan="2" style="width: 160px; text-align: center;">Ngày dự kiến kết thúc</th>
+            <th rowspan="2" style="width: 160px; text-align: center;">Ngày bắt đầu thực tế</th>
+            <th rowspan="2" style="width: 160px; text-align: center;">Ngày kết thúc thực tế</th>
+            <th rowspan="2" style="width: 120px; text-align: center;">Ngày ký BBNT</th>
+            <th colspan="3" style="width: 450px; text-align: center;">Ngân sách cấp cho dự án</th>
+            <th colspan="3" style="width: 450px; text-align: center;">Chi phí thực tế</th>
+            <th rowspan="2" style="width: 140px; text-align: center;">Hiệu quả sử dụng nguồn lực</th>
+            <th rowspan="2" style="width: 140px; text-align: center;">Tiến độ</th>
+            <th rowspan="2" style="width: 140px; text-align: left;">Trạng thái dự án</th>
+            <th rowspan="2" style="width: 210px; text-align: left;">Các vấn đề hiện tại của dự án</th>
+            <th rowspan="2" style="width: 140px; text-align: left;">Rủi ro</th>
+            <th rowspan="2" style="width: 140px; text-align: left;">Bài học</th>
+            <th rowspan="2" style="width: 140px; text-align: left;">Ghi chú</th>
+          </tr>
+          <tr>
+            <th style="text-align: right;">Ngày công</th>
+            <th style="text-align: right;">VND</th>
+            <th style="text-align: right;">USD</th>
+            <th style="text-align: right;">Ngày công</th>
+            <th style="text-align: right;">VND</th>
+            <th style="text-align: right;">USD</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr [pSelectableRow]="rowData" pTooltip="{{rowData.projectName}}" tooltipPosition="top">
+            <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+              [ngStyle]="{'width': col.width, 'text-align': col.textAlign}">
+              <span class="ui-column-title">{{col.header}}</span>
+              <span *ngSwitchCase="'ngayBatDauDuKien'">
+                {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'ngayKetThucDuKien'">
+                {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'ngayBatDauThucTe'">
+                {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'ngayKetThucThucTe'">
+                {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'ngayKyBienBanNghiemThu'">
+                {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+              </span>
+              <span *ngSwitchCase="'ngayCongTheoNganSach'">
+                {{rowData[col.field] | number}}
+              </span>
+              <span *ngSwitchCase="'vndTheoNganSach'">
+                {{rowData[col.field] | number}}
+              </span>
+              <span *ngSwitchCase="'usdTheoNganSach'">
+                {{rowData[col.field] | number}}
+              </span>
+              <span *ngSwitchCase="'ngayCongTheoThucTe'">
+                {{rowData[col.field] | number}}
+              </span>
+              <span *ngSwitchCase="'vndTheoThucTe'">
+                {{rowData[col.field] | number}}
+              </span>
+              <span *ngSwitchCase="'usdTheoThucTe'">
+                {{rowData[col.field] | number}}
+              </span>
+              <span *ngSwitchCase="'hieuQuaSuDungNguonLuc'">
+                {{rowData[col.field] | number}}%
+              </span>
+              <span *ngSwitchCase="'tienDo'">
+                {{rowData[col.field]}}%
+              </span>
+              <span *ngSwitchDefault>
+                {{rowData[col.field]}}
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,482 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast key="popup" position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+
+<!-- <p-dialog [modal]="false"> -->
+<div class="add-task-scope-dialog">
+  <form [formGroup]="createTaskScopeForm">
+    <div class="row no-margin">
+      <!-- HÀNG THỨ 1 -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                <strong>Thời gian dự kiến</strong>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+          </div>
+        </div>
+      </div>
+      <!-- HÀNG THỨ 2 -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-4">
+            <div class="row bottom-buffer">
+              <div class="col-md-12">
+                Gói công việc trực thuộc<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input formControlName="scopeControl" type="text" class="w100" pInputText placeholder=""
+                  (keydown.enter)="$event.preventDefault()" maxlength="250" disabled />
+              </div>
+              <div class="col-md-12 buffer-bottom-label">
+                <span (click)="openProjetScopeDialog()" class="link" style="float: right;">Chọn hạng mục</span>
+              </div>
+              <div class="col-md-12">
+                <span
+                  [hidden]="createTaskScopeForm.get('scopeControl').valid || createTaskScopeForm.get('scopeControl').untouched"
+                  *ngIf="createTaskScopeForm.get('scopeControl').hasError('required')" class="error-message-span">
+                  Chọn gói công việc</span>
+                <span
+                  [hidden]="createTaskScopeForm.get('scopeControl').valid || createTaskScopeForm.get('scopeControl').untouched"
+                  *ngIf="createTaskScopeForm.get('scopeControl')?.errors?.forbiddenSpaceText"
+                  class="error-message-span">
+                  Tên gói công việc không được để trống</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Ngày bắt đầu<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="startTimeControl"
+                  [styleClass]="(startTimeControl.invalid  && (startTimeControl.dirty ||  startTimeControl.touched)) ? 'error-pcalendar': ''"
+                  showButtonBar="true" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                  dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [minDate]="minDateProject"
+                  [maxDate]="endTimeControl.value != null ? endTimeControl.value : maxDateProject"
+                  [inputStyle]="{'width':'100%'}" [baseZIndex]="9999" (keydown.enter)="$event.preventDefault()">
+                </p-calendar>
+              </div>
+              <div class="col-md-12">
+                <span
+                  [hidden]="createTaskScopeForm.get('startTimeControl').valid || createTaskScopeForm.get('startTimeControl').untouched"
+                  *ngIf="createTaskScopeForm.get('startTimeControl').hasError('required')" class="error-message-span">
+                  Chưa chọn ngày bắt đầu</span>
+              </div>
+
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Trạng thái<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="statusControl" [options]="listStatus" optionLabel="categoryName"
+                  placeholder="Chọn trạng thái" [filter]="true" [resetFilterOnHide]="true" [style]="{'width': '100%'}"
+                  [virtualScroll]="true" itemSize="30" (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+                <div class="col-md-12">
+                  <span
+                    [hidden]="createTaskScopeForm.get('statusControl').valid || createTaskScopeForm.get('statusControl').untouched"
+                    *ngIf="createTaskScopeForm.get('statusControl').hasError('required')" class="error-message-span">
+                    Chọn trạng thái</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- HÀNG THỨ 3 -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-4">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Mã công việc
+              </div>
+              <div class="col-md-12">
+                <span style="font-style: italic; ">
+                  <input *ngIf="taskId != null" formControlName="taskCodeControl" disabled />
+                  <strong *ngIf="taskId == null">Sẽ được hệ thống tạo sau khi lưu</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Ngày kết thúc<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="endTimeControl"
+                  [styleClass]="(endTimeControl.invalid  && (endTimeControl.dirty ||  endTimeControl.touched)) ? 'error-pcalendar': ''"
+                  showButtonBar="true" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                  dateFormat="dd/mm/yy" [style]="{'width':'100%'}"
+                  [minDate]="startTimeControl.value != null ? startTimeControl.value: minDateProject"
+                  [maxDate]="maxDateProject" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"
+                  (keydown.enter)="$event.preventDefault()">
+                </p-calendar>
+              </div>
+              <div class="col-md-12">
+                <span
+                  [hidden]="createTaskScopeForm.get('endTimeControl').valid || createTaskScopeForm.get('endTimeControl').untouched"
+                  *ngIf="createTaskScopeForm.get('endTimeControl').hasError('required')" class="error-message-span">
+                  Chưa chọn ngày kết thúc</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Mức độ ưu tiên<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <div class="col-md-12 mt-5 no-padding">
+                  <div class="col-md-4" style="margin-left: -15px;">
+                    <p-radioButton name="group1" value="0" label="Thấp" [(ngModel)]="selectedObjectType"
+                      (keydown.enter)="$event.preventDefault()" [ngModelOptions]="{standalone: true}">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-5" style="margin-left: -15px;">
+                    <p-radioButton name="group1" value="1" label="Trung bình" [(ngModel)]="selectedObjectType"
+                      (keydown.enter)="$event.preventDefault()" [ngModelOptions]="{standalone: true}">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-3" style="margin-left: -15px;">
+                    <p-radioButton name="group1" value="2" label="Cao" [(ngModel)]="selectedObjectType"
+                      (keydown.enter)="$event.preventDefault()" [ngModelOptions]="{standalone: true}">
+                    </p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- HÀNG THỨ 4-->
+      <div class="row mt-15">
+        <div class="col-md-12">
+          <div class="col-md-4">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Tên<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input formControlName="taskNameControl"
+                  [ngClass]="createTaskScopeForm.get('taskNameControl').invalid &&
+                                                          (createTaskScopeForm.get('taskNameControl').dirty || createTaskScopeForm.get('taskNameControl').touched) ? 'error-border' : ''"
+                  type="text" class="w100" pInputText placeholder="" (keydown.enter)="$event.preventDefault()"
+                  maxlength="500" />
+                <div class="col-md-12">
+                  <span
+                    [hidden]="createTaskScopeForm.get('taskNameControl').valid || createTaskScopeForm.get('taskNameControl').untouched"
+                    *ngIf="createTaskScopeForm.get('taskNameControl').hasError('required')" class="error-message-span">
+                    Nhập tên công việc</span>
+                  <span
+                    [hidden]="createTaskScopeForm.get('taskNameControl').valid || createTaskScopeForm.get('taskNameControl').untouched"
+                    *ngIf="createTaskScopeForm.get('taskNameControl')?.errors?.forbiddenSpaceText"
+                    class="error-message-span">
+                    Tên công việc không được để trống</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row bottom-buffer">
+              <div class="col-md-12 buffer-bottom-label">
+                Số giờ dự kiến thực hiện<span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" pInputText
+                  [ngClass]="(createTaskScopeForm.get('hourControl').invalid && (createTaskScopeForm.get('hourControl').dirty || createTaskScopeForm.get('hourControl').touched)) ? 'error-border' : ''"
+                  formControlName="hourControl" (keydown.enter)="$event.preventDefault()"
+                  (change)="thayDoiThoiGianThucHien()"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}">
+              </div>
+              <div class="col-md-12">
+                <span
+                  [hidden]="createTaskScopeForm.get('hourControl').valid || createTaskScopeForm.get('hourControl').untouched"
+                  *ngIf="createTaskScopeForm.get('hourControl').hasError('required')" class="error-message-span">
+                  Không được để trống</span>
+                <span
+                  [hidden]="createTaskScopeForm.get('hourControl').valid || createTaskScopeForm.get('hourControl').untouched"
+                  *ngIf="createTaskScopeForm.get('hourControl')?.errors?.forbiddenSpaceText" class="error-message-span">
+                  Không được để trống</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span>Số giờ thực tế sử dụng</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" formControlName="actualHourControl"
+                  (keydown.enter)="$event.preventDefault()" pInputText
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HÀNG THỨ 5-->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-4">
+            <div class="row buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span>% hoàn thành</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="percentControl" [options]="listPhanTram" optionLabel="label"
+                  placeholder="Chọn phần trăm" [filter]="true" [showClear]="true" [resetFilterOnHide]="true"
+                  [style]="{'width': '100%'}" [virtualScroll]="true" itemSize="30"
+                  (keydown.enter)="$event.preventDefault()">
+                </p-dropdown>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+      <!-- HÀNG THỨ 6-->
+      <div class="row buffer-bottom no-margin">
+        <div class="col-md-12">
+          <div class="row buffer-bottom">
+            <div class="col-md-12 buffer-bottom-label">
+              <span>Mô tả</span>
+            </div>
+            <div class="col-md-12">
+              <!-- <textarea pInputTextarea rows="5" style="width: 100%;" formControlName="descriptionControl"></textarea> -->
+              <ejs-richtexteditor #templateRTE [height]="200" [toolbarSettings]='tools'
+                formControlName="descriptionControl">
+                <ng-template>
+                </ng-template>
+              </ejs-richtexteditor>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- HÀNG THỨ 7-->
+      <div class="row buffer-bottom no-margin">
+        <div class="col-md-12">
+          <div class="col-md-12 box-title ">
+            <label class="title-2" style="padding-top: 10px; padding-bottom: 5px;">
+              <i class="pi pi-user-edit" style="font-size: 26px;
+                                                          position:relative; top: 5px;"></i>&nbsp;Phân công công
+              việc <span style="font-weight: 400; font-size: 13px;">( {{numberPic}}
+                nguời phụ trách, {{numerChecker}} người kiểm
+                tra )</span></label>
+          </div>
+          <div class="buffer-bottom">
+            <div class="col-md-6 mt-15">
+              <div class="row buffer-bottom">
+                <div class="col-md-12 mt-5">
+                  <div class="col-md-6">
+                    <p-radioButton name="group2" value="auto" label="Chia thời gian tự động"
+                      [(ngModel)]="selecteTimeSetting" (keydown.enter)="$event.preventDefault()"
+                      [ngModelOptions]="{standalone: true}" (onClick)="clickAutoTime()">
+                    </p-radioButton>
+                  </div>
+                  <div class="col-md-6" style="margin-top: 5px;">
+                    <p-radioButton name="group2" value="hand" label="Tùy chỉnh thời gian"
+                      [(ngModel)]="selecteTimeSetting" (keydown.enter)="$event.preventDefault()"
+                      [ngModelOptions]="{standalone: true}" (onClick)="clickHandTime()">
+                    </p-radioButton>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="listResource.length > 0" class="col-md-12">
+            <p-table #myTable [columns]="selectedColumns" [value]="listResource" columnResizeMode="expand"
+              [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                    [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+                    {{col.header}}
+                  </th>
+                  <th class="table-row-checkbox">Phụ trách</th>
+                  <th class="table-row-checkbox"></th>
+                  <th class="table-row-checkbox">Kiểm tra</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                  <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                    [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+                    <span class="ui-column-title">{{col.header}}</span>
+                    <span *ngSwitchDefault><i class="pi pi-user" style="font-size: 24px;
+                                                                              position:relative; top: 4px;"></i>
+                      <span style="margin-left: 10px;">{{rowData[col.field]
+                        }}</span>
+                    </span>
+                  </td>
+                  <td style="text-align:center">
+                    <span class="ui-column-title">Phụ trách</span>
+                    <p-checkbox name="pic" binary="true" [(ngModel)]="rowData.isPic" [disabled]="!rowData.isActive"
+                      [ngModelOptions]="{standalone: true}" (onChange)="changePic()">
+                    </p-checkbox>
+                  </td>
+                  <td style="text-align: center;">
+                    <input type="text" class="number-input" [(ngModel)]="rowData.hours" pInputText
+                      (keydown.enter)="$event.preventDefault()" [ngModelOptions]="{standalone: true}"
+                      [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}"
+                      [disabled]="selecteTimeSetting =='auto'">
+                  </td>
+                  <td style="text-align: center;">
+                    <span class="ui-column-title">Kiểm tra</span>
+                    <p-checkbox name="check" binary="true" [(ngModel)]="rowData.isCheck" [disabled]="!rowData.isActive"
+                      [ngModelOptions]="{standalone: true}" (onChange)="changeChecker()">
+                    </p-checkbox>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+
+          <div *ngIf="!(listResource.length > 0)" class="col-md-12 no-padding no-data">
+            <div class="box-no-data">
+              <img src="/assets/icons/components/box.svg" class="box-icon">
+              <div>
+                <span>Hiện tại không có dữ liệu</span>
+              </div>
+            </div>
+          </div>
+          <br />
+        </div>
+      </div>
+
+      <!-- HÀNG THỨ 8-->
+      <div class="row no-margin" style="padding-top: 20px;">
+        <div class="col-md-12">
+          <p-fileUpload #fileUpload name="demo[]" [showUploadButton]="false" multiple="multiple"
+            accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+            [maxFileSize]="defaultLimitedFileSize" invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+            invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+            invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+            invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}." chooseLabel="Chọn file"
+            cancelLabel="Hủy file đã chọn" (onSelect)="handleFile($event, fileUpload)" (onRemove)="removeFile($event)"
+            (onClear)="clearAllFile()">
+            <ng-template pTemplate="content" let-files>
+              <div style="padding-bottom: 30px; padding-top: 30px;">
+                <i class="fa fa-upload" aria-hidden="true" style="font-size: 36px;"></i>
+                <div style="margin-top: 5px;">Kéo thả file để upload</div>
+              </div>
+            </ng-template>
+          </p-fileUpload>
+
+
+          <div class="col-md-12 mt-5" *ngIf="listTaskDocument.length > 0">
+            <p-table #dt [columns]="colsFile" [paginator]="true" [rows]="5" [value]="listTaskDocument"
+              [responsive]="true" [resizableColumns]="true" [globalFilterFields]="['documentName']">
+              <ng-template pTemplate="caption">
+                <div style="text-align: right">
+                  <input type="text" pInputText size="50" placeholder="Tên tài liệu"
+                    (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                </div>
+              </ng-template>
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns" pResizableColumn [ngStyle]="{'text-align': col.textAlign}">
+                    {{col.header}}
+                  </th>
+                  <th style="width:4em"></th>
+                  <th style="width:4em"></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr>
+                  <td *ngFor="let col of columns" class="ui-resizable-column" [ngStyle]="{'text-align': col.textAlign}">
+                    <span class="ui-column-title">{{col.header}}</span>
+                    <span *ngIf="col.type === 'date'">{{rowData[col.field]
+                      |date:'dd/MM/yyyy
+                      h:mma'}}</span>
+                    <span *ngIf="col.type === 'string'">{{rowData[col.field]}}</span>
+                    <span *ngIf="col.type === 'number' && convertFileSize(rowData[col.field])">
+                      {{
+                      rowData[col.field]
+                      / 1024 | number
+                      }}
+                      KB
+                    </span>
+                    <span *ngIf="col.type === 'number' && !convertFileSize(rowData[col.field])">
+                      {{
+                      rowData[col.field]
+                      / 1048576 | number
+                      }}
+                      MB
+                    </span>
+                  </td>
+                  <td>
+                    <button pButton icon="pi pi-trash" (click)="deleteFile(rowData)" class="ui-button-danger"></button>
+                  </td>
+                  <td>
+                    <button pButton icon="pi pi-download" (click)="downloadFile(rowData)"></button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="row top-buffer buffer-bottom">
+        <div class="col-md-12 mt-5" style="display: flex; justify-content: flex-end;">
+          <button (click)="cancel()" type="button" class="btn-remove">
+            <span class="btn-remove-text">Thoát</span>
+          </button>
+          <button *ngIf="taskId == null" (click)="createTask()" type="button" class="btn-save">
+            <span class="btn-save-text">Lưu</span>
+          </button>
+          <button (click)="updateTask()" *ngIf="taskId != null" type="button" class="btn-save">
+            <span class="btn-save-text">Cập nhật</span>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </form>
+</div>
+
+<p-dialog header="Danh sách hạng mục" [(visible)]="display" [modal]="true" class="add-task-scope-dialog"
+  [style]="{width: '50vw'}" [maximizable]="true" [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <p-treeTable #treeTable [value]="listNoteProjectScope" [columns]="columns" selectionMode="single"
+    [(selection)]="selectedNode" dataKey="Id">
+    <ng-template pTemplate="header" let-columns>
+      <tr [ttRow]="rowNode">
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+      <tr>
+        <td *ngFor="let col of columns; let i = index" [ngSwitch]="col.field" (click)="selectedScope(rowData)"
+          [ngStyle]="{'width': col.width, 'display': col.display, 'text-align': col.textAlign }">
+          <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+          <span *ngSwitchCase="'Name'">{{ rowData[col.field]}}</span>
+        </td>
+      </tr>
+    </ng-template>
+  </p-treeTable>
+</p-dialog>

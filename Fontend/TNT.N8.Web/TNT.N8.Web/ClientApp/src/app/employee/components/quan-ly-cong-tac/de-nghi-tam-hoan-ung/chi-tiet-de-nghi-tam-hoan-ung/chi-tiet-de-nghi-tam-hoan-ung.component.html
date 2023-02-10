@@ -1,0 +1,796 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="{{ 'order.messages_title.title_confirm' | translate }}" icon="pi pi-exclamation-triangle"
+  acceptLabel="{{ 'order.buttons.accept' | translate }}" rejectLabel="{{ 'order.buttons.reject' | translate }}">
+</p-confirmDialog>
+
+<div class="chi-tiet-de-nghi-tam-hoan-ung">
+  <div class="row no-margin" id="parent">
+    <div class="col-md-12 header" style="padding: 6px;">
+      <div class="row">
+        <div class="col-md-6 no-padding">
+          <div class="row no-margin">
+            <div class="col-md-1 col-sm-1 col-xs-3">
+              <div class="header-box-icon">
+                <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+              </div>
+            </div>
+            <div class="col-md-11 col-sm-10 col-xs-9">
+              <div>
+                <span class="customer-name" *ngIf="loaiDeNghi == 0">Chi tiết đề nghị tạm ứng</span>
+                <span class="customer-name" *ngIf="loaiDeNghi == 1">Chi tiết đề nghị hoàn ứng</span>
+              </div>
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="float: right;">
+                <!-- gui xac nhan ap dung quy trinh -->
+                <button class="btn-save-and-new" *ngIf="isShowGuiPheDuyet" type="button" [disabled]="awaitResult"
+                  (click)="guiPheDuyet()">
+                  <span class="btn-save-and-new-text">Gửi phê duyệt</span>
+                </button>
+
+                <!-- xac nhan ap dung quy trinh -->
+                <button class="save-and-new" *ngIf="isShowPheDuyet" type="button" [disabled]="awaitResult"
+                  (click)="pheDuyet()">
+                  <span class="text-save-and-new">Phê duyệt</span>
+                </button>
+
+                <button #saveAndCreate class="save-and-new" type="button" *ngIf="isShowTuChoi"
+                  (click)="openDialogReject()">
+                  <span class="text-save-and-new">Từ chối</span>
+                </button>
+
+                <button *ngIf="isShowXoa && actionDelete" [disabled]="awaitResult" type="button" class="btn-red"
+                  (click)="xoa()">
+                  Xóa
+                </button>
+
+                <!-- Đặt về mới -->
+                <button #save type="button" class="save-and-new" (click)="datVeMoi()" *ngIf="isShowDatVeMoi"
+                  style="width: 90px !important;">
+                  <span class="text-save-and-new">Đặt về mới</span>
+                </button>
+
+                <!-- Xuất file -->
+                <button #save type="button" class="save-and-new" (click)="xuatFile()"
+                  *ngIf="thongTinDeNghiModel.trangThai == 3" style="width: 90px !important;">
+                  <span class="text-save-and-new">Xuất file</span>
+                </button>
+
+                <button class="btn-remove" type="button" (click)="cancel()">
+                  <span class="btn-remove-text">Thoát</span>
+                </button>
+
+                <button #save class="btn-save" *ngIf="actionEdit && thongTinDeNghiModel.trangThai == 1" type="button"
+                  [disabled]="awaitResult" (click)="capNhatDeNghi()">
+                  <span class="btn-save-text">Lưu</span>
+                </button>
+              </div>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRẠNG THÁI QUY TRÌNH -->
+  <div class="row no-padding body-wrapper" id="parent" *ngIf="listFormatStatusSupport.length > 0">
+    <div class="col-md-12">
+      <div class="col-md-12 no-padding" style="margin-top: 20px;">
+        <ul class="nav nav-tabs slds-path__nav">
+          <ng-container *ngFor="let item of listFormatStatusSupport">
+            <li *ngIf="item.categoryCode == 'TEMP'" data-toggle="tab" class="slds-path__item" [ngClass]="[item.isActive ? 'active': '',
+                                  item.isComplete ? 'slds-is-complete' : 'slds-is-incomplete',
+                                  item.isCurrent ? 'slds-is-current' : '']">
+              <p-dropdown [options]="item.children" optionLabel="nodeName" [(ngModel)]="selectedTempStatusSupport"
+                [autoDisplayFirst]="false" [style]="{'width': '100%'}">
+              </p-dropdown>
+            </li>
+            <li *ngIf="item.categoryCode != 'TEMP'" data-toggle="tab" class="slds-path__item" [ngClass]="[item.isActive ? 'active': '',
+                                  item.isComplete ? 'slds-is-complete' : 'slds-is-incomplete',
+                                  item.isCurrent ? 'slds-is-current' : '']">
+              <a class="tabHeader slds-path__link" href="#" pTooltip="{{item.nodeName}}" tooltipPosition="bottom"
+                tooltipStyleClass="custom-tooltip">
+                <span class="complete slds-path__stage">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </span>
+                <span class="slds-path__title">{{item.nodeName}}</span>
+              </a>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="deNghiThanhToanForm">
+    <!-- Thông tin đề nghị thanh toán -->
+    <div class="row no-padding body-wrapper" id="parent">
+      <div class="col-md-12">
+        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+          <p-accordionTab header="Thông tin đề nghị thanh toán" [selected]="true">
+            <div class="row top-buffer bottom-buffer" style="margin-top: 15px;">
+              <div class="col-md-12">
+                Trạng thái:
+                <span *ngIf="thongTinDeNghiModel.trangThai == 1" class="setTrangThai">Mới</span>
+                <span *ngIf="thongTinDeNghiModel.trangThai == 2" class="setTrangThai">Chờ phê duyệt</span>
+                <span *ngIf="thongTinDeNghiModel.trangThai == 3" class="setTrangThai">Đã phê duyệt</span>
+                <span *ngIf="thongTinDeNghiModel.trangThai == 4" class="setTrangThai">Từ chối</span>
+              </div>
+              <div class="col-md-6 mt-10">
+                <span>Mã đề nghị: <strong>{{thongTinDeNghiModel.maDeNghi}}</strong></span>
+              </div>
+              <div class="col-md-6 mt-10">
+                <span>Người đề nghị: <strong>{{thongTinDeNghiModel.nguoiDeXuat}}</strong></span>
+              </div>
+              <div class="col-md-6 mt-10">
+                <div class="row buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Ngày đề nghị</span><span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                    <p-calendar formControlName="ngayDeNghiControl" dateFormat="dd/mm/yy" showButtonBar="true"
+                      [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}" [style]="{'width':'100%'}"
+                      [monthNavigator]="true"
+                      [styleClass]="(ngayDeNghiControl.invalid && (ngayDeNghiControl.dirty || ngayDeNghiControl.touched)) ? 'error-border' : ''"
+                      (keydown.enter)="$event.preventDefault()" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"
+                      appendTo="body">
+                    </p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6 mt-10">
+                <div class="row buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Theo hồ sơ công tác</span><span class="required">*</span>
+                  </div>
+                  <div class="col-md-6">
+                    <p-dropdown [options]="listHoSoCT" formControlName="theoHoSoCTControl"
+                      placeholder="Chọn hồ sơ công tác" (onChange)="thayDoiHoSoCT($event.value)"
+                      optionLabel="maHoSoCongTac" [filter]="true" [resetFilterOnHide]="true" [virtualScroll]="true"
+                      itemSize="10"
+                      [styleClass]="(theoHoSoCTControl.invalid  && (theoHoSoCTControl.dirty ||  theoHoSoCTControl.touched)) ? 'error-border': ''"
+                      [style]="{'width': '100%'}">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+
+    <!-- Thông tin người đề nghị -->
+    <div class="row no-padding body-wrapper" id="parent">
+      <div class="col-md-12">
+        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+          <p-accordionTab header="Thông tin người thụ hưởng" [selected]="true">
+            <div class="row top-buffer bottom-buffer" style="margin-top: 15px;">
+              <div class="col-md-12">
+                <div class="col-md-4">
+                  <div class="row buffer-bottom">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Họ tên</span><span class="required">*</span>
+                    </div>
+                    <div class="col-md-12" style="font-style: italic;">
+                      <p-dropdown [options]="listEmployee" formControlName="nhanVienThuHuongControl"
+                        (onChange)="thayDoiNhanVienThuHuong($event.value)" placeholder="Chọn nhân viên thụ hưởng"
+                        [filter]="true" [virtualScroll]="true" itemSize="10"
+                        [styleClass]="(nhanVienThuHuongControl.invalid  && (nhanVienThuHuongControl.dirty ||  nhanVienThuHuongControl.touched)) ? 'error-border': ''"
+                        optionLabel="employeeCodeName" [style]="{'width': '100%'}">
+                      </p-dropdown>
+                    </div>
+                    <div class="col-md-12"
+                      [hidden]="nhanVienThuHuongControl.valid || nhanVienThuHuongControl.untouched">
+                      <span
+                        *ngIf="nhanVienThuHuongControl.hasError('required') || nhanVienThuHuongControl.hasError('blankString') "
+                        class="error-message-span">
+                        Không được để trống
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="row buffer-bottom">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Tên tài khoản</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input id="input" type="text" size="30" value="{{employeeModel.bankOwnerName}}" pInputText
+                        [ngStyle]="{'width': '100%'}" disabled="true">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="row col-md-12 buffer-bottom">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Ngân hàng</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input id="input" type="text" size="30" value="{{employeeModel.bankName}}" pInputText
+                        [ngStyle]="{'width': '100%'}" disabled="true">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row top-buffer bottom-buffer" style="margin-top: 15px;">
+              <div class="col-md-12 mt-10">
+                <div class="col-md-4">
+                  <div class="row buffer-bottom">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Phòng ban</span>
+                    </div>
+                    <div class="col-md-12" style="font-style: italic;">
+                      <input id="input" type="text" size="30" value="{{employeeModel.organizationName}}" pInputText
+                        [ngStyle]="{'width': '100%'}" disabled="true">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="row buffer-bottom">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Số tài khoản</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input id="input" type="text" size="30" value="{{employeeModel.bankAccount}}" pInputText
+                        [ngStyle]="{'width': '100%'}" disabled="true">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="row col-md-12 buffer-bottom">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Mã ngân hàng</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input id="input" type="text" size="30" value="{{employeeModel.bankCode}}" pInputText
+                        [ngStyle]="{'width': '100%'}" disabled="true">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row top-buffer bottom-buffer" style="margin-top: 15px;">
+              <div class="col-md-12 mt-10">
+                <div class="col-md-12">
+                  <div class="row buffer-bottom">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Lý do đề nghị thanh toán</span>
+                    </div>
+                    <div class="col-md-12">
+                      <p-editor formControlName="lyDoControl" [style]="{'height':'180px', 'width': '100%'}"
+                        [styleClass]="(lyDoControl.invalid && (lyDoControl.dirty || lyDoControl.touched)) ? 'error-border' : ''">
+                      </p-editor>
+                    </div>
+                    <div class="col-md-12" [hidden]="lyDoControl.valid || lyDoControl.untouched">
+                      <span *ngIf="lyDoControl.hasError('required') || lyDoControl.hasError('blankString') "
+                        class="error-message-span">
+                        Không được để trống
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+  </form>
+
+  <!-- NỘI DUNG THANH TOÁN -->
+  <div class="row no-padding body-wrapper" id="parent">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Nội dung thanh toán" [selected]="true">
+          <div class="row no-margin" style="margin-top: 15px !important;">
+            <div *ngIf="loaiDeNghi == 0 && actionEdit && thongTinDeNghiModel.trangThai == 1" class="col-md-12"
+              style="text-align: right;">
+              <button type="button" class="btn-save" style="width: 100px;" (click)="addRow()">
+                <span class="btn-save-text">Thêm mới</span>
+              </button>
+            </div>
+            <div class="col-md-12 mt-10">
+              <!-- TẠM ỨNG -->
+              <p-treeTable *ngIf="loaiDeNghi == 0" [value]="listData" [columns]="selectedColumns" [paginator]="true"
+                [rows]="5">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns" [ngStyle]="{'width': col.width, 'text-align': 'center'}">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                  <tr>
+                    <td *ngFor="let col of columns; let i = index" ttEditableColumn
+                      [ngStyle]="{'width': col.width, 'text-align': col.textAlign}"
+                      [ngClass]="{'ui-toggler-column': i === 0}">
+                      <p-treeTableToggler [rowNode]="rowNode" *ngIf="i === 0"></p-treeTableToggler>
+                      <ng-container *ngIf="col.field == 'noiDung'">
+                        <p-treeTableCellEditor>
+                          <ng-template pTemplate="input">
+                            <ng-container *ngIf="actionEdit && thongTinDeNghiModel.trangThai == 1">
+                              <input pInputText type="text" [(ngModel)]="rowData[col.field]"
+                                (change)="tinhToanTongGiaTriTT(rowData)" [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                            </ng-container>
+                            <ng-container *ngIf="!actionEdit || thongTinDeNghiModel.trangThai != 1">
+                              {{rowData[col.field]}}
+                            </ng-container>
+                          </ng-template>
+                          <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+                      </ng-container>
+                      <ng-container *ngIf="rowData.parentId != null">
+                        <span *ngIf="col.field == 'tongTienTruocVat'">
+                          <p-treeTableCellEditor>
+                            <ng-template pTemplate="input">
+                              <ng-container *ngIf="actionEdit && thongTinDeNghiModel.trangThai == 1">
+                                <input type="text" class="number-input"
+                                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                                  [(ngModel)]="rowData[col.field]" (change)="tinhToanTongGiaTriTT(rowData)">
+                              </ng-container>
+                              <ng-container *ngIf="!actionEdit || thongTinDeNghiModel.trangThai != 1">
+                                {{rowData[col.field] | number}}
+                              </ng-container>
+                            </ng-template>
+                            <ng-template pTemplate="output">{{rowData[col.field] | number}}</ng-template>
+                          </p-treeTableCellEditor>
+                        </span>
+                        <span *ngIf="col.field == 'vat'">
+                          <p-treeTableCellEditor>
+                            <ng-template pTemplate="input">
+                              <ng-container *ngIf="actionEdit && thongTinDeNghiModel.trangThai == 1">
+                                <input type="text" class="number-input"
+                                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}"
+                                  [(ngModel)]="rowData[col.field]" (change)="tinhToanTongGiaTriTT(rowData)">
+                              </ng-container>
+                              <ng-container *ngIf="!actionEdit || thongTinDeNghiModel.trangThai != 1">
+                                {{rowData[col.field]}}
+                              </ng-container>
+                            </ng-template>
+                            <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                          </p-treeTableCellEditor>
+                        </span>
+                        <ng-container *ngIf="col.field == 'tienSauVat'">
+                          <span>{{ rowData[col.field] | number}}</span>
+                        </ng-container>
+                      </ng-container>
+                      <ng-container *ngIf="col.field == 'maPhongBan'">
+                        <span>{{ employeeModel?.organizationName }}</span>
+                      </ng-container>
+                      <ng-container *ngIf="col.field == 'action'">
+                        <ng-container
+                          *ngIf="rowData.parentId == null && actionEdit && thongTinDeNghiModel.trangThai == 1">
+                          <button pButton type="button" icon="pi pi-plus" class="ui-button-info"
+                            (click)="addRowChild(rowData)">
+                          </button>
+                        </ng-container>
+                        <ng-container *ngIf="actionDelete && thongTinDeNghiModel.trangThai == 1">
+                          <button pButton type="button" icon="pi pi-trash" class="ui-button-danger"
+                            style="margin-left: .5em" (click)="removeRow(rowData)">
+                          </button>
+                        </ng-container>
+                      </ng-container>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-treeTable>
+
+              <!-- HOÀN ỨNG -->
+              <p-table #dt [columns]="selectedColumns" *ngIf="loaiDeNghi == 1" [value]="listNoiDungTT"
+                [responsive]="true" dataKey="id" [paginator]="true" [rows]="5" editMode="row" [scrollable]="true">
+                <ng-template pTemplate="caption" *ngIf="actionEdit && thongTinDeNghiModel.trangThai == 1">
+                  <div style="display: flex;justify-content: flex-end;align-items: center;">
+                    <button type="button" style="width: 100px !important;" class="btn-save" (click)="addRow()">
+                      <span class="btn-save-text">Thêm mới</span>
+                    </button>
+                  </div>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns" [ngStyle]="{ 'text-align': 'center', 'width': col.width }">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing"
+                  let-index="rowIndex">
+                  <tr [pEditableRow]="rowData">
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                      [ngStyle]="{ 'text-align': col.textAlign, 'width': col.width }">
+
+                      <span class="ui-column-title">{{col.header}}</span>
+
+                      <span *ngSwitchCase="'index'">
+                        {{ index + 1 }}
+                      </span>
+
+                      <span *ngSwitchCase="'ngayThang'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <p-calendar [(ngModel)]="rowData[col.field]" dateFormat="dd/mm/yy" [yearNavigator]="true"
+                              [style]="{'width': '100%'}" yearRange="1990:{{today.getFullYear()}}" appendTo="body">
+                            </p-calendar>
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{ rowData[col.field] | date:
+                            'dd/MM/yyyy' }}
+                          </ng-template>
+                        </p-cellEditor>
+                      </span>
+
+                      <span *ngSwitchCase="'soHoaDon'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="{'width': '100%'}"
+                              (keydown.enter)="$event.preventDefault()">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{ rowData[col.field] }}
+                          </ng-template>
+                        </p-cellEditor>
+                      </span>
+
+                      <span *ngSwitchCase="'noiDung'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="{'width': '100%'}"
+                              (keydown.enter)="$event.preventDefault()">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{ rowData[col.field] }}
+                          </ng-template>
+                        </p-cellEditor>
+                      </span>
+
+                      <span *ngSwitchCase="'maPhongBan'">
+                        {{employeeModel.organizationName}}
+                      </span>
+
+                      <span *ngSwitchCase="'hinhThucThanhToan'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <p-dropdown [options]="listHinhThucTT" [(ngModel)]="rowData.selectedHinhThucThanhToan"
+                              [ngModelOptions]="{standalone: true}" (keydown.enter)="$event.preventDefault()"
+                              optionLabel="categoryName" placeholder="Chọn hình thức" appendTo="body"
+                              [style]="{'width': '100%'}">
+                            </p-dropdown>
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{rowData.selectedHinhThucThanhToan?.categoryName}}
+                          </ng-template>
+                        </p-cellEditor>
+                      </span>
+
+                      <span *ngSwitchCase="'vanChuyenXm'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <input type="text" class="number-input"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true}" [(ngModel)]="rowData.vanChuyenXm"
+                              [ngModelOptions]="{standalone: true}" (change)="tinhToanTongGiaTriTT()"
+                              [ngStyle]="{'width': rowData.col,'display':rowData.col, 'text-align': rowData.col}">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{rowData.vanChuyenXm}}
+                          </ng-template>
+                        </p-cellEditor>
+                      </span>
+
+                      <span *ngSwitchCase="'tienDonHnnb'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <input type="text" class="number-input"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true}" [(ngModel)]="rowData.tienDonHnnb"
+                              [ngModelOptions]="{standalone: true}" (change)="tinhToanTongGiaTriTT()"
+                              [ngStyle]="{'width': rowData.col,'display':rowData.col, 'text-align': rowData.col}">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{rowData.tienDonHnnb}}
+                          </ng-template>
+                        </p-cellEditor>
+                      </span>
+
+                      <span *ngSwitchCase="'tienDonDn'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <input type="text" class="number-input"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true}" [(ngModel)]="rowData.tienDonDn"
+                              [ngModelOptions]="{standalone: true}" (change)="tinhToanTongGiaTriTT()"
+                              [ngStyle]="{'width': rowData.col,'display':rowData.col, 'text-align': rowData.col}">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{rowData.tienDonDn}}
+                          </ng-template>
+                        </p-cellEditor>
+                      </span>
+
+                      <span *ngSwitchCase="'khachSan'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <input type="text" class="number-input"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true}" [(ngModel)]="rowData.khachSan"
+                              [ngModelOptions]="{standalone: true}" (change)="tinhToanTongGiaTriTT()"
+                              [ngStyle]="{'width': rowData.col,'display':rowData.col, 'text-align': rowData.col}">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{rowData.khachSan}}
+                          </ng-template>
+                        </p-cellEditor>
+                      </span>
+
+                      <span *ngSwitchCase="'chiPhiKhac'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <input type="text" class="number-input"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true}" [(ngModel)]="rowData.chiPhiKhac"
+                              [ngModelOptions]="{standalone: true}" (change)="tinhToanTongGiaTriTT()"
+                              [ngStyle]="{'width': rowData.col,'display':rowData.col, 'text-align': rowData.col}">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{rowData.chiPhiKhac}}
+                          </ng-template>
+                        </p-cellEditor>
+                      </span>
+
+                      <span *ngSwitchCase="'dinhKemCt'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="{'width': '100%'}"
+                              (keydown.enter)="$event.preventDefault()">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{ rowData.dinhKemCt }}
+                          </ng-template>
+                        </p-cellEditor>
+                      </span>
+
+                      <span *ngSwitchCase="'ghiChu'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]" [ngStyle]="{'width': '100%'}"
+                              (keydown.enter)="$event.preventDefault()">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{ rowData[col.field] }}
+                          </ng-template>
+                        </p-cellEditor>
+                      </span>
+
+                      <span *ngSwitchCase="'tongTienTruocVat'">
+                        {{ rowData.tongTienTruocVat | number:0}}
+                      </span>
+
+                      <span *ngSwitchCase="'tienSauVat'">
+                        {{rowData.tienSauVat | number:0}}
+                      </span>
+
+                      <span *ngSwitchCase="'vat'">
+                        <p-cellEditor>
+                          <ng-template pTemplate="input">
+                            <input type="text" class="number-input"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true}" [(ngModel)]="rowData.vat"
+                              [ngModelOptions]="{standalone: true}" (change)="tinhToanTongGiaTriTT()"
+                              [ngStyle]="{'width': rowData.col,'display':rowData.col, 'text-align': rowData.col}">
+                          </ng-template>
+                          <ng-template pTemplate="output">
+                            {{rowData.vat}}
+                          </ng-template>
+                        </p-cellEditor>
+                      </span>
+
+                      <span *ngSwitchCase="'action'">
+                        <span *ngIf="thongTinDeNghiModel.trangThai ==1">
+                          <button *ngIf="!editing && actionEdit && thongTinDeNghiModel.trangThai == 1" pButton
+                            type="button" pInitEditableRow icon="pi pi-pencil" style="margin-left: .5em"
+                            class="ui-button-info" (click)="onRowEditInit(rowData)">
+                          </button>
+                          <button *ngIf="!editing && actionDelete && thongTinDeNghiModel.trangThai == 1" pButton
+                            type="button" pCancelEditableRow icon="pi pi-trash" class="ui-button-danger"
+                            style="margin-left: .5em" (click)="onRowRemove(rowData)">
+                          </button>
+                          <button *ngIf="editing && actionEdit && thongTinDeNghiModel.trangThai == 1" pButton
+                            type="button" pSaveEditableRow icon="pi pi-check" class="ui-button-success"
+                            (click)="onRowEditSave(rowData)" style="margin-left: .5em">
+                          </button>
+                          <button *ngIf="editing && actionEdit && thongTinDeNghiModel.trangThai == 1" pButton
+                            type="button" pCancelEditableRow icon="pi pi-times" class="ui-button-danger"
+                            (click)="onRowEditCancel(rowData, index)" style="margin-left: .5em">
+                          </button>
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+          <div class="row no-margin" style="margin-top: 15px !important;">
+            <div class="col-md-12" style="display: flex; justify-content: space-between;">
+              <div class="col-md-6">
+                &nbsp;
+              </div>
+              <div class="col-md-6">
+                <div class="row buffer-bottom form-group">
+                  <div class="col-md-12" style="display: flex; justify-content: flex-end; align-items: center;">
+                    <div class="col-md-6">
+                      <span style="font-weight: bold;">Tổng tiền:</span>
+                    </div>
+                    <div class="col-md-3" style="text-align: right;">
+                      <label class="result-monney-number">{{tongTien | number:0}}</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row buffer-bottom form-group">
+                  <div class="col-md-12" style="display: flex; justify-content: flex-end; align-items: center;">
+                    <div class="col-md-6">
+                      <span style="font-weight: bold;">Tạm ứng:</span>
+                    </div>
+                    <div class="col-md-3" style="text-align: right;">
+                      <ng-container *ngIf="actionEdit && thongTinDeNghiModel.trangThai == 1">
+                        <input type="text" class="number-input" [cleave]="{numeral: true, numeralPositiveOnly: true}"
+                          [(ngModel)]="tienTamUng" [ngModelOptions]="{standalone: true}"
+                          (change)="tinhToanTongGiaTriTT()">
+                      </ng-container>
+                      <ng-container *ngIf="!actionEdit || thongTinDeNghiModel.trangThai != 1">
+                        {{tienTamUng}}
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row buffer-bottom form-group">
+                  <div class="col-md-12" style="display: flex; justify-content: flex-end; align-items: center;">
+                    <div class="col-md-6">
+                      <span style="font-weight: bold;">Tổng số tiền còn lại cần thanh toán:</span>
+                    </div>
+                    <div class="col-md-3" style="text-align: right;">
+                      <label class="result-monney-number">{{tongTienConLaiCTT | number:0}}</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <!-- TÀI LIỆU LIÊN QUAN -->
+  <div class="row no-padding body-wrapper" id="parent">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Tài liệu liên quan" [selected]="true">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12 mt-5">
+                <p-fileUpload #fileUpload name="demo[]" customUpload="true" multiple="multiple"
+                  [showUploadButton]="true"
+                  accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+                  [maxFileSize]="defaultLimitedFileSize" invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+                  invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+                  invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+                  invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}."
+                  chooseLabel="Chọn file" cancelLabel="Hủy toàn bộ file" (onSelect)="handleFile($event, fileUpload)"
+                  (uploadHandler)="myUploader($event)" (onRemove)="removeFile($event)" (onClear)="clearAllFile()">
+                </p-fileUpload>
+              </div>
+
+              <div class="col-md-12 mt-5">
+                <p-table #dt [columns]="colsFile" [value]="arrayDocumentModel" [responsive]="true"
+                  [resizableColumns]="true" [paginator]="true" [rows]="10">
+                  <ng-template pTemplate="caption">
+                    <div style="text-align: right">
+                      <input type="text" pInputText size="50" placeholder="Tên tài liệu"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th *ngFor="let col of columns" pResizableColumn [ngStyle]="{'text-align': col.textAlign}">
+                        {{col.header}}
+                      </th>
+                      <th style="width:4em"></th>
+                      <th style="width:4em"></th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                      <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
+                        [ngStyle]="{'text-align': col.textAlign}">
+                        <span class="ui-column-title">{{col.header}}</span>
+                        <span *ngSwitchCase="'fileFullName'">
+                          {{rowData[col.field].substring(0,rowData[col.field].lastIndexOf('_'))}}.{{rowData[col.field].substring(rowData[col.field].lastIndexOf('.')+1,
+                          rowData[col.field].length)}}
+                        </span>
+                        <span *ngSwitchCase="'createdDate'">
+                          {{rowData[col.field] | date:'dd/MM/yyyy h:mm a'}}
+                        </span>
+                        <span *ngSwitchCase="'size'">
+                          <ng-container *ngIf="convertFileSize(rowData[col.field])">
+                            {{rowData[col.field] / 1024 | number}} KB
+                          </ng-container>
+                          <ng-container *ngIf="!convertFileSize(rowData[col.field])">
+                            {{rowData[col.field] / 1048576 | number}} MB
+                          </ng-container>
+                        </span>
+                        <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+                      </td>
+                      <td>
+                        <button pButton icon="pi pi-trash" (click)="deleteFile(rowData)"
+                          class="ui-button-danger"></button>
+                      </td>
+                      <td>
+                        <button pButton icon="pi pi-download" (click)="downloadFile(rowData)"></button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <!-- GHI CHÚ -->
+  <div class="row no-padding body-wrapper">
+    <app-note-time-line style="width: 100%;" [viewNote]="true" [viewTimeline]="true" objectType="DENGHITHU"
+      [objectNumber]="deNghiTamHoanUngId" [actionAdd]="true" [actionEdit]="false" [actionDelete]="false" [pageSize]="10"
+      [refresh]="refreshNote">
+    </app-note-time-line>
+  </div>
+</div>
+
+<p-dialog header="Lý do từ chối" [(visible)]="showLyDoTuChoi" [modal]="true" [responsive]="true"
+  [style]="{width: '550px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000" [closable]="true"
+  (onHide)="closeDialog()" class="dialog-form">
+  <form [formGroup]="tuChoiForm">
+    <div class="col-md-12 buffer-bottom-label">
+      <span>Lý do từ chối</span>
+    </div>
+    <div class="col-md-12">
+      <textarea formControlName="lyDoTuChoiControl"
+        [ngClass]="(lyDoTuChoiControl.invalid && (lyDoTuChoiControl.dirty || lyDoTuChoiControl.touched)) ? 'error-border' : ''"
+        type="text" rows="7" style="width: 100%;" class="w100" pInputText></textarea>
+    </div>
+  </form>
+  <p-footer>
+    <div class="chi-tiet-de-nghi-tam-hoan-ung">
+      <button type="button" class="btn-save" (click)="tuChoi()">
+        <span class="btn-save-text">Xác nhận</span>
+      </button>
+      
+      <button class="btn-remove" type="button" (click)="closeDialog()">
+        <span class="btn-remove-text">Hủy</span>
+      </button>
+
+
+    </div>
+  </p-footer>
+</p-dialog>

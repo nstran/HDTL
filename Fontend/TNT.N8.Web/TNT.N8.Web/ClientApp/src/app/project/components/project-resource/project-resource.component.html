@@ -1,0 +1,624 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="layout-project">
+  <app-top-header-project></app-top-header-project>
+
+  <div class="wrapper" style="height: auto;">
+    <!-- <main-header></main-header> -->
+    <app-project-header></app-project-header>
+    <!-- Menu Left -->
+    <app-menu-left-project></app-menu-left-project>
+
+    <!-- Content -->
+    <div class="content-wrapper" style="height: auto; min-height: calc(100vh - 100px);">
+      <section class="row content">
+        <div class="resource-project">
+          <div class="row no-margin">
+            <div class="col-md-12 header" style="padding: 6px;">
+              <div class="row">
+                <div class="col-md-8 no-padding">
+                  <div class="row no-margin">
+                    <div class="col-md-12">
+                      <!-- <div>
+                        <span class="project-name">[{{project.projectCode}}]:{{project.projectName}}</span>
+                      </div> -->
+                      <div class="header-title">
+                        <p-dropdown [options]="listProjectTitle" optionLabel="projectCodeName" placeholder="Chọn dự án"
+                          [filter]="true" [resetFilterOnHide]="true" [virtualScroll]="true" itemSize="10"
+                          [(ngModel)]="selectedProject" (onChange)="onChangeProject($event.value.projectId)"
+                          (keydown.enter)="$event.preventDefault()">
+                        </p-dropdown>
+                      </div>
+                      <div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="row">
+                    <div class="col-md-12" style="display: flex; justify-content: flex-end; margin-top: 5px;">
+                      <button type="button" class="btn-remove" (click)="cancel()">
+                        <span class="btn-remove-text">Thoát</span>
+                      </button>
+                      <button class="cancel" type="button" (click)="showProjectInfor()" *ngIf="!isShow">
+                        <span class="text-cancel"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp; Thông tin dự
+                          án</span>
+                      </button>
+                      <!-- <button type="button" class="btn-save" (click)="saveProjectResource()">
+                        <span class="btn-save-text">Cập nhật</span>
+                      </button> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PANEL THÔNG TIN CHUNG CỦA DỰ ÁN -->
+          <app-project-information-panel></app-project-information-panel>
+
+          <div class="col-md-12">
+            <div class="row no-margin" style="padding-top: 10px;padding-bottom: 10px;">
+              <form [formGroup]="resourceProjectForm">
+                <div class="row box-infor">
+                  <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                    collapseIcon="pi pi-fw pi-chevron-circle-down">
+                    <p-accordionTab header="Nguồn lực dự án" [selected]="true">
+                      <p-tabView>
+                        <!-- Nội bộ  -->
+                        <p-tabPanel header="Nội bộ" [headerStyle]="{width: '150px', 'text-align': 'center'}">
+
+                          <div class="col-md-4" style="display:flex;justify-content:flex-start">
+                            <p-checkbox binary="true" (onChange)="ChangeThoiGian($event,'NB')" label="Hiện tại"
+                              [style]="{ 'margin-top': '5px', 'margin-bottom': '5px' }">
+                            </p-checkbox>
+                          </div>
+
+                          <div class="col-md-8" style="display:flex;justify-content:flex-end">
+                            <p-multiSelect [options]="listNguonLucNoiBo" optionLabel="EmployeeName"
+                              (onChange)="changeSelectNV($event,'NB')"
+                              [style]="{ 'minWidth': '200px', 'margin-top': '5px', 'margin-bottom': '5px' }"
+                              defaultLabel="Chọn nhân viên"></p-multiSelect>
+
+                            <button pButton type="button" (click)="addProjectResource(true)"
+                              style="margin-left: 5px; margin-top: 5px;margin-bottom: 5px;" label="Thêm mới"></button>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 mt-5">
+                              <p-table [columns]="selectedColumns" [value]="listProjectResourcesInternalShow"
+                                [resizableColumns]="true" selectionMode="single" [(selection)]="selectedItem"
+                                (onRowSelect)="onRowSelect($event.data)" [style]="{width:'100%'}" [paginator]="true"
+                                [rows]="10" [rowsPerPageOptions]="[10,50,100]" responsive="true" class="table-border">
+                                <ng-template pTemplate="header" let-columns>
+                                  <tr>
+                                    <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                                      [ngStyle]="{'width': col.width, 'text-align': col.textAlign,'border': '1px solid #c8c8c8'}">
+                                      <span>
+                                        {{col.header}}
+                                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                                      </span>
+                                    </th>
+                                    <th style="text-align: center;" [ngStyle]="{'border': '1px solid #c8c8c8'}">
+                                      <span>Thao tác</span>
+                                    </th>
+                                  </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                  <tr [pSelectableRow]="rowData">
+                                    <td *ngFor="let col of columns" class="ui-resizable-column"
+                                      [ngStyle]="{'width': col.width, 'text-align': col.textAlign,'border': '1px solid #c8c8c8'}"
+                                      [ngSwitch]="col.field">
+                                      <span *ngSwitchCase="'allowcation'"
+                                        [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}" style="display: inline-block;
+                                      padding: 3px 3px;
+                                      color: black;
+                                      width: 100%;" (click)="getPhanBoNguonLuc(rowData)">
+                                        {{ rowData[col.field] + '%'}}
+                                      </span>
+                                      <span *ngSwitchCase="'startTime'">
+                                        {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+                                      </span>
+                                      <span *ngSwitchCase="'endTime'">
+                                        {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+                                      </span>
+                                      <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                                    </td>
+                                    <!-- <td style="text-align: center; width: 10%;">
+                                    <div class="col-md-5">
+                                      <button (click)="delete_ProjectResource(rowData)" pButton icon="pi pi-trash"
+                                        class="ui-button-danger space-button"></button>
+                                    </div>
+                                    <div class="col-md-2">
+
+                                    </div>
+                                    <div class="col-md-5">
+                                      <button (click)="editProjectResource(rowData,true)" pButton icon="pi pi-pencil"
+                                        class="space-button"></button>
+                                    </div>
+
+                                  </td> -->
+                                    <td style="text-align: center;" [ngStyle]="{'border': '1px solid #c8c8c8'}">
+                                      <div class="col-md-5">
+                                        <span class="link" (click)="delete_ProjectResource(rowData)">Xóa</span>
+                                      </div>
+                                      <div class="col-md-2"></div>
+                                      <div class="col-md-5">
+                                        <span class="link" (click)="editProjectResource(rowData,true)">Sửa</span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </ng-template>
+                                <ng-template pTemplate="footer" let-columns>
+                                  <tr>
+                                    <td *ngFor="let col of columns"
+                                      [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.width,'border': '1px solid #c8c8c8' }"
+                                      [ngSwitch]="col.field">
+
+                                      <span *ngSwitchCase="'workDay'" style="font-weight: bold;">
+                                        {{totalWorkdays}}
+                                      </span>
+
+
+                                    </td>
+                                    <th style="text-align: center;" [ngStyle]="{'border': '1px solid #c8c8c8'}">
+                                    </th>
+                                  </tr>
+                                </ng-template>
+
+                              </p-table>
+                            </div>
+                          </div>
+                        </p-tabPanel>
+
+                        <!-- Thuê ngoài  -->
+                        <p-tabPanel header="Thuê ngoài" [headerStyle]="{width: '150px', 'text-align': 'center'}">
+
+                          <div class="col-md-4" style="display:flex;justify-content:flex-start">
+                            <p-checkbox binary="true" (onChange)="ChangeThoiGian($event,'TN')" label="Hiện tại"
+                              [style]="{ 'margin-top': '5px', 'margin-bottom': '5px' }">
+                            </p-checkbox>
+                          </div>
+
+                          <div class="col-md-8" style="display:flex;justify-content:flex-end">
+                            <p-multiSelect [options]="listNguonLucThueNgoai" optionLabel="EmployeeName"
+                              (onChange)="changeSelectNV($event,'TN')"
+                              [style]="{ 'minWidth': '200px', 'margin-top': '5px', 'margin-bottom': '5px' }"
+                              defaultLabel="Chọn nhân viên"></p-multiSelect>
+
+                            <button pButton type="button" (click)="addProjectResource(false)"
+                              style="margin-left: 5px;margin-bottom: 5px;margin-top: 5px;" label="Thêm mới"></button>
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 mt-5">
+                              <p-table [columns]="selectedColumnsExternal" [value]="listProjectResourcesExternalShow"
+                                [resizableColumns]="true" selectionMode="single" [(selection)]="selectedItemExternal"
+                                (onRowSelect)="onRowSelect($event.data)" [style]="{width:'100%'}" [paginator]="true"
+                                [rows]="10" [rowsPerPageOptions]="[10,50,100]" responsive="true" class="table-border">
+
+                                <ng-template pTemplate="header" let-columns>
+                                  <tr>
+                                    <th style="text-align: center; width: 5%;" [pSortableColumn]="stt"
+                                      [ngStyle]="{'border': '1px solid #c8c8c8'}">
+                                      <span>STT
+                                        <!-- <p-sortIcon [field]="stt"></p-sortIcon> -->
+                                      </span>
+                                    </th>
+                                    <th style="text-align: left; width: 25%;" [pSortableColumn]="nameResource"
+                                      [ngStyle]="{'border': '1px solid #c8c8c8'}">
+                                      <span>Tên nhà thầu
+                                        <!-- <p-sortIcon [field]="nameResource"></p-sortIcon> -->
+                                      </span>
+                                    </th>
+                                    <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                                      [ngStyle]="{'width': col.width, 'text-align': col.textAlign,'border': '1px solid #c8c8c8'}">
+                                      <span>
+                                        {{col.header}}
+                                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                                      </span>
+                                    </th>
+                                    <th style="text-align: center;" [ngStyle]="{'border': '1px solid #c8c8c8'}">
+                                      <span>Thao tác</span>
+                                    </th>
+                                  </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                  <tr [pSelectableRow]="rowData">
+                                    <td style="text-align: center;" [ngStyle]="{'border': '1px solid #c8c8c8'}">
+                                      <span>
+                                        {{ rowData['stt']}}
+                                      </span>
+                                    </td>
+                                    <td style="text-align: left;" [ngStyle]="{'border': '1px solid #c8c8c8'}">
+                                      <!-- <span (click)="goToDetailExternalResource()" class="link"> -->
+                                      <span (click)="goToDetailExternalResource(rowData['projectResourceId'])"
+                                        class="link">
+                                        {{rowData['nameResource']}}
+                                      </span>
+                                    </td>
+                                    <td *ngFor="let col of columns" class="ui-resizable-column"
+                                      [ngStyle]="{'width': col.width, 'text-align': col.textAlign,'border': '1px solid #c8c8c8'}"
+                                      [ngSwitch]="col.field">
+                                      <span *ngSwitchCase="'resourceTypeName'">
+                                        {{ rowData[col.field]}}
+                                      </span>
+                                      <span *ngSwitchCase="'allowcation'"
+                                        [ngStyle]="{'background-color': rowData['backgroundColorForStatus']}" style="display: inline-block;
+                                      padding: 3px 3px;
+                                      color: black;
+                                      width: 100%;">
+                                        {{ rowData[col.field] + '%'}}
+                                      </span>
+                                      <span *ngSwitchCase="'startTime'">
+                                        {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+                                      </span>
+                                      <span *ngSwitchCase="'endTime'">
+                                        {{ rowData[col.field] | date:'dd/MM/yyyy'}}
+                                      </span>
+                                      <span style="text-align: right;" *ngSwitchDefault>{{rowData[col.field]}}</span>
+                                    </td>
+                                    <td style="text-align: center; width: 10%;"
+                                      [ngStyle]="{'border': '1px solid #c8c8c8'}">
+                                      <!-- <div class="col-md-5">
+                                    <button (click)="delete_ProjectResource(rowData)" pButton icon="pi pi-trash"
+                                      class="ui-button-danger space-button"></button>
+                                  </div>
+                                  <div class="col-md-2"></div>
+                                  <div class="col-md-5"><button (click)="editProjectResource(rowData,false)" pButton
+                                      icon="pi pi-pencil" class="space-button"></button></div>
+     -->
+
+                                      <div class="col-md-5">
+                                        <span class="link" (click)="delete_ProjectResource(rowData)">Xóa</span>
+                                      </div>
+                                      <div class="col-md-2"></div>
+                                      <div class="col-md-5">
+                                        <span class="link" (click)="editProjectResource(rowData,false)">Sửa</span>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </ng-template>
+
+                                <ng-template pTemplate="footer" let-columns>
+                                  <tr>
+                                    <td *ngFor="let col of columns"
+                                      [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.width,'border': '1px solid #c8c8c8' }"
+                                      [ngSwitch]="col.field">
+
+                                      <span *ngSwitchCase="'totalDays'" style="font-weight: bold;">
+
+                                      </span>
+                                    </td>
+                                    <th style="text-align: center;" [ngStyle]="{'border': '1px solid #c8c8c8'}">
+                                    </th>
+
+                                  </tr>
+                                </ng-template>
+                              </p-table>
+                            </div>
+                          </div>
+                          <div class="row no-margin">
+                            <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" class="col-md-12"
+                              collapseIcon="pi pi-fw pi-chevron-circle-down" *ngIf="isContractor">
+                              <!-- <p-accordion expandIcon="pi pi-fw pi-chevron-right" collapseIcon="pi pi-fw pi-chevron-down"
+                              [multiple]="true" *ngIf="isContractor"> -->
+                              <p-accordionTab header="Thông tin nhà thầu" [selected]="true">
+                                <p-tabView>
+                                  <p-tabPanel header="Thông tin"
+                                    [headerStyle]="{width: '150px', 'text-align': 'center'}">
+                                    <form [formGroup]="inforVendorForm">
+                                      <div style="display:flex; justify-content:flex-end">
+                                        <i class="pi pi-pencil" style="font-size: 24px;" (click)="editVendor()"></i>
+                                        <i class="pi pi-save" *ngIf="isEdit" style="font-size: 24px;"
+                                          (click)="saveVendor()"></i>
+                                      </div>
+                                      <div class="row mt-25">
+                                        <div class="col-md-12 mt-5">
+                                          <!-- DONG 1 -->
+                                          <div class="row mt-25">
+                                            <div class="col-md-4">
+                                              <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                  <span>​Tên nhà thầu</span>
+                                                </div>
+                                                <div class="col-md-10">
+                                                  <input formControlName="vendorNameControl" type="text" class="w100"
+                                                    pInputText />
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                  <span>Người liên hệ</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                  <p-dropdown [options]="listContactById"
+                                                    formControlName="contactControl" (onChange)="changeContact($event)"
+                                                    placeholder="Chọn người liên hệ" optionLabel="firstName"
+                                                    [style]="{'width': '100%'}">
+                                                  </p-dropdown>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                  <span>Phương thức thanh toán</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                  <p-dropdown [options]="listPaymentMethod" (onChange)="changePayment()"
+                                                    formControlName="paymentMethodControl" optionLabel="categoryName"
+                                                    [style]="{'width': '100%'}"
+                                                    (keydown.enter)="$event.preventDefault()">
+                                                  </p-dropdown>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+
+                                          <!-- DONG 2 -->
+                                          <div class="row mt-25">
+                                            <div class="col-md-4">
+                                              <div class="row buffer-bottom">
+                                                <div class="col-md-4 buffer-bottom-label">
+                                                  <span>Email</span>
+                                                </div>
+                                                <div class="col-md-8">
+                                                  <span>
+                                                    {{vendorModel.email}}
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <div class="col-md-4 buffer-bottom-label">
+                                                <span>Email</span>
+                                              </div>
+                                              <div class="col-md-8 buffer-bottom-label">
+                                                <span>
+                                                  {{contactPerson.email}}
+                                                </span>
+                                              </div>
+                                            </div>
+                                          </div>
+                                          <!-- DONG 3 -->
+                                          <div class="row mt-25">
+
+                                            <div class="col-md-4">
+                                              <div class="row buffer-bottom">
+                                                <div class="col-md-4 buffer-bottom-label">
+                                                  <span>Điện thoại</span>
+                                                </div>
+                                                <div class="col-md-8">
+                                                  <span>
+                                                    {{vendorModel.phone}}
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                              <div class="col-md-4 buffer-bottom-label">
+                                                <span>Điện thoại</span>
+                                              </div>
+                                              <div class="col-md-8 buffer-bottom-label">
+                                                <span>
+                                                  {{contactPerson.phone}}
+                                                </span>
+                                              </div>
+                                            </div>
+
+                                          </div>
+                                          <!-- DONG 4 -->
+                                          <div class="row mt-25">
+                                            <div class="col-md-4">
+                                              <div class="row buffer-bottom">
+                                                <div class="col-md-4 buffer-bottom-label">
+                                                  <span>Địa chỉ</span>
+                                                </div>
+                                                <div class="col-md-8">
+                                                  <span>
+                                                    {{fullAddress}}
+                                                  </span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </form>
+                                  </p-tabPanel>
+                                </p-tabView>
+                              </p-accordionTab>
+                            </p-accordion>
+                          </div>
+                        </p-tabPanel>
+                        <p-tabPanel header="Khách hàng" [headerStyle]="{width: '150px', 'text-align': 'center'}">
+                        </p-tabPanel>
+                      </p-tabView>
+                    </p-accordionTab>
+                  </p-accordion>
+                </div>
+                <div class="row box-infor" style="padding-top: 10px; padding-bottom: 10px; margin-top: 15px;" #time>
+                  <div class="col-md-12 time-line">
+                    <div class="row">
+                      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" class="col-md-12"
+                        collapseIcon="pi pi-fw pi-chevron-circle-down">
+                        <p-accordionTab header="Ghi chú" [selected]="true">
+                          <div class='row'>
+                            <div class="col-md-12">
+                              <p-editor [(ngModel)]="noteContent" [ngModelOptions]="{standalone: true}"
+                                [style]="{'height':'180px', 'width': '100%'}"
+                                (onTextChange)="changeNoteContent($event)">
+                              </p-editor>
+                            </div>
+                            <!-- <div class="col-md-12" style="margin-top: 5px;">
+                                  <p-fileUpload #fileUploadNote name="demo[]" [showUploadButton]="false" multiple="multiple"
+                                    accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+                                    maxFileSize="10000000" invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+                                    invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+                                    invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+                                    invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}."
+                                    chooseLabel="Chọn file" cancelLabel="Hủy file đã chọn"
+                                    (onSelect)="handleFile($event, fileUpload)" (onRemove)="removeFile($event)"
+                                    (onClear)="clearAllFile()">
+                                    <ng-template pTemplate="content" let-files>
+                                      <div *ngIf="uploadedFiles.length == 0" style="padding-top: 30px; padding-bottom: 30px;">
+                                        <i class="fa fa-upload" aria-hidden="true" style="font-size: 36px;"></i>
+                                        <div style="margin-top: 5px;">Kéo thả file để
+                                          upload
+                                        </div>
+                                      </div>
+                                    </ng-template>
+                                  </p-fileUpload>
+                                </div> -->
+
+                            <div class="col-md-12" style="text-align: left; margin-top: 5px;">
+                              <div class="col-md-6" style="text-align: left; margin-top: 5px;">
+                                <div class="row buffer-bottom">
+                                  <p-checkbox name="groupname1" formControlName="isSendEmailControl" binary="true"
+                                    label="Không gửi thông báo qua email">
+                                  </p-checkbox>
+                                </div>
+                              </div>
+                              <div class="col-md-6" style="text-align: right; margin-top: 5px;">
+                                <button type="button" class="btn-cancel-note" (click)="cancelNote()">
+                                  <span class="save-cancel-lable">Hủy</span>
+                                </button>
+                                <button type="button" class="btn-save-note" (click)="saveNote()">
+                                  <span class="save-note-lable">{{isEditNote == true ?
+                                    'Cập nhật
+                                    ghi chú'
+                                    :
+                                    'Thêm ghi chú'}}</span>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </p-accordionTab>
+                      </p-accordion>
+                      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" class="col-md-12"
+                        collapseIcon="pi pi-fw pi-chevron-circle-down">
+                        <p-accordionTab header="Dòng thời gian" [selected]="true">
+                          <div class="row">
+                            <div class="timeline col-md-12 timeline-content">
+                              <ul class="timeline">
+                                <li *ngFor="let note of noteHistory;let noteIndex = index;">
+                                  <i *ngIf="note.type == 'ADD'" class="fa fa-file-text-o bg-blueX color-w"></i>
+                                  <i *ngIf="note.type == 'NOT'" class="fa fa-commenting-o bg-blueX color-w"></i>
+                                  <i *ngIf="note.type == 'EDT'" class="fa fa-user bg-blueX color-w"></i>
+                                  <i *ngIf="note.type == 'NEW'" class="fa fa-user-plus bg-blueX color-w"></i>
+                                  <div class="timeline-item" id="{{note.noteId}}">
+                                    <span class="time onHover">
+                                      <i *ngIf="note.type !== 'SYS'  && (note.description !== '' && note.description !== null) && actionEditNote"
+                                        (click)="onClickEditNote(note.noteId, note.description)"
+                                        class="pi pi-pencil style-edit"
+                                        pTooltip="{{ 'lead.tooltip.edit_note' | translate }}"
+                                        tooltipPosition="bottom"></i>
+                                      <i *ngIf="actionEditNote && note.type !== 'SYS'" pTooltip="Xóa ghi chú"
+                                        tooltipPosition="bottom" (click)="onClickDeleteNote(note.noteId)"
+                                        class="pi pi-trash style-delete"></i>
+                                    </span>
+                                    <h3 class="timeline-header">
+                                      <span>
+                                        <i *ngIf="tooLong(note)"
+                                          class="trigger_node collapse-content-icon pi pi-chevron-right"
+                                          (click)="trigger_node(note.noteId,$event)" style="cursor: pointer;"
+                                          pTooltip="{{ toggle_note_label }}" tooltipPosition="bottom"></i>
+                                        <span class="alignment" style="padding: 0 12px;" *ngIf="!tooLong(note)"></span>
+                                      </span>
+                                      <div>
+                                        <img *ngIf="note" [src]="defaultAvatar" height="30" width="30" alt=""
+                                          class="timeline-user-avatar" />
+                                      </div>
+                                      <span class="note-user">{{note.responsibleName}}</span>
+                                      <p class="time-note">
+                                        {{note.noteTitle}} Lúc
+                                        {{note.createdDate |
+                                        date:'HH:mm'}}
+                                        {{ 'lead.note.day' | translate }}
+                                        {{note.createdDate | date:'dd/MM/yyyy'}}
+                                      </p>
+
+                                    </h3>
+                                    <div class="timeline-body">
+                                      <div class="note-content">
+                                        <span class="short-content" style="word-wrap: break-word;"></span>
+                                        <span class="full-content" style="display: none;word-wrap: break-word;"></span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </li>
+                              </ul>
+                              <p-paginator #paginator [rows]="10" [totalRecords]="totalRecordsNote"
+                                (onPageChange)="paginate($event)" [rowsPerPageOptions]="[10,20,30]">
+                              </p-paginator>
+                            </div>
+                          </div>
+                        </p-accordionTab>
+                      </p-accordion>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <p-dialog header="Thông tin % phân bổ ở các dự án khác" [(visible)]="displayPhanBo" [modal]="true"
+            [style]="{width: '60vw'}" [draggable]="false" [resizable]="false">
+            <p-table [columns]="cols" [value]="listPhanBoNguonLuc" [resizableColumns]="true" [style]="{width:'100%'}"
+              [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,50,100]" responsive="true" class="table-border">
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                    [ngStyle]="{'width': col.width, 'text-align': col.textAlign,'border': '1px solid #c8c8c8'}">
+                    <span>
+                      {{col.header}}
+                      <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </span>
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                  <td *ngFor="let col of columns" class="ui-resizable-column"
+                    [ngStyle]="{'width': col.width, 'text-align': col.textAlign,'border': '1px solid #c8c8c8'}"
+                    [ngSwitch]="col.field">
+                    <span *ngSwitchCase="'phanTram'">
+                      {{ rowData[col.field] | number }}
+                    </span>
+                    <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                  </td>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="footer" let-columns>
+                <tr>
+                  <td *ngFor="let col of columns"
+                    [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.width,'border': '1px solid #c8c8c8' }"
+                    [ngSwitch]="col.field">
+                    <span *ngSwitchCase="'projectName'" style="font-weight: bold; text-align: center;">
+                      <strong>{{tongPhanTramRanhRoi > 0 ? '% rảnh rỗi' : '% vượt quá'}}</strong>
+                    </span>
+                    <span *ngSwitchCase="'phanTram'" style="font-weight: bold;">
+                      <strong>{{tongPhanTramRanhRoi > 0 ? (tongPhanTramRanhRoi | number) : ((tongPhanTramRanhRoi * -1) | number)}}%</strong>
+                    </span>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </p-dialog>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <main-footer></main-footer>
+  </div>
+</div>

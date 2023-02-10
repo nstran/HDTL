@@ -1,0 +1,386 @@
+ALTER TABLE public."ServicePacketImage" ADD COLUMN IF NOT EXISTS "BackgroundImageUrl" character varying(255);
+
+ALTER TABLE public."ServicePacketImage" ADD COLUMN IF NOT EXISTS "Icon" character varying(255);
+-------------------------------------------------------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public."CustomerOrderDetailExten"
+(
+    "Id" uuid NOT NULL,
+    "OrderId" uuid NOT NULL,
+    "Name" character varying(5000) COLLATE pg_catalog."default",
+    "Quantity" numeric(18,2),
+    "Price" numeric(18,2),
+    "Status" integer NOT NULL,
+    "CreatedById" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "UpdatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone NOT NULL,
+    "TenantId" uuid NOT NULL,
+    CONSTRAINT "CustomerOrderDetailExten_pkey" PRIMARY KEY ("Id")
+);
+-------------------------------------------------------------------------------------------------------------
+ALTER TABLE IF EXISTS "ServicePacketMappingProduct" RENAME TO "ServicePacketMappingOptions";
+
+--------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public."MilestoneConfiguration"
+(
+    "Id" uuid NOT NULL,
+    "ScopeReport" character varying(255) COLLATE pg_catalog."default",
+    "Name" character varying COLLATE pg_catalog."default",
+    "ClientView" boolean,
+    "Deadline" timestamp without time zone,
+    "Status" character varying(255) COLLATE pg_catalog."default",
+    "Content" character varying COLLATE pg_catalog."default",
+    "EmployeeId" uuid,
+    "WorkingOrder" integer,
+    "Note" character varying COLLATE pg_catalog."default",
+    "CreatedById" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "UpdatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone NOT NULL,
+    "TenantId" uuid NOT NULL,
+    CONSTRAINT "MilestoneConfiguration_pkey" PRIMARY KEY ("Id")
+);
+--------------------------------------------------------
+ALTER TABLE public."MilestoneConfiguration" ADD COLUMN IF NOT EXISTS "OptionId" uuid NOT NULL;
+ALTER TABLE public."MilestoneConfiguration" ADD COLUMN IF NOT EXISTS "SortOrder" integer default 0;
+--------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS public."PermissionConfiguration"
+(
+    "Id" uuid NOT NULL,
+    "StepId" integer,
+    "ServicePackageId" uuid,
+    "EmployeeId" uuid,
+    "CreatedById" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "UpdatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone NOT NULL,
+    "TenantId" uuid NOT NULL,
+    CONSTRAINT "PermissionConfiguration_pkey" PRIMARY KEY ("Id")
+);
+--------------------------------------------------------------
+ALTER TABLE public."Employee" ADD COLUMN IF NOT EXISTS "CustomerOrderId" uuid;
+--------------------------------------------------------------
+ALTER TABLE public."ServicePacketMappingOptions" ADD COLUMN IF NOT EXISTS "ParentId" uuid;
+
+ALTER TABLE public."ServicePacketMappingOptions" ADD COLUMN IF NOT EXISTS "Name" character varying(255);
+
+ALTER TABLE "ServicePacketMappingOptions" DROP COLUMN IF EXISTS "ProductCategoryId";
+
+ALTER TABLE "ServicePacketMappingOptions" DROP COLUMN IF EXISTS "ProductId";
+
+ALTER TABLE "ServicePacketMappingOptions" DROP COLUMN IF EXISTS "PacketServiceId";
+
+ALTER TABLE public."ServicePacketMappingOptions" ADD COLUMN IF NOT EXISTS "ServicePacketId" uuid;
+
+ALTER TABLE public."ServicePacketMappingOptions" ADD COLUMN IF NOT EXISTS "OptionId" uuid;
+
+-------------------------------------------------------------------------------------------------------------
+
+
+DO $$
+BEGIN
+  IF EXISTS(SELECT *
+    FROM information_schema.columns
+    WHERE table_name='ServicePacketImage' and column_name='Url')
+  THEN
+      ALTER TABLE "public"."ServicePacketImage" RENAME COLUMN "Url" TO "MainImage";
+  END IF;
+END $$;
+
+ALTER TABLE public."ServicePacketImage" ALTER COLUMN "MainImage" TYPE character varying USING "MainImage"::character varying;
+ALTER TABLE public."ServicePacketImage" ALTER COLUMN "BackgroundImage" TYPE character varying USING "BackgroundImage"::character varying;
+ALTER TABLE public."ServicePacketImage" ALTER COLUMN "Icon" TYPE character varying USING "Icon"::character varying;
+ALTER TABLE public."ServicePacketImage" DROP COLUMN IF EXISTS "Size";
+
+
+ALTER TABLE public."CustomerOrder" ADD COLUMN IF NOT EXISTS "OrderType" integer NULL;
+ALTER TABLE public."Options" ADD COLUMN IF NOT EXISTS "VAT" numeric(5,2);
+ALTER TABLE public."Employee" ADD COLUMN IF NOT EXISTS "EmployeeType" integer;
+ALTER TABLE public."Employee" ADD COLUMN IF NOT EXISTS "Benefit" integer;
+ALTER TABLE public."Employee" ADD COLUMN IF NOT EXISTS "PercenBenefit" numeric(5,2);
+
+
+ALTER TABLE public."CustomerOrder" ADD COLUMN IF NOT EXISTS "IsOrderAction" boolean default false;
+
+
+ALTER TABLE public."ServicePacketImage" DROP COLUMN IF EXISTS "BackgroundImageUrl";
+
+
+CREATE TABLE IF NOT EXISTS public."CustomerOrderTask"
+(
+    "Id" uuid NOT NULL,
+    "ServicePacketMappingOptionsId" uuid NOT NULL,
+    "VendorId" uuid,
+    "EmpId" uuid,
+    "Note" character varying(5000) COLLATE pg_catalog."default",
+    "CreatedById" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "UpdatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone NOT NULL,
+    "TenantId" uuid NOT NULL,
+    CONSTRAINT "CustomerOrderTask_pkey" PRIMARY KEY ("Id")
+);
+
+ALTER TABLE public."CustomerOrderTask" ADD COLUMN IF NOT EXISTS "IsExtend"boolean default false;
+
+ALTER TABLE public."CustomerOrderTask" ADD COLUMN IF NOT EXISTS "OrderActionId" uuid NULL;
+
+ALTER TABLE public."CustomerOrder" ADD COLUMN IF NOT EXISTS "ObjectId" uuid NULL;
+
+ALTER TABLE public."CustomerOrderTask" ADD COLUMN IF NOT EXISTS "Path" character varying(5000);
+
+ALTER TABLE public."CustomerOrder" ALTER COLUMN "OrderCode" TYPE character varying USING "OrderCode" ::character varying(5000);
+
+
+ALTER TABLE public."FireBase" ADD COLUMN IF NOT EXISTS "OtherId" uuid NULL;
+
+
+CREATE TABLE IF NOT EXISTS public."ReportPoint"
+(
+    "Id" uuid NOT NULL,
+    "Name" character varying(5000) COLLATE pg_catalog."default",
+    "OptionId" uuid,
+    "Order" integer NOT NULL,
+    "EmpId" uuid NOT NULL,
+    "Deadline" timestamp without time zone,
+    "IsCusView" boolean default false,
+    "Content" character varying(5000) COLLATE pg_catalog."default",
+    "Status" integer default 1,
+    "OrderActionId" uuid NULL,
+    "CreatedById" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "UpdatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone NOT NULL,
+    "TenantId" uuid NOT NULL,
+    CONSTRAINT "ReportPoint_pkey" PRIMARY KEY ("Id")
+);
+
+
+delete from "Category" where "CategoryName" = 'Phê duyệt phiếu yêu cầu dịch vụ phát sinh';
+delete from "Category" where "CategoryName" = 'Thông báo kết quả cho khách hàng';
+update "Category" Set "CategoryName" = 'Hỗ trợ thực hiện dịch vụ' where "CategoryName" = 'Cập nhật trạng thái, kết quả các điểm báo cáo';
+
+
+CREATE TABLE IF NOT EXISTS public."OrderProcess"
+(
+    "Id" uuid NOT NULL,
+    "ServicePacketId" uuid,
+    "OrderProcessCode" character varying(500) COLLATE pg_catalog."default",
+    "CustomerId" uuid,
+    "ProductCategoryId" uuid,
+    "CreatedById" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "UpdatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone NOT NULL,
+    "TenantId" uuid NOT NULL,
+    "Status" integer default 1,
+    CONSTRAINT "OrderProcess_pkey" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."OrderProcessDetail"
+(
+    "Id" uuid NOT NULL,
+    "StepId" integer,
+    "ServicePacketId" uuid,
+    "CreatedById" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "UpdatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone NOT NULL,
+    "TenantId" uuid NOT NULL,
+    "RoleId" integer,
+    "CategoryId" uuid,
+    "Status" integer default 1,
+    "OrderProcessId" uuid,
+    CONSTRAINT "OrderProcessDetail_pkey" PRIMARY KEY ("Id")
+);
+
+
+ALTER TABLE public."CustomerOrder" ADD COLUMN IF NOT EXISTS "OrderProcessId" uuid NULL;
+
+
+ALTER TABLE public."ServicePacket" ADD COLUMN IF NOT EXISTS "Code" character varying(50);
+
+ALTER TABLE public."ServicePacketMappingOptions" ADD COLUMN IF NOT EXISTS "SortOrder" integer;
+
+
+ALTER TABLE public."ServicePacket" DROP COLUMN IF EXISTS "RoleId";
+
+ALTER TABLE public."ServicePacket" ADD COLUMN IF NOT EXISTS "RoleId" uuid;
+
+ALTER TABLE public."OrderProcessDetail" DROP COLUMN IF EXISTS "RoleId";
+
+ALTER TABLE public."OrderProcess" ADD COLUMN IF NOT EXISTS "ParentId" uuid NULL;
+
+ALTER TABLE public."CustomerOrder" ADD COLUMN IF NOT EXISTS "ServicePacketId" uuid NULL;
+
+ALTER TABLE public."CustomerOrderDetailExten" ADD COLUMN IF NOT EXISTS "ServicePacketId" uuid NULL;
+
+ALTER TABLE public."ReportPoint" ADD COLUMN IF NOT EXISTS "IsExtend" bool default false;
+
+CREATE TABLE IF NOT EXISTS public."VendorMappingOption"
+(
+    "Id" uuid NOT NULL,
+    "VendorId" uuid NOT NULL,
+    "OptionId" uuid NOT NULL,
+    "CreatedById" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "UpdatedById" uuid NULL,
+    "UpdatedDate" timestamp without time zone NULL,
+    "TenantId" uuid NOT NULL,
+    CONSTRAINT "VendorMappingOption_pkey" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."MobileAppConfiguration"
+(
+    "Id" uuid NOT NULL,
+    "IntroduceColor" character varying(50) COLLATE pg_catalog."default",
+    "IntroduceImageOrVideo" character varying COLLATE pg_catalog."default",
+    "IntroduceSologan" character varying(255) COLLATE pg_catalog."default",
+    "LoginAndRegisterScreenImage" character varying COLLATE pg_catalog."default",
+    "LoginScreenColor" character varying(50) COLLATE pg_catalog."default",
+    "LoginScreenIcon" character varying COLLATE pg_catalog."default",
+    "PaymentScreenIcon" character varying COLLATE pg_catalog."default",
+    "PaymentScreenType" integer,
+    "PaymentScreenContent" character varying(255) COLLATE pg_catalog."default",
+    "OrderNotificationImage" character varying COLLATE pg_catalog."default",
+    "CreatedById" uuid NOT NULL,
+    "UpdatedById" uuid NOT NULL,
+    "TenantId" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "UpdatedDate" timestamp without time zone NOT NULL,
+    CONSTRAINT "MobileAppConfiguration_pkey" PRIMARY KEY ("Id")
+);
+
+
+ALTER TABLE public."MobileAppConfiguration" ADD COLUMN IF NOT EXISTS "PaymentScreenIconVNPAY" character varying;
+ALTER TABLE public."MobileAppConfiguration" ADD COLUMN IF NOT EXISTS "IsPaymentScreenIconVNPAY" boolean;
+ALTER TABLE public."MobileAppConfiguration" ADD COLUMN IF NOT EXISTS "PaymentScreenContentVNPAY" character varying(255);
+ALTER TABLE public."MobileAppConfiguration" ADD COLUMN IF NOT EXISTS "PaymentScreenIconTransfer" character varying;
+ALTER TABLE public."MobileAppConfiguration" ADD COLUMN IF NOT EXISTS "IsPaymentScreenIconTransfer" boolean;
+ALTER TABLE public."MobileAppConfiguration" ADD COLUMN IF NOT EXISTS "PaymentScreenContentTransfer" character varying(255);
+ALTER TABLE public."MobileAppConfiguration" DROP COLUMN IF EXISTS "PaymentScreenContent";
+ALTER TABLE public."MobileAppConfiguration" DROP COLUMN IF EXISTS "PaymentScreenType";
+ALTER TABLE public."MobileAppConfiguration" DROP COLUMN IF EXISTS "PaymentScreenIcon";
+
+
+CREATE TABLE IF NOT EXISTS public."NotificationConfiguration"
+(
+    "Id" uuid NOT NULL,
+    "ServicePacketId" uuid,
+    "CategoryId" uuid,
+    "ServiceRequestMaker" boolean,
+    "ServiceManagement" boolean,
+    "ServiceSupporter" boolean,
+    "Supporter" boolean,
+    "Reporter" boolean,
+    "CreatedById" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "UpdatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone NOT NULL,
+    "TenantId" uuid NOT NULL,
+    CONSTRAINT "NotificationConfiguration_pkey" PRIMARY KEY ("Id")
+);
+
+CREATE TABLE IF NOT EXISTS public."EmployeeMappingNotificationConfiguration"
+(
+    "Id" uuid NOT NULL,
+    "EmployeeId" uuid,
+    "NotificationConfigurationId" uuid,
+    "CreatedById" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "UpdatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone NOT NULL,
+    "TenantId" uuid NOT NULL,
+    CONSTRAINT "EmployeeMappingNotificationConfiguration_pkey" PRIMARY KEY ("Id")
+);
+
+
+
+ALTER TABLE public."Employee" ADD COLUMN IF NOT EXISTS "Mission" uuid;
+
+
+ALTER TABLE public."CauHinhQuyTrinh" ADD COLUMN IF NOT EXISTS "ServicePacketId" uuid;
+
+ALTER TABLE public."CustomerOrderDetailExten" ADD COLUMN IF NOT EXISTS "Stt" integer;
+
+ALTER TABLE public."CustomerOrderTask" ADD COLUMN IF NOT EXISTS "Stt" integer;
+
+
+CREATE TABLE IF NOT EXISTS public."ManagerPacketService"
+(
+    "Id" uuid NOT NULL,
+    "PackId" uuid NOT NULL,
+    "EmployeeId" uuid NOT NULL,
+    "TenantId" uuid,
+    CONSTRAINT "ManagerPacketService_pkey" PRIMARY KEY ("Id")
+);
+
+
+CREATE TABLE IF NOT EXISTS public."OrderTaskMappingEmp"
+(
+    "Id" uuid NOT NULL,
+    "CustomerOrderTaskId" uuid NOT NULL,
+    "EmployeeId" uuid NOT NULL,
+    "TenantId" uuid,
+    CONSTRAINT "OrderTaskMappingEmp_pkey" PRIMARY KEY ("Id")
+);
+
+
+CREATE TABLE IF NOT EXISTS public."ManagerPacketService"
+(
+    "Id" uuid NOT NULL,
+    "PackId" uuid NOT NULL,
+    "EmployeeId" uuid NOT NULL,
+    "TenantId" uuid,
+    CONSTRAINT "ManagerPacketService_pkey" PRIMARY KEY ("Id")
+);
+
+ALTER TABLE public."CustomerOrderExtension" ADD COLUMN IF NOT EXISTS "ServicePacketMappingOptionsId" uuid;
+
+ALTER TABLE public."ReportPoint" ADD COLUMN IF NOT EXISTS "ServicePacketMappingOptionsId" uuid;
+
+
+ALTER TABLE public."OrderProcess" ADD COLUMN IF NOT EXISTS "RateStart" integer default 0;
+ALTER TABLE public."OrderProcess" ADD COLUMN IF NOT EXISTS "RateContent" character varying(50000) COLLATE pg_catalog."default";
+ALTER TABLE public."ReportPoint" ADD COLUMN IF NOT EXISTS "ServicePacketMappingOptionsId" uuid;
+
+ALTER TABLE public."MobileAppConfiguration" ADD COLUMN IF NOT EXISTS "PaymentScreenIconVNPAY" character varying;
+ALTER TABLE public."MobileAppConfiguration" ADD COLUMN IF NOT EXISTS "IsPaymentScreenIconVNPAY" boolean;
+ALTER TABLE public."MobileAppConfiguration" ADD COLUMN IF NOT EXISTS "PaymentScreenContentVNPAY" character varying(255);
+ALTER TABLE public."MobileAppConfiguration" ADD COLUMN IF NOT EXISTS "PaymentScreenIconTransfer" character varying;
+ALTER TABLE public."MobileAppConfiguration" ADD COLUMN IF NOT EXISTS "IsPaymentScreenIconTransfer" boolean;
+ALTER TABLE public."MobileAppConfiguration" ADD COLUMN IF NOT EXISTS "PaymentScreenContentTransfer" character varying(255);
+ALTER TABLE public."MobileAppConfiguration" DROP COLUMN IF EXISTS "PaymentScreenContent";
+ALTER TABLE public."MobileAppConfiguration" DROP COLUMN IF EXISTS "PaymentScreenType";
+ALTER TABLE public."MobileAppConfiguration" DROP COLUMN IF EXISTS "PaymentScreenIcon";
+ALTER TABLE public."MobileAppConfiguration" DROP COLUMN IF EXISTS "PaymentScreenTransfer";
+
+
+ALTER TABLE "Employee" ALTER COLUMN "PercenBenefit" TYPE NUMERIC;
+
+
+ALTER TABLE public."CustomerOrder" ADD COLUMN IF NOT EXISTS "PaymentMethodOrder" integer;
+ALTER TABLE public."CustomerOrder" ADD COLUMN IF NOT EXISTS "PaymentContent" character varying(5000);
+ALTER TABLE public."OrderProcess" DROP COLUMN IF EXISTS "RateStart";
+ALTER TABLE public."OrderProcess" ADD COLUMN IF NOT EXISTS "RateStar" integer default 0;
+
+
+ALTER TABLE public."ServicePacket" ADD COLUMN IF NOT EXISTS "Stt" integer;
+
+
+CREATE TABLE IF NOT EXISTS public."PaymentMethodConfigure"
+(
+    "Id" uuid NOT NULL,
+    "CategoryId" uuid NOT NULL,
+    "Content" character varying(50000) COLLATE pg_catalog."default",
+    "CreatedById" uuid NOT NULL,
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "UpdatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone NOT NULL,
+    "TenantId" uuid NOT NULL,
+    CONSTRAINT "PaymentMethodConfigure_pkey" PRIMARY KEY ("Id")
+);
+
+ALTER TABLE public."SystemParameter" ADD COLUMN IF NOT EXISTS "Active" bool default false;
+
+ALTER TABLE public."User" ADD COLUMN IF NOT EXISTS "DeviceId" character varying(255);

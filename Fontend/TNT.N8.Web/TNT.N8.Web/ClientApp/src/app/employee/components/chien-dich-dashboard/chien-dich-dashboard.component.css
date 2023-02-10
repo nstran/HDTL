@@ -1,0 +1,421 @@
+::ng-deep .content-wrapper {
+  background-color: #fff !important;
+}
+
+.dashboard {
+  background-color: #ffffff;
+}
+
+.dashboard .title {
+  width: 171px;
+  height: 39px;
+  font-family: 'Inter UI';
+  font-size: 32px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.dashboard .box-search {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.dashboard .text-search {
+  width: 364px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  padding-left: 10px;
+  padding-right: 30px;
+}
+
+.dashboard .customize-icons-search {
+  position: relative;
+  right: 25px;
+  top: 2px;
+  cursor: pointer;
+}
+
+.dashboard .btn-create {
+  width: 116px;
+  height: 32px;
+  border: solid 1px #c1c7cd;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+
+.dashboard .btn-create-text {
+  width: 68px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.dashboard .box-chart {
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  height: max-content;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.dashboard .box-chart-line {
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+
+.dashboard .box-chart-row {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  height: 330px;
+}
+
+.dashboard .chart-1-title {
+  height: 19px;
+  font-family: 'Inter UI';
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.dashboard .icon-chart {
+  margin-top: 50px;
+}
+
+.dashboard .rating-text {
+  font-weight: bold;
+}
+
+.dashboard .buffer-text-row {
+  margin-bottom: 5px;
+}
+
+.dashboard .color-box-icon {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  position: relative;
+  top: 3px;
+}
+
+.dashboard .color-icon {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: relative;
+  top: 3px;
+}
+
+.dashboard .color-text {
+  padding-left: 5px;
+}
+
+.dashboard .chart {
+  margin-top: 30px;
+}
+
+.dashboard .chart-infor {
+  margin-top: 20px;
+}
+
+.dashboard .chart-infor-text {
+  margin-left: 5px;
+}
+
+.dashboard .color-icon {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  position: relative;
+  border-radius: 50%;
+}
+
+.dashboard .box-table-1 {
+  min-height: 315px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.dashboard .box-table-1-title {
+  height: 19px;
+  font-family: 'Inter UI';
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.dashboard .box-table-1-handle {
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  color: #0f62fe;
+  cursor: pointer;
+}
+
+.dashboard .Double-Arrow-Left-3 {
+  position: relative;
+  right: 5px;
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.dashboard .link {
+  font-family: 'Inter UI';
+  color: #007ad9;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.dashboard .btn-create-order {
+  width: 132px;
+  height: 30px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border: solid 1px #cccccc;
+}
+
+.dashboard .btn-create-order-text {
+  width: 84px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.dashboard .no-data {
+  height: 270px;
+  border: solid 1px #d7dbe0;
+  background-color: #f2f4f8;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.dashboard .box-no-data {
+  position: relative;
+  top: 25%;
+}
+
+.dashboard .box-icon {
+  width: 57.1px;
+  height: 58px;
+  object-fit: contain;
+}
+
+.dashboard .box-table-1 {
+  min-height: 210px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+}
+
+.dashboard .box-table-2 {
+  min-height: 315px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+}
+
+.dashboard .box-table-3 {
+  min-height: auto;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+}
+
+.dashboard .infor-label {
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.dashboard .infor-value {
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.dashboard .link {
+  font-family: 'Inter UI';
+  color: #007ad9;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.dashboard .choose-month {
+  float: right;
+}
+
+.dashboard .box-calendar {
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+}
+
+.dashboard .w100 {
+  width: 200px;
+}
+
+/* ::ng-deep .dashboard .fc-time-grid-container {
+  display: none;
+}
+
+::ng-deep .fc .fc-divider {
+  display: none;
+}
+
+::ng-deep .fc-timeGrid-view .fc-day-grid .fc-row {
+  min-height: 15em;
+} */
+
+::ng-deep .dashboard .header-title .ui-dropdown {
+  background: #ffffff;
+  /* border: 1px solid #a6a6a6; */
+  border: none;
+  margin-left: 5px;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-label {
+  padding-right: 2em;
+  font-size: 32px !important;
+  font-weight: 700;
+}
+
+::ng-deep .header-title .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  /* box-shadow: 0 0 0 0.2em #8dcdff; */
+  border-color: #007ad9;
+}
+
+/* .borderless td, .borderless th {
+    border: none !important;
+} */
+
+.mt-1 {
+  margin-top: 2px;
+}
+
+.mt-7 {
+  margin-top: 7px;
+}
+
+.mt-25 {
+  margin-top: 25px;
+}
+
+::ng-deep .highcharts-credits {
+  display: none;
+}
+
+::ng-deep .dashboard .ui-progressbar .ui-progressbar-value {
+  background: #56b40b;
+}
+
+@media only screen and (max-width: 768px) {
+  .dashboard .box-search {
+    padding-bottom: 5px;
+  }
+
+  .dashboard .text-search {
+    width: calc(100% - 137px);
+  }
+
+  .dashboard .customize-icons-search {
+    right: unset;
+    left: -7%;
+    top: 3px;
+  }
+
+  .dashboard .box-chart {
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .dashboard span.ui-column-title {
+    width: 150px;
+  }
+}
+
+/*Start: Customize full calenda */
+
+::ng-deep .dashboard .fc {
+  border-left: 1px solid lightgray !important;
+  border-right: 1px solid lightgray !important;
+  background-color: white !important;
+}
+
+::ng-deep .dashboard .fc-view-container {
+  background-color: white !important;
+  border-left: 1px solid lightgray !important;
+  width: 50% !important;
+  height: 50% !important;
+  margin-left: 25% !important;
+}
+
+::ng-deep .dashboard .fc-toolbar.fc-header-toolbar {
+  background-color: white !important;
+  border: 1px solid lightgray !important;
+  box-shadow: 2px;
+}
+
+/*End: Customize full calenda */

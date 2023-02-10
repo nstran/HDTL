@@ -1,0 +1,92 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="bao-hiem-thue">
+  <form class="form-horizontal" [formGroup]="thanhVienForm" #form>
+    <div class="col-md-12 mt-1 p-0">
+      <div class="col-md-4 form-group">
+        <label>Quan hệ <span class="required">*</span>:</label>
+        <p-dropdown [options]="listQuanHe" formControlName="quanHe" [filter]="true" [resetFilterOnHide]="true"
+          placeholder="Chọn quan hệ" optionLabel="categoryName" [style]="{'width': '100%'}"
+          [ngClass]="submitted && thanhVienForm.controls.quanHe.errors ? 'error-border': ''">
+        </p-dropdown>
+        <p class="required" *ngIf="submitted && thanhVienForm.controls.quanHe.errors">{{
+          error['quanHe'] }}
+        </p>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Họ và tên <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="fullName" class="w-100"
+          [ngClass]="submitted && thanhVienForm.controls.fullName.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thanhVienForm.controls.fullName.errors">{{
+          error['fullName'] }}
+        </p>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Ngày sinh <span class="required">*</span>:</label>
+        <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2030" dateFormat="dd/mm/yy"
+          [baseZIndex]="9999" formControlName="dateOfBirth" [style]="{'width':'100%'}" showButtonBar="true"
+          [inputStyle]="{'width':'100%'}" appendTo="body" [maxDate]="maxDate"
+          [ngClass]="submitted && thanhVienForm.controls.dateOfBirth.errors ? 'error-border': ''">
+        </p-calendar>
+        <p class="required" *ngIf="submitted && thanhVienForm.controls.dateOfBirth.errors">{{
+          error['dateOfBirth'] }}
+        </p>
+      </div>
+    </div>
+    <div class="col-md-12 p-0">
+      <div class="col-md-4 form-group">
+        <label>Số điện thoại:</label>
+        <input type="text" pInputText formControlName="phone" class="w-100"
+          [ngClass]="submitted && thanhVienForm.controls.phone.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thanhVienForm.controls.phone.errors">{{
+          error['phone'] }}
+        </p>
+      </div>
+      <div class="col-md-8 form-group">
+        <label>Email:</label>
+        <input type="text" pInputText formControlName="email" class="w-100"
+          [ngClass]="submitted && thanhVienForm.controls.email.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && thanhVienForm.controls.email.errors">{{
+          error['email'] }}
+        </p>
+      </div>
+    </div>
+    <div class="col-md-12 p-0">
+      <div class="col-md-4 form-group">
+        <label>&nbsp;</label><br>
+        <p-checkbox formControlName="phuThuoc" [binary]="true" label="Người phụ thuộc" (onChange)="changePhuThuoc()">
+        </p-checkbox>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Phụ thuộc từ ngày <span class="required">*</span>:</label>
+        <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2060" dateFormat="dd/mm/yy"
+          [baseZIndex]="9999" formControlName="phuThuocTuNgay" [style]="{'width':'100%'}" showButtonBar="true"
+          [inputStyle]="{'width':'100%'}" [minDate]="thanhVienForm.get('dateOfBirth')?.value"
+          [maxDate]="thanhVienForm.get('phuThuocDenNgay')?.value" appendTo="body"
+          [ngClass]="submitted && thanhVienForm.controls.phuThuocTuNgay.errors ? 'error-border': ''">
+        </p-calendar>
+        <p class="required" *ngIf="submitted && thanhVienForm.controls.phuThuocTuNgay.errors">{{
+          error['phuThuocTuNgay'] }}
+        </p>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Phụ thuộc đến ngày:</label>
+        <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2060" dateFormat="dd/mm/yy"
+          [baseZIndex]="9999" formControlName="phuThuocDenNgay" [style]="{'width':'100%'}" showButtonBar="true"
+          [inputStyle]="{'width':'100%'}" [minDate]="thanhVienForm.get('phuThuocTuNgay')?.value" appendTo="body"
+          [ngClass]="submitted && thanhVienForm.controls.phuThuocDenNgay.errors ? 'error-border': ''">
+        </p-calendar>
+        <p class="required" *ngIf="submitted && thanhVienForm.controls.phuThuocDenNgay.errors">{{
+          error['phuThuocDenNgay'] }}
+        </p>
+      </div>
+    </div>
+    <div class="col-md-12 text-right mt-1">
+      <button pButton type="button" label="Lưu" (click)="save()"></button>
+      <button pButton type="button" label="Hủy" class="ui-button-secondary ml-1" (click)="cancel()"></button>
+    </div>
+  </form>
+</div>

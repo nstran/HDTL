@@ -1,0 +1,333 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="asset-list">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-4">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-2 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="/assets/images/product.svg" class="Money-2">
+                  </div>
+                </div>
+                <div class="col-md-10 col-xs-10">
+                  <div class="box-header-title" style="width:100%">Danh sách các đợt kiểm kê tài sản
+                  </div>
+                  <div class="box-header-subtitle">
+                    {{listDotKiemKe.length}} bản ghi - Cập nhật ngày {{todayDate}} - Sắp xếp theo thời gian phân bổ
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-12" style="text-align: right;">
+            <button type="button" class="btn-create" *ngIf="actionAdd" (click)="showTaoMoi = true;"><span
+                class="btn-create-text">Tạo mới</span></button>
+          </div>
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                <span class="btn-filter-text">Bộ lọc</span>
+              </button>
+              <input [(ngModel)]="filterGlobal" type="text" class="iput-text" placeholder="Tìm kiếm trong danh sách"
+                (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Tên đợt kiểm kê</span>
+          </div>
+          <div class="col-md-12">
+            <input [(ngModel)]="tenDotKiemKe" type="text" maxlength="500" class="w-100" pInputText />
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày bắt đầu</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="ngayBatDau" dateFormat="dd/mm/yy" showButtonBar="true" class="w-100"
+              [yearNavigator]="true" yearRange="1990:{{todayDate.getFullYear()}}" [style]="{'width':'100%'}"
+              [monthNavigator]="true" (keydown.enter)="$event.preventDefault()" [inputStyle]="{'width':'100%'}"
+              appendTo="body">
+            </p-calendar>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày kết thúc</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="ngayKetThuc" dateFormat="dd/mm/yy" showButtonBar="true" class="w-100"
+              [yearNavigator]="true" yearRange="1990:{{todayDate.getFullYear()}}" [style]="{'width':'100%'}"
+              [monthNavigator]="true" (keydown.enter)="$event.preventDefault()" [inputStyle]="{'width':'100%'}"
+              appendTo="body">
+            </p-calendar>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Trạng thái</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listTrangThaiKiemKe" [(ngModel)]="listTrangThai" defaultLabel="Chọn trạng thái"
+              [ngModelOptions]="{standalone: true}" optionLabel="name" [style]="{'width': '100%'}"
+              [resetFilterOnHide]="true" selectedItemsLabel="{0} trạng thái được chọn">
+            </p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <button type="button" class="btn-search" (click)="getMasterData()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="listDotKiemKe.length > 0" class="col-md-{{leftColNumber}} no-padding">
+      <div class="col-md-{{leftColGridNumber}}">
+        <p-table #myTable [columns]="selectedColumns" [value]="listDotKiemKe" [resizableColumns]="true"
+          columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true"
+          [scrollable]="true">
+          <ng-template pTemplate="caption">
+            <div style="text-align:left">
+              <p-multiSelect [options]="colsList" [(ngModel)]="selectedColumns" [ngModelOptions]="{standalone: true}"
+                optionLabel="header" selectedItemsLabel="{0} cột được chọn" [style]="{minWidth: '200px'}"
+                defaultLabel="Chọn cột"></p-multiSelect>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th style="width: 3.5em; text-align: center;">
+                #
+              </th>
+              <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.width }">
+                <span>
+                  {{col.header}}
+                  <p-sortIcon [field]=" col.field">
+                  </p-sortIcon>
+                </span>
+              </th>
+              <th style="width: 7em; text-align: center;">
+                Thao tác
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+            <tr>
+              <td style="width: 3.5em; text-align: center;">
+                {{index + 1}}
+              </td>
+              <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                [ngStyle]="{ 'text-align': col.textAlign, 'display': col.display, 'width': col.width }">
+                <span class="ui-column-title">{{col.header}}</span>
+                <span *ngSwitchCase="'tenDoiKiemKe'" (click)="goToDetail(rowData)" class="link">
+                  {{rowData[col.field]}}
+                </span>
+
+                <span *ngSwitchCase="'ngayBatDau'">
+                  {{ rowData[col.field] | date:'dd/MM/yyyy' }}
+                </span>
+
+                <span *ngSwitchCase="'ngayKetThuc'">
+                  {{ rowData[col.field] | date:'dd/MM/yyyy' }}
+                </span>
+
+                <span *ngSwitchCase="'trangThaiId'">
+                  <span *ngIf="rowData[col.field] == 1">Chưa bắt đầu</span>
+                  <span *ngIf="rowData[col.field] == 2">Đang thực hiện</span>
+                  <span *ngIf="rowData[col.field] == 3">Hoàn thành</span>
+                </span>
+
+                <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+              </td>
+
+              <td style="width: 7em; text-align: center;">
+                <button
+                  *ngIf="rowData['trangThaiId'] == 1 || rowData['trangThaiId'] == 0 || (rowData['trangThaiId'] ==  2 && rowData['soLuongTaiSan'] ==  0)"
+                  class="ui-button-danger" pButton icon="pi pi-trash" (click)="deleteDotKiemKe(rowData)"></button>
+              </td>
+
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+
+    </div>
+    <div *ngIf="!(listDotKiemKe.length > 0)" class="col-md-{{leftColNumber}} no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+      <div class="box-filter">
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Tên đợt kiểm kê</span>
+          </div>
+          <div class="col-md-12">
+            <input [(ngModel)]="tenDotKiemKe" type="text" maxlength="500" class="w-100" pInputText />
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày bắt đầu</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="ngayBatDau" dateFormat="dd/mm/yy" showButtonBar="true" class="w-100"
+              [yearNavigator]="true" yearRange="1990:{{todayDate.getFullYear()}}" [style]="{'width':'100%'}"
+              [monthNavigator]="true" (keydown.enter)="$event.preventDefault()" [inputStyle]="{'width':'100%'}"
+              appendTo="body">
+            </p-calendar>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Ngày kết thúc</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="ngayKetThuc" dateFormat="dd/mm/yy" showButtonBar="true" class="w-100"
+              [yearNavigator]="true" yearRange="1990:{{todayDate.getFullYear()}}" [style]="{'width':'100%'}"
+              [monthNavigator]="true" (keydown.enter)="$event.preventDefault()" [inputStyle]="{'width':'100%'}"
+              appendTo="body">
+            </p-calendar>
+          </div>
+        </div>
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <span>Trạng thái</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listTrangThaiKiemKe" [(ngModel)]="listTrangThai" defaultLabel="Chọn trạng thái"
+              [ngModelOptions]="{standalone: true}" optionLabel="name" [style]="{'width': '100%'}"
+              [resetFilterOnHide]="true" selectedItemsLabel="{0} trạng thái được chọn">
+            </p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-5">
+            <button type="button" class="btn-search" (click)="getMasterData()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<p-dialog header="Tạo mới đợt kiểm kê" [(visible)]="showTaoMoi" [modal]="true" [responsive]="true"
+  [contentStyle]="{'overflow-y': 'unset','overflow-x': 'hidden'}" class='showImportForm'
+  [style]="{width: '550px', minWidth: '250px'}" [minY]="70" [baseZIndex]="10000" [closable]="true"
+  (onHide)="showTaoMoi = false;">
+  <form [formGroup]="dotKiemKeFormGroup">
+    <div class="row buffer-bottom" style="margin-bottom:7px;">
+      <div class="col-md-12 buffer-bottom-label">
+
+        <div class="col-md-12 buffer-bottom-label">
+          <span>Tên đợt kiểm kê</span><span class="required">*</span>
+        </div>
+        <div class="col-md-12">
+          <input formControlName="tenDotKiemKeControl" type="text" maxlength="500"
+            [ngClass]="(tenDotKiemKeControl.invalid && (tenDotKiemKeControl.dirty || tenDotKiemKeControl.touched)) ? 'error-border' : ''"
+            class="w-100" pInputText />
+        </div>
+        <div class="col-md-12" [hidden]="tenDotKiemKeControl.valid || tenDotKiemKeControl.untouched">
+          <span *ngIf="tenDotKiemKeControl.hasError('required') || tenDotKiemKeControl.hasError('blankString') "
+            class="error-message-span"> Không được để trống</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row buffer-bottom" style="margin-bottom:7px;">
+      <div class="col-md-6 buffer-bottom-label">
+        <div class="col-md-12 buffer-bottom-label">
+          <span>Ngày bắt đầu</span><span class="required">*</span>
+        </div>
+        <div class="col-md-12">
+          <p-calendar formControlName="ngayBatDauControl" dateFormat="dd/mm/yy" showButtonBar="true" class="w-100"
+            [yearNavigator]="true" yearRange="1990:{{todayDate.getFullYear()}}" [style]="{'width':'100%'}"
+            [monthNavigator]="true" [minDate]='todayDate'
+            [styleClass]="(ngayBatDauControl.invalid && (ngayBatDauControl.dirty || ngayBatDauControl.touched)) ? 'error-border' : ''"
+            (keydown.enter)="$event.preventDefault()" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999999"
+            appendTo="body">
+          </p-calendar>
+        </div>
+        <div class="col-md-12" [hidden]="ngayBatDauControl.valid || ngayBatDauControl.untouched">
+          <span *ngIf="ngayBatDauControl.hasError('required') || ngayBatDauControl.hasError('blankString') "
+            class="error-message-span"> Không được để trống</span>
+        </div>
+      </div>
+
+      <div class="col-md-6 buffer-bottom-label">
+        <div class="col-md-12 buffer-bottom-label">
+          <span>Ngày kết thúc</span><span class="required">*</span>
+        </div>
+        <div class="col-md-12">
+          <p-calendar formControlName="ngayKetThucControl" dateFormat="dd/mm/yy" showButtonBar="true" class="w-100"
+            [yearNavigator]="true" yearRange="1990:{{todayDate.getFullYear()}}" [style]="{'width':'100%'}"
+            [monthNavigator]="true"
+            [styleClass]="(ngayKetThucControl.invalid && (ngayKetThucControl.dirty || ngayKetThucControl.touched)) ? 'error-border' : ''"
+            (keydown.enter)="$event.preventDefault()" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999999"
+            appendTo="body">
+          </p-calendar>
+        </div>
+        <div class="col-md-12" [hidden]="ngayKetThucControl.valid || ngayKetThucControl.untouched">
+          <span *ngIf="ngayKetThucControl.hasError('required') || ngayKetThucControl.hasError('blankString') "
+            class="error-message-span"> Không được để trống</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row buffer-bottom">
+
+    </div>
+
+  </form>
+  <p-footer>
+    <button type="button" class="btn-create" style="width: 100px; margin-right:15px" (click)="TaoDotKiemKe()"><span
+        class="btn-create-text">Lưu</span></button>
+  </p-footer>
+</p-dialog>

@@ -1,0 +1,346 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE"
+        animationDuration=".5s"></p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận"
+    rejectLabel="Không"></p-confirmDialog>
+
+<div class="mobile-app-configuration">
+    <div class="row">
+        <div class="col-md-6">
+            <span style="font-size: 24px">Cấu hình thông tin chung</span>
+        </div>
+        <div class="col-md-6">
+            <div class="actions">
+                <button type="button" class="btn-primary btn-save" (click)="save()">
+                    <span class="text-white">Lưu</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12 ">
+            <form class="form-group top-15 bottom-15 grey">
+                <p-tabView class="w-100">
+                    <p-tabPanel header="Màn hình giới thiệu" [selected]="true">
+                        <div class="col-md-1">
+                            <div class="form-group">
+                                <p class="font-weight-bold">
+                                    Màu nền
+                                </p>
+                                <p-colorPicker [ngClass]="'colorPicker'"
+                                    [(ngModel)]="mobileAppConfiguration.introduceColor" name="IntroScreenColor">
+                                </p-colorPicker>
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <p class="font-weight-bold">
+                                    Sologan
+                                </p>
+
+                                <p-editor  name="Sologan" autocomplete="off"
+                                    [(ngModel)]="mobileAppConfiguration.introduceSologan">
+                                </p-editor>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-inline-flex">
+                                <p class="description font-weight-bold w-50">
+                                    {{isImage ? 'Hình ảnh giới thiệu (1:1)' : 'Video'}}
+                                </p>
+                                <label class="container">{{isImage ? 'Hình ảnh' : 'Video'}}
+                                    <input type="checkbox" [(ngModel)]="isImage" name="isImage">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div class="image" [ngClass]="'wh375-375'" *ngIf="isImage">
+                                <img
+                                    [src]="mobileAppConfiguration.introduceImageOrVideo != undefined ? mobileAppConfiguration.introduceImageOrVideo : '/assets/images/no-product-image.jpg'">
+                            </div>
+                            <div [ngClass]="'w375'" *ngIf="isImage">
+                                <p-fileUpload name="demo[]" customUpload="true" [showCancelButton]="false"
+                                    (uploadHandler)="uploadImageIntro($event)" (onRemove)="removeImageIntro()"
+                                    chooseLabel="Chọn file" cancelLabel="Hủy file" uploadLabel="Lưu" accept="image/*"
+                                    maxFileSize="10000000">
+                                </p-fileUpload>
+                            </div>
+                            <input *ngIf="!isImage" type="text" class="form-control" name="Video" autocomplete="off"
+                                [(ngModel)]="mobileAppConfiguration.introduceImageOrVideo">
+                        </div>
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Màn hình có 2 nút đăng nhập, đăng ký">
+                        <div class="col-md-12">
+                            <p class="description font-weight-bold">
+                                Hình ảnh (1:1)
+                            </p>
+                            <div class="image" [ngClass]="'wh375-375'">
+                                <img
+                                    [src]="mobileAppConfiguration.loginAndRegisterScreenImage != undefined ? mobileAppConfiguration.loginAndRegisterScreenImage : '/assets/images/no-product-image.jpg'">
+                            </div>
+                            <div [ngClass]="'w375'">
+                                <p-fileUpload name="demo[]" customUpload="true" [showCancelButton]="false"
+                                    (uploadHandler)="uploadImageLoginAndResterScreen($event)"
+                                    (onRemove)="removeImageLoginAndResterScreen()" chooseLabel="Chọn file"
+                                    cancelLabel="Hủy file" uploadLabel="Lưu" accept="image/*" maxFileSize="10000000">
+                                </p-fileUpload>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Màn hình đăng nhập, đăng ký">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <p class="font-weight-bold">
+                                    Màu nền
+                                </p>
+                                <p-colorPicker [ngClass]="'colorPicker'" name="IntroScreenColor"
+                                    [(ngModel)]="mobileAppConfiguration.loginScreenColor">
+                                </p-colorPicker>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <p class="description font-weight-bold">
+                                Icon (1:1)
+                            </p>
+                            <div class="image" [ngClass]="'wh375-375'">
+                                <img
+                                    [src]="mobileAppConfiguration.loginScreenIcon != undefined ? mobileAppConfiguration.loginScreenIcon : '/assets/images/no-product-image.jpg'">
+                            </div>
+                            <div [ngClass]="'w375'">
+                                <p-fileUpload name="demo[]" customUpload="true" [showCancelButton]="false"
+                                    (uploadHandler)="uploadIconLogin($event)" (onRemove)="removeIconLogin()"
+                                    chooseLabel="Chọn file" cancelLabel="Hủy file" uploadLabel="Lưu" accept="image/*"
+                                    maxFileSize="10000000">
+                                </p-fileUpload>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Màn hình thanh toán">
+                        <div class="col-md-4">
+                            <p class="description font-weight-bold">
+                                Icon hình thức chuyển khoản (1:1)
+                            </p>
+                            <div class="image" [ngClass]="'wh375-375'">
+                                <img
+                                    [src]="mobileAppConfiguration.paymentScreenIconTransfer != undefined ? mobileAppConfiguration.paymentScreenIconTransfer : '/assets/images/no-product-image.jpg'">
+                            </div>
+                            <div [ngClass]="'w375'">
+                                <p-fileUpload name="demo[]" customUpload="true" [showCancelButton]="false"
+                                    (uploadHandler)="uploadIconPaymentScreenTransfer($event)"
+                                    (onRemove)="removeIconPaymentScreenTransfer()" chooseLabel="Chọn file"
+                                    cancelLabel="Hủy file" uploadLabel="Lưu" accept="image/*" maxFileSize="10000000">
+                                </p-fileUpload>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Cấu hình thanh toán">
+                        <p-table #dt [columns]="selectedColumns2" dataKey="id" [value]="listPayMent" [responsive]="true"
+                            [resizableColumns]="true" [paginator]="true" [rows]="10" editMode="row">
+                            <ng-template pTemplate="caption">
+                                <div style="text-align:right">
+                                    <button type="button" class="btn-primary btn-save">
+                                        <span class="text-white" (click)="addPaymentMethod()"> Thêm phương thức
+                                            thanh toán
+                                        </span>
+                                    </button>
+                                </div>
+                            </ng-template>
+
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+
+                                    <th style="width:30px;text-align: center;">Stt</th>
+                                    <th *ngFor="let col of columns" pResizableColumn style="border: 1px solid #cccccc;"
+                                        [ngStyle]="{ 'text-align': 'center', 'width': col.width }">
+                                        {{col.header}}
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing"
+                                let-index="rowIndex">
+
+                                <tr [pEditableRow]="rowData">
+                                    <td style="width:30px;text-align: center;">
+                                        {{ index + 1 }}</td>
+
+                                    <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
+                                        style="border: 1px solid #cccccc;"
+                                        [ngStyle]="{ 'text-align': 'center', 'width': col.width, 'overflow': 'unset' }">
+
+                                        <span class="ui-column-title">{{col.header}}</span>
+
+
+                                        <span *ngSwitchCase="'categoryName'">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+
+                                                    <p-dropdown [options]="listPayMentCategory"
+                                                        optionLabel="categoryName" [ngModelOptions]="{standalone: true}"
+                                                        [(ngModel)]="rowData['categoryObject']"
+                                                        (keydown.enter)="$event.preventDefault()" appendTo="body"
+                                                        [baseZIndex]="999999999"
+                                                        (onChange)="chosePaymentMethod($event.value,rowData)"></p-dropdown>
+
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    <span style="overflow-wrap: anywhere;">
+                                                        {{ rowData[col.field] }}
+                                                    </span>
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </span>
+
+                                        <span *ngSwitchCase="'content'">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+
+                                                    <p-editor [(ngModel)]="rowData[col.field]" 
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        [ngStyle]="{'width': '100%','height': '100px'}">
+                                                    </p-editor>
+
+
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    <span style="overflow-wrap: anywhere;">
+                                                        <div [innerHTML]="rowData[col.field]"></div>
+                                                    </span>
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </span>
+
+
+                                        <span *ngSwitchCase="'action'">
+                                            <span>
+                                                <button *ngIf="!rowData['edit']" pButton type="button" pInitEditableRow
+                                                    icon="pi pi-pencil" style="margin-left: .5em" class="ui-button-info"
+                                                    (click)="onRowEditInitChild(rowData)">
+                                                </button>
+                                                <button *ngIf="!rowData['edit']" pButton type="button"
+                                                    pCancelEditableRow icon="pi pi-trash" class="ui-button-danger"
+                                                    style="margin-left: .5em" (click)="onRowRemoveChild(rowData)">
+                                                </button>
+
+                                                <!-- Sai -->
+                                                <button
+                                                    *ngIf="rowData['edit'] && (!rowData.content || !rowData.categoryId)"
+                                                    pButton type="button" icon="pi pi-check" class="ui-button-success"
+                                                    (click)="onRowEditSaveChild(rowData, $event)"
+                                                    style="margin-left: .5em">
+                                                </button>
+
+                                                <!-- Đúng -->
+                                                <button *ngIf="rowData['edit'] && rowData.content && rowData.categoryId"
+                                                    pButton type="button" pSaveEditableRow icon="pi pi-check"
+                                                    class="ui-button-success"
+                                                    (click)="onRowEditSaveChild(rowData, $event)"
+                                                    style="margin-left: .5em">
+                                                </button>
+
+                                                <!-- Sai -->
+                                                <!-- <button
+                                                    *ngIf="rowData['edit'] && (!rowData.content || !rowData.categoryId)"
+                                                    pButton type="button" icon="pi pi-times" class="ui-button-danger"
+                                                    (click)="onRowEditCancelChild(rowData)" style="margin-left: .5em">
+                                                </button> -->
+
+                                                <!-- Đúng -->
+                                                <button *ngIf="rowData['edit']" pButton type="button" pCancelEditableRow
+                                                    icon="pi pi-times" class="ui-button-danger"
+                                                    (click)="onRowEditCancelChild(rowData)" style="margin-left: .5em">
+                                                </button>
+
+
+
+                                            </span>
+
+                                        </span>
+                                    </td>
+
+
+                                </tr>
+                            </ng-template>
+                        </p-table>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Thông báo đặt hàng thành công">
+                        <div class="col-md-12">
+                            <p class="description font-weight-bold">
+                                Hình ảnh (1:1)
+                            </p>
+                            <div class="image" [ngClass]="'wh375-375'">
+                                <img
+                                    [src]="mobileAppConfiguration.orderNotificationImage != undefined ? mobileAppConfiguration.orderNotificationImage : '/assets/images/no-product-image.jpg'">
+                            </div>
+                            <div [ngClass]="'w375'">
+                                <p-fileUpload name="demo[]" customUpload="true" [showCancelButton]="false"
+                                    (uploadHandler)="uploadImageNotice($event)" (onRemove)="removeImageNotice()"
+                                    chooseLabel="Chọn file" cancelLabel="Hủy file" uploadLabel="Lưu" accept="image/*"
+                                    maxFileSize="10000000">
+                                </p-fileUpload>
+                            </div>
+                        </div>
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Quảng cáo">
+                        <p-table #dt [columns]="selectedColumns2" 
+                            dataKey="id" 
+                            [value]="listPayMent" 
+                            [responsive]="true"
+                            [resizableColumns]="true" 
+                            [paginator]="true"
+                            [rows]="10" 
+                            editMode="row"
+                        >
+                            <ng-template pTemplate="caption">
+                                <div style="text-align:right">
+                                    <button type="button" class="btn-primary btn-save">
+                                        <span class="text-white" (click)="addAdvertisement()">Thêm</span>
+                                    </button>
+                                </div>
+                            </ng-template>
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th style="width:30px;text-align: center;">Stt</th>
+                                    <th *ngFor="let col of columns" 
+                                        pResizableColumn 
+                                        style="border: 1px solid #cccccc;"
+                                        [ngStyle]="{ 'text-align': 'center', 'width': col.width }"
+                                    >
+                                        {{col.header}}
+                                    </th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-index="rowIndex">
+                                <tr [pEditableRow]="rowData">
+                                    <td style="width:30px;text-align: center;">
+                                        {{ index + 1 }}</td>
+                                    <td *ngFor="let col of columns" 
+                                        [ngSwitch]="col.field" 
+                                        class="ui-resizable-column"
+                                        style="border: 1px solid #cccccc;"
+                                        [ngStyle]="{ 'text-align': 'center', 'width': col.width, 'overflow': 'unset' }"
+                                    >
+                                        <span class="ui-column-title">{{col.header}}</span>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </p-tabPanel>
+                </p-tabView>
+            </form>
+        </div>
+    </div>
+</div>

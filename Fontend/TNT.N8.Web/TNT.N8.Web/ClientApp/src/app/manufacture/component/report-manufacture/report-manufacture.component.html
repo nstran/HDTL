@@ -1,0 +1,439 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="manufacture-report">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="/assets/icons/components/money-2.svg" class="Money-2">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10">
+                  <div class="box-header-title d-contents">Báo cáo sản xuất</div>
+                  <div class="box-header-subtitle">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" style="border-top: 1px solid #ccc; padding-top: 12px; padding-bottom: 20px;">
+    <div class="col-md-8">
+
+      <form *ngIf="searchType === 1" [formGroup]="searchByDayForm">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Loại báo cáo</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="ReportType" [options]="listReportType" defaultLabel="Chọn loại"
+                  (onChange)="changeReportType($event)" [autoDisplayFirst]="false" optionLabel="label"
+                  [styleClass]="(searchByDayForm.get('ReportType').invalid && (searchByDayForm.get('ReportType').dirty || searchByDayForm.get('ReportType').touched)) ? 'error-border' : ''"
+                  [style]="{'width': '100%'}" [resetFilterOnHide]="true" selectedItemsLabel="{0} loại được chọn">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12">
+                <span [hidden]="searchByDayForm.get('ReportType').valid || searchByDayForm.get('ReportType').untouched"
+                  *ngIf="searchByDayForm.get('ReportType').hasError('required')" class="error-message-span">Chọn loại
+                  báo cáo</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Tổ</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="TechniqueRequest" [options]="listTechniqueRequest" defaultLabel="Chọn tổ"
+                  [styleClass]="(searchByDayForm.get('TechniqueRequest').invalid && (searchByDayForm.get('TechniqueRequest').dirty || searchByDayForm.get('TechniqueRequest').touched)) ? 'error-border' : ''"
+                  [autoDisplayFirst]="false" optionLabel="techniqueName" [style]="{'width': '100%'}"
+                  [resetFilterOnHide]="true" selectedItemsLabel="{0} tổ được chọn">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12">
+                <span
+                  [hidden]="searchByDayForm.get('TechniqueRequest').valid || searchByDayForm.get('TechniqueRequest').untouched"
+                  *ngIf="searchByDayForm.get('TechniqueRequest').hasError('required')" class="error-message-span">Chọn
+                  tổ</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Ca</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="ShiftType" [options]="listShiftType" defaultLabel="Chọn ca"
+                  [styleClass]="(searchByDayForm.get('ShiftType').invalid && (searchByDayForm.get('ShiftType').dirty || searchByDayForm.get('ShiftType').touched)) ? 'error-border' : ''"
+                  [autoDisplayFirst]="false" optionLabel="label" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                  selectedItemsLabel="{0} loại được chọn"></p-dropdown>
+              </div>
+              <div class="col-md-12">
+                <span [hidden]="searchByDayForm.get('ShiftType').valid || searchByDayForm.get('ShiftType').untouched"
+                  *ngIf="searchByDayForm.get('ShiftType').hasError('required')" class="error-message-span">Chọn
+                  ca</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Ngày</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="Date" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                  [styleClass]="(searchByDayForm.get('Date').invalid && (searchByDayForm.get('Date').dirty || searchByDayForm.get('Date').touched)) ? 'error-pcalendar' : ''"
+                  dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy" showButtonBar="true"
+                  [inputStyle]="{'width':'100%'}" [baseZIndex]="9999">
+                </p-calendar>
+              </div>
+              <div class="col-md-12">
+                <span [hidden]="searchByDayForm.get('Date').valid || searchByDayForm.get('Date').untouched"
+                  *ngIf="searchByDayForm.get('Date').hasError('required')" class="error-message-span">Chọn ngày</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <form *ngIf="searchType === 2" [formGroup]="searchByMonthForm">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Loại báo cáo</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="ReportType" [options]="listReportType" defaultLabel="Chọn loại"
+                  [styleClass]="(searchByMonthForm.get('ReportType').invalid && (searchByMonthForm.get('ReportType').dirty || searchByMonthForm.get('ReportType').touched)) ? 'error-border' : ''"
+                  (onChange)="changeReportType($event)" [autoDisplayFirst]="false" optionLabel="label"
+                  [style]="{'width': '100%'}" [resetFilterOnHide]="true" selectedItemsLabel="{0} loại được chọn">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12">
+                <span
+                  [hidden]="searchByMonthForm.get('ReportType').valid || searchByMonthForm.get('ReportType').untouched"
+                  *ngIf="searchByMonthForm.get('ReportType').hasError('required')" class="error-message-span">Chọn loại
+                  báo cáo</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Tổ</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="TechniqueRequest" [options]="listTechniqueRequest" defaultLabel="Chọn tổ"
+                  [styleClass]="(searchByMonthForm.get('TechniqueRequest').invalid && (searchByMonthForm.get('TechniqueRequest').dirty || searchByMonthForm.get('TechniqueRequest').touched)) ? 'error-border' : ''"
+                  [autoDisplayFirst]="false" optionLabel="techniqueName" [style]="{'width': '100%'}"
+                  [resetFilterOnHide]="true" selectedItemsLabel="{0} tổ được chọn">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12">
+                <span
+                  [hidden]="searchByMonthForm.get('TechniqueRequest').valid || searchByMonthForm.get('TechniqueRequest').untouched"
+                  *ngIf="searchByMonthForm.get('TechniqueRequest').hasError('required')" class="error-message-span">Chọn
+                  tổ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Năm</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown
+                (onChange)="changeYearReportByMonth($event)"
+                formControlName="Year"[filter]="true" [showClear]="true"
+                  [resetFilterOnHide]="true" [options]="listyears" optionLabel="label" [autoDisplayFirst]="false"
+                  [style]="{'width': '100%'}">
+                </p-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Tháng</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="Period" (onChange)="changePeriodReportByMonth($event)" [filter]="true"
+                  [showClear]="true" [resetFilterOnHide]="true" [options]="periods" optionLabel="name"
+                  [autoDisplayFirst]="false" [style]="{'width': '100%'}"></p-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Từ ngày</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="FromDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                  [styleClass]="(searchByMonthForm.get('FromDate').invalid && (searchByMonthForm.get('FromDate').dirty || searchByMonthForm.get('FromDate').touched)) ? 'error-pcalendar' : ''"
+                  dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy" showButtonBar="true"
+                  [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+              </div>
+              <div class="col-md-12">
+                <span [hidden]="searchByMonthForm.get('FromDate').valid || searchByMonthForm.get('FromDate').untouched"
+                  *ngIf="searchByMonthForm.get('FromDate').hasError('required')" class="error-message-span">Chọn từ
+                  ngày</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Đến ngày</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="ToDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                  [styleClass]="(searchByMonthForm.get('ToDate').invalid && (searchByMonthForm.get('ToDate').dirty || searchByMonthForm.get('ToDate').touched)) ? 'error-pcalendar' : ''"
+                  dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy" showButtonBar="true"
+                  [inputStyle]="{'width':'100%'}" [baseZIndex]="9999">
+                </p-calendar>
+              </div>
+              <div class="col-md-12">
+                <span [hidden]="searchByMonthForm.get('ToDate').valid || searchByMonthForm.get('ToDate').untouched"
+                  *ngIf="searchByMonthForm.get('ToDate').hasError('required')" class="error-message-span">Chọn đến
+                  ngày</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <form *ngIf="searchType === 3" [formGroup]="searchByYearForm">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Loại báo cáo</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="ReportType" [options]="listReportType" defaultLabel="Chọn loại"
+                  [styleClass]="(searchByYearForm.get('ReportType').invalid && (searchByYearForm.get('ReportType').dirty || searchByYearForm.get('ReportType').touched)) ? 'error-border' : ''"
+                  (onChange)="changeReportType($event)" [autoDisplayFirst]="false" optionLabel="label"
+                  [style]="{'width': '100%'}" [resetFilterOnHide]="true" selectedItemsLabel="{0} loại được chọn">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12">
+                <span
+                  [hidden]="searchByYearForm.get('ReportType').valid || searchByYearForm.get('ReportType').untouched"
+                  *ngIf="searchByYearForm.get('ReportType').hasError('required')" class="error-message-span">Chọn loại
+                  báo cáo</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Tổ</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="TechniqueRequest" [options]="listTechniqueRequest" defaultLabel="Chọn tổ"
+                  [styleClass]="(searchByYearForm.get('TechniqueRequest').invalid && (searchByYearForm.get('TechniqueRequest').dirty || searchByYearForm.get('TechniqueRequest').touched)) ? 'error-border' : ''"
+                  [autoDisplayFirst]="false" optionLabel="techniqueName" [style]="{'width': '100%'}"
+                  [resetFilterOnHide]="true" selectedItemsLabel="{0} tổ được chọn">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12">
+                <span
+                  [hidden]="searchByYearForm.get('TechniqueRequest').valid || searchByYearForm.get('TechniqueRequest').untouched"
+                  *ngIf="searchByYearForm.get('TechniqueRequest').hasError('required')" class="error-message-span">Chọn
+                  tổ</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Năm</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="Year" [filter]="true" [showClear]="true"
+                [styleClass]="(searchByYearForm.get('Year').invalid && (searchByYearForm.get('Year').dirty || searchByYearForm.get('Year').touched)) ? 'error-border' : ''"
+                  [resetFilterOnHide]="true" [options]="listyears" optionLabel="label" [autoDisplayFirst]="false"
+                  [style]="{'width': '100%'}">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12">
+                <span
+                  [hidden]="searchByYearForm.get('Year').valid || searchByYearForm.get('Year').untouched"
+                  *ngIf="searchByYearForm.get('Year').hasError('required')" class="error-message-span">Chọn
+                  năm</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <form *ngIf="searchType === 4" [formGroup]="searchByMonthAdditionalForm">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Loại báo cáo</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="ReportType" [options]="listReportType" defaultLabel="Chọn loại"
+                  [styleClass]="(searchByMonthAdditionalForm.get('ReportType').invalid && (searchByMonthAdditionalForm.get('ReportType').dirty || searchByMonthAdditionalForm.get('ReportType').touched)) ? 'error-border' : ''"
+                  (onChange)="changeReportType($event)" [autoDisplayFirst]="false" optionLabel="label"
+                  [style]="{'width': '100%'}" [resetFilterOnHide]="true" selectedItemsLabel="{0} loại được chọn">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12">
+                <span
+                  [hidden]="searchByMonthAdditionalForm.get('ReportType').valid || searchByMonthAdditionalForm.get('ReportType').untouched"
+                  *ngIf="searchByMonthAdditionalForm.get('ReportType').hasError('required')" class="error-message-span">Chọn loại
+                  báo cáo</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Tổ</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="TechniqueRequest" [options]="listTechniqueRequest" defaultLabel="Chọn tổ"
+                  [styleClass]="(searchByMonthAdditionalForm.get('TechniqueRequest').invalid && (searchByMonthAdditionalForm.get('TechniqueRequest').dirty || searchByMonthAdditionalForm.get('TechniqueRequest').touched)) ? 'error-border' : ''"
+                  [autoDisplayFirst]="false" optionLabel="techniqueName" [style]="{'width': '100%'}"
+                  [resetFilterOnHide]="true" selectedItemsLabel="{0} tổ được chọn">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12">
+                <span
+                  [hidden]="searchByMonthAdditionalForm.get('TechniqueRequest').valid || searchByMonthAdditionalForm.get('TechniqueRequest').untouched"
+                  *ngIf="searchByMonthAdditionalForm.get('TechniqueRequest').hasError('required')" class="error-message-span">Chọn
+                  tổ</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Năm</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown
+                (onChange)="changeYearReportByMonthAdditional($event)"
+                formControlName="Year"[filter]="true" [showClear]="true"
+                  [resetFilterOnHide]="true" [options]="listyears" optionLabel="label" [autoDisplayFirst]="false"
+                  [style]="{'width': '100%'}">
+                </p-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Tháng</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown formControlName="Period" (onChange)="changePeriodReportByMonthAdditional($event)" [filter]="true"
+                  [showClear]="true" [resetFilterOnHide]="true" [options]="periods" optionLabel="name"
+                  [autoDisplayFirst]="false" [style]="{'width': '100%'}"></p-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Từ ngày</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="FromDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                  [styleClass]="(searchByMonthAdditionalForm.get('FromDate').invalid && (searchByMonthAdditionalForm.get('FromDate').dirty || searchByMonthAdditionalForm.get('FromDate').touched)) ? 'error-pcalendar' : ''"
+                  dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy" showButtonBar="true"
+                  [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+              </div>
+              <div class="col-md-12">
+                <span [hidden]="searchByMonthAdditionalForm.get('FromDate').valid || searchByMonthAdditionalForm.get('FromDate').untouched"
+                  *ngIf="searchByMonthAdditionalForm.get('FromDate').hasError('required')" class="error-message-span">Chọn từ
+                  ngày</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12 mt-5">
+                <span>Đến ngày</span>
+              </div>
+              <div class="col-md-12">
+                <p-calendar formControlName="ToDate" [yearNavigator]="true" yearRange="{{minYear}}:{{currentYear}}"
+                  [styleClass]="(searchByMonthAdditionalForm.get('ToDate').invalid && (searchByMonthAdditionalForm.get('ToDate').dirty || searchByMonthAdditionalForm.get('ToDate').touched)) ? 'error-pcalendar' : ''"
+                  dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy" showButtonBar="true"
+                  [inputStyle]="{'width':'100%'}" [baseZIndex]="9999">
+                </p-calendar>
+              </div>
+              <div class="col-md-12">
+                <span [hidden]="searchByMonthAdditionalForm.get('ToDate').valid || searchByMonthAdditionalForm.get('ToDate').untouched"
+                  *ngIf="searchByMonthAdditionalForm.get('ToDate').hasError('required')" class="error-message-span">Chọn đến
+                  ngày</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+    </div>
+    <div class="col-md-4">
+      <div class="row no-margin">
+        <div class="col-md-12 mt-5">
+        </div>
+        <div class="col-md-12" style="display: flex; margin-top: 17px;">
+          <button (click)="getReport()" type="button" class="btn-create">
+            <span class="btn-create-text">Xuất báo cáo</span></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+  </div>
+</div>

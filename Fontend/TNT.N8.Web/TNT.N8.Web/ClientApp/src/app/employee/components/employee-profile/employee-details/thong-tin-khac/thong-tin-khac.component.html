@@ -1,0 +1,68 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="bao-hiem-thue">
+  <div class="row mt-10">
+    <div class="col-md-12 list-btn-edit" style="text-align: right;">
+      <i *ngIf="!isEdit && isShowButtonSua" class="pi pi-pencil icons" (click)="enabledForm()"></i>
+      <i *ngIf="isEdit" class="pi pi-check icons icons-check" (click)="saveForm()"></i>
+      <i *ngIf="isEdit" class="pi pi-times icons icons-times" (click)="disabledForm()"></i>
+    </div>
+  </div>
+  <form class="form-horizontal" [formGroup]="formGroup">
+    <p class="title-tab">Thông tin khác</p>
+    <div class="col-md-12 border-box">
+      <p class="title-tab">Thông tin phương tiện</p>
+      <div class="row form-row">
+        <div class="col-md-6 form-group">
+          <label>Biển số xe:</label>
+          <input type="text" pInputText formControlName="BienSoXe" class="w-100" />
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Loại xe:</label>
+          <input type="text" pInputText formControlName="LoaiXe" class="w-100" />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 border-box mt-3 mb-3">
+      <p class="title-tab">Thông tin thanh toán</p>
+      <div class="row form-row">
+        <div class="col-md-6 form-group">
+          <label>Chủ tài khoản ngân hàng<span class="required">*</span>:</label>
+          <input type="text" pInputText formControlName="TenChuTaiKhoan" class="w-100"
+            [ngClass]="submitted && formGroup.controls.TenChuTaiKhoan.errors ? 'error-border': ''" />
+          <p class="required" *ngIf="submitted && formGroup.controls.TenChuTaiKhoan.errors">{{
+            error['TenChuTaiKhoan'] }}
+          </p>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Số tài khoản ngân hàng <span class="required">*</span>:</label>
+          <input type="text" pInputText formControlName="SoTaiKhoan" class="w-100"
+            [ngClass]="submitted && formGroup.controls.SoTaiKhoan.errors ? 'error-border': ''" />
+          <p class="required" *ngIf="submitted && formGroup.controls.SoTaiKhoan.errors">{{
+            error['SoTaiKhoan'] }}
+          </p>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Mã ngân hàng<span class="required">*</span>:</label>
+          <input type="text" pInputText formControlName="TenNganHang" class="w-100"
+            [ngClass]="submitted && formGroup.controls.TenNganHang.errors ? 'error-border': ''" />
+          <p class="required" *ngIf="submitted && formGroup.controls.TenNganHang.errors">{{
+            error['TenNganHang'] }}
+          </p>
+        </div>
+        <div class="col-md-6 form-group">
+          <label>Tên và địa chỉ ngân hàng <span class="required">*</span>:</label>
+          <input type="text" pInputText formControlName="DiaChiNganHang" class="w-100"
+            [ngClass]="submitted && formGroup.controls.DiaChiNganHang.errors ? 'error-border': ''" />
+          <p class="required" *ngIf="submitted && formGroup.controls.DiaChiNganHang.errors">{{
+            error['DiaChiNganHang'] }}
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>

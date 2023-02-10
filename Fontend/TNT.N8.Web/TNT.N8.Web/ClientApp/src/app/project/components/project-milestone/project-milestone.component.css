@@ -1,0 +1,902 @@
+.project-milestone {
+    width: 100%;
+    box-shadow: 0 1px 2px 0 rgba(18, 22, 25, 0.08);
+    /* border: solid 1px #c1c7cd; */
+    /* background-color: #ffffff; */
+}
+
+.content {
+    padding: 30px;
+}
+
+.project-milestone .box-header {
+    width: 100%;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+    border-radius: 4px;
+    /* background-image: linear-gradient(to top, #f2f4f8, #dde1e6); */
+}
+
+.project-milestone .project-infor {
+    width: 100%;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+    border-radius: 4px;
+    margin-top: 15px;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.project-milestone .box-content {
+    width: 100%;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+
+.project-milestone .cancel {
+    /* width: 64px; */
+    min-width: 90px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+    margin-left: 10px;
+    float: right;
+}
+
+.project-milestone .text-title {
+    width: 152px;
+    height: 17px;
+    font-family: 'Inter UI';
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    text-align: left;
+    color: #121619;
+}
+
+.project-milestone .ios-print {
+    width: 17.5px;
+    height: 17.5px;
+    object-fit: contain;
+    float: right;
+    cursor: pointer;
+}
+
+::ng-deep .project-milestone .milestone-content .ui-progressbar {
+    height: 14px;
+}
+
+::ng-deep .project-milestone .detail-milestone .ui-progressbar {
+    height: 14px;
+}
+
+::ng-deep .project-milestone .ui-progressbar .ui-progressbar-value {
+    background: #56b40b;
+}
+
+::ng-deep .project-milestone .ui-splitbutton .ui-button-text-only {
+    display: none;
+}
+
+::ng-deep .project-milestone .ui-buttonset.ui-button-secondary>.ui-button.ui-state-default {
+    border-radius: 50% !important;
+    height: 28px !important;
+    width: 28px !important;
+    background-color: #d7dbe0;
+    font-size: 12px;
+    margin: 0 10px;
+    position: relative;
+    top: -6px;
+}
+
+::ng-deep .project-milestone .box-task .ui-buttonset.ui-button-secondary>.ui-button.ui-state-default {
+    border-radius: 50% !important;
+    height: 22px !important;
+    width: 22px !important;
+    background-color: #d7dbe0;
+    font-size: 9px;
+    margin-right: 5px;
+}
+
+.project-milestone .box-header-group {
+    margin-top: 10px;
+}
+
+.project-milestone .box-header-icon {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    background-color: #0f62fe;
+    text-align: center;
+}
+
+.project-milestone .Money-2 {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.project-milestone .box-header-title {
+    width: 220px;
+    height: 24px;
+    font-family: 'Inter UI';
+    font-size: 18px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: left;
+    color: #121619;
+}
+
+.project-milestone .box-header-title-2 {
+    height: 24px;
+    font-family: 'Inter UI';
+    font-size: 17px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-align: left;
+    color: #121619;
+}
+
+.project-milestone .box-header-subtitle {
+    font-family: 'Inter UI';
+    font-size: 11px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.36;
+    letter-spacing: normal;
+    text-align: left;
+    color: #4d5358;
+}
+
+.project-milestone .box-header-group-btn {
+    text-align: right;
+    padding-top: 5px;
+}
+
+.project-milestone .btn-refresh {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+}
+
+.project-milestone .ios-refresh {
+    width: 12px;
+    height: 14px;
+    object-fit: contain;
+}
+
+.project-milestone .btn-filter {
+    width: 104px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #007aff;
+    background-color: #007aff;
+    margin-left: 5px;
+}
+
+.project-milestone .ios-funnel {
+    width: 12.3px;
+    height: 11.3px;
+    object-fit: contain;
+    margin-right: 5px;
+}
+
+.project-milestone .btn-filter-text {
+    width: 36px;
+    height: 13px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+    text-align: left;
+    color: #ffffff;
+}
+
+.project-milestone .iput-text {
+    width: 248px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #f2f4f8;
+    padding-left: 5px;
+    margin-left: 5px;
+}
+
+.project-milestone .box-filter {
+    border: solid 1px #c1c7cd;
+    background-color: #f2f4f8;
+    padding: 10px 0px;
+}
+
+.project-milestone .quote-code-text {
+    width: 100%;
+    height: 32px;
+    font-family: 'Inter UI';
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+    padding-left: 5px;
+}
+
+.project-milestone .mt-3 {
+    margin-top: 3px;
+}
+
+.project-milestone .mt-5 {
+    margin-top: 5px;
+}
+
+.project-milestone .mt-7 {
+    margin-top: 7px;
+}
+
+.project-milestone .mt-10 {
+    margin-top: 10px;
+}
+
+.project-milestone .mt-20 {
+    margin-top: 20px;
+}
+
+.project-milestone .mb-10 {
+    margin-bottom: 10px;
+}
+
+.project-milestone .row-content {
+    line-height: 18px;
+    font-size: 13px;
+    font-weight: 400;
+}
+
+/* Config rows Per Page Options */
+
+::ng-deep .project-milestone .ui-inputtext {
+    padding: 0.3em;
+}
+
+.project-milestone .link {
+    font-family: 'Inter UI';
+    color: #007ad9;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.project-milestone .no-data {
+    height: 330px;
+    border: solid 1px #d7dbe0;
+    background-color: #f2f4f8;
+    text-align: center;
+}
+
+.project-milestone .box-no-data {
+    position: relative;
+    top: 25%;
+}
+
+.project-milestone .box-icon {
+    width: 57.1px;
+    height: 58px;
+    object-fit: contain;
+}
+
+.project-milestone .sp-button-right {
+    float: right;
+}
+
+.project-milestone .project-name {
+    width: 119px;
+    height: 20px;
+    font-family: 'Inter UI';
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2.25;
+    letter-spacing: normal;
+    text-align: left;
+    color: #121619;
+}
+
+.project-milestone .infor-label {
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+    text-align: left;
+    color: #121619;
+}
+
+.project-milestone .infor-value {
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: 600;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.46;
+    letter-spacing: normal;
+    text-align: left;
+    color: #121619;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.project-milestone .milestone-content-create {
+    height: 275px;
+    background-color: #ffffff;
+    border: 1px solid #B5AFAF;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.project-milestone .milestone-content {
+    height: 275px;
+    background-color: #ffffff;
+    border: 1px solid #B5AFAF;
+    margin-top: 10px;
+}
+
+::ng-deep .project-milestone .milestone-content .ui-progressbar .ui-progressbar-label {
+    margin-top: 0;
+    color: #333333;
+    line-height: 16px;
+    font-size: 10px;
+}
+
+::ng-deep .project-milestone .detail-milestone .ui-progressbar .ui-progressbar-label {
+    margin-top: 0;
+    color: #333333;
+    line-height: 16px;
+    font-size: 10px;
+}
+
+.project-milestone .icon-milestone {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    height: 60%;
+}
+
+.project-milestone .text-title-create {
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.borderless td, .borderless th {
+    border: none !important;
+}
+
+.project-milestone .hr-milestone {
+    height: 1px;
+    background-color: #B5AFAF;
+    margin-top: 5px;
+}
+
+.project-milestone .remote-control {
+    border-top: 1px solid #B5AFAF;
+}
+
+.project-milestone .overlay-control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.project-milestone .overlay-control .overlay {
+    background-color: rgba(96, 133, 204, 1);
+    overflow: hidden;
+    width: 100%;
+    height: 100px;
+    transform: scale(0);
+    transition: 0.34s ease;
+    z-index: 1500;
+}
+
+.project-milestone .overlay-control .overlay-complete {
+    background-color: rgba(96, 133, 204, 1);
+    overflow: hidden;
+    width: 100%;
+    height: 40px;
+    transform: scale(0);
+    transition: 0.34s ease;
+    z-index: 1500;
+}
+
+.project-milestone .remote-control:hover .overlay {
+    transform: scale(1);
+}
+
+.project-milestone .remote-control:hover .overlay-complete {
+    transform: scale(1);
+}
+
+.project-milestone .text-control {
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.project-milestone .header-milstone {
+    cursor: pointer;
+}
+
+.project-milestone .box-task {
+    height: 450px;
+    border: 1px solid #B5AFAF;
+    overflow-y: auto;
+}
+
+.project-milestone ul {
+    padding: none;
+    margin: none;
+}
+
+.project-milestone .detail-milestone ul>li {
+    list-style: none;
+    padding: 10px 10px;
+    border: 1px solid #323232;
+    margin: 15px 5px;
+    background-color: #F4F1F1;
+    box-shadow: 5px 5px 2px #F7F5F5;
+    cursor: move;
+    border-radius: 4px;
+}
+
+.project-milestone .icon-comment {
+    font-size: 2em;
+    position: relative;
+    top: 12px;
+}
+
+.project-milestone .icon-user {
+    font-size: 1.5em;
+    position: relative;
+    top: 3px;
+}
+
+.project-milestone .icon-clock {
+    font-size: 2em;
+    position: relative;
+    top: 6px;
+}
+
+.project-milestone .resource-infor {
+    text-align: end;
+}
+
+::ng-deep .project-milestone .ui-selectbutton .ui-button {
+    background-color: white;
+    height: 38px;
+    width: 145px;
+}
+
+::ng-deep .project-milestone .ui-button.ui-button-text-only .ui-button-text {
+    padding: 0.72em 1em
+}
+
+/* Máy để bàn */
+
+/*Begin: Customize Accordion */
+
+::ng-deep .project-milestone .ui-accordion .ui-accordion-header a {
+    border: 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+    font-size: 16px;
+}
+
+::ng-deep .project-milestone .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    background-color: #ffffff !important;
+    border: 1px solid #ffffff !important;
+    color: #121619 !important;
+}
+
+::ng-deep .project-milestone .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+}
+
+::ng-deep .project-milestone .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+}
+
+::ng-deep .project-milestone .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    color: #121619 !important;
+}
+
+::ng-deep .project-milestone .ui-accordion .ui-accordion-content {
+    border: 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+::ng-deep .project-milestone .ui-carousel .ui-carousel-content .ui-carousel-item .car-details>.p-grid {
+    border: 1px solid #b3c2ca;
+    border-radius: 3px;
+    margin: 0.3em;
+    text-align: center;
+    padding: 2em 0 2.25em 0;
+}
+
+::ng-deep .project-milestone .ui-carousel .ui-carousel-content .ui-carousel-item .car-data .car-title {
+    font-weight: 700;
+    font-size: 20px;
+    margin-top: 24px;
+}
+
+::ng-deep .project-milestone .ui-carousel .ui-carousel-content .ui-carousel-item .car-data .car-subtitle {
+    margin: 0.25em 0 2em 0;
+}
+
+::ng-deep .project-milestone .ui-carousel .ui-carousel-content .ui-carousel-item .car-data button {
+    margin-left: 0.5em;
+}
+
+::ng-deep .project-milestone .ui-carousel .ui-carousel-content .ui-carousel-item .car-data button:first-child {
+    margin-left: 0;
+}
+
+::ng-deep .project-milestone .ui-carousel.custom-carousel .ui-carousel-dot-icon {
+    width: 16px !important;
+    height: 16px !important;
+    border-radius: 50%;
+}
+
+::ng-deep .project-milestone .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-start .car-details>.p-grid {
+    margin-left: 0.6em;
+}
+
+::ng-deep .project-milestone .ui-carousel.ui-carousel-horizontal .ui-carousel-content .ui-carousel-item.ui-carousel-item-end .car-details>.p-grid {
+    margin-right: 0.6em;
+}
+
+.project-milestone .time-line {
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding-bottom: 10px;
+}
+
+.project-milestone .btn-cancel-note {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+}
+
+.project-milestone .save-cancel-lable {
+    width: 24px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #121619;
+}
+
+.project-milestone .btn-save-note {
+    width: 158px;
+    height: 32px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border: solid 1px #cccccc;
+    margin-left: 5px;
+}
+
+.project-milestone .save-note-lable {
+    width: 110px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+/*End: Customize Accordion */
+
+/* CSS time line */
+
+.project-milestone .timeline>li {
+    margin-right: 0 !important;
+}
+
+.project-milestone .style-delete {
+    color: #FE747A;
+    cursor: pointer;
+    font-size: 1.55em;
+}
+
+.project-milestone .style-edit {
+    cursor: pointer;
+    font-size: 1.55em;
+}
+
+.project-milestone .note-user {
+    font-family: 'Inter UI';
+    font-weight: bold;
+}
+
+.project-milestone .timeline>li>.timeline-item {
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.project-milestone .timeline-content {
+    margin-top: 20px;
+}
+
+.project-milestone .bg-blueX {
+    background-color: #4E6BA5 !important;
+}
+
+.project-milestone .color-w {
+    color: #fff !important;
+}
+
+.project-milestone .timeline-item .onHover {
+    display: none;
+}
+
+.project-milestone .timeline-item:hover .onHover {
+    display: block;
+}
+
+.project-milestone .material-icons {
+    cursor: pointer;
+}
+
+.project-milestone .timeline-user-avatar {
+    border-radius: 50%;
+    margin-right: 5px;
+    float: left;
+}
+
+.project-milestone .note-title {
+    font-size: 11px !important;
+    color: #222 !important;
+    font-weight: normal !important;
+}
+
+.project-milestone .time-note {
+    font-size: 10px !important;
+    color: #5d5a5a !important;
+    font-weight: normal !important;
+}
+
+.project-milestone .timeline-body {
+    padding: 10px 15px;
+}
+
+.project-milestone .file-upload-zone .col-md-4:nth-child(3n+1) {
+    padding-right: 5px !important;
+}
+
+.project-milestone .file-upload-zone .col-md-4:nth-child(3n+2) {
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+}
+
+.project-milestone .file-upload-zone .col-md-4:nth-child(3n) {
+    padding-left: 5px !important;
+}
+
+.project-milestone .file-upload-zone .col-md-4:nth-child(3n+1) {
+    padding-right: 5px !important;
+}
+
+.project-milestone .file-upload-zone .col-md-4:nth-child(3n+2) {
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+}
+
+.project-milestone .file-upload-zone .col-md-4:nth-child(3n) {
+    padding-left: 5px !important;
+}
+
+.project-milestone .file-item div:nth-child(1), .project-milestone .file-item div:nth-child(3) {
+    padding-left: 0 !important;
+}
+
+.project-milestone .file-item div:nth-child(2) {
+    padding: 0 5px !important;
+}
+
+.project-milestone .item-name {
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}
+
+.project-milestone .preview-doc {
+    cursor: pointer;
+}
+
+.project-milestone .box-search {
+    text-align: right;
+    margin-top: 15px;
+}
+
+.project-milestone .text-search {
+    width: 364px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #dde1e6;
+    background-color: #ffffff;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.project-milestone .btn-create {
+    width: 116px;
+    height: 32px;
+    border: solid 1px #c1c7cd;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    margin-left: 5px;
+}
+
+.project-milestone .btn-create-text {
+    width: 68px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+/* End */
+
+@media only screen and (min-width: 1025px) and (max-width: 1423px) {
+    .project-milestone .width-status {
+        width: 60%;
+    }
+}
+
+/* Ipad Pro */
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .project-milestone .box-header-icon {
+        width: 27px;
+        height: 27px;
+    }
+    .project-milestone .Money-2 {
+        width: 50px;
+        height: 50px;
+    }
+    .project-milestone .iput-text {
+        margin-top: 5px;
+    }
+    .project-milestone .width-status {
+        width: 100%;
+    }
+}
+
+/* Ipad */
+
+@media only screen and (min-width: 415px) and (max-width: 768px) {
+    .project-milestone .btn-create {
+        margin-top: 5px;
+    }
+    .project-milestone .width-status {
+        width: 100%;
+    }
+}
+
+/* Iphone 6/7/8 Plus */
+
+@media only screen and (min-width: 376px) and (max-width: 414px) {
+    .project-milestone .iput-text {
+        margin-top: 5px;
+    }
+    .project-milestone .btn-filter {
+        width: auto;
+    }
+    .project-milestone .width-status {
+        width: 100%;
+    }
+}
+
+/* Iphone 6/7/8/X */
+
+@media only screen and (max-width: 375px) {
+    .project-milestone .iput-text {
+        margin-top: 5px;
+    }
+    .project-milestone .btn-filter {
+        width: auto;
+    }
+    .project-milestone .iput-text {
+        width: 210px;
+    }
+    .project-milestone span.ui-column-title {
+        width: 150px;
+    }
+    .project-milestone .width-status {
+        width: 100%;
+    }
+}
+
+::ng-deep .item-name {
+  display: flex;
+  color: black;
+  font-weight: 700;
+  width: auto;
+}
+.project-milestone .btn-flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.project-milestone .btn-remove {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+}
+
+/*Begin: Customize dropdown */
+
+::ng-deep .project-milestone .header-title .ui-dropdown {
+    background: #ffffff;
+    /* border: 1px solid #a6a6a6; */
+    border: none;
+    margin-left: 5px;
+  }
+  
+  ::ng-deep .header-title .ui-dropdown .ui-dropdown-label {
+    padding-right: 2em;
+    font-size: 16px !important;
+    font-weight: bold;
+  }
+  
+  ::ng-deep .header-title .ui-dropdown .ui-dropdown-panel {
+    width: max-content !important;
+  }
+  
+  ::ng-deep .header-title .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
+    outline: 0 none;
+    outline-offset: 0;
+    /* box-shadow: 0 0 0 0.2em #8dcdff; */
+    border-color: #007ad9;
+  }
+  
+  /*End: Customize dropdown */

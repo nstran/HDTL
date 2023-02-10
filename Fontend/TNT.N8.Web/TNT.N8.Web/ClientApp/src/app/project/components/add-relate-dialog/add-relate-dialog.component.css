@@ -1,0 +1,95 @@
+.add-constraint .top-buffer {
+    margin-top: 1.2rem;
+}
+
+.add-constraint .bottom-buffer {
+    margin-bottom: 1.2rem;
+}
+
+.add-constraint .full-width {
+    width: 100% !important;
+}
+
+.add-constraint .buffer-bottom-label {
+    margin-top: 6px;
+}
+
+.add-constraint .error-message-span, .add-constraint .required {
+    color: red;
+}
+
+.add-constraint .mr-5 {
+    margin-right: 5px;
+}
+
+.add-constraint .mr-3 {
+    margin-right: 3px;
+}
+
+.box-time {
+    border: 1px solid gray;
+    margin-bottom: 5px;
+    border-radius: 4px;
+    background-color: lightgray;
+}
+
+.lable-time {
+    padding: 0 5px;
+    font-style: bold;
+    width: 100%;
+    font-weight: 600;
+}
+
+.add-constraint .btn-remove {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    border: solid 1px #c1c7cd;
+    background-color: #ffffff;
+}
+
+.add-constraint .btn-remove-text {
+    width: 24px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #121619;
+}
+
+.add-constraint .btn-save {
+    width: 72px;
+    height: 32px;
+    border-radius: 4px;
+    box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border: solid 1px #cccccc;
+    margin-left: 5px;
+}
+
+.add-constraint .btn-save-text {
+    width: 24px;
+    height: 16px;
+    font-family: 'Inter UI';
+    font-size: 13px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.15;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+}
+
+.add-constraint .ui-button-secondary {
+    background-color: lightgray;
+}
+
+.mt-6 {
+    margin-top: 6px;
+}

@@ -1,0 +1,94 @@
+.dxxn .header-page {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.dxxn .header-box-icon {
+  display: inline-flex;
+}
+
+.dxxn .header-icon {
+  width: 25px;
+  height: 25px;
+}
+
+.dxxn .page-title {
+  font-weight: 700;
+  font-size: 18px;
+  padding-left: 0.5em;
+}
+
+.dxxn .mt-5 {
+  margin-top: 5px;
+}
+
+.dxxn .mt-10 {
+  margin-top: 10px;
+}
+
+.dxxn .mt-20 {
+  margin-top: 20px;
+}
+
+.dxxn .btn-white {
+  width: 112px;
+  height: 31px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-right: 5px;
+  color :#121619;
+  font-size: 13px;
+}
+
+.dxxn .btn-create {
+  width: 112px;
+  height: 31px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #14eba1;
+  margin-right: 5px;
+  color :#121619;
+  font-size: 13px;
+}
+
+.dxxn .btn-send {
+  float: right;
+  width: 112px;
+  height: 31px;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  color: #ffffff;
+  font-size: 13px;
+}
+
+.dxxn .section-box {
+	background-color: #fff;
+	border: solid 1px #ccc;
+	padding: 10px 10px;
+	border-radius: 4px;
+}
+
+.dxxn .section-title {
+	font-weight: 700;
+  font-size: 14px;
+}
+
+::ng-deep .dxxn legend {
+  width: auto;
+  font-size: 13px;
+  font-weight: 900;
+  border-bottom: 0px;
+  margin-bottom: 0;
+}
+
+::ng-deep .dxxn .ui-fieldset {
+  border: 2px solid #c8c8c8;
+  margin-bottom: 15px;
+}

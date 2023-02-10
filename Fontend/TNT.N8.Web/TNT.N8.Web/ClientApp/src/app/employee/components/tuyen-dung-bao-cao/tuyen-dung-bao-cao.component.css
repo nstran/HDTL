@@ -1,0 +1,406 @@
+.bao-cao {
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(18, 22, 25, 0.08);
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.bao-cao .box-header {
+  width: 100%;
+  background-image: linear-gradient(to top, #f2f4f8, #dde1e6);
+}
+
+.bao-cao .btn-export {
+  float: right;
+  width: 98px;
+  height: 31px;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: white;
+}
+
+.bao-cao .btn-export-excel {
+  min-width: 122px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #007aff;
+  background-color: #007aff;
+  margin-left: 5px;
+}
+
+.bao-cao .btn-export-pdf {
+  min-width: 122px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #007aff;
+  background-color: #007aff;
+  margin-left: 5px;
+}
+
+.bao-cao .btn-create {
+  float: right;
+  width: 98px;
+  height: 31px;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+
+.bao-cao .btn-export-text {
+  width: 50px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: none;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: black;
+}
+
+.bao-cao .btn-create-text {
+  width: 50px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.bao-cao .box-header-group {
+  margin-top: 10px;
+}
+
+.bao-cao .box-header-icon {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: #0f62fe;
+  text-align: center;
+}
+
+.bao-cao .Money-2 {
+  width: 20.4px;
+  height: 18.5px;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.bao-cao .box-header-title {
+  width: auto;
+  /* height: 24px; */
+  font-family: 'Inter UI';
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.bao-cao .noun-product {
+  width: 20.4px;
+  height: 18.5px;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.bao-cao .box-header-subtitle {
+  font-family: 'Inter UI';
+  font-size: 11px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.36;
+  letter-spacing: normal;
+  text-align: left;
+  color: #4d5358;
+}
+
+.bao-cao .box-header-group-btn {
+  text-align: right;
+  padding-top: 5px;
+}
+
+.bao-cao .btn-refresh {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.bao-cao .ios-refresh {
+  width: 12px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.bao-cao .btn-filter {
+  min-width: 104px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #007aff;
+  background-color: #007aff;
+  margin-left: 5px;
+}
+
+.bao-cao .ios-funnel {
+  width: 12.3px;
+  height: 11.3px;
+  object-fit: contain;
+  margin-right: 5px;
+}
+
+.bao-cao .btn-filter-text {
+  width: 36px;
+  height: 13px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.bao-cao .iput-text {
+  width: 248px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding-left: 5px;
+  margin-left: 5px;
+}
+
+.bao-cao .box-filter {
+  border: solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding: 10px 0px;
+}
+
+.bao-cao .bank-payments-code-text {
+  width: 100%;
+  height: 32px;
+  font-family: 'Inter UI';
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  padding-left: 5px;
+}
+
+.bao-cao .mt-5 {
+  margin-top: 5px;
+}
+
+.bao-cao .btn-search {
+  width: 72px;
+  height: 32px;
+  border: solid 1px #cccccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+
+.bao-cao .btn-search:focus {
+  border-color: #007ad9;
+  outline: 0 none;
+}
+
+.bao-cao .btn-search-text {
+  width: 36px;
+  height: 13px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.bao-cao .link {
+  font-family: 'Inter UI';
+  color: #007ad9;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.bao-cao .no-data {
+  height: 435px;
+  border: solid 1px #d7dbe0;
+  background-color: #f2f4f8;
+  text-align: center;
+}
+
+.bao-cao .box-no-data {
+  position: relative;
+  top: 25%;
+}
+
+.bao-cao .box-icon {
+  width: 57.1px;
+  height: 58px;
+  object-fit: contain;
+}
+.bao-cao span.ui-column-title{
+  width: 100px;
+}
+::ng-deep .bao-cao .ui-datepicker {
+  top: 0px !important;
+  left: -188px !important;
+}
+
+/* Máy để bàn */
+
+@media only screen and (min-width: 1025px) and (max-width: 1423px) {}
+
+/* Ipad Pro */
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+  .bao-cao .box-header-icon {
+    width: 27px;
+    height: 27px;
+  }
+  .bao-cao .Money-2 {
+    width: 15.4px;
+    height: 11.5px;
+    margin-top: 7px;
+  }
+  .bao-cao .iput-text {
+    margin-top: 5px;
+  }
+}
+
+/* Ipad */
+
+@media only screen and (min-width: 375px) and (max-width: 768px) {
+  .bao-cao .btn-create {
+    margin-top: 5px;
+  }
+}
+
+/* Iphone 6/7/8 Plus */
+
+@media only screen and (min-width: 375px) and (max-width: 414px) {
+  .bao-cao .iput-text {
+    margin-top: 5px;
+  }
+  .bao-cao .box-header-subtitle {
+    height: auto;
+    font-size: 13px;
+    margin: 5px 0px;
+  }
+
+  /* .bao-cao .btn-export-excel {
+    min-width: auto;
+  }
+
+  .bao-cao .btn-export-pdf {
+    min-width: auto
+  }
+
+  .bao-cao .btn-filter {
+    min-width: auto
+  } */
+
+}
+
+/* Iphone 6/7/8/X */
+
+@media only screen and (max-width: 374px) {
+  .bao-cao .box-header-subtitle {
+    height: auto;
+    font-size: 12px;
+    margin: 5px 0px;
+  }
+
+  /* .bao-cao .btn-export-excel {
+    min-width: auto;
+  }
+
+  .bao-cao .btn-export-pdf {
+    min-width: auto
+  }
+
+  .bao-cao .btn-filter {
+    min-width: auto
+  } */
+}
+
+
+.bao-cao {
+  display: flow-root;
+  background-color: #FFF;
+  padding: 10px 0;
+  border: 1px solid #c1c7cd;
+  border-radius: 5px;
+}
+
+.bao-cao .bc-title {
+  font-weight: 700;
+  font-size: 15px;
+  text-transform: uppercase;
+}
+
+::ng-deep .bao-cao .ui-table .ui-table-thead>tr>th {
+  border-right: 1px solid #c1c7cd !important;
+  border-bottom: 1px solid #c1c7cd !important;
+}
+
+::ng-deep .bao-cao .ui-table .ui-table-tbody>tr>td {
+  border-right: 1px solid #c1c7cd !important;
+}
+
+.bao-cao .mt-10 {
+  margin-top: 10px;
+}
+
+.bao-cao .mt-20 {
+  margin-top: 20px;
+}
+
+.bao-cao .mb-10 {
+  margin-bottom: 10px;
+}
+
+::ng-deep .bao-cao .ui-inputnumber {
+  width: 100% !important;
+}
+
+::ng-deep .bao-cao .ui-inputnumber-input {
+  text-align: right !important;
+}
+
+::ng-deep .bao-cao .dt2 .ui-table-scrollable-header-box {
+  padding-right: 0px !important;
+}
+
+::ng-deep .bao-cao legend {
+  width: auto;
+  font-size: 13px;
+  font-weight: 900;
+  border-bottom: 0px;
+  margin-bottom: 0;
+}
+
+::ng-deep .bao-cao .ui-fieldset {
+  border: 2px solid #c8c8c8;
+  margin-bottom: 15px;
+}

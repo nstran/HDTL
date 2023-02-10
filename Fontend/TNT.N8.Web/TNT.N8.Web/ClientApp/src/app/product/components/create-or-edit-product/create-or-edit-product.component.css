@@ -1,0 +1,89 @@
+.margin-auto {
+  margin: auto;
+  float: right;
+}
+
+.actions {
+  float: right;
+}
+
+.btn-back {
+  border-radius: 4px;
+  border: 1px solid #000;
+  box-shadow: 0 1px 1px 0 rgb(18 22 25 / 8%);
+  background-color: #fff;
+  padding: 0.65rem 1rem;
+  margin-right: 10px;
+}
+
+.btn-edit {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 1px 0 rgb(18 22 25 / 8%);
+  background-color: #5867dd;
+  padding: 0.65rem 1rem;
+  margin-right: 10px;
+}
+
+.btn-save {
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 1px 0 rgb(18 22 25 / 8%);
+  background-color: #5867dd;
+  padding: 0.65rem 1rem;
+  margin-right: 10px;
+}
+
+.text-black {
+  color: #000;
+}
+
+.text-white {
+  color: #fff;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.service-infor {
+  padding-bottom: 20px;
+}
+
+.service-type {
+  padding-bottom: 10px;
+}
+
+.description {
+  padding-top: 20px;
+}
+
+.mt-2 {
+  margin-top: 20px;
+}
+
+.row-dialog {
+  padding: 15px 0 15px 0;
+}
+
+p-header {
+  font-size: 16px;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+p-inputswitch {
+  position: absolute;
+  top: 50%;
+}
+
+validation-messages {
+  position: absolute;
+}

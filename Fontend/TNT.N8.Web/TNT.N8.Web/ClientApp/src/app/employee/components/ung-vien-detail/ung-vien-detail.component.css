@@ -1,0 +1,523 @@
+::ng-deep .content-wrapper {
+  background-color: #fff !important;
+}
+
+.ung-vien {
+  font-family: "Inter UI";
+}
+
+.ung-vien .link {
+  font-family: 'Inter UI';
+  color      : #007ad9;
+  cursor     : pointer;
+  font-size  : 13px;
+}
+
+.ung-vien .body-wrapper {
+  background-color: #fff;
+  border          : solid 1px #cccccc;
+}
+
+.ung-vien .header {
+  background-color: #ffffff;
+  border-radius   : 4px;
+  border          : solid 1px #cccccc;
+}
+
+.ung-vien .header-box-icon {
+  width        : 40px;
+  height       : 40px;
+  border-radius: 50%;
+}
+
+.ung-vien .header-icon {
+  width      : 18px;
+  height     : 18px;
+  object-fit : contain;
+  margin-top : 13px;
+  margin-left: 10px;
+}
+
+.ung-vien .buffer-top {
+  margin-top: 1.2rem;
+}
+
+.ung-vien .buffer-bottom {
+  margin-bottom: 1.2rem;
+}
+
+.ung-vien .buffer-bottom-label {
+  margin-bottom: 3px;
+}
+
+.ung-vien .required {
+  color: red;
+}
+
+.ung-vien .error-message-span {
+  color: red;
+}
+
+.ung-vien .customer-name {
+  width         : 119px;
+  height        : 20px;
+  font-family   : 'Inter UI';
+  font-size     : 19px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 2.25;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #121619;
+}
+
+.ung-vien .btn-remove {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left     : 5px;
+}
+
+.ung-vien .btn-remove-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #121619;
+}
+
+.ung-vien .btn-save-and-new {
+  width           : 142px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #0f62fe;
+  background-color: #ffffff;
+  margin-left     : 5px;
+}
+
+.ung-vien .btn-save-and-new .btn-save-and-new-text {
+  width         : 102px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #0f62fe;
+}
+
+::ng-deep .ung-vien .ui-dropdown {
+  min-width: 0px !important;
+}
+
+::ng-deep .ung-vien .ui-menu ul {
+  text-align: left;
+}
+
+.ung-vien .btn-save {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border          : solid 1px #cccccc;
+  margin-left     : 5px;
+}
+
+.ung-vien .btn-save-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+
+
+.ung-vien .btn-create {
+  float           : right;
+  width           : 98px;
+  height          : 31px;
+  border-radius   : 4px;
+  border          : 1px solid #cccccc;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #007aff;
+}
+
+.ung-vien .btn-create-text {
+  width         : 50px;
+  height        : 16px;
+  font-family   : "Inter UI";
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+
+.ung-vien .import-exel {
+  padding-top     : 3px;
+  width           : 134px;
+  height          : 30px;
+  border-radius   : 4px;
+  border          : solid 1px #0f62fe;
+  background-color: #ffffff;
+  margin-right    : 5px;
+}
+
+.ung-vien .import-exel-text {
+  width         : 86px;
+  height        : 16px;
+  font-family   : "Inter UI";
+  font-size     : 13px;
+  font-weight   : nomal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #0f62fe;
+}
+
+.ung-vien .export-exel {
+  width           : 112px;
+  height          : 30px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-right    : 5px;
+}
+
+.ung-vien .export-exel .export-exel-text {
+  width         : 64px;
+  height        : 16px;
+  font-family   : "Inter UI";
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #121619;
+}
+
+
+.ung-vien .btn-cancel-note {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.ung-vien .save-cancel-lable {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #121619;
+}
+
+.ung-vien .btn-save-note {
+  width           : 158px;
+  height          : 32px;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border          : solid 1px #cccccc;
+  margin-left     : 5px;
+}
+
+.ung-vien .save-note-lable {
+  width         : 110px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+
+.ung-vien .btn-popup-cancel {
+  width           : 160px;
+  height          : 32px;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #ffffff;
+  border          : solid 1px #ccc;
+  margin-left     : 5px;
+}
+
+.ung-vien .popup-cancel-lable {
+  width         : 110px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #121619;
+}
+
+.ung-vien .btn-popup {
+  width           : 160px;
+  height          : 32px;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border          : solid 1px #cccccc;
+  margin-left     : 5px;
+}
+
+.ung-vien .popup-lable {
+  width         : 110px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+
+.ung-vien .body-wrapper {
+  margin-top  : 20px;
+  margin-left : 0px;
+  margin-right: 0px;
+}
+
+.ung-vien .w100 {
+  width: 100% !important;
+}
+
+.ung-vien .my-form-control {
+  display    : flex;
+  align-items: center;
+}
+
+/*Begin: Customize Accordion */
+
+::ng-deep .ung-vien .ui-accordion .ui-accordion-header a {
+  border          : 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+  font-size       : 16px;
+}
+
+::ng-deep .ung-vien .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background-color: #ffffff !important;
+  border          : 1px solid #ffffff !important;
+  color           : #121619 !important;
+}
+
+::ng-deep .ung-vien .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .ung-vien .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .ung-vien .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  color: #121619 !important;
+}
+
+::ng-deep .ung-vien .ui-accordion .ui-accordion-content {
+  border          : 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/*End: Customize Accordion */
+
+/*Begin: Customize dropdown */
+
+::ng-deep .ung-vien .header-title .ui-dropdown {
+  background : #ffffff;
+  /* border  : 1px solid #a6a6a6; */
+  border     : none;
+  margin-left: 5px;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-label {
+  padding-right: 2em;
+  font-size    : 16px !important;
+  font-weight  : bold;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-panel {
+  width: max-content !important;
+}
+
+::ng-deep .header-title .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
+  outline       : 0 none;
+  outline-offset: 0;
+  /* box-shadow : 0 0 0 0.2em #8dcdff; */
+  border-color  : #007ad9;
+}
+
+/*End: Customize dropdown */
+
+
+.ung-vien .timeline>li {
+    margin-right: 0 !important;
+}
+
+.ung-vien .style-delete {
+    color    : #FE747A;
+    cursor   : pointer;
+    font-size: 1.55em;
+}
+
+.ung-vien .style-edit {
+    cursor   : pointer;
+    font-size: 1.55em;
+}
+
+.ung-vien .note-user {
+    font-family: 'Inter UI';
+    font-weight: bold;
+}
+
+.ung-vien .timeline>li>.timeline-item {
+    box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.ung-vien .timeline-content {
+    margin-top: 20px;
+}
+
+.ung-vien .bg-blueX {
+    background-color: #4E6BA5 !important;
+}
+
+.ung-vien .color-w {
+    color: #fff !important;
+}
+
+.ung-vien .timeline-item .onHover {
+    display: none;
+}
+
+.ung-vien .timeline-item:hover .onHover {
+    display: block;
+}
+
+.ung-vien .material-icons {
+    cursor: pointer;
+}
+
+.ung-vien .timeline-user-avatar {
+    border-radius: 50%;
+    margin-right : 5px;
+    float        : left;
+}
+
+.ung-vien .note-title {
+    font-size  : 11px !important;
+    color      : #222 !important;
+    font-weight: normal !important;
+}
+
+.ung-vien .time-note {
+    font-size  : 10px !important;
+    color      : #5d5a5a !important;
+    font-weight: normal !important;
+}
+
+.ung-vien .timeline-body {
+    padding: 10px 15px;
+}
+
+.ung-vien .file-upload-zone .col-md-4:nth-child(3n+1) {
+    padding-right: 5px !important;
+}
+
+.ung-vien .file-upload-zone .col-md-4:nth-child(3n+2) {
+    padding-right: 5px !important;
+    padding-left : 5px !important;
+}
+
+.ung-vien .file-upload-zone .col-md-4:nth-child(3n) {
+    padding-left: 5px !important;
+}
+
+.ung-vien .file-upload-zone .col-md-4:nth-child(3n+1) {
+    padding-right: 5px !important;
+}
+
+.ung-vien .file-upload-zone .col-md-4:nth-child(3n+2) {
+    padding-right: 5px !important;
+    padding-left : 5px !important;
+}
+
+.ung-vien .file-upload-zone .col-md-4:nth-child(3n) {
+    padding-left: 5px !important;
+}
+
+.ung-vien .file-item div:nth-child(1),
+.ung-vien .file-item div:nth-child(3) {
+    padding-left: 0 !important;
+}
+
+.ung-vien .file-item div:nth-child(2) {
+    padding: 0 5px !important;
+}
+
+.ung-vien .item-name {
+    text-overflow: ellipsis !important;
+    white-space  : nowrap !important;
+    overflow     : hidden !important;
+}
+
+.ung-vien .preview-doc {
+    cursor: pointer;
+}
+
+.w100 {
+  width: 100% !important;
+}
+
+.buffer-bottom-label {
+  margin-top: 10px;
+  margin-bottom: 3px;
+}
+
+::ng-deep .ui-inputnumber-input .ui-inputtext .ui-corner-all .ui-state-default .ui-widget .ui-state-filled{
+  text-align: left!important;
+}

@@ -1,0 +1,175 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="technique-request-create">
+  <div class="row no-margin">
+    <div class="col-md-12 box-header">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-1 col-xs-2">
+              <div class="box-header-icon">
+                <img src="/assets/icons/components/ic_library_add_24px.svg" class="ic_library_add_24px">
+              </div>
+            </div>
+            <div class="col-md-11 col-xs-10">
+              <div class="box-header-title">Thêm mới Tiến trình</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-12" style="text-align: right;">
+              <button class="cancel" type="button" (click)="cancel()">
+                <span class="text-cancel">Hủy</span>
+              </button>
+              <button #saveAndCreate class="save-and-new" type="button" [disabled]="awaitResult" (click)="createTechniqueRequest(true)">
+                <span class="text-save-and-new">Lưu và Thêm mới</span>
+              </button>
+              <button #save class="save" type="button" [disabled]="awaitResult" (click)="createTechniqueRequest(false)">
+                <span class="text-save">Lưu</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-12 box-content">
+      <div class="row no-margin">
+        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+          <p-accordionTab header="Thông tin Tiến trình" [selected]="true">
+            <div class="col-md-12">
+              <div class="row">
+                <!-- <div class="col-md-6">
+                  <p-radioButton name="groupname" value="a" [(ngModel)]="option" label="Tiến trình"></p-radioButton>
+                </div> -->
+                <!-- <div class="col-md-6">
+                  <p-radioButton name="groupname" value="b" [(ngModel)]="option" label="Tiến trình đặc biệt"></p-radioButton>
+                </div> -->
+              </div>
+            </div>
+
+            <form [formGroup]="techniqueRequestForm" style="height: 100%;">
+              <div *ngIf="option == 'a'" class="col-md-12">
+                <div class="row" style="margin-top: 10px;">
+                  <div class="col-md-2">
+                    <span>Thuộc phòng ban<span class="require">*</span></span>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p-dropdown [options]="listOrganization" formControlName="organizationControl"
+                          [styleClass]="(organizationControl.invalid && (organizationControl.dirty || organizationControl.touched)) ? 'error-border' : ''"
+                          [filter]="true" [showClear]="true"
+                          [resetFilterOnHide]="true" placeholder="Chọn phòng ban" optionLabel="organizationName"
+                          [style]="{'width': '100%'}"></p-dropdown>
+                      </div>
+                      <div class="col-md-12"
+                        [hidden]="organizationControl.valid || organizationControl.untouched">
+                        <span *ngIf="organizationControl.hasError('required')" class="error-message-span">Chưa
+                          chọn phòng ban</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="margin-top: 10px;">
+                  <div class="col-md-2">
+                    <span>Tên tiến trình<span class="require">*</span></span>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <input class="w100 input-text" type="text" formControlName="techniqueNameControl" pInputText
+                          [ngClass]="(techniqueNameControl.invalid && (techniqueNameControl.dirty || techniqueNameControl.touched)) ? 'error-border' : ''"/>
+                      </div>
+                      <div class="col-md-12" [hidden]="techniqueNameControl.valid || techniqueNameControl.untouched">
+                        <span
+                          *ngIf="techniqueNameControl.hasError('required') || techniqueNameControl?.errors?.forbiddenSpaceText"
+                          class="error-message-span">Không được để trống</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="margin-top: 10px;">
+                  <div class="col-md-2">
+                    <span>Mô tả</span>
+                  </div>
+                  <div class="col-md-3">
+                    <textarea rows="5" cols="30" formControlName="descriptionControl" pInputTextarea class="w100"></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+
+            <form [formGroup]="techniqueRequestEspForm" style="height: 100%;">
+              <div *ngIf="option == 'b'" class="col-md-12">
+                <div class="row" style="margin-top: 10px;">
+                  <div class="col-md-2">
+                    <span>Thuộc tiến trình<span class="require">*</span></span>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <p-dropdown [options]="listParent" formControlName="parentEspControl"
+                          [styleClass]="(parentEspControl.invalid && (parentEspControl.dirty || parentEspControl.touched)) ? 'error-border' : ''"
+                          [filter]="true" [showClear]="true"
+                          [resetFilterOnHide]="true" placeholder="Chọn tiến trình" optionLabel="techniqueName"
+                          [style]="{'width': '100%'}"></p-dropdown>
+                      </div>
+                      <div class="col-md-12"
+                        [hidden]="parentEspControl.valid || parentEspControl.untouched">
+                        <span *ngIf="parentEspControl.hasError('required')" class="error-message-span">Chưa
+                          chọn tiến trình</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="margin-top: 10px;">
+                  <div class="col-md-2">
+                    <span>Tên tiến trình<span class="require">*</span></span>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <input class="w100 input-text" type="text" formControlName="techniqueNameEspControl" pInputText
+                          [ngClass]="(techniqueNameEspControl.invalid && (techniqueNameEspControl.dirty || techniqueNameEspControl.touched)) ? 'error-border' : ''"/>
+                      </div>
+                      <div class="col-md-12" [hidden]="techniqueNameEspControl.valid || techniqueNameEspControl.untouched">
+                        <span
+                          *ngIf="techniqueNameEspControl.hasError('required') || techniqueNameEspControl?.errors?.forbiddenSpaceText"
+                          class="error-message-span">Không được để trống</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="margin-top: 10px;">
+                  <div class="col-md-2">
+                    <span>Mô tả</span>
+                  </div>
+                  <div class="col-md-3">
+                    <textarea rows="5" cols="30" formControlName="descriptionEspControl" pInputTextarea class="w100"></textarea>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+  </div>
+</div>

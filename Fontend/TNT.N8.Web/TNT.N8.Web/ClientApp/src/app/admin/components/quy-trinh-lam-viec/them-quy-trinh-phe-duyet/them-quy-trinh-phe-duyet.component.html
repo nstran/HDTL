@@ -1,0 +1,80 @@
+<p-toast key="popup" position="bottom-right"></p-toast>
+
+<div class="them-qtpd">
+  <div class="mt-20"></div>
+  <div class="row no-margin">
+    <div class="col-md-3">
+      Tên cấu hình:
+    </div>
+    <div class="col-md-7" [formGroup]="formTenCauHinh">
+      <input type="text" [style]="{'width':'100%'}" pInputText 
+        formControlName="tenCauHinhControl"
+        [ngClass]="tenCauHinhControl.invalid && tenCauHinhControl.touched ? 'error-border': ''"
+      />
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <div class="col-md-12 mt-10">
+      <button type="button" (click)="themBuoc()"  
+        pTooltip="Thêm bước" appendTo="body" tooltipZIndex="99999"
+        [tooltipDisabled]="false" class="btn-plus">
+        <i class="pi pi-plus icon-plus"></i>
+      </button>
+    </div>
+
+    <div class="col-md-12 mt-10" [formGroup]="form">
+      <ng-container formArrayName="quyTrinh">
+        <ng-container *ngFor="let rowForm of quyTrinh.controls; let i = index">
+          <div [formGroup]="rowForm">
+            <div class="row mt-20">
+              <div class="col-md-3">
+                {{ 'Phê duyệt lần ' + (i + 1) }}
+              </div>
+              <div class="col-md-5">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p-dropdown [options]="listLoaiPheDuyet" formControlName="loaiPheDuyet"
+                      [filter]="true" [resetFilterOnHide]="true"
+                      placeholder="Chọn loại phê duyệt" optionLabel="name" [style]="{'width': '100%'}"
+                      (onChange)="changeLoaiPheDuyet(i)"
+                      [styleClass]="quyTrinh.controls[i].get('loaiPheDuyet').touched && quyTrinh.controls[i].get('loaiPheDuyet').errors?.required ? 'error-border': ''"
+                    >
+                    </p-dropdown>
+                  </div>
+                  <div *ngIf="quyTrinh.controls[i].get('loaiPheDuyet').value && quyTrinh.controls[i].get('loaiPheDuyet').value?.value != 1" class="col-md-12 mt-10">
+                    <p-chips formControlName="phongBan" [style]="{'width': '100%'}">
+                    </p-chips>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <ng-container *ngIf="quyTrinh.controls[i].get('loaiPheDuyet').value && quyTrinh.controls[i].get('loaiPheDuyet').value?.value != 1">
+                  <span class="hyperlink" (click)="openPopup(i)">Chọn phòng ban</span>
+                </ng-container>
+              </div>
+              <div class="col-md-2">
+                <button type="button" (click)="xoaBuoc(i)"  
+                  pTooltip="Xóa bước" appendTo="body" tooltipZIndex="99999"
+                  [tooltipDisabled]="false" class="btn-minus">
+                  <i class="pi pi-minus icon-plus"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="row no-margin">
+    <div class="col-md-12 mt-40 mb-10" style="text-align: right;">
+      <button class="btn-cancel" type="button" (click)="dong()">
+        Đóng
+      </button>
+      <button class="btn-create" (click)="save()">
+        Lưu
+      </button>
+    </div>
+  </div>
+</div>

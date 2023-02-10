@@ -1,0 +1,59 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+<form #requestForm="ngForm" novalidate autocomplete="off">
+    <div class="row " style="display: contents;">
+        <div class="actions">
+            <button type="button" class="btn-edit-show" (click)="save()" [disabled]="!requestForm.form.valid || isShowErrorRangeNumber">
+                <span class="text-white">Lưu</span>
+            </button>
+        </div>
+    </div>
+    <div class="row no-margin row-dialog">
+        <div class="col-md-6">
+            <p class="font-weight-bold">Loại dịch vụ <span class="text-danger">*</span></p>
+            <p-dropdown [options]="listOptionCategory" [filter]="true" [(ngModel)]="optionCategory"
+                (onChange)="changeServiceType($event.value)" [style]="{'width': '100%'}" optionLabel="categoryName"
+                placeholder="Chọn loại dịch vụ" [ngModelOptions]="{standalone: true}" required>
+            </p-dropdown>
+        </div>
+        <div class="col-md-6">
+            <p class="font-weight-bold">Tên tùy chọn dịch vụ <span class="text-danger">*</span></p>
+            <input type="text" class="form-control" #name="ngModel" name="Name" required autocomplete="off"
+                [(ngModel)]="optionsEntityModel.name">
+            <validation-messages [formCtrl]="name"
+                [customMessage]="[{error:'required', message:('Tên tùy chọn dịch vụ không được để trống')}]">
+            </validation-messages>
+        </div>
+    </div>
+    <div class="row no-margin row-dialog">
+        <div class="col-md-6">
+            <p class="font-weight-bold">Đơn giá dịch vụ (VNĐ)<span class="text-danger">*</span> </p>
+            <input type="number" class="form-control" #price="ngModel" name="price" required autocomplete="off"
+                [(ngModel)]="optionsEntityModel.price">
+            <validation-messages [formCtrl]="price" [customMessage]="[{error:'required', message:('Đơn giá không được để trống')}
+                ]">
+            </validation-messages>
+        </div>
+        <div class="col-md-6">
+            <p class="font-weight-bold">VAT (%)<span class="text-danger">*</span> </p>
+            <input type="number" class="form-control" #vat="ngModel" name="vat" required
+                autocomplete="off" [(ngModel)]="optionsEntityModel.vat" (change)="checkRangeNumber(optionsEntityModel.vat)">
+            <validation-messages [formCtrl]="vat" [customMessage]="[{error:'required', message:('VAT không được để trống')}]">
+            </validation-messages>
+            <p *ngIf="isShowErrorRangeNumber" class="text-danger">
+                Chỉ được điền số trong khoảng từ 1 đến 100
+            </p> 
+        </div>
+    </div>
+    <div class="row no-margin row-dialog">
+        <div class="col-md-12">
+            <p class="font-weight-bold">Mô tả <span class="text-danger">*</span></p>
+            <p-editor innerHTML type="text" name="description" required autocomplete="off"
+                [(ngModel)]="optionsEntityModel.description" [style]="{'height':'180px', 'width': '100%'}">
+            </p-editor>
+        </div>
+    </div>
+   

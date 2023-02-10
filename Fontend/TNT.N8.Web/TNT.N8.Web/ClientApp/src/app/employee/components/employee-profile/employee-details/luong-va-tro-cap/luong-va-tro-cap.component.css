@@ -1,0 +1,57 @@
+.emp-ltc .mt-10 {
+  margin-top: 10px;
+}
+
+.emp-ltc .mt-20 {
+  margin-top: 20px;
+}
+
+.emp-ltc .mb-20 {
+  margin-bottom: 20px;
+}
+
+.emp-ltc .mb-10 {
+  margin-bottom: 10px;
+}
+
+.emp-ltc .icons {
+  font-size: 1.5em;
+  cursor: pointer;
+}
+
+.emp-ltc .icons-check {
+  color: #3dd52a;
+}
+
+.emp-ltc .icons-times {
+  color: red;
+}
+
+::ng-deep .emp-ltc legend {
+  width: auto;
+  font-size: 13px;
+  font-weight: 900;
+  border-bottom: 0px;
+  margin-bottom: 0;
+}
+
+::ng-deep .emp-ltc .ui-fieldset {
+  border: 2px solid #c8c8c8;
+  margin-bottom: 15px;
+}
+
+.emp-ltc .xem-lich-su {
+  color: #007ad9;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.emp-ltc input[type="text"]:disabled {
+  opacity: 0.5;
+}
+
+.title-tab {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}

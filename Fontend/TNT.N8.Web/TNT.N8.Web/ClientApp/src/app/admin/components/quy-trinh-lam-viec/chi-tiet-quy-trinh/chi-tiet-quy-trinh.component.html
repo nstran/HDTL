@@ -1,0 +1,196 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="chi-tiet-qt">
+  <div class="row no-margin">
+    <div class="col-md-12 page-header">
+      <div class="col-md-6 no-padding can-giua-dong">
+        <div class="header-box-icon">
+          <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+        </div>
+        <span class="page-title">Chi tiết quy trình làm việc</span>
+      </div>
+      <div class="col-md-6 no-padding" style="text-align: right;">
+        <button type="button" class="delete" (click)="delete()">
+          <span>Xóa</span>
+        </button>
+        <button type="button" class="quay-lai" (click)="goBack()">
+          <span>Quay lại</span>
+        </button>
+        <button class="save" (click)="save()">
+          <span>Lưu</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin page-section">
+    <div [formGroup]="quyTrinhForm" class="col-md-12">
+      <p-fieldset>
+        <p-header>Thông tin quy trình</p-header>
+
+        <div class="row can-giua-dong">
+          <div class="col-md-2">
+            Tên quy trình:
+          </div>
+
+          <div class="col-md-4">
+            <input type="text" class="w100" pInputText 
+              formControlName="tenQuyTrinhControl"
+              [ngClass]="tenQuyTrinhControl.invalid && tenQuyTrinhControl.touched ? 'error-border': ''"
+            />
+          </div>
+
+          <div class="col-md-2">
+            Đối tượng áp dụng:
+          </div>
+
+          <div class="col-md-4">
+            <p-dropdown [options]="listDoiTuongApDung" formControlName="doiTuongApDungControl"
+              [filter]="true" [resetFilterOnHide]="true"
+              placeholder="Chọn đối tượng áp dụng" optionLabel="name" [style]="{'width': '100%'}"
+              [styleClass]="doiTuongApDungControl.invalid && doiTuongApDungControl.touched ? 'error-border': ''"
+            >
+            </p-dropdown>
+          </div>
+        </div>
+
+        <div class="row mt-10">
+          <div class="col-md-2">
+            Mã quy trình:
+          </div>
+
+          <div class="col-md-4">
+            <span>{{ quyTrinh?.maQuyTrinh }}</span>
+          </div>
+
+          <div class="col-md-2">
+            Hoạt động:
+          </div>
+
+          <div class="col-md-4">
+            <p-checkbox formControlName="hoatDongControl" [binary]="true"></p-checkbox>
+          </div>
+        </div>
+
+        <div class="row mt-10">
+          <div class="col-md-2">
+            Ngày tạo:
+          </div>
+
+          <div class="col-md-4">
+            {{ quyTrinh.ngayTao }}
+          </div>
+
+          <div class="col-md-2">
+            Người tạo:
+          </div>
+
+          <div class="col-md-4">
+            {{ quyTrinh.nguoiTao }}
+          </div>
+        </div>
+
+        <div class="row mt-10">
+          <div class="col-md-2">
+            Mô tả:
+          </div>
+
+          <div class="col-md-10">
+            <ejs-richtexteditor [insertImageSettings]='insertImageSettings' #templateRTE
+              [toolbarSettings]='tools' formControlName="moTaControl">
+              <ng-template></ng-template>
+            </ejs-richtexteditor>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+  </div>
+
+  <div class="mt-20"></div>
+
+  <div class="row no-margin page-section">
+    <div class="col-md-12">
+      <p-fieldset>
+        <p-header>Cấu hình quy trình phê duyệt</p-header>
+  
+        <div class="row">
+          <div class="col-md-12" style="text-align: right;">
+            <button type="button" (click)="themCauHinhQuyTrinh()" pTooltip="Thêm cấu hình" 
+              tooltipPosition="top" [tooltipDisabled]="false" class="btn-plus">
+              <i class="pi pi-plus icon-plus"></i>
+            </button>
+          </div>
+          <div class="col-md-12 mt-10">
+            <p-table [columns]="cols" [value]="listCauHinhQuyTrinh" class="table-border">
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th style="width: 10%; text-align: center;">STT</th>
+                  <th style="width: 25%; text-align: center;">Số tiền từ</th>
+                  <th style="width: 25%; text-align: center;">Tên cấu hình</th>
+                  <th style="width: 25%; text-align: center;">Quy trình</th>
+                  <th style="width: 15%; text-align: center;">Thao tác</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                <tr>
+                  <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                  [ngStyle]="{'text-align': col.textAlign, 'color': rowData.error == true ? 'red' : ''}">
+                    <span *ngSwitchCase="'stt'"
+                      style="display: inline-block; padding: 5px;"
+                      [ngStyle]="{'color': rowData.error == true ? '#fff' : '', 'background-color': rowData.error == true ? 'red' : ''}">
+                      {{rowIndex + 1}}
+                    </span>
+                    <span *ngSwitchCase="'soTienTu'">
+                      <input type="text" class="number-input"
+                        [(ngModel)]="rowData.soTienTu" 
+                        [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}"
+                        (change)="checkSoTien(rowData)"
+                        (keydown.enter)="$event.preventDefault()">
+                    </span>
+                    <span *ngSwitchCase="'actions'">
+                      <button type="button" (click)="themQuyTrinhPheDuyet(rowData)" pTooltip="Thêm quy trình phê duyệt" 
+                        tooltipPosition="top" [tooltipDisabled]="false" class="btn-plus-qt">
+                        <i class="pi pi-plus icon-plus"></i>
+                      </button>
+                      <button class="ui-button-danger" style="height: 30px; margin-left: 10px;"
+                        pButton icon="pi pi-trash" (click)="xoaCauHinhQuyTrinh(rowData)">
+                      </button>
+                    </span>
+                    <span *ngSwitchDefault>
+                      {{rowData[col.field]}}
+                    </span>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+        </div>
+      </p-fieldset>
+    </div>
+  </div>
+
+  <p-dialog header="Cảnh báo" [(visible)]="warnQuyTrinh" [style]="{width: '25vw'}" [baseZIndex]="10000" [modal]="true">
+    <div class="row no-margin">
+      <div class="col-md-12">
+        <strong>{{doiTuongApDungControl?.value?.name}}</strong> đã có quy trình đang hoạt động, bạn có chắc
+        chắn muốn áp dụng quy trình mới này?
+      </div>
+    </div>
+    <p-footer>
+      <button type="button" pButton (click)="khongChapNhan()" label="Không"
+        class="ui-button-secondary"></button>
+      <button type="button" pButton (click)="chapNhan()" label="Chấp nhận"></button>
+    </p-footer>
+  </p-dialog>
+</div>

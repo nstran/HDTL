@@ -1,0 +1,160 @@
+<p-toast position="bottom-right"></p-toast>
+
+<div class="update-cham-cong">
+  <ng-container *ngIf="typeUpdate == 'GIO'">
+    <div [formGroup]="chamCongGroup" class="row no-margin">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3">
+            Nhân viên:
+          </div>
+          <div class="col-md-9">
+            <strong>{{name}}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mt-10">
+        <div class="row">
+          <div class="col-md-3">
+            Ngày:
+          </div>
+          <div class="col-md-9">
+            <strong>{{ngay}}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mt-10">
+        <div class="row">
+          <div class="col-md-3">
+            Ca:
+          </div>
+          <div class="col-md-9">
+            <strong>{{ca}}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mt-10">
+        <div class="row">
+          <div class="col-md-3">
+            {{getTenLoaiGio()}}:
+          </div>
+          <div class="col-md-9">
+            <p-calendar formControlName="thoiGianControl" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+              [timeOnly]="true" appendTo="body" [baseZIndex]="1031"
+              [styleClass]="(thoiGianControl.invalid && (thoiGianControl.dirty || thoiGianControl.touched)) ? 'error-pcalendar' : ''">
+            </p-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="typeUpdate == 'CA'">
+    <div [formGroup]="chamCongGroup" class="row no-margin">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3">
+            Ngày:
+          </div>
+          <div class="col-md-9">
+            <strong>{{ngay}}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mt-10">
+        <div class="row">
+          <div class="col-md-3">
+            Ca:
+          </div>
+          <div class="col-md-9">
+            <strong>{{ca}}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mt-10">
+        <div class="row">
+          <div class="col-md-3">
+            Nhân viên:
+          </div>
+          <div class="col-md-9">
+            <p-multiSelect [options]="listEmployee" formControlName="nhanVienControl"
+              [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} nhân viên được chọn" 
+              defaultLabel="Chọn nhân viên" appendTo="body" [baseZIndex]="1031"
+              optionLabel="employeeCodeName" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+              [styleClass]="(nhanVienControl.invalid && (nhanVienControl.dirty || nhanVienControl.touched)) ? 'error-border': ''"
+            >
+            </p-multiSelect>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mt-10">
+        <div class="row">
+          <div class="col-md-3">
+            Loại nghỉ:
+          </div>
+          <div class="col-md-9">
+            <p-dropdown [options]="listKyHieuChamCong" placeholder="Chọn loại nghỉ" [style]="{'width': '100%'}"
+              formControlName="loaiNghiControl" optionLabel="name" appendTo="body" [baseZIndex]="1031"
+              [styleClass]="(loaiNghiControl.invalid && (loaiNghiControl.dirty || loaiNghiControl.touched)) ? 'error-border': ''">
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="typeUpdate == 'NGAY'">
+    <div [formGroup]="chamCongGroup" class="row no-margin">
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3">
+            Ngày:
+          </div>
+          <div class="col-md-9">
+            <strong>{{ngay}}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mt-10">
+        <div class="row">
+          <div class="col-md-3">
+            Nhân viên:
+          </div>
+          <div class="col-md-9">
+            <p-multiSelect [options]="listEmployee" formControlName="nhanVienControl"
+              [filter]="true" [resetFilterOnHide]="true" selectedItemsLabel="{0} nhân viên được chọn" 
+              defaultLabel="Chọn nhân viên" appendTo="body" [baseZIndex]="1031"
+              optionLabel="employeeCodeName" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+              [styleClass]="(nhanVienControl.invalid && (nhanVienControl.dirty || nhanVienControl.touched)) ? 'error-border': ''"
+            >
+            </p-multiSelect>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 mt-10">
+        <div class="row">
+          <div class="col-md-3">
+            Loại nghỉ:
+          </div>
+          <div class="col-md-9">
+            <p-dropdown [options]="listKyHieuChamCong" placeholder="Chọn loại nghỉ" [style]="{'width': '100%'}"
+              formControlName="loaiNghiControl" optionLabel="name" appendTo="body" [baseZIndex]="1031"
+              [styleClass]="(loaiNghiControl.invalid && (loaiNghiControl.dirty || loaiNghiControl.touched)) ? 'error-border': ''">
+            </p-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <div class="row no-margin">
+    <div class="col-md-12 mt-20" style="text-align: right;">
+      <button pButton [disabled]="awaitResponse" class="btn" type="button" label="Lưu"
+        style="padding: 0 25px; background: #169BD5;" (click)="save()">
+      </button>
+      <button pButton [disabled]="awaitResponse" class="btn ml-2" type="button" label="Đóng" 
+        style="padding: 0 25px; background: white; color: black" (click)="close()">
+      </button>
+    </div>
+  </div>
+</div>

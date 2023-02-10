@@ -1,0 +1,81 @@
+.recruitment-infor {
+    width           : 100%;
+    border          : solid 1px #c1c7cd;
+    background-color: #ffffff;
+    border-radius   : 4px;
+    margin-top      : 15px;
+    margin-left     : 0;
+    margin-right    : 0;
+}
+
+.recruitment-infor .infor-label {
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+}
+
+.recruitment-infor .infor-value {
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : 600;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.46;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+    padding-left  : 0px !important;
+    padding-right : 0px !important;
+}
+
+.borderless td,
+.borderless th {
+    border: none !important;
+}
+
+/*Begin: Customize Accordion */
+
+::ng-deep .recruitment-infor .ui-accordion .ui-accordion-header a {
+    border          : 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+    font-size       : 16px;
+}
+
+::ng-deep .recruitment-infor .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    background-color: #ffffff !important;
+    border          : 1px solid #ffffff !important;
+    color           : #121619 !important;
+}
+
+::ng-deep .recruitment-infor .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+}
+
+::ng-deep .recruitment-infor .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+    color: #121619 !important;
+}
+
+::ng-deep .recruitment-infor .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+    color: #121619 !important;
+}
+
+::ng-deep .recruitment-infor .ui-accordion .ui-accordion-content {
+    border          : 1px solid #ffffff !important;
+    background-color: #ffffff !important;
+}
+
+/*End: Customize Accordion */
+
+/*Begin: Customize progressbar */
+
+::ng-deep .recruitment-infor .ui-progressbar .ui-progressbar-value {
+    background: #56b40b;
+}
+
+/*End: Customize progressbar */

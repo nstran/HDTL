@@ -1,0 +1,70 @@
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner 
+    [style]="{width: '50px', height: '50px'}" 
+    strokeWidth="8" 
+    fill="#EEEEEE" 
+    animationDuration=".5s"
+    >
+    </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog 
+    header="Xác nhận" 
+    icon="pi pi-exclamation-triangle" 
+    acceptLabel="Chấp nhận" 
+    rejectLabel="Không"
+    >
+</p-confirmDialog>
+
+<card-body>
+    <div id="container">
+        <aside>
+            <header>
+                <div class="search-group">
+                    <input type="text" 
+                        placeholder="search"
+                        id="queryControl" 
+                        name="queryControl"
+                        [formControl]="queryControl"
+                        [(ngModel)]="filterText"
+                        (click)="showFilterListEmployee()"
+                    >
+                    <span class="cursor-pointer" *ngIf="isShowFilter" (click)="closeFilterListEmployee()"><i class="fas fa-times"></i></span>
+                </div>
+            </header>
+            <ul *ngIf="!isShowFilter" [ngClass]="rooms.length > 9 ? 'scroll-y' : ''">
+                <ng-container *ngFor="let room of rooms">
+                    <li class="cursor-pointer" (click)="joinRoom(room)" [ngClass]="_activatedRoute.snapshot.params.id == room.userChat ? 'in-room': ''">
+                        <img [src]="room.avatarUrl ? room.avatarUrl : '../../../../assets/images/no-avatar.png'" alt="">
+                        <div class="user">
+                            <h2>
+                                {{room.userChat}}
+                                <span class="icon" *ngIf="room.messageUnreadCount > 0">
+                                    {{room.messageUnreadCount >= 5 ? room.messageUnreadCount + '+' : room.messageUnreadCount}}
+                                </span>
+                            </h2>
+                            <p class="last-message no-margin">{{room.lastMessage}}</p>
+                        </div>
+                    </li>
+                </ng-container>
+            </ul>
+            <ul *ngIf="isShowFilter">
+                <ng-container *ngFor="let item of listEmployee">
+                    <li class="cursor-pointer" (click)="createRoomChat(item)">
+                        <img [src]="item.avatarUrl ? item.avatarUrl : '../../../../assets/images/no-avatar.png'" alt="">
+                        <div class="user">
+                            <h2>
+                                {{item.employeeName}}
+                            </h2>
+                        </div>
+                    </li>
+                </ng-container>
+            </ul>
+        </aside>
+        <ng-container >
+            <app-chatroom #chatroom></app-chatroom>
+        </ng-container>
+    </div>
+</card-body>

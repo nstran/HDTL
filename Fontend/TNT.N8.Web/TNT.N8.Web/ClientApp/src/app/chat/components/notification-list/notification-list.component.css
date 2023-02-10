@@ -1,0 +1,31 @@
+.cursor-poiter {
+    cursor: pointer;
+}
+
+.table-padding {
+    padding: 0 15px;
+}
+
+.filter {
+    justify-content: end;
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.filter input {
+    border-radius: 5px;
+    width: 50%;
+}
+  
+.table-padding {
+    padding: 0 15px;
+}
+  
+.cursor-poiter {
+    cursor: pointer;
+}
+
+.m-input {
+    margin-right: 5px;
+}

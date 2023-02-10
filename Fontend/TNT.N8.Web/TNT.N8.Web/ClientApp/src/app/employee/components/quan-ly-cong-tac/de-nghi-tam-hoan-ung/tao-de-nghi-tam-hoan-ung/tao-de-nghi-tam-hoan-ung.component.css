@@ -1,0 +1,236 @@
+.tao-de-nghi-tam-hoan-ung {
+  font-family: "Inter UI";
+}
+
+.tao-de-nghi-tam-hoan-ung .mt-10 {
+  margin-top: 10px;
+}
+
+.tao-de-nghi-tam-hoan-ung .body-wrapper {
+  background-color: #fff;
+  border          : solid 1px #cccccc;
+}
+
+.tao-de-nghi-tam-hoan-ung .header {
+  background-color: #ffffff;
+  border-radius   : 4px;
+  border          : solid 1px #cccccc;
+}
+
+.tao-de-nghi-tam-hoan-ung .link {
+  font-family: 'Inter UI';
+  color      : #007ad9;
+  cursor     : pointer;
+  font-size  : 13px;
+}
+
+.tao-de-nghi-tam-hoan-ung .header-box-icon {
+  width        : 40px;
+  height       : 40px;
+  border-radius: 50%;
+}
+
+.tao-de-nghi-tam-hoan-ung .header-icon {
+  width      : 18px;
+  height     : 18px;
+  object-fit : contain;
+  margin-top : 13px;
+  margin-left: 10px;
+}
+
+.tao-de-nghi-tam-hoan-ung .buffer-top {
+  margin-top: 1.2rem;
+}
+
+.tao-de-nghi-tam-hoan-ung .buffer-bottom {
+  margin-bottom: 1.2rem;
+}
+
+.tao-de-nghi-tam-hoan-ung .buffer-bottom-label {
+  margin-bottom: 3px;
+}
+
+.tao-de-nghi-tam-hoan-ung .required {
+  color: red;
+}
+
+.tao-de-nghi-tam-hoan-ung .error-message-span {
+  color: red;
+}
+
+.tao-de-nghi-tam-hoan-ung .customer-name {
+  width         : 119px;
+  height        : 20px;
+  font-family   : 'Inter UI';
+  font-size     : 19px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 2.25;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #121619;
+}
+
+.tao-de-nghi-tam-hoan-ung .btn-remove {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left     : 5px;
+}
+
+.tao-de-nghi-tam-hoan-ung .btn-remove-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #121619;
+}
+
+.tao-de-nghi-tam-hoan-ung .btn-save-and-new {
+  width           : 142px;
+  height          : 32px;
+  border-radius   : 4px;
+  border          : solid 1px #0f62fe;
+  background-color: #ffffff;
+  margin-left     : 5px;
+}
+
+.tao-de-nghi-tam-hoan-ung .btn-save-and-new .btn-save-and-new-text {
+  width         : 102px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : normal;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.46;
+  letter-spacing: normal;
+  text-align    : left;
+  color         : #0f62fe;
+}
+
+::ng-deep .tao-de-nghi-tam-hoan-ung .ui-dropdown {
+  min-width: 0px !important;
+}
+
+::ng-deep .tao-de-nghi-tam-hoan-ung .ui-menu ul {
+  text-align: left;
+}
+
+.tao-de-nghi-tam-hoan-ung .btn-save {
+  width           : 72px;
+  height          : 32px;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border          : solid 1px #cccccc;
+  margin-left     : 5px;
+}
+
+.tao-de-nghi-tam-hoan-ung .btn-save-text {
+  width         : 24px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+
+.tao-de-nghi-tam-hoan-ung .body-wrapper {
+  margin-top  : 20px;
+  margin-left : 0px;
+  margin-right: 0px;
+}
+
+.tao-de-nghi-tam-hoan-ung .w100 {
+  width: 100% !important;
+}
+
+.tao-de-nghi-tam-hoan-ung .my-form-control {
+  display    : flex;
+  align-items: center;
+}
+
+/*Begin: Customize Accordion */
+
+::ng-deep .tao-de-nghi-tam-hoan-ung .ui-accordion .ui-accordion-header a {
+  border          : 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+  font-size       : 16px;
+}
+
+::ng-deep .tao-de-nghi-tam-hoan-ung .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background-color: #ffffff !important;
+  border          : 1px solid #ffffff !important;
+  color           : #121619 !important;
+}
+
+::ng-deep .tao-de-nghi-tam-hoan-ung .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .tao-de-nghi-tam-hoan-ung .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .tao-de-nghi-tam-hoan-ung .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  color: #121619 !important;
+}
+
+::ng-deep .tao-de-nghi-tam-hoan-ung .ui-accordion .ui-accordion-content {
+  border          : 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/*End: Customize Accordion */
+
+.tao-de-nghi-tam-hoan-ung .btn-save-note {
+  width           : 158px;
+  height          : 32px;
+  border-radius   : 4px;
+  box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border          : solid 1px #cccccc;
+  margin-left     : 5px;
+}
+
+.tao-de-nghi-tam-hoan-ung .save-note-lable {
+  width         : 110px;
+  height        : 16px;
+  font-family   : 'Inter UI';
+  font-size     : 13px;
+  font-weight   : bold;
+  font-stretch  : normal;
+  font-style    : normal;
+  line-height   : 1.15;
+  letter-spacing: normal;
+  text-align    : center;
+  color         : #ffffff;
+}
+
+.tao-de-nghi-tam-hoan-ung .label-bold {
+  font-weight: bold;
+}
+
+.tao-de-nghi-tam-hoan-ung .error-border,
+.tao-de-nghi-tam-hoan-ung .error-border:focus {
+  border-color: #f44336;
+}
+
+.tao-de-nghi-tam-hoan-ung .error-border:focus {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset, 0 0 8px #f44336;
+}

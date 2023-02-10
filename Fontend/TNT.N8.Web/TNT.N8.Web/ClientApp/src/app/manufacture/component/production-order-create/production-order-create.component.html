@@ -1,0 +1,1036 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="production-order-create">
+  <div class="row m-0 bg-white d-flex item-center p-10 mb-15 border-dde1e6">
+    <div class="col-md-4">
+      <div class="row">
+        <div class="col-md-12">
+          <span class="text-title">LỆNH SẢN XUẤT</span>
+          <div class="col-md-12">
+            <a class="btn" (click)="goToProductionOrderList()">Danh sách lệnh sản xuất</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="row h-100">
+        <div class="d-inline-block float-right h-100">
+          <button class="btn-save bg-e4e4e4" type="button" (click)="goToOrderList()">Hủy</button>
+          <button *ngIf="actionAdd" class="btn-save text-white" type="button" (click)="saveProductionOrder()">Lưu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row m-0">
+    <div class="row m-0 bg-white border-dde1e6 p-10 mb-15">
+      <div class="row m-0 px-15 mb-10">
+        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+          <p-accordionTab header="Thông tin lệnh sản xuất" [selected]="true">
+            <form [formGroup]="productOrderForm" style="height: 100%;">
+              <div class="row m-0">
+                <div class="col-md-12 mb-10">
+                  <div class="row">
+                    <div class="col-md-6 col-xs-6">
+                      <div class="row">
+                        <div class="col-md-4 col-xs-4">
+                          <span>Lệnh số:</span>
+                        </div>
+                        <div class="col-md-8 col-xs-8">
+                          <span>
+                            {{ orderCode }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-xs-6">
+                      <div class="row">
+                        <div class="col-md-4 col-xs-4">
+                          <span>Ngày nhận:</span>
+                        </div>
+                        <div class="col-md-8 col-xs-8">
+                          <span>{{ productionOrderModel.receivedDate | date:'dd/MM/yyyy'}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 ">
+                  <div class="row d-flex item-center mb-10">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <span>Khách hàng:</span>
+                        </div>
+                        <div class="col-md-8">
+                          <span>
+                            {{ productionOrderModel.customerName }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row d-flex item-center">
+                        <div class="col-md-4">
+                          <span>Ngày sản xuất:</span>
+                        </div>
+                        <div class="col-md-8">
+                          <p-calendar class="w-100" dateFormat="dd/mm/yy" formControlName="startDateControl"
+                            showButtonBar="true">
+                          </p-calendar>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 ">
+                  <div class="row mb-10 d-flex item-center">
+                    <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-md-4 ">
+                          <span>Số ĐH của khách hàng:</span>
+                        </div>
+                        <div class="col-md-8">
+                          <span>
+                            {{ productionOrderModel.customerNumber }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row d-flex item-center">
+                        <div class="col-md-4">
+                          <span>Ngày dự kiến trả:</span>
+                        </div>
+                        <div class="col-md-8">
+                          <p-calendar class="w-100" dateFormat="dd/mm/yy"
+                            [styleClass]="(endDateControl.invalid  && (endDateControl.dirty || endDateControl.touched)) ? 'error-pcalendar': ''"
+                            formControlName="endDateControl" showButtonBar="true">
+                          </p-calendar>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 mb-10">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row d-flex item-center">
+                        <div class="col-md-4">
+                          <span>Điểm trả hàng:</span>
+                        </div>
+                        <div class="col-md-8">
+                          <input class="w-100" type="text" pInputText formControlName="placeOfDeliveryControl" />
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row d-flex item-center">
+                        <div class="col-md-4">
+                          <span>Ghi chú KT</span>
+                        </div>
+                        <div class="col-md-8">
+                          <input class="w-100" type="text" (change)="changeNoteTechnique()" pInputText
+                            formControlName="noteTechniqueControl" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 mb-10">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="row d-flex item-center">
+                        <div class="col-md-4">
+                          <span>Trạng thái:</span>
+                        </div>
+                        <div class="col-md-8">
+                          <span>Mới tạo</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="row d-flex item-center">
+                        <div class="col-md-4">
+                          <span>Ưu tiên</span>
+                        </div>
+                        <div class="col-md-8">
+                          <p-checkbox formControlName="especiallyControl" [binary]="true"></p-checkbox>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+
+    </div>
+    <div class="row m-0 bg-white border-dde1e6 p-10">
+      <div class="row m-0 mb-15  px-15">
+        <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+          <p-accordionTab header="Thông tin sản phẩm" [selected]="true">
+            <div class="col-md-12 mb-15">
+              <button class="btn btn-primary" style="margin-right: 10px;" (click)="showDiaLog()">
+                Tạo bán thành phẩm
+              </button>
+
+              <button class="btn btn-success " *ngIf="isAddAll" (click)="addOrSaveAll()">
+                Tạo quy trình
+              </button>
+            </div>
+            <div class="col-md-12 mb-15 border-dde1e6 bg-F5F5F5" id="session" *ngIf="isSession">
+              <div class="row m-0 mb-10">
+                <h4>Quy trình sản xuất</h4>
+              </div>
+              <div class="row m-0 d-flex item-center">
+                <div class="col-md-4">
+                  <div class="row d-flex item-center">
+                    <div class="col-md-3">
+                      <span>Quy trình :</span>
+                    </div>
+                    <div class="col-md-9">
+                      <p-dropdown [options]="listMappingOrderTechnique" filter='true'
+                        resetFilterOnHide="true"
+                        filterPlaceholder="Nhập tên quy trình" [(ngModel)]="selectedProductOrderWorkflow"
+                        optionLabel="name" placeholder='Chọn quy trình'>
+                      </p-dropdown>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-8 d-flex" *ngIf='selectedProductOrderWorkflow != null'>
+                  <div *ngIf="selectedProductOrderWorkflow != null" class="showButton mr-10 d-flex item-center">
+                    <div *ngFor="let item of selectedProductOrderWorkflow.listTechniqueRequest; let i = index">
+                      <span>
+                        {{item.techniqueName}}
+                      </span>
+                      <span *ngIf="selectedProductOrderWorkflow.listTechniqueRequest.length - 1 > i">
+                        -->
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row m-0 mb-10">
+                <div style="float:right;">
+                  <button class="cancel" type="button" (click)="cancelSession()">
+                    <span class="text-cancel">Hủy</span>
+                  </button>
+                  <button #save class="save" type="button" (click)="saveSession()">
+                    <span class="text-save">Lưu</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 mb-15">
+              <div class="row">
+                <div class="col-md-12">
+                  <span style="font-weight: bold; color: red;">Tổng số tấm: {{totalQuantity}}</span>
+                </div>
+              </div>
+              <div class="row" style="margin-top: 10px;">
+                <div class="col-md-12">
+                  <span style="font-weight: bold; color: #0000ff;">Tổng số m2: {{totalArea}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12 p-0">
+              <p-treeTable #myTable [value]="listProduct" (onNodeSelect)="selectedListProduct($event)"
+                scrollHeight="650px"
+                (onEditComplete)="onEditComplete($event.data.node)" (onNodeUnselect)="unSelectedListProduct($event)"
+                (onHeaderCheckboxToggle)="selectedAll()" [scrollable]="true" [style]="{width:'100%'}"
+                [resizableColumns]="true" columnResizeMode="expand" [columns]="colsListProduct" selectionMode="checkbox"
+                [(selection)]="selectedProduct">
+                <ng-template pTemplate="colgroup" let-columns>
+                  <colgroup>
+                    <col *ngFor="let col of columns"
+                      [ngStyle]="{'text-align': left, 'display': col.display,'width':col.width }">
+                  </colgroup>
+                </ng-template>
+                <ng-template pTemplate="header" let-columns>
+                  <tr [ttRow]="rowNode">
+                    <th *ngFor="let col of columns"
+                      [ngStyle]="{'text-align': left, 'display': col.display,'width':col.width }"
+                      [ngSwitch]="col.header">
+                      <div style="text-align:left" *ngSwitchCase="'STT'">
+                        <p-treeTableHeaderCheckbox></p-treeTableHeaderCheckbox>
+                      </div>
+                      <span *ngSwitchDefault>{{col.header}}</span>
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowNode let-rowData="rowData" let-columns="columns">
+                  <tr>
+                    <td *ngFor="let col of columns; let i = index" [ngSwitch]="col.field" 
+                      [ttEditableColumn]="rowNode"
+                      [ngStyle]="{'text-align': left, 'display': col.display,'width':col.width }">
+                      <p-treeTableCellEditor *ngSwitchCase="'productThickness'">
+                        <ng-template pTemplate="input">
+                          <input pInputText type="text" [(ngModel)]="rowData[col.field]"
+                            (change)="changeInput(rowNode.node)"
+                            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '4'}"
+                            [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                        </ng-template>
+                        <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                      </p-treeTableCellEditor>
+                      <div *ngSwitchCase="'stt'">
+                        <p-treeTableToggler [rowNode]="rowNode" *ngIf="i == 0"></p-treeTableToggler>
+                        <p-treeTableCheckbox [value]="rowNode" *ngIf="i == 0"></p-treeTableCheckbox>
+                      </div>
+                      <div class="row m-0" *ngSwitchCase="'to'">
+                        <div class="float-right">
+                          <button *ngIf="rowNode.parent == null" type="button" pTooltip="Xem quy trình sản xuất"
+                            tooltipPosition="top" (click)="showSession(rowNode.node)" [tooltipDisabled]="false"
+                            class="btn btn-info px-8 py-3 ml-5">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button *ngIf="rowNode.parent != null" type="button" pTooltip="Xem quy trình sản xuất"
+                            tooltipPosition="top" (click)="showSessionChildren(rowNode.node,rowNode.parent)"
+                            [tooltipDisabled]="false" class="btn btn-info px-8 py-3 ml-5">
+                            <i class="fas fa-eye"></i>
+                          </button>
+                          <button 
+                            *ngIf="(rowNode.parent == null || rowNode.parent.parent == null)"
+                            pTooltip="Thêm quy trình bán thành phẩm" tooltipPosition="top"
+                            [tooltipDisabled]="false" type="button" (click)="AddProduct(rowNode)"
+                            class="btn btn-success px-8 py-3 ml-5">
+                            <i class="fa fa-plus-circle"></i>
+                          </button>
+                          <button pTooltip="Xóa" tooltipPosition="top" [tooltipDisabled]="false" type="button"
+                            (click)="RemoveProduct(rowNode,i)" *ngIf="rowNode.parent != null"
+                            class="btn btn-danger px-8 py-3 ml-5">
+                            <i class="fas fa-trash-alt"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div *ngIf="rowNode.parent != null">
+                        <p-treeTableCellEditor *ngSwitchCase="'productName'">
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]"
+                              [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                          </ng-template>
+                          <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+
+                        <p-treeTableCellEditor *ngSwitchCase="'productGroupCode'">
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]"
+                              [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                          </ng-template>
+                          <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+                      </div>
+
+                      <div *ngIf="rowNode.parent == null">
+                        <p-treeTableCellEditor *ngSwitchCase="'productLength'">
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]"
+                              (change)="changeInput(rowNode.node)"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '4'}"
+                              [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                          </ng-template>
+                          <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+
+                        <p-treeTableCellEditor *ngSwitchCase="'productWidth'">
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]"
+                              (change)="changeInput(rowNode.node)"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '4'}"
+                              [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                          </ng-template>
+                          <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+
+                        <p-treeTableCellEditor *ngSwitchCase="'quantity'">
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]"
+                              (change)="changeInput(rowNode.node)"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                              [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                          </ng-template>
+                          <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+                        <p-treeTableCellEditor *ngSwitchCase="'hole'">
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]"
+                              (change)="changeInput(rowNode.node)"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                              [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                          </ng-template>
+                          <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+                        <p-treeTableCellEditor *ngSwitchCase="'borehole'">
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]"
+                              (change)="changeInput(rowNode.node)"
+                              [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                              [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                          </ng-template>
+                          <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+                      </div>
+                      <div>
+                        <p-treeTableCellEditor *ngSwitchCase="'techniqueDescription'">
+                          <ng-template pTemplate="input">
+                            <input pInputText type="text" [(ngModel)]="rowData[col.field]"
+                              (change)="changeInput(rowNode.node)" [ngStyle]="{'width': i == 0 ? '90%': '100%'}">
+                          </ng-template>
+                          <ng-template pTemplate="output">{{rowData[col.field]}}</ng-template>
+                        </p-treeTableCellEditor>
+                      </div>
+                      <span *ngSwitchCase="'statusName'">
+                        Mới tạo
+                      </span>
+                      <span *ngSwitchDefault>
+                        {{rowData[col.field]}}
+                      </span>
+                    </td>
+                  </tr>
+                </ng-template>
+
+              </p-treeTable>
+            </div>
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+
+    </div>
+  </div>
+
+  <p-dialog header="Tạo bán thành phẩm" [(visible)]="isShowDialog" [modal]="true" [responsive]="true"
+    (click)="resize($event)"
+    [style]="{width: '1000px',top:isOverFlow == true?(selectedBTPControl.value == 'BTP1'?'194px':'80px'):'0px'}"
+    [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+    <div class="row m-0 p-10" [ngClass]="isOverFlow == true?'over-flow':''">
+      <form [formGroup]="dialogForm">
+        <div class="col-md-12 p-0">
+          <div class="row">
+            <div class="col-md-4">
+              <b>Chọn loại bán thành phẩm:</b>
+            </div>
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-6">
+                  <p-radioButton name="group1" value="BTP1" label="Bán thành phẩm cấp 1"
+                    formControlName="selectedBTPControl">
+                  </p-radioButton>
+                </div>
+                <div class="col-md-6">
+                  <p-radioButton name="group1" value="BTP2" label="Bán thành phẩm cấp 2"
+                    formControlName="selectedBTPControl">
+                  </p-radioButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <hr>
+        </div>
+
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-3">
+              <b>Chọn quy trình sản phẩm:</b>
+            </div>
+            <div class="col-md-4">
+              <p-dropdown [options]="listMappingOrderTechnique" filter='true' 
+                filterPlaceholder="Nhập tên quy trình" resetFilterOnHide="true"
+                [styleClass]="(productOrderWorkflowBTPControl.invalid && (productOrderWorkflowBTPControl.dirty || productOrderWorkflowBTPControl.touched)) ? 'error-border' : ''"
+                formControlName="productOrderWorkflowBTPControl" optionLabel="name" placeholder='Chọn quy trình'>
+              </p-dropdown>
+              <div
+                *ngIf="dialogForm.controls['productOrderWorkflowBTPControl'].invalid && (dialogForm.controls['productOrderWorkflowBTPControl'].dirty || dialogForm.controls['productOrderWorkflowBTPControl'].touched)">
+                <div *ngIf="dialogForm.controls['productOrderWorkflowBTPControl'].errors.required" style="color: red;">
+                  Quy trình không được để trống
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5" *ngIf='productOrderWorkflowBTPControl.value != null'>
+              <div *ngIf="productOrderWorkflowBTPControl.value != null" class="showButton mr-10">
+                <div *ngFor="let item of productOrderWorkflowBTPControl.value.listTechniqueRequest; let i = index" style="display: inline;">
+                  <span>
+                    {{item.techniqueName}}
+                  </span>
+                  <span *ngIf="productOrderWorkflowBTPControl.value.listTechniqueRequest.length - 1 > i">
+                    -->
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <hr>
+        </div>
+
+        <div class="col-md-12" *ngIf="selectedBTPControl.value == 'BTP1' || selectedBTPControl.value == 'BTP2'">
+          <div class="row mb-10">
+            <div class="col-md-6">
+              <h5><b>Bán thành phẩm cấp 1.1</b></h5>
+            </div>
+            <div class="col-md-6">
+              <h5><b>Bán thành phẩm cấp 1.2</b></h5>
+            </div>
+          </div>
+          <div class="row mb-10">
+            <div class="col-md-6">
+              <div class="row m-0">
+                <div class="col-md-3">
+                  Chủng loại:
+                </div>
+                <div class="col-md-9">
+                  <input formControlName="productName11Control"
+                    [ngClass]="(productName11Control.invalid && (productName11Control.dirty || productName11Control.touched)) ? 'error-border' : ''"
+                    type="text" style="width:100%" pInputText />
+                  <div
+                    *ngIf="dialogForm.controls['productName11Control'].invalid && (dialogForm.controls['productName11Control'].dirty || dialogForm.controls['productName11Control'].touched)">
+                    <div *ngIf="dialogForm.controls['productName11Control'].errors.required" style="color: red;">
+                      Chủng loại không được để trống
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row m-0 mb-10">
+                <div class="col-md-3">
+                  Chủng loại:
+                </div>
+                <div class="col-md-9">
+                  <input
+                    [ngClass]="(productName12Control.invalid && (productName12Control.dirty || productName12Control.touched)) ? 'error-border' : ''"
+                    type="text" style="width:100%" pInputText formControlName="productName12Control" />
+                  <div
+                    *ngIf="dialogForm.controls['productName12Control'].invalid && (dialogForm.controls['productName12Control'].dirty || dialogForm.controls['productName12Control'].touched)">
+                    <div *ngIf="dialogForm.controls['productName12Control'].errors.required" style="color: red;">
+                      Chủng loại không được để trống
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-10">
+            <div class="col-md-6">
+              <div class="row m-0 mb-10">
+                <div class="col-md-3">
+                  Độ dày:
+                </div>
+                <div class="col-md-9">
+                  <input type="text"
+                    [ngClass]="(productThickness11Control.invalid && (productThickness11Control.dirty || productThickness11Control.touched)) ? 'error-border' : ''"
+                    [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '4'}" style="width:100%"
+                    pInputText formControlName="productThickness11Control" />
+                  <div
+                    *ngIf="dialogForm.controls['productThickness11Control'].invalid && (dialogForm.controls['productThickness11Control'].dirty || dialogForm.controls['productThickness11Control'].touched)">
+                    <div *ngIf="dialogForm.controls['productThickness11Control'].errors.required" style="color: red;">
+                      Độ dày không được để trống
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row m-0 mb-10">
+                <div class="col-md-3">
+                  Độ dày:
+                </div>
+                <div class="col-md-9">
+                  <input type="text"
+                    [ngClass]="(productThickness12Control.invalid && (productThickness12Control.dirty || productThickness12Control.touched)) ? 'error-border' : ''"
+                    [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '4'}" style="width:100%"
+                    pInputText formControlName="productThickness12Control" />
+                  <div
+                    *ngIf="dialogForm.controls['productThickness12Control'].invalid && (dialogForm.controls['productThickness12Control'].dirty || dialogForm.controls['productThickness12Control'].touched)">
+                    <div *ngIf="dialogForm.controls['productThickness12Control'].errors.required" style="color: red;">
+                      Độ dày không được để trống
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-10">
+            <div class="col-md-6">
+              <div class="row m-0">
+                <div class="col-md-3">
+                  Quy trình:
+                </div>
+                <div class="col-md-9">
+                  <p-dropdown [options]="listMappingOrderTechnique" filter='true' 
+                    filterPlaceholder="Nhập tên quy trình" resetFilterOnHide="true"
+                    [styleClass]="(productOrderWorkflowBTP11Control.invalid && (productOrderWorkflowBTP11Control.dirty || productOrderWorkflowBTP11Control.touched)) ? 'error-border' : ''"
+                    (onChange)="changeWFL11()" formControlName="productOrderWorkflowBTP11Control" optionLabel="name"
+                    placeholder='Chọn quy trình'>
+                  </p-dropdown>
+                  <div
+                    *ngIf="dialogForm.controls['productOrderWorkflowBTP11Control'].invalid && (dialogForm.controls['productOrderWorkflowBTP11Control'].dirty || dialogForm.controls['productOrderWorkflowBTP11Control'].touched)">
+                    <div *ngIf="dialogForm.controls['productOrderWorkflowBTP11Control'].errors.required"
+                      style="color: red;">
+                      Quy trình không được để trống
+                    </div>
+                  </div>
+                  <div *ngIf='productOrderWorkflowBTP11Control.value != null'
+                    style="position: absolute;top: 0px;right: -5px;display: flex;align-items: center;height: 100%;">
+                    <i class="fas fa-eye" pTooltip="{{listTechniqueName11}}" tooltipZIndex="99999"
+                      tooltipPosition="right" [tooltipDisabled]="false"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row m-0">
+                <div class="col-md-3">
+                  Quy trình:
+                </div>
+                <div class="col-md-9">
+                  <p-dropdown [options]="listMappingOrderTechnique" filter='true' 
+                    filterPlaceholder="Nhập tên quy trình" resetFilterOnHide="true"
+                    [styleClass]="(productOrderWorkflowBTP12Control.invalid && (productOrderWorkflowBTP12Control.dirty || productOrderWorkflowBTP12Control.touched)) ? 'error-border' : ''"
+                    (onChange)="changeWFL12()" formControlName="productOrderWorkflowBTP12Control" optionLabel="name"
+                    placeholder='Chọn quy trình'>
+                  </p-dropdown>
+                  <div
+                    *ngIf="dialogForm.controls['productOrderWorkflowBTP12Control'].invalid && (dialogForm.controls['productOrderWorkflowBTP12Control'].dirty || dialogForm.controls['productOrderWorkflowBTP12Control'].touched)">
+                    <div *ngIf="dialogForm.controls['productOrderWorkflowBTP12Control'].errors.required"
+                      style="color: red;">
+                      Quy trình không được để trống
+                    </div>
+                  </div>
+                  <div *ngIf='productOrderWorkflowBTP12Control.value != null'
+                    style="position: absolute;top: 0px;right: -5px;display: flex;align-items: center;height: 100%;">
+                    <i class="fas fa-eye" pTooltip="{{listTechniqueName12}}" tooltipZIndex="99999"
+                      tooltipPosition="right" [tooltipDisabled]="false"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-10">
+            <div class="col-md-6">
+              <div class="row m-0">
+                <div class="col-md-3">
+                  Mã nhóm:
+                </div>
+                <div class="col-md-9">
+                  <input formControlName="productGroupCode11Control"
+                    type="text" style="width:100%" pInputText />
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row m-0">
+                <div class="col-md-3">
+                  Mã nhóm:
+                </div>
+                <div class="col-md-9">
+                  <input formControlName="productGroupCode12Control"
+                    type="text" style="width:100%" pInputText />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mb-10" *ngIf="selectedBTPControl.value == 'BTP2'">
+            <div class="col-md-6">
+              <div class="row m-0">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                  <p-checkbox formControlName="isChildren1Control" label="Có bán thành phẩm con" [binary]="true">
+                  </p-checkbox>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row m-0">
+                <div class="col-md-3">
+                </div>
+                <div class="col-md-9">
+                  <p-checkbox formControlName="isChildren2Control" label="Có bán thành phẩm con" [binary]="true">
+                  </p-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12" *ngIf="isChildren1Control.value && selectedBTPControl.value == 'BTP2'">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+            <p-accordionTab header="Bán thành phẩm con 1.1" [selected]="true">
+              <div class="col-md-12">
+                <div class="row mb-10">
+                  <div class="col-md-6">
+                    <h5><b>Bán thành phẩm cấp 1.1.1</b></h5>
+                  </div>
+                  <div class="col-md-6">
+                    <h5><b>Bán thành phẩm cấp 1.1.2</b></h5>
+                  </div>
+                </div>
+                <div class="row mb-10">
+                  <div class="col-md-6">
+                    <div class="row m-0">
+                      <div class="col-md-3">
+                        Chủng loại:
+                      </div>
+                      <div class="col-md-9">
+                        <input
+                          [ngClass]="(productName111Control.invalid && (productName111Control.dirty || productName111Control.touched)) ? 'error-border' : ''"
+                          type="text" style="width:100%" pInputText formControlName="productName111Control" />
+                        <div
+                          *ngIf="dialogForm.controls['productName111Control'].invalid && (dialogForm.controls['productName111Control'].dirty || dialogForm.controls['productName111Control'].touched)">
+                          <div *ngIf="dialogForm.controls['productName111Control'].errors.required" style="color: red;">
+                            Chủng loại không được để trống
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row m-0 mb-10">
+                      <div class="col-md-3">
+                        Chủng loại:
+                      </div>
+                      <div class="col-md-9">
+                        <input
+                          [ngClass]="(productName112Control.invalid && (productName112Control.dirty || productName112Control.touched)) ? 'error-border' : ''"
+                          type="text" style="width:100%" pInputText formControlName="productName112Control" />
+                        <div
+                          *ngIf="dialogForm.controls['productName112Control'].invalid && (dialogForm.controls['productName112Control'].dirty || dialogForm.controls['productName112Control'].touched)">
+                          <div *ngIf="dialogForm.controls['productName112Control'].errors.required" style="color: red;">
+                            Chủng loại không được để trống
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-10">
+                  <div class="col-md-6">
+                    <div class="row m-0 mb-10">
+                      <div class="col-md-3">
+                        Độ dày:
+                      </div>
+                      <div class="col-md-9">
+                        <input type="text"
+                          [ngClass]="(productThickness111Control.invalid && (productThickness111Control.dirty || productThickness111Control.touched)) ? 'error-border' : ''"
+                          [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '4'}"
+                          style="width:100%" pInputText formControlName="productThickness111Control" />
+                        <div
+                          *ngIf="dialogForm.controls['productThickness111Control'].invalid && (dialogForm.controls['productThickness111Control'].dirty || dialogForm.controls['productThickness111Control'].touched)">
+                          <div *ngIf="dialogForm.controls['productThickness111Control'].errors.required"
+                            style="color: red;">
+                            Độ dày không được để trống
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row m-0 mb-10">
+                      <div class="col-md-3">
+                        Độ dày:
+                      </div>
+                      <div class="col-md-9">
+                        <input type="text"
+                          [ngClass]="(productThickness112Control.invalid && (productThickness112Control.dirty || productThickness112Control.touched)) ? 'error-border' : ''"
+                          [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '4'}"
+                          style="width:100%" pInputText formControlName="productThickness112Control" />
+                        <div
+                          *ngIf="dialogForm.controls['productThickness112Control'].invalid && (dialogForm.controls['productThickness112Control'].dirty || dialogForm.controls['productThickness112Control'].touched)">
+                          <div *ngIf="dialogForm.controls['productThickness112Control'].errors.required"
+                            style="color: red;">
+                            Độ dày không được để trống
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-10">
+                  <div class="col-md-6">
+                    <div class="row m-0">
+                      <div class="col-md-3">
+                        Quy trình:
+                      </div>
+                      <div class="col-md-9">
+                        <p-dropdown [options]="listMappingOrderTechnique" filter='true' 
+                          (onChange)="changeWFL111()" resetFilterOnHide="true"
+                          [styleClass]="(productOrderWorkflowBTP111Control.invalid && (productOrderWorkflowBTP111Control.dirty || productOrderWorkflowBTP111Control.touched)) ? 'error-border' : ''"
+                          filterPlaceholder="Nhập tên quy trình" formControlName="productOrderWorkflowBTP111Control"
+                          optionLabel="name" placeholder='Chọn quy trình'>
+                        </p-dropdown>
+                        <div
+                          *ngIf="dialogForm.controls['productOrderWorkflowBTP111Control'].invalid && (dialogForm.controls['productOrderWorkflowBTP111Control'].dirty || dialogForm.controls['productOrderWorkflowBTP111Control'].touched)">
+                          <div *ngIf="dialogForm.controls['productOrderWorkflowBTP111Control'].errors.required"
+                            style="color: red;">
+                            Quy trình không được để trống
+                          </div>
+                        </div>
+                        <div *ngIf='productOrderWorkflowBTP111Control.value != null'
+                          style="position: absolute;top: 0px;right: -5px;display: flex;align-items: center;height: 100%;">
+                          <i class="fas fa-eye" pTooltip="{{listTechniqueName111}}" tooltipZIndex="99999"
+                            tooltipPosition="right" [tooltipDisabled]="false"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row m-0">
+                      <div class="col-md-3">
+                        Quy trình:
+                      </div>
+                      <div class="col-md-9">
+                        <p-dropdown [options]="listMappingOrderTechnique" filter='true' 
+                          (onChange)="changeWFL112()" resetFilterOnHide="true"
+                          [styleClass]="(productOrderWorkflowBTP112Control.invalid && (productOrderWorkflowBTP112Control.dirty || productOrderWorkflowBTP112Control.touched)) ? 'error-border' : ''"
+                          filterPlaceholder="Nhập tên quy trình" formControlName="productOrderWorkflowBTP112Control"
+                          optionLabel="name" placeholder='Chọn quy trình'>
+                        </p-dropdown>
+                        <div
+                          *ngIf="dialogForm.controls['productOrderWorkflowBTP112Control'].invalid && (dialogForm.controls['productOrderWorkflowBTP112Control'].dirty || dialogForm.controls['productOrderWorkflowBTP112Control'].touched)">
+                          <div *ngIf="dialogForm.controls['productOrderWorkflowBTP112Control'].errors.required"
+                            style="color: red;">
+                            Quy trình không được để trống
+                          </div>
+                        </div>
+                        <div *ngIf='productOrderWorkflowBTP112Control.value != null'
+                          style="position: absolute;top: 0px;right: -5px;display: flex;align-items: center;height: 100%;">
+                          <i class="fas fa-eye" pTooltip="{{listTechniqueName112}}" tooltipZIndex="99999"
+                            tooltipPosition="right" [tooltipDisabled]="false"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-10">
+                  <div class="col-md-6">
+                    <div class="row m-0">
+                      <div class="col-md-3">
+                        Mã nhóm:
+                      </div>
+                      <div class="col-md-9">
+                        <input formControlName="productGroupCode111Control"
+                          type="text" style="width:100%" pInputText />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row m-0">
+                      <div class="col-md-3">
+                        Mã nhóm:
+                      </div>
+                      <div class="col-md-9">
+                        <input formControlName="productGroupCode112Control"
+                          type="text" style="width:100%" pInputText />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+
+        <div class="col-md-12" *ngIf="isChildren2Control.value && selectedBTPControl.value == 'BTP2'">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+            <p-accordionTab header="Bán thành phẩm con 1.2" [selected]="true">
+              <div class="col-md-12">
+                <div class="row mb-10">
+                  <div class="col-md-6">
+                    <h5><b>Bán thành phẩm cấp 1.2.1</b></h5>
+                  </div>
+                  <div class="col-md-6">
+                    <h5><b>Bán thành phẩm cấp 1.2.2</b></h5>
+                  </div>
+                </div>
+                <div class="row mb-10">
+                  <div class="col-md-6">
+                    <div class="row m-0">
+                      <div class="col-md-3">
+                        Chủng loại:
+                      </div>
+                      <div class="col-md-9">
+                        <input
+                          [ngClass]="(productName121Control.invalid && (productName121Control.dirty || productName121Control.touched)) ? 'error-border' : ''"
+                          type="text" style="width:100%" pInputText formControlName="productName121Control" />
+                        <div
+                          *ngIf="dialogForm.controls['productName121Control'].invalid && (dialogForm.controls['productName121Control'].dirty || dialogForm.controls['productName121Control'].touched)">
+                          <div *ngIf="dialogForm.controls['productName121Control'].errors.required" style="color: red;">
+                            Chủng loại không được để trống
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row m-0 mb-10">
+                      <div class="col-md-3">
+                        Chủng loại:
+                      </div>
+                      <div class="col-md-9">
+                        <input
+                          [ngClass]="(productName122Control.invalid && (productName122Control.dirty || productName122Control.touched)) ? 'error-border' : ''"
+                          type="text" style="width:100%" pInputText formControlName="productName122Control" />
+                        <div
+                          *ngIf="dialogForm.controls['productName122Control'].invalid && (dialogForm.controls['productName122Control'].dirty || dialogForm.controls['productName122Control'].touched)">
+                          <div *ngIf="dialogForm.controls['productName122Control'].errors.required" style="color: red;">
+                            Chủng loại không được để trống
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-10">
+                  <div class="col-md-6">
+                    <div class="row m-0 mb-10">
+                      <div class="col-md-3">
+                        Độ dày:
+                      </div>
+                      <div class="col-md-9">
+                        <input type="text"
+                          [ngClass]="(productThickness121Control.invalid && (productThickness121Control.dirty || productThickness121Control.touched)) ? 'error-border' : ''"
+                          [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '4'}"
+                          style="width:100%" pInputText formControlName="productThickness121Control" />
+                        <div
+                          *ngIf="dialogForm.controls['productThickness121Control'].invalid && (dialogForm.controls['productThickness121Control'].dirty || dialogForm.controls['productThickness121Control'].touched)">
+                          <div *ngIf="dialogForm.controls['productThickness121Control'].errors.required"
+                            style="color: red;">
+                            Độ dày không được để trống
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row m-0 mb-10">
+                      <div class="col-md-3">
+                        Độ dày:
+                      </div>
+                      <div class="col-md-9">
+                        <input type="text"
+                          [ngClass]="(productThickness122Control.invalid && (productThickness122Control.dirty || productThickness122Control.touched)) ? 'error-border' : ''"
+                          [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '4'}"
+                          style="width:100%" pInputText formControlName="productThickness122Control" />
+                        <div
+                          *ngIf="dialogForm.controls['productThickness122Control'].invalid && (dialogForm.controls['productThickness122Control'].dirty || dialogForm.controls['productThickness122Control'].touched)">
+                          <div *ngIf="dialogForm.controls['productThickness122Control'].errors.required"
+                            style="color: red;">
+                            Độ dày không được để trống
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-10">
+                  <div class="col-md-6">
+                    <div class="row m-0">
+                      <div class="col-md-3">
+                        Quy trình:
+                      </div>
+                      <div class="col-md-9">
+                        <p-dropdown [options]="listMappingOrderTechnique" filter='true' 
+                          (onChange)="changeWFL121()" resetFilterOnHide="true"
+                          [styleClass]="(productOrderWorkflowBTP121Control.invalid && (productOrderWorkflowBTP121Control.dirty || productOrderWorkflowBTP121Control.touched)) ? 'error-border' : ''"
+                          filterPlaceholder="Nhập tên quy trình" formControlName="productOrderWorkflowBTP121Control"
+                          optionLabel="name" placeholder='Chọn quy trình'>
+                        </p-dropdown>
+                        <div
+                          *ngIf="dialogForm.controls['productOrderWorkflowBTP121Control'].invalid && (dialogForm.controls['productOrderWorkflowBTP121Control'].dirty || dialogForm.controls['productOrderWorkflowBTP121Control'].touched)">
+                          <div *ngIf="dialogForm.controls['productOrderWorkflowBTP121Control'].errors.required"
+                            style="color: red;">
+                            Quy trình không được để trống
+                          </div>
+                        </div>
+                        <div *ngIf='productOrderWorkflowBTP121Control.value != null'
+                          style="position: absolute;top: 0px;right: -5px;display: flex;align-items: center;height: 100%;">
+                          <i class="fas fa-eye" pTooltip="{{listTechniqueName121}}" tooltipZIndex="99999"
+                            tooltipPosition="right" [tooltipDisabled]="false"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row m-0">
+                      <div class="col-md-3">
+                        Quy trình:
+                      </div>
+                      <div class="col-md-9">
+                        <p-dropdown [options]="listMappingOrderTechnique" filter='true' 
+                          (onChange)="changeWFL122()" resetFilterOnHide="true"
+                          [styleClass]="(productOrderWorkflowBTP122Control.invalid && (productOrderWorkflowBTP122Control.dirty || productOrderWorkflowBTP122Control.touched)) ? 'error-border' : ''"
+                          filterPlaceholder="Nhập tên quy trình" formControlName="productOrderWorkflowBTP122Control"
+                          optionLabel="name" placeholder='Chọn quy trình'>
+                        </p-dropdown>
+                        <div
+                          *ngIf="dialogForm.controls['productOrderWorkflowBTP122Control'].invalid && (dialogForm.controls['productOrderWorkflowBTP122Control'].dirty || dialogForm.controls['productOrderWorkflowBTP122Control'].touched)">
+                          <div *ngIf="dialogForm.controls['productOrderWorkflowBTP122Control'].errors.required"
+                            style="color: red;">
+                            Quy trình không được để trống
+                          </div>
+                        </div>
+                        <div *ngIf='productOrderWorkflowBTP122Control.value != null'
+                          style="position: absolute;top: 0px;right: -5px;display: flex;align-items: center;height: 100%;">
+                          <i class="fas fa-eye" pTooltip="{{listTechniqueName122}}" tooltipZIndex="99999"
+                            tooltipPosition="right" [tooltipDisabled]="false"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row mb-10">
+                  <div class="col-md-6">
+                    <div class="row m-0">
+                      <div class="col-md-3">
+                        Mã nhóm:
+                      </div>
+                      <div class="col-md-9">
+                        <input formControlName="productGroupCode121Control"
+                          type="text" style="width:100%" pInputText />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="row m-0">
+                      <div class="col-md-3">
+                        Mã nhóm:
+                      </div>
+                      <div class="col-md-9">
+                        <input formControlName="productGroupCode122Control"
+                          type="text" style="width:100%" pInputText />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+      </form>
+    </div>
+    <p-footer>
+      <button type="button" pButton icon="pi pi-check" (click)="applyAll()" label="Áp dụng"></button>
+      <button type="button" pButton icon="pi pi-close" (click)="isShowDialog=false" label="Hủy"
+        class="ui-button-secondary"></button>
+    </p-footer>
+  </p-dialog>
+</div>

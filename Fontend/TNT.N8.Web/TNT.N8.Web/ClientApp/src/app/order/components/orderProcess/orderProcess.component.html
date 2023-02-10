@@ -1,0 +1,433 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s"
+    [baseZIndex]="999999999">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="{{ 'order.messages_title.title_confirm' | translate }}" icon="pi pi-exclamation-triangle"
+  acceptLabel="{{ 'order.buttons.accept' | translate }}" rejectLabel="{{ 'order.buttons.reject' | translate }}">
+</p-confirmDialog>
+
+
+<div class="order-create">
+  <div class="row no-margin">
+    <div class="col-md-12">
+      <div class="row order-create-content" id="parent">
+        <div class="row no-margin button-group">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-6" style="padding-bottom: 10px;">
+                <div class="row no-margin" style='place-items: baseline;'>
+                  <div class="col-md-1 col-sm-1 col-xs-3">
+                    <div class="header-box-icon">
+                      <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+                    </div>
+                  </div>
+                  <div class="col-md-11 col-sm-10 col-xs-9">
+                    <div>
+                      <div class="box-header-title">{{ title }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="btn-box">
+                  <button class="cancel" type="button" (click)="cancel()">
+                    <span class="text-cancel">Thoát</span>
+                  </button>
+
+                  <button #save class="save"
+                    *ngIf="actionAdd && (orderProces == null || (orderProces.isCreator && orderProces.status == 1 )) "
+                    type="button" [disabled]="awaitResult" (click)="createOrderAction(null)">
+                    <span class="text-save">Lưu</span>
+                  </button>
+                </div>
+              </div>
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row col-md-12 no-margin" style="background: #ffffff; padding: 10px 0px;">
+
+          <div class="row no-margin w-100">
+            <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+              class="w-100">
+              <p-accordionTab header="Thông tin chung" [selected]="true">
+                <form [formGroup]="processForm" style="height: 100%;">
+
+                  <div class="col-md-5">
+
+                    <div class="row mt-10">
+                      <div class="col-md-12">
+                        <label>Mã số: </label> <b style="margin-left:8px;"> {{ processCodeForm.value}}</b>
+                      </div>
+                    </div>
+
+                    <div class="row mt-10">
+                      <div class="col-md-4">
+                        <label>Loại gói dịch vụ: </label><span class="required">*</span>
+                      </div>
+
+                      <div class="col-md-8">
+                        <p-dropdown [options]="listServiceType" [virtualScroll]="true" itemSize="30"
+                          formControlName="serviceTypeControl" [disabled]="processStatus != 1"
+                          [styleClass]="(serviceTypeControl.invalid && (serviceTypeControl.dirty || serviceTypeControl.touched)) ? 'error-border' : ''"
+                          [filter]="true" [showClear]="true" [resetFilterOnHide]="true" placeholder="Chọn loại dịch vụ"
+                          optionLabel="productCategoryName" [style]="{'width': '100%'}"
+                          (keydown.enter)="$event.preventDefault()" (onChange)="changeSeviceType($event.value)">
+                        </p-dropdown>
+                      </div>
+                    </div>
+
+                    <div class="row mt-10">
+                      <div class="col-md-4">
+                        <label>Gói dịch vụ: </label><span class="required">*</span>
+                      </div>
+
+                      <div class="col-md-8">
+                        <p-dropdown [options]="listServicePacketChose" [virtualScroll]="true" itemSize="30"
+                          formControlName="servicePacketControl" [disabled]="processStatus != 1"
+                          [styleClass]="(servicePacketControl.invalid && (servicePacketControl.dirty || servicePacketControl.touched)) ? 'error-border' : ''"
+                          [filter]="true" [showClear]="true" [resetFilterOnHide]="true" placeholder="Chọn gói dịch vụ"
+                          optionLabel="name" [style]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()"
+                          (onChange)="changePack($event.value)">
+                        </p-dropdown>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-7">
+
+                    <div class="row mt-10">
+                      <div class="col-md-5">
+                        <label>Tên khách hàng: </label><span class="required">*</span>
+                      </div>
+
+                      <div class="col-md-3">
+                        <label>Số điện thoại: </label>
+                      </div>
+
+                      <div class="col-md-4">
+                        <label>Email: </label>
+                      </div>
+
+                    </div>
+
+                    <div class="row mt-10">
+                      <div class="col-md-5">
+                        <p-dropdown [options]="listCus" [virtualScroll]="true" itemSize="30"
+                          formControlName="customerControl" [disabled]="processStatus != 1"
+                          [styleClass]="(customerControl.invalid && (customerControl.dirty || customerControl.touched)) ? 'error-border' : ''"
+                          [filter]="true" [showClear]="true" [resetFilterOnHide]="true" placeholder="Chọn khách hàng"
+                          optionLabel="customerName" [style]="{'width': '100%'}"
+                          (keydown.enter)="$event.preventDefault()" (onChange)="changeCustomer($event.value)">
+                        </p-dropdown>
+                      </div>
+
+                      <div class="col-md-3">
+                        <input class="w100 input-text" type="text" formControlName="customerPhoneControl" disabled
+                          (keydown.enter)="$event.preventDefault()" pInputText />
+
+                      </div>
+
+                      <div class="col-md-4">
+                        <input class="w100 input-text" type="text" formControlName="customerEmailControl" disabled
+                          (keydown.enter)="$event.preventDefault()" pInputText />
+                      </div>
+                    </div>
+
+                    <div class="row mt-10">
+
+                      <div class="col-md-12">
+                        <input class="w100 input-text" type="text" formControlName="customerAddressControl" disabled placeholder="Địa chỉ"
+                          (keydown.enter)="$event.preventDefault()" pInputText />
+                      </div>
+
+                    </div>
+
+
+                  </div>
+
+                </form>
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+
+
+          <div class="row no-margin w-100">
+            <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+              class="w-100">
+              <p-accordionTab header="Cài đặt điểm báo cáo" [selected]="true">
+                <div class="col-md-12">
+
+                  <!-- Cột 1 -->
+                  <div class="col-md-5 mt-10" style="width:47.5%">
+
+                    <div class="row mt-10" *ngFor="let attr of listProcessOfOder; let i = index">
+                      <div *ngIf="i % 2 == true" style="padding:20px;height:140px; border-radius:10px;"></div>
+
+                      <div *ngIf="i % 2 == false" class="w-100"
+                        style="border:1.5px solid gray; padding:20px;height:140px; border-radius:10px;">
+                       
+
+                        <div class="col-md-4 mt-10">
+                          <span style="float:left">{{ attr.statusName }}</span>
+                        </div>
+
+                        <div class="col-md-8 mt-10" style="text-align:right">
+                          <label><b>{{ attr.categoryName }}</b></label>
+                        </div>
+
+                        <div class="col-md-12 mt-10" style="text-align:right">
+
+
+                          <button pButton type="button" label="Tạo phiếu yêu cầu" class="ui-button-secondary blue-text"
+                            *ngIf="actionAdd && attr.categoryCode == 'CREATE' && attr.orderId == null && orderProcessId != null && attr.isAction  && (i == 0  || i != 0 && listProcessOfOder[i-1].status == 3)"
+                            style="margin-left:10px;" (click)="viewOrder(attr.orderId)"></button>
+
+                          <!-- Chi tiết phiếu yêu cầu -->
+                          <button pButton type="button" label="Chi tiết" class="ui-button-secondary blue-text"
+                            (click)="viewOrder(attr.orderId)"
+                            *ngIf="actionAdd && (attr.categoryCode == 'CREATE' || attr.categoryCode == 'CONFIRM' ) && attr.orderId != null && attr.isAction"
+                            style="margin-left:10px;"></button>
+
+
+                          <button pButton type="button" label="Tạo phiếu hỗ trợ" class="ui-button-secondary blue-text"
+                            (click)="viewOrderAction( attr.orderId, attr.orderActionId)" *ngIf="actionAdd && (attr.categoryCode == 'CFORDER') && attr.orderActionId == null && orderProcessId != null  && attr.orderId != null && attr.isAction
+                            && (i == 0  || i != 0 && listProcessOfOder[i-1].status == 3)"
+                            style="margin-left:10px;"></button>
+
+                          <!-- Danh sách phiếu -->
+                          <button pButton type="button" label="Danh sách phiếu" class="ui-button-secondary blue-text"
+                            (click)="viewListOrderExten(attr)"
+                            *ngIf="actionAdd && (attr.categoryCode == 'SUPPORT' || attr.categoryCode == 'CFORDER') && attr.orderActionId != null && attr.isAction"
+                            style="margin-left:10px;"></button>
+
+                          <!-- Tạo phiếu bổ sung -->
+                          <button pButton type="button" label="Tạo phiếu bổ sung" class="ui-button-secondary blue-text"
+                            (click)="createOrderExten(attr.orderId)"
+                            *ngIf="actionAdd && (attr.categoryCode == 'SUPPORT') && attr.orderActionId != null && attr.isAction && attr.status == 2"
+                            style="margin-left:10px;"></button>
+
+                          <button pButton type="button" label="Xác nhận hoàn thành"
+                            (click)="updateOrderProcess(attr.id)" class="ui-button-secondary blue-text"
+                            *ngIf="actionAdd && (attr.categoryCode == 'DONE') && attr.status != 3 && (i == 0  || i != 0 && listProcessOfOder[i-1].status == 3) && attr.isAction"
+                            style="margin-left:10px;"></button>
+
+                          <!-- Nút xác nhận của các bước k mặc địch -->
+                          <button pButton type="button" label="Xác nhận" (click)="updateOrderProcess(attr.id)"
+                            class="ui-button-secondary blue-text"
+                            *ngIf="actionAdd && orderProcessId != null && (i == 0  || i != 0 && listProcessOfOder[i-1].status == 3) && attr.status != 3 && (attr.categoryCode != 'CREATE' && attr.categoryCode != 'CONFIRM' && attr.categoryCode != 'CFORDER' &&
+                                                                                     attr.categoryCode != 'DONE' && attr.categoryCode != 'SUPPORT') && attr.isAction"
+                            style="margin-left:10px;"></button>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+
+                  </div>
+
+                  <!-- Cột 2 -->
+                  <div class="col-md-2 mt-10" style="  transform: translateZ(0); text-align:center;width:5%">
+
+                    <div class="vl"
+                      [ngStyle]="{'border-left': '2px solid black', 'height': heightOfReportPoint, 'left':'49.5%', 'position': 'fixed', 'margin-top': '10px'}">
+                    </div>
+
+                    <div class="row  mt-10" *ngFor="let attr of listProcessOfOder;let i = index;" style="height:140px">
+                      <div class="col-md-12">
+                        <span class="circleOrange" *ngIf="attr.status == 1">{{
+                          attr.stepId }}</span>
+                        <span class="circleOrange" *ngIf="attr.status == 2" style="background: orange">{{ attr.stepId
+                          }}</span>
+
+                        <span class="circleOrange" *ngIf="attr.status == 3" style="background:  rgb(102, 204, 0)">{{
+                          attr.stepId }}</span>
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- Cột 3 -->
+                  <div class="col-md-5 mt-10" style="width:47.5%">
+
+                    <div class="row mt-10" *ngFor="let attr of listProcessOfOder; let i = index">
+
+                      <div *ngIf="i % 2 == false" style="padding:20px;height:140px; border-radius:10px;"></div>
+
+                      <div *ngIf="i % 2 == true" class="w-100"
+                        style="border:1.5px solid gray; padding:20px;height:140px; border-radius:10px;">
+                        <div class="col-md-8 mt-10">
+                          <label><b>{{ attr.categoryName }}</b></label>
+                        </div>
+
+                        <div class="col-md-4 mt-10">
+                          <span style="float:right">{{ attr.statusName }}</span>
+                        </div>
+
+                        <div class="col-md-12 mt-10">
+
+                          <button pButton type="button" label="Tạo phiếu yêu cầu" class="ui-button-secondary blue-text"
+                            *ngIf="actionAdd && attr.categoryCode == 'CREATE' && attr.orderId == null && orderProcessId != null && attr.isAction && (i == 0  || i != 0 && listProcessOfOder[i-1].status == 3)"
+                            style="margin-left:10px;" (click)="viewOrder(attr.orderId)"></button>
+
+                          <!-- Chi tiết phiếu yêu cầu -->
+                          <button pButton type="button" label="Chi tiết" class="ui-button-secondary blue-text"
+                            (click)="viewOrder(attr.orderId)"
+                            *ngIf="actionAdd && (attr.categoryCode == 'CREATE' || attr.categoryCode == 'CONFIRM' ) && attr.orderId != null && attr.isAction"
+                            style="margin-left:10px;"></button>
+
+
+
+                          <button pButton type="button" label="Tạo phiếu hỗ trợ" class="ui-button-secondary blue-text"
+                            (click)="viewOrderAction( attr.orderId, attr.orderActionId)" *ngIf="actionAdd && (attr.categoryCode == 'CFORDER') && attr.orderActionId == null && orderProcessId != null  && attr.orderId != null && attr.isAction
+                            && (i == 0  || i != 0 && listProcessOfOder[i-1].status == 3)"
+                            style="margin-left:10px;"></button>
+
+                          <!-- Danh sách phiếu -->
+                          <button pButton type="button" label="Danh sách phiếu" class="ui-button-secondary blue-text"
+                            (click)="viewListOrderExten(attr)"
+                            *ngIf="actionAdd && (attr.categoryCode == 'SUPPORT' || attr.categoryCode == 'CFORDER') && attr.orderActionId != null && attr.isAction"
+                            style="margin-left:10px;"></button>
+
+                          <!-- Tạo phiếu bổ sung -->
+                          <button pButton type="button" label="Tạo phiếu bổ sung" class="ui-button-secondary blue-text"
+                            (click)="createOrderExten(attr.orderId)"
+                            *ngIf="actionAdd && (attr.categoryCode == 'SUPPORT') && attr.orderActionId != null && attr.isAction && attr.status == 2"
+                            style="margin-left:10px;"></button>
+
+
+                          <button pButton type="button" label="Xác nhận hoàn thành"
+                            (click)="updateOrderProcess(attr.id)" class="ui-button-secondary blue-text"
+                            *ngIf="actionAdd && (attr.categoryCode == 'DONE') && attr.status != 3 && (i == 0  || i != 0 && listProcessOfOder[i-1].status == 3) && attr.isAction"
+                            style="margin-left:10px;"></button>
+
+                          <!-- Nút xác nhận của các bước k mặc địch -->
+                          <button pButton type="button" label="Xác nhận" (click)="updateOrderProcess(attr.id)"
+                            class="ui-button-secondary blue-text"
+                            *ngIf="actionAdd && orderProcessId != null && (i == 0  || i != 0 && listProcessOfOder[i-1].status == 3) && attr.status != 3 && (attr.categoryCode != 'CREATE' && attr.categoryCode != 'CONFIRM' && attr.categoryCode != 'CFORDER' &&
+                                                                                     attr.categoryCode != 'DONE' && attr.categoryCode != 'SUPPORT') && attr.isAction"
+                            style="margin-left:10px;"></button>
+
+
+                        </div>
+
+                      </div>
+                    </div>
+
+
+
+                  </div>
+
+                </div>
+
+              </p-accordionTab>
+            </p-accordion>
+          </div>
+
+
+          <!-- <div class="row no-margin w-100" *ngIf="orderProcessId">
+            <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+              class="w-100">
+              <p-accordionTab header="Đánh giá" [selected]="true">
+                
+                <div class="col-md-12">
+                  Điểm đánh giá: <span style="margin-left: 7px;"> {{ rateStart == 0 ? "" : rateStart + "/5" }} </span>
+
+                </div>
+
+                <div class="col-md-12 mt-10">
+                  <p-editor [(ngModel)]="rateContent" [style]="{'height':'180px', 'width': '100%'}"  readonly="true">
+                  </p-editor>
+                </div>
+
+              </p-accordionTab>
+            </p-accordion>
+          </div> -->
+
+
+          <!-- <div class="row no-margin w-100" *ngIf="orderProcessId">
+            <app-note-time-line [viewNote]="viewNote" [viewTimeline]="viewTimeline" objectType="ORDERPROCESS"  [ngStyle]="{'width': '100%'}"
+              [isReportPoint]="false" [objectId]="orderProcessId" [actionAdd]="actionAdd" [actionEdit]="actionEdit"
+              [actionDelete]="actionDelete" [pageSize]="pageSize"></app-note-time-line>
+          </div> -->
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<p-dialog header="Danh sách các phiếu bổ sung" [(visible)]="showOrderExten" [modal]="true" [responsive]="true"
+  [style]="{width: '70vw'}" [minY]="100">
+  <div class="row no-margin">
+    <div class="col-md-12 mt-10" style="margin-bottom: 25px;">
+
+      <p-table #myTable [columns]="colOrderExten" [value]="listOrderExten" [resizableColumns]="true"
+        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.width}">
+              <span>
+                {{col.header}}
+              </span>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-index="rowIndex" let-rowData let-columns="columns">
+          <tr>
+            <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.width}">
+              <span class="ui-column-title">{{col.header}}</span>
+
+              <span *ngSwitchCase="'stt'">
+                {{index + 1}}
+              </span>
+
+              <span *ngSwitchCase="'orderType'">
+                <span *ngIf="rowData[col.field] == 1"> Phiếu yêu cầu</span>
+                <span *ngIf="rowData[col.field] == 2"> Phiếu bổ sung</span>
+              </span>
+
+              <span *ngSwitchCase="'orderCode'" (click)="viewOrder(rowData['orderId'])" class="link">
+                {{rowData[col.field]}}
+              </span>
+
+              <span *ngSwitchCase="'orderActionCode'" (click)="viewOrderAction(null, rowData['orderActionId'])"
+                class="link">
+                {{rowData[col.field]}}
+              </span>
+
+              <span *ngSwitchDefault>
+                {{rowData[col.field]}}
+              </span>
+            </td>
+
+          </tr>
+        </ng-template>
+      </p-table>
+
+    </div>
+  </div>
+
+  <p-footer>
+
+    <button class="cancel" type="button" (click)="showOrderExten = false;">
+      <span class="text-cancel">Thoát</span>
+    </button>
+  </p-footer>
+</p-dialog>

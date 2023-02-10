@@ -1,0 +1,16 @@
+<card-body>
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" 
+                *ngIf="chart"
+                [disabled]="loading"
+                class="btn-edit"
+                (click)="refresh()"
+                >
+                <span class="text-white">Làm mới</span>
+                <i [class]="loading ? 'fa fa-circle-o-notch fa-spin' : 'fas fa-sync'"></i>
+            </button>
+        </div>
+    </div>
+    <div #container></div>
+</card-body>

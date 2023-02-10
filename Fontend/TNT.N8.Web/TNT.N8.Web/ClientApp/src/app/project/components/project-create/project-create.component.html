@@ -1,0 +1,568 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="create-project">
+  <div class="row no-margin" id="parent">
+    <div class="col-md-12 header" style="padding: 6px;">
+      <div class="row">
+        <div class="col-md-6 no-padding">
+          <div class="row no-margin">
+            <div class="col-md-1 col-sm-1 col-xs-3">
+              <div class="header-box-icon">
+                <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+              </div>
+            </div>
+            <div class="col-md-11 col-sm-10 col-xs-9">
+              <div>
+                <span class="customer-name">Tạo mới dự án</span>
+              </div>
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12" style="display: flex; justify-content: flex-end; margin-top: 5px;">
+              <span *ngIf="!isInvalidForm">
+                <img src="/assets/icons/components/ios-warning.svg" class="ios-warning">
+              </span>
+              <div class="box-waring" *ngIf="isInvalidForm" #toggleButton (click)="toggleNotifiError()">
+                <img src="/assets/icons/components/ios-warning-active.svg" class="ios-warning-active">
+              </div>
+              <div class="notification" #notifi *ngIf="isOpenNotifiError">
+                <div *ngIf="(projectCodeControl.invalid && (projectCodeControl.dirty || projectCodeControl.touched))"
+                  class="notifi-row">
+                  <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                  <span *ngIf="projectCodeControl.hasError('required')" class="notifi-text">Mã dự án không được
+                    trống</span>
+                  <span *ngIf="projectCodeControl.hasError('pattern')" class="notifi-text">Mã dự án sai định dạng</span>
+                </div>
+
+                <div *ngIf="(projectNameControl.invalid && (projectNameControl.dirty || projectNameControl.touched))"
+                  class="notifi-row">
+                  <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                  <span *ngIf="projectNameControl.hasError('required')" class="notifi-text">Tên dự án không được
+                    trống</span>
+                </div>
+
+                <div
+                  *ngIf="(projectPriorityControl.invalid && (projectPriorityControl.dirty || projectPriorityControl.touched))"
+                  class="notifi-row">
+                  <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                  <span *ngIf="projectPriorityControl.hasError('required')" class="notifi-text">Chọn mức độ ưu
+                    tiên</span>
+                </div>
+
+                <div
+                  *ngIf="(projectStartTimeControl.invalid && (projectStartTimeControl.dirty || projectStartTimeControl.touched))"
+                  class="notifi-row">
+                  <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                  <span *ngIf="projectStartTimeControl.hasError('required')" class="notifi-text">Ngày bắt đầu không được
+                    để trống</span>
+                </div>
+
+                <div
+                  *ngIf="(projectEndTimeControl.invalid && (projectEndTimeControl.dirty || projectEndTimeControl.touched))"
+                  class="notifi-row">
+                  <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                  <span *ngIf="projectEndTimeControl.hasError('required')" class="notifi-text">Ngày kết thúc không được
+                    để trống</span>
+                </div>
+
+                <div *ngIf="budgetRequied" class="notifi-row">
+                  <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                  <span
+                    *ngIf="projectBudgetVNDControl.value == '' && projectBudgetUSDControl.value == '' && projectBudgetNgayCongControl.value == ''"
+                    class="notifi-text">
+                    Phải chọn ít nhất một trong ba loại ngân sách dưới</span>
+                </div>
+              </div>
+              <button type="button" class="btn-remove">
+                <span (click)="goBackToList()" class="btn-remove-text">Thoát</span>
+              </button>
+              <button #save (click)="createProject()" *ngIf="actionAdd" type="button" class="btn-save">
+                <span class="btn-save-text">Lưu</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="createProjectForm">
+    <div class="row no-margin" style="padding-top: 10px;padding-bottom: 10px;">
+      <div class="col-md-12 customer-infor">
+        <div class="row">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+            <p-accordionTab header="Thông tin dự án" [selected]="true">
+              <div class="col-md-4">
+                <div #code class="row buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Mã dự án</span><span class="required">*</span>
+                  </div>
+                  <div class="col-md-12">
+                    <input formControlName="projectCodeControl" type="text" maxlength="10"
+                      [ngClass]="(createProjectForm.get('projectCodeControl').invalid && (createProjectForm.get('projectCodeControl').dirty || createProjectForm.get('projectCodeControl').touched)) ? 'error-border' : ''"
+                      class="w100" pInputText />
+                  </div>
+                  <div class="col-md-12"
+                    [hidden]="createProjectForm.get('projectCodeControl').valid || createProjectForm.get('projectCodeControl').untouched">
+                    <span
+                      *ngIf="createProjectForm.get('projectCodeControl').hasError('required') || createProjectForm.get('projectCodeControl').hasError('blankString') "
+                      class="error-message-span">
+                      Không được
+                      để trống
+                    </span>
+                    <span *ngIf="createProjectForm.get('projectCodeControl').hasError('duplicateCode')"
+                      class="error-message-span">Mã nhà cung cấp đã tồn tại trong hệ thống</span>
+                    <span *ngIf="createProjectForm.get('projectCodeControl').hasError('pattern')"
+                      class="error-message-span">
+                      Mã dự án không cho phép chứa khoảng trắng và ký tự đặc biệt
+                    </span>
+                  </div>
+                </div>
+
+                <div #name class="row buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Tên dự án</span><span class="required">*</span>
+                  </div>
+                  <div class="col-md-12">
+                    <input formControlName="projectNameControl" type="text" maxlength="500"
+                      [ngClass]="(createProjectForm.get('projectNameControl').invalid && (createProjectForm.get('projectNameControl').dirty || createProjectForm.get('projectNameControl').touched)) ? 'error-border' : ''"
+                      class="w100" pInputText placeholder="" />
+                  </div>
+                  <div class="col-md-12"
+                    [hidden]="createProjectForm.get('projectNameControl').valid || createProjectForm.get('projectNameControl').untouched">
+                    <span
+                      *ngIf="createProjectForm.get('projectNameControl').hasError('required') || createProjectForm.get('projectNameControl').hasError('blankString') "
+                      class="error-message-span">
+                      Nhập tên dự án
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-md-4">
+                <div class="row buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Tên khách hàng</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown formControlName="customerControl"
+                      [styleClass]="(createProjectForm.get('customerControl').invalid && (createProjectForm.get('customerControl').dirty || createProjectForm.get('customerControl').touched)) ? 'error-border' : ''"
+                      [filter]="true" [showClear]="true" [resetFilterOnHide]="true" [options]="listCustomer"
+                      [virtualScroll]="true" [itemSize]="31" optionLabel="customerCodeName"
+                      placeholder="Chọn khách hàng" (onChange)="changeCustomer($event)" [style]="{'width': '100%'}">
+                    </p-dropdown>
+                  </div>
+                  <div class="col-md-12">
+                    <span
+                      [hidden]="createProjectForm.get('customerControl').valid || createProjectForm.get('customerControl').untouched"
+                      *ngIf="createProjectForm.get('customerControl').hasError('required')" class="error-message-span">
+                      Chọn tên khách hàng
+                    </span>
+                  </div>
+                </div>
+
+                <div class="row buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Hợp đồng liên quan</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown [options]="listContract" optionLabel="contractCodeName" [filter]="true"
+                      [autoDisplayFirst]="false" formControlName="projectContractControl" [showClear]="true"
+                      [virtualScroll]="true" [itemSize]="31" [resetFilterOnHide]="true"
+                      placeholder="Chọn hợp đồng liên quan" [style]="{'width': '100%'}">
+                    </p-dropdown>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="col-md-4 area-right">
+                <div class="row buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Người quản lý</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown [options]="listEmployee" optionLabel="employeeCodeName" [filter]="true"
+                      [autoDisplayFirst]="false" formControlName="projectEmployeeControl" [resetFilterOnHide]="true"
+                      [virtualScroll]="true" [itemSize]="31" placeholder="Chọn người quản lý"
+                      [style]="{'width': '100%'}" (onChange)="ChangeManager($event)">
+                    </p-dropdown>
+                  </div>
+                </div>
+
+                <div class="row buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Quản lý cấp cao</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-multiSelect [options]="listEmployeeManager" formControlName="projectSMControl"
+                      defaultLabel="Chọn người quản lý cấp cao" [filter]="true" [virtualScroll]="true"
+                      optionLabel="employeeCodeName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                      [virtualScroll]="true" [itemSize]="31" selectedItemsLabel="{0} người được chọn"></p-multiSelect>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="col-md-12">
+                <div class="row buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Mô tả dự án</span>
+                  </div>
+                  <div class="col-md-12">
+                    <ejs-richtexteditor #templateRTE [height]="300" [toolbarSettings]='tools'
+                      formControlName="projectDescriptionControl">
+                      <ng-template>
+                      </ng-template>
+                    </ejs-richtexteditor>
+                  </div>
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+      </div>
+    </div>
+
+    <!---------------------------------->
+
+    <div class="row no-margin" style="padding-top: 10px;padding-bottom: 10px;">
+      <div class="col-md-12 customer-infor">
+        <div class="row">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+            <p-accordionTab header="Cấu hình dự án" [selected]="true">
+              <div class="row bottom-buffer">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="col-md-4">
+                        <div class="row buffer-bottom">
+                          <div class="col-md-12 buffer-bottom-label">
+                            <span>Loại dự án</span>
+                          </div>
+                          <div class="col-md-12">
+                            <p-dropdown [options]="listProjectType" optionLabel="categoryName"
+                              [autoDisplayFirst]="false" formControlName="projectTypeControl" [showClear]="true"
+                              [resetFilterOnHide]="true" placeholder="Chọn loại dự án" [style]="{'width': '100%'}">
+                            </p-dropdown>
+                          </div>
+                        </div>
+
+                        <div class="row buffer-bottom">
+                          <div class="col-md-12 buffer-bottom-label">
+                            <span>Quy mô dự án</span>
+                          </div>
+                          <div class="col-md-12">
+                            <p-dropdown [options]="listProjectScope" optionLabel="categoryName"
+                              [autoDisplayFirst]="false" formControlName="projectScopeControl" [showClear]="true"
+                              [resetFilterOnHide]="true" placeholder="Chọn quy mô dự án" [style]="{'width': '100%'}">
+                            </p-dropdown>
+                          </div>
+                        </div>
+
+                        <div class="row buffer-bottom">
+                          <div class="col-md-12 buffer-bottom-label">
+                            <span>Kế hoạch dự án</span>
+                          </div>
+                          <div class="col-md-12">
+                            <p-dropdown [options]="listProjectStatusPlan" optionLabel="name" [autoDisplayFirst]="false"
+                              formControlName="projectStatusPlanControl" [style]="{'width': '100%'}"
+                              placeholder="Chọn kế hoạch dự án">
+                            </p-dropdown>
+                          </div>
+                        </div>
+
+                        <div class="row buffer-bottom" style="margin: 0;">
+                          <p-fieldset>
+                            <p-header>Thời gian dự kiến<span class="required">*</span></p-header>
+                            <div class="row buffer-bottom">
+                              <div class="col-md-12">
+                                <div class="row">
+                                  <div class="col-md-6 in_country"
+                                    style="padding-right: unset !important; padding-left: unset !important;">
+                                    <div class="col-md-12 buffer-bottom-label">
+                                      <span>Ngày bắt đầu</span>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <p-calendar #start formControlName="projectStartTimeControl" dateFormat="dd/mm/yy"
+                                        [styleClass]="(projectStartTimeControl.invalid && (projectStartTimeControl.dirty || projectStartTimeControl.touched)) ? 'error-border' : ''"
+                                        [maxDate]="projectEndTimeControl.value"
+                                        (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+                                        [inputStyle]="{'width':'100%'}" [baseZIndex]="999">
+                                      </p-calendar>
+                                    </div>
+                                    <div class="col-md-12"
+                                      [hidden]="projectStartTimeControl.valid || projectStartTimeControl.untouched">
+                                      <span *ngIf="projectStartTimeControl.hasError('required')"
+                                        class="error-message-span">
+                                        Ngày bắt đầu không được để trống
+                                      </span>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-6 in_country"
+                                    style="padding-right: unset !important; padding-left: unset !important;">
+                                    <div class="col-md-12 buffer-bottom-label">
+                                      <span>Ngày kết thúc</span>
+                                    </div>
+                                    <div class="col-md-12">
+                                      <p-calendar #end formControlName="projectEndTimeControl" dateFormat="dd/mm/yy"
+                                        [styleClass]="(projectEndTimeControl.invalid && (projectEndTimeControl.dirty || projectEndTimeControl.touched)) ? 'error-border' : ''"
+                                        [minDate]="projectStartTimeControl.value"
+                                        (keydown.enter)="$event.preventDefault()" [style]="{'width':'100%'}"
+                                        [inputStyle]="{'width':'100%'}" [baseZIndex]="999">
+                                      </p-calendar>
+                                    </div>
+                                    <div class="col-md-12"
+                                      [hidden]="projectEndTimeControl.valid || projectEndTimeControl.untouched">
+                                      <span *ngIf="projectEndTimeControl.hasError('required')"
+                                        class="error-message-span">
+                                        Ngày kết thúc không được để trống
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="row buffer-bottom">
+                              <div class="col-md-12">
+                                <p-checkbox label="Tính cuối tuần" formControlName="includeWeekendControl"
+                                  binary="false">
+                                </p-checkbox>
+                              </div>
+                            </div>
+                          </p-fieldset>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="row buffer-bottom">
+                          <div class="col-md-12 buffer-bottom-label">
+                            <span>Trạng thái</span>
+                          </div>
+                          <div class="col-md-12">
+                            <p-dropdown [options]="listProjectStatus" optionLabel="categoryName"
+                              [autoDisplayFirst]="false" formControlName="projectStatusControl"
+                              [resetFilterOnHide]="true" placeholder="Chọn trạng thái" [style]="{'width': '100%'}">
+                            </p-dropdown>
+                          </div>
+                        </div>
+
+                        <div #priority class="row buffer-bottom">
+                          <div class="col-md-12 buffer-bottom-label">
+                            <span>Mức độ ưu tiên</span><span class="required">*</span>
+                          </div>
+                          <div class="col-md-12" style="padding-top: 5px; padding-bottom: 5px;">
+                            <div class="row">
+                              <div class="col-md-4 in_country">
+                                <p-radioButton (onClick)="changePrioriry()" name="groupname" value="1"
+                                  formControlName="projectPriorityControl" label="Thấp">
+                                </p-radioButton>
+                              </div>
+                              <div class="col-md-4 in_country">
+                                <p-radioButton (onClick)="changePrioriry()" name="groupname" value="2"
+                                  formControlName="projectPriorityControl" label="Trung bình">
+                                </p-radioButton>
+                              </div>
+                              <div class="col-md-4 in_country">
+                                <p-radioButton (onClick)="changePrioriry()" name="groupname" value="3"
+                                  formControlName="projectPriorityControl" label="Cao">
+                                </p-radioButton>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-12"
+                            [hidden]="createProjectForm.get('projectPriorityControl').valid || createProjectForm.get('projectPriorityControl').untouched">
+                            <span *ngIf="createProjectForm.get('projectPriorityControl').hasError('required')"
+                              class="error-message-span">
+                              Mức độ ưu tiên không được để trống
+                            </span>
+                          </div>
+                        </div>
+
+                        <div class="row buffer-bottom">
+                          <div class="col-md-12 buffer-bottom-label">
+                            <span>Đồng quản lý dự án</span>
+                          </div>
+                          <div class="col-md-12">
+                            <p-multiSelect [options]="listEmployeePM" formControlName="projectSubControl"
+                              defaultLabel="Chọn người quản lý" [filter]="true" [virtualScroll]="true"
+                              [virtualScroll]="true" [itemSize]="31" optionLabel="employeeCodeName"
+                              [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                              selectedItemsLabel="{0} người được chọn"></p-multiSelect>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-4">
+                        <div class="row buffer-bottom" style="margin: 0;">
+                          <div class="col-md-12">
+                            <div class="row">
+                              <p-fieldset>
+                                <p-header>Ngân sách<span class="required">*</span></p-header>
+                                <div class="row buffer-bottom">
+                                  <div class="col-md-12">
+                                    <div class="row">
+                                      <div class="col-md-4"
+                                        style="padding-right: unset !important; padding-left: unset !important;">
+                                        <div class="col-md-12 buffer-bottom-label budget-lable">
+                                          <span>Ngày Công</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                          <input formControlName="projectBudgetNgayCongControl" class="number-input"
+                                            type="text" (change)="ChangeBudget()"
+                                            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}" />
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4"
+                                        style="padding-right: unset !important; padding-left: unset !important;">
+                                        <div class="col-md-12 buffer-bottom-label budget-lable">
+                                          <span>VND</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                          <input formControlName="projectBudgetVNDControl" class="number-input"
+                                            type="text" (change)="ChangeBudget()"
+                                            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}" />
+                                        </div>
+                                      </div>
+                                      <div class="col-md-4"
+                                        style="padding-right: unset !important; padding-left: unset !important;">
+                                        <div class="col-md-12 buffer-bottom-label budget-lable">
+                                          <span>USD</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                          <input formControlName="projectBudgetUSDControl" class="number-input"
+                                            type="text" (change)="ChangeBudget()"
+                                            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}" />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="col-md-12"
+                                    [hidden]="(projectBudgetVNDControl.value != '' && projectBudgetUSDControl.value != '' && projectBudgetNgayCongControl.value != '') || 
+                                    (projectBudgetVNDControl.untouched && projectBudgetUSDControl.untouched && projectBudgetNgayCongControl.untouched)">
+                                    <span
+                                      *ngIf="projectBudgetVNDControl.value == '' && projectBudgetUSDControl.value == '' && projectBudgetNgayCongControl.value == ''"
+                                      class="error-message-span">
+                                      Phải chọn ít nhất một trong ba loại ngân sách
+                                    </span>
+                                  </div>
+                                </div>
+                                <div class="row buffer-bottom">
+                                  <div class="col-md-12">
+                                    <div class="row">
+                                      <div class="col-md-12"
+                                        style="padding-right: unset !important; padding-left: unset !important;">
+                                        <div class="col-md-12 buffer-bottom-label budget-lable">
+                                          <span>Giá bán theo giờ</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                          <input formControlName="giaBanTheoGioControl" class="number-input" type="text"
+                                            [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 'defaultNumberType'}" />
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </p-fieldset>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+      </div>
+    </div>
+    <div class="row no-margin" style="padding-top: 10px;padding-bottom: 10px;">
+      <div class="col-md-12 customer-infor">
+        <div class="row">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+            <p-accordionTab header="Mục tiêu dự án" [selected]="true">
+              <div class="row bottom-buffer">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <p-table #table [columns]="selectedColumns" [value]="listProjectTarget" [resizableColumns]="true"
+                        columnResizeMode="expand" [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[10, 20, 30]"
+                        [responsive]="true" selectionMode="single" [(selection)]="selectedProjectTarget"
+                        (onRowSelect)="editProjectTarget($event.data)" class="table-border">
+                        <ng-template pTemplate="caption">
+                          <div class="row">
+                            <div class="col-md-6" style="display: flex;">
+                              <p-multiSelect [options]="columns" optionLabel="header" [(ngModel)]="selectedColumns"
+                                [ngModelOptions]="{ standalone: true }" selectedItemsLabel="{0} cột được chọn"
+                                [style]="{minWidth: '150px', display: 'flex' }" defaultLabel="Chọn cột"></p-multiSelect>
+                            </div>
+                            <div class="col-md-6"
+                              style="display: flex; justify-content: flex-end; padding-right: 15px; padding-top:5px">
+                              <span (click)="addProjectTarget()" class="link">
+                                <span>
+                                  <img src="/assets/icons/components/ios-add-circle-outline.svg"
+                                    class="ios-add-circle-outline">
+                                </span>
+                                <span class="add-contact-text">
+                                  Thêm mục tiêu
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                        </ng-template>
+                        <ng-template pTemplate="header" let-columns>
+                          <tr>
+                            <th *ngFor="let col of columns" pResizableColumn
+                              [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+                              <span>
+                                {{ col.header }}
+                              </span>
+                            </th>
+                            <th style="text-align: center;">
+                              <span>Thao tác</span>
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                          <tr [pSelectableRow]="rowData">
+                            <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                              [ngStyle]="{ 'text-align': col.textAlign, display: col.display }">
+                              <span class="ui-column-title">{{ col.header }}</span>
+                              <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+                            </td>
+                            <td style="text-align: center;">
+                              <button pButton icon="pi pi-trash" (click)="deleteProjectTarget(rowData)"
+                                *ngIf="actionAdd" class="ui-button-danger"></button>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

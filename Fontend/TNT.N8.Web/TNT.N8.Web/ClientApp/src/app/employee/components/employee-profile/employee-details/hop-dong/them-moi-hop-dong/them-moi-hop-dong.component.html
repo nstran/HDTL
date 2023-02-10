@@ -1,0 +1,93 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="bao-hiem-thue">
+  <form class="form-horizontal" [formGroup]="hopDongForm" #form>
+    <div class="col-md-12 mt-1 p-0">
+      <div class="col-md-4 form-group">
+        <label>Loại hợp đồng <span class="required">*</span>:</label>
+        <p-dropdown [options]="listLoaiHopDong" formControlName="loaiHopDong" [filter]="true" [resetFilterOnHide]="true"
+          placeholder="Chọn loại hợp đồng" optionLabel="categoryName" [style]="{'width': '100%'}"
+          [ngClass]="submitted && hopDongForm.controls.loaiHopDong.errors ? 'error-border': ''">
+        </p-dropdown>
+        <p class="required" *ngIf="submitted && hopDongForm.controls.loaiHopDong.errors">{{
+          error['loaiHopDong'] }}
+        </p>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Số hợp đồng <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="soHopDong" class="w-100"
+          [ngClass]="submitted && hopDongForm.controls.soHopDong.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && hopDongForm.controls.soHopDong.errors">{{
+          error['soHopDong'] }}
+        </p>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Số phụ lục <span class="required">*</span>:</label>
+        <input type="text" pInputText formControlName="soPhuLuc" class="w-100"
+          [ngClass]="submitted && hopDongForm.controls.soPhuLuc.errors ? 'error-border': ''" />
+        <p class="required" *ngIf="submitted && hopDongForm.controls.soPhuLuc.errors">{{
+          error['soPhuLuc'] }}
+        </p>
+      </div>
+    </div>
+    <div class="col-md-12 p-0">
+      <div class="col-md-4 form-group">
+        <label>Ngày ký HĐ <span class="required">*</span>:</label>
+        <p-calendar dateFormat="dd/mm/yy" [baseZIndex]="9999" formControlName="ngayKyHopDong" [style]="{'width':'100%'}"
+          showButtonBar="true" [inputStyle]="{'width':'100%'}" appendTo="body" (onSelect)="onChangeDate()"
+          [ngClass]="submitted && hopDongForm.controls.ngayKyHopDong.errors ? 'error-border': ''">
+        </p-calendar>
+        <p class="required" *ngIf="submitted && hopDongForm.controls.ngayKyHopDong.errors">{{
+          error['ngayKyHopDong'] }}
+        </p>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Ngày bắt đầu làm việc <span class="required">*</span>:</label>
+        <p-calendar dateFormat="dd/mm/yy" [baseZIndex]="9999" formControlName="ngayBatDauLamViec" [style]="{'width':'100%'}"
+          showButtonBar="true" [inputStyle]="{'width':'100%'}" [ngClass]="submitted && hopDongForm.controls.ngayBatDauLamViec.errors ? 'error-border': ''">
+        </p-calendar>
+        <p class="required" *ngIf="submitted && hopDongForm.controls.ngayBatDauLamViec.errors">{{
+          error['ngayBatDauLamViec'] }}
+        </p>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Ngày kết thúc HĐ:</label>
+        <p-calendar dateFormat="dd/mm/yy" [baseZIndex]="9999" formControlName="ngayKetThucHopDong" [style]="{'width':'100%'}"
+          showButtonBar="true" [inputStyle]="{'width':'100%'}" appendTo="body" [minDate]="minDateNgayKetThucHopDong"
+          [ngClass]="submitted && error['ngayKetThucHopDong'] ? 'error-border': ''" (onSelect)="onChangeDateNgayKetThucHD()">
+        </p-calendar>
+        <p class="required" *ngIf="submitted && error['ngayKetThucHopDong']">{{
+          error['ngayKetThucHopDong'] }}
+        </p>
+      </div>
+    </div>
+    <div class="col-md-12 p-0">
+      <div class="col-md-4 form-group">
+        <label>Chức vụ <span class="required">*</span>:</label>
+        <p-dropdown [options]="listPosition" formControlName="position" [filter]="true" [resetFilterOnHide]="true"
+          placeholder="Chọn chức vụ" optionLabel="positionName" [style]="{'width': '100%'}" appendTo="body" [baseZIndex]="999999"
+          [ngClass]="submitted && hopDongForm.controls.position.errors ? 'error-border': ''">
+        </p-dropdown>
+        <p class="required" *ngIf="submitted && hopDongForm.controls.position.errors">{{
+          error['position'] }}
+        </p>
+      </div>
+      <div class="col-md-4 form-group">
+        <label>Mức lương <span class="required">*</span>:</label>
+        <p-inputNumber formControlName="mucLuong" [min]="0" class="w-100"
+          [ngClass]="submitted && hopDongForm.controls.mucLuong.errors ? 'error-border': ''">
+        </p-inputNumber>
+        <p class="required" *ngIf="submitted && hopDongForm.controls.mucLuong.errors">{{
+          error['mucLuong'] }}
+        </p>
+      </div>
+    </div>
+    <div class="col-md-12 text-right mt-1">
+      <button pButton type="button" label="Lưu" (click)="save()"></button>
+      <button pButton type="button" label="Hủy" class="ui-button-secondary ml-1" (click)="cancel()"></button>
+    </div>
+  </form>
+</div>

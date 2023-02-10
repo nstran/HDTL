@@ -1,0 +1,16 @@
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\bin\Debug\netcoreapp2.1\Select.Html.dep
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\bin\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.deps.json
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\bin\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\bin\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\bin\Debug\netcoreapp2.1\TN.TNM.Common.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\bin\Debug\netcoreapp2.1\TN.TNM.DataAccess.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\bin\Debug\netcoreapp2.1\TN.TNM.Common.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\bin\Debug\netcoreapp2.1\TN.TNM.DataAccess.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\obj\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.csproj.AssemblyReference.cache
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\obj\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.GeneratedMSBuildEditorConfig.editorconfig
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\obj\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.AssemblyInfoInputs.cache
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\obj\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.AssemblyInfo.cs
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\obj\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.csproj.CoreCompileInputs.cache
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\obj\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.csproj.CopyComplete
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\obj\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.BusinessLogic\obj\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.pdb

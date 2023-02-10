@@ -1,0 +1,74 @@
+<card-body>
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="title font-weight-bold">Thống kê doanh thu theo nhân viên</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-2">
+                    <p>Top :</p>
+                    <p-dropdown 
+                        [options]="listCount"
+                        [(ngModel)]="countSelected"
+                        [filter]="true" 
+                        [style]="{'width': '100%'}"
+                        optionLabel="text" 
+                        (onChange)="selectCount($event.value)"
+                        placeholder="Chọn" 
+                        required
+                        >
+                    </p-dropdown>
+                </div>
+                <div class="col-md-2">
+                    <p>Từ :</p>
+                    <p-calendar
+                        styleClass="d-block"
+                        inputStyleClass="w-100"
+                        [(ngModel)]="startDate"
+                        showButtonBar="true"
+                        dateFormat="dd/mm/yy"
+                        (onClose)="onChangeFromDate($event)"
+                        >
+                    </p-calendar>
+                </div>
+                <div class="col-md-2">
+                    <p>Đến :</p>
+                    <p-calendar
+                        styleClass="d-block"
+                        inputStyleClass="w-100"
+                        [(ngModel)]="endDate"
+                        showButtonBar="true"
+                        dateFormat="dd/mm/yy"
+                        (onClose)="onChangeToDate($event)"
+                        >
+                    </p-calendar>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="row">
+                <div class="col-md-12">
+                    <button type="button" 
+                        *ngIf="chart"
+                        [disabled]="loading"
+                        class="btn-edit"
+                        (click)="refresh()"
+                        >
+                        <span class="text-white">Làm mới</span>
+                        <i [class]="loading ? 'fa fa-circle-o-notch fa-spin' : 'fas fa-sync'"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div #container></div>
+        </div>
+    </div>
+</card-body>

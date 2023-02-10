@@ -1,0 +1,197 @@
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="ĐỒNG Ý" rejectLabel="HỦY">
+</p-confirmDialog>
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<p-toast position="bottom-right"></p-toast>
+
+<div class="emp-create">
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="row emp-create-content">
+        <div class="col-md-6 d-inline-flex">
+          <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+          <div class="header">Tạo nhân viên</div>
+        </div>
+        <div class="col-md-6 button-group text-right">
+          <button pButton type="button" label="Hủy" class="btn btn-cancel" (click)="cancel()"></button>
+          <button *ngIf="actionAdd" #save pButton [disabled]="awaitResult" type="button" label="Lưu"
+            class="btn btn-create" (click)="createEmployee(false)"></button>
+        </div>
+      </div>
+      <!-- Thông tin chung -->
+      <div class="row">
+        <div class="col-md-12">
+          <p-tabView class="custom-tabview">
+            <p-tabPanel header="Thông tin chung">
+              <ng-container>
+                <form class="form-horizontal" [formGroup]="createEmpForm">
+                  <div class="row mb-3">
+                    <div class="col-md-6 text-center border-right">
+                      <input type="file" id="imageProfile" accept="image/*" (change)="handleFileUpload($event)"
+                        class="file-input d-none" />
+                      <img class="emp-avatar" [src]="transform(currentLogoUrl)">
+                      <div class="upload-image">
+                        <button pButton type="button" icon="pi pi-upload" iconPos="right" label="Chọn ảnh"
+                          class="ui-button-secondary btn-secondary" (click)="uploadImage()"></button>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mt-3 p-0">
+                      <div class="col-md-12 form-group">
+                        <label>Mã nhân viên <span class="required">*</span>:</label>
+                        <input class="w-100" type="text" formControlName="EmployeeCode" pInputText
+                          [ngClass]="submitted && createEmpForm.controls.EmployeeCode.errors ? 'error-border': ''">
+                        <p class="required" *ngIf="submitted && createEmpForm.controls.EmployeeCode.errors">
+                          {{
+                          error['EmployeeCode']
+                          }}
+                        </p>
+                      </div>
+                      <div class="col-md-12 form-group" style="color: cornflowerblue;">
+                        <label>Người dùng có được phép truy nhập vào hệ thống hay không?</label>
+                      </div>
+                      <div class="col-md-12 buffer-bottom-label">
+                        <div class="col-md-4">
+                          <p-radioButton id="formIsAccess" name="IsAccessable" formControlName="IsAccessable"
+                            value="true" label="Có">
+                          </p-radioButton>
+                        </div>
+                        <div class="col-md-4">
+                          <p-radioButton id="formIsAccess" name="IsAccessable" formControlName="IsAccessable"
+                            value="false" label="Không">
+                          </p-radioButton>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-3 form-group">
+                      <label>Họ và tên đệm <span class="required">*</span>:</label>
+                      <input type="text" pInputText formControlName="FirstName" class="w-100"
+                      
+                        [ngClass]="submitted && createEmpForm.controls.FirstName.errors ? 'error-border': ''" />
+                      <p class="required" *ngIf="submitted && createEmpForm.controls.FirstName.errors">
+                        {{
+                        error['FirstName']
+                        }}
+                      </p>
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label>Tên tiếng việt <span class="required">*</span>:</label>
+                      <input type="text" pInputText formControlName="LastName" class="w-100"
+                        
+                        [ngClass]="submitted && createEmpForm.controls.LastName.errors ? 'error-border': ''" />
+                      <p class="required" *ngIf="submitted && createEmpForm.controls.LastName.errors">
+                        {{
+                        error['LastName']
+                        }}
+                      </p>
+                    </div>
+                    <div class="col-md-3 form-group">
+                      <label>Ngày sinh <span class="required">*</span>:</label>
+                      <p-calendar [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2022"
+                        dateFormat="dd/mm/yy" [baseZIndex]="9999" formControlName="DateOfBirth"
+                        [style]="{'width':'100%'}" showButtonBar="true" [inputStyle]="{'width':'100%'}"
+                        [ngClass]="submitted && createEmpForm.controls.DateOfBirth.errors ? 'error-border': ''">
+                      </p-calendar>
+                      <p class="required" *ngIf="submitted && createEmpForm.controls.DateOfBirth.errors">
+                        {{
+                        error['DateOfBirth']
+                        }}
+                      </p>
+                    </div>
+
+                    <div class="col-md-3 form-group">
+                      <label>Giới tính <span class="required">*</span>:</label>
+                      <div>
+                        <p-radioButton name="Gender" formControlName="Gender" value="NAM" label="Nam">
+                        </p-radioButton>
+                        <p-radioButton name="Gender" formControlName="Gender" value="NU" label="Nữ" class="ml-2">
+                        </p-radioButton>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+
+                    <div class="col-md-3 form-group">
+                      <label>
+                        Phòng ban <span class="required">*</span>:
+                        <a href="javascript:(0)" (click)="openOrgPopup()"> <u>(sơ đồ tổ chức)</u></a>
+                      </label>
+                      <input type="text" pInputText formControlName="OrganizationId" class="w-100"
+                        [ngClass]="submitted && error['OrganizationId'] ? 'error-border': ''" />
+                      <p class="required" *ngIf="submitted && error['OrganizationId']">
+                        {{
+                        error['OrganizationId']
+                        }}
+                      </p>
+                    </div>
+
+                    <div class="col-md-3 form-group">
+                      <label>Số điện thoại cá nhân <span class="required">*</span>:</label>
+                      <input type="text" pInputText formControlName="Phone" class="w-100"
+                        [ngClass]="submitted && createEmpForm.controls.Phone.errors ? 'error-border': ''" />
+                      <p class="required" *ngIf="submitted && createEmpForm.controls.Phone.errors">
+                        {{
+                        error['Phone']
+                        }}
+                      </p>
+                    </div>
+
+                    <div class="col-md-6 form-group">
+                      <label>Email công ty <span class="required">*</span>:</label>
+                      <input type="text" pInputText formControlName="WorkEmail" class="w-100"
+                        [ngClass]="submitted && createEmpForm.controls.WorkEmail.errors ? 'error-border': ''" />
+                      <p class="required" *ngIf="submitted && createEmpForm.controls.WorkEmail.errors">
+                        {{
+                        error['WorkEmail']
+                        }}
+                      </p>
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-3">
+                      <label>Có phải là cộng tác viên không?</label>
+                      <div>
+                        <p-inputSwitch (onChange)="checkCongTacVien($event)"
+                          formControlName="EmployeeType"></p-inputSwitch>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3" *ngIf="checked">
+                      <label>Mức hưởng<span class="required">*</span></label>
+                      <p-dropdown [filter]="true" [showClear]="true" [resetFilterOnHide]="true" optionLabel="name"
+                        (onChange)="changeBenefitDataType($event.value)" [options]="listBenefitType"
+                        formControlName="Benefit" placeholder="Chọn mức hưởng" [showClear]="true"
+                        [style]="{'width': '100%'}">
+                      </p-dropdown>
+                    </div>
+                    <div class="col-md-3" *ngIf="isShowPercenBenefit && checked">
+                      <label>Phần trăm<span class="required">*</span></label>
+
+                      <input pInputText type="text" appenTo="body" [baseZIndex]="999999999"
+                        formControlName="PercenBenefit"
+                        [cleave]="{ numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 3 }"
+                        [ngStyle]="{'width': '100%'}" (keydown.enter)="$event.preventDefault()">
+
+                      <p class="required" *ngIf="submitted">
+                        {{
+                        error['PercenBenefit']
+                        }}
+                      </p>
+                    </div>
+
+                  </div>
+                </form>
+              </ng-container>
+            </p-tabPanel>
+          </p-tabView>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

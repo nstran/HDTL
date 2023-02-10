@@ -1,0 +1,13 @@
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\bin\Debug\netstandard2.0\Select.Html.dep
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\bin\Debug\netstandard2.0\TN.TNM.Common.deps.json
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\bin\Debug\netstandard2.0\TN.TNM.Common.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\bin\Debug\netstandard2.0\TN.TNM.Common.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\obj\Debug\netstandard2.0\TN.TNM.Common.csproj.AssemblyReference.cache
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\obj\Debug\netstandard2.0\TN.TNM.Common.Resources.CommonResource.resources
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\obj\Debug\netstandard2.0\TN.TNM.Common.csproj.GenerateResource.cache
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\obj\Debug\netstandard2.0\TN.TNM.Common.GeneratedMSBuildEditorConfig.editorconfig
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\obj\Debug\netstandard2.0\TN.TNM.Common.AssemblyInfoInputs.cache
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\obj\Debug\netstandard2.0\TN.TNM.Common.AssemblyInfo.cs
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\obj\Debug\netstandard2.0\TN.TNM.Common.csproj.CoreCompileInputs.cache
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\obj\Debug\netstandard2.0\TN.TNM.Common.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Common\obj\Debug\netstandard2.0\TN.TNM.Common.pdb

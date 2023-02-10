@@ -1,0 +1,32 @@
+<main *ngIf="!_activatedRoute.snapshot.params.id" class="main">
+    <img src="assets/favicon.ico" alt="">
+</main>
+
+<main class="border-top" *ngIf="_activatedRoute.snapshot.params.id">
+    <ul (scroll)="scroll()" [scrollTop]="scrolltop" id="chat" #chatcontent [ngClass]="roomName ? 'chat-scroll' : ''">
+        <ng-container *ngIf="chats.length > 0">
+            <ng-container *ngFor="let chat of chats; let last = last">
+                <li *ngIf="chat != undefined" [ngClass]="chat.nickname ?  chat.nickname === nickname ? 'me' : 'you' : ''">
+                    <div class="entete">
+                        <span class="status green"></span>
+                        <h2 class="pr-2">{{chat.nickname}}</h2>
+                        <h3>{{chat.date | date : 'hh:mm:ss dd/MM/yyyy'}}</h3>
+                    </div>
+                    <div class="message">
+                        {{chat.message}}
+                    </div>
+                    <ng-container *ngIf="last">{{getScroll()}}</ng-container>
+                </li>
+            </ng-container>
+        </ng-container>
+    </ul>
+    <footer>
+        <textarea 
+            type="text"
+            placeholder="Type your message" 
+            (keyup.enter)="chat(message)"
+            [(ngModel)]="message"
+            >
+        </textarea>
+    </footer>
+</main>

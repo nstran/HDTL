@@ -1,0 +1,407 @@
+.resource-project .header {
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: solid 1px #cccccc;
+}
+
+.resource-project .header-box-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.resource-project .header-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.resource-project .style-delete {
+    color: #FE747A;
+    cursor: pointer;
+    font-size: 1.55em;
+}
+.resource-project .buffer-top {
+  margin-top: 1.2rem;
+}
+
+.resource-project .buffer-bottom {
+  margin-bottom: 1.2rem;
+}
+
+.resource-project .buffer-bottom-label {
+  margin-bottom: 3px;
+}
+
+.resource-project .required {
+  color: red;
+}
+
+.resource-project .error-message-span {
+  color: red;
+}
+
+.resource-project .btn-remove {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.resource-project .btn-remove-text {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #121619;
+}
+
+::ng-deep .resource-project .ui-dropdown {
+  min-width: 0px !important;
+}
+
+::ng-deep .resource-project .ui-menu ul {
+  text-align: left;
+}
+
+.resource-project .box-infor {
+  background-color: #ffffff;
+  border-radius: 4px;
+  border: none;
+  border: solid 1px #cccccc;
+}
+
+.borderless td, .borderless th {
+  border: none !important;
+}
+
+.resource-project .text-status {
+  color: red;
+}
+
+/*Begin: Customize Accordion */
+
+::ng-deep .resource-project .ui-accordion .ui-accordion-header a {
+  border: 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+  font-size: 16px;
+}
+
+::ng-deep .resource-project .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background-color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  color: #121619 !important;
+}
+
+::ng-deep .resource-project .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .resource-project .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .resource-project .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  color: #121619 !important;
+}
+
+::ng-deep .resource-project .ui-accordion .ui-accordion-content {
+  border: 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+/*End: Customize Accordion */
+
+.resource-project .box-handle-infor {
+  border-right: 1px dashed;
+}
+
+.resource-project .error-message-span {
+  color: red !important;
+}
+
+.resource-project .w100 {
+  width: 100%;
+}
+
+.resource-project .link {
+  font-family: 'Inter UI';
+  color: #007ad9;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.resource-project .no-data {
+  height: 330px;
+  border: solid 1px #d7dbe0;
+  background-color: #f2f4f8;
+  text-align: center;
+}
+
+.resource-project .box-no-data {
+  position: relative;
+  top: 25%;
+}
+
+.resource-project .box-icon {
+  width: 57.1px;
+  height: 58px;
+  object-fit: contain;
+}
+
+/* CSS time line */
+
+/* End */
+
+.resource-project .fixed {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  background: #eee;
+}
+
+.resource-project #progress {
+  background: #333;
+  border-radius: 13px;
+  height: 20px;
+  width: 300px;
+  padding: 3px;
+}
+
+.resource-project #progress:after {
+  content: '';
+  display: block;
+  background: orange;
+  height: 100%;
+  border-radius: 9px;
+}
+
+.resource-project .project-name {
+  width: 119px;
+  height: 20px;
+  font-family: 'Inter UI';
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.resource-project .infor-label {
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.resource-project .infor-value {
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.resource-project .btn-save-note {
+  width: 158px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border: solid 1px #cccccc;
+  margin-left: 5px;
+}
+
+.resource-project .save-note-lable {
+  width: 110px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.resource-project .btn-cancel-note {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.resource-project .save-cancel-lable {
+  width: 24px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #121619;
+}
+
+.resource-project .note-user {
+  font-family: 'Inter UI';
+  font-weight: bold;
+}
+
+.resource-project .note-title {
+  font-size: 11px !important;
+  color: #222 !important;
+  font-weight: normal !important;
+}
+
+.resource-project .time-note {
+  font-size: 10px !important;
+  color: #5d5a5a !important;
+  font-weight: normal !important;
+}
+
+.resource-project .timeline-body {
+  padding: 10px 15px;
+}
+
+.resource-project .file-upload-zone .col-md-4:nth-child(3n+1) {
+  padding-right: 5px !important;
+}
+
+.resource-project .file-upload-zone .col-md-4:nth-child(3n+2) {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+
+.resource-project .file-upload-zone .col-md-4:nth-child(3n) {
+  padding-left: 5px !important;
+}
+
+.resource-project .file-upload-zone .col-md-4:nth-child(3n+1) {
+  padding-right: 5px !important;
+}
+
+.resource-project .file-upload-zone .col-md-4:nth-child(3n+2) {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+
+.resource-project .file-upload-zone .col-md-4:nth-child(3n) {
+  padding-left: 5px !important;
+}
+
+.resource-project .file-item div:nth-child(1), .resource-project .file-item div:nth-child(3) {
+  padding-left: 0 !important;
+}
+
+.resource-project .file-item div:nth-child(2) {
+  padding: 0 5px !important;
+}
+
+
+.resource-project .item-name {
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
+.resource-project .preview-doc {
+  cursor: pointer;
+}
+
+
+.resource-project .cancel {
+  /* width: 64px; */
+  min-width: 90px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  margin-left: 10px;
+}
+
+.resource-project .text-title {
+  width: 152px;
+  height: 17px;
+  font-family: 'Inter UI';
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.25;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.resource-project .ios-print {
+  width: 17.5px;
+  height: 17.5px;
+  object-fit: contain;
+  float: right;
+  cursor: pointer;
+}
+
+.resource-project .mt-7 {
+  margin-top: 7px;
+}
+
+::ng-deep .resource-project .ui-progressbar .ui-progressbar-value {
+  background: #56b40b;
+}
+
+
+/*Begin: Customize dropdown */
+
+::ng-deep .resource-project .header-title .ui-dropdown {
+  background: #ffffff;
+  /* border: 1px solid #a6a6a6; */
+  border: none;
+  margin-left: 5px;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-label {
+  padding-right: 2em;
+  font-size: 16px !important;
+  font-weight: bold;
+}
+
+::ng-deep .header-title .ui-dropdown .ui-dropdown-panel {
+  width: max-content !important;
+}
+
+::ng-deep .header-title .ui-dropdown:not(.ui-state-disabled).ui-state-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  /* box-shadow: 0 0 0 0.2em #8dcdff; */
+  border-color: #007ad9;
+}
+
+/*End: Customize dropdown */

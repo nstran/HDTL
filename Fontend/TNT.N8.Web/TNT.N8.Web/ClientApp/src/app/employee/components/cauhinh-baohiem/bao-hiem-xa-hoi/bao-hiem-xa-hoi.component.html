@@ -1,0 +1,256 @@
+<!-- Loading -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message -->
+<p-toast position="bottom-right"></p-toast>
+
+<div class="cauhinh-baohiem">
+  <p class="text-bold mt-1">Cấu hình bảo hiểm xã hội</p>
+  <div [formGroup]="baoHiemForm" class="loft-care-box">
+    <div class="row">
+      <div class="col-md-12" style="display: flex; justify-content: flex-end;">
+        <button pButton icon="fa fa-pencil" class="button-edit" (click)="suaCauHinhBaoHiem()"
+          *ngIf="baoHiemForm.disabled" pTooltip="Sửa cấu hình">
+        </button>
+        <button pButton icon="fa fa-check" class="button-save" (click)="luuCauHinhBaoHiem()" *ngIf="baoHiemForm.enabled"
+          pTooltip="Lưu cấu hình">
+        </button>
+        <button pButton icon="fa fa-times" class="button-undo" (click)="huySuaCauHinhBaoHiem()"
+          *ngIf="baoHiemForm.enabled" pTooltip="Hủy sửa cấu hình">
+        </button>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="row ">
+              <div class="col-md-12">
+                <span>Loại đóng:</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <p-dropdown [options]="listLoaiDong" formControlName="loaiDongControl"
+                  [styleClass]="(loaiDongControl.invalid && (loaiDongControl.dirty || loaiDongControl.touched)) ? 'error-border': ''"
+                  placeholder="Chọn loại đóng" optionLabel="name" [style]="{'width': '100%'}"
+                  (onChange)="changeLoaiDong()">
+                </p-dropdown>
+              </div>
+              <div class="col-md-12" [hidden]="loaiDongControl.valid || loaiDongControl.untouched">
+                <span *ngIf="loaiDongControl.hasError('required')" class="error-message-span">
+                  Không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3" *ngIf="loaiDongControl?.value?.value == 2">
+            <div class="row">
+              <div class="col-md-12 ">
+                <span>Mức đóng:</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" formControlName="mucDongControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}" [ngClass]="{ 'error-border' : (mucDongControl.invalid && (mucDongControl.dirty || mucDongControl.touched)),
+                  'input-disable': mucDongControl.disabled }" />
+              </div>
+              <div class="col-md-12" [hidden]="mucDongControl.valid">
+                <span *ngIf="mucDongControl.hasError('required')" class="error-message-span">
+                  Không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row ">
+              <div class="col-md-12 ">
+                <span>Mức lương cơ sở:</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" formControlName="mucLuongCoSoControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}" [ngClass]="{ 'error-border' : (mucLuongCoSoControl.invalid && (mucLuongCoSoControl.dirty || mucLuongCoSoControl.touched)),
+                  'input-disable': mucLuongCoSoControl.disabled }" />
+              </div>
+              <div class="col-md-12" [hidden]="mucLuongCoSoControl.valid">
+                <span *ngIf="mucLuongCoSoControl.hasError('required')" class="error-message-span">
+                  Không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row ">
+              <div class="col-md-12 ">
+                <span>Mức đóng tối đa:</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" formControlName="mucDongToiDaControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}" [ngClass]="{ 'error-border' : (mucDongToiDaControl.invalid && (mucDongToiDaControl.dirty || mucDongToiDaControl.touched)),
+                  'input-disable': mucDongToiDaControl.disabled }" />
+              </div>
+              <div class="col-md-12" [hidden]="mucDongToiDaControl.valid">
+                <span *ngIf="mucDongToiDaControl.hasError('required')" class="error-message-span">
+                  Không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12" style="margin-top: 20px">
+        <span>Tỉ lệ phân bổ mức đóng của NLĐ:</span>
+      </div>
+
+      <div class="col-md-12 mt-10">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="row ">
+              <div class="col-md-12 ">
+                <span>BHXH(%):</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" formControlName="bhxhControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}" [ngClass]="{ 'error-border' : (bhxhControl.invalid && (bhxhControl.dirty || bhxhControl.touched)),
+                  'input-disable': bhxhControl.disabled }" />
+              </div>
+              <div class="col-md-12" [hidden]="bhxhControl.valid">
+                <span *ngIf="bhxhControl.hasError('required')" class="error-message-span">
+                  Không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12">
+                <span>BHYT(%):</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" formControlName="bhytControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}" [ngClass]="{ 'error-border' : (bhytControl.invalid && (bhytControl.dirty || bhytControl.touched)),
+                  'input-disable': bhytControl.disabled }" />
+              </div>
+              <div class="col-md-12" [hidden]="bhytControl.valid">
+                <span *ngIf="bhytControl.hasError('required')" class="error-message-span">
+                  Không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12">
+                <span>BHTN(%):</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" formControlName="bhtnControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}" [ngClass]="{ 'error-border' : (bhtnControl.invalid && (bhtnControl.dirty || bhtnControl.touched)),
+                  'input-disable': bhtnControl.disabled }" />
+              </div>
+              <div class="col-md-12" [hidden]="bhtnControl.valid">
+                <span *ngIf="bhtnControl.hasError('required')" class="error-message-span">
+                  Không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12">
+                <span>BHTNNN(%):</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" formControlName="bhtnnnControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}" [ngClass]="{ 'error-border' : (bhtnnnControl.invalid && (bhtnnnControl.dirty || bhtnnnControl.touched)),
+                  'input-disable': bhtnnnControl.disabled }" />
+              </div>
+              <div class="col-md-12" [hidden]="bhtnnnControl.valid">
+                <span *ngIf="bhtnnnControl.hasError('required')" class="error-message-span">
+                  Không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-12" style="margin-top: 20px">
+        <span>Tỉ lệ phân bổ mức đóng của NSDLĐ:</span>
+      </div>
+
+      <div class="col-md-12 mt-10">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12">
+                <span>BHXH(%):</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" formControlName="bhxhCtyControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}" [ngClass]="{ 'error-border' : (bhxhCtyControl.invalid && (bhxhCtyControl.dirty || bhxhCtyControl.touched)),
+                  'input-disable': bhxhCtyControl.disabled }" />
+              </div>
+              <div class="col-md-12" [hidden]="bhxhCtyControl.valid">
+                <span *ngIf="bhxhCtyControl.hasError('required')" class="error-message-span">
+                  Không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12">
+                <span>BHYT(%):</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" formControlName="bhytCtyControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}" [ngClass]="{ 'error-border' : (bhytCtyControl.invalid && (bhytCtyControl.dirty || bhytCtyControl.touched)),
+                  'input-disable': bhytCtyControl.disabled }" />
+              </div>
+              <div class="col-md-12" [hidden]="bhytCtyControl.valid">
+                <span *ngIf="bhytCtyControl.hasError('required')" class="error-message-span">
+                  Không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12">
+                <span>BHTN(%):</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" formControlName="bhtnCtyControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}" [ngClass]="{ 'error-border' : (bhtnCtyControl.invalid && (bhtnCtyControl.dirty || bhtnCtyControl.touched)),
+                  'input-disable': bhtnCtyControl.disabled }" />
+              </div>
+              <div class="col-md-12" [hidden]="bhtnCtyControl.valid">
+                <span *ngIf="bhtnCtyControl.hasError('required')" class="error-message-span">
+                  Không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="row">
+              <div class="col-md-12">
+                <span>BHTNNN(%):</span><span class="required">*</span>
+              </div>
+              <div class="col-md-12">
+                <input type="text" class="number-input" formControlName="bhtnnnCtyControl"
+                  [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '2'}" [ngClass]="{ 'error-border' : (bhtnnnCtyControl.invalid && (bhtnnnCtyControl.dirty || bhtnnnCtyControl.touched)),
+                  'input-disable': bhtnnnCtyControl.disabled }" />
+              </div>
+              <div class="col-md-12" [hidden]="bhtnnnCtyControl.valid">
+                <span *ngIf="bhtnnnCtyControl.hasError('required')" class="error-message-span">
+                  Không được để trống
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

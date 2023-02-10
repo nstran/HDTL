@@ -1,0 +1,444 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="tao-doiChucVu">
+  <div class="row no-margin">
+    <div class="col-md-12 header" style="padding: 6px;">
+      <div class="row">
+        <div class="col-md-6 no-padding">
+          <div class="row no-margin">
+            <div class="col-md-1 col-sm-1 col-xs-3">
+              <div class="header-box-icon">
+                <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+              </div>
+            </div>
+            <div class="col-md-11 col-sm-10 col-xs-9">
+              <div>
+                <span class="customer-name">Chi tiết đánh giá nhân viên</span>
+              </div>
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="float: right;">
+                <button type="button" class="btn-remove" (click)="thoat()">
+                  <span class="btn-remove-text">Thoát</span>
+                </button>
+
+                <button type="button" class="btn-remove" (click)="luuOrHoanThanhDanhGia(false)"
+                        *ngIf="(isNhanVienTuDanhGia && trangThaiDanhGia == 1) || (isQuanLyDanhGia && trangThaiDanhGia == 2) || (isTruongPhongDanhGia && trangThaiDanhGia == 3)">
+                  <span class="btn-remove-text">Lưu</span>
+                </button>
+
+                <button #save type="button" class="btn-save" (click)="luuOrHoanThanhDanhGia(true)"
+                        *ngIf="(isNhanVienTuDanhGia && trangThaiDanhGia == 1) || (isQuanLyDanhGia && trangThaiDanhGia == 2) || (isTruongPhongDanhGia && trangThaiDanhGia == 3)"
+                        style="width:90px!important">
+                  <span class="btn-save-text">Hoàn thành</span>
+                </button>
+              </div>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="row no-padding body-wrapper">
+    <div class="col-md-12">
+      <!-- Thông tin đề xuất -->
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+                   [ngStyle]="{'width': '100%'}">
+        <p-accordionTab header="Thông tin phiếu" [selected]="true">
+          <div class="row buffer-bottom">
+            <div class="col-md-3 buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span>Tên nhân viên</span><span style="font-weight:bold;">: {{tenNhanVien}}</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span>Mã nhân viên</span><span style="font-weight:bold;">: {{maNhanVien}}</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span>Chức vụ</span><span style="font-weight:bold;">: {{positionName}}</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span>Phòng ban</span><span style="font-weight:bold;">: {{organizationName}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="row buffer-bottom">
+            <div class="col-md-3 buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span>Người đánh giá</span><span style="font-weight:bold;">: {{nguoiDanhGiaName}}</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span>Mã nhân viên</span><span style="font-weight:bold;">: {{nguoiDanhGiaCode}}</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span>Chức vụ</span><span style="font-weight:bold;">: {{nguoiDanhGiaPositionName}}</span>
+              </div>
+            </div>
+
+            <div class="col-md-3 buffer-bottom">
+              <div class="col-md-12 buffer-bottom-label">
+                <span>Phòng ban</span><span style="font-weight:bold;">: {{nguoiDanhGiaOrganizationName}}</span>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+
+  <!-- Nội dung tự đánh giá của nhân viên -->
+  <div class="row no-padding body-wrapper">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+                   [ngStyle]="{'width': '100%'}">
+        <p-accordionTab header="Nội dung tự đánh giá của nhân viên" [selected]="true">
+          <div class="col-md-12 no-padding">
+            <div class="box-filter">
+              <div class="row no-margin">
+                <div class="col-md-12">
+                  <!-- Ghi câu trả lời ở đây -->
+                  <p-table #dt [columns]="noiDungTuDanhGiaCols" [value]="listCauHoiMappingNV" [responsive]="true"
+                           [resizableColumns]="true" [paginator]="true" [rows]="10" editMode="row">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th *ngFor="let col of columns" pResizableColumn
+                            [ngStyle]="{ 'text-align': 'center', 'width': col.width }">
+                          {{col.header}}
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing"
+                                 let-index="rowIndex">
+                      <tr>
+                        <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                            class="ui-resizable-column custom-table-td"
+                            [ngStyle]="{ 'text-align': col.textAlign, 'width': col.width, 'overflow': 'unset'}">
+                          <span class="ui-column-title">{{col.header}}</span>
+                          <span *ngSwitchCase="'stt'" style="text-align:center">
+                            <span *ngIf='rowData["parentId"] == null' style="font-weight:bold;">
+                              {{rowData[col.field]}}
+                            </span>
+                            <span *ngIf='rowData["parentId"] != null'>
+                              {{rowData[col.field]}}
+                            </span>
+                          </span>
+
+                          <span *ngSwitchCase="'noiDungCauHoi'">
+                            <span style="font-weight:bold;overflow-wrap: anywhere;" *ngIf="rowData['parentId'] == null">
+                              {{ rowData[col.field] }}
+                            </span>
+
+                            <div class="row buffer-bottom" *ngIf="rowData['parentId'] != null">
+                              <div class="col-md-12 buffer-bottom-label">
+                                <!-- Nội dung câu hỏi -->
+                                <span style="overflow-wrap: anywhere;">
+                                  {{ rowData[col.field] }}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="row buffer-bottom" *ngIf="rowData['parentId'] != null">
+                              <div class="col-md-12 buffer-bottom-label">
+                                <!-- Nhập câu trả lời text -->
+                                <textarea type="text" rows="1" class="w100" pInputText *ngIf="rowData['loaiCauTraLoiId'] == 1 || rowData['loaiCauTraLoiId'] == 2
+                                  || rowData['loaiCauTraLoiId'] == 4 || rowData['loaiCauTraLoiId'] == 5"
+                                          [disabled]="(trangThaiDanhGia == 1 && isNhanVienTuDanhGia) ? false : true"
+                                          (keydown.enter)="$event.preventDefault()" [(ngModel)]="rowData['cauTraLoiText']"
+                                          [ngStyle]="{'width': '100%','height': '60px'}"></textarea>
+
+                                <!-- Danh mục item -->
+                                <span *ngIf="rowData['loaiCauTraLoiId'] == 0 || rowData['loaiCauTraLoiId'] == 2">
+                                  <p-multiSelect [options]="rowData['danhMucItem']" [resetFilterOnHide]="true"
+                                                 [filter]="true" optionLabel="categoryName" appendTo="body"
+                                                 [disabled]="(trangThaiDanhGia == 1 && isNhanVienTuDanhGia) ? false : true"
+                                                 defaultLabel="Chọn câu trả lời" [ngModelOptions]="{standalone: true}"
+                                                 [ngStyle]="{'width': '100%'}" [style]="{'width': '100%', 'height': '33.2px'}"
+                                                 [(ngModel)]="rowData['listDanhMucItemChose']" [filter]="true"
+                                                 (keydown.enter)="$event.preventDefault()">
+                                  </p-multiSelect>
+                                </span>
+
+                                <!-- Lựa chọn Yes/No -->
+                                <span *ngIf="rowData['loaiCauTraLoiId'] == 5 || rowData['loaiCauTraLoiId'] == 6">
+                                  <p-radioButton value="1" [(ngModel)]="rowData['cauTraLoiLuaChon']" label="Yes"
+                                                 [disabled]="(trangThaiDanhGia == 1 && isNhanVienTuDanhGia) ? false : true"
+                                                 [ngStyle]="{ 'margin-right': '20px'}" [ngModelOptions]="{standalone: true}">
+                                  </p-radioButton>
+                                  <p-radioButton value="0" [(ngModel)]="rowData['cauTraLoiLuaChon']" label="No"
+                                                 [disabled]="(trangThaiDanhGia == 1 && isNhanVienTuDanhGia) ? false : true"
+                                                 [ngModelOptions]="{standalone: true}">
+                                  </p-radioButton>
+                                </span>
+                              </div>
+                            </div>
+                          </span>
+
+                          <span *ngSwitchCase="'diemTuDanhGia'">
+                            <div class="row buffer-bottom">
+                              <div class="col-md-12 buffer-bottom-label"
+                                   *ngIf="rowData['loaiCauTraLoiId'] == 1 || rowData['loaiCauTraLoiId'] == 3">
+                                <p-dropdown [options]="listThangDiemChose" [style]="{'width': '100%'}" [filter]="true"
+                                            [(ngModel)]="rowData[col.field]"
+                                            [disabled]="(trangThaiDanhGia == 1 && isNhanVienTuDanhGia) ? false : true"
+                                            (keydown.enter)="$event.preventDefault()" (onChange)="tinhTongDiem()"
+                                            placeholder="Chọn điểm đánh giá" optionLabel="value">
+                                </p-dropdown>
+                              </div>
+                            </div>
+                          </span>
+
+                          <span *ngSwitchCase="'diemDanhGia'">
+                            <div class="row buffer-bottom">
+                              <div class="col-md-12 buffer-bottom-label"
+                                   *ngIf="rowData['loaiCauTraLoiId'] == 1 || rowData['loaiCauTraLoiId'] == 3">
+                                <p-dropdown [options]="listThangDiemChose" [style]="{'width': '100%'}" [filter]="true"
+                                            [(ngModel)]="rowData[col.field]" placeholder="Chọn điểm đánh giá"
+                                            [disabled]="(trangThaiDanhGia == 2 && isQuanLyDanhGia) ? false : true"
+                                            optionLabel="value" (keydown.enter)="$event.preventDefault()"
+                                            (onChange)="tinhTongDiem()">
+                                </p-dropdown>
+                              </div>
+                            </div>
+                          </span>
+
+                          <span *ngSwitchCase="'ketQua'">
+                            <div class="row buffer-bottom">
+                              <div class="col-md-12 buffer-bottom-label"
+                                   *ngIf="rowData['loaiCauTraLoiId'] == 1 || rowData['loaiCauTraLoiId'] == 3">
+                                <p-dropdown [options]="listThangDiemChose" [style]="{'width': '100%'}" [filter]="true"
+                                            placeholder="Chọn điểm đánh giá" [(ngModel)]="rowData[col.field]"
+                                            [disabled]="(trangThaiDanhGia == 3 && isTruongPhongDanhGia ) ? false : true"
+                                            optionLabel="value" (keydown.enter)="$event.preventDefault()"
+                                            (onChange)="tinhTongDiem()">
+                                </p-dropdown>
+                              </div>
+                            </div>
+                          </span>
+
+                          <span *ngSwitchDefault [ngStyle]="{'text-align': col.textAlign, 'width': col.width}">
+                            {{ rowData[col.field] }}
+                          </span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="footer">
+                      <tr style="font-weight:bold;text-align:center">
+                        <td>
+                          <span class="ui-column-title"></span>
+                        </td>
+                        <td>
+                          <span class="ui-column-title">Tổng</span>
+                        </td>
+                        <td>
+                          <span class="ui-column-title"></span>
+                        </td>
+                        <td>
+                          <span class="ui-column-title">{{ diemTuDanhGia }}</span>
+                        </td>
+                        <td>
+                          <span class="ui-column-title">{{ diemDanhGia }}</span>
+                        </td>
+                        <td>
+                          <span class="ui-column-title">{{ ketQua }}</span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <!-- Nội dung nhân xét của người đánh giá -->
+  <div class="row no-padding body-wrapper"
+       *ngIf="(isQuanLyDanhGia && trangThaiDanhGia != 1) || (isTruongPhongDanhGia && (trangThaiDanhGia == 3 || trangThaiDanhGia == 4 ))">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+                   [ngStyle]="{'width': '100%'}">
+        <p-accordionTab header="Nội dung nhân xét của người đánh giá" [selected]="true">
+          <div class="col-md-12 no-padding">
+            <div class="box-filter">
+              <div class="row no-margin">
+                <div class="col-md-12">
+                  <p-table #dt [columns]="quanLyDanhGiaCols" [value]="listCauHoiMappingQL" [responsive]="true"
+                           [resizableColumns]="true" [paginator]="true" [rows]="10" editMode="row">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th *ngFor="let col of columns" pResizableColumn
+                            [ngStyle]="{ 'text-align': 'center', 'width': col.width }">
+                          {{col.header}}
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing"
+                                 let-index="rowIndex">
+                      <tr>
+                        <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
+                            [ngStyle]="{ 'text-align': col.textAlign, 'width': col.width}">
+                          <span class="ui-column-title">{{col.header}}</span>
+                          <span *ngSwitchCase="'stt'" style="text-align:center">
+                            <span *ngIf='rowData["parentId"] == null' style="font-weight:bold;">
+                              {{rowData[col.field]}}
+                            </span>
+                            <span *ngIf='rowData["parentId"] != null'>
+                              {{rowData[col.field]}}
+                            </span>
+                          </span>
+                          <span *ngSwitchCase="'noiDungCauHoi'">
+                            <span style="font-weight:bold;overflow-wrap: anywhere;" *ngIf="rowData['parentId'] == null">
+                              {{ rowData[col.field] }}
+                            </span>
+                            <div class="row buffer-bottom" *ngIf="rowData['parentId'] != null">
+                              <div class="col-md-12 buffer-bottom-label">
+                                <!-- Nội dung câu hỏi -->
+                                <span style="overflow-wrap: anywhere;">
+                                  {{ rowData[col.field] }}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div class="row buffer-bottom" *ngIf="rowData['parentId'] != null">
+                              <div class="col-md-12 buffer-bottom-label">
+                                <!-- Nhập câu trả lời text -->
+                                <textarea type="text" rows="1" class="w100" pInputText *ngIf="rowData['loaiCauTraLoiId'] == 1 || rowData['loaiCauTraLoiId'] == 2
+                                || rowData['loaiCauTraLoiId'] == 4 || rowData['loaiCauTraLoiId'] == 5"
+                                          [disabled]="(trangThaiDanhGia == 2 && isQuanLyDanhGia) ? false : true"
+                                          (keydown.enter)="$event.preventDefault()" [(ngModel)]="rowData['cauTraLoiText']"
+                                          [ngStyle]="{'width': '100%','height': '60px'}"></textarea>
+
+                                <!-- Danh mục item -->
+                                <span *ngIf="rowData['loaiCauTraLoiId'] == 0 || rowData['loaiCauTraLoiId'] == 2">
+                                  <p-multiSelect [options]="rowData['danhMucItem']" [resetFilterOnHide]="true"
+                                                 [filter]="true" optionLabel="categoryName" appendTo="body"
+                                                 [disabled]="(trangThaiDanhGia == 2 && isQuanLyDanhGia) ? false : true"
+                                                 defaultLabel="Chọn câu trả lời" [ngModelOptions]="{standalone: true}"
+                                                 [ngStyle]="{'width': '100%'}" [style]="{'width': '100%', 'height': '33.2px'}"
+                                                 [(ngModel)]="rowData['listDanhMucItemChose']" [filter]="true"
+                                                 (keydown.enter)="$event.preventDefault()">
+                                  </p-multiSelect>
+                                </span>
+
+                                <!-- Lựa chọn Yes/No -->
+                                <span *ngIf="rowData['loaiCauTraLoiId'] == 5 || rowData['loaiCauTraLoiId'] == 6">
+                                  <p-radioButton value="1" [(ngModel)]="rowData['cauTraLoiLuaChon']" label="Yes"
+                                                 [disabled]="(trangThaiDanhGia == 2 && isQuanLyDanhGia) ? false : true"
+                                                 [ngStyle]="{ 'margin-right': '20px'}" [ngModelOptions]="{standalone: true}">
+                                  </p-radioButton>
+                                  <p-radioButton value="0" [(ngModel)]="rowData['cauTraLoiLuaChon']" label="No"
+                                                 [disabled]="(trangThaiDanhGia == 2 && isQuanLyDanhGia) ? false : true"
+                                                 [ngModelOptions]="{standalone: true}">
+                                  </p-radioButton>
+                                </span>
+                              </div>
+                            </div>
+                          </span>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <!-- Kết quả -->
+  <div class="row no-padding body-wrapper"
+       *ngIf="(isTruongPhongDanhGia && (trangThaiDanhGia == 3 || trangThaiDanhGia == 4 ))">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+                   [ngStyle]="{'width': '100%'}">
+        <p-accordionTab header="Kết quả" [selected]="true">
+          <div class="col-md-12 no-padding">
+            <div class="box-filter">
+              <div class="row no-margin">
+                <div class="col-md-12">
+                  <div class="row buffer-bottom">
+                    <div class="col-md-12 buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <span>Nhận xét</span>
+                      </div>
+                    </div>
+                    <div class="col-md-12 buffer-bottom">
+                      <div class="col-md-12 buffer-bottom-label">
+                        <textarea style="width: 100%!important;height:100px!important;"
+                                  [disabled]="(trangThaiDanhGia == 4) ? true : false"
+                                  [(ngModel)]="nhanXetTruongPhong"></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row buffer-bottom">
+                    <div class="col-md-5 buffer-bottom">
+                      <div class="col-md-4 buffer-bottom-label">
+                        <span>Mức đánh giá</span>
+                      </div>
+                      <div class="col-md-8 buffer-bottom-label">
+                        <p-dropdown [options]="listMucDanhGia" optionLabel="mucDanhGiaMasterDataName"
+                                    placeholder="Chọn mức đánh giá" [disabled]="(trangThaiDanhGia == 4) ? true : false"
+                                    [(ngModel)]="mucDanhGiaMasterDataTruongPhong" [style]="{'width': '100%'}" [filter]="true"
+                                    (keydown.enter)="$event.preventDefault()">
+                        </p-dropdown>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <div class="row no-padding body-wrapper">
+    <div class="col-md-12">
+      <app-note-time-line [viewNote]="viewNote" [viewTimeline]="viewTimeline" objectType="TUDANHGIA"
+                          [objectNumber]="danhGiaNhanVienId" [actionAdd]="actionAdd" [actionEdit]="actionEdit"
+                          [actionDelete]="actionDelete" [pageSize]="pageSize"></app-note-time-line>
+    </div>
+  </div>
+
+</div>

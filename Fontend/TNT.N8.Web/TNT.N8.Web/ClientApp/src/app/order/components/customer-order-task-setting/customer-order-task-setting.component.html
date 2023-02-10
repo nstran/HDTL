@@ -1,0 +1,130 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right" key="popup"></p-toast>
+
+<div class="order-detail-dialog">
+  <div class="col-md-12" style="margin-bottom:13px">
+
+    <div class="row form-input">
+
+      <div class="col-md-12 form-input">
+        <div class="row">
+          <div class="col-md-12">
+            <label>Dịch vụ:</label><b style="margin-left:5px;">{{ optionName }}</b>
+          </div>
+        </div>
+      </div>
+
+      <!-- Các thuộc tính của gói -->
+      <div class="col-md-12 form-input" *ngFor="let attr of listOptionAttr">
+        <div class="row">
+          <div class="col-md-12">
+            <label>{{ attr.attrName }}:</label>
+
+            <b *ngIf="attr.dataType == 1 || attr.dataType == 2" style="margin-left:5px;">
+              {{ attr.value }}
+            </b>
+
+            <b *ngIf="attr.dataType == 3" style="margin-left:5px;">
+              {{ attr.value | date:'dd/MM/yyyy' }}
+            </b>
+          </div>
+
+        </div>
+      </div>
+
+
+      <form [formGroup]="settingFormGroup">
+
+        <div class="col-md-12 form-input" *ngIf="!rowData.isExtend">
+          <div class="row">
+
+            <div class="col-md-3">
+              <label>Nhà cung cấp:</label><span class="required">*</span>
+            </div>
+
+            <div class="col-md-9">
+              <p-dropdown [options]="listVendor" [virtualScroll]="true" itemSize="30" [filter]="true"
+                formControlName="vendorControl" [showClear]="true" [resetFilterOnHide]="true" appendTo="body"
+                [baseZIndex]="99999" 
+                [styleClass]="(vendorControl.invalid && (vendorControl.dirty || vendorControl.touched)) ? 'error-border' : ''"
+                placeholder="Chọn nhà cung cấp" optionLabel="vendorName" [style]="{'width': '100%'}">
+              </p-dropdown>
+            </div>
+
+            <div class="col-md-3" [hidden]="vendorControl.valid || vendorControl.untouched"></div>
+            <div class="col-md-9" [hidden]="vendorControl.valid || vendorControl.untouched">
+              <span *ngIf="vendorControl.hasError('required') || vendorControl.hasError('blankString') "
+                class="error-message-span"> Không được để trống</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12 form-input">
+          <div class="row">
+
+            <div class="col-md-3">
+              <label>Nhân viên hỗ trợ:</label><span class="required">*</span>
+            </div>
+
+            <div class="col-md-9">
+              <p-multiSelect [options]="listSupporter" [virtualScroll]="true" itemSize="30" [filter]="true"
+                formControlName="supporterControl" [resetFilterOnHide]="true" appendTo="body"
+                [baseZIndex]="99999"
+                selectedItemsLabel="{0} nhân viên được chọn"
+                [styleClass]="(supporterControl.invalid && (supporterControl.dirty || supporterControl.touched)) ? 'error-border' : ''"
+                defaultLabel="Chọn nhân viên hỗ trợ" optionLabel="employeeCodeName" [style]="{'width': '100%'}">
+              </p-multiSelect>
+            </div>
+
+            <div class="col-md-3" [hidden]="supporterControl.valid || supporterControl.untouched"></div>
+            <div class="col-md-9" [hidden]="supporterControl.valid || supporterControl.untouched">
+              <span *ngIf="supporterControl.hasError('required') || supporterControl.hasError('blankString') "
+                class="error-message-span"> Không được để trống</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- <div class="col-md-12 form-input">
+          <div class="row">
+            <div class="col-md-3">
+              <label>Nhiệm vụ:</label>
+            </div>
+            <div class="col-md-9">
+              <span> {{ missionControl != null ? missionControl.value : ""}}</span>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="col-md-12 form-input">
+          <div class="row">
+            <div class="col-md-3">
+              <label>Ghi chú:</label>
+            </div>
+            <div class="col-md-9">
+              <textarea rows="3" formControlName="noteControl" class="w-100"></textarea>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <div class="col-md-12 mt-10">
+    <div class="group-button-footer">
+      <button type="button" class="cancel" (click)="cancel()"><span class="cancel-label">Hủy</span></button>
+      <button type="button" class="save" (click)="save()"><span class="save-label">Lưu</span></button>
+    </div>
+  </div>
+
+</div>

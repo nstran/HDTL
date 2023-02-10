@@ -1,0 +1,460 @@
+<!-- Loading -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+
+<!-- Message -->
+<p-toast position="bottom-right"></p-toast>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="tuyen-dung">
+    <div class="row no-margin" id="parent">
+        <div class="col-md-12 header" style="padding: 6px;">
+
+            <div class="row">
+                <div class="col-md-6 no-padding">
+                    <div class="row no-margin">
+                        <div class="col-md-1 col-sm-1 col-xs-3">
+                            <div class="header-box-icon">
+                                <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+                            </div>
+                        </div>
+                        <div class="col-md-11 col-sm-10 col-xs-9  no-margin no-padding">
+                            <div>
+                                <span class="customer-name">Tạo vị trí tuyển dụng</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12" style="display: flex; justify-content: flex-end; margin-top: 5px;">
+                            <span *ngIf="!isInvalidForm">
+                                <img src="/assets/icons/components/ios-warning.svg" class="ios-warning">
+                            </span>
+                            <div class="box-waring" *ngIf="isInvalidForm" #toggleButton (click)="toggleNotifiError()">
+                                <img src="/assets/icons/components/ios-warning-active.svg" class="ios-warning-active">
+                            </div>
+                            <div class="notification" #notifi *ngIf="isOpenNotifiError">
+                                <div class="notifi-row" *ngIf="isValidChienDich">
+                                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                                    <span class="notifi-text">Vui lòng chọn chiến dịch</span>
+                                </div>
+
+                                <div *ngIf="(tenViTriTuyenDungFormControl.invalid && (tenViTriTuyenDungFormControl.dirty || tenViTriTuyenDungFormControl.touched))"
+                                    class="notifi-row">
+                                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                                    <span *ngIf="tenViTriTuyenDungFormControl.hasError('required')"
+                                        class="notifi-text">Vui lòng nhập tên vị trí</span>
+                                </div>
+
+                                <div *ngIf="(mucUuTienFormControl.invalid && (mucUuTienFormControl.dirty || mucUuTienFormControl.touched))"
+                                    class="notifi-row">
+                                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                                    <span *ngIf="mucUuTienFormControl.hasError('required')" class="notifi-text">Vui lòng
+                                        chọn mức ưu tiên</span>
+                                </div>
+
+                                <div *ngIf="(soLuong == 0 || (soLuongFormControl.invalid && (soLuongFormControl.dirty || soLuongFormControl.touched)))"
+                                    class="notifi-row">
+                                    <img src="/assets/icons/components/ios-alert.svg" class="ios-alert">
+                                    <span
+                                        *ngIf="(soLuong == 0 || (soLuongFormControl.invalid && (soLuongFormControl.dirty || soLuongFormControl.touched)))"
+                                        class="notifi-text">Vui lòng
+                                        nhập số lượng tuyển dụng > 0</span>
+                                </div>
+                            </div>
+
+                            <button type="button" class="btn-remove">
+                                <span (click)="goBackToList()" class="btn-remove-text">Thoát</span>
+                            </button>
+                            <button #save (click)="btn_createVacancies(false)" type="button" class="btn-save">
+                                <span class="btn-save-text">Lưu</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="display: flex;align-items: center;">
+                <div class="col-md-2">
+                    <span>Chiến dịch tuyển dụng</span><span class="required">*</span>
+                </div>
+                <div class="col-md-6">
+                    <div class="header-title">
+                        <p-dropdown [options]="listChienDich" optionLabel="recruitmentCampaignName"
+                            placeholder="Chọn chiến dịch" [filter]="true" [resetFilterOnHide]="true"
+                            [virtualScroll]="true" itemSize="30" [(ngModel)]="selectedChienDich"
+                            (keydown.enter)="$event.preventDefault()">
+                        </p-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row no-padding body-wrapper" id="parent">
+        <form [formGroup]="thongTinViTriTuyenDungFormGroup">
+            <div class="col-md-12">
+                <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                    collapseIcon="pi pi-fw pi-chevron-circle-down">
+                    <p-accordionTab header="Thông tin vị trí tuyển dụng" [selected]="true">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row top-buffer bottom-buffer" style="margin-top: 15px;">
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Tên vị trí tuyển dụng </span><span class="required">*</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input formControlName="tenViTriTuyenDungFormControl" type="text"
+                                                        maxlength="500"
+                                                        [ngClass]="(tenViTriTuyenDungFormControl.invalid && (tenViTriTuyenDungFormControl.dirty || tenViTriTuyenDungFormControl.touched)) ? 'error-border' : ''"
+                                                        class="w100" pInputText />
+                                                </div>
+                                                <div class="col-md-12"
+                                                    [hidden]="tenViTriTuyenDungFormControl.valid || tenViTriTuyenDungFormControl.untouched">
+                                                    <span
+                                                        *ngIf="tenViTriTuyenDungFormControl.hasError('required') || tenViTriTuyenDungFormControl.hasError('blankString') "
+                                                        class="error-message-span">
+                                                        Không được để trống
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 no-padding">
+                                            <div class="col-md-6">
+                                                <div class="row buffer-bottom">
+                                                    <div class="col-md-12 buffer-bottom-label">
+                                                        <span>Số lượng tuyển dụng</span><span class="required">*</span>
+                                                    </div>
+                                                    <div class="col-md-12">
+
+                                                        <input class="w100 input-text" type="number" pInputText
+                                                            formControlName="soLuongFormControl"
+                                                            [ngClass]="(soLuongFormControl.invalid  && (soLuongFormControl.dirty ||  soLuongFormControl.touched) ) ? 'error-border': ''">
+                                                    </div>
+                                                    <div class="col-md-12"
+                                                        [hidden]="soLuongFormControl.valid || soLuongFormControl.untouched">
+                                                        <span
+                                                            *ngIf="soLuongFormControl.hasError('required') || soLuongFormControl.hasError('blankString') || soLuongFormControl.value == 0 "
+                                                            class="error-message-span">
+                                                            Không được để trống
+                                                        </span>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row buffer-bottom">
+                                                    <div class="col-md-12 buffer-bottom-label">
+                                                        <span>Mức ưu tiên </span><span class="required">*</span>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <p-dropdown [options]="listMucUuTien"
+                                                            formControlName="mucUuTienFormControl"
+                                                            [styleClass]="(mucUuTienFormControl.invalid  && (mucUuTienFormControl.dirty ||  mucUuTienFormControl.touched)) ? 'error-border': ''"
+                                                            placeholder="Chọn mức độ ưu tiên" optionLabel="name"
+                                                            [style]="{'width': '100%'}">
+                                                        </p-dropdown>
+                                                    </div>
+                                                    <div class="col-md-12"
+                                                        [hidden]="mucUuTienFormControl.valid || mucUuTienFormControl.untouched">
+                                                        <span
+                                                            *ngIf="mucUuTienFormControl.hasError('required') || mucUuTienFormControl.hasError('blankString') "
+                                                            class="error-message-span">
+                                                            Không được để trống
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Loại tiền tệ</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <p-dropdown [options]="listLoaiTienTe"
+                                                        formControlName="loaiTienTeFormControl"
+                                                        placeholder="Chọn loại tiền tệ" optionLabel="name"
+                                                        [style]="{'width': '100%'}">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Người phụ trách vị trí tuyển dụng</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <p-dropdown [options]="listPhuTrachViTriTuyenDung"
+                                                        formControlName="nguoiPhuTrachFormControl" [filter]="true"
+                                                        [autoDisplayFirst]="false" [resetFilterOnHide]="true"
+                                                        optionLabel="employeeCodeName"
+                                                        placeholder="Chọn người phụ trách" [style]="{'width': '100%'}"
+                                                        [virtualScroll]="true" itemSize="30">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Loại công việc</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <p-dropdown [options]="listLoaiCongViec"
+                                                        formControlName="loaiCongViecFormControl"
+                                                        optionLabel="categoryName" placeholder="Chọn loại công việc"
+                                                        [style]="{'width': '100%'}">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Kiểu lương</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <p-dropdown [options]="listKieuLuong"
+                                                        formControlName="kieuLuongFormControl"
+                                                        placeholder="Chọn kiểu lương" optionLabel="name"
+                                                        [style]="{'width': '100%'}" (onChange)="changeSalary($event)">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-md-12">
+                                        <div class="col-md-4">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Nơi làm việc</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <input formControlName="noiLamViecFormControl" type="text"
+                                                        maxlength="500" class="w100" pInputText />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row buffer-bottom">
+                                                <div class="col-md-12 buffer-bottom-label">
+                                                    <span>Kinh nghiệm</span>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <p-dropdown [options]="listKinhNghiem"
+                                                        formControlName="kinhNghiemFormControl"
+                                                        optionLabel="categoryName" placeholder="Chọn kinh nghiệm"
+                                                        [style]="{'width': '100%'}">
+                                                    </p-dropdown>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 no-padding" *ngIf="isFromTo==true">
+                                            <div class="col-md-6">
+                                                <div class="row buffer-bottom">
+                                                    <div class="col-md-12 buffer-bottom-label">
+                                                        <span>Từ </span><span class="required">*</span>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <input formControlName="tuFormControl" type="text"
+                                                            max="denFormControl.value"
+                                                            [cleave]="{ numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 0 }"
+                                                            class="w100" pInputText (change)="changeFromMoney()"
+                                                            [ngClass]="(tuFormControl.invalid  && (tuFormControl.dirty ||  tuFormControl.touched)) ? 'error-border': ''" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row buffer-bottom">
+                                                    <div class="col-md-12 buffer-bottom-label">
+                                                        <span>Đến </span><span class="required">*</span>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <input formControlName="denFormControl" type="text"
+                                                            min="tuFormControl.value" (change)="changeToMoney()"
+                                                            [ngClass]="(denFormControl.invalid  && (denFormControl.dirty ||  denFormControl.touched)) ? 'error-border': ''"
+                                                            [cleave]="{ numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 0 }"
+                                                            class="w100" pInputText />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row col-md-12 no-margin-left">
+                                                <div class="col-md-12">
+                                                    <span [hidden]="tuFormControl.valid || tuFormControl.untouched"
+                                                        *ngIf="tuFormControl?.errors?.numberInvalid"
+                                                        class="error-message-span">Khoảng tiền đến cần lớn hơn giá trị
+                                                        tiền từ</span>
+                                                </div>
+                                                <div class="col-md-12 no-padding-left">
+                                                    <span [hidden]="denFormControl.valid || denFormControl.untouched"
+                                                        *ngIf="denFormControl?.errors?.numberInvalid"
+                                                        class="error-message-span">Khoảng tiền từ cần nhỏ hơn giá trị
+                                                        tiền đến</span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+
+            <div class="col-md-12">
+                <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                    collapseIcon="pi pi-fw pi-chevron-circle-down">
+                    <p-accordionTab header="Thông tin chi tiết vị trí tuyển dụng" [selected]="true">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="row buffer-bottom">
+                                        <div class="col-md-12 buffer-bottom-label">
+                                            <span>Vị trí tuyển dụng</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p-editor formControlName="viTriTuyenDungFormControl"
+                                                [style]="{'height':'180px', 'width': '100%'}">
+                                            </p-editor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="row buffer-bottom">
+                                        <div class="col-md-12 buffer-bottom-label">
+                                            <span>Yêu cầu chuyên môn</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p-editor formControlName="yeuCauChuyenMonFormControl"
+                                                [style]="{'height':'180px', 'width': '100%'}">
+                                            </p-editor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="row buffer-bottom">
+                                        <div class="col-md-12 buffer-bottom-label">
+                                            <span>Quyền lợi ứng viên nhận được</span>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p-editor formControlName="quyenLoiUngVienFormControl"
+                                                [style]="{'height':'180px', 'width': '100%'}">
+                                            </p-editor>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+
+            <div class="col-md-12">
+                <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right"
+                    collapseIcon="pi pi-fw pi-chevron-circle-down">
+                    <p-accordionTab header="Tài liệu liên quan" [selected]="true">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-12 mt-5">
+                                    <p-fileUpload #fileUpload name="demo[]" customUpload="true" multiple="multiple"
+                                        [showUploadButton]="false"
+                                        accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+                                        [maxFileSize]="defaultLimitedFileSize"
+                                        invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+                                        invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+                                        invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+                                        invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}."
+                                        chooseLabel="Chọn file" cancelLabel="Hủy toàn bộ file"
+                                        [disabled]="statusCode !== null" (onSelect)="handleFile($event, fileUpload)"
+                                        (onRemove)="removeFile($event)" (onClear)="clearAllFile()">
+                                    </p-fileUpload>
+                                </div>
+
+                                <div class="col-md-12 mt-5">
+                                    <p-table #dt [columns]="colsFile" [value]="arrayDocumentModel" [responsive]="true"
+                                        [resizableColumns]="true" [paginator]="true" [rows]="10">
+                                        <ng-template pTemplate="caption">
+                                            <div style="text-align: right">
+                                                <input type="text" pInputText size="50" placeholder="Tên tài liệu"
+                                                    (input)="dt.filterGlobal($event.target.value, 'contains')"
+                                                    style="width:auto">
+                                            </div>
+                                        </ng-template>
+                                        <ng-template pTemplate="header" let-columns>
+                                            <tr>
+                                                <th *ngFor="let col of columns" pResizableColumn
+                                                    [ngStyle]="{'text-align': col.textAlign}">
+                                                    {{col.header}}
+                                                </th>
+                                                <th style="width:4em"></th>
+                                                <th style="width:4em"></th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                            <tr>
+                                                <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                                                    class="ui-resizable-column"
+                                                    [ngStyle]="{'text-align': col.textAlign}">
+                                                    <span class="ui-column-title">{{col.header}}</span>
+
+
+                                                    <span *ngSwitchCase="'fileName'">
+                                                        {{rowData[col.field].substring(0,rowData[col.field].lastIndexOf('_'))}}.{{rowData[col.field].fileExtension}}
+                                                    </span>
+                                                    <span *ngSwitchCase="'createdDate'">
+                                                        {{rowData[col.field] | date:'dd/MM/yyyy h:mm a'}}
+                                                    </span>
+                                                    <span *ngSwitchCase="'size'">
+                                                        <ng-container *ngIf="convertFileSize(rowData[col.field])">
+                                                            {{rowData[col.field] / 1024 | number}} KB
+                                                        </ng-container>
+                                                        <ng-container *ngIf="!convertFileSize(rowData[col.field])">
+                                                            {{rowData[col.field] / 1048576 | number}} MB
+                                                        </ng-container>
+                                                    </span>
+                                                    <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+                                                </td>
+                                                <td>
+                                                    <button *ngIf="actionDelete && isAllowDeleteFile" pButton
+                                                        icon="pi pi-trash" (click)="deleteFile(rowData)"
+                                                        class="ui-button-danger"></button>
+                                                </td>
+                                                <td>
+                                                    <button pButton icon="pi pi-download"
+                                                        (click)="downloadFile(rowData)"></button>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+                    </p-accordionTab>
+                </p-accordion>
+            </div>
+        </form>
+    </div>
+</div>

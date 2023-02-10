@@ -1,0 +1,99 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="emp-pq">
+  <form [formGroup]="cauHinhPhanQuyenForm">
+    <div class="row mt-10">
+      <div class="col-md-12" style="text-align: right;">
+        <i *ngIf="!isEdit && isShowButtonSua" class="pi pi-pencil icons" (click)="enabledForm()"></i>
+        <i *ngIf="isEdit" class="pi pi-check icons icons-check" (click)="saveForm()"></i>
+        <i *ngIf="isEdit" class="pi pi-times icons icons-times" (click)="disabledForm()"></i>
+      </div>
+    </div>
+    <p class="title-tab">Phân quyền chức năng</p>
+    <div class="row form-row">
+      <div class="col-md-4 form-group">
+        <p-dropdown [options]="listRole" formControlName="phanQuyenChucNangControl" [filter]="true"
+          [resetFilterOnHide]="true" placeholder="Chọn nhóm quyền" optionLabel="roleValue" [style]="{'width': '100%'}">
+        </p-dropdown>
+      </div>
+    </div>
+
+    <p class="title-tab mt-1">Phân quyền dữ liệu</p>
+    <p-fieldset>
+      <p-header>Phân quyền phê duyệt</p-header>
+      <div class="row mt-10 mb-10">
+        <!-- <div class="col-md-12" style="margin-left: 10px;">
+          <span *ngIf="isEdit" class="hyperlink" (click)="openOrgPopup()">Chọn đơn vị >></span>
+        </div> -->
+        <div class="col-md-12 mt-20">
+          <p-table [columns]="cols" [value]="listSelectedDonVi" [paginator]="true" [rows]="5" class="table-border">
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th style="width: 40%; text-align: left;">Đơn vị</th>
+                <th style="width: 15%; text-align: center;">Trưởng bộ phận</th>
+                <!-- <th style="width: 15%; text-align: center;">Người theo dõi</th> -->
+                <th style="width: 15%; text-align: center;">Nhân viên</th>
+                <!-- <th style="width: 15%; text-align: center;">Thao tác</th> -->
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns" let-ri="rowIndex">
+              <tr>
+                <td *ngFor="let col of columns" [ngSwitch]="col.field" [ngStyle]="{'text-align': col.textAlign}">
+                  <span *ngSwitchCase="'organizationName'">
+                    {{rowData[col.field]}}
+                  </span>
+                  <span *ngSwitchCase="'truongBoPhan'">
+                    <p-radioButton [attr.name]="'groupname' + ri" value="1" [disabled]="!isEdit"
+                      [(ngModel)]="rowData.isManager" [ngModelOptions]="{standalone: true}">
+                    </p-radioButton>
+                  </span>
+                  <span *ngSwitchCase="'nguoiTheoDoi'">
+                    <p-radioButton [attr.name]="'groupname' + ri" value="2" [disabled]="!isEdit"
+                      [(ngModel)]="rowData.isManager" [ngModelOptions]="{standalone: true}">
+                    </p-radioButton>
+                  </span>
+                  <span *ngSwitchCase="'nhanVien'">
+                    <p-radioButton [attr.name]="'groupname' + ri" value="0" [disabled]="!isEdit"
+                      [(ngModel)]="rowData.isManager" [ngModelOptions]="{standalone: true}">
+                    </p-radioButton>
+                  </span>
+                  <span *ngSwitchCase="'actions'">
+                    <button *ngIf="isEdit" class="ui-button-danger" pButton icon="pi pi-trash"
+                      (click)="xoaDonVi(rowData)"></button>
+                  </span>
+                  <span *ngSwitchDefault>
+                    {{rowData[col.field]}}
+                  </span>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </p-fieldset>
+    <p-fieldset [style]="{'margin-top': '40px'}">
+      <p-header>Phân quyền dữ liệu</p-header>
+      <div class="row mt-10 mb-10">
+        <div class="col-md-12" style="margin-left: 10px;">
+          <p-radioButton name="group1" value="true" label="Quản lý" formControlName="phanQuyenDuLieuControl">
+          </p-radioButton>
+          <p style="margin-left: 30px; font-style: italic;">
+            Người dùng có thể nhìn thấy tất cả dữ liệu do mình tạo ra, dữ liệu của các nhân viên khác cùng đơn vị và các
+            nhân viên thuộc đơn vị cấp dưới
+          </p>
+        </div>
+        <div class="col-md-12 mt-10" style="margin-left: 10px;">
+          <p-radioButton name="group1" value="false" label="Nhân viên thường" formControlName="phanQuyenDuLieuControl">
+          </p-radioButton>
+          <p style="margin-left: 30px; font-style: italic;">
+            Người dùng chỉ nhìn thấy các dữ liệu do mình tạo ra, không xem được dữ liệu của các nhân viên khác
+          </p>
+        </div>
+      </div>
+    </p-fieldset>
+  </form>
+</div>

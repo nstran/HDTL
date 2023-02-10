@@ -1,0 +1,510 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="tao-de-xuat-cong-tac">
+  <div class="row no-margin">
+    <div class="col-md-12 header" style="padding: 6px;">
+      <div class="row">
+        <div class="col-md-6 no-padding">
+          <div class="row no-margin">
+            <div class="col-md-1 col-sm-1 col-xs-3">
+              <div class="header-box-icon">
+                <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+              </div>
+            </div>
+            <div class="col-md-11 col-sm-10 col-xs-9">
+              <div>
+                <span class="customer-name">Tạo mới đề xuất công tác</span>
+              </div>
+              <div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="row">
+            <div class="col-md-12">
+              <div style="float: right;">
+                <button type="button" class="btn-remove" (click)="thoat()">
+                  <span class="btn-remove-text">Thoát</span>
+                </button>
+                <!-- <button #saveAndCreate class="btn-save-and-new" type="button"
+                                    (click)="taoDeXuatCongTac(true)">
+                                    <span class="btn-save-and-new-text">Lưu và Thêm mới</span>
+                                </button> -->
+                <button #save type="button" class="btn-save" (click)="taoDeXuatCongTac(false)" *ngIf="actionAdd">
+                  <span class="btn-save-text">Lưu</span>
+                </button>
+              </div>
+            </div>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="row no-padding body-wrapper">
+    <div class="col-md-12">
+      <!-- Thông tin đề xuất -->
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+        [ngStyle]="{'width': '100%'}">
+        <p-accordionTab header="Thông tin đề xuất" [selected]="true">
+          <form [formGroup]="thongTinDeXuatFormGroup">
+            <div class="col-md-12">
+              <div class="row buffer-bottom">
+                <div class="col-md-3 buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Mã đề xuất</span>
+                  </div>
+                  <div class="col-md-12" style="font-style: italic;">
+                    Hệ thống tự động sinh
+                  </div>
+                </div>
+                <div class="col-md-3 buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Tên đề xuất</span><span class="required">*</span>
+                  </div>
+                  <div class="col-md-12">
+                    <input formControlName="tenDeXuatFormControl" type="text" maxlength="500"
+                      [ngClass]="(tenDeXuatFormControl.invalid && (tenDeXuatFormControl.dirty || tenDeXuatFormControl.touched)) ? 'error-border' : ''"
+                      class="w100" pInputText />
+                  </div>
+                  <div class="col-md-12" [hidden]="tenDeXuatFormControl.valid || tenDeXuatFormControl.untouched">
+                    <span
+                      *ngIf="tenDeXuatFormControl.hasError('required') || tenDeXuatFormControl.hasError('blankString') "
+                      class="error-message-span"> Không được để trống</span>
+                  </div>
+                </div>
+
+                <div class="col-md-3 buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Ngày đề xuất</span><span class="required">*</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-calendar formControlName="ngayDeXuatFormControl" dateFormat="dd/mm/yy" showButtonBar="true"
+                      [yearNavigator]="true" yearRange="1990:{{today.getFullYear()}}" [style]="{'width':'100%'}"
+                      [monthNavigator]="true"
+                      [styleClass]="(ngayDeXuatFormControl.invalid && (ngayDeXuatFormControl.dirty || ngayDeXuatFormControl.touched)) ? 'error-border' : ''"
+                      (keydown.enter)="$event.preventDefault()" [inputStyle]="{'width':'100%'}" [baseZIndex]="999"
+                      appendTo="body">
+                    </p-calendar>
+                  </div>
+                  <div class="col-md-12" [hidden]="ngayDeXuatFormControl.valid || ngayDeXuatFormControl.untouched">
+                    <span
+                      *ngIf="ngayDeXuatFormControl.hasError('required') || ngayDeXuatFormControl.hasError('blankString') "
+                      class="error-message-span"> Không được để trống</span>
+                  </div>
+                </div>
+
+                <div class="col-md-3 buffer-bottom">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Người đề xuất</span><span class="required">*</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-dropdown [options]="listEmpDefault" optionLabel="employeeName" [autoDisplayFirst]="false"
+                      [style]="{'width': '100%'}" [filter]="true" (keydown.enter)="$event.preventDefault()"
+                      formControlName="nguoiDeXuatFormControl">
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <div class="row no-padding body-wrapper">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+        [ngStyle]="{'width': '100%'}">
+        <p-accordionTab header="Nhân sự được đề xuất" [selected]="true">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row top-buffer bottom-buffer" style="margin-top: 15px;">
+                <div class="col-md-4 buffer-bottom-label">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Họ tên</span><span class="required">*</span>
+                  </div>
+                  <form [formGroup]="nhanVienFormGroup">
+                    <div class="col-md-12">
+                      <p-dropdown [options]="listEmp" optionLabel="employeeCodeName" [style]="{'width': '100%'}"
+                        [filter]="true" placeholder="Chọn nhân viên"
+                        [ngClass]="(nhanVienControl.invalid && (nhanVienControl.dirty || nhanVienControl.touched)) ? 'error-border' : ''"
+                        (keydown.enter)="$event.preventDefault()" formControlName="nhanVienControl"
+                        (onChange)="thayDoiNhanVien($event)">
+                      </p-dropdown>
+                    </div>
+                    <div class="col-md-12" [hidden]="nhanVienControl.valid || nhanVienControl.untouched">
+                      <span *ngIf="nhanVienControl.hasError('required') || nhanVienControl.hasError('blankString') "
+                        class="error-message-span"> Không được để trống</span>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-md-4 buffer-bottom-label">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Phòng ban:</span>
+                  </div>
+                  <div class="col-md-12">
+                    <input id="input" type="text" size="30" pInputText value="{{employeeModel.organizationName}}"
+                      [ngStyle]="{'width': '100%'}" disabled="true">
+
+                  </div>
+                </div>
+
+                <div class="col-md-4 buffer-bottom-label">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Ngày sinh:</span>
+                  </div>
+                  <div class="col-md-12">
+                    <p-calendar [(ngModel)]="employeeModel.dateOfBirth" dateFormat="dd/mm/yy" [style]="{'width':'100%'}"
+                      disabled="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="999">
+                    </p-calendar>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row top-buffer bottom-buffer" style="margin-top: 15px;">
+                <div class="col-md-4 buffer-bottom-label">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Mã nhân viên:</span>
+                  </div>
+                  <div class="col-md-12">
+                    <input id="input" type="text" size="30" value="{{employeeModel.employeeCode}}" pInputText
+                      [ngStyle]="{'width': '100%'}" disabled="true">
+                  </div>
+                </div>
+                <div class="col-md-4 buffer-bottom-label">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Chức vụ:</span>
+                  </div>
+                  <div class="col-md-12">
+                    <input id="input" type="text" size="30" value="{{employeeModel.positionName}}" pInputText
+                      [ngStyle]="{'width': '100%'}" disabled="true">
+                  </div>
+                </div>
+
+                <div class="col-md-4 buffer-bottom-label">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Số CMT/CCCD:</span>
+                  </div>
+                  <div class="col-md-12">
+                    <input id="input" type="text" size="30" value="{{employeeModel.identity}}" pInputText
+                      [ngStyle]="{'width': '100%'}" disabled="true">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <form [formGroup]="nhanVienFormGroup">
+                <div class="col-md-12 buffer-bottom-label">
+                  <div class="col-md-12 buffer-bottom-label">
+                    <span>Lý do</span><span class="required">*</span>
+                  </div>
+                  <div class="col-md-12">
+                    <textarea formControlName="lyDoControl" matInput placeholder=""
+                      style="width: 100%!important;height:80px!important;"
+                      [ngClass]="(lyDoControl.invalid && (lyDoControl.dirty || lyDoControl.touched)) ? 'error-border' : ''"></textarea>
+                  </div>
+                  <div class="col-md-12" [hidden]="lyDoControl.valid || lyDoControl.untouched">
+                    <span *ngIf="lyDoControl.hasError('required') || lyDoControl.hasError('blankString') "
+                      class="error-message-span"> Không được để trống</span>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="row buffer-bottom">
+                <div class="col-md-12 buffer-bottom-label" style="display:flex;justify-content:flex-end">
+                  <button pButton icon="pi pi-refresh" class="ui-button-primary" (click)="refreshForm()"></button>
+                  <button #save type="button" class="btn-save" (click)="themNhanVien()" *ngIf="!isUpdate"
+                    style="background-color: #116fbf;color: #ffffff;border-color: #116fbf;">
+                    <span class="btn-save-text">Thêm</span>
+                  </button>
+                  <button #save type="button" class="btn-save" (click)="capNhatNhanVien()" *ngIf="isUpdate"
+                    style="background-color: #116fbf;color: #ffffff;border-color: #116fbf;">
+                    <span class="btn-save-text">Cập nhật</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <div class="row no-padding body-wrapper">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+        [ngStyle]="{'width': '100%'}">
+        <p-accordionTab header="Danh sách đề xuất" [selected]="true">
+          <div class="col-md-12 no-padding">
+            <div class="box-filter">
+              <div class="row no-margin no-padding" style="margin-bottom:10px!important;">
+                <div class="col-md-12 buffer-bottom-label" style="display:flex;justify-content:flex-end">
+                  <button type="button" class="btn-refresh" (click)="refreshFilter()" style="margin-right:5px;">
+                    <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+                  </button>
+                  <input type="text" class="iput-text" [(ngModel)]="filterGlobal" pInputText maxlength="500"
+                    placeholder="Tìm kiếm trong danh sách"
+                    (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')"
+                    style="width:240px!important;">
+                </div>
+              </div>
+              <div class="row no-margin">
+                <div class="col-md-12" style="margin-bottom: 10px;">
+                  <p-table #myTable [columns]="selectedColumns" [value]="listDeXuatCongTacChiTietTemp"
+                    [resizableColumns]="true" [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th style="width: 2em; text-align: center;">
+                          #
+                        </th>
+                        <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                          [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.width}">
+                          <span>
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                          </span>
+                        </th>
+                        <th style="text-align: center; width: 90px !important">
+                          <span>Thao tác</span>
+                        </th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                      <tr>
+                        <td style="width: 2em; text-align: center;">
+                          {{i + 1}}
+                        </td>
+                        <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                          [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width' : col.width}">
+                          <span class="ui-column-title">{{col.header}}</span>
+
+                          <span *ngSwitchCase="'dateOfBirth'">
+                            {{rowData[col.field]| date:'dd/MM/yyyy'}}
+                          </span>
+
+                          <span *ngSwitchDefault>
+                            {{rowData[col.field]}}
+                          </span>
+                        </td>
+                        <td style="text-align: center; width: 170px !important">
+                          <button pButton icon="fa fa-pencil" class="ui-button-primary"
+                            (click)="reShowDeXuatChiTiet(rowData)"></button>
+
+                          <button pButton icon="pi pi-trash" class="ui-button-danger" (click)="removeEmp(rowData)"
+                            style="margin-left:5px;"></button>
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+
+  <div class="row no-padding body-wrapper">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+        [ngStyle]="{'width': '100%'}">
+        <p-accordionTab header="Thông tin công tác" [selected]="true">
+          <div class="col-md-12 no-padding" style="margin-top: 20px;">
+            <form [formGroup]="deXuatCongTacFormGroup">
+              <div class="row buffer-bottom">
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Đơn vị công tác</span><span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input formControlName="donViFormControl" type="text" maxlength="500"
+                        [ngClass]="donViFormControl.invalid && (donViFormControl.dirty || donViFormControl.touched) ? 'error-border' : ''"
+                        class="w100" pInputText />
+                    </div>
+                    <div class="col-md-12" [hidden]="donViFormControl.valid || donViFormControl.untouched">
+                      <span *ngIf="donViFormControl.hasError('required') || donViFormControl.hasError('blankString') "
+                        class="error-message-span"> Không được để trống</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="row">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Ngày bắt đầu</span><span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <p-calendar formControlName="thoiGianBatDauFormControl" dateFormat="dd/mm/yy" showButtonBar="true"
+                        [yearNavigator]="true" [style]="{ width: '100%' }" [monthNavigator]="true"
+                        (keydown.enter)="$event.preventDefault()"
+                        [styleClass]="(thoiGianBatDauFormControl.invalid && (thoiGianBatDauFormControl.dirty || thoiGianBatDauFormControl.touched)) ? 'error-border' : ''"
+                        [inputStyle]="{ width: '100%' }" [baseZIndex]="999" appendTo="body">
+                      </p-calendar>
+                    </div>
+                    <div class="col-md-12"
+                      [hidden]="thoiGianBatDauFormControl.valid || thoiGianBatDauFormControl.untouched">
+                      <span
+                        *ngIf="thoiGianBatDauFormControl.hasError('required') || thoiGianBatDauFormControl.hasError('blankString') "
+                        class="error-message-span"> Không được để trống</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="row">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Ngày kết thúc</span><span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <p-calendar formControlName="thoiGianKetThucFormControl" dateFormat="dd/mm/yy"
+                        showButtonBar="true" [yearNavigator]="true" [minDate]="thoiGianBatDauFormControl.value"
+                        [style]="{ width: '100%' }" [monthNavigator]="true" (keydown.enter)="$event.preventDefault()"
+                        [styleClass]="(thoiGianKetThucFormControl.invalid && (thoiGianKetThucFormControl.dirty || thoiGianKetThucFormControl.touched)) ? 'error-border' : ''"
+                        [inputStyle]="{ width: '100%' }" [baseZIndex]="999" appendTo="body">
+                      </p-calendar>
+                    </div>
+                    <div class="col-md-12"
+                      [hidden]="thoiGianKetThucFormControl.valid || thoiGianKetThucFormControl.untouched">
+                      <span
+                        *ngIf="thoiGianKetThucFormControl.hasError('required') || thoiGianKetThucFormControl.hasError('blankString') "
+                        class="error-message-span"> Không được để trống</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row buffer-bottom">
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Địa điểm công tác</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input formControlName="diaDiemFormControl" type="text" maxlength="500" class="w100" pInputText />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="row">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Phương tiện công tác</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input formControlName="phuongTienFormControl" type="text" maxlength="500" class="w100"
+                        pInputText />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row buffer-bottom">
+                <div class="col-md-12">
+                  <div class="row">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <span>Nhiệm vụ</span>
+                    </div>
+                    <div class="col-md-12">
+                      <textarea formControlName="nhiemVuFormControl" type="text" rows="5" class="w100"
+                        pInputText></textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+  <div class="row no-padding body-wrapper">
+    <div class="col-md-12">
+      <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+        <p-accordionTab header="Tài liệu liên quan" [selected]="true">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="col-md-12 mt-5">
+                <p-fileUpload #fileUpload name="demo[]" customUpload="true" multiple="multiple"
+                  [showUploadButton]="false"
+                  accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+                  [maxFileSize]="defaultLimitedFileSize" invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+                  invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+                  invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+                  invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}."
+                  chooseLabel="Chọn file" cancelLabel="Hủy toàn bộ file" (onSelect)="handleFile($event, fileUpload)"
+                  (onRemove)="removeFile($event)" (onClear)="clearAllFile()">
+                </p-fileUpload>
+              </div>
+
+              <div class="col-md-12 mt-5">
+                <p-table #dt [columns]="colsFile" [value]="arrayDocumentModel" [responsive]="true"
+                  [resizableColumns]="true" [paginator]="true" [rows]="10">
+                  <ng-template pTemplate="caption">
+                    <div style="text-align: right">
+                      <input type="text" pInputText size="50" placeholder="Tên tài liệu"
+                        (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th *ngFor="let col of columns" pResizableColumn [ngStyle]="{'text-align': col.textAlign}">
+                        {{col.header}}
+                      </th>
+                      <th style="width:4em"></th>
+                      <th style="width:4em"></th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr>
+                      <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
+                        [ngStyle]="{'text-align': col.textAlign}">
+                        <span class="ui-column-title">{{col.header}}</span>
+
+                        <span *ngSwitchCase="'fileName'">
+                          {{rowData[col.field].substring(0,rowData[col.field].lastIndexOf('_'))}}.{{rowData[col.field].fileExtension}}
+                        </span>
+                        <span *ngSwitchCase="'createdDate'">
+                          {{rowData[col.field] | date:'dd/MM/yyyy h:mm a'}}
+                        </span>
+                        <span *ngSwitchCase="'size'">
+                          <ng-container *ngIf="convertFileSize(rowData[col.field])">
+                            {{rowData[col.field] / 1024 | number}} KB
+                          </ng-container>
+                          <ng-container *ngIf="!convertFileSize(rowData[col.field])">
+                            {{rowData[col.field] / 1048576 | number}} MB
+                          </ng-container>
+                        </span>
+                        <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+                      </td>
+                      <td>
+                        <button *ngIf="actionDelete && isAllowDeleteFile" pButton icon="pi pi-trash"
+                          (click)="deleteFile(rowData)" class="ui-button-danger"></button>
+                      </td>
+                      <td>
+                        <button pButton icon="pi pi-download" (click)="downloadFile(rowData)"></button>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+          </div>
+        </p-accordionTab>
+      </p-accordion>
+    </div>
+  </div>
+</div>

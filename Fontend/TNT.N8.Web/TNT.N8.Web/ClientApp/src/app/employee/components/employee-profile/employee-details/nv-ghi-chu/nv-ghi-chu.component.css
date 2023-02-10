@@ -1,0 +1,227 @@
+.emp-gc .box-define {
+  padding: 10px 10px;
+  border: 1px solid #dde1e6;
+  border-top: 0;
+  background-color: #fff;
+}
+
+.emp-gc .mt-10 {
+  margin-top: 10px;
+}
+
+.emp-gc .mb-20 {
+  margin-bottom: 20px;
+}
+
+/*Begin: Customize Accordion */
+
+::ng-deep .emp-gc .ui-accordion .ui-accordion-header a {
+  border: 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+  font-size: 16px;
+}
+
+::ng-deep .emp-gc .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  background-color: #ffffff !important;
+  border: 1px solid #ffffff !important;
+  color: #121619 !important;
+}
+
+::ng-deep .emp-gc .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .emp-gc .ui-accordion .ui-accordion-header a .ui-accordion-toggle-icon {
+  color: #121619 !important;
+}
+
+::ng-deep .emp-gc .ui-accordion .ui-accordion-header:not(.ui-state-disabled).ui-state-active a {
+  color: #121619 !important;
+}
+
+::ng-deep .emp-gc .ui-accordion .ui-accordion-content {
+  border: 1px solid #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+::ng-deep .emp-gc .ui-widget {
+  padding: 0px 5px !important;
+}
+
+/*End: Customize Accordion */
+
+.emp-gc .btn-cancel-note {
+  width: 72px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.emp-gc .btn-save-note {
+  width: 158px;
+  height: 32px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  border: solid 1px #cccccc;
+  margin-left: 5px;
+  color: #fff;
+}
+
+/* CSS time line */
+
+.emp-gc .timeline>li {
+  margin-right: 0 !important;
+}
+
+.emp-gc .style-delete {
+  color: #FE747A;
+  cursor: pointer;
+  font-size: 1.55em;
+}
+
+.emp-gc .style-edit {
+  cursor: pointer;
+  font-size: 1.55em;
+}
+
+.emp-gc .note-user {
+  font-family: 'Inter UI';
+  font-weight: bold;
+}
+
+.emp-gc .timeline>li>.timeline-item {
+  box-shadow: 1px 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.emp-gc .timeline-content {
+  margin-top: 20px;
+}
+
+.emp-gc .bg-blueX {
+  background-color: #4E6BA5 !important;
+}
+
+.emp-gc .color-w {
+  color: #fff !important;
+}
+
+.emp-gc .timeline-item .onHover {
+  display: none;
+}
+
+.emp-gc .timeline-item:hover .onHover {
+  display: block;
+}
+
+.emp-gc .material-icons {
+  cursor: pointer;
+}
+
+.emp-gc .timeline-user-avatar {
+  border-radius: 50%;
+  margin-right: 5px;
+  float: left;
+}
+
+.emp-gc .note-title {
+  font-size: 11px !important;
+  color: #222 !important;
+  font-weight: normal !important;
+}
+
+.emp-gc .time-note {
+  font-size: 10px !important;
+  color: #5d5a5a !important;
+  font-weight: normal !important;
+}
+
+.emp-gc .timeline-body {
+  padding: 10px 15px;
+}
+
+.emp-gc .file-upload-zone .col-md-4:nth-child(3n+1) {
+  padding-right: 5px !important;
+}
+
+.emp-gc .file-upload-zone .col-md-4:nth-child(3n+2) {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+
+.emp-gc .file-upload-zone .col-md-4:nth-child(3n) {
+  padding-left: 5px !important;
+}
+
+.emp-gc .file-upload-zone .col-md-4:nth-child(3n+1) {
+  padding-right: 5px !important;
+}
+
+.emp-gc .file-upload-zone .col-md-4:nth-child(3n+2) {
+  padding-right: 5px !important;
+  padding-left: 5px !important;
+}
+
+.emp-gc .file-upload-zone .col-md-4:nth-child(3n) {
+  padding-left: 5px !important;
+}
+
+.emp-gc .file-item div:nth-child(1), .emp-gc .file-item div:nth-child(3) {
+  padding-left: 0 !important;
+}
+
+.emp-gc .file-item div:nth-child(2) {
+  padding: 0 5px !important;
+}
+
+.emp-gc .item-name {
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
+.emp-gc .preview-doc {
+  cursor: pointer;
+}
+
+.emp-gc .box-search {
+  text-align: right;
+  margin-top: 15px;
+}
+
+.emp-gc .text-search {
+  width: 364px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #dde1e6;
+  background-color: #ffffff;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.emp-gc .btn-create {
+  width: 116px;
+  height: 32px;
+  border: solid 1px #c1c7cd;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+  margin-left: 5px;
+}
+
+.emp-gc .btn-create-text {
+  width: 68px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+/* End */

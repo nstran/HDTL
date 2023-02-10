@@ -1,0 +1,203 @@
+::ng-deep .content-wrapper {
+    background-color: #fff !important;
+  }
+
+  .phieu-luong {
+    font-family: "Inter UI";
+  }
+
+  .phieu-luong .body-wrapper {
+    background-color: #fff;
+    border          : solid 1px #cccccc;
+  }
+
+  .phieu-luong .header {
+    background-color: #ffffff;
+    border-radius   : 4px;
+    border          : solid 1px #cccccc;
+  }
+
+  .phieu-luong .header-box-icon {
+    width        : 40px;
+    height       : 40px;
+    border-radius: 50%;
+  }
+
+  .phieu-luong .header-icon {
+    width      : 18px;
+    height     : 18px;
+    object-fit : contain;
+    margin-top : 13px;
+    margin-left: 10px;
+  }
+
+  .phieu-luong .buffer-top {
+    margin-top: 1.2rem;
+  }
+
+  .phieu-luong .buffer-bottom {
+    margin-bottom: 1.2rem;
+  }
+
+  .phieu-luong .buffer-bottom-label {
+    margin-bottom: 3px;
+  }
+
+  .phieu-luong .required {
+    color: red;
+  }
+
+  .phieu-luong .error-message-span {
+    color: red;
+  }
+
+  .phieu-luong .customer-name {
+    width         : 119px;
+    height        : 20px;
+    font-family   : 'Inter UI';
+    font-size     : 19px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 2.25;
+    letter-spacing: normal;
+    text-align    : left;
+    color         : #121619;
+  }
+
+  .phieu-luong .btn-back {
+    width           : 100px;
+    height          : 32px;
+    border-radius   : 4px;
+    border          : solid 1px #c1c7cd;
+    background-color: #ffffff;
+    margin-left     : 5px;
+  }
+
+  .phieu-luong .btn-back-text {
+    width         : 24px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : normal;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #121619;
+  }
+
+  ::ng-deep .phieu-luong .ui-dropdown {
+    min-width: 0px !important;
+  }
+
+  ::ng-deep .phieu-luong .ui-menu ul {
+    text-align: left;
+  }
+
+  .phieu-luong .btn-export {
+    width           : 100px;
+    height          : 32px;
+    border-radius   : 4px;
+    box-shadow      : 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+    background-color: #0f62fe;
+    border          : solid 1px #cccccc;
+    margin-left     : 5px;
+  }
+
+  .phieu-luong .btn-export-text {
+    width         : 24px;
+    height        : 16px;
+    font-family   : 'Inter UI';
+    font-size     : 13px;
+    font-weight   : bold;
+    font-stretch  : normal;
+    font-style    : normal;
+    line-height   : 1.15;
+    letter-spacing: normal;
+    text-align    : center;
+    color         : #ffffff;
+  }
+
+  .phieu-luong .body-wrapper {
+    margin-top  : 20px;
+    margin-left : 0px;
+    margin-right: 0px;
+  }
+
+  .phieu-luong .w100 {
+    width: 100% !important;
+  }
+.phieu-luong .link {
+  font-family: 'Inter UI';
+  color      : #007ad9;
+  cursor     : pointer;
+  font-size  : 13px;
+}
+  .phieu-luong .my-form-control {
+    display    : flex;
+    align-items: center;
+  }
+
+
+#table1, #table1 td {
+  border: 2px solid #848484;
+}
+
+#table2, #table2 td {
+  border-bottom: 2px solid #848484;
+  border-left: 2px solid #848484;
+  border-right: 2px solid #848484 ;
+}
+
+td {
+  padding: 3px 10px;
+}
+
+table .titlename {
+  color: black;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Times New Roman';
+}
+
+table .eng-titlename {
+  color: black;
+  font-size: 15px;
+  font-family: 'Times New Roman';
+  font-style: italic;
+}
+
+table .titlename-header {
+  color: #107DC0;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Times New Roman';
+}
+
+table .eng-titlename-header {
+  color: #107DC0;
+  font-size: 15px;
+  font-family: 'Times New Roman';
+  font-weight: bold;
+  font-style: italic;
+}
+
+table .titlename-normal {
+  color: black;
+  font-size: 20px;
+  font-family: 'Times New Roman';
+}
+
+table .data {
+  color: black;
+  font-size: 20px;
+  /* font-weight: bold; */
+  font-family: 'Times New Roman';
+  text-align: center;
+}
+
+#table2 td:nth-child(2) {
+  text-align: right;
+}
