@@ -7,6 +7,7 @@ namespace TN.TNM.DataAccess.Databases.Entities
     {
         public Guid Id { get; set; }
         public Guid CategoryId { get; set; }
+        public Guid? CategoryUnitId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Note { get; set; }

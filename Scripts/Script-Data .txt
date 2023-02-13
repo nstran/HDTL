@@ -589,4 +589,5 @@ where "CategoryTypeId" not in(
 '008489b0-81c7-4acc-8317-26d6aced9a9e'
 );
 
-
+INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
+VALUES ('cca041dd-a79d-4adf-95ce-4632626f8c2e', 'Đơn vị tính', 'CategoryUnit', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;

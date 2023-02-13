@@ -239,6 +239,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                     {
                                         Id = o.Id,
                                         CategoryId = c.CategoryId,
+                                        CategoryUnitId = o.CategoryUnitId,
                                         Name = o.Name,
                                         Description = o.Description,
                                         Price = o.Price,
@@ -328,8 +329,6 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 else
                 {
                     options.Id = Guid.NewGuid();
-                    options.CreatedDate = DateTime.Now;
-                    options.CreatedById = parameter.UserId;
                     options.UpdatedDate = DateTime.Now;
                     options.UpdatedById = parameter.UserId; 
                     context.Options.AddRange(options);
@@ -345,6 +344,36 @@ namespace TN.TNM.DataAccess.Databases.DAO
             catch (Exception e)
             {
                 return new CreateOrUpdateOptionResult()
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    MessageCode = e.Message
+                };
+            }
+        }
+
+        public async Task<GetOptionCategoryResult> GetOptionCategoryUnit()
+        {
+            try
+            {
+                var listOptionCategory = await (from c in context.Category
+                                                join ct in context.CategoryType
+                                                on c.CategoryTypeId equals ct.CategoryTypeId
+                                                where ct.CategoryTypeCode == ProductConsts.CategoryTypeCodeUnit
+                                                select new OptionCategory
+                                                {
+                                                    CategoryName = c.CategoryName,
+                                                    CategoryId = c.CategoryId
+                                                }).ToListAsync();
+                return new GetOptionCategoryResult()
+                {
+                    OptionCategory = listOptionCategory,
+                    StatusCode = HttpStatusCode.OK
+                };
+
+            }
+            catch (Exception e)
+            {
+                return new GetOptionCategoryResult()
                 {
                     StatusCode = HttpStatusCode.ExpectationFailed,
                     MessageCode = e.Message

@@ -2879,9 +2879,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var servicePacketCode = context.ServicePacket.FirstOrDefault(x => x.Id == parameterOrderProcess.OrderProcess.ServicePacketId)?.Code;
 
                 //Số phiếu yêu cầu hỗ trợ KH đã đặt
-                var countCustomerOrder = context.OrderProcess.Where(x => x.CustomerId == parameterOrderProcess.OrderProcess.CustomerId
-                                        && x.Status == statusDone).Count().ToString();
-                return orderCode = cusCode + "-" + servicePacketCode + "-" + countCustomerOrder;
+                var countCustomerOrder = context.OrderProcess.Where(x => x.CustomerId == parameterOrderProcess.OrderProcess.CustomerId).Count();
+                return orderCode = cusCode + "-" + servicePacketCode + "-" + (countCustomerOrder + 1).ToString();
             }
 
             if(isOrderAction == false)

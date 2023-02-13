@@ -73,6 +73,13 @@ namespace TN.TNM.Api.Controllers
         {
             return this._optionDataAccess.GetOptionCategory();
         }
+        [HttpGet]
+        [Route("api/options/getOptionCategoryUnit")]
+        [Authorize(Policy = "Member")]
+        public Task<GetOptionCategoryResult> GetOptionCategoryUnit()
+        {
+            return this._optionDataAccess.GetOptionCategoryUnit();
+        }
         [HttpPost]
         [Route("api/options/createOrUpdateOptions")]
         [Authorize(Policy = "Member")]

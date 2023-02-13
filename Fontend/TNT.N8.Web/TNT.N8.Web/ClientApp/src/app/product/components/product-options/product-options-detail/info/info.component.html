@@ -30,16 +30,25 @@
     </div>
     <div class="row no-margin row-dialog">
         <div class="col-md-6">
-            <p class="font-weight-bold">Đơn giá dịch vụ (VNĐ)<span class="text-danger">*</span> </p>
-            <input type="number" class="form-control" #price="ngModel" name="price" required autocomplete="off"
-                [(ngModel)]="optionsEntityModel.price">
-            <validation-messages [formCtrl]="price" [customMessage]="[{error:'required', message:('Đơn giá không được để trống')}
-                ]">
-            </validation-messages>
+            <div class="row no-margin">
+                <div class="col-md-9 pl-0">
+                    <p class="font-weight-bold">Đơn giá dịch vụ (VNĐ)<span class="text-danger">*</span> </p>
+                    <input type="number" class="form-control text-right" #price="ngModel" name="price" required autocomplete="off"
+                        [(ngModel)]="optionsEntityModel.price">
+                    <validation-messages [formCtrl]="price" [customMessage]="[{error:'required', message:('Đơn giá không được để trống')}]"></validation-messages>
+                </div>
+                <div class="col-md-3 pr-0">
+                    <p class="font-weight-bold">Đơn vị tính <span class="text-danger">*</span></p>
+                    <p-dropdown [options]="listOptionCategoryUnit" [filter]="true" [(ngModel)]="optionCategoryUnit"
+                        (onChange)="changeCategoryUnit($event.value)" [style]="{'width': '100%'}" optionLabel="categoryName"
+                        placeholder="Chọn loại đơn vị" [ngModelOptions]="{standalone: true}" required>
+                    </p-dropdown>
+                </div>
+            </div>
         </div>
         <div class="col-md-6">
             <p class="font-weight-bold">VAT (%)<span class="text-danger">*</span> </p>
-            <input type="number" class="form-control" #vat="ngModel" name="vat" required
+            <input type="number" class="form-control text-right" #vat="ngModel" name="vat" required
                 autocomplete="off" [(ngModel)]="optionsEntityModel.vat" (change)="checkRangeNumber(optionsEntityModel.vat)">
             <validation-messages [formCtrl]="vat" [customMessage]="[{error:'required', message:('VAT không được để trống')}]">
             </validation-messages>

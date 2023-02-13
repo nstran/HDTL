@@ -11,6 +11,7 @@ namespace TN.TNM.DataAccess.Consts.Product
         public const string CategoryTypeCodeATR = "ATTRIBUTE";
         public const string CategoryTypeCodeActionStep = "ACTIONSTEP";
         public const string CategoryTypeCodeNotificationConfig = "NOTIFICATIONCONFIG";
+        public const string CategoryTypeCodeUnit = "CategoryUnit";
 
         //Danh mục nhiệm vụ
         public const string CategoryTypeCodeEmpMission = "EmpMission";

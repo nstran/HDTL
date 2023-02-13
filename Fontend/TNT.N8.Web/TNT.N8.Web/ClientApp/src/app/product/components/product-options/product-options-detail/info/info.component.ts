@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConfirmationService, DialogService, MessageService, TreeNode } from 'primeng';
+import { DialogService, MessageService, TreeNode } from 'primeng';
 import { forkJoin } from 'rxjs';
 import { tap } from 'rxjs/internal/operators/tap';
 import { CategoryEntityModel } from '../../model/category';
@@ -23,11 +23,13 @@ export class InfoComponent implements OnInit {
   inforProductOption: OptionByIdModel = new OptionByIdModel();
   listProductOption: OptionByIdModel[] = [];
   listOptionCategory: OptionCategory[] = [];
+  listOptionCategoryUnit: OptionCategory[] = [];
   categoryEntity: CategoryEntityModel;
   optionsEntityModel: OptionsEntityModel = new OptionsEntityModel();
   optionsEntityModelAddChild: OptionsEntityModel = new OptionsEntityModel();
   id: string = null;
   optionCategory: OptionCategory;
+  optionCategoryUnit: OptionCategory;
   showError: boolean = false;
   isCreate: boolean = true;
   showModal: boolean = false;
@@ -59,7 +61,6 @@ export class InfoComponent implements OnInit {
       this.router.navigate(['/home']);
     }
 
-
     this._activatedRoute.params.subscribe(params => {
       this.id = params['optionId'];
       this.initData();
@@ -67,13 +68,13 @@ export class InfoComponent implements OnInit {
   }
 
   initData(): void {
-    forkJoin([this._productService.getListServiceType(), this._productService.getOptionCategory()])
+    forkJoin([this._productService.getListServiceType(), this._productService.getOptionCategory(), this._productService.getOptionCategoryUnit()])
       .subscribe(result => {
         this.optionCategory = result[0].listProductCategory;
         this.listOptionCategory = result[1].optionCategory;
+        this.listOptionCategoryUnit = result[2].optionCategory;
         if (this.id != null) this.getOptionById(this.id);
       });
-
   }
 
   showToast(severity: string, summary: string, detail: string): void {
@@ -103,6 +104,7 @@ export class InfoComponent implements OnInit {
       ).subscribe(res => {
         this.optionsEntityModel = res.optionsEntityModel;
         this.optionCategory = this.listOptionCategory.find(x => x.categoryId == res.optionsEntityModel.categoryId);
+        this.optionCategoryUnit = this.listOptionCategoryUnit.find(x => x.categoryId == res.optionsEntityModel.categoryUnitId);
       })
   }
 
@@ -120,6 +122,11 @@ export class InfoComponent implements OnInit {
 
   changeServiceType(event: CategoryEntityModel): void {
     this.optionsEntityModel.categoryId = event.categoryId;
+    this.checkValidateDropdown();
+  }
+
+  changeCategoryUnit(event: CategoryEntityModel): void {
+    this.optionsEntityModel.categoryUnitId = event.categoryId;
     this.checkValidateDropdown();
   }
 

@@ -10,6 +10,7 @@ namespace TN.TNM.DataAccess.Models.Options
     {
         public Guid Id { get; set; }
         public Guid CategoryId { get; set; }
+        public Guid? CategoryUnitId { get; set; }
         public string Name { get; set; }
         public string NameCustom { get; set; }
         public string Description { get; set; }

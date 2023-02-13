@@ -56,6 +56,13 @@ export class ProductOptionService {
         return <OptionCategoryTable>response;
       }));
   }
+  getOptionCategoryUnit(): Observable<OptionCategoryTable> {
+    const url = localStorage.getItem('ApiEndPoint') + '/api/options/getOptionCategoryUnit';
+    return this.httpClient.get(url).pipe(
+      map((response: OptionCategoryTable) => {
+        return <OptionCategoryTable>response;
+      }));
+  }
   createOrUpdateOptions(optionsEntityModel: OptionsEntityModel): Observable<CreateOrUpdateOptionsResult> {
     const url = localStorage.getItem('ApiEndPoint') + '/api/options/createOrUpdateOptions';
     return this.httpClient.post(url, {

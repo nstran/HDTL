@@ -24,6 +24,7 @@ namespace TN.TNM.DataAccess.Interfaces
         Task<GetListCategoryAttributesResult> GetListCategoryAttributesById(GetListCategoryAttributesByIdParameter parameter);
         Task<DeleteAttributeConfigureResult> DeleteAttributeConfigure(DeleteAttributeConfigureParameter parameter);
         Task<SearchOptionsResult> SearchOptionTree(SearchOptionTreeParameter parameter);
+        Task<GetOptionCategoryResult> GetOptionCategoryUnit();
         GetMasterDataAddVendorToOptionResult GetMasterDataAddVendorToOption(GetMasterDataAddVendorToOptionParameter parameter);
         AddVendorToOptionResult AddVendorToOption(AddVendorToOptionParameter parameter);
         DeleteVendorMappingOptionResult DeleteVendorMappingOption(DeleteVendorMappingOptionParameter parameter);

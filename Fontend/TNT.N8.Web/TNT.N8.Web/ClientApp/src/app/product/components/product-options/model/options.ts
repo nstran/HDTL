@@ -1,6 +1,7 @@
 export class OptionsEntityModel {
     id: string;
     categoryId: string;
+    categoryUnitId: string;
     name: string;
     description: string;
     note: string;
