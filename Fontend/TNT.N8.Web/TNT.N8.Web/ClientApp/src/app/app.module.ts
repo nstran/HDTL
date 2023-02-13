@@ -73,19 +73,19 @@ export function createTranslateLoader(http: HttpClient) {
 export class AppModule {
   constructor(private commonService: CommonService) {
 
-    localStorage.setItem('ApiEndPoint', 'http://localhost:5001');
-    localStorage.setItem('Version', '1.0.0');
+    // localStorage.setItem('ApiEndPoint', 'http://localhost:5001');
+    // localStorage.setItem('Version', '1.0.0');
 
-    // commonService.getApiEndPoint().subscribe(result => {
-    //   if (result.value !== localStorage.getItem('ApiEndPoint')) {
-    //     localStorage.setItem('ApiEndPoint', result.value);
-    //   }
-    // });
-    // commonService.getVersion().subscribe(result => {
-    //   if (result.value !== localStorage.getItem('Version')) {
-    //     localStorage.setItem('Version', result.value);
-    //   }
-    // });
+    commonService.getApiEndPoint().subscribe(result => {
+      if (result.value !== localStorage.getItem('ApiEndPoint')) {
+        localStorage.setItem('ApiEndPoint', result.value);
+      }
+    });
+    commonService.getVersion().subscribe(result => {
+      if (result.value !== localStorage.getItem('Version')) {
+        localStorage.setItem('Version', result.value);
+      }
+    });
 
   }
 }

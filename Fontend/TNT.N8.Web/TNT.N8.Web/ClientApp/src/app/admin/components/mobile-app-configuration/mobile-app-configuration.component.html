@@ -12,7 +12,7 @@
 <div class="mobile-app-configuration">
     <div class="row">
         <div class="col-md-6">
-            <span style="font-size: 24px">Cấu hình thông tin chung</span>
+            <span style="font-size: 24px">Cấu hình Mobile</span>
         </div>
         <div class="col-md-6">
             <div class="actions">
@@ -260,15 +260,9 @@
                                                     icon="pi pi-times" class="ui-button-danger"
                                                     (click)="onRowEditCancelChild(rowData)" style="margin-left: .5em">
                                                 </button>
-
-
-
                                             </span>
-
                                         </span>
                                     </td>
-
-
                                 </tr>
                             </ng-template>
                         </p-table>
@@ -295,9 +289,9 @@
                     </p-tabPanel>
 
                     <p-tabPanel header="Quảng cáo">
-                        <p-table #dt [columns]="selectedColumns2" 
+                        <p-table #dt [columns]="columnAdvertisement" 
                             dataKey="id" 
-                            [value]="listPayMent" 
+                            [value]="columnAdvertisement" 
                             [responsive]="true"
                             [resizableColumns]="true" 
                             [paginator]="true"

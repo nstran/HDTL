@@ -23,6 +23,7 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
   base64ImageNotice: string | ArrayBuffer;
   isImage: boolean = true;
   selectedColumns2 = [];
+  columnAdvertisement = [];
   listPayMentCategory: Array<CategoryEntityModel> = [];
   listPayMent: Array<PaymentMethodConfigure> = [];
 
@@ -36,11 +37,17 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
 
   ngOnInit(): void {
     this.takeMobileAppConfiguration();
-
     this.selectedColumns2 = [
       { field: 'categoryName', header: 'Loại hình thức', width: '80px', textAlign: 'left', color: '#f44336' },
       { field: 'content', header: 'Nội dung', width: '250px', textAlign: 'left', color: '#f44336' },
       { field: 'action', header: 'Thao tác', width: '80px', textAlign: 'center', color: '#f44336' },
+    ];
+
+    this.columnAdvertisement = [
+      { field: 'image', header: 'Ảnh đại diện', width: '120px', textAlign: 'left', color: '#f44336' },
+      { field: 'title', header: 'Tiêu đề', width: '120px', textAlign: 'left', color: '#f44336' },
+      { field: 'content', header: 'Thao tác', width: '120px', textAlign: 'center', color: '#f44336' },
+      { field: 'action', header: 'Thao tác', width: '30px', textAlign: 'center', color: '#f44336' }
     ];
   }
 

@@ -12076,7 +12076,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     IsOrderAction = x.IsOrderAction,
                     OrderCode = x.OrderCode,
                     ServicePacketId = x.ServicePacketId,
-                    StatusOrder = x.StatusOrder
+                    StatusOrder = x.StatusOrder,
+                    CreatedDate = x.CreatedDate
                 }).ToList();
 
 
