@@ -471,5 +471,36 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 };
             }
         }
+
+        public TakeListAdvertisementConfigurationResult TakeListAdvertisementConfiguration(TakeListAdvertisementConfigurationParameter parameter)
+        {
+            try
+            {
+                var listAdvertisementConfiguration = context.AdvertisementConfiguration
+                            .Select(x => new AdvertisementConfigurationEntityModel
+                            {
+                                Id = x.Id,
+                                Content = x.Content,
+                                Image = x.Image,
+                                Title = x.Title,
+                                SortOrder = x.SortOrder
+                            }).ToList();
+
+                return new TakeListAdvertisementConfigurationResult
+                {
+                    ListAdvertisementConfigurationEntityModel = listAdvertisementConfiguration,
+                    StatusCode = HttpStatusCode.OK,
+                    MessageCode = "Thành công!"
+                };
+            }
+            catch (Exception e)
+            {
+                return new TakeListAdvertisementConfigurationResult
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    MessageCode = e.Message
+                };
+            }
+        }
     }
 }

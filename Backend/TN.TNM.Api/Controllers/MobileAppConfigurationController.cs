@@ -111,5 +111,13 @@ namespace TN.TNM.Api.Controllers
         {
             return this.iMobileAppConfigurationDataAccess.DeleteAdvertisementConfiguration(request);
         }
+
+        [HttpPost]
+        [Route("api/MobileAppConfiguration/takeListAdvertisementConfiguration")]
+        [Authorize(Policy = "Member")]
+        public TakeListAdvertisementConfigurationResult TakeListAdvertisementConfiguration([FromBody] TakeListAdvertisementConfigurationParameter request)
+        {
+            return this.iMobileAppConfigurationDataAccess.TakeListAdvertisementConfiguration(request);
+        }
     }
 }
