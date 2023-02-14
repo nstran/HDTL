@@ -44,6 +44,7 @@ using TN.TNM.DataAccess.ConstType.Contact;
 using TN.TNM.DataAccess.Models.PermissionConfiguration;
 using TN.TNM.DataAccess.Messages.Results;
 using TN.TNM.DataAccess.Models.Entities;
+using static iTextSharp.text.pdf.AcroFields;
 
 namespace TN.TNM.DataAccess.Databases.DAO
 {
@@ -4935,6 +4936,12 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 customerOrder.StatusOrderName = GeneralList.GetTrangThais("CustomerOrder").FirstOrDefault(x => x.Value == customerOrder.StatusOrder).Name;
                 var creatorUser = context.User.FirstOrDefault(x => x.UserId == customerOrder.CreatedById);
                 var empNameCreator = context.Employee.FirstOrDefault(x => x.EmployeeId == creatorUser.EmployeeId)?.EmployeeName;
+
+                if (string.IsNullOrEmpty(empNameCreator))
+                {
+                    var customerOrderDetailId = context.CustomerOrder.Where(x => x.OrderId == parameter.OrderId).Select(x => x.CustomerId)?.FirstOrDefault();
+                    empNameCreator = context.Customer.FirstOrDefault(x => x.CustomerId == customerOrderDetailId)?.CustomerName;
+                }
 
                 #region phân quyền
 

@@ -31,14 +31,14 @@
     <div class="row no-margin row-dialog">
         <div class="col-md-6">
             <div class="row no-margin">
-                <div class="col-md-9 pl-0">
+                <div class="col-md-7 pl-0">
                     <p class="font-weight-bold">Đơn giá dịch vụ (VNĐ)<span class="text-danger">*</span> </p>
                     <input type="number" class="form-control text-right" #price="ngModel" name="price" required autocomplete="off"
                         [(ngModel)]="optionsEntityModel.price">
                     <validation-messages [formCtrl]="price" [customMessage]="[{error:'required', message:('Đơn giá không được để trống')}]"></validation-messages>
                 </div>
-                <div class="col-md-3 pr-0">
-                    <p class="font-weight-bold">Đơn vị tính <span class="text-danger">*</span></p>
+                <div class="col-md-5 pr-0">
+                    <p class="font-weight-bold">Đơn vị tính </p>
                     <p-dropdown [options]="listOptionCategoryUnit" [filter]="true" [(ngModel)]="optionCategoryUnit"
                         (onChange)="changeCategoryUnit($event.value)" [style]="{'width': '100%'}" optionLabel="categoryName"
                         placeholder="Chọn loại đơn vị" [ngModelOptions]="{standalone: true}" required>
