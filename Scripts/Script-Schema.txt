@@ -384,3 +384,19 @@ CREATE TABLE IF NOT EXISTS public."PaymentMethodConfigure"
 ALTER TABLE public."SystemParameter" ADD COLUMN IF NOT EXISTS "Active" bool default false;
 
 ALTER TABLE public."User" ADD COLUMN IF NOT EXISTS "DeviceId" character varying(255);
+
+ALTER TABLE public."Options" ADD COLUMN IF NOT EXISTS "CategoryUnitId" uuid;
+
+CREATE TABLE IF NOT EXISTS public."AdvertisementConfiguration"
+(
+    "Id" uuid NOT NULL,
+    "Image" character varying COLLATE pg_catalog."default",
+    "Title" character varying COLLATE pg_catalog."default",
+    "Content" character varying COLLATE pg_catalog."default",
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "CreatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone,
+    "UpdatedById" uuid,
+    "TenantId" uuid,
+    CONSTRAINT "Id_pkey" PRIMARY KEY ("Id")
+)

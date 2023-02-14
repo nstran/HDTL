@@ -86,16 +86,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                 OrderNotificationImage = x.OrderNotificationImage
                                             }).FirstOrDefault();
 
-
                 var paymentMethodCateTypeId = context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == "PaymentMethod").CategoryTypeId;
-              
                 var listPayMentCategory = context.Category.Where(x => x.CategoryTypeId == paymentMethodCateTypeId)
                         .Select(y => new CategoryEntityModel
                         {
                             CategoryId = y.CategoryId,
                             CategoryName = y.CategoryName
                         }).OrderBy(z => z.CategoryName).ToList();
-
                 var listPayMent = context.PaymentMethodConfigure.Select(x => new PaymentMethodConfigureEntityModel
                 {
                     Id = x.Id,
@@ -105,11 +102,23 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     CategoryName = listPayMentCategory.FirstOrDefault(item => item.CategoryId == x.CategoryId).CategoryName,
                     CategoryObject = listPayMentCategory.FirstOrDefault(item => item.CategoryId == x.CategoryId),
                 }).ToList();
-                
+
+                var listAdvertisementConfiguration = context.AdvertisementConfiguration
+                                            .Select(x => new AdvertisementConfigurationEntityModel
+                                            {
+                                                Id = x.Id,
+                                                Content = x.Content,
+                                                Image = x.Image,
+                                                Title = x.Title,
+                                                SortOrder = x.SortOrder,
+                                                Edit = false,
+                                            }).ToList();
+
                 return new TakeMobileAppConfigurationResult
                 {
                     ListPayMentCategory = listPayMentCategory,
                     ListPayMent = listPayMent,
+                    ListAdvertisementConfigurationEntityModel = listAdvertisementConfiguration.OrderBy(x => x.SortOrder).ToList(),
                     MobileAppConfigurationEntityModel = mobileAppConfiguration,
                     StatusCode = HttpStatusCode.OK,
                     MessageCode = "Thành công"
@@ -348,6 +357,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 };
             }
         }
+
         public CreateOrUpdatePaymentMethodResult DeletePaymentMethod(CreateOrUpdatePaymentMethodParameter parameter)
         {
             try
@@ -382,6 +392,79 @@ namespace TN.TNM.DataAccess.Databases.DAO
             catch (Exception e)
             {
                 return new CreateOrUpdatePaymentMethodResult
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    MessageCode = e.Message
+                };
+            }
+        }
+
+        public CreateOrEditMobileAppConfigurationResult CreateOrEditAdvertisementConfiguration(CreateOrEditAdvertisementConfigurationParameter parameter)
+        {
+            try
+            {
+      
+
+                var advertisementConfiguration = _mapper.Map<AdvertisementConfiguration>(parameter.AdvertisementConfigurationEntityModel);
+                if (advertisementConfiguration.Id != null && advertisementConfiguration.Id != Guid.Empty)
+                {
+                    advertisementConfiguration.UpdatedDate = DateTime.Now;
+                    advertisementConfiguration.UpdatedById = parameter.UserId;
+                    context.AdvertisementConfiguration.Update(advertisementConfiguration);
+                }
+                else
+                {
+                    var exits = context.AdvertisementConfiguration.FirstOrDefault(x => x.SortOrder == parameter.AdvertisementConfigurationEntityModel.SortOrder);
+                    if (exits != null)
+                    {
+                        return new CreateOrEditMobileAppConfigurationResult
+                        {
+                            StatusCode = HttpStatusCode.ExpectationFailed,
+                            MessageCode = "Trùng số thứ tự"
+                        };
+                    }
+                    advertisementConfiguration.Id = Guid.NewGuid();
+                    advertisementConfiguration.CreatedDate = DateTime.Now;
+                    advertisementConfiguration.CreatedById = parameter.UserId;
+                    context.AdvertisementConfiguration.Add(advertisementConfiguration);
+                }
+
+                context.SaveChanges();
+                return new CreateOrEditMobileAppConfigurationResult
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    MessageCode = "Thành công"
+                };
+            }
+            catch (Exception e)
+            {
+                return new CreateOrEditMobileAppConfigurationResult
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    MessageCode = e.Message
+                };
+            }
+        }
+
+        public CreateOrEditMobileAppConfigurationResult DeleteAdvertisementConfiguration(DeleteAdvertisementConfigurationParameter parameter)
+        {
+            try
+            {
+                var advertisementConfiguration = context.AdvertisementConfiguration.FirstOrDefault(x => x.Id == parameter.Id);
+                if (advertisementConfiguration != null)
+                {
+                    context.AdvertisementConfiguration.Remove(advertisementConfiguration);
+                    context.SaveChanges();
+                }
+                return new CreateOrEditMobileAppConfigurationResult
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    MessageCode = "Xóa thành công!"
+                };
+            }
+            catch (Exception e)
+            {
+                return new CreateOrEditMobileAppConfigurationResult
                 {
                     StatusCode = HttpStatusCode.ExpectationFailed,
                     MessageCode = e.Message

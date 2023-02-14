@@ -26,6 +26,7 @@ export class TakeMobileAppConfigurationResult {
     mobileAppConfigurationEntityModel : MobileAppConfigurationEntityModel;
     listPayMentCategory : Array<CategoryEntityModel>;
     listPayMent : Array<PaymentMethodConfigure>;
+    listAdvertisementConfigurationEntityModel : AdvertisementConfigurationEntityModel[];
 }
 
 export class CreateOrEditMobileAppConfigurationResult {
@@ -50,4 +51,13 @@ export class PaymentMethodConfigure {
     updatedById: string;
     updatedDate: string;
     tenantId: string;
+}
+
+export class AdvertisementConfigurationEntityModel {
+    id: string | null;
+    image: string;
+    title: string;
+    content: string;
+    sortOrder: number | null;
+    edit: boolean;
 }

@@ -878,20 +878,20 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 List<Customer> listAllCustomer = new List<Customer>();
 
-                // lấy kh theo nhóm kh, nv phụ trách
+                // lấy kh theo nhóm kh, nv phụ trách              
                 listAllCustomer = context.Customer.Where(x => (x.Active == true) &&
                                                               (parameter.FromDate == null || parameter.FromDate.Value.Date <= x.CreatedDate.Date) &&
                                                               (parameter.ToDate == null || parameter.ToDate.Value >= x.CreatedDate.Date)
                                                         ).ToList();
 
                 //List Customer Type: CUS and CUS_CON
-                List<string> listContactCustomerObjectType = new List<string>();
-                listContactCustomerObjectType.Add(ObjectType.CUSTOMER);
-                listContactCustomerObjectType.Add(ObjectType.CUSTOMERCONTACT);
+                //List<string> listContactCustomerObjectType = new List<string>();
+                //listContactCustomerObjectType.Add(ObjectType.CUSTOMER);
+                //listContactCustomerObjectType.Add(ObjectType.CUSTOMERCONTACT);
 
                 //Lấy tất cả contact của KH (CUS và CUS_CON)
                 var listAllCustomerContact = context.Contact.Where(x => (x.Active == true) &&
-                                                                        (listContactCustomerObjectType.Contains(x.ObjectType)) &&
+                                                                        //(listContactCustomerObjectType.Contains(x.ObjectType)) &&
                                                                         (fullName == "" || ((x.FirstName ?? "").ToLower() + " " + (x.LastName ?? "").ToLower()).Contains(fullName.ToLower())) &&
                                                                         (email == "" || (x.Email != null && x.Email.ToLower().Contains(email.ToLower())) || (x.WorkEmail != null && x.WorkEmail.ToLower().Contains(email.ToLower())) || (x.OtherEmail != null && x.OtherEmail.ToLower().Contains(email.ToLower()))) &&
                                                                         (phone == "" || (x.Phone != null && x.Phone.ToLower().Contains(phone.ToLower())) || (x.WorkPhone != null && x.WorkPhone.ToLower().Contains(phone.ToLower())) || (x.OtherPhone != null && x.OtherPhone.ToLower().Contains(phone.ToLower()))) &&
@@ -900,24 +900,24 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 //Lọc ra các ObjectId bị trùng
                 List<Contact> listCustomerContact = new List<Contact>();
-                List<Guid> listObjectId = new List<Guid>();
-                listAllCustomerContact.ForEach(item =>
-                {
-                    if (item.ContactId != null && item.ContactId != Guid.Empty)
-                    {
-                        var dupblicateObjectId = listObjectId.FirstOrDefault(x => x == item.ObjectId);
-                        if (dupblicateObjectId == Guid.Empty)
-                        {
-                            listObjectId.Add(item.ObjectId);
-                        }
-                    }
-                });
+                //List<Guid> listObjectId = new List<Guid>();
+                //listAllCustomerContact.ForEach(item =>
+                //{
+                //    if (item.ContactId != null && item.ContactId != Guid.Empty)
+                //    {
+                //        var dupblicateObjectId = listObjectId.FirstOrDefault(x => x == item.ObjectId);
+                //        if (dupblicateObjectId == Guid.Empty)
+                //        {
+                //            listObjectId.Add(item.ObjectId);
+                //        }
+                //    }
+                //});
 
                 //Lấy lại contact của listObjectId với ObjectType = CUS
-                if (listObjectId.Count > 0)
-                {
-                    listCustomerContact = listAllContact.Where(x => x.ObjectType == ObjectType.CUSTOMER && (listObjectId == null || listObjectId.Count == 0 || listObjectId.Contains(x.ObjectId))).ToList();
-                }
+                //if (listObjectId.Count > 0)
+                //{
+                listCustomerContact = listAllContact.Where(x => x.ObjectType == ObjectType.CUSTOMER).ToList();
+                //}
 
                 var listAllProvince = context.Province.ToList();
                 if (isManager)
@@ -1006,8 +1006,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     });
                 }
 
-                listCustomer = listCustomer.Where(x => parameter.ListProvinceId == null || parameter.ListProvinceId.Count == 0 || (x.ProvinceId != null && parameter.ListProvinceId.Contains(x.ProvinceId.Value))).OrderByDescending(x => x.CreatedDate).ToList();
-                
+                if(parameter.ListProvinceId != null)
+                {
+                    if(parameter.ListProvinceId.Count != 0)
+                    listCustomer = listCustomer.Where(x => x.ProvinceId != null && parameter.ListProvinceId.Contains(x.ProvinceId.Value)).OrderByDescending(x => x.CreatedDate).ToList();
+                }
+
+
                 return new SearchCustomerResult()
                 {
                     StatusCode = System.Net.HttpStatusCode.OK,

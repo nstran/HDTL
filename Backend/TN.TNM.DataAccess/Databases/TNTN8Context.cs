@@ -27,6 +27,7 @@ namespace TN.TNM.DataAccess.Databases
         public virtual DbSet<ManagerPacketService> ManagerPacketService { get; set; }
         public virtual DbSet<ActionResource> ActionResource { get; set; }
         public virtual DbSet<AdditionalInformation> AdditionalInformation { get; set; }
+        public virtual DbSet<AdvertisementConfiguration> AdvertisementConfiguration { get; set; }
         public virtual DbSet<AttributeConfiguration> AttributeConfiguration { get; set; }
         public virtual DbSet<AuditTrace> AuditTrace { get; set; }
         public virtual DbSet<BankAccount> BankAccount { get; set; }
@@ -420,6 +421,19 @@ namespace TN.TNM.DataAccess.Databases
                 entity.Property(e => e.Title)
                     .IsRequired()
                     .HasColumnType("character varying");
+
+                entity.HasQueryFilter(e => e.TenantId == _tenantId);
+            });
+
+            modelBuilder.Entity<AdvertisementConfiguration>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Content).HasColumnType("character varying");
+
+                entity.Property(e => e.Image).HasColumnType("character varying");
+
+                entity.Property(e => e.Title).HasColumnType("character varying");
 
                 entity.HasQueryFilter(e => e.TenantId == _tenantId);
             });

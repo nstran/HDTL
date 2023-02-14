@@ -397,8 +397,8 @@ export class CustomerListComponent implements OnInit, AfterViewInit {
       searchCustomerModel.Phone,
       searchCustomerModel.Email,
       searchCustomerModel.Address,
-      searchCustomerModel.KhachDuAn,
-      searchCustomerModel.KhachBanLe,
+      null,
+      null,
     ).subscribe(response => {
       this.loadingComponent = false;
       let result = <any>response;

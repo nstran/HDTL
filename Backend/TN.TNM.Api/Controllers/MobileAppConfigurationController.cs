@@ -95,5 +95,21 @@ namespace TN.TNM.Api.Controllers
         {
             return this.iMobileAppConfigurationDataAccess.DeletePaymentMethod(request);
         }
+
+        [HttpPost]
+        [Route("api/MobileAppConfiguration/createOrEditAdvertisementConfiguration")]
+        [Authorize(Policy = "Member")]
+        public CreateOrEditMobileAppConfigurationResult CreateOrEditAdvertisementConfiguration([FromBody] CreateOrEditAdvertisementConfigurationParameter request)
+        {
+            return this.iMobileAppConfigurationDataAccess.CreateOrEditAdvertisementConfiguration(request);
+        }
+
+        [HttpPost]
+        [Route("api/MobileAppConfiguration/deleteAdvertisementConfiguration")]
+        [Authorize(Policy = "Member")]
+        public CreateOrEditMobileAppConfigurationResult DeleteAdvertisementConfiguration([FromBody] DeleteAdvertisementConfigurationParameter request)
+        {
+            return this.iMobileAppConfigurationDataAccess.DeleteAdvertisementConfiguration(request);
+        }
     }
 }

@@ -56,14 +56,13 @@
                                 <p class="description font-weight-bold w-50">
                                     {{isImage ? 'Hình ảnh giới thiệu (1:1)' : 'Video'}}
                                 </p>
-                                <label class="container">{{isImage ? 'Hình ảnh' : 'Video'}}
+                                <label class="container font-weight-bold">{{isImage ? 'Hình ảnh' : 'Video'}}
                                     <input type="checkbox" [(ngModel)]="isImage" name="isImage">
                                     <span class="checkmark"></span>
                                 </label>
                             </div>
                             <div class="image" [ngClass]="'wh375-375'" *ngIf="isImage">
-                                <img
-                                    [src]="mobileAppConfiguration.introduceImageOrVideo != undefined ? mobileAppConfiguration.introduceImageOrVideo : '/assets/images/no-product-image.jpg'">
+                                <img [src]="mobileAppConfiguration.introduceImageOrVideo != undefined ? mobileAppConfiguration.introduceImageOrVideo : '/assets/images/no-product-image.jpg'">
                             </div>
                             <div [ngClass]="'w375'" *ngIf="isImage">
                                 <p-fileUpload name="demo[]" customUpload="true" [showCancelButton]="false"
@@ -159,7 +158,6 @@
 
                             <ng-template pTemplate="header" let-columns>
                                 <tr>
-
                                     <th style="width:30px;text-align: center;">Stt</th>
                                     <th *ngFor="let col of columns" pResizableColumn style="border: 1px solid #cccccc;"
                                         [ngStyle]="{ 'text-align': 'center', 'width': col.width }">
@@ -177,21 +175,18 @@
                                     <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
                                         style="border: 1px solid #cccccc;"
                                         [ngStyle]="{ 'text-align': 'center', 'width': col.width, 'overflow': 'unset' }">
-
                                         <span class="ui-column-title">{{col.header}}</span>
-
-
                                         <span *ngSwitchCase="'categoryName'">
                                             <p-cellEditor>
                                                 <ng-template pTemplate="input">
-
                                                     <p-dropdown [options]="listPayMentCategory"
-                                                        optionLabel="categoryName" [ngModelOptions]="{standalone: true}"
+                                                        optionLabel="categoryName" 
+                                                        [ngModelOptions]="{standalone: true}"
                                                         [(ngModel)]="rowData['categoryObject']"
                                                         (keydown.enter)="$event.preventDefault()" appendTo="body"
                                                         [baseZIndex]="999999999"
-                                                        (onChange)="chosePaymentMethod($event.value,rowData)"></p-dropdown>
-
+                                                        (onChange)="chosePaymentMethod($event.value,rowData)">
+                                                    </p-dropdown>
                                                 </ng-template>
                                                 <ng-template pTemplate="output">
                                                     <span style="overflow-wrap: anywhere;">
@@ -204,13 +199,10 @@
                                         <span *ngSwitchCase="'content'">
                                             <p-cellEditor>
                                                 <ng-template pTemplate="input">
-
                                                     <p-editor [(ngModel)]="rowData[col.field]" 
                                                         [ngModelOptions]="{standalone: true}"
                                                         [ngStyle]="{'width': '100%','height': '100px'}">
                                                     </p-editor>
-
-
                                                 </ng-template>
                                                 <ng-template pTemplate="output">
                                                     <span style="overflow-wrap: anywhere;">
@@ -219,7 +211,6 @@
                                                 </ng-template>
                                             </p-cellEditor>
                                         </span>
-
 
                                         <span *ngSwitchCase="'action'">
                                             <span>
@@ -247,13 +238,6 @@
                                                     (click)="onRowEditSaveChild(rowData, $event)"
                                                     style="margin-left: .5em">
                                                 </button>
-
-                                                <!-- Sai -->
-                                                <!-- <button
-                                                    *ngIf="rowData['edit'] && (!rowData.content || !rowData.categoryId)"
-                                                    pButton type="button" icon="pi pi-times" class="ui-button-danger"
-                                                    (click)="onRowEditCancelChild(rowData)" style="margin-left: .5em">
-                                                </button> -->
 
                                                 <!-- Đúng -->
                                                 <button *ngIf="rowData['edit']" pButton type="button" pCancelEditableRow
@@ -291,7 +275,7 @@
                     <p-tabPanel header="Quảng cáo">
                         <p-table #dt [columns]="columnAdvertisement" 
                             dataKey="id" 
-                            [value]="columnAdvertisement" 
+                            [value]="listAdvertisementConfigurationEntityModel" 
                             [responsive]="true"
                             [resizableColumns]="true" 
                             [paginator]="true"
@@ -300,14 +284,13 @@
                         >
                             <ng-template pTemplate="caption">
                                 <div style="text-align:right">
-                                    <button type="button" class="btn-primary btn-save">
-                                        <span class="text-white" (click)="addAdvertisement()">Thêm</span>
+                                    <button type="button" class="btn-primary btn-save" (click)="addAdvertisement()">
+                                        <span class="text-white">Thêm</span>
                                     </button>
                                 </div>
                             </ng-template>
                             <ng-template pTemplate="header" let-columns>
                                 <tr>
-                                    <th style="width:30px;text-align: center;">Stt</th>
                                     <th *ngFor="let col of columns" 
                                         pResizableColumn 
                                         style="border: 1px solid #cccccc;"
@@ -319,8 +302,6 @@
                             </ng-template>
                             <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-index="rowIndex">
                                 <tr [pEditableRow]="rowData">
-                                    <td style="width:30px;text-align: center;">
-                                        {{ index + 1 }}</td>
                                     <td *ngFor="let col of columns" 
                                         [ngSwitch]="col.field" 
                                         class="ui-resizable-column"
@@ -328,6 +309,99 @@
                                         [ngStyle]="{ 'text-align': 'center', 'width': col.width, 'overflow': 'unset' }"
                                     >
                                         <span class="ui-column-title">{{col.header}}</span>
+                                        <span *ngSwitchCase="'image'">
+                                            <div *ngIf="rowData['edit'] || rowData[col.field]" class="image" [ngClass]="'h-188'">
+                                                <img [src]="rowData[col.field] ? rowData[col.field] : '/assets/images/no-product-image.jpg'">
+                                            </div>
+                                            <div *ngIf="rowData['edit'] || rowData[col.field]">
+                                                <p-fileUpload name="demo[]" customUpload="true" [showCancelButton]="false"
+                                                    (uploadHandler)="uploadImageAdvertisement($event, index)"
+                                                    (onRemove)="removeImageAdvertisement(index)" 
+                                                    chooseLabel="Chọn file"
+                                                    cancelLabel="Hủy file" 
+                                                    uploadLabel="Lưu" 
+                                                    accept="image/*" 
+                                                    maxFileSize="10000000"
+                                                    >
+                                                </p-fileUpload>
+                                            </div>
+                                        </span>
+
+                                        <span *ngSwitchCase="'sortOrder'">
+                                            <input *ngIf="rowData['edit'] || rowData[col.field]"
+                                                type="number" 
+                                                class="form-control" 
+                                                [name]="'sortOrder' + rowData[col.field]" 
+                                                autocomplete="off"
+                                                [(ngModel)]="rowData[col.field]"
+                                                >
+                                        </span>
+
+                                        <span *ngSwitchCase="'title'">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <p-editor [(ngModel)]="rowData[col.field]" 
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        [ngStyle]="{'width': '100%','height': '100px'}">
+                                                    </p-editor>
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    <span style="overflow-wrap: anywhere;">
+                                                        <div [innerHTML]="rowData[col.field]"></div>
+                                                    </span>
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </span>
+
+                                        <span *ngSwitchCase="'content'">
+                                            <p-cellEditor>
+                                                <ng-template pTemplate="input">
+                                                    <p-editor [(ngModel)]="rowData[col.field]" 
+                                                        [ngModelOptions]="{standalone: true}"
+                                                        [ngStyle]="{'width': '100%','height': '100px'}">
+                                                    </p-editor>
+                                                </ng-template>
+                                                <ng-template pTemplate="output">
+                                                    <span style="overflow-wrap: anywhere;">
+                                                        <div [innerHTML]="rowData[col.field]"></div>
+                                                    </span>
+                                                </ng-template>
+                                            </p-cellEditor>
+                                        </span>
+                                        <span *ngSwitchCase="'action'">
+                                            <span>
+                                                <button *ngIf="!rowData['edit']" pButton type="button" pInitEditableRow
+                                                    icon="pi pi-pencil" style="margin-left: .5em" class="ui-button-info"
+                                                    (click)="onRowEditAdvertisementInitChild(rowData)">
+                                                </button>
+                                                <button *ngIf="!rowData['edit']" pButton type="button"
+                                                    pCancelEditableRow icon="pi pi-trash" class="ui-button-danger"
+                                                    style="margin-left: .5em" (click)="onRowDeleteAdvertisement(rowData)">
+                                                </button>
+
+                                                <!-- Sai -->
+                                                <button
+                                                    *ngIf="rowData['edit'] && (!rowData.content || !rowData.categoryId)"
+                                                    pButton type="button" icon="pi pi-check" class="ui-button-success"
+                                                    (click)="onRowEditSaveAdvertisement(rowData, $event)"
+                                                    style="margin-left: .5em">
+                                                </button>
+
+                                                <!-- Đúng -->
+                                                <button *ngIf="rowData['edit'] && rowData.content && rowData.categoryId"
+                                                    pButton type="button" pSaveEditableRow icon="pi pi-check"
+                                                    class="ui-button-success"
+                                                    (click)="onRowEditSaveAdvertisement(rowData, $event)"
+                                                    style="margin-left: .5em">
+                                                </button>
+
+                                                <!-- Đúng -->
+                                                <button *ngIf="rowData['edit']" pButton type="button" pCancelEditableRow
+                                                    icon="pi pi-times" class="ui-button-danger"
+                                                    (click)="onRowDeleteAdvertisement(rowData)" style="margin-left: .5em">
+                                                </button>
+                                            </span>
+                                        </span>
                                     </td>
                                 </tr>
                             </ng-template>

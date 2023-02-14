@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { MobileAppConfigurationEntityModel, PaymentMethodConfigure } from '../../models/mobile-app-configuraton.models';
+import { AdvertisementConfigurationEntityModel, MobileAppConfigurationEntityModel, PaymentMethodConfigure } from '../../models/mobile-app-configuraton.models';
 import { AbstractBase } from '../../../shared/abstract-base.component';
 import { MobileAppConfigurationService } from '../../services/mobile-app-configuration.service';
 import { tap } from 'rxjs/operators';
@@ -26,6 +26,7 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
   columnAdvertisement = [];
   listPayMentCategory: Array<CategoryEntityModel> = [];
   listPayMent: Array<PaymentMethodConfigure> = [];
+  listAdvertisementConfigurationEntityModel : AdvertisementConfigurationEntityModel[] = [];
 
   constructor(
     injector: Injector,
@@ -44,9 +45,10 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
     ];
 
     this.columnAdvertisement = [
+      { field: 'sortOrder', header: 'STT', width: '30px', textAlign: 'right', color: '#f44336' },
       { field: 'image', header: 'Ảnh đại diện', width: '120px', textAlign: 'left', color: '#f44336' },
       { field: 'title', header: 'Tiêu đề', width: '120px', textAlign: 'left', color: '#f44336' },
-      { field: 'content', header: 'Thao tác', width: '120px', textAlign: 'center', color: '#f44336' },
+      { field: 'content', header: 'Nội dung', width: '120px', textAlign: 'center', color: '#f44336' },
       { field: 'action', header: 'Thao tác', width: '30px', textAlign: 'center', color: '#f44336' }
     ];
   }
@@ -136,8 +138,10 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
       .subscribe(result => {
         if (result.mobileAppConfigurationEntityModel) {
           this.mobileAppConfiguration = result.mobileAppConfigurationEntityModel;
+          this.listAdvertisementConfigurationEntityModel = result.listAdvertisementConfigurationEntityModel;
           this.listPayMentCategory = result.listPayMentCategory.length > 0 ? result.listPayMentCategory : [];
-          this.listPayMent = result.listPayMent.length > 0 ? result.listPayMent : [];
+          this.listPayMent = result.listPayMent ? result.listPayMent.length > 0 ? result.listPayMent : [] : [];
+          console.log(this.listPayMent)
         }
       })
   }
@@ -223,8 +227,69 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
     rowData.edit = !rowData.edit;
   }
 
+  async uploadImageAdvertisement(event: { files: File[] }, index: number): Promise<void> {
+    this.listAdvertisementConfigurationEntityModel[index].image = await (await this.getBase64ImageFromURL(event)).toString();
+  }
+
+  removeImageAdvertisement(index: number): void {
+    this.listAdvertisementConfigurationEntityModel[index].image = undefined;
+  }
+
   addAdvertisement(): void {
-    
+    let advertisementConfigurationEntityModel = new AdvertisementConfigurationEntityModel();
+    advertisementConfigurationEntityModel.image = "";
+    advertisementConfigurationEntityModel.title = "";
+    advertisementConfigurationEntityModel.content = "";
+    advertisementConfigurationEntityModel.sortOrder = null;
+    advertisementConfigurationEntityModel.edit = false;
+    this.listAdvertisementConfigurationEntityModel.push(advertisementConfigurationEntityModel);
+  }
+
+  /** Xử lý row con */
+  onRowEditSaveAdvertisement(rowData: AdvertisementConfigurationEntityModel): void {
+    if (!rowData.title && !rowData.content) {
+      let msg = { severity: 'error', summary: 'Thông báo:', detail: 'Hãy nhập đầy đủ thông tin!' };
+      this.showMessage(msg);
+      return;
+    }
+    this.loading = false;
+    this._mobileAppConfigurationService.createOrEditAdvertisementConfiguration(rowData)
+      .pipe(tap(() => this.loading = false))
+      .subscribe(result => {
+        if (result.statusCode == 200) {
+          this.showToast('success', 'Thông báo', 'Lưu thành công');
+          rowData.edit = false;
+        } else {
+          this.showToast('error', 'Thông báo', result.messageCode);
+          rowData.edit = false;
+        }
+      })
+  }
+
+  onRowEditAdvertisementInitChild(rowData: AdvertisementConfigurationEntityModel): void {
+    rowData.edit = !rowData.edit;
+  }
+
+  onRowDeleteAdvertisement(rowData: AdvertisementConfigurationEntityModel): void {
+    if(!rowData.id){
+      this.listAdvertisementConfigurationEntityModel = this.listAdvertisementConfigurationEntityModel.filter(e => e != rowData);
+      return;
+    }
+    this.confirmationService.confirm({
+      message: `Bạn có chắc chắn xóa dòng này?`,
+      accept: async () => {
+        this._mobileAppConfigurationService.deleteAdvertisementConfiguration(rowData.id)
+          .pipe(tap(() => this.loading = false))
+          .subscribe(result => {
+            if (result.statusCode == 200) {
+              this.showToast('success', 'Thông báo', 'Xóa thành công');
+              this.listAdvertisementConfigurationEntityModel = this.listAdvertisementConfigurationEntityModel.filter(e => e != rowData);
+            } else {
+              this.showToast('error', 'Thông báo', result.messageCode);
+            }
+          })
+      }
+    });
   }
 
 }

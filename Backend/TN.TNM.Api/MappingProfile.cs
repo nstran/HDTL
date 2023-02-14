@@ -42,6 +42,7 @@ namespace TN.TNM.Api
             CreateMap<MobileAppConfiguration, MobileAppConfigurationEntityModel>().ReverseMap();
             CreateMap<NotificationConfiguration, NotificationConfigurationEntityModel>().ReverseMap();
             CreateMap<PaymentMethodConfigure, PaymentMethodConfigureEntityModel>().ReverseMap();
+            CreateMap<AdvertisementConfiguration, AdvertisementConfigurationEntityModel>().ReverseMap();
         }
     }
 }

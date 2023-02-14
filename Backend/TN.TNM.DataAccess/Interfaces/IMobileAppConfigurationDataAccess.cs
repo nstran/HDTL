@@ -17,7 +17,7 @@ namespace TN.TNM.DataAccess.Interfaces
         TakeMobileAppConfigurationResult TakeMobileAppConfigurationNotificationImage(TakeMobileAppConfigurationParameter parameter);
         CreateOrUpdatePaymentMethodResult CreateOrUpdatePaymentMethod(CreateOrUpdatePaymentMethodParameter parameter);
         CreateOrUpdatePaymentMethodResult DeletePaymentMethod(CreateOrUpdatePaymentMethodParameter parameter);
-
-
+        CreateOrEditMobileAppConfigurationResult CreateOrEditAdvertisementConfiguration(CreateOrEditAdvertisementConfigurationParameter parameter);
+        CreateOrEditMobileAppConfigurationResult DeleteAdvertisementConfiguration(DeleteAdvertisementConfigurationParameter parameter);
     }
 }
