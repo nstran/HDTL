@@ -2194,8 +2194,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         };
                     }
 
-                    contact.FirstName = parameter.FirstNameLastName.Trim();
-                    contact.LastName = parameter.FirstNameLastName.Trim();
+                    contact.FirstName = GetFirstName(parameter.FirstNameLastName.Trim());
+                    contact.LastName = GetLastName(parameter.FirstNameLastName.Trim());
                     contact.Gender = parameter.Gender.Trim();
                     contact.Email = parameter.Email;
                     contact.ObjectId = customer.CustomerId;
