@@ -399,4 +399,18 @@ CREATE TABLE IF NOT EXISTS public."AdvertisementConfiguration"
     "UpdatedById" uuid,
     "TenantId" uuid,
     CONSTRAINT "Id_pkey" PRIMARY KEY ("Id")
-)
+);
+
+CREATE TABLE IF NOT EXISTS public."AdvertisementConfiguration1"
+(
+    "Id" uuid NOT NULL,
+    "Image" character varying COLLATE pg_catalog."default",
+    "Title" character varying COLLATE pg_catalog."default",
+    "Content" character varying COLLATE pg_catalog."default",
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "CreatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone,
+    "UpdatedById" uuid,
+    "TenantId" uuid,
+    CONSTRAINT "Id_pkey" PRIMARY KEY ("Id")
+);
