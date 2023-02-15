@@ -15,6 +15,5 @@ namespace TN.TNM.DataAccess.Messages.Results.Order
         public List<AttributeConfigurationEntityModel> ListOptionAttr { get; set; }
         public List<ServicePacketMappingOptionsEntityModel> ListOption { get; set; }
         public List<TrangThaiGeneral> ListDataType { get; set; }
-        public List<OptionCategory> ListCategoryUnit { get; set; }
     }
 }

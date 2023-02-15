@@ -29,6 +29,7 @@ namespace TN.TNM.DataAccess.Models.Options
         public Guid? ServicePacketId { get; set; }
         public decimal? VAT { get; set; }
         public bool? IsExtend { get; set; }
+        public string CategoryUnitName { get; set; }
 
         public List<SearchOptionTree> ListOptionTrees { get; set; }
 

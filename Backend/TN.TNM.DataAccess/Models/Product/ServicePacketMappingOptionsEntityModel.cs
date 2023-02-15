@@ -22,5 +22,6 @@ namespace TN.TNM.DataAccess.Models.Product
         public Guid? OptionId { get; set; }
         public Guid? ServicePacketId { get; set; }
         public int? SortOrder { get; set; }
+        public string CategoryUnitName { get; set; }
     }
 }

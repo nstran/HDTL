@@ -141,7 +141,6 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
           this.listAdvertisementConfigurationEntityModel = result.listAdvertisementConfigurationEntityModel;
           this.listPayMentCategory = result.listPayMentCategory.length > 0 ? result.listPayMentCategory : [];
           this.listPayMent = result.listPayMent ? result.listPayMent.length > 0 ? result.listPayMent : [] : [];
-          console.log(this.listPayMent)
         }
       })
   }

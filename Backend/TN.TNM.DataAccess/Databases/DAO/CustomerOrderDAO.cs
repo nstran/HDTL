@@ -9966,6 +9966,16 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 //Lấy id các dịch vụ lv0 gán với gói
                 var listOptionPackId = listTreeMapping.Select(x => x.OptionId).ToList();
 
+                var listOptionCategoryUnit = await (from c in context.Category
+                                                    join ct in context.CategoryType
+                                                    on c.CategoryTypeId equals ct.CategoryTypeId
+                                                    where ct.CategoryTypeCode == ProductConsts.CategoryTypeCodeUnit
+                                                    select new OptionCategory
+                                                    {
+                                                        CategoryName = c.CategoryName,
+                                                        CategoryId = c.CategoryId
+                                                    }).ToListAsync();
+
                 //lấy list dịch vụ
                 var listOption = await (from o in context.Options
                                     where listOptionPackId.Contains(o.Id)
@@ -9978,7 +9988,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                         ParentId = o.ParentId,
                                         Description = o.Description,
                                         VAT = o.Vat,
-                                        CategoryUnitId = o.CategoryUnitId
+                                        CategoryUnitId = o.CategoryUnitId,
+                                        CategoryUnitName = listOptionCategoryUnit.FirstOrDefault(x => x.CategoryId == o.CategoryUnitId) != null ? listOptionCategoryUnit.FirstOrDefault(x => x.CategoryId == o.CategoryUnitId).CategoryName : ""
                                     }).ToListAsync();
 
                 listTreeMapping.ForEach(item =>
@@ -9993,6 +10004,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             item.NameCustom = option.NameCustom;
                             item.Price = option.Price;
                             item.Vat = option.VAT;
+                            item.CategoryUnitName = option.CategoryUnitName;
                         }
                     }
                     else
@@ -10022,24 +10034,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 #endregion
 
-                var listOptionCategoryUnit = await (from c in context.Category
-                                                join ct in context.CategoryType
-                                                on c.CategoryTypeId equals ct.CategoryTypeId
-                                                where ct.CategoryTypeCode == ProductConsts.CategoryTypeCodeUnit
-                                                select new OptionCategory
-                                                {
-                                                    CategoryName = c.CategoryName,
-                                                    CategoryId = c.CategoryId
-                                                }).ToListAsync();
-
                 return new SearchOptionOfPacketServiceResult()
                 {
                     StatusCode = HttpStatusCode.OK,
                     ListAttrPacket = listAttrPacket,
                     ListOptionAttr = listOptionAttr,
                     ListOption = listTreeMapping,
-                    ListDataType = listDataType,
-                    ListCategoryUnit = listOptionCategoryUnit
+                    ListDataType = listDataType
                 };
             }
             catch (Exception e)
