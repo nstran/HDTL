@@ -9977,7 +9977,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                         Id = o.Id,
                                         ParentId = o.ParentId,
                                         Description = o.Description,
-                                        VAT = o.Vat
+                                        VAT = o.Vat,
+                                        CategoryUnitId = o.CategoryUnitId
                                     }).ToListAsync();
 
                 listTreeMapping.ForEach(item =>
@@ -10021,6 +10022,16 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 #endregion
 
+                var listOptionCategoryUnit = await (from c in context.Category
+                                                join ct in context.CategoryType
+                                                on c.CategoryTypeId equals ct.CategoryTypeId
+                                                where ct.CategoryTypeCode == ProductConsts.CategoryTypeCodeUnit
+                                                select new OptionCategory
+                                                {
+                                                    CategoryName = c.CategoryName,
+                                                    CategoryId = c.CategoryId
+                                                }).ToListAsync();
+
                 return new SearchOptionOfPacketServiceResult()
                 {
                     StatusCode = HttpStatusCode.OK,
@@ -10028,6 +10039,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     ListOptionAttr = listOptionAttr,
                     ListOption = listTreeMapping,
                     ListDataType = listDataType,
+                    ListCategoryUnit = listOptionCategoryUnit
                 };
             }
             catch (Exception e)
