@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Net.Mime;
+using System.Reactive.Subjects;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using TN.TNM.Common;
@@ -790,8 +791,33 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-                var user = context.User.FirstOrDefault(u => u.UserName == parameter.UserName);
-
+                var contact = context.Contact.FirstOrDefault(x => x.Email == parameter.EmailAddress.Trim());
+                if (contact == null)
+                {
+                    return new SendEmailForgotPassResult()
+                    {
+                        MessageCode = "Email không có trong hệ thống",
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed
+                    };
+                }
+                var customer = context.Customer.FirstOrDefault(x => x.CustomerId == contact.ObjectId);
+                if (customer == null)
+                {
+                    return new SendEmailForgotPassResult()
+                    {
+                        MessageCode = "Người dùng không tồn tại",
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed
+                    };
+                }
+                var user = context.User.FirstOrDefault(u => u.EmployeeId == customer.CustomerId);
+                if(user == null)
+                {
+                    return new SendEmailForgotPassResult()
+                    {
+                        MessageCode = "Không tồn tại tên đăng nhập",
+                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed
+                    };
+                }
                 user.ResetCode = Guid.NewGuid().ToString().ToUpper();
                 user.ResetCodeDate = DateTime.Now;
                 user.UpdatedDate = DateTime.Now;
@@ -800,7 +826,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 #region Get Employee Infor to send email
 
-                NotificationHelper.AccessNotification(context, "EMPLOYEE_DETAIL", "FORGOT", new User(), user, true);
+                NotificationHelper.AccessNotification(context, "EMPLOYEE_DETAIL", "FORGOT", new User(), user, true, null, null, null, null, parameter.EmailAddress);
 
                 #endregion
 

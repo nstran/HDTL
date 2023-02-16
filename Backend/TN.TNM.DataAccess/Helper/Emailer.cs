@@ -332,7 +332,14 @@ namespace TN.TNM.DataAccess.Helper
                 // Build Email
                 mailMessage.IsBodyHtml = true;
                 mailMessage.From = new MailAddress(fromAddress, "TNM");
-                foreach (var addReceiver in toEmailAddress) mailMessage.To.Add(addReceiver);
+                foreach (var addReceiver in toEmailAddress)
+                {
+                    if (!string.IsNullOrEmpty(addReceiver))
+                    {
+                        mailMessage.To.Add(addReceiver);
+                    }
+                }
+                    
                 foreach (var ccReceiver in ccEmailAddress) mailMessage.CC.Add(ccReceiver);
                 foreach (var bccReceiver in bccEmailAddress) mailMessage.Bcc.Add(bccReceiver);
 
@@ -559,8 +566,11 @@ namespace TN.TNM.DataAccess.Helper
             foreach (var email in emailAddress)
             {
                 // ReShaper suggest declare variable in here
-                var retValue = ValidateEmailAddress(email);
-                if (!retValue) return false;
+                if (!string.IsNullOrEmpty(email))
+                {
+                    var retValue = ValidateEmailAddress(email);
+                    if (!retValue) return false;
+                }
             }
 
             return true;

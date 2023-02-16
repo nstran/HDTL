@@ -26,7 +26,7 @@ namespace TN.TNM.DataAccess.Helper
          */
         public static void AccessNotification(TNTN8Context context, string typeModel, string actionCode,
             object oldModel, object newModel, bool checkChange, object note = null, Guid? empId = new Guid?(),
-            List<string> ListMailNguoiPheDuyet = null, List<Guid> lstInterviewId = null)
+            List<string> ListMailNguoiPheDuyet = null, List<Guid> lstInterviewId = null, string emailReceiver = null)
         // chuyển mail cá nhân và công ty của người phê duyệt để gửi thông báo; áp dụng cho đề xuất TL, CV, OT
         {
             if (checkChange)
@@ -5805,6 +5805,11 @@ namespace TN.TNM.DataAccess.Helper
                                         {
                                             var Email = LayEmaiNguoiTao(listAllUser, listAllContact, _user.CreatedById);
                                             listEmailSendTo.Add(Email);
+                                        }
+
+                                        if (!string.IsNullOrEmpty(emailReceiver))
+                                        {
+                                            listEmailSendTo.Add(emailReceiver);
                                         }
 
                                         #endregion
