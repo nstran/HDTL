@@ -1,0 +1,714 @@
+2023-02-17 09:04:19.1360|48|ERROR|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider|An error occurred while reading the key ring. System.Xml.XmlException: '.', hexadecimal value 0x00, is an invalid character. Line 1, position 1.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   at System.Xml.XmlTextReaderImpl.ParseRootLevelWhitespace()
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlReader.MoveToContent()
+   at System.Xml.Linq.XElement.Load(XmlReader reader, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.ReadElementFromFile(String fullPath)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElementsCore()+MoveNext()
+   at System.Collections.Generic.List`1.AddEnumerable(IEnumerable`1 enumerable)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElements()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.GetAllKeys()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.CreateCacheableKeyRingCore(DateTimeOffset now, IKey keyJustAdded)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.ICacheableKeyRingProvider.GetCacheableKeyRing(DateTimeOffset now)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.GetCurrentKeyRingCore(DateTime utcNow)|url: |action: 
+2023-02-17 09:04:20.3652||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Start installing Hangfire SQL objects... |url: |action: 
+2023-02-17 09:04:20.4644||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Hangfire SQL objects installed. |url: |action: 
+2023-02-17 09:04:21.3350||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL, Schema: hangfire' |url: |action: 
+2023-02-17 09:04:21.3350||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: |url: |action: 
+2023-02-17 09:04:21.3350||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. |url: |action: 
+2023-02-17 09:04:21.3350||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. |url: |action: 
+2023-02-17 09:04:21.3350||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 |url: |action: 
+2023-02-17 09:04:21.3700||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:65a305b4 has started in 15.4597 ms |url: |action: 
+2023-02-17 09:04:21.4022||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:9868:143834d9 is announcing itself... |url: |action: 
+2023-02-17 09:04:21.4822||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:9868:143834d9 successfully announced in 76.9557 ms |url: |action: 
+2023-02-17 09:04:21.4907||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:391ad499 has started in 6.2714 ms |url: |action: 
+2023-02-17 09:04:21.4907||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:9868:143834d9 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... |url: |action: 
+2023-02-17 09:04:21.4907||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:ef0dab6c has started in 5.499 ms |url: |action: 
+2023-02-17 09:04:21.4907||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:bf407a23 has started in 7.8239 ms |url: |action: 
+2023-02-17 09:04:21.4907||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:fa12b5e5 has started in 5.8582 ms |url: |action: 
+2023-02-17 09:04:21.5069||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:21.5069||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:04:21.5069||INFO|Hangfire.Server.ServerWatchdog|4 servers were removed due to timeout |url: |action: 
+2023-02-17 09:04:21.5581||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:1e0959e2 has started in 56.9703 ms |url: |action: 
+2023-02-17 09:04:21.5581||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d96f8cce has started in 57.2087 ms |url: |action: 
+2023-02-17 09:04:21.5581||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:bd0a35ba has started in 57.1423 ms |url: |action: 
+2023-02-17 09:04:21.5581||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... |url: |action: 
+2023-02-17 09:04:21.5815||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 377 outdated record(s) from 'counter' table. |url: |action: 
+2023-02-17 09:04:21.5815||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:43883fc6 has started in 82.0707 ms |url: |action: 
+2023-02-17 09:04:21.5937||TRACE|Hangfire.RecurringJobManager|Recurring job 'Deadline' is being updated. RecurringJob: (), Changes: (Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-17T02:04:21.4370544Z;NextExecution:2023-02-17T02:05:00.0000000Z;V:2), NextExecution: (2/17/2023 2:05:00 AM) |url: |action: 
+2023-02-17 09:04:21.5937||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:21.6105||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a75aa559 has started in 109.3629 ms |url: |action: 
+2023-02-17 09:04:21.6218||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:bb152290 has started in 120.6497 ms |url: |action: 
+2023-02-17 09:04:21.6218||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c0a34f44 has started in 125.6513 ms |url: |action: 
+2023-02-17 09:04:21.6405||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:dfa404bc has started in 139.3135 ms |url: |action: 
+2023-02-17 09:04:21.6573||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:62d74940 has started in 155.9937 ms |url: |action: 
+2023-02-17 09:04:21.6769||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL, Schema: hangfire' |url: |action: 
+2023-02-17 09:04:21.6813||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: |url: |action: 
+2023-02-17 09:04:21.6813||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. |url: |action: 
+2023-02-17 09:04:21.6813||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. |url: |action: 
+2023-02-17 09:04:21.6813||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:30
+    Schedule polling interval: 00:00:15 |url: |action: 
+2023-02-17 09:04:21.6769||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d80d071f has started in 175.7193 ms |url: |action: 
+2023-02-17 09:04:21.7085||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a15447c1 has started in 207.3863 ms |url: |action: 
+2023-02-17 09:04:21.7675||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c25a1226 has started in 266.3743 ms |url: |action: 
+2023-02-17 09:04:21.7966||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c0ad562f has started in 295.5201 ms |url: |action: 
+2023-02-17 09:04:21.8541||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:04af6b90 has started in 171.3538 ms |url: |action: 
+2023-02-17 09:04:21.8541||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:9868:8b5d2e65 is announcing itself... |url: |action: 
+2023-02-17 09:04:21.8873||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5f858661 has started in 385.9787 ms |url: |action: 
+2023-02-17 09:04:21.9208||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:74a36e04 has started in 419.6476 ms |url: |action: 
+2023-02-17 09:04:21.9601||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:cba9f91f has started in 459.0036 ms |url: |action: 
+2023-02-17 09:04:21.9601||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:6b89758a has started in 469.0635 ms |url: |action: 
+2023-02-17 09:04:21.9904||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:65d5a367 has started in 489.306 ms |url: |action: 
+2023-02-17 09:04:21.9904||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ca814fdc has started in 489.4974 ms |url: |action: 
+2023-02-17 09:04:21.9904||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:46a2e5c4 has started in 504.943 ms |url: |action: 
+2023-02-17 09:04:22.0167||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:9868:8b5d2e65 successfully announced in 157.6745 ms |url: |action: 
+2023-02-17 09:04:22.0395||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:10a470e3 has started in 43.1283 ms |url: |action: 
+2023-02-17 09:04:22.0545||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:9868:8b5d2e65 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... |url: |action: 
+2023-02-17 09:04:22.0545||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:82e2484b has started in 49.3415 ms |url: |action: 
+2023-02-17 09:04:22.0545||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:d5658362 has started in 42.0981 ms |url: |action: 
+2023-02-17 09:04:22.0545||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:9868:143834d9 all the dispatchers started |url: |action: 
+2023-02-17 09:04:22.0545||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:04:22.0823||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:f0beb192 has started in 26.8365 ms |url: |action: 
+2023-02-17 09:04:22.1513||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:836993a8 has started in 74.94 ms |url: |action: 
+2023-02-17 09:04:22.1513||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:22.1513||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:22.1959||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:9fb97718 has started in 69.4522 ms |url: |action: 
+2023-02-17 09:04:22.1959||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... |url: |action: 
+2023-02-17 09:04:22.2104||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:bc22682f has started in 30.4362 ms |url: |action: 
+2023-02-17 09:04:22.2104||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... |url: |action: 
+2023-02-17 09:04:22.2104||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:71b36669 has started in 41.5887 ms |url: |action: 
+2023-02-17 09:04:22.2316||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b86b4213 has started in 51.6816 ms |url: |action: 
+2023-02-17 09:04:22.2447||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:642516c7 has started in 64.3788 ms |url: |action: 
+2023-02-17 09:04:22.2650||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5fdbaf74 has started in 85.0934 ms |url: |action: 
+2023-02-17 09:04:22.2650||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 289 outdated record(s) from 'job' table. |url: |action: 
+2023-02-17 09:04:22.2815||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:6de06111 has started in 101.0343 ms |url: |action: 
+2023-02-17 09:04:22.3021||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a64e3dc4 has started in 121.588 ms |url: |action: 
+2023-02-17 09:04:22.3061||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:4988e21f has started in 126.1817 ms |url: |action: 
+2023-02-17 09:04:22.3187||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:0d9f1917 has started in 138.8316 ms |url: |action: 
+2023-02-17 09:04:22.3770||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:7083de72 has started in 197.1134 ms |url: |action: 
+2023-02-17 09:04:22.3992||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:3b30a105 has started in 219.2894 ms |url: |action: 
+2023-02-17 09:04:22.4388||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:08483567 has started in 258.9062 ms |url: |action: 
+2023-02-17 09:04:22.5022||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:9d2d81d3 has started in 322.2959 ms |url: |action: 
+2023-02-17 09:04:22.5284||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-02-16T10:40:21.3999017Z;NextExecution:2023-02-16T10:42:00.0000000Z;LastJobId:11076), Changes: (LastExecution:2023-02-17T02:04:22.2459392Z;NextExecution:2023-02-17T02:06:00.0000000Z;LastJobId:11080), NextExecution: (2/17/2023 2:06:00 AM) |url: |action: 
+2023-02-17 09:04:22.5284||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:1e60b50e has started in 351.4497 ms |url: |action: 
+2023-02-17 09:04:22.5571||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:927a9aa7 has started in 377.1853 ms |url: |action: 
+2023-02-17 09:04:22.5571||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a8fcf7f4 has started in 377.2341 ms |url: |action: 
+2023-02-17 09:04:22.5571||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'EVMDaily' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-11T06:09:11.7098468Z;V:2;Queue:default;Cron:*/10 * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-02-16T10:40:21.4521136Z;NextExecution:2023-02-16T10:50:00.0000000Z;LastJobId:11077), Changes: (LastExecution:2023-02-17T02:04:22.5443817Z;NextExecution:2023-02-17T02:10:00.0000000Z;LastJobId:11081), NextExecution: (2/17/2023 2:10:00 AM) |url: |action: 
+2023-02-17 09:04:22.5785||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'StatusTask' is being updated. RecurringJob: (Queue:default;Cron:*/59 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"UpdateStatusTask","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-11T06:09:11.6277951Z;V:2;LastExecution:2023-02-16T10:00:04.6010433Z;NextExecution:2023-02-16T10:59:00.0000000Z;LastJobId:11015), Changes: (LastExecution:2023-02-17T02:04:22.5696722Z;NextExecution:2023-02-17T02:59:00.0000000Z;LastJobId:11082), NextExecution: (2/17/2023 2:59:00 AM) |url: |action: 
+2023-02-17 09:04:22.5988||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d40be525 has started in 418.9661 ms |url: |action: 
+2023-02-17 09:04:22.6273||DEBUG|Hangfire.Server.RecurringJobScheduler|3 recurring job(s) processed by scheduler. |url: |action: 
+2023-02-17 09:04:22.7807||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... |url: |action: 
+2023-02-17 09:04:22.7903||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... |url: |action: 
+2023-02-17 09:04:22.7903||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... |url: |action: 
+2023-02-17 09:04:22.8069||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... |url: |action: 
+2023-02-17 09:04:22.8220||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:7e245ad3 has started in 642.1375 ms |url: |action: 
+2023-02-17 09:04:22.8383||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:96de31ce has started in 656.711 ms |url: |action: 
+2023-02-17 09:04:22.9962||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:eb6eb59a has started in 816.3443 ms |url: |action: 
+2023-02-17 09:04:23.0118||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:fb4da29c has started in 189.8065 ms |url: |action: 
+2023-02-17 09:04:23.0289||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:9868:8b5d2e65 all the dispatchers started |url: |action: 
+2023-02-17 09:04:23.0375||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:0677cf03 has started in 35.6567 ms |url: |action: 
+2023-02-17 09:04:23.2954||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... |url: |action: 
+2023-02-17 09:04:23.2954||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... |url: |action: 
+2023-02-17 09:04:23.3045||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... |url: |action: 
+2023-02-17 09:04:26.6239||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:26.6239||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:27.1696||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:27.1696||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:31.6356||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:31.6356||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:32.1756||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:32.1756||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:36.6571||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:36.6571||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:37.1897||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:37.2031||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:41.6681||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:41.6681||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:42.2097||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:42.2097||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:46.6824||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:46.6824||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:47.2191||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:47.2191||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:51.5184||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:04:51.5184||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:04:51.6855||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:51.6855||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:52.0683||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:04:52.0689||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:04:52.2215||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:52.2215||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:56.7011||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:56.7011||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:04:57.2357||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:04:57.2357||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:01.7118||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:01.7118||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:02.2493||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:02.2493||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:06.7136||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:06.7136||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:07.2536||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:07.2536||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:07.6926||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-17T02:04:21.4370544Z;NextExecution:2023-02-17T02:05:00.0000000Z;V:2;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time), Changes: (LastExecution:2023-02-17T02:05:07.6852846Z;NextExecution:2023-02-17T02:06:00.0000000Z;LastJobId:11083), NextExecution: (2/17/2023 2:06:00 AM) |url: |action: 
+2023-02-17 09:05:07.6985||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. |url: |action: 
+2023-02-17 09:05:11.7290||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:11.7290||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:12.2674||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:12.2674||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:16.7349||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:16.7349||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:17.2813||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:17.2813||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:21.5329||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:05:21.5329||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:05:21.7429||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:21.7429||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:22.0839||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:05:22.0839||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:05:22.2987||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:22.2987||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:26.7583||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:26.7583||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:27.3069||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:27.3069||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:31.7732||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:31.7732||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:32.3089||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:32.3089||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:36.7884||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:36.7884||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:37.3228||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:37.3228||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:41.7979||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:41.7979||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:42.3319||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:42.3319||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:46.8012||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:46.8012||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:47.3377||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:47.3377||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:51.5494||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:05:51.5494||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:05:51.8106||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:51.8106||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:52.1019||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:05:52.1019||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:05:52.3481||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:52.3481||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:56.8270||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:56.8270||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:05:57.3639||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:05:57.3639||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:01.8333||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:01.8341||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:02.3718||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:02.3718||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:06.8482||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:06.8482||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:07.3761||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:07.3761||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:07.7472||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-02-17T02:04:22.2459392Z;NextExecution:2023-02-17T02:06:00.0000000Z;LastJobId:11080), Changes: (LastExecution:2023-02-17T02:06:07.7367686Z;NextExecution:2023-02-17T02:08:00.0000000Z;LastJobId:11084), NextExecution: (2/17/2023 2:08:00 AM) |url: |action: 
+2023-02-17 09:06:07.7583||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-17T02:04:21.4370544Z;V:2;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-02-17T02:05:07.6852846Z;NextExecution:2023-02-17T02:06:00.0000000Z;LastJobId:11083), Changes: (LastExecution:2023-02-17T02:06:07.7539051Z;NextExecution:2023-02-17T02:07:00.0000000Z;LastJobId:11085), NextExecution: (2/17/2023 2:07:00 AM) |url: |action: 
+2023-02-17 09:06:07.7583||DEBUG|Hangfire.Server.RecurringJobScheduler|2 recurring job(s) processed by scheduler. |url: |action: 
+2023-02-17 09:06:11.8547||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:11.8547||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:12.3902||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:12.3902||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:16.8629||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:16.8629||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:17.4059||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:17.4059||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:21.5563||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:06:21.6105||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:06:21.8661||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:21.8661||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:22.1170||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:06:22.1170||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:06:22.4116||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:22.4126||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:26.8726||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:26.8726||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:27.4260||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:27.4285||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:31.8812||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:31.8812||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:32.4316||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:32.4316||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:36.8927||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:36.8927||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:37.4333||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:37.4333||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:41.8972||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:41.8972||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:42.4357||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:42.4357||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:46.9027||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:46.9027||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:47.4542||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:47.4542||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:51.6217||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:06:51.6217||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:06:51.9199||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:51.9199||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:52.1230||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:06:52.1230||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:06:52.4663||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:52.4663||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:56.9249||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:56.9249||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:06:57.4775||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:06:57.4775||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:01.9281||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:01.9281||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:02.4787||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:02.4787||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:06.9363||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:06.9363||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:07.4849||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:07.4849||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:07.8051||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-17T02:04:21.4370544Z;V:2;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-02-17T02:06:07.7539051Z;NextExecution:2023-02-17T02:07:00.0000000Z;LastJobId:11085), Changes: (LastExecution:2023-02-17T02:07:07.8007344Z;NextExecution:2023-02-17T02:08:00.0000000Z;LastJobId:11086), NextExecution: (2/17/2023 2:08:00 AM) |url: |action: 
+2023-02-17 09:07:07.8051||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. |url: |action: 
+2023-02-17 09:07:11.9672||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:11.9672||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:12.5149||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:12.5149||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:16.9820||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:16.9820||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:17.5226||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:17.5226||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:21.6373||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:07:21.6373||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:07:21.9842||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:21.9842||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:22.1399||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:07:22.1399||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:07:22.5348||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:22.5348||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:26.9858||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:26.9858||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:27.5492||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:27.5492||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:31.9887||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:31.9887||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:32.5651||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:32.5651||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:36.9979||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:36.9979||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:37.5744||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:37.5744||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:42.0090||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:42.0090||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:42.5827||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:42.5827||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:47.0284||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:47.0284||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:47.5971||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:47.5971||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:51.6457||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:07:51.6457||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:07:52.0386||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:52.0386||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:52.1505||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:07:52.1505||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:07:52.6047||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:52.6047||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:57.0523||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:57.0532||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:07:57.6069||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:07:57.6069||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:02.0546||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:02.0546||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:02.6193||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:02.6193||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:07.0628||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:07.0628||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:07.6229||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:07.6229||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:07.8928||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-02-17T02:06:07.7367686Z;NextExecution:2023-02-17T02:08:00.0000000Z;LastJobId:11084), Changes: (LastExecution:2023-02-17T02:08:07.8753480Z;NextExecution:2023-02-17T02:10:00.0000000Z;LastJobId:11087), NextExecution: (2/17/2023 2:10:00 AM) |url: |action: 
+2023-02-17 09:08:07.9148||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-17T02:04:21.4370544Z;V:2;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-02-17T02:07:07.8007344Z;NextExecution:2023-02-17T02:08:00.0000000Z;LastJobId:11086), Changes: (LastExecution:2023-02-17T02:08:07.9094071Z;NextExecution:2023-02-17T02:09:00.0000000Z;LastJobId:11088), NextExecution: (2/17/2023 2:09:00 AM) |url: |action: 
+2023-02-17 09:08:07.9148||DEBUG|Hangfire.Server.RecurringJobScheduler|2 recurring job(s) processed by scheduler. |url: |action: 
+2023-02-17 09:08:12.0756||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:12.0756||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:12.6382||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:12.6382||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:17.0844||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:17.0844||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:17.6428||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:17.6428||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:21.6709||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:08:21.6709||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:08:22.0931||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:22.0931||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:22.1735||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:08:22.1735||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:08:22.6508||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:22.6508||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:27.0973||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:27.0973||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:27.6642||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:27.6642||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:32.1088||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:32.1088||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:32.6750||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:32.6750||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:37.1244||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:37.1244||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:37.6885||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:37.6885||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:42.1268||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:42.1268||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:42.6911||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:42.6911||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:47.1394||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:47.1394||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:47.6966||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:47.6966||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:51.6760||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:08:51.6760||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:08:52.1423||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:52.1423||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:52.1912||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:08:52.1912||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:08:52.7062||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:52.7099||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:57.1515||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:57.1515||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:08:57.7169||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:08:57.7169||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:02.1601||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:02.1650||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:02.7238||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:02.7238||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:07.1826||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:07.1826||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:07.7405||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:07.7405||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:08.0065||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-17T02:04:21.4370544Z;V:2;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-02-17T02:08:07.9094071Z;NextExecution:2023-02-17T02:09:00.0000000Z;LastJobId:11088), Changes: (LastExecution:2023-02-17T02:09:07.9946540Z;NextExecution:2023-02-17T02:10:00.0000000Z;LastJobId:11089), NextExecution: (2/17/2023 2:10:00 AM) |url: |action: 
+2023-02-17 09:09:08.0149||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. |url: |action: 
+2023-02-17 09:09:12.1976||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:12.2097||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:12.7491||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:12.7491||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:17.2210||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:17.2210||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:17.7594||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:17.7594||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:21.6923||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:09:21.6923||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:09:22.2090||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:09:22.2095||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:09:22.2466||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:22.2466||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:22.7818||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:22.7818||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:25.3434||INFO|TN.TNM.BusinessLogic.Factories.Notification.NotificationFactory|Get Notification |url: http://localhost/api/notification/getNotification|action: GetNotification
+2023-02-17 09:09:27.1680|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([y].Value, Nullable`1) == [e].OrderType)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticDashboard|action: TakeRevenueStatisticDashboard
+2023-02-17 09:09:27.1680|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticDashboard|action: TakeRevenueStatisticDashboard
+2023-02-17 09:09:27.1783|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([y].Value, Nullable`1) == [e].OrderType)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticDashboard|action: TakeRevenueStatisticDashboard
+2023-02-17 09:09:27.1783|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticDashboard|action: TakeRevenueStatisticDashboard
+2023-02-17 09:09:27.2269|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([y].Value, Nullable`1) == [e].OrderType)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticServicePacketDashboard|action: TakeRevenueStatisticServicePacketDashboard
+2023-02-17 09:09:27.2269|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([y].Value, Nullable`1) == [e].OrderType)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticWaitPaymentDashboard|action: TakeRevenueStatisticWaitPaymentDashboard
+2023-02-17 09:09:27.2269|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticServicePacketDashboard|action: TakeRevenueStatisticServicePacketDashboard
+2023-02-17 09:09:27.2269|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([y].Value, Nullable`1) == [e].OrderType)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticServicePacketDashboard|action: TakeRevenueStatisticServicePacketDashboard
+2023-02-17 09:09:27.2269|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticWaitPaymentDashboard|action: TakeRevenueStatisticWaitPaymentDashboard
+2023-02-17 09:09:27.2269|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticServicePacketDashboard|action: TakeRevenueStatisticServicePacketDashboard
+2023-02-17 09:09:27.2269|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([y].Value, Nullable`1) == [e].OrderType)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticWaitPaymentDashboard|action: TakeRevenueStatisticWaitPaymentDashboard
+2023-02-17 09:09:27.2423|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticWaitPaymentDashboard|action: TakeRevenueStatisticWaitPaymentDashboard
+2023-02-17 09:09:27.2613||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:27.2613||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:27.7867||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:27.7895||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:32.2744||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:32.2744||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:32.8015||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:32.8015||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:37.2894||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:37.2894||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:37.8101||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:37.8101||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:42.2915||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:42.2915||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:42.8144||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:42.8144||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:47.3085||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:47.3085||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:47.8235||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:47.8235||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:51.6990||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:09:51.6990||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:09:52.2141||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:09:52.2141||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:09:52.3223||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:52.3223||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:52.8279||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:52.8279||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:57.3315||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:57.3315||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:09:57.8330||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:09:57.8330||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:02.3384||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:02.3384||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:02.8372||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:02.8372||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:07.3506||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:07.3506||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:07.8523||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:07.8523||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:08.0661||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-17T02:04:21.4370544Z;V:2;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-02-17T02:09:07.9946540Z;NextExecution:2023-02-17T02:10:00.0000000Z;LastJobId:11089), Changes: (LastExecution:2023-02-17T02:10:08.0568221Z;NextExecution:2023-02-17T02:11:00.0000000Z;LastJobId:11090), NextExecution: (2/17/2023 2:11:00 AM) |url: |action: 
+2023-02-17 09:10:08.0777||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'EVMDaily' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-11T06:09:11.7098468Z;V:2;Queue:default;Cron:*/10 * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-02-17T02:04:22.5443817Z;NextExecution:2023-02-17T02:10:00.0000000Z;LastJobId:11081), Changes: (LastExecution:2023-02-17T02:10:08.0725337Z;NextExecution:2023-02-17T02:20:00.0000000Z;LastJobId:11091), NextExecution: (2/17/2023 2:20:00 AM) |url: |action: 
+2023-02-17 09:10:08.0872||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-02-17T02:08:07.8753480Z;NextExecution:2023-02-17T02:10:00.0000000Z;LastJobId:11087), Changes: (LastExecution:2023-02-17T02:10:08.0827955Z;NextExecution:2023-02-17T02:12:00.0000000Z;LastJobId:11092), NextExecution: (2/17/2023 2:12:00 AM) |url: |action: 
+2023-02-17 09:10:08.0872||DEBUG|Hangfire.Server.RecurringJobScheduler|3 recurring job(s) processed by scheduler. |url: |action: 
+2023-02-17 09:10:12.3576||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:12.3576||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:12.8582||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:12.8582||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:17.3727||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:17.3727||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:17.8643||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:17.8643||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:21.7126||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:10:21.7126||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:10:22.2270||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:10:22.2270||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:10:22.3825||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:22.3825||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:22.8803||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:22.8814||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:27.3961||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:27.3970||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:27.8830||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:27.8830||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:32.4055||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:32.4055||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:32.8842||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:32.8842||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:37.4207||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:37.4207||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:37.8928||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:37.8928||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:42.4325||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:42.4325||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:42.8952||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:42.8952||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:47.4463||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:47.4463||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:47.9090||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:47.9090||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:51.7181||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:10:51.7181||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:10:52.2390||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:10:52.2390||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:10:52.4542||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:52.4542||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:52.9249||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:52.9249||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:57.4555||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:57.4555||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:10:57.9380||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:10:57.9380||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:01.3223||INFO|TN.TNM.BusinessLogic.Factories.Notification.NotificationFactory|Get Notification |url: http://localhost/api/notification/getNotification|action: GetNotification
+2023-02-17 09:11:02.4749||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:02.4749||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:02.9475||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:02.9475||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:07.4778||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:07.4778||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:07.9506||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:07.9506||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:09.3452||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-17T02:04:21.4370544Z;V:2;LastExecution:2023-02-17T02:10:08.0568221Z;NextExecution:2023-02-17T02:11:00.0000000Z;LastJobId:11090;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time), Changes: (LastExecution:2023-02-17T02:11:08.7900541Z;NextExecution:2023-02-17T02:12:00.0000000Z;LastJobId:11093), NextExecution: (2/17/2023 2:12:00 AM) |url: |action: 
+2023-02-17 09:11:09.5985||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. |url: |action: 
+2023-02-17 09:11:12.4819||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:12.4819||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:12.9526||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:12.9526||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:17.4853||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:17.4853||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:17.9609||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:17.9609||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:21.7214||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:11:21.7286||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:11:22.2516||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:11:22.2516||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:11:22.5006||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:22.5006||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:22.9716||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:22.9716||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:25.0846||INFO|TN.TNM.BusinessLogic.Factories.Notification.NotificationFactory|Get Notification |url: http://localhost/api/notification/getNotification|action: GetNotification
+2023-02-17 09:11:27.5219||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:27.5219||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:27.9807||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:27.9807||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:32.5311||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:32.5311||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:32.9896||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:32.9906||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:37.5445||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:37.5445||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:38.0013||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:38.0013||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:42.5602||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:42.5602||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:43.0136||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:43.0136||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:47.5758||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:47.5758||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:48.0207||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:48.0207||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:51.7402||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:11:51.7407||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:11:52.2572||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:11:52.2572||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:11:52.5897||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:52.5897||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:53.0295||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:53.0295||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:57.6029||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:57.6029||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:11:58.0312||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:11:58.0312||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:02.6096||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:02.6096||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:03.0411||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:03.0411||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:07.6164||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:07.6164||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:08.0436||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:08.0436||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:09.7040||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-02-17T02:10:08.0827955Z;NextExecution:2023-02-17T02:12:00.0000000Z;LastJobId:11092), Changes: (LastExecution:2023-02-17T02:12:09.6973715Z;NextExecution:2023-02-17T02:14:00.0000000Z;LastJobId:11094), NextExecution: (2/17/2023 2:14:00 AM) |url: |action: 
+2023-02-17 09:12:09.7147||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-17T02:04:21.4370544Z;V:2;LastExecution:2023-02-17T02:11:08.7900541Z;NextExecution:2023-02-17T02:12:00.0000000Z;LastJobId:11093;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time), Changes: (LastExecution:2023-02-17T02:12:09.7097382Z;NextExecution:2023-02-17T02:13:00.0000000Z;LastJobId:11095), NextExecution: (2/17/2023 2:13:00 AM) |url: |action: 
+2023-02-17 09:12:09.7147||DEBUG|Hangfire.Server.RecurringJobScheduler|2 recurring job(s) processed by scheduler. |url: |action: 
+2023-02-17 09:12:12.6465||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:12.6465||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:13.0852||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:13.0852||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:17.6527||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:17.6527||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:18.0955||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:18.0955||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:21.7770||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:12:21.7770||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:12:22.2859||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:12:22.2859||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:12:22.6652||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:22.6652||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:23.1058||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:23.1058||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:27.6791||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:27.6791||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:28.1189||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:28.1189||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:32.6956||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:32.6956||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:33.1351||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:33.1351||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:37.7086||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:37.7094||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:38.1513||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:38.1513||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:42.7167||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:42.7167||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:43.1617||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:43.1626||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:47.7254||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:47.7254||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:48.1641||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:48.1641||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:51.7861||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:12:51.7861||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:12:52.2924||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:12:52.2924||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:12:52.7321||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:52.7321||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:53.1686||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:53.1686||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:57.7389||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:57.7416||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:12:58.1828||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:12:58.1828||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:02.7645||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:02.7645||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:03.1913||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:03.1913||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:07.7711||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:07.7725||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:08.1940||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:08.1940||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:09.8143||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-17T02:04:21.4370544Z;V:2;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-02-17T02:12:09.7097382Z;NextExecution:2023-02-17T02:13:00.0000000Z;LastJobId:11095), Changes: (LastExecution:2023-02-17T02:13:09.8048046Z;NextExecution:2023-02-17T02:14:00.0000000Z;LastJobId:11096), NextExecution: (2/17/2023 2:14:00 AM) |url: |action: 
+2023-02-17 09:13:09.8211||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. |url: |action: 
+2023-02-17 09:13:12.7857||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:12.7857||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:13.2195||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:13.2195||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:17.8092||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:17.8092||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:18.2380||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:18.2380||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:21.8057||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:13:21.8057||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:13:22.3104||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:13:22.3104||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:13:22.8177||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:22.8191||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:23.2465||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:23.2465||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:27.8241||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:27.8241||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:28.2628||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:28.2628||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:32.8360||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:32.8360||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:33.2649||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:33.2649||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:37.8467||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:37.8467||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:38.2715||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:38.2724||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:42.8623||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:42.8623||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:43.2752||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:43.2752||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:47.8739||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:47.8739||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:48.2888||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:48.2888||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:51.8118||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 heartbeat successfully sent |url: |action: 
+2023-02-17 09:13:51.8118||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:143834d9 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:13:52.3767||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 heartbeat successfully sent |url: |action: 
+2023-02-17 09:13:52.3767||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:9868:8b5d2e65 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-02-17 09:13:52.8805||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:52.8816||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:53.3004||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:53.3004||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:57.8837||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:57.8837||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:13:58.3056||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:13:58.3056||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:14:02.8866||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:14:02.8866||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:14:03.3093||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:14:03.3093||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:14:07.9039||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:14:07.9227||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:14:08.3258||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:14:08.3258||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:14:10.0417||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-02-17T02:12:09.6973715Z;NextExecution:2023-02-17T02:14:00.0000000Z;LastJobId:11094), Changes: (LastExecution:2023-02-17T02:14:10.0304776Z;NextExecution:2023-02-17T02:16:00.0000000Z;LastJobId:11097), NextExecution: (2/17/2023 2:16:00 AM) |url: |action: 
+2023-02-17 09:14:10.0417||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-17T02:04:21.4370544Z;V:2;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-02-17T02:13:09.8048046Z;NextExecution:2023-02-17T02:14:00.0000000Z;LastJobId:11096), Changes: (LastExecution:2023-02-17T02:14:10.0479238Z;NextExecution:2023-02-17T02:15:00.0000000Z;LastJobId:11098), NextExecution: (2/17/2023 2:15:00 AM) |url: |action: 
+2023-02-17 09:14:10.0674||DEBUG|Hangfire.Server.RecurringJobScheduler|2 recurring job(s) processed by scheduler. |url: |action: 
+2023-02-17 09:14:12.9353||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:14:12.9353||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-02-17 09:14:13.3374||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-02-17 09:14:13.3374||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 

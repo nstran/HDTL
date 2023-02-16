@@ -55,6 +55,19 @@ namespace TN.TNM.Api.Controllers
             return response;
         }
 
+        [Route("api/loginWithDeviceId")]
+        [HttpPost]
+        [AllowAnonymous]
+        public LoginResult GetAuthTokenWithDeviceId([FromBody] LoginParameter request)
+        {
+            var response = this.AuthDataAccess.LoginWithDeviceId(request,
+                this.Configuration["secret-key-name"],
+                this.Configuration["token-valid-issuer"],
+                this.Configuration["token-valid-audience"]);
+
+            return response;
+        }
+
         /// <summary>
         /// Get Menu by module code
         /// </summary>

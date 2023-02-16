@@ -146,6 +146,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     context.User.Update(user);
                     context.SaveChanges();
                 }
+                
                 // check login bằng account vendor
                 var externalUser = context.ExternalUser.FirstOrDefault(u =>
                  u.UserName == paramater.User.UserName && u.Password == paramater.User.Password);
@@ -379,6 +380,308 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     LoginTime = new DateTime(),
                     PositionId = positionId
                 };
+
+                //if(contactEntityModel.ObjectType == "CUS")
+                //{
+                //    return new LoginResult
+                //    {
+                //        StatusCode = HttpStatusCode.ExpectationFailed,
+                //        MessageCode = "Bạn không có quyền truy cập!"
+                //    };
+                //}
+
+                return new LoginResult
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    RoleId = roleId,
+                    CurrentUser = currentUser,
+                    UserFullName = userFullName,
+                    UserAvatar = userAvatar,
+                    UserEmail = userEmail,
+                    IsManager = isManager,
+                    PermissionList = perCodeList,
+                    PositionId = positionId,
+                    ListPermissionResource = listTextActionResource,
+                    IsAdmin = isAdmin,
+                    SystemParameterList = systemParameterList,
+                    IsOrder = isOrder,
+                    IsCashier = isCashier,
+                    ListMenuBuild = ListMenuBuild,
+                    EmployeeCode = employeeCode,
+                    EmployeeName = employeeName,
+                    EmployeeCodeName = employeeCodeName,
+                    ContactEntityModel = contactEntityModel
+                };
+            }
+            catch (Exception e)
+            {
+                return new LoginResult
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    MessageCode = e.Message
+                };
+            }
+        }
+
+        public LoginResult LoginWithDeviceId(LoginParameter paramater, string secretKey, string issuer, string audience)
+        {
+            try
+            {
+                User user = new User();
+                paramater.User.Password = AuthUtil.GetHashingPassword(paramater.User.Password);
+                user = context.User.FirstOrDefault(u =>
+                    u.UserName == paramater.User.UserName && u.Password == paramater.User.Password);
+
+                //Cập nhật deviceId của người dùng nếu có
+                if (paramater.User.DeviceId != null && user != null)
+                {
+                    user.DeviceId = paramater.User.DeviceId.Trim();
+                    context.User.Update(user);
+                    context.SaveChanges();
+                }
+
+                // check login bằng account vendor
+                var externalUser = context.ExternalUser.FirstOrDefault(u =>
+                 u.UserName == paramater.User.UserName && u.Password == paramater.User.Password);
+
+                if (externalUser != null)
+                {
+                    user = new User()
+                    {
+                        Active = externalUser.Active,
+                        CreatedById = externalUser.CreatedById,
+                        CreatedDate = externalUser.CreatedDate,
+                        Disabled = externalUser.Disabled,
+                        //Employee = context.Employee.FirstOrDefault(x => x.EmployeeId == externalUser.EmployeeId),
+                        EmployeeId = externalUser.EmployeeId,
+                        GroupUser = null,
+                        IsAdmin = false,
+                        Password = externalUser.Password,
+                        PermissionMapping = null,
+                        ResetCode = null,
+                        ResetCodeDate = null,
+                        TenantId = externalUser.TenantId,
+                        UpdatedById = externalUser.UpdatedById,
+                        UpdatedDate = externalUser.UpdatedDate,
+                        UserId = externalUser.ExternalUserId,
+                        UserName = externalUser.UserName
+                    };
+                }
+
+                if (user == null)
+                {
+                    LogHelper.LoginAuditTrace(context, paramater.User.UserName, 0);
+
+                    return new LoginResult()
+                    {
+                        StatusCode = HttpStatusCode.ExpectationFailed,
+                        MessageCode = CommonMessage.Login.WRONG_USER_PASSWORD
+                    };
+                }
+                var token = new JwtTokenBuilder()
+                                    .AddSecurityKey(JwtSecurityKey.Create(secretKey))
+                                    .AddSubject(user.UserName)
+                                    .AddIssuer(issuer)
+                                    .AddAudience(audience)
+                                    .AddClaim("MembershipId", user.UserId.ToString())
+                                    .AddExpiry(60 * 24 * 365)
+                                    .Build();
+                LogHelper.LoginAuditTrace(context, paramater.User.UserName, 1);
+
+                if (user.Active == false)
+                {
+                    var currentUserFail = new AuthEntityModel
+                    {
+                        UserId = user.UserId,
+                        UserName = user.UserName,
+                        EmployeeId = user.EmployeeId.Value,
+                        Token = token.Value,
+                        LoginTime = new DateTime(),
+                    };
+                    return new LoginResult()
+                    {
+                        StatusCode = HttpStatusCode.ExpectationFailed,
+                        MessageCode = CommonMessage.Login.INACTIVE_USER,
+                        CurrentUser = currentUserFail
+                    };
+                }
+
+                bool isAdmin = user.IsAdmin == null ? false : user.IsAdmin.Value;
+                var empId = user.EmployeeId;
+                string userFullName = externalUser != null ? externalUser.UserName : "";
+                string userAvatar = "";
+                string userEmail = "";
+                bool isManager = false;
+                bool isOrder = false;
+                bool isCashier = false;
+                Guid? positionId = Guid.Empty;
+                List<string> perCodeList = new List<string>();
+                List<SystemParameter> systemParameterList = new List<SystemParameter>();
+                List<string> listTextActionResource = new List<string>();
+                var ListMenuBuild = new List<MenuBuildEntityModel>();
+                string employeeCode = "";
+                string employeeName = "";
+                string employeeCodeName = "";
+                Guid? roleId = Guid.Empty;
+
+                var emp = context.Employee.FirstOrDefault(e => e.EmployeeId == empId);
+                //Nếu là nhân viên
+                if (emp != null)
+                {
+                    employeeCode = emp?.EmployeeCode;
+                    employeeName = emp?.EmployeeName;
+                    employeeCodeName = employeeCode + " - " + employeeName;
+                    userFullName = emp?.EmployeeName;
+                    userAvatar = context.Contact.FirstOrDefault(c => c.ObjectId == empId && c.ObjectType == "EMP")?
+                        .AvatarUrl;
+                    userEmail = context.Contact.FirstOrDefault(c => c.ObjectId == empId && c.ObjectType == "EMP")?.Email;
+                    var manager = context.Employee.FirstOrDefault(e => e.EmployeeId == empId);
+                    if (manager != null)
+                    {
+                        isManager = manager.IsManager;
+                        positionId = manager.PositionId;
+                        isOrder = manager.IsOrder ?? false;
+                        isCashier = manager.IsCashier ?? false;
+                    }
+
+                    if (user != null)
+                    {
+                        var permissionSetOfUser = context.PermissionMapping.FirstOrDefault(pm => pm.UserId == user.UserId);
+                        if (permissionSetOfUser != null)
+                        {
+                            var permissionSetOfUserId = permissionSetOfUser.PermissionSetId;
+                            var permissionIdList = context.PermissionSet
+                                .FirstOrDefault(ps => ps.PermissionSetId == permissionSetOfUserId).PermissionId.Split(";")
+                                .ToList();
+                            permissionIdList.ForEach(perId =>
+                            {
+                                if (!string.IsNullOrEmpty(perId))
+                                {
+                                    var perCode = context.Permission.FirstOrDefault(p => p.PermissionId == Guid.Parse(perId))
+                                        .PermissionCode;
+                                    perCodeList.Add(perCode);
+                                }
+                            });
+                        }
+                    }
+
+                    systemParameterList = context.SystemParameter.ToList();
+
+                    //Lấy list User Role
+                    var listUserRole = context.UserRole.Where(e => e.UserId == user.UserId).ToList();
+                    List<Guid> listRoleId = new List<Guid>();
+                    if (listUserRole.Count > 0)
+                    {
+                        listUserRole.ForEach(item =>
+                        {
+                            listRoleId.Add(item.RoleId.Value);
+                        });
+                    }
+
+                    //Lấy list Action Resource Id
+                    var listActionResource =
+                        context.RoleAndPermission.Where(e => listRoleId.Contains(e.RoleId.Value)).ToList();
+                    List<Guid> listActionResourceId = new List<Guid>();
+                    if (listActionResource.Count > 0)
+                    {
+                        listActionResource.ForEach(item =>
+                        {
+                            listActionResourceId.Add(item.ActionResourceId.Value);
+                        });
+                    }
+
+                    //Lấy list text action resource
+                    listTextActionResource = context.ActionResource
+                        .Where(e => listActionResourceId.Contains(e.ActionResourceId)).Select(x => x.ActionResource1)
+                        .ToList();
+
+                    #region Lấy list MenuBuid
+
+                    ListMenuBuild = context.MenuBuild.Where(x => x.IsShow == true).Select(y => new MenuBuildEntityModel
+                    {
+                        MenuBuildId = y.MenuBuildId,
+                        ParentId = y.ParentId,
+                        Name = y.Name,
+                        Code = y.Code,
+                        CodeParent = y.CodeParent,
+                        Path = y.Path,
+                        NameIcon = y.NameIcon,
+                        Level = y.Level,
+                        IndexOrder = y.IndexOrder,
+                        IsPageDetail = y.IsPageDetail
+                    }).OrderBy(z => z.IndexOrder).ToList();
+
+                    //Lấy list đường dẫn mặc định gắn với nhóm quyền
+                    //Nếu user được phân duy nhất 1 quyền
+                    if (listRoleId.Count == 1)
+                    {
+                        roleId = listRoleId.FirstOrDefault();
+
+                        var listRoleAndMenuBuild = context.RoleAndMenuBuild.Where(x => x.RoleId == roleId).ToList();
+                        ListMenuBuild.ForEach(item =>
+                        {
+                            //Lấy ra các sub menu module
+                            if (item.Level == 1)
+                            {
+                                var existsDefaultPath = listRoleAndMenuBuild.FirstOrDefault(x => x.Code == item.Code);
+
+                                //Nếu tồn tại đường dẫn mặc định đã được cấu hình
+                                if (existsDefaultPath != null)
+                                {
+                                    item.Path = existsDefaultPath.Path;
+                                }
+                            }
+                        });
+                    }
+
+                    #endregion
+
+                }
+                //Nếu là KH
+                else
+                {
+                    var cus = context.Customer.FirstOrDefault(e => e.CustomerId == empId);
+                    employeeCode = cus?.CustomerCode;
+                    employeeName = cus?.CustomerName;
+                    employeeCodeName = employeeCode + " - " + employeeName;
+                    userFullName = cus?.CustomerName;
+                    var contact = context.Contact.FirstOrDefault(c => c.ObjectId == empId && c.ObjectType == "CUS");
+                    userAvatar = contact?.AvatarUrl;
+                    userEmail = contact?.Email;
+                }
+                var contactEntityModel = context.Contact
+                              .Where(x => x.ObjectId == empId)
+                              .Select(x => new ContactEntityModel
+                              {
+                                  Address = x.Address,
+                                  Phone = x.Phone,
+                                  Email = x.Email,
+                                  LastName = x.LastName,
+                                  FirstName = x.FirstName,
+                                  Gender = x.Gender,
+                                  DateOfBirth = x.DateOfBirth,
+                                  ObjectType = x.ObjectType,
+                                  ProvinceId = x.ProvinceId,
+                              }).FirstOrDefault();
+
+                var currentUser = new AuthEntityModel
+                {
+                    UserId = user.UserId,
+                    UserName = user.UserName,
+                    EmployeeId = user.EmployeeId.Value,
+                    Token = token.Value,
+                    LoginTime = new DateTime(),
+                    PositionId = positionId
+                };
+
+                if (contactEntityModel.ObjectType == "CUS")
+                {
+                    return new LoginResult
+                    {
+                        StatusCode = HttpStatusCode.ExpectationFailed,
+                        MessageCode = "Bạn không có quyền truy cập!"
+                    };
+                }
 
                 return new LoginResult
                 {
@@ -709,17 +1012,26 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     return new ChangePasswordResult
                     {
                         StatusCode = HttpStatusCode.ExpectationFailed,
-                        MessageCode = "Mật khâu không khớp"
+                        Message = "Mật khâu không khớp"
                     };
                 }
 
                 var user = context.User.FirstOrDefault(u => u.UserName == parameter.UserName);
+                if (user == null)
+                {
+                    return new ChangePasswordResult
+                    {
+                        StatusCode = HttpStatusCode.ExpectationFailed,
+                        Message = "Không tồn tại tên đăng nhập"
+                    };
+                }
+
                 if (user.MaXacThuc.ToString() != parameter.Code.Trim())
                 {
                     return new ChangePasswordResult
                     {
                         StatusCode = HttpStatusCode.ExpectationFailed,
-                        MessageCode = "Sai mã xác thực"
+                        Message = "Sai mã xác thực"
                     };
                 }
                 user.Password = AuthUtil.GetHashingPassword(parameter.NewPassword);
@@ -730,7 +1042,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 return new ChangePasswordResult
                 {
                     StatusCode = HttpStatusCode.OK,
-                    MessageCode = "Đổi mật khẩu thành công"
+                    Message = "Đổi mật khẩu thành công"
                 };
             }
             catch (Exception e)
@@ -738,7 +1050,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 return new ChangePasswordResult
                 {
                     StatusCode = HttpStatusCode.ExpectationFailed,
-                    MessageCode = "Đổi mật khẩu thất bại"
+                    Message = "Đổi mật khẩu thất bại"
                 };
             }
         }

@@ -1,15 +1,11 @@
-
-import {map} from 'rxjs/operators';
-import { Pipe, Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { ForgotPassModel } from '../../../models/forgotPass.model';
-
-
+import { ChangePasswordResult, ForgotPassModel } from '../../../models/forgotPass.model';
 import { Observable } from 'rxjs';
 
 @Injectable()
 export class ForgotPassCheckService {
-
   constructor(private httpClient: HttpClient) { }
 
   check_user(user_name: ForgotPassModel) {
@@ -23,10 +19,18 @@ export class ForgotPassCheckService {
 
   send_email(user_info: ForgotPassModel) {
     let url = localStorage.getItem('ApiEndPoint') + '/api/email/sendEmailForgotPass';
-    return this.httpClient.post(url, user_info).pipe(
+    return this.httpClient.post(url, { EmailAddress: user_info.EmailAddress } ).pipe(
       map((response: Response) => {
         let result = <any>response;
         return result;
       }))
+  }
+
+  changePasswordForgot(code: string, userName: string, newPassword: string, confirmPassword: string): Observable<ChangePasswordResult> {
+    let url = localStorage.getItem('ApiEndPoint') + '/api/auth/changePasswordForgot';
+    return this.httpClient.post(url, { Code: code, UserName: userName, NewPassword: newPassword, confirmPassword: confirmPassword } ).pipe(
+      map((response: ChangePasswordResult) => {
+        return <ChangePasswordResult>response;
+      }));
   }
 }

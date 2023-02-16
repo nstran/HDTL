@@ -10,6 +10,7 @@ namespace TN.TNM.DataAccess.Interfaces
     public interface IAuthDataAccess
     {
         LoginResult Login(LoginParameter paramater, string secretKey, string issuer, string audience);
+        LoginResult LoginWithDeviceId(LoginParameter paramater, string secretKey, string issuer, string audience);
         GetMenuByModuleCodeResult GetMenuByModuleCode(GetMenuByModuleCodeParameter parameter);
         GetUserPermissionResult GetUserPermission(GetUserPermissionParameter parameter);
         CreatePermissionResult CreatePermission(CreatePermissionParameter parameter);

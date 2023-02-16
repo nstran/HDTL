@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injector, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { ForgotPassModel } from '../../models/forgotPass.model';
+import { ChangePasswordModel, ForgotPassModel } from '../../models/forgotPass.model';
 import { ForgotPassCheckService } from './services/forgot-pass-check.service';
+import { tap } from 'rxjs/operators';
+import { AbstractBase } from '../../../shared/abstract-base.component';
 
 @Component({
   selector: 'app-forgot-pass-check',
   templateUrl: './forgot-pass-check.component.html',
   styleUrls: ['./forgot-pass-check.component.css']
 })
-export class ForgotPassCheckComponent implements OnInit {
+export class ForgotPassCheckComponent extends AbstractBase implements OnInit {
   model: ForgotPassModel = {
     UserId: '',
     UserName: '',
@@ -25,16 +27,18 @@ export class ForgotPassCheckComponent implements OnInit {
   capcharLogo: string;
   capcharInput: string = '';
   capcharCheck: string = '';
-
   isCheckCaptcha: boolean = false;
   validateCaptcha: boolean = false;
+  changePasswordModel = new ChangePasswordModel();
 
   constructor(
+    injector : Injector,
     private route: ActivatedRoute,
     private router: Router,
     private translate: TranslateService,
     private forgotPassCheckService: ForgotPassCheckService
   ) {
+    super(injector);
     translate.setDefaultLang('vi');
   }
 
@@ -63,42 +67,6 @@ export class ForgotPassCheckComponent implements OnInit {
 
   }
 
-  check_user() {
-    if (this.capcharInput !== this.capcharLogo) {
-      this.validateCaptcha = true;
-      // this.capcharInput = '';
-      this.capcharText();
-      return;
-    }
-    this.loading = true;
-    this.forgotPassCheckService.check_user(this.model)
-      .subscribe(res => {
-        let result = <any>res;
-        if (result && (result.statusCode === 202 || result.statusCode === 200)) {
-          this.model.UserId = result.userId;
-          this.model.FullName = result.fullName;
-          this.model.EmailAddress = result.emailAddress;
-          this.send()
-            .then((result) => {
-              this.loading = false;
-              this.success = true;
-            })
-            .catch((error) => {
-              this.loading = false;
-              this.state = -1;
-              this.forgotPassMessageCode = error.messageCode;
-            })
-        } else {
-          this.loading = false;
-          this.state = -1;
-          this.forgotPassMessageCode = result.messageCode;
-        }
-      },
-        error => {
-          this.loading = false;
-        });
-  }
-
   re_send() {
     this.loading = true;
     this.send()
@@ -125,9 +93,12 @@ export class ForgotPassCheckComponent implements OnInit {
           let result = <any>res;
           if (result && result.statusCode === 200) {
             resolve(result);
+            this.changePasswordModel.userName = result.userName;
+            this.success = true;
           }
           else {
             reject(result);
+            this.success = false;
           }
         })
     })
@@ -139,6 +110,23 @@ export class ForgotPassCheckComponent implements OnInit {
 
   redirectLogin() {
     this.router.navigate(['login']);
+  }
+
+  changePassword(): void {
+    this.loading = true;
+    this.forgotPassCheckService.changePasswordForgot(this.changePasswordModel.code, this.changePasswordModel.userName, this.changePasswordModel.newPassword, this.changePasswordModel.confirmPassword)
+    .pipe(tap(() => {this.loading = false;}))
+    .subscribe(result => {
+      if (result && result.statusCode === 200) {
+        let mgs = { severity: 'success', summary: 'Thông báo', detail: result.message };
+        this.showMessage(mgs);
+        this.router.navigate(['login']);
+      }
+      else {
+        let mgs = { severity: 'error', summary: 'Thông báo', detail: result.message };
+        this.showMessage(mgs);
+      }
+    })
   }
 
 }
