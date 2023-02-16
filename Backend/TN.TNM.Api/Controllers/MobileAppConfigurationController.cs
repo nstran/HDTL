@@ -42,7 +42,7 @@ namespace TN.TNM.Api.Controllers
 
         [HttpPost]
         [Route("api/MobileAppConfiguration/takeMobileAppConfigurationIntro")]
-        [Authorize(Policy = "Member")]
+        [AllowAnonymous]
         public TakeMobileAppConfigurationResult TakeMobileAppConfigurationIntro(TakeMobileAppConfigurationParameter request)
         {
             return this.iMobileAppConfigurationDataAccess.TakeMobileAppConfigurationIntro(request);
@@ -50,7 +50,7 @@ namespace TN.TNM.Api.Controllers
 
         [HttpPost]
         [Route("api/MobileAppConfiguration/takeMobileAppConfigurationLoginScreen")]
-        [Authorize(Policy = "Member")]
+        [AllowAnonymous]
         public TakeMobileAppConfigurationResult TakeMobileAppConfigurationLoginScreen(TakeMobileAppConfigurationParameter request)
         {
             return this.iMobileAppConfigurationDataAccess.TakeMobileAppConfigurationLoginScreen(request);
@@ -58,7 +58,7 @@ namespace TN.TNM.Api.Controllers
 
         [HttpPost]
         [Route("api/MobileAppConfiguration/takeMobileAppConfigurationLoginAndRegister")]
-        [Authorize(Policy = "Member")]
+        [AllowAnonymous]
         public TakeMobileAppConfigurationResult TakeMobileAppConfigurationLoginAndRegister(TakeMobileAppConfigurationParameter request)
         {
             return this.iMobileAppConfigurationDataAccess.TakeMobileAppConfigurationLoginAndRegister(request);
