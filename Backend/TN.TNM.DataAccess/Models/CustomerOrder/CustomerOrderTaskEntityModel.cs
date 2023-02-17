@@ -28,6 +28,6 @@ namespace TN.TNM.DataAccess.Models.CustomerOrder
         public Guid UpdatedById { get; set; }
         public DateTime UpdatedDate { get; set; }
         public Guid TenantId { get; set; }
-        public bool? IsPersonInCharge { get; set; }
+        public bool IsPersonInCharge { get; set; }
     }
 }

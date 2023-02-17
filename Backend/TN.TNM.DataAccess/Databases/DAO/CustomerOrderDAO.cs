@@ -11087,7 +11087,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     ObjectId = x.ObjectId,
                     IsOrderAction = x.IsOrderAction,
                     StatusOrderName = listStatusOrderAction.FirstOrDefault(y => y.Value == x.StatusOrder).Name
-                }).First();
+                }).FirstOrDefault();
 
                 if (customerOrderAction == null)
                 {
@@ -11182,20 +11182,26 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 }).ToList();
 
                 //Lấy các list task và emp của phiếu hỗ trợ
-                var listCustomerOrderTask = context.CustomerOrderTask.Where(x => x.OrderActionId == parameter.OrderActionId).Select(x => new CustomerOrderTaskEntityModel
+                 var listCustomerOrderTask = context.CustomerOrderTask
+                    .Where(x => x.OrderActionId == parameter.OrderActionId)
+                    .Select(x => new CustomerOrderTaskEntityModel
+                    {
+                        Id = x.Id,
+                        ServicePacketMappingOptionsId = x.ServicePacketMappingOptionsId,
+                        VendorId = x.VendorId,
+                        EmpId = x.EmpId,
+                        Note = x.Note,
+                        isExtend = x.IsExtend,
+                        Path = x.Path,
+                        OrderActionId = x.OrderActionId,
+                        CreatedDate = x.CreatedDate,
+                        Stt = x.Stt,
+                    }).OrderBy(x => x.Stt).ToList();
+
+                foreach (var item in listCustomerOrderTask)
                 {
-                    Id = x.Id,
-                    ServicePacketMappingOptionsId = x.ServicePacketMappingOptionsId,
-                    VendorId = x.VendorId,
-                    EmpId = x.EmpId,
-                    Note = x.Note,
-                    isExtend = x.IsExtend,
-                    Path = x.Path,
-                    OrderActionId = x.OrderActionId,
-                    CreatedDate = x.CreatedDate,
-                    Stt = x.Stt,
-                    IsPersonInCharge = empLogin != null ? (x.EmpId == empLogin.EmployeeId ? true : false) : false,
-                }).OrderBy(x => x.Stt).ToList();
+                    item.IsPersonInCharge = ((empLogin == null) ? false : (item.EmpId == empLogin.EmployeeId ? true : false));
+                }
 
                 //Nhân viên
                 var listOrderTaskId = listCustomerOrderTask.Select(x => x.Id).ToList();
@@ -11273,8 +11279,12 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     Content = x.Content,
                     Status = x.Status,
                     StatusName = listStatuReport.FirstOrDefault(y => y.Value == x.Status).Name,
-                    IsReporter = empLogin != null ? (x.EmpId == empLogin.EmployeeId ? true : false) : false
                 }).OrderBy(x => x.Order).ToList();
+
+                foreach (var item in listReportPoint)
+                {
+                    item.IsReporter = ((empLogin == null) ? false : (item.EmpId == empLogin.EmployeeId ? true : false));
+                }
 
                 return new GetMasterDataOrderActionDetailResult()
                 {
