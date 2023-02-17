@@ -11119,25 +11119,26 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 //Bước tạo phiếu hỗ trợ
                 var createStep = listAllStepPack.FirstOrDefault(x => x.CategoryId == createOrderActionStepId);
                 var listEmpIdCreateId = listAllEmpPermissionConfigure.Where(x => x.PermissionConfigurationId == createStep.Id).Select(x => x.EmployeeId).ToList();
-                if (listEmpIdCreateId.Contains(empLogin.EmployeeId))
-                {
-                    customerOrderAction.IsCreateAction = true;
+                if(empLogin != null) {
+                    if (listEmpIdCreateId.Contains(empLogin.EmployeeId))
+                    {
+                        customerOrderAction.IsCreateAction = true;
+                    }
+                    //Bước thực hiện báo cáo
+                    var confirmStep = listAllStepPack.FirstOrDefault(x => x.CategoryId == reportStepId);
+                    var listEmpIdConfirm = listAllEmpPermissionConfigure.Where(x => x.PermissionConfigurationId == confirmStep.Id).Select(x => x.EmployeeId).ToList();
+                    if (listEmpIdConfirm.Contains(empLogin.EmployeeId))
+                    {
+                        customerOrderAction.IsReport = true;
+                    }
+                    //Bước thực xác nhận hoàn thành hỗ trợ
+                    var doneStep = listAllStepPack.FirstOrDefault(x => x.CategoryId == doneOrderActionStepId);
+                    var listEmpIdDone = listAllEmpPermissionConfigure.Where(x => x.PermissionConfigurationId == doneStep.Id).Select(x => x.EmployeeId).ToList();
+                    if (listEmpIdDone.Contains(empLogin.EmployeeId))
+                    {
+                        customerOrderAction.IsComplete = true;
+                    }
                 }
-                //Bước thực hiện báo cáo
-                var confirmStep = listAllStepPack.FirstOrDefault(x => x.CategoryId == reportStepId);
-                var listEmpIdConfirm = listAllEmpPermissionConfigure.Where(x => x.PermissionConfigurationId == confirmStep.Id).Select(x => x.EmployeeId).ToList();
-                if (listEmpIdConfirm.Contains(empLogin.EmployeeId))
-                {
-                    customerOrderAction.IsReport = true;
-                }
-                //Bước thực xác nhận hoàn thành hỗ trợ
-                var doneStep = listAllStepPack.FirstOrDefault(x => x.CategoryId == doneOrderActionStepId);
-                var listEmpIdDone = listAllEmpPermissionConfigure.Where(x => x.PermissionConfigurationId == doneStep.Id).Select(x => x.EmployeeId).ToList();
-                if (listEmpIdDone.Contains(empLogin.EmployeeId))
-                {
-                    customerOrderAction.IsComplete = true;
-                }
-
                 //Kiểm tra xem đã đến bước thực hiện hỗ trợ chưa ( phiếu yêu cầu không phải là phiếu bổ sung)
                 var isActionStep = false;
                 var isConfirmStep = false;
@@ -11193,7 +11194,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     OrderActionId = x.OrderActionId,
                     CreatedDate = x.CreatedDate,
                     Stt = x.Stt,
-                    IsPersonInCharge = x.EmpId == empLogin.EmployeeId ? true : false,
+                    IsPersonInCharge = empLogin != null ? (x.EmpId == empLogin.EmployeeId ? true : false) : false,
                 }).OrderBy(x => x.Stt).ToList();
 
                 //Nhân viên
@@ -11272,7 +11273,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     Content = x.Content,
                     Status = x.Status,
                     StatusName = listStatuReport.FirstOrDefault(y => y.Value == x.Status).Name,
-                    IsReporter = x.EmpId == empLogin.EmployeeId ? true : false
+                    IsReporter = empLogin != null ? (x.EmpId == empLogin.EmployeeId ? true : false) : false
                 }).OrderBy(x => x.Order).ToList();
 
                 return new GetMasterDataOrderActionDetailResult()
