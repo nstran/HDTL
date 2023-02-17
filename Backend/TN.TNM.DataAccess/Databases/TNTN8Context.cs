@@ -5290,6 +5290,10 @@ namespace TN.TNM.DataAccess.Databases
 
                 entity.Property(e => e.Code).HasColumnType("character varying(50)");
 
+                entity.Property(e => e.Active)
+                    .IsRequired()
+                    .HasDefaultValueSql("true");
+
                 entity.HasQueryFilter(e => e.TenantId == _tenantId);
             });
 

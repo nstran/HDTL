@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TN.TNM.DataAccess.Messages.Parameters.Admin.Product
 {
-    public class GetListServicePacketParameter : BaseParameter
+    public class GetListServicePacketParameter
     {
         public string FilterText { get; set; }
     }

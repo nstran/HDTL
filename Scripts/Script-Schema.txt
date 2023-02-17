@@ -400,3 +400,5 @@ CREATE TABLE IF NOT EXISTS public."AdvertisementConfiguration"
     "TenantId" uuid,
     CONSTRAINT "Id_pkey" PRIMARY KEY ("Id")
 );
+
+ALTER TABLE public."ServicePacket" ADD COLUMN IF NOT EXISTS "Active" bool default true;

@@ -83,6 +83,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   listEmpWithRole: EmployeeEntityModel[];
   listNotificationConfigurationModel: NotificationConfigurationEntityModel[] = [];
   notificationConfigurationEntityModel = new NotificationConfigurationEntityModel();
+  isShowButtonActive: boolean = false;
 
   //Cấu hình phê duyệt
   cauHinhQuyTrinh = new CauHinhQuyTrinh();
@@ -128,8 +129,13 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
    async ngOnInit() {
     this.setTable();
 
-     let resource = "sal/product/product-packet-createOrUpdate";
+    let resource = "sal/product/product-packet-createOrUpdate";
     let permission: any = await this.getPermission.getPermission(resource);
+
+    if(permission.listCurrentActionResource.includes("action")){
+      this.isShowButtonActive = true;
+    }
+
     if (permission.status == false) {
       this.router.navigate(['/home']);
     }

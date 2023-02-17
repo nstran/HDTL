@@ -2780,7 +2780,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                    Icon = si.Icon,
                                                    BackgroundImage = si.BackgroundImage,
                                                    MainImage = si.MainImage,
-                                                   Stt = s.Stt
+                                                   Stt = s.Stt,
+                                                   Active = s.Active
                                                }).OrderBy(x => x.Stt).ToListAsync();
                 }
                 else
@@ -2804,7 +2805,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                    Icon = si.Icon,
                                                    BackgroundImage = si.BackgroundImage,
                                                    MainImage = si.MainImage,
-                                                   Stt = s.Stt
+                                                   Stt = s.Stt,
+                                                   Active = s.Active
                                                }).OrderBy(x => x.Stt).ToListAsync();
                 }
                 var listAllServiceMappingOptions = context.ServicePacketMappingOptions.ToList();
@@ -3009,6 +3011,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                         ListNotificationConfigurationEntityModel = listNotificationConfigurationModel,
                                         ProvinceId = s.ProvinceId,
                                         Stt = s.Stt,
+                                        Active = s.Active
                                     }).FirstOrDefaultAsync();
 
                 //Lấy cấu hình phê duyệt

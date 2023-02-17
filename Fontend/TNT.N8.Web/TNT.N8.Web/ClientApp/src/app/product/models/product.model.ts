@@ -472,6 +472,7 @@ export class ServicePacketEntityModel {
   provinceName: string;
   stt: number;
   code: string;
+  active: boolean;
   listPermissionConfigurationEntityModel : PermissionConfigurationEntityModel[];
   listRoleServicePacket : RoleEntityModel[];
   listServicePacketAttributeEntityModel : ServicePacketAttributeEntityModel[];

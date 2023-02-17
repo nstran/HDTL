@@ -591,3 +591,10 @@ where "CategoryTypeId" not in(
 
 INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
 VALUES ('cca041dd-a79d-4adf-95ce-4632626f8c2e', 'Đơn vị tính', 'CategoryUnit', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'6154e00e-cc15-4838-9a30-7045ba698b5f', 
+	'sal/product/product-packet-createOrUpdate/action'
+) ON CONFLICT DO NOTHING;

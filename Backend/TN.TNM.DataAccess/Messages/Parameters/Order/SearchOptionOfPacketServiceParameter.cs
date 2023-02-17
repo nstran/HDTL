@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TN.TNM.DataAccess.Messages.Parameters.Order
 {
-    public class SearchOptionOfPacketServiceParameter: BaseParameter
+    public class SearchOptionOfPacketServiceParameter
     {
         public Guid PacketServiceId { get; set; }
     }

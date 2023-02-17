@@ -381,6 +381,15 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     PositionId = positionId
                 };
 
+                if (contactEntityModel.ObjectType == "CUS")
+                {
+                    return new LoginResult
+                    {
+                        StatusCode = HttpStatusCode.ExpectationFailed,
+                        MessageCode = "Bạn không có quyền truy cập!"
+                    };
+                }
+
                 return new LoginResult
                 {
                     StatusCode = HttpStatusCode.OK,
@@ -664,15 +673,6 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     LoginTime = new DateTime(),
                     PositionId = positionId
                 };
-
-                if (contactEntityModel.ObjectType == "CUS")
-                {
-                    return new LoginResult
-                    {
-                        StatusCode = HttpStatusCode.ExpectationFailed,
-                        MessageCode = "Bạn không có quyền truy cập!"
-                    };
-                }
 
                 return new LoginResult
                 {
@@ -2373,6 +2373,11 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     Key = "complete",
                     Name = "Hoàn thành"
+                },
+                 new PermissionTempModel()
+                {
+                    Key = "action",
+                    Name = "Kích hoạt"
                 },
             };
         }

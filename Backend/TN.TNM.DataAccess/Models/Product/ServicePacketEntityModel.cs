@@ -10,7 +10,7 @@ namespace TN.TNM.DataAccess.Models.Product
 {
     public class ServicePacketEntityModel
     {
-        public  Guid?  Id { get; set; }
+        public Guid? Id { get; set; }
         public string Name { get; set; }
         public string Code { get; set; }
         public string AttributeName { get; set; }
@@ -31,6 +31,7 @@ namespace TN.TNM.DataAccess.Models.Product
         public string BackgroundImage { get; set; }
         public int? CountOption { get; set; }
         public int? Stt { get; set; }
+        public bool Active { get; set; }
         public List<PermissionConfigurationEntityModel> ListPermissionConfigurationEntityModel { get; set; }
         public List<RoleEntityModel> ListRoleServicePacket { get; set; }
         public List<ServicePacketAttributeEntityModel> ListServicePacketAttributeEntityModel { get; set; }

@@ -426,7 +426,7 @@ namespace TN.TNM.Api.Controllers
 
         [HttpPost]
         [Route("api/order/SearchOptionOfPacketService")]
-        [Authorize(Policy = "Member")]
+        [AllowAnonymous]
         public Task<SearchOptionOfPacketServiceResult> SearchOptionOfPacketService([FromBody] SearchOptionOfPacketServiceParameter request)
         {
             return this._iCustomerOrderDataAccess.SearchOptionOfPacketService(request);

@@ -358,7 +358,7 @@ namespace TN.TNM.Api.Controllers
 
         [HttpPost]
         [Route("api/Product/getListServicePacket")]
-        [Authorize(Policy = "Member")]
+        [AllowAnonymous]
         public Task<GetListServicePacketResult> GetListServicePacket([FromBody] GetListServicePacketParameter request)
         {
             return this.iProductDataAccess.GetListServicePacket(request);

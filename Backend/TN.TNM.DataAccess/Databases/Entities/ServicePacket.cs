@@ -20,5 +20,6 @@ namespace TN.TNM.DataAccess.Databases.Entities
         public Guid? ProvinceId { get; set; }
         public string Code { get; set; }
         public int? Stt { get; set; }
+        public bool Active { get; set; }
     }
 }
