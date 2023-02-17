@@ -12130,7 +12130,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listOptionId = listServiceTree.Select(x => x.OptionId).ToList();
                 var listOption = context.Options.Where(x => listOptionId.Contains(x.Id)).Distinct().ToList();
 
-                var listAllCustomerOrderDetailExten = context.CustomerOrderDetailExten.Where(x => listOrderId.Contains(x.ServicePacketId)).ToList();
+                var listAllCustomerOrderDetailExten = context.CustomerOrderDetailExten.ToList();
 
                 listOrder.ForEach(item =>
                 {
