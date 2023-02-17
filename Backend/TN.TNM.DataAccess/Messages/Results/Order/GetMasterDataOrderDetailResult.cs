@@ -40,6 +40,6 @@ namespace TN.TNM.DataAccess.Messages.Results.Order
         public Guid? QuanLyGoi_UserId { get; set; }
         public Guid? QuanLyGoi_EmpId { get; set; }
         public string QuanLyGoi_Name { get; set; }
-
+        public bool IsShowButtonDelete { get; set; }
     }
 }

@@ -33,7 +33,7 @@
 
                     <!-- Lưu -->
                     <button #save class="save" style="background-color:red"
-                    *ngIf="actionAdd && orderId != null && statusOrder == 1 && (customerOrder == null || customerOrder.isCreate)"
+                    *ngIf="actionAdd && orderId != null && statusOrder == 1 && (customerOrder == null || customerOrder.isCreate) || (isShowButtonDelete && statusOrder == 1)"
                     type="button" [disabled]="awaitResult" (click)="deleteCustomerOrder(null)">
                     <span class="text-save" style="color:white">Xóa</span>
                   </button>

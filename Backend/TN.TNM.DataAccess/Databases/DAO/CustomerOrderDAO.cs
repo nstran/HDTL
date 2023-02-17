@@ -4925,6 +4925,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 }).ToList();
 
                 var customerOrder = listAllCustomerOrder.FirstOrDefault(x => x.OrderId == parameter.OrderId);
+                var listManager = context.ManagerPacketService.Where(x => x.PackId == customerOrder.ServicePacketId).Select(x => x.EmployeeId).ToList();
+                bool isShowButtonDelete = false;
+                var listUserId = context.User.Where(x => listManager.Any(y => y == x.EmployeeId)).Select(x => x.UserId).ToList();
+                if (listUserId.Contains(parameter.UserId))
+                {
+                    isShowButtonDelete = true;
+                }
+
                 if (customerOrder == null)
                 {
                     return new GetMasterDataOrderDetailResult()
@@ -5246,6 +5254,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     IsCurrentStep = isCurrentStep,
                     IsShowXacNhan = isShowXacNhan,
                     IsShowTuChoi = isShowTuChoi,
+                    IsShowButtonDelete = isShowButtonDelete,
                     StatusCode = System.Net.HttpStatusCode.OK,
                     MessageCode = "Success",
                 };
@@ -12353,16 +12362,6 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     {
                         StatusCode = HttpStatusCode.ExpectationFailed,
                         MessageCode = "Phiếu yêu cầu không tồn tại trên hệ thống!"
-                    };
-                }
-
-                //Kiểm tra xem người tạo có phải là người xóa không
-                if(customerOrder.CreatedById != parameter.UserId)
-                {
-                    return new DeleteOrderResult
-                    {
-                        StatusCode = HttpStatusCode.ExpectationFailed,
-                        MessageCode = "Chỉ người tạo mới có quyền được xóa!"
                     };
                 }
 

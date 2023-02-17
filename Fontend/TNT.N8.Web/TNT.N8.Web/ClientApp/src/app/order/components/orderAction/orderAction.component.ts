@@ -435,7 +435,7 @@ export class OrderActionComponent extends AbstractBase implements OnInit {
             let notification: NotificationFireBase = {
               content: "Phiếu " + this.customerOrderInfor.value.orderCode + ": " + result.messageCode,
               status: false,
-              url: '/order/create;OrderId=' + result.customerOrderActionId,
+              url: '/order/orderAction;OrderActionId=' + result.customerOrderActionId,
               orderId: this.orderId,
               date: this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss'),
               employeeId: e

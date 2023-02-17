@@ -381,15 +381,6 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     PositionId = positionId
                 };
 
-                //if(contactEntityModel.ObjectType == "CUS")
-                //{
-                //    return new LoginResult
-                //    {
-                //        StatusCode = HttpStatusCode.ExpectationFailed,
-                //        MessageCode = "Bạn không có quyền truy cập!"
-                //    };
-                //}
-
                 return new LoginResult
                 {
                     StatusCode = HttpStatusCode.OK,

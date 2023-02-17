@@ -148,7 +148,7 @@ export class SettingReportPointDetailComponent extends AbstractBase implements O
             let notification: NotificationFireBase = {
               content: "Phiếu " + this.orderActionCode + ": " + result.messageCode + " - " + this.name,
               status: false,
-              url: '/order/create;OrderId=' + this.orderActionId,
+              url: '/order/orderAction;OrderActionId=' + this.orderActionId,
               orderId: this.orderActionId,
               date: this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss'),
               employeeId: e

@@ -130,7 +130,7 @@ export class OrderProcessComponent extends AbstractBase implements OnInit {
     }
 
     this.route.params.subscribe(params => {
-      this.orderProcessId = params['OrderProcessId'];
+      this.orderProcessId = params['OrderProcessId']; 
     });
 
     this.getMasterData();
@@ -343,7 +343,7 @@ export class OrderProcessComponent extends AbstractBase implements OnInit {
             let notification: NotificationFireBase = {
               content: "Phiếu " + this.processCodeForm.value + ": " + result.messageCode,
               status: false,
-              url: '/order/create;OrderId=' + this.orderProcessId,
+              url: '/order/orderProcess;OrderProcessId=' + this.orderProcessId,
               orderId: this.orderProcessId,
               date: this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss'),
               employeeId: e

@@ -282,6 +282,7 @@ export class CreateComponent extends AbstractBase implements OnInit {
 
   isShowXacNhan: boolean = false;
   isShowTuChoi: boolean = false;
+  isShowButtonDelete: boolean = false;
 
   listStatusOrderExtenDetail = [
     { value: 3, name: "Chờ phê duyệt" },
@@ -507,6 +508,8 @@ export class CreateComponent extends AbstractBase implements OnInit {
         this.isCurrentStep = result.isCurrentStep; //Kiểm tra xem có phải xác nhận thanh toán là bước hiện tại trong orderProcess hay k
         this.isShowTuChoi = result.isShowTuChoi; //Hiển thị nút từ chối
         this.isShowXacNhan = result.isShowXacNhan; //Hiển thị nút xác nhận
+        this.isShowButtonDelete = result.isShowButtonDelete //Hiển thị nút xóa
+
         this.packId = result.customerOrder.servicePacketId; //Gói dịch vụ gán với phiếu
 
         this.payContent = result.customerOrder.paymentContent;

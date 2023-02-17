@@ -47,24 +47,30 @@
       <ng-template pTemplate="body" let-idx="rowIndex" let-rowData let-columns="columns">
         <tr>
           <td style="text-align: center;" pEditableColumn>
-
             <p-cellEditor>
               <ng-template pTemplate="input">
                 <input pInputText type="text"
                   [cleave]="{ numeral: true, numeralPositiveOnly: true, numeralDecimalScale: 3 }"
-                  [(ngModel)]="rowData['stt']" (change)="changeStt(rowData)" [ngStyle]="{'width': '100%'}"
-                  (keydown.enter)="$event.preventDefault()">
-
+                  [(ngModel)]="rowData['stt']" 
+                  (change)="changeStt(rowData)" 
+                  [ngStyle]="{'width': '100%'}"
+                  (keydown.enter)="$event.preventDefault()"
+                  >
               </ng-template>
               <ng-template pTemplate="output">
                 {{ rowData['stt'] }}
               </ng-template>
             </p-cellEditor>
           </td>
-          <td *ngFor="let col of columns">
-            <a class="cursor-poiter" (click)="goToDetail(rowData['id'])">
+          <td *ngFor="let col of columns" [ngSwitch]="col.field">
+            <span *ngSwitchCase="'name'" class="link">
+              <a class="cursor-poiter" (click)="goToDetail(rowData['id'])">
+                {{rowData[col.field]}}
+              </a>     
+            </span>
+            <span *ngSwitchDefault>
               {{rowData[col.field]}}
-            </a>
+            </span>
           </td>
           <td style="text-align: center;  width: 10rem;">
             <button class="ui-button-danger" pButton icon="pi pi-trash" (click)="deleteProductPacket(rowData['id'])">
