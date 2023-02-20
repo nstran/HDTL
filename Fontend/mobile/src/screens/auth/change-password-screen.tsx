@@ -13,12 +13,16 @@ import {
     TextInput
 } from 'react-native';
 import {Header, Screen} from '../../components';
-import {useNavigation} from "@react-navigation/native"
+import {useIsFocused, useNavigation, useRoute} from "@react-navigation/native"
 // import { useStores } from "../../models"
 import {color} from '../../theme';
 import CenterSpinner from '../../components/center-spinner/center-spinner';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { images } from '../../images';
+
+import { UnitOfWorkService } from '../../services/api/unitOfWork-service';
+import { showToast } from '../../services';
+const unitOfWork = new UnitOfWorkService()
 
 const layout = Dimensions.get('window');
 
@@ -31,6 +35,8 @@ export const ChangePasswordScreen = observer(function ChangePasswordScreen() {
     const navigation = useNavigation();
     // const {movesModel} = useStores();
     const [isLoading, setLoading] = useState(false);
+    const [isRefresh, setRefresh] = useState(false)
+    const isFocus = useIsFocused()
     const [formData, setFormData] = useState<any>({
         code: '',
         password: '',
@@ -38,6 +44,7 @@ export const ChangePasswordScreen = observer(function ChangePasswordScreen() {
         passwordSecure: true,
         passwordSecure_confirm: true
     });
+    const { params }: any = useRoute();
 
     const [placeholder, setPlaceholder] = useState<any>({
         code: 'Mã xác minh email',
@@ -45,11 +52,13 @@ export const ChangePasswordScreen = observer(function ChangePasswordScreen() {
         password_confirm: 'Xác nhận mật khẩu mới'
     });
 
-    // useEffect(() => {
-    //   fetchData();
-    // }, []);
-    // const fetchData = async () => {
-    // };
+    useEffect(() => {
+      fetchData();
+    }, [isFocus,isRefresh ]);
+    const fetchData = async () => {
+        console.log("params: ", params);
+        
+    };
 
     const setChangeText = (type, value) => {
         let _formData = {...formData};
@@ -63,11 +72,39 @@ export const ChangePasswordScreen = observer(function ChangePasswordScreen() {
     };
 
 
-    const goToPage = (page) => {
-        console.log("Vo");
-        
+    const goToPage = (page) => {       
         navigation.navigate(page);
     };
+
+    const handleChangePass = async () => {
+        if(!formData?.code){
+            showToast("error", 'Mã xác minh không được để trống')
+            return
+        }
+        if(!formData?.password){
+            showToast("error", 'Mật khẩu không được để trống')
+            return
+        }
+        if(!formData?.password_confirm){
+            showToast("error", 'Xác nhận mật khẩu không được để trống')
+            return
+        }
+        let response = await unitOfWork.user.changePasswordForgot({
+            "code": formData?.code,
+            "userName": params?.data?.userName,
+            "newPassword": formData?.password,
+            "confirmPassword": formData?.password_confirm
+        })
+        console.log("response: ", response);
+        
+        if(response?.statusCode == 200){
+            showToast("success", response?.message)
+            navigation.navigate('LoginScreen')
+        }else{
+            showToast("error", response?.message)
+        }
+
+    }
 
     const topComponent = () => {
         return (
@@ -82,7 +119,7 @@ export const ChangePasswordScreen = observer(function ChangePasswordScreen() {
                     <Text style={styles.text_header}>Mật khẩu mới</Text>
                     <View style={{alignItems: 'center'}}>
                         <Text style={[styles.text,{marginTop: 20, fontSize: 16}]}>Mã xác minh đã được gửi tới email:</Text>
-                        <Text style={[styles.text,{marginTop: 5,fontSize: 16, color: color.blue}]}>mono.singer@tringhiatech.vn</Text>
+                        <Text style={[styles.text,{marginTop: 5,fontSize: 16, color: color.blue}]}>{params?.data?.email}</Text>
                     </View>
                     
                     <View style={[styles.box_input,{marginTop: 25}]}>
@@ -107,7 +144,7 @@ export const ChangePasswordScreen = observer(function ChangePasswordScreen() {
                             </View>
                             <TextInput
                                 style={styles.input}
-                                placeholder={placeholder?.code}
+                                placeholder={placeholder?.password}
                                 onFocus={() => setChangePlaceholder('password','')}
                                 onBlur={() => {
                                     setChangePlaceholder('password', 'Mật khẩu mới')}}
@@ -127,7 +164,7 @@ export const ChangePasswordScreen = observer(function ChangePasswordScreen() {
                             </View>
                             <TextInput
                                 style={styles.input}
-                                placeholder={placeholder?.code}
+                                placeholder={placeholder?.password_confirm}
                                 onFocus={() => setChangePlaceholder('password_confirm','')}
                                 onBlur={() => {
                                     setChangePlaceholder('password_confirm', 'Mã xác minh email')}}
@@ -141,7 +178,7 @@ export const ChangePasswordScreen = observer(function ChangePasswordScreen() {
                                 <Ionicons name={formData?.passwordSecure_confirm ? 'eye-outline' : 'eye-off-outline'} color={color.nau_nhat2} size={24}/>
                             </TouchableOpacity>
                     </View>
-                    <TouchableOpacity style={styles.btn_blue} onPress={()=> {}}>
+                    <TouchableOpacity style={styles.btn_blue} onPress={handleChangePass}>
                             <Text style={[styles.text_header,{color: color.white}]}>Gửi</Text>
                     </TouchableOpacity>
                 </View>

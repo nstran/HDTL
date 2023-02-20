@@ -10,7 +10,7 @@ export class UserApi {
 
   async login(payload: any): Promise<any> {
     try {
-      const response = await this._apisauce.post(`/api/auth`, payload);
+      const response = await this._apisauce.post(`api/loginWithDeviceId`, payload);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -19,6 +19,24 @@ export class UserApi {
   async signUp(payload: any): Promise<any> {
     try {
       const response = await this._apisauce.post(`/api/auth/register`, payload);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async sendEmailForgotPass(payload: any): Promise<any> {
+    try {
+      const response = await this._apisauce.post(`/api/email/sendEmailForgotPass`, payload);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async changePasswordForgot(payload: any): Promise<any> {
+    try {
+      const response = await this._apisauce.post(`/api/auth/changePasswordForgot`, payload);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -75,23 +93,28 @@ export class UserApi {
   }
 
   async TakeMobileAppConfigurationIntro(payload: any): Promise<any> {
-    const accessToken = await this._storage.getItem(StorageKey.TOKEN);
     const response = await this._apisauce.post(
       `/api/MobileAppConfiguration/TakeMobileAppConfigurationIntro`,
-      payload,
-      { headers: { Authorization: `Bearer ${accessToken}` } }
+      payload
     );
     return response.data;
   }
   async TakeMobileAppConfigurationLoginAndRegister(payload: any): Promise<any> {
-    const accessToken = await this._storage.getItem(StorageKey.TOKEN);
     const response = await this._apisauce.post(
       `/api/MobileAppConfiguration/TakeMobileAppConfigurationLoginAndRegister`,
-      payload,
-      { headers: { Authorization: `Bearer ${accessToken}` } }
+      payload
     );
     return response.data;
   }
+
+  async takeMobileAppConfigurationLoginScreen(payload: any): Promise<any> {
+    const response = await this._apisauce.post(
+      `/api/MobileAppConfiguration/TakeMobileAppConfigurationLoginScreen`,
+      payload
+    );
+    return response.data;
+  }
+
 
   async TakeMobileAppConfigurationPayment(payload: any): Promise<any> {
     const accessToken = await this._storage.getItem(StorageKey.TOKEN);
@@ -137,6 +160,16 @@ export class UserApi {
     const accessToken = await this._storage.getItem(StorageKey.TOKEN);
     const response = await this._apisauce.post(
       `/api/order/getMasterDataOrderDetail`,
+      payload,
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+    return response.data;
+  }
+
+  async getMasterDataOrderActionDetail(payload: any): Promise<any> {
+    const accessToken = await this._storage.getItem(StorageKey.TOKEN);
+    const response = await this._apisauce.post(
+      `/api/order/getMasterDataOrderActionDetail`,
       payload,
       { headers: { Authorization: `Bearer ${accessToken}` } }
     );
@@ -224,4 +257,16 @@ export class UserApi {
     );
     return response.data;
   }
+
+  // api quảng cáo
+  async takeListAdvertisementConfiguration(payload: any): Promise<any> {
+    const accessToken = await this._storage.getItem(StorageKey.TOKEN);
+    const response = await this._apisauce.post(
+      `api/MobileAppConfiguration/takeListAdvertisementConfiguration`,
+      payload,
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+    return response.data;
+  }
+
 }

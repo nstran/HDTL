@@ -24,7 +24,8 @@ import {
   ChatScreen,
   DetailYeuCauScreen,
   GioHangScreen,
-  DoanhThuScreen
+  DoanhThuScreen,
+  NotifiScreen
 } from '../screens';
 import {navigationRef} from './navigation-utilities';
 import BottomTapScreen from './bottom-tab-navigator';
@@ -69,7 +70,8 @@ export type NavigatorParamList = {
   ChatScreen: undefined
   DetailYeuCauScreen: undefined
   GioHangScreen: undefined
-  DoanhThuScreen: undefined
+  DoanhThuScreen: undefined,
+  NotifiScreen: undefined
 }
 
 interface NavigationProps extends Partial<React.ComponentProps<typeof NavigationContainer>> {
@@ -120,11 +122,11 @@ export const AppNavigator = (props: NavigationProps) => {
         initialRouteName="AuthLoadingScreen"
       >
          <Stack.Screen name="AuthLoadingScreen" component={AuthLoadingScreen}/>
-         <Stack.Screen name="LoginScreen" component={LoginScreen}/>
+         <Stack.Screen name="LoginScreen"  options={{gestureEnabled: false, headerLeft: () => null}} component={LoginScreen}/>
          <Stack.Screen name="ForgotPasswordScreen" component={ForgotPasswordScreen}/>
          <Stack.Screen name="ChangePasswordScreen" component={ChangePasswordScreen}/>
-         <Stack.Screen name="DashboardScreen" component={DashboardScreen}/>
-         <Stack.Screen name="MainScreen" component={BottomTapScreen}/>
+         <Stack.Screen name="DashboardScreen" options={{gestureEnabled: false, headerLeft: () => null}} component={DashboardScreen}/>
+         <Stack.Screen name="MainScreen" options={{gestureEnabled: false, headerLeft: () => null}}  component={BottomTapScreen}/>
          <Stack.Screen name="MainAdminScreen" component={BottomTapAdminScreen}/>
          <Stack.Screen name="ServicesScreen" component={ServicesScreen}/>
          <Stack.Screen name="ChooseServiceScreen1" component={ChooseServiceScreen1}/>
@@ -134,6 +136,8 @@ export const AppNavigator = (props: NavigationProps) => {
          <Stack.Screen name="RoomsScreen" component={RoomsScreen}/>
          <Stack.Screen name="ChatScreen" component={ChatScreen}/>
          <Stack.Screen name="GioHangScreen" component={GioHangScreen}/>
+         <Stack.Screen name="NotifiScreen" component={NotifiScreen}/>
+         
          {/* admin */}
          <Stack.Screen name="DoanhThuScreen" component={DoanhThuScreen}/>
         {/* <Stack.Screen name="primaryStack" component={PrimaryNavigator}/> */}

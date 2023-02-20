@@ -23,11 +23,12 @@ import {
 } from '../../config/firebase';
 import { useStores } from '../../models';
 import { formatDate } from '../../services';
+import { toJS } from 'mobx';
 
 const layout = Dimensions.get('window');
 
 const ROOT: ViewStyle = {
-    backgroundColor: color.white,
+    backgroundColor: color.primary,
     flex: 1,
 };
 
@@ -50,58 +51,59 @@ export const RoomsScreen = observer(function RoomsScreen() {
       fetchData();
     }, [isFocus,isRefresh]);
 
-    useEffect(() => {
-      onLoadData();
-    }, []);
+    // useEffect(() => {
+    //   onLoadData();
+    // }, []);
 
-    const onLoadData = async () => { 
+    const onLoadData = async (listAllUsers) => { 
       let _userId = await HDLTModel.getUserInfoByKey('userId')
-      return onValue(query(firebaseDatabaseRef(firebaseDatabase, `chats`), orderByChild("receiverId"), equalTo(_userId), limitToLast(1)) , async (onSnapshot) => {
-        if(onSnapshot.exists()){
-          setRefresh(true)
-        }
+      let listRooms = []
+      listAllUsers?.map((item,index) => {
+        listRooms.push(item?.roomname)
       })
+      for(let i = 0; i < listRooms?.length ; i++){
+        onValue(query(firebaseDatabaseRef(firebaseDatabase, `chats/${listRooms[i]}`), limitToLast(1)) , async (onSnapshot) => {
+          if(onSnapshot.exists()){
+            let _listUsers_current = await HDLTModel.getListUserChats()
+            let listUsers_current = toJS(_listUsers_current)
+
+            let value = onSnapshot.val()
+            let keys = Object.keys(onSnapshot.val())
+            let listUser = [...listUsers_current]
+        
+            for(let j = 0; j < listUser?.length; j++){
+              if(listUser[j]?.roomname == value[keys[0]]?.roomname){
+                if(value[keys[0]]?.date != listUser[j].timestamp){
+                  listUsers_current[j].timestamp = value[keys[0]]?.date
+                  listUsers_current[j].message_last = value[keys[0]]?.message
+                  listUsers_current[j].numberMessageNotSeen += 1
+                }
+              }
+            }
+            listUsers_current.sort((a,b) => {
+              return b?.timestamp - a?.timestamp
+            })
+            setListUserChat(listUsers_current)
+            await HDLTModel.thay_moi_listUserChats(listUsers_current)
+          }
+        })
+      }
+      // return onValue(query(firebaseDatabaseRef(firebaseDatabase, `chats`), orderByChild("receiverId"), equalTo(_userId), limitToLast(1)) , async (onSnapshot) => {
+      //   if(onSnapshot.exists()){
+      //     setRefresh(true)
+      //   }
+      // })
     }
 
     const fetchData = async () => {
+      setLoading(true)
       setRefresh(false)
       let _userId = await HDLTModel.getUserInfoByKey('userId')
       setUserID(_userId)
       let listAllUsers = await getListUserChat()
-      console.log("listAllUsers: ", listAllUsers);
       getMessagelast(listAllUsers)
-      
-      // let listUserChat = await  getListUserChat()
-      // console.log("listUserChat: ", listUserChat);
-      
-      // let listReciversChat = await  getListReciver_Chat()
-      // console.log("listReciversChat: ", listReciversChat);
-
-      // let allUsers = [...listUserChat]
-      // listReciversChat.map((item, index) => {    
-      //   let user
-      //   let index_user
-      //   allUsers.map((item_2,index_2) => {
-      //       if(item?.reciver_ID == item_2?.reciver_ID){
-      //       user = item_2
-      //       index_user = index_2
-      //       }
-      //   })
-      //   if(user){
-      //       if(item?.timestamp > user?.timestamp) allUsers[index_user].timestamp = item?.timestamp
-      //       // if(item?.timestamp < user?.timestamp) allUsers[index_user].timestamp = user?.timestamp
-      //   }else{
-      //       allUsers.push(item)
-      //   }
-      // })
-
-      // allUsers.sort((a,b) => {
-      //     return b?.timestamp - a?.timestamp
-      // })
-
-      // await getCountMessageNotSeen(allUsers)
-
-      // setListUserChat(allUsers)
+      onLoadData(listAllUsers)
+      setLoading(false)
     };
 
     const getListUserChat = async () => {
@@ -153,7 +155,7 @@ export const RoomsScreen = observer(function RoomsScreen() {
       
       let allDataUser = [...dataUsers]
       for(let i = 0; i < dataUsers?.length; i++){
-        console.log("dataUsers[i]?.roomname: ", dataUsers[i]?.roomname);
+  
         let numberMessageNotSeen = 0
         
         await get(query(firebaseDatabaseRef(firebaseDatabase, `chats/${dataUsers[i]?.roomname}`),orderByChild('isSeen'), equalTo(false)))
@@ -170,18 +172,23 @@ export const RoomsScreen = observer(function RoomsScreen() {
           }  
         })
 
-        await get(query(firebaseDatabaseRef(firebaseDatabase, `chats/${dataUsers[i]?.roomname}`),limitToLast(1)))
+        await get(query(firebaseDatabaseRef(firebaseDatabase, `chats/${dataUsers[i]?.roomname}`), limitToLast(1)))
         .then((snapshot) => {
           if(snapshot.exists()){
             let value = snapshot.val()
             let keys = Object.keys(snapshot.val())
             allDataUser[i].message_last = value[keys[keys?.length - 1]]?.message
+            allDataUser[i].timestamp = value[keys[keys?.length - 1]]?.date
           }  
         })
       }
-      
+
+      allDataUser.sort((a,b) => {
+        return b?.timestamp - a?.timestamp
+      })
+      await HDLTModel.thay_moi_listUserChats(allDataUser)
       setListUserChat(allDataUser)
-      console.log("allDataUser: ", allDataUser); 
+    
     }
 
     const goToPage = (page) => {
@@ -210,7 +217,6 @@ export const RoomsScreen = observer(function RoomsScreen() {
       }
 
     const renderItem = ({ item }) => {
-      console.log("item:", item);
       
       return (
         <TouchableOpacity
@@ -278,16 +284,17 @@ export const RoomsScreen = observer(function RoomsScreen() {
     const topComponent = () => {
         
       return (
-          <View style={styles.containerSearch}>
-              <Image
-                  style={{ marginRight: '2%' }}
-                  source={images.Icon_search} />
-              <TextInput
-                  style={{}}
-                  placeholder='Search'
-                  // placeholderTextColor={'smokewhite'}
-              />
-          </View>
+          // <View style={styles.containerSearch}>
+          //     {/* <Image
+          //         style={{ marginRight: '2%' }}
+          //         source={images.Icon_search} />
+          //     <TextInput
+          //         style={{}}
+          //         placeholder='Search'
+          //         // placeholderTextColor={'smokewhite'}
+          //     /> */}
+          // </View>
+          <></>
 
       );
     };
@@ -311,9 +318,10 @@ export const RoomsScreen = observer(function RoomsScreen() {
                   {/* <Image source={images.iconHome} /> */}
               </TouchableOpacity>
           </View>
-         <FlatList
-              refreshing={isRefresh}
-              onRefresh={() => onRefresh()}
+          <View style={{flex: 1, backgroundColor: color.white}}>
+            <FlatList
+              // refreshing={isRefresh}
+              // onRefresh={() => onRefresh()}
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}
               style={{flex: 1}}
@@ -322,7 +330,9 @@ export const RoomsScreen = observer(function RoomsScreen() {
               ListHeaderComponent={topComponent()}
               // ListFooterComponent={FooterComponent()}
               keyExtractor={(item, index) => 'chat-screen' + index + String(item)}
-              />
+            />
+          </View>
+         
       </Screen>
   </>
     );
@@ -351,7 +361,7 @@ const styles = StyleSheet.create({
       height: 35,
       width: 35,
       borderRadius: 20,
-      backgroundColor: '#efeff0',
+      // backgroundColor: '#efeff0',
       justifyContent: 'center',
       alignItems: 'center',
       marginRight: '5%',

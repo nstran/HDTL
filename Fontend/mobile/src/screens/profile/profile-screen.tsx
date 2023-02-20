@@ -34,7 +34,7 @@ const _unitOfWork = new UnitOfWorkService()
 const layout = Dimensions.get('window');
 
 const ROOT: ViewStyle = {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: color.primary,
     flex: 1,
 };
 
@@ -80,11 +80,7 @@ export const ProfileScreen = observer(function ProfileScreen() {
     }, [isFocus,isRefresh]);
     const fetchData = async () => {
         let _UserInfo = await HDLTModel.getUserInfo()
-        let userInfo = toJS(_UserInfo)
-
-        console.log(userInfo);
-        
-        
+        let userInfo = toJS(_UserInfo)  
 
         let _formData = {...formData}
         _formData.userId = userInfo?.userId
@@ -140,8 +136,7 @@ export const ProfileScreen = observer(function ProfileScreen() {
         };
         await launchImageLibrary(options, (response) => {
             if (response && response?.assets?.length) {
-                console.log("response?.assets[0]?.base64: ", response?.assets[0]?.base64);
-                
+               
                 let _formData = {...formData};
                 _formData['fileName'] = response?.assets[0]?.fileName;
                 _formData['userAvatar'] = "data:image/png;base64," + response?.assets[0]?.base64?.toString();
@@ -164,9 +159,36 @@ export const ProfileScreen = observer(function ProfileScreen() {
             UserId: userID,
             AvatarUrl: formData?.userAvatar
         }
-        console.log("payload: ", payload);
+
+        if(!payload?.FirstNameLastName) {
+            showToast('error', 'Họ và tên không được để trống!')
+            return
+        } 
+        if(!payload?.Gender) {
+            showToast('error', 'Giới tính không được để trống!')
+            return
+        } 
+        if(!payload?.PhoneNumber) {
+            showToast('error', 'Số điện thoại không được để trống!')
+            return
+        }
+        if(!payload?.Email) {
+            showToast('error', 'Email không được để trống!')
+            return
+        }
+        if(!payload?.ProvinceId) {
+            showToast('error', 'Khu vực không được để trống!')
+            return
+        }
+        if(!payload?.Address) {
+            showToast('error', 'Địa chỉ không được để trống!')
+            return
+        }
+        
+        setLoading(true)
         
         let response = await _unitOfWork.user.signUp(payload)
+        
 
         if(response?.statusCode == 200) {
             await HDLTModel.setUserInfo({
@@ -186,11 +208,10 @@ export const ProfileScreen = observer(function ProfileScreen() {
                 passwordNewSecure: true,
                 passwordOldSecure: true,
             })
+        }else{
+            showToast("error", response?.messageCode)
         }
-
-        
-        
-        
+        setLoading(false) 
 
     }
 
@@ -202,9 +223,10 @@ export const ProfileScreen = observer(function ProfileScreen() {
             "NewPassword":  dataPassword?.newPassword
         }
         let response = await _unitOfWork.user.changePassword(payload)
+        
         if(response?.statusCode == 200){
             setModalChangePassword(false)
-            showToast("error",response?.messageCode )
+            showToast("success",response?.messageCode )
         }else{
             showToast("error",response?.messageCode )
         }
@@ -321,6 +343,7 @@ export const ProfileScreen = observer(function ProfileScreen() {
                     <View style={styles.box_input}>
                         <Text style={[styles.text]}>Số điện thoại</Text>
                         <TextInput
+                            editable={false}
                             style={styles.input}
                             placeholder={'Số điện thoại'}
                             autoCapitalize="none"
@@ -328,6 +351,7 @@ export const ProfileScreen = observer(function ProfileScreen() {
                             value={formData?.phone}
                             onChangeText={(value) => setChangeText('phone', value)}
                         />
+                        {/* <Text>{formData?.phone}</Text> */}
                     </View>
                     <View style={styles.box_input}>
                         <Text style={[styles.text]}>Email</Text>
@@ -383,11 +407,11 @@ export const ProfileScreen = observer(function ProfileScreen() {
                     } }>
                         <Text style={[styles.text_btn]}>Đăng xuất</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.box_btn,{marginTop: 0}]} onPress={async () =>{
+                    {/* <TouchableOpacity style={[styles.box_btn,{marginTop: 0}]} onPress={async () =>{
                         chatWithAdmin()
                     } }>
                         <Text style={[styles.text_btn]}>Chat with admin</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
                 
             </View>
@@ -404,7 +428,7 @@ export const ProfileScreen = observer(function ProfileScreen() {
                     rightText='Lưu'
                     onRightPress={ChangeProfile}
                     onLeftPress={() => navigation.goBack()} />
-                <View style={[{flex: 1},modal_chang_password ? {opacity: 0.3} : {}]}>
+                <View style={[{flex: 1,backgroundColor: color.white},modal_chang_password ? {opacity: 0.3} : {}]}>
                     <FlatList
                         refreshing={isRefresh}
                         onRefresh={() => onRefresh()}
@@ -547,6 +571,7 @@ const styles = StyleSheet.create({
     input: {
         padding: 0,
         width: '60%',
+        color: color.black
     },
     box_btn: {
         marginVertical: 16,

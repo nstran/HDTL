@@ -12,6 +12,7 @@ import {getDeviceToken, requestNotificationPermission} from '../../services/noti
 import messaging, {
     FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging'
+import { setLogout } from '../../services';
 
 const layout = Dimensions.get('window');
 
@@ -38,23 +39,23 @@ export const AuthLoadingScreen = observer(function AuthLoadingScreen() {
         // let device_token = await getDeviceToken()
         // console.log("device_token: ", device_token);
         // setToken(device_token)
+
+        setLogout(() => navigation.navigate('LoginScreen'))
         
         let userId = await HDLTModel.getUserInfoByKey('userId')
         let role = await HDLTModel.getUserInfoByKey('role')
-        console.log("role: ", role );
         
         if(userId){
             if(role == 'CUS') goToPage('MainScreen')
             if(role == 'EMP') goToPage('MainAdminScreen')
         }else{
-            goToPage('LoginScreen')
+            goToPage('WelcomeScreen')
         }
     };
 
     useEffect(() => {
         messaging().setBackgroundMessageHandler(onMessageReceived);
         messaging().onNotificationOpenedApp(remoteMessage => {
-            console.log("remoteMessage: ", remoteMessage);
             
             console.log(
               'Notification caused app to open from background state:',

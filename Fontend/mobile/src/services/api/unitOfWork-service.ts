@@ -25,7 +25,8 @@ export class UnitOfWorkService {
       timeout: this.config.timeout,
       headers: {
         'Accept': 'application/json',
-        'Origin': 'http://103.138.113.52:56',
+        // 'Origin': 'http://103.138.113.52:56',
+        'Origin': 'http://203.171.21.35',
         'Content-Type': 'application/json',
       },
     })

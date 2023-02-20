@@ -20,6 +20,10 @@ import CenterSpinner from '../../components/center-spinner/center-spinner';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { images } from '../../images';
 
+import { UnitOfWorkService } from '../../services/api/unitOfWork-service';
+import { showToast } from '../../services';
+const unitOfWork = new UnitOfWorkService()
+
 const layout = Dimensions.get('window');
 
 const ROOT: ViewStyle = {
@@ -44,8 +48,28 @@ export const ForgotPasswordScreen = observer(function ForgotPasswordScreen() {
         navigation.navigate(page);
     };
 
-    const submit = () => {
-        navigation.navigate('ChangePasswordScreen')
+    const submit = async () => {
+        if(email){
+            setLoading(true)
+            let response = await  unitOfWork.user.sendEmailForgotPass({
+                "EmailAddress" :email
+            })
+            setLoading(false)
+            console.log(response);
+            
+            if(response?.statusCode == 200){
+                setEmail('')
+                navigation.navigate('ChangePasswordScreen',{
+                    data: {
+                        email: email,
+                        userName: response?.userName
+                    }
+                })
+            }else{
+                showToast('error',response?.messageCode)
+            }
+            
+        }
     }
 
     const topComponent = () => {

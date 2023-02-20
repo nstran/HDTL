@@ -63,7 +63,7 @@ export const Header = observer(function Header(props: HeaderProps) {
             
             <Text style={styles.header_text}>{headerText}</Text>
 
-            <TouchableOpacity style={{width: '10%'}} onPress={onRightPress}>
+            <TouchableOpacity style={{width: '15%'}} onPress={onRightPress}>
                 <Text style={styles.right_text} >{rightText ? rightText : ''}</Text>
             </TouchableOpacity>
             
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     },
     right_text: {
         fontWeight: '700',
-        fontSize: 18,
+        fontSize: 17,
         textAlign:'center',
         color: color.blue,
     }

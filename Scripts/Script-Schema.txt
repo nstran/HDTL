@@ -401,4 +401,6 @@ CREATE TABLE IF NOT EXISTS public."AdvertisementConfiguration"
     CONSTRAINT "Id_pkey" PRIMARY KEY ("Id")
 );
 
+ALTER TABLE public."AdvertisementConfiguration" ADD COLUMN IF NOT EXISTS "SortOrder" integer;
+
 ALTER TABLE public."ServicePacket" ADD COLUMN IF NOT EXISTS "Active" bool default true;

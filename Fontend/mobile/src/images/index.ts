@@ -24,4 +24,6 @@ export const images = {
   iconHappy:require('./iconHappy.png'),
   iconGhim:require('./iconGhim.png'),
   iconPayment:require('./iconPayment.png'),
+  icon_notifi_detail:require('./icon_notifi_detail.png'),
+  icon_work:require('./icon_work.png'),
 };

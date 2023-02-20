@@ -108,15 +108,11 @@ function App() {
             <View style={styles.container}>
                 {/* {Platform.OS === 'ios' && <StatusBar barStyle="default"/>} */}
                 <RootStoreProvider value={rootStore}>
-                    {/* <IconRegistry icons={EvaIconsPack}/> */}
                     <ApplicationProvider {...eva} theme={eva.light} customMapping={mapping}>
-                        {/* <AuthenticatedUserProvider> */}
                             <AppNavigator/>
-                        {/* </AuthenticatedUserProvider> */}
                     </ApplicationProvider>
                 </RootStoreProvider>
                 <Toast config={toastConfig}/>
-                {/* <Text style={{color: color.white}}>WellCome to app</Text> */}
             </View>
         );
     }

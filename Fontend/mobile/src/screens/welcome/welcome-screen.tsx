@@ -47,6 +47,7 @@ export const WelcomeScreen = observer(function WelcomeScreen() {
         setLoading(true)
         if(tapIndex == 0) {
             let response = await _unitOfWork.user.TakeMobileAppConfigurationIntro({}) 
+            
             if(response?.statusCode == 200){
                 setData(response?.mobileAppConfigurationEntityModel)
             }
@@ -66,8 +67,8 @@ export const WelcomeScreen = observer(function WelcomeScreen() {
 
     const topComponent = () => {
         return (
-            <View>
-                <View style={{justifyContent: 'center', alignItems: 'center', width: layout.width, height: layout.width}}>
+            <View style={{height: layout.height}}>
+                <View style={{justifyContent: 'center', alignItems: 'center', width: layout.width}}>
                     {/* <Video
                         source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
                         rate={1.0}
@@ -80,7 +81,7 @@ export const WelcomeScreen = observer(function WelcomeScreen() {
                     /> */}
                     {tapIndex == 0 ? 
                       data?.introduceImageOrVideo ? 
-                        <Image source={{uri: data?.introduceImageOrVideo}} style={{width: layout.width, height: layout.width}} resizeMode='stretch' />
+                        <Image source={{uri: data?.introduceImageOrVideo}} style={{width: layout.height/2, height: layout.width}} resizeMode='stretch' />
                         : null
                     : 
                         data?.loginAndRegisterScreenImage ? 
@@ -88,7 +89,7 @@ export const WelcomeScreen = observer(function WelcomeScreen() {
                         : null
                     }
                 </View>
-                <View style={{paddingHorizontal: 24, marginTop: layout.height/10}}>
+                <View style={{paddingHorizontal: 24, position: 'absolute', bottom: 100}}>
                     <Text style={{fontSize: 25, fontWeight: '700', color: color.black}}>Hãy để tôi lo</Text>
                     <Text style={{marginTop: 10, fontSize: 18, fontWeight: '400', color: color.black, lineHeight: 27}}>Chúng tôi luôn lắng nghe, tiếp nhận mong muốn của khách hàng</Text>
                     {tapIndex == 0 ?
@@ -100,7 +101,8 @@ export const WelcomeScreen = observer(function WelcomeScreen() {
                         <View style={{}}>
                             <TouchableOpacity 
                                 style={{paddingHorizontal: 24, paddingVertical: 20, backgroundColor: color.blue, borderRadius: 16, flexDirection: 'row'}}
-                                onPress={() => setTapIndex(1)}
+                                // onPress={() => setTapIndex(1)}
+                                onPress={() =>  navigation.navigate('MainScreen',{screen: 'DashboardScreen'})}
                             >
                                 <Text style={[styles.textWhile,{marginRight: 47}]}>Tiếp theo</Text>
                                 <Ionicons name='arrow-forward-outline' color={color.white} size={25}/>

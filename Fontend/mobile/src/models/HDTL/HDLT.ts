@@ -25,6 +25,19 @@ const MessageChatModel = types.model('MessageChatModal').props({
     isSeen : types.maybe(types.boolean)
 });
 
+const ListUserChatModel = types.model('ListUserChatModel').props({
+    timestamp: types.maybe(types.number),
+    receiver: types.maybe(types.string),
+    nickname_reciver: types.maybe(types.string),
+    roomname:  types.maybe(types.string),
+    numberMessageNotSeen: types.maybe(types.number),
+    message_last: types.maybe(types.string)
+})
+
+const CountChatsNotSeen = types.model('CountChatsNotSeen').props({
+    roomname : types.maybe(types.string),
+});
+
 const AppInfoModel = types.model('AppInfo').props({
     tabIndex: types.maybe(types.number),
     version: types.maybe(types.number),
@@ -52,7 +65,9 @@ export const HDLTModel = types
             version: 1,
         }),
        
-        listMessageChats : types.optional(types.array(MessageChatModel), [])
+        listMessageChats : types.optional(types.array(MessageChatModel), []),
+        listUserChats : types.optional(types.array(ListUserChatModel), []),
+        CountChatsNotSeen: types.optional(types.array(CountChatsNotSeen), []),
     })
     .views((self) => ({})) // eslint-disable-line @typescript-eslint/no-unused-vars
     .actions((self: any) => ({
@@ -63,10 +78,34 @@ export const HDLTModel = types
             self.listMessageChats = value
         },
         addMessageListChat(value) {
-            self.listMessageChats = [...self.listMessageChats, value];      
+            let listmessage = [...self.listMessageChats]; 
+            listmessage.unshift(value)
+            self.listMessageChats = [...listmessage];      
         },
         removeListMessageChat() {
             self.listMessageChats = []
+        },
+        getListUserChats() {
+            return self.listUserChats
+        },
+        thay_moi_listUserChats(value) {
+            self.listUserChats = value
+        },
+        add_User_listUserChats(value){
+            self.listUserChats = [...self.listUserChats, value]
+        },
+        
+        getCountChatsNotSeen(){
+            return self.CountChatsNotSeen
+        },
+        thay_moi_CountChatsNotSeen(value){
+            self.CountChatsNotSeen = value
+        },
+        add_CountChatsNotSeen(value){
+            self.CountChatsNotSeen = [...self.CountChatsNotSeen, value]
+        },
+        clear_CountChatsNotSeen(){
+            self.CountChatsNotSeen = []
         },
 
         getUserInfo() {
@@ -119,8 +158,7 @@ export const HDLTModel = types
             self.userInfo.userAvatar = '',
             self.userInfo.email = '',
             self.userInfo.address = '',
-            self.userInfo.role = '',
-            self.activity = []
+            self.userInfo.role = ''
         },
     })); // eslint-disable-line @typescript-eslint/no-unused-vars
 

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hãy để tôi lo</string>
+    <string name="app_name">Kita</string>
     <string moduleConfig="true" name="CodePushDeploymentKey">sCn0Xa_CAR2E7iCUYBLXj-yeRNqSpIciaACsL</string>
     <string name="appCenterCrashes_whenToSendCrashes" moduleConfig="true" translatable="false">DO_NOT_ASK_JAVASCRIPT</string>
 <string name="appCenterAnalytics_whenToEnableAnalytics" moduleConfig="true" translatable="false">ALWAYS_SEND</string>

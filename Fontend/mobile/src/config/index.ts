@@ -1,5 +1,7 @@
 
-export const API_URL = 'http://103.138.113.52:57'
+// export const API_URL = 'http://103.138.113.52:57'
+export const API_URL = 'http://203.171.21.35:88'
+// 88 khách hàng
 export const TIMEOUT = 5000
 
 export const API_KEY = "AIzaSyCOyUyu-c9-tL4yXEEiucEKRHpp17wGpE0"

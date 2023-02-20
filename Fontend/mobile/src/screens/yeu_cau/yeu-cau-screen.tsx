@@ -17,7 +17,7 @@ const _unitOfWork = new UnitOfWorkService()
 const layout = Dimensions.get('window');
 
 const ROOT: ViewStyle = {
-    backgroundColor: color.nau_nhat,
+    backgroundColor: color.primary,
     flex: 1,
 };
 
@@ -38,6 +38,7 @@ export const YeuCauScreen = observer(function YeuCauScreen() {
       fetchData();
     }, [isFocus,isRefresh]);
     const fetchData = async () => {
+        setLoading(true)
         setRefresh(false)
         let customerID = await HDLTModel.getUserInfoByKey('customerId')
         let userId = await HDLTModel.getUserInfoByKey('userId')
@@ -46,22 +47,30 @@ export const YeuCauScreen = observer(function YeuCauScreen() {
             "UserId": userId
         })
         if(response?.statusCode == 200){
-            // console.log("response?.listOrder: ", response?.listOrder);
             let data = [...response?.listOrder].filter(item => item?.statusOrder != 1)
+            data.sort((a,b) => {
+                return new Date(b?.createdDate).getTime() - new Date(a?.createdDate).getTime()
+            })
+            console.log("Response: ", response);
             setMasterData(data)
-        } 
-        // console.log("response: ", response);
+        }
+
+        setLoading(false)
         
     };
 
     const CalculatePrice = (listData) => {
         let price = 0;
         
-        listData.map((item) => {
-            console.log("item: ", item);
+        listData?.listCustomerOrderDetail.map((item) => {
             price += item?.priceInitial*item?.quantity
             if(item?.vat) price += item?.priceInitial*item?.quantity*item?.vat/100
         })
+
+        listData?.listCustomerOrderDetailExten?.map((item) => {
+            price += item?.price
+        })
+
         return price
     }
 
@@ -79,9 +88,7 @@ export const YeuCauScreen = observer(function YeuCauScreen() {
         );
     };
 
-    const ItemView = ({item,index}) => {
-        console.log("item: ", item);
-        
+    const ItemView = ({item,index}) => {   
         return (
             <View style={{marginBottom: 16, backgroundColor: color.white, paddingHorizontal: 14, paddingVertical: 16}}>
                 <Text style={[styles.text_header_blue]}>{item?.listPacketServiceName}</Text>
@@ -97,7 +104,7 @@ export const YeuCauScreen = observer(function YeuCauScreen() {
                         })}
                         {/* <Text numberOfLines={2} style={styles.text}>Dịch vụ: Dọn nhà</Text>
                         <Text numberOfLines={2} style={styles.text}>Dịch vụ: Nấu ăn</Text> */}
-                        <Text numberOfLines={2} style={styles.text}>Số tiền: <Text style={{color: color.blue}}>{formatNumber(CalculatePrice(item?.listCustomerOrderDetail))} vnd</Text></Text>
+                        <Text numberOfLines={2} style={styles.text}>Số tiền: <Text style={{color: color.blue}}>{formatNumber(CalculatePrice(item))} vnd</Text></Text>
                     </View>
                     <Ionicons name='caret-forward-outline' size={20} color='black' />
                 </TouchableOpacity>
@@ -125,8 +132,8 @@ export const YeuCauScreen = observer(function YeuCauScreen() {
         <>
             {isLoading && <CenterSpinner/>}
             <Screen style={ROOT} preset="fixed">
-                <Header headerText='Phiếu hỗ trợ dịch vụ' rightText='Lọc' onRightPress={() => setModal_Option(true)} onLeftPress={() => goToPage('DashboardScreen')}/>
-                <View style={{flex: 1, marginTop: 16}}>
+                <Header headerText='Quản lý đặt dịch vụ' rightText='' onRightPress={() =>{}} onLeftPress={() => goToPage('DashboardScreen')}/>
+                <View style={{flex: 1,paddingTop: 16, backgroundColor: color.nau_nhat}}>
                     <FlatList
                         refreshing={isRefresh}
                         onRefresh={() => onRefresh()}

@@ -14,7 +14,7 @@ import {
     TouchableOpacity
 } from 'react-native';
 import {Header, Screen} from '../../components';
-import {useIsFocused, useNavigation} from "@react-navigation/native"
+import {useIsFocused, useNavigation, useRoute} from "@react-navigation/native"
 // import { useStores } from "../../models"
 import {color} from '../../theme';
 import CenterSpinner from '../../components/center-spinner/center-spinner';
@@ -28,7 +28,7 @@ const _unitOfWork = new UnitOfWorkService()
 const layout = Dimensions.get('window');
 
 const ROOT: ViewStyle = {
-    backgroundColor: color.white,
+    backgroundColor: color.primary,
     flex: 1,
 };
 
@@ -38,6 +38,7 @@ export const ServicesScreen = observer(function ServicesScreen() {
     const navigation = useNavigation();
     const {HDLTModel} = useStores();
     const [isLoading, setLoading] = useState(false);
+    const { params }: any = useRoute();
     const isFocus = useIsFocused()
     const [isRefresh, setRefresh] = useState(false)
     const [modal_option, setModal_Option] = useState(false)
@@ -53,6 +54,8 @@ export const ServicesScreen = observer(function ServicesScreen() {
       fetchData();
     }, [isFocus,isRefresh]);
     const fetchData = async () => {
+        console.log("params: ", params);
+        
         setList_ID_Packet_search([])
         setTextSearch('')
         setRefresh(false)
@@ -62,7 +65,9 @@ export const ServicesScreen = observer(function ServicesScreen() {
         let listCategory : any = []
         let _listProvince : any = []
         if(response?.statusCode == 200){
-            setListServicePacket(response?.listServicePackageEntityModel)
+            console.log("response: ", response);
+            
+            setListServicePacket(response?.listServicePackageEntityModel.filter(item => item.active == true))
             response?.listServicePackageEntityModel.map((item, index) => {
                 let objCategory = {
                     productCategoryId : item?.productCategoryId,
@@ -120,13 +125,20 @@ export const ServicesScreen = observer(function ServicesScreen() {
         setLoading(true)
         let user_id = await HDLTModel.getUserInfoByKey('userId')
         let response = await _unitOfWork.user.getListServicePacket({UserId: user_id, FilterText: textSearch})
+        console.log("response search: ", response);
+        if(response?.statusCode == 200){
+             setListServicePacket(response?.listServicePackageEntityModel.filter(item => item.active == true))
+        }
         
-        let list_id : any =  []
-        response?.listServicePackageEntityModel.map((item, index) => {
-            list_id.push(item?.id)
-        })
         
-        setList_ID_Packet_search(list_id)
+        // let list_id : any =  []
+        // response?.listServicePackageEntityModel.map((item, index) => {
+        //     list_id.push(item?.id)
+        // })
+
+       
+        
+        // setList_ID_Packet_search(list_id)
         setLoading(false)
         
     }
@@ -143,6 +155,7 @@ export const ServicesScreen = observer(function ServicesScreen() {
     const Item_View_Child = (item_2) => {
         return (
             <TouchableOpacity 
+                key={'test5' + item_2?.id}
                 style={{ borderWidth: 1, borderColor: color.nau_nhat2, borderRadius: 12, marginBottom: 10, width: layout.width - 35}}
                 onPress={() => {
                     navigation.navigate('ChooseServiceScreen1',{
@@ -166,74 +179,106 @@ export const ServicesScreen = observer(function ServicesScreen() {
         )
     }
 
+    // const ItemView = ({item, index}) => {
+    //     if(listProduce_select?.length == 0){
+    //             return (
+    //                 <TouchableOpacity  key={"service" + index} style={{padding: 16}} onPress={() => goToPage('ChooseServiceScreen1')}>
+    //                         <View style={styles.box_item}>
+    //                             {/* <Image
+    //                                 source={images.icon_work} style={{width: 25, height: 25}}
+    //                             /> */}
+    //                             <Text style={[styles.title]}>{item?.productCategoryName}</Text>
+    //                         </View>
+    //                         {listServicePacket && listServicePacket.map((item_2, index_2) => {
+    //                             if(item_2?.productCategoryId == item?.productCategoryId) {
+    //                                 if(list_ID_Packet_search?.length > 0 && list_ID_Packet_search.includes(item_2?.id)){ 
+    //                                     if(listProvince_select?.length == 0){
+    //                                         return Item_View_Child(item_2)
+    //                                     }else{
+    //                                         if(listProvince_select.includes(item_2?.provinceId)){
+    //                                             Item_View_Child(item_2)
+    //                                         }
+    //                                     }
+    //                                 }
+    //                                 if(list_ID_Packet_search?.length == 0){                                   
+    //                                     if(listProvince_select?.length == 0){
+    //                                          return Item_View_Child(item_2)
+    //                                     }else{
+    //                                         if(listProvince_select.includes(item_2?.provinceId)){
+    //                                             return Item_View_Child(item_2)
+    //                                         }
+    //                                     }
+    //                                 }     
+    //                             }
+    //                         })}
+                            
+    //                 </TouchableOpacity>
+    //             )
+    //     }else{
+    //         if(listProduce_select.includes(item?.productCategoryId)){
+    //             return (
+    //                 <TouchableOpacity key={"service2" + index} style={{padding: 16}} onPress={() => goToPage('ChooseServiceScreen1')}>
+    //                         <View style={styles.box_item}>
+    //                             <Image
+    //                                 source={images.icon_work} style={{width: 25, height: 25}}
+    //                             />
+    //                             <Text style={[styles.title]}>{item?.productCategoryName}</Text>
+    //                         </View>
+    //                         {listServicePacket && listServicePacket.map((item_2, index_2) => {
+    //                             if(item_2?.productCategoryId == item?.productCategoryId) {
+    //                                 if(list_ID_Packet_search?.length > 0 && list_ID_Packet_search.includes(item_2?.id)){
+    //                                     if(listProvince_select?.length == 0){
+    //                                         return Item_View_Child(item_2)
+    //                                     }else{
+    //                                         if(listProvince_select.includes(item_2?.provinceId)){
+    //                                             return Item_View_Child(item_2)
+    //                                         }
+    //                                     }
+    //                                 }
+    //                                 if(list_ID_Packet_search?.length == 0){
+    //                                     if(listProvince_select?.length == 0){
+    //                                         return Item_View_Child(item_2)
+    //                                     }else{
+    //                                         if(listProvince_select.includes(item_2?.provinceId)){
+    //                                             return Item_View_Child(item_2) 
+    //                                         }
+    //                                     }
+    //                                 }
+                                   
+    //                             }
+    //                         })}
+                            
+    //                 </TouchableOpacity>
+    //             )
+    //         }
+    //     }
+        
+    // }
+
     const ItemView = ({item, index}) => {
         if(listProduce_select?.length == 0){
                 return (
-                    <View style={{padding: 16}} onPress={() => goToPage('ChooseServiceScreen1')}>
+                    <TouchableOpacity  key={"service" + index} style={{padding: 16}} onPress={() => goToPage('ChooseServiceScreen1')}>
                             <View style={styles.box_item}>
-                                <Image
-                                    source={images.icon_yte} style={{width: 25, height: 25}}
-                                />
+                                {/* <Image
+                                    source={images.icon_work} style={{width: 25, height: 25}}
+                                /> */}
                                 <Text style={[styles.title]}>{item?.productCategoryName}</Text>
                             </View>
-                            {listServicePacket && listServicePacket.map((item_2, index_2) => {
-                                if(item_2?.productCategoryId == item?.productCategoryId) {
-                                    if(list_ID_Packet_search?.length > 0 && list_ID_Packet_search.includes(item_2?.id)){ 
-                                        if(listProvince_select?.length == 0){
-                                            return Item_View_Child(item_2)
-                                        }else{
-                                            if(listProvince_select.includes(item_2?.provinceId)){
-                                                Item_View_Child(item_2)
-                                            }
-                                        }
-                                    }
-                                    if(list_ID_Packet_search?.length == 0){                                   
-                                        if(listProvince_select?.length == 0){
-                                             return Item_View_Child(item_2)
-                                        }else{
-                                            if(listProvince_select.includes(item_2?.provinceId)){
-                                                return Item_View_Child(item_2)
-                                            }
-                                        }
-                                    }     
-                                }
-                            })}
-                            
-                    </View>
+                            {listProvince_select?.length == 0 ? Item_View_Child(item) : listProvince_select.includes(item?.provinceId) ? Item_View_Child(item) : null}                         
+                    </TouchableOpacity>
                 )
         }else{
             if(listProduce_select.includes(item?.productCategoryId)){
                 return (
-                    <TouchableOpacity style={{padding: 16}} onPress={() => goToPage('ChooseServiceScreen1')}>
+                    <TouchableOpacity key={"service2" + index} style={{padding: 16}} onPress={() => goToPage('ChooseServiceScreen1')}>
                             <View style={styles.box_item}>
                                 <Image
-                                    source={images.icon_yte} style={{width: 25, height: 25}}
+                                    source={images.icon_work} style={{width: 25, height: 25}}
                                 />
                                 <Text style={[styles.title]}>{item?.productCategoryName}</Text>
                             </View>
-                            {listServicePacket && listServicePacket.map((item_2, index_2) => {
-                                if(item_2?.productCategoryId == item?.productCategoryId) {
-                                    if(list_ID_Packet_search?.length > 0 && list_ID_Packet_search.includes(item_2?.id)){
-                                        if(listProvince_select?.length == 0){
-                                            return Item_View_Child(item_2)
-                                        }else{
-                                            if(listProvince_select.includes(item_2?.provinceId)){
-                                                return Item_View_Child(item_2)
-                                            }
-                                        }
-                                    }
-                                    if(list_ID_Packet_search?.length == 0){
-                                        if(listProvince_select?.length == 0){
-                                            return Item_View_Child(item_2)
-                                        }else{
-                                            if(listProvince_select.includes(item_2?.provinceId)){
-                                                return Item_View_Child(item_2) 
-                                            }
-                                        }
-                                    }
-                                   
-                                }
-                            })}
+                            {listProvince_select?.length == 0 ? Item_View_Child(item) : listProvince_select.includes(item?.provinceId) ? Item_View_Child(item) : null}
                             
                     </TouchableOpacity>
                 )
@@ -253,15 +298,15 @@ export const ServicesScreen = observer(function ServicesScreen() {
                         showsHorizontalScrollIndicator={false}
                         style={{flex: 1}}
                         renderItem={ItemView}
-                        data={listProducCategory}
-                        keyExtractor={(item, index) => 'services-screen' + index + String(item)}
+                        data={listServicePacket}
+                        keyExtractor={(item, index) => 'services-screen-1' + index + String(item)}
                 />
 
                 </View>
                 {/* <View style={{padding: 16}}>
                     <View style={styles.box_item}>
                         <Image
-                            source={images?.icon_yte} style={{width: 25, height: 25}}
+                            source={images?.icon_work} style={{width: 25, height: 25}}
                         />
                         <Text style={[styles.title]}>Y tế / Chăm sóc sức khoẻ</Text>
                     </View>
@@ -286,7 +331,7 @@ export const ServicesScreen = observer(function ServicesScreen() {
         <>
             {isLoading && <CenterSpinner/>}
             <Screen style={ROOT} preset="fixed">
-                <View style={{flex: 1}}>
+                <View style={{flex: 1, backgroundColor: color.white}}>
                     <View style={styles.header}>
                         <TouchableOpacity onPress={() => goToPage('DashboardScreen')}>
                             <Ionicons name='chevron-back-outline' size={30} color={color.black} />
@@ -297,6 +342,7 @@ export const ServicesScreen = observer(function ServicesScreen() {
                             placeholder='Nhập dịch vụ cần tìm kiếm'
                             onChangeText={(value) => setTextSearch(value)}
                             onSubmitEditing={() => searchProducePacket()}
+                            onEndEditing={() => searchProducePacket()}
                             value={textSearch}
                         />
                         <TouchableOpacity onPress={() => setModal_Option(true)}>
@@ -313,7 +359,7 @@ export const ServicesScreen = observer(function ServicesScreen() {
                         renderItem={null}
                         data={[]}
                         ListHeaderComponent={topComponent()}
-                        keyExtractor={(item, index) => 'services-screen' + index + String(item)}
+                        keyExtractor={(item, index) => 'services-screen-2' + index + String(item)}
                     />
                 </View>
                 <Modal
@@ -342,7 +388,7 @@ export const ServicesScreen = observer(function ServicesScreen() {
                                                 <Text style={[styles.title_3,{marginBottom: 16}]}>Chọn nhóm dịch vụ</Text>
                                                 {listProducCategory.map((item,index) => {
                                                     return (
-                                                        <TouchableOpacity style={{ flexDirection: 'row', marginBottom: 16, alignItems: 'center' }} onPress={() => chooseOption(0,item?.productCategoryId )}>
+                                                        <TouchableOpacity key={"test-" + index} style={{ flexDirection: 'row', marginBottom: 16, alignItems: 'center' }} onPress={() => chooseOption(0,item?.productCategoryId )}>
                                                             <Ionicons name={listProduce_select.includes(item?.productCategoryId) ? 'radio-button-on-outline' : 'radio-button-off-outline'}color={color.xanh_nhat} size={25} />
                                                             <Text style={{ marginLeft: 17, fontSize: 15, color: color.lightGrey }}>{item?.productCategoryName}</Text>
                                                         </TouchableOpacity>
@@ -351,7 +397,7 @@ export const ServicesScreen = observer(function ServicesScreen() {
                                                 <Text style={[styles.title_3,{marginBottom: 16}]}>Địa điểm</Text>
                                                 {listProvince.map((item,index) => {
                                                     return (
-                                                        <TouchableOpacity style={{ flexDirection: 'row', marginBottom: 16, alignItems: 'center' }} onPress={() => chooseOption(1,item?.provinceId )}>
+                                                        <TouchableOpacity key={"test2-" + index} style={{ flexDirection: 'row', marginBottom: 16, alignItems: 'center' }} onPress={() => chooseOption(1,item?.provinceId )}>
                                                             <Ionicons name={listProvince_select.includes(item?.provinceId) ? 'radio-button-on-outline' : 'radio-button-off-outline'}color={color.xanh_nhat} size={25} />
                                                             <Text style={{ marginLeft: 17, fontSize: 15, color: color.lightGrey }}>{item?.provinceName}</Text>
                                                         </TouchableOpacity>
@@ -402,7 +448,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '700',
         color: color.blue,
-        marginLeft: 16
+       
     },
     title_2: {
         fontSize: 15,

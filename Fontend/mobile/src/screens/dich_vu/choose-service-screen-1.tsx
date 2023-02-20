@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {observer} from 'mobx-react-lite';
-import {Animated, Dimensions, FlatList, StyleSheet, Text, View, ViewStyle,Image, TextInput, Modal, TouchableOpacity, Platform, ScrollView, KeyboardAvoidingView} from 'react-native';
+import {Animated, Dimensions, FlatList, StyleSheet, Text, View, ViewStyle,Image, TextInput, Modal, TouchableOpacity, Platform, ScrollView, KeyboardAvoidingView, Alert} from 'react-native';
 import {Header, Screen} from '../../components';
 import {useIsFocused, useNavigation, useRoute} from "@react-navigation/native"
 // import { useStores } from "../../models"
@@ -22,7 +22,7 @@ const _unitOfWork = new UnitOfWorkService()
 const layout = Dimensions.get('window');
 
 const ROOT: ViewStyle = {
-    backgroundColor: color.white,
+    backgroundColor: color.primary,
     flex: 1,
 };
 
@@ -44,7 +44,9 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
         modal_choose_dv: false,
         modal_thanh_toan: false,
         modal_chon_thanh_toan: false,
-        show_detail_option: false
+        show_detail_option: false,
+        modal_success: false,
+        open_keyboard: false
     })
     const [data_Parent, setData_Parent] = useState()
     const [listData, setListData] = useState([])
@@ -65,13 +67,20 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
     const [dataConfigPayment,setDataConfigPayment] = useState([])
     const [TypePayment,setTypePayment] = useState({})
     const [countYc, setCountYc] = useState('1') // số lượng của phiêu dịch vụ con
+    const [image_payment, setImage_payment] = useState('')
+    const [image_success, setImage_Sucess] = useState('')
+
+    const scrollViewRef = useRef(null);
 
 
     useEffect(() => {
       fetchData();
     }, [isFocus,isRefresh]);
     const fetchData = async () => {
+        setLoading(true)
         setListDataClass([])
+        console.log("params: ", params);
+        
         if(params) setData_Parent(params?.data)
         
         let user_id = await HDLTModel.getUserInfoByKey('userId')
@@ -80,8 +89,14 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                 "UserId": user_id
             }
         )
-        let response_payment = await _unitOfWork.user.takeMobileAppConfiguration({})
-        if(response_payment?.statusCode == 200) setDataConfigPayment(response_payment?.listPayMent)
+        
+        let response_payment = await _unitOfWork.user.takeMobileAppConfiguration({})      
+        if(response_payment?.statusCode == 200) {
+            setDataConfigPayment(response_payment?.listPayMent)
+            setImage_payment(response_payment?.mobileAppConfigurationEntityModel?.paymentScreenIconTransfer)
+            setImage_Sucess(response_payment?.mobileAppConfigurationEntityModel?.orderNotificationImage)
+        }
+
         
         if(response?.statusCode == 200){
             let _listData = [...response?.listOption]
@@ -96,6 +111,8 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
             
             setListData_First(new_arr1)
         }
+
+        setLoading(false)
     };
 
     const handleChooseOption = async (item, id_parent) => {
@@ -156,137 +173,148 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
         setListDataOption_properties(_listDataOption_properties)
     }
 
+    const Check_tao_yeu_cau = () => {
+        let check = true;
+        for(let i = 0; i < properties_option?.length; i++){
+            if(!formData[properties_option[i]?.id]?.value){
+                showToast("error", properties_option[i]?.categoryName + ' không được để trống')
+                check = false
+                break
+            }
+        }
+        
+        return check
+    }
+
     const handle_dat_phieu_yc = async () => {
 
-        let customerID = await HDLTModel.getUserInfoByKey('customerId')
-        let userId = await HDLTModel.getUserInfoByKey('userId')
-
+        if(Check_tao_yeu_cau()){
         // lấy mảng list customer detail
-        let _ListCustomerDetail = ListCustomerDetail.filter(item => item?.optionId != data_select?.id)
-        // oibj_customerDetail = modal CustomerDetai_Modal
-        let obj_customerDetail = {
-            orderDetailId: "00000000-0000-0000-0000-000000000000",
-            vendorId: "",
-            orderId: "00000000-0000-0000-0000-000000000000",
-            productId: "",
-            ProductCategoryId: "00000000-0000-0000-0000-000000000000",
-            quantity: 1,
-            unitPrice: 0,
-            currencyUnit: "00000000-0000-0000-0000-000000000000",
-            exchangeRate: 1,
-            vat: 0,
-            discountType: true,
-            discountValue: 0,
-            description: "",
-            orderDetailType: 0,
-            unitId: "",
-            incurredUnit: "",
-            active: true,
-            createdById: "00000000-0000-0000-0000-000000000000",
-            createdDate: "2022-12-22T09:22:26.260Z",
-            updatedById: null,
-            UpdatedDate: null,
-            OrderProductDetailProductAttributeValue: [],
-            ExplainStr: "",
-            NameVendor: "",
-            ProductNameUnit: "",
-            NameMoneyUnit: "",
-            SumAmount: 0,
-            GuaranteeTime: null,
-            GuaranteeDatetime: null,
-            AmountDiscount: 0,
-            ExpirationDate: null,
-            WarehouseId: null,
-            priceInitial: null,
-            IsPriceInitial: false,
-            WarrantyPeriod: null,
-            ActualInventory: null,
-            BusinessInventory: null,
-            OrderNumber: 0,
-            UnitLaborPrice: 0,
-            UnitLaborNumber: 0,
-            SumAmountLabor: 0,
-            FolowInventory: false,
-            servicePacketId: null,
-            optionId: null
-        }
+            let _ListCustomerDetail = ListCustomerDetail.filter(item => item?.optionId != data_select?.id)
+            // oibj_customerDetail = modal CustomerDetai_Modal
+            let obj_customerDetail = {
+                orderDetailId: "00000000-0000-0000-0000-000000000000",
+                vendorId: "",
+                orderId: "00000000-0000-0000-0000-000000000000",
+                productId: "",
+                ProductCategoryId: "00000000-0000-0000-0000-000000000000",
+                quantity: 1,
+                unitPrice: 0,
+                currencyUnit: "00000000-0000-0000-0000-000000000000",
+                exchangeRate: 1,
+                vat: 0,
+                discountType: true,
+                discountValue: 0,
+                description: "",
+                orderDetailType: 0,
+                unitId: "",
+                incurredUnit: "",
+                active: true,
+                createdById: "00000000-0000-0000-0000-000000000000",
+                createdDate: "2022-12-22T09:22:26.260Z",
+                updatedById: null,
+                UpdatedDate: null,
+                OrderProductDetailProductAttributeValue: [],
+                ExplainStr: "",
+                NameVendor: "",
+                ProductNameUnit: "",
+                NameMoneyUnit: "",
+                SumAmount: 0,
+                GuaranteeTime: null,
+                GuaranteeDatetime: null,
+                AmountDiscount: 0,
+                ExpirationDate: null,
+                WarehouseId: null,
+                priceInitial: null,
+                IsPriceInitial: false,
+                WarrantyPeriod: null,
+                ActualInventory: null,
+                BusinessInventory: null,
+                OrderNumber: 0,
+                UnitLaborPrice: 0,
+                UnitLaborNumber: 0,
+                SumAmountLabor: 0,
+                FolowInventory: false,
+                servicePacketId: null,
+                optionId: null
+            }
 
-        obj_customerDetail.priceInitial = data_select?.price
-        obj_customerDetail.optionId = data_select?.id 
-        obj_customerDetail.servicePacketId = data_Parent?.id
-        obj_customerDetail.vat = data_select?.vat
-        obj_customerDetail.quantity = parseFloat(countYc) 
-        
-        _ListCustomerDetail.push(obj_customerDetail)
-        setListCustomerDetail(_ListCustomerDetail)
+            obj_customerDetail.priceInitial = data_select?.price
+            obj_customerDetail.optionId = data_select?.id 
+            obj_customerDetail.servicePacketId = data_Parent?.id
+            obj_customerDetail.vat = data_select?.vat
+            obj_customerDetail.quantity = parseFloat(countYc) 
+            
+            _ListCustomerDetail.push(obj_customerDetail)
+            setListCustomerDetail(_ListCustomerDetail)
 
-        // tạo list AttrPackAndOption_Modal
-        let _ListAttrPackAndOption = ListAttrPackAndOption.filter(item => item?.objectId != data_select?.optionId)
-        
-        if(formData){ 
-            let keys = Object.keys(formData)
-            for(let i = 0; i < keys?.length; i++){
-                let obj = {
-                    attributeConfigurationId: null,
-                    objectId: null,
-                    objectType: null,
-                    value: null,
-                    dataType: null
+            // tạo list AttrPackAndOption_Modal
+            let _ListAttrPackAndOption = ListAttrPackAndOption.filter(item => item?.objectId != data_select?.optionId)
+            
+            if(formData){ 
+                let keys = Object.keys(formData)
+                for(let i = 0; i < keys?.length; i++){
+                    let obj = {
+                        attributeConfigurationId: null,
+                        objectId: null,
+                        objectType: null,
+                        value: null,
+                        dataType: null
+                    }
+                    obj.attributeConfigurationId = keys[i]
+                    obj.objectId = data_select?.optionId
+                    obj.objectType = 1
+                    obj.dataType = formData[keys[i]]?.dataType
+                    obj.value = formData[keys[i]]?.value
+                    obj.servicePacketMappingOptionsId = data_select?.id
+                    _ListAttrPackAndOption.push(obj)
                 }
-                obj.attributeConfigurationId = keys[i]
-                obj.objectId = data_select?.optionId
-                obj.objectType = 1
-                obj.dataType = formData[keys[i]]?.dataType
-                obj.value = formData[keys[i]]?.value
-                obj.servicePacketMappingOptionsId = data_select?.id
-                _ListAttrPackAndOption.push(obj)
             }
-        }
-        
-        setListAttrPackAndOption(_ListAttrPackAndOption)
+            
+            setListAttrPackAndOption(_ListAttrPackAndOption)
 
-        // lưu data option và thuoc tinh
+            // lưu data option và thuoc tinh
 
-        let _listDataOption_properties = listDataOption_properties
-        // _listDataOption_properties[data_select?.id] = {...formData}
-        // setListDataOption_properties(_listDataOption_properties)
-  
-        if(listDataClass?.length == 0){           
-            if(ID_class_first == data_select?.id){
-                
-                let obj = {..._listDataOption_properties[data_select?.id]}
-                obj[data_select?.id] = {...formData}
-                _listDataOption_properties[data_select?.id] = obj
-            }else{
-                let obj = {..._listDataOption_properties[ID_class_first]}
-                obj[data_select?.id] = {...formData}
-                _listDataOption_properties[ID_class_first] = obj
+            let _listDataOption_properties = listDataOption_properties
+            // _listDataOption_properties[data_select?.id] = {...formData}
+            // setListDataOption_properties(_listDataOption_properties)
+    
+            if(listDataClass?.length == 0){           
+                if(ID_class_first == data_select?.id){
+                    
+                    let obj = {..._listDataOption_properties[data_select?.id]}
+                    obj[data_select?.id] = {...formData}
+                    _listDataOption_properties[data_select?.id] = obj
+                }else{
+                    let obj = {..._listDataOption_properties[ID_class_first]}
+                    obj[data_select?.id] = {...formData}
+                    _listDataOption_properties[ID_class_first] = obj
+                }
+                // let obj = {..._listDataOption_properties[data_select?.id]}
+                // obj[data_select?.id] = {...formData}
+                // _listDataOption_properties[data_select?.id] = obj
             }
-            // let obj = {..._listDataOption_properties[data_select?.id]}
-            // obj[data_select?.id] = {...formData}
-            // _listDataOption_properties[data_select?.id] = obj
-        }
-        else{
-            let obj = {..._listDataOption_properties[listDataClass[0]?.id]}
-            obj[data_select?.id] = {...formData}
-            _listDataOption_properties[listDataClass[0]?.id] = obj
-        }
-        
-        setListDataOption_properties(_listDataOption_properties)
+            else{
+                let obj = {..._listDataOption_properties[listDataClass[0]?.id]}
+                obj[data_select?.id] = {...formData}
+                _listDataOption_properties[listDataClass[0]?.id] = obj
+            }
+            
+            setListDataOption_properties(_listDataOption_properties)
 
-        // tạo phiếu yêu cầu
-        resetData()
-        let new_arr1 = listData.filter(item => item?.parentId == null)
-            new_arr1.sort((a,b) => {
-                return a?.sortOrder - b?.sortOrder
-        })
-        setListDataClass([])
-        setListData_First(new_arr1)
-        setCountYc('1')   
+            // tạo phiếu yêu cầu
+            resetData()
+            let new_arr1 = listData.filter(item => item?.parentId == null)
+                new_arr1.sort((a,b) => {
+                    return a?.sortOrder - b?.sortOrder
+            })
+            setListDataClass([])
+            setListData_First(new_arr1)
+            setCountYc('1')
+            handleSetShowModal("modal_choose_dv", false)
+        }
 
-        // let response = await _unitOfWork.user.createCustomerOrder(payload)
-        // if(response?.statusCode == 200) showToast('success', response?.messageCode)
-        // else showToast('error', response?.messageCode)
+          
     }
 
     const submitDatDv = async () => {
@@ -339,15 +367,6 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
             else showToast('error', response?.messageCode)
         }else{
             if(TypePayment?.id) {
-                // if(TypePayment == 1){
-                //     payload.CusOrder.PaymentMethodOrder = 1
-                //     payload.CusOrder.PaymentContent = dataConfigPayment?.paymentScreenContentTransfer
-                // }
-                // if(TypePayment == 2){
-                //     payload.CusOrder.PaymentMethodOrder = 2
-                //     payload.CusOrder.PaymentContent = dataConfigPayment?.paymentScreenContentVnpay
-                // }
-
                 payload.CusOrder.PaymentMethod = TypePayment?.id
                 payload.CusOrder.PaymentContent = TypePayment?.content
         
@@ -359,8 +378,8 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                             StatusOrder:1,
                             UserId: userId
                     })
-                    showToast('success', response?.messageCode)              
-                    navigation.navigate('MainScreen', {screen: 'YeuCauScreen'}) 
+                    // showToast('success', response?.messageCode)
+                    handleSetShowModal("modal_success", true)       
                 }
                 else showToast('error', response?.messageCode)
             }else showToast('error', "Bạn chưa chọn hình thức thanh toán!")
@@ -405,7 +424,9 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
             })
             payload.ListOrderDetailExten = [..._ListOrderDetailExten]
         }
+        setLoading(true)
         let response = await _unitOfWork.user.createCustomerOrder(payload)
+        setLoading(false)
         if(response?.statusCode == 200){
             showToast('success', "Đơn của bạn đã được đặt sau!")
             resetData_all()
@@ -642,7 +663,7 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
 
     const topComponent = () => {
         return (
-            <View style={{}}>
+             <View style={{flex: 1}}>
                 <View style={{ alignItems: 'center', marginTop: 16}}>
                     <Text style={styles.text_header}>{listDataClass?.length > 0 ? listDataClass[listDataClass?.length - 1].name : data_Parent?.name}</Text>
                     <Text style={[styles.text, {marginTop: 12}]}>{listData_Fist?.length} dịch vụ - {data_Parent?.provinceName}</Text>
@@ -666,7 +687,7 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                                     }
                                 >
                                     <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 16, paddingVertical: 12}}>
-                                        <Text numberOfLines={2} style={[styles.text,{color: color.black, fontWeight: '500'}]}>{item?.nameCustom} {showVatOption(item)}</Text>
+                                        <Text numberOfLines={2} style={[styles.text,{color: color.black, fontWeight: '500'}]}>{item?.name} {item?.price ?  '- Đơn giá: ' + formatNumber(item?.price) + '/' + item?.categoryUnitName : ''} {showVatOption(item)}</Text>
                                         {!item?.price ?
                                             <Ionicons name='caret-forward-outline' size={20} />
                                         : null}
@@ -683,7 +704,7 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                 })}
 
                 {listDataClass?.length == 0 ? 
-                <View>
+                <View style={{marginBottom: 50}}>
                     <View style={[styles.box,{justifyContent: 'space-between', alignItems: 'center', paddingVertical: 16}]}>
                         <View style={[{flexDirection: 'row'}]}>
                             <Image source={images.icon_dv_bosung} style={{width: 22, height: 22}} />
@@ -693,27 +714,33 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                             <Ionicons name='add-outline' size={30} />
                         </TouchableOpacity>
                     </View>
-                    {data_yc_bosung && data_yc_bosung.map((item,index) => {
+                      {data_yc_bosung && data_yc_bosung.map((item,index) => {
                         return (
                             <View style={[styles.box4,{}]}>
                                 <TextInput 
-                                style={{width: '100%', paddingHorizontal: 12, fontSize: 16}}
-                                placeholder='Nhập yêu cầu bổ sung'
-                                multiline
-                                value={data_yc_bosung[index]?.name}
-                                onChangeText={(value) => {
-                                    let data = [...data_yc_bosung]
-                                    data[index].name = value
-                                    setDataYcBoSung(data)
-                                }}
+                                    style={{width: '100%', paddingHorizontal: 12, fontSize: 16, paddingVertical: 10}}
+                                    placeholder='Nhập yêu cầu bổ sung'
+                                    multiline
+                                    value={data_yc_bosung[index]?.name}
+                                    onChangeText={(value) => {
+                                        let data = [...data_yc_bosung]
+                                        data[index].name = value
+                                        setDataYcBoSung(data)
+                                    }}
+                                    onFocus={() => {
+                                        handleSetShowModal('open_keyboard', true)
+                                        scrollViewRef.current.scrollToEnd({animated: true})
+                                        }
+                                    }
+                                    onEndEditing={() => handleSetShowModal('open_keyboard', false)}
                                 />
                             </View>
                         )
                     })}
+       
                 </View>
                 : null }
-
-                
+                <View style={{height: showModal?.open_keyboard ? 0 : 150}}></View>
             </View>
         );
     };
@@ -744,42 +771,90 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                     }else navigation.goBack()
                     
                 }}/>
-                <View style={{flex: 1}}>
-                    <FlatList
-                        // refreshing={isRefresh}
-                        // onRefresh={() => onRefresh()}
-                        showsVerticalScrollIndicator={false}
-                        showsHorizontalScrollIndicator={false}
-                        style={{flex: 1}}
-                        renderItem={null}
-                        data={[]}
-                        ListHeaderComponent={topComponent()}
-                        keyExtractor={(item, index) => 'choose-service-1' + index + String(item)}
-                    />
+                <View style={{flex: 1, backgroundColor: color.white}}>
+                    <ScrollView 
+                        style={{height: listDataClass?.length == 0 ? layout.height - 230 : layout.height - 120}}
+                        ref={scrollViewRef}
+                    >
+                        {topComponent()}
+                    </ScrollView>
+                    {listDataClass?.length == 0 && !showModal?.open_keyboard  ?
+                        <View style={{paddingHorizontal: 15,paddingVertical: 12,width: layout.width, position: 'absolute', bottom: 16, height: 120, backgroundColor: color.white}}>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <Text style={[styles.text_header_2]}>Lựa chọn - <Text style={{fontWeight: '400'}}>{Calculate_Count_Service_Select()} dịch vụ</Text></Text>
+                                <Text style={[styles.text_header_2]}>{formatNumber(Calculate_Total_Price())} đ</Text>
+                            </View>
+                            <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 16}} >
+                                <TouchableOpacity 
+                                    style={[styles.btn_blue, {width: '30%'}]}
+                                    onPress={async () => {
+                                        let user_id = await HDLTModel.getUserInfoByKey('userId')
+                                        if(user_id){
+                                            if(ListCustomerDetail?.length > 0){
+                                                submitDatDv_Sau()
+                                            }else{
+                                                showToast("error", 'Bạn chưa có đơn hàng!')
+                                            }
+                                        }else{
+                                            Alert.alert(
+                                                "Bạn có muốn đăng nhập vào hệ thống!",
+                                                "",
+                                                [
+                                                  {text: 'Hủy', onPress: () => console.log('Later button clicked')},
+                                                  {
+                                                    text: "Có",
+                                                    onPress: () => {
+                                                        navigation.navigate('LoginScreen')
+                                                    },
+                                                  },
+                                                ]
+                                              );
+                                        }                    
+
+                                    }}
+                                >
+                                    <Text style={[styles.text_header_2,{color: color.white}]} >Đặt Sau</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={[styles.btn_blue,{width: '65%'}]} 
+                                    onPress={async () => {
+                                        let user_id = await HDLTModel.getUserInfoByKey('userId')
+                                        console.log("userID: ", user_id);
+                                        
+                                        if(user_id){
+                                            if(ListCustomerDetail?.length > 0){
+                                                if(data_yc_bosung?.length > 0 && data_yc_bosung[0]?.name){
+                                                    submitDatDv()
+                                                }else  handleSetShowModal("modal_thanh_toan", true)
+                                            }else{
+                                                showToast("error", 'Bạn chưa có đơn hàng!')
+                                            } 
+                                        }else{
+                                            Alert.alert(
+                                                "Bạn có muốn đăng nhập vào hệ thống!",
+                                                "",
+                                                [
+                                                  {text: 'Hủy', onPress: () => console.log('Later button clicked')},
+                                                  {
+                                                    text: "Có",
+                                                    onPress: () => {
+                                                        navigation.navigate('LoginScreen',{
+                                                            type : 'ChooseServiceScreen1',
+                                                            data: params?.data
+                                                        })
+                                                    },
+                                                  },
+                                                ]
+                                              );
+                                        }
+                                }} >
+                                    <Text style={[styles.text_header_2, {color: color.white}]}>Đặt Dịch Vụ</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    : null }
                 </View>
-                {listDataClass?.length == 0 ?
-                    <View style={{paddingHorizontal: 15,paddingVertical: 12,width: layout.width, }}>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                            <Text style={[styles.text_header_2]}>Lựa chọn - <Text style={{fontWeight: '400'}}>{Calculate_Count_Service_Select()} dịch vụ</Text></Text>
-                            <Text style={[styles.text_header_2]}>{formatNumber(Calculate_Total_Price())} đ</Text>
-                        </View>
-                        <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 16}} >
-                            <TouchableOpacity 
-                                style={[styles.btn_blue, {width: '30%'}]}
-                                onPress={() => submitDatDv_Sau()}
-                            >
-                                <Text style={[styles.text_header_2,{color: color.white}]} >Đặt Sau</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={[styles.btn_blue,{width: '65%'}]} onPress={() => {
-                                if(data_yc_bosung?.length > 0 && data_yc_bosung[0]?.name){
-                                    submitDatDv()
-                                }else  handleSetShowModal("modal_thanh_toan", true)
-                            }} >
-                                <Text style={[styles.text_header_2, {color: color.white}]}>Đặt Dịch Vụ</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                : null }
+                
+            
                 <Modal
                     animationType={"slide"}
                     transparent={true}
@@ -801,82 +876,90 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                                 <KeyboardAvoidingView
                                     behavior={Platform.OS === "ios" ? "padding" : "height"}
                                     style={{flex: 1}}
-                                    keyboardVerticalOffset={200}
+                                    keyboardVerticalOffset={150}
                                 >
-                                <ScrollView
-                                    showsVerticalScrollIndicator={false}
-                                >
-                                    <View style={{paddingVertical: 16}}>
-                                        <Text style={[styles.text_header_2, {marginBottom: 12}]}>{data_select?.name}</Text>
-                                        <Text style={{fontWeight: '400', color: color.black, fontSize: 15}}>Đưa đón đến bệnh viện bao gồm các bệnh viện Hồng Ngọc, Bạch Mai, Việt Đức</Text>
-                                        <View style={[styles.box3,{marginTop: 24, justifyContent: 'flex-start', paddingHorizontal: 0}]}>
-                                            <Image source={images.icon_book} style={{width: 22, height: 22}} />
-                                            <Text style={[styles.text_header_2, {marginLeft: 16}]}>Thông tin đặt dịch vụ</Text>
-                                        </View>
+                                    <ScrollView
+                                        showsVerticalScrollIndicator={false}
+                                    >
+                                        <View style={{paddingVertical: 16}}>
+                                            <Text style={[styles.text_header_2, {marginBottom: 12}]}>{data_select?.name}</Text>
+                                            {/* <Text style={{fontWeight: '400', color: color.black, fontSize: 15}}>Đưa đón đến bệnh viện bao gồm các bệnh viện Hồng Ngọc, Bạch Mai, Việt Đức</Text> */}
+                                            <View style={[styles.box3,{marginTop: 24, justifyContent: 'flex-start', paddingHorizontal: 0}]}>
+                                                <Image source={images.icon_book} style={{width: 22, height: 22}} />
+                                                <Text style={[styles.text_header_2, {marginLeft: 16}]}>Thông tin đặt dịch vụ</Text>
+                                            </View>
 
-                                        {properties_option && properties_option.map((item,index) => {
-                                            return (
-                                                <View>
-                                                    <Text style={[styles.text_black,{marginVertical: 16}]}>{item?.categoryName} <Text style={{color: color.error}}>*</Text></Text>
-                                                    {item?.dataType != 3 ?
-                                                        <TextInput
-                                                            style={[styles.input]}
-                                                            value={formData?.[item?.id]?.value}
-                                                            onChangeText={(value) => {
-                                                                changeTextInputFormData(item, value)
-                                                            }}
-                                                        />
-                                                    : 
-                                                        <View style={{width: '100%'}}>
-                                                                <TouchableOpacity style={styles.inputDate} onPress={() => {ShowDateFormData(item, true)}}>
-                                                                    <Text>{formatDate(formData?.[item?.id]?.value)}</Text>
-                                                                    <Ionicons name={'calendar-outline'} color="black" size={24}/>
-                                                                </TouchableOpacity>
-                                                                <DatePicker
-                                                                    // minimumDate={lastUpload}
-                                                                    // maximumDate={new Date()}
-                                                                    textColor={Platform?.OS == 'ios' ? color.black : color.black}
-                                                                    mode="date"
-                                                                    modal
-                                                                    open={dataDate?.[item?.id]}
-                                                                    date={formData?.[item?.id] ? formData?.[item?.id]?.value : new Date()}
-                                                                    onConfirm={(date) => {
-                                                                        changeTextInputFormData(item, date)                            
-                                                                    }}
-                                                                    onCancel={() => {
-                                                                        ShowDateFormData(item, false)
-                                                                    }}
-                                                                />
-                                                        </View>
-                                                    }
-                                                </View>
-                                            )
-                                        })}
-                                        <View>
-                                            <Text style={[styles.text_black,{marginVertical: 16}]}>Số lượng</Text>
-                                            <TextInput
-                                                style={[styles.input]}
-                                                value={countYc}
-                                                onChangeText={(value) => {
-                                                    setCountYc(value)
-                                                }}
-                                                keyboardType='numeric'
-                                            />
+                                            {properties_option && properties_option.map((item,index) => {
+                                                return (
+                                                    <View>
+                                                        <Text style={[styles.text_black,{marginVertical: 16}]}>{item?.categoryName} <Text style={{color: color.error}}>*</Text></Text>
+                                                        {item?.dataType != 3 ?
+                                                            <TextInput
+                                                                style={[styles.input]}
+                                                                value={formData?.[item?.id]?.value}
+                                                                onChangeText={(value) => {
+                                                                    changeTextInputFormData(item, value)
+                                                                }}
+                                                            />
+                                                        : 
+                                                            <View style={{width: '100%'}}>
+                                                                    <TouchableOpacity style={styles.inputDate} onPress={() => {ShowDateFormData(item, true)}}>
+                                                                        <Text>{formatDate(formData?.[item?.id]?.value)}</Text>
+                                                                        <Ionicons name={'calendar-outline'} color="black" size={24}/>
+                                                                    </TouchableOpacity>
+                                                                    {dataDate?.[item?.id] ? 
+                                                                        <DatePicker
+                                                                            // minimumDate={lastUpload}
+                                                                            // maximumDate={new Date()}
+                                                                            textColor={Platform?.OS == 'ios' ? color.black : color.black}
+                                                                            mode="date"
+                                                                            modal
+                                                                            open={dataDate?.[item?.id]}
+                                                                            date={formData?.[item?.id] ? formData?.[item?.id]?.value : new Date()}
+                                                                            onConfirm={(date) => {
+                                                                                changeTextInputFormData(item, date)
+                                                                                ShowDateFormData(item, false)      
+                                                                            }}
+                                                                            onCancel={() => {
+                                                                                ShowDateFormData(item, false)
+                                                                            }}
+                                                                            locale='vi'
+                                                                            confirmText='Xác nhận'
+                                                                            cancelText='Hủy'
+                                                                            title={null}
+
+                                                                        />
+                                                                    :  null }
+                                                            </View>
+                                                        }
+                                                    </View>
+                                                )
+                                            })}
+                                            <View style={{marginBottom: 16}}>
+                                                <Text style={[styles.text_black,{marginVertical: 16}]}>Số lượng</Text>
+                                                <TextInput
+                                                    style={[styles.input]}
+                                                    value={countYc}
+                                                    onChangeText={(value) => {
+                                                        setCountYc(value)
+                                                    }}
+                                                    keyboardType='numeric'
+                                                />
+                                            </View>
                                         </View>
-                                    </View>
-                                </ScrollView>
+                                    </ScrollView>
                                 </KeyboardAvoidingView>
                             </View>
                         </View>
                         <View style={{position: 'absolute', width: layout.width*8/10, bottom: 0, marginBottom: 50, marginLeft: layout.width/10 }}>
                             <TouchableOpacity style={[{ width: '100%', borderRadius: 10, paddingVertical: 14, backgroundColor: color.blue, alignItems: 'center' }]} onPress={() => {
                                 handle_dat_phieu_yc()
-                                handleSetShowModal("modal_choose_dv", false)
                             }}>
                                 <Text style={[{fontSize: 18, fontWeight: '700', color: color.white}]}>OK</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
+                    <Toast />
                 </Modal>
                 <Modal
                     animationType={"slide"}
@@ -884,7 +967,7 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                     visible={showModal?.modal_thanh_toan}
                     onRequestClose={() => { }}
                 >
-                    <View style={styles.modal_container_thanh_toan}>
+                    <View style={[styles.modal_container_thanh_toan]}>
                         <View style={styles.header_thanh_toan}>
                             <TouchableOpacity 
                                 style={{width: '10%', justifyContent: 'center', alignItems: 'center'}}
@@ -920,15 +1003,7 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                                         
                                     )
                                 })}
-                                {/* <View style={{marginTop: 16}}>
-                                    <Text style={[styles.text_header_2]}>Yêu cầu bổ sung</Text>
-                                </View>
-                                {DataOrderDetailExten?.name ?
-                                    <View style={[{}]}>
-                                        <Text>{DataOrderDetailExten?.name}</Text>
-                                        <Text style={{fontSize: 16, color: color.black}}>Số lượng: {DataOrderDetailExten?.quantity}</Text>
-                                    </View>
-                                : <Text style={{color: color.black, marginVertical: 10}}>Không có yêu cầu bổ sung</Text>} */}
+                 
                                 <View style={[styles.box_flex,{marginTop: 16}]}>
                                     <Text style={[styles.text_header_2,{fontSize: 16}]}>Số tiền</Text>
                                     <Text>{formatNumber(Calculate_Total_Price())} vnd</Text>
@@ -943,7 +1018,9 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                                 </View>
                             </View>
                             <View style={{backgroundColor: color.trang_nhat_2, paddingHorizontal: 16, paddingBottom: 16,paddingTop: 24, flexDirection: 'row'}}>
-                                <Image source={images.iconPayment} style={{width: 22, height: 22}} />
+                                {image_payment ? 
+                                <Image source={{uri: image_payment}} style={{width: 22, height: 22}} />
+                                : <Image source={images.iconPayment} style={{width: 22, height: 22}} /> }
                                 <Text style={[styles.text_header_2, {marginLeft: 12}]}>Chọn hình thức thanh toán</Text>
                             </View>
                             <TouchableOpacity 
@@ -956,7 +1033,10 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                             <View style={{flex: 1, backgroundColor: color.trang_nhat_2, alignItems: 'center', marginBottom: 16}}>
                                 <TouchableOpacity 
                                     style={{backgroundColor: color.blue, width: layout.width - 32, paddingVertical: 15, borderRadius: 6, alignItems: 'center', marginVertical: 33}}
-                                    onPress={() => submitDatDv()}
+                                    onPress={() => {
+                                        submitDatDv()
+                                    }
+                                    }
                                 >
                                     <Text style={[styles.text_header_2, {color: color.white}]}>Xác Nhận</Text>
                                 </TouchableOpacity>
@@ -979,7 +1059,9 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                                 </TouchableOpacity>
                             </View>
                             <View style={{padding: 16, flexDirection: 'row'}}>
-                                <Image source={images.iconPayment} style={{width: 22, height: 22}} />
+                                {image_payment ? 
+                                <Image source={{uri: image_payment}} style={{width: 22, height: 22}} />
+                                : <Image source={images.iconPayment} style={{width: 22, height: 22}} /> }
                                 <Text style={[styles.text_header_2, {marginLeft: 12}]}>Chọn hình thức thanh toán</Text>
                             </View>
                             {dataConfigPayment.map((item) => {
@@ -992,7 +1074,6 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                                                 categoryName: item?.categoryName,
                                                 content: item?.content
                                             }
-                                            console.log("obj: ", obj);
                                             
                                             setTypePayment({...obj})
                                             handleSetShowModal('modal_chon_thanh_toan', false)
@@ -1060,6 +1141,25 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                                     <Text>{dataConfigPayment?.paymentScreenContentVnpay}</Text>
                                 </TouchableOpacity>
                             : null } */}
+                        </View>
+                    </Modal>
+
+                    <Modal
+                         animationType={"slide"}
+                         transparent={true}
+                         visible={showModal?.modal_success}
+                         onRequestClose={() => { }}
+                    >
+                        <View style={{height: layout.height/10*7, marginTop: layout.height/10, backgroundColor: color.lighterGrey, borderRadius: 20, width: layout.width - 60, marginLeft: 30, alignItems: 'center', padding: 16}}>
+                            <Image source={{uri: image_success}} style={{height: layout.width - 100, width: layout.width - 100}} />
+                            <Text style={[styles.text_header,{marginVertical: 20}]}>Thành công!</Text>
+                            <Text style={[styles.text_black,{fontWeight: '400', textAlign: 'center'}]} >Dịch vụ của bạn đã được đặt thành công.Chúng tôi sẽ liên hệ bạn trong thời gian sớm nhất.</Text>
+                            <TouchableOpacity 
+                                style={[styles.btn_blue,{width: '100%', marginTop: 30}]}
+                                onPress={() => navigation.navigate('MainScreen', {screen: 'YeuCauScreen'}) }
+                            >
+                                <Text style={[styles.text_header_2,{color: color.white}]}>OK</Text>
+                            </TouchableOpacity>
                         </View>
                     </Modal>
                 </Modal>

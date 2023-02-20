@@ -15,11 +15,12 @@ const layout = Dimensions.get('window');
 
 import { UnitOfWorkService } from '../../services/api/unitOfWork-service';
 import { useStores } from '../../models';
+import { log } from 'react-native-reanimated';
 
 const _unitOfWork = new UnitOfWorkService()
 
 const ROOT: ViewStyle = {
-    backgroundColor: color.white,
+    backgroundColor: color.primary,
     flex: 1,
 };
 
@@ -45,6 +46,7 @@ export const DashBoardAdminScreen = observer(function DashBoardAdminScreen() {
       fetchData();
     }, [isFocus,isRefresh]);
     const fetchData = async () => {
+        setRefresh(false)
         let _userId = await HDLTModel.getUserInfoByKey('userId')
         let response = await _unitOfWork.user.getDashboardDoanhthu({
                 StartDate: dataDate?.FromDate,
@@ -79,7 +81,7 @@ export const DashBoardAdminScreen = observer(function DashBoardAdminScreen() {
                 price += item_2
             })
         })
-        return price
+        return formatNumber(price)
     }
 
     const CaclutateTotalDoanhThuChoThanhToan = () => {
@@ -87,14 +89,14 @@ export const DashBoardAdminScreen = observer(function DashBoardAdminScreen() {
         masterData_cho_thanh_toan?.listRevenueStatisticWaitPaymentModel?.map((item) => {    
             price += item?.amount
         })
-        return price
+        return formatNumber(price)
     }
 
     const CaclutateTotal_Review = (type) => {
         let total = 0
-        if(masterData_danhgia){
+        if(masterData_danhgia?.listRatingStatisticStarServicePacketModel?.length > 0){
             let data_danhgia = [...masterData_danhgia?.listRatingStatisticStarServicePacketModel]
-            data_danhgia.map((item) => {
+            data_danhgia?.map((item) => {
                 if(item?.rateStar == type) total += item?.rateStar
             })
         }
@@ -142,7 +144,8 @@ export const DashBoardAdminScreen = observer(function DashBoardAdminScreen() {
     const setChangeShowDate = (type,value) => {
         let _dataDate = {...dataDate}
         _dataDate[type] = value
-        console.log("_dataDate: ", _dataDate);
+        if(type == 'FromDate') _dataDate['showFromDate'] = false
+        if(type == 'ToDate') _dataDate['showToDate'] = false
         
         setDataDate({..._dataDate})
     }
@@ -150,6 +153,7 @@ export const DashBoardAdminScreen = observer(function DashBoardAdminScreen() {
     const topComponent = () => {
         return (
             <View style={{paddingHorizontal: 16}}>
+                {/* Chọn ngày */}
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between'}}>
                     <View style={{width: '48%'}}>
                         <Text style={[styles.text_black,{marginVertical: 16}]}>Từ ngày</Text>
@@ -167,12 +171,17 @@ export const DashBoardAdminScreen = observer(function DashBoardAdminScreen() {
                                 open={dataDate?.showFromDate}
                                 date={dataDate?.FromDate}
                                 onConfirm={(date) => {
-                                    setChangeShowDate('FromDate', date);        
+                                    setChangeShowDate('FromDate', date);    
+                                    setRefresh(true)    
                                     // setChangeShowDate('showFromDate', false);                             
                                 }}
                                 onCancel={() => {
                                     setChangeShowDate('showFromDate', false); 
                                 }}
+                                locale='vi'
+                                confirmText='Xác nhận'
+                                cancelText='Hủy'
+                                title={null}
                             />
                         </View>   
                     </View>
@@ -185,40 +194,64 @@ export const DashBoardAdminScreen = observer(function DashBoardAdminScreen() {
                             </TouchableOpacity>
                             <DatePicker
                                 maximumDate={new Date()}
-                                textColor={Platform?.OS == 'ios' ? color.white : color.black}
-                                mode="time"
+                                textColor={Platform?.OS == 'ios' ? color.black : color.black}
+                                mode="date"
                                 modal
                                 open={dataDate?.showToDate}
                                 date={dataDate?.ToDate}
                                 onConfirm={(date) => {
                                     setChangeShowDate('ToDate', date);
+                                    setRefresh(true)
                                     // setChangeShowDate('showToDate', false);
                                 }}
                                 onCancel={() => {
                                     setChangeShowDate('showToDate', false);
                                 }}
+                                locale='vi'
+                                confirmText='Xác nhận'
+                                cancelText='Hủy'
+                                title={null}
                             />
                         </View>  
                     </View>
                 </View>
+
+                {/* Doanh thu */}
                 <View style={styles.box}>
                     <Text style={[styles.title_black, {marginBottom: 16}]}>Doanh Thu</Text>
                     <Image source={images.image_doanh_thu} style={styles.image} />
                     <View style={[styles.row,{marginTop: 30}]}>
                         <View>
-                            <Text style={[styles.text_number_green]}>{formatNumber(CaclutateTotalDoanhThuDaThanhToan())} đ</Text>
+                            <Text style={[styles.text_number_green]}>{CaclutateTotalDoanhThuDaThanhToan()} đ</Text>
                             <Text style={[styles.text_black]}>Đã thanh toán</Text>
                         </View>
                         <View>
-                            <Text style={[styles.text_number_green,{color: color.orange}]}>{formatNumber(CaclutateTotalDoanhThuChoThanhToan())}đ</Text>
+                            <Text style={[styles.text_number_green,{color: color.orange}]}>{CaclutateTotalDoanhThuChoThanhToan()}đ</Text>
                             <Text style={[styles.text_black]}>Chờ thanh toán</Text>
                         </View>
                     </View>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity 
+                        style={styles.btn}
+                        // onPress={() => navigation.navigate('MainAdminScreen', {screen: 'DoanhThuScreen'},{
+                        //     data: {
+                        //         FromDate: dataDate?.FromDate.getTime(),
+                        //         ToDate: dataDate?.ToDate.getTime()
+                        //     }
+                        // })}
+                        onPress={() => {
+                                navigation.navigate('DoanhThuScreen',{
+                                    FromDate: dataDate?.FromDate.getTime(),
+                                    ToDate: dataDate?.ToDate.getTime()
+                                })
+                            }
+                        }
+                    >
                             <Image source={images.icon_note} style={{width: 25,height: 25, marginRight: 7}} />
                             <Text style={[styles.text_black,{fontWeight: '400'}]}>Xem chi tiết doanh thu</Text>
                     </TouchableOpacity>
                 </View>
+
+                {/* Phiếu yêu cầu dịch vụ */}
                 <View style={styles.box}>
                     <Text style={[styles.title_black, {marginBottom: 16}]}>Phiếu yêu cầu dịch vụ</Text>
                     <Image source={images.image_phieu_yc} style={styles.image} />
@@ -240,11 +273,15 @@ export const DashBoardAdminScreen = observer(function DashBoardAdminScreen() {
                             <Text style={[styles.text_black]}>Huỷ</Text>
                         </View>
                     </View>
-                    <TouchableOpacity style={styles.btn}>
+                    <TouchableOpacity 
+                        style={styles.btn}
+                    >
                             <Image source={images.icon_note} style={{width: 25,height: 25, marginRight: 7}} />
                             <Text style={[styles.text_black,{fontWeight: '400'}]}>Xem chi tiết phiếu yêu cầu dịch vụ</Text>
                     </TouchableOpacity>
                 </View>
+
+                {/* Đánh giá */}
                 <View style={styles.box}>
                     <Text style={[styles.title_black, {marginBottom: 16}]}>Đánh giá</Text>
                     <Image source={images.image_danh_gia} style={styles.image} />
@@ -283,7 +320,7 @@ export const DashBoardAdminScreen = observer(function DashBoardAdminScreen() {
         <>
             {isLoading && <CenterSpinner/>}
             <Screen style={ROOT} preset="fixed">
-                <View style={{flex: 1}}>
+                <View style={{flex: 1, backgroundColor: color.white}}>
                     <FlatList
                         // refreshing={isRefresh}
                         // onRefresh={() => onRefresh()}

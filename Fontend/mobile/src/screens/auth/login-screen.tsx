@@ -11,9 +11,10 @@ import {Animated,
     Image,
     TouchableOpacity,
     Alert,
+    BackHandler,
 } from 'react-native';
 import {Header, Screen} from '../../components';
-import {useIsFocused, useNavigation, useRoute} from "@react-navigation/native"
+import {useFocusEffect, useIsFocused, useNavigation, useRoute} from "@react-navigation/native"
 // import { useStores } from "../../models"
 import {color} from '../../theme';
 import CenterSpinner from '../../components/center-spinner/center-spinner';
@@ -39,7 +40,7 @@ const unitOfWork = new UnitOfWorkService()
 const layout = Dimensions.get('window');
 
 const ROOT: ViewStyle = {
-    backgroundColor: color.white,
+    backgroundColor: color.primary,
     flex: 1,
 };
 
@@ -94,6 +95,8 @@ export const LoginScreen = observer(function LoginScreen() {
         gender: 'Giới tính'
     });
 
+    const [iconLogin, setIconLogin] = useState('')
+
     const ref_input_password = useRef();
 
     const ref_input_name = useRef()
@@ -104,15 +107,28 @@ export const LoginScreen = observer(function LoginScreen() {
     const ref_input_location = useRef()
     const [token, setToken] = useState('1')
 
+    useFocusEffect(
+        React.useCallback(() => {
+          const onBackPress = () => {
+            return true;
+          };
+    
+          BackHandler.addEventListener('hardwareBackPress', onBackPress);
+    
+          return () =>
+            BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+        }, []),
+      );
+
     useEffect(() => {
       fetchData();
     }, [isFocus, isRefresh]);
     const fetchData = async () => {
-        console.log('para: ', params);
+        console.log("params: ", params);
+        
         if(params){
             if(params?.isSingin) setTapIndex('Singup')
         }
-
         let device_token = await getDeviceToken()
         console.log("device_token: ", device_token);
         setToken(device_token)
@@ -129,6 +145,9 @@ export const LoginScreen = observer(function LoginScreen() {
             })
         }
         setListData_KhuVuc(list_Khu_vuc)
+
+        let res_config = await unitOfWork.user.takeMobileAppConfigurationLoginScreen({})
+        if(res_config?.statusCode == 200) setIconLogin(res_config?.mobileAppConfigurationEntityModel?.loginScreenIcon)
         
     };
 
@@ -207,26 +226,14 @@ export const LoginScreen = observer(function LoginScreen() {
                     DeviceId: token
                 }
             }
-            console.log("payload: ", payload);
             
             let response_login = await unitOfWork.user.login(payload)
+            
             setLoading(false)        
             if(response_login?.statusCode == 200){
 
-                // await firebaseSet(firebaseDatabaseRef(
-                //     firebaseDatabase,
-                //     `users/${response_login?.currentUser?.userId}`
-                // ),{
-                //     nickname: response_login?.contactEntityModel?.firstName
-                // }
                 let _userId = response_login?.currentUser?.userId
                 let _userFullName = response_login?.contactEntityModel?.firstName
-                console.log(_userFullName);
-                
-                firebaseSet(firebaseDatabaseRef(firebaseDatabase, `RoomUsers/${_userId}`), {
-                    nickname: `${_userFullName}`,
-                    user_ID: _userId
-                });
 
 
 
@@ -234,7 +241,7 @@ export const LoginScreen = observer(function LoginScreen() {
                     userId: response_login?.currentUser?.userId,
                     customerId: response_login?.currentUser?.employeeId,
                     token: response_login?.currentUser?.token,
-                    userFullName: response_login?.contactEntityModel?.firstName,
+                    userFullName: response_login?.userFullName,
                     userAvatar: response_login?.userAvatar,
                     phone: response_login?.contactEntityModel?.phone,
                     email: response_login?.contactEntityModel?.email,
@@ -247,8 +254,15 @@ export const LoginScreen = observer(function LoginScreen() {
                 await unitOfWork.storage.setItem('TOKEN', response_login?.currentUser?.token)
                 resetData()
                 if(response_login?.contactEntityModel?.objectType){
-                    if(response_login?.contactEntityModel?.objectType == 'CUS') navigation.navigate('MainScreen',{isAdmin: true, screen: 'DashboardScreen'})
-                   else navigation.navigate('MainAdminScreen',{isAdmin: true, screen: 'DashBoardAdminScreen'})
+                    if(response_login?.contactEntityModel?.objectType == 'CUS') {
+                        if(params?.type == "ChooseServiceScreen1"){
+                            navigation.navigate('ChooseServiceScreen1',{
+                                data: params?.data
+                            })
+                        }else navigation.navigate('MainScreen', {screen: 'DashboardScreen'})
+                        
+                    } 
+                    else navigation.navigate('MainAdminScreen',{isAdmin: true, screen: 'DashBoardAdminScreen'})
                 }
             }else{
                 showToast('error', response_login?.messageCode)
@@ -293,10 +307,10 @@ export const LoginScreen = observer(function LoginScreen() {
                 provinceId: formDataSingUp?.location,
                 Gender: formDataSingUp?.Gender
             }
+            
             setLoading(true)
             
             let respone_singup = await unitOfWork.user.signUp(payload)
-     
             
             if(respone_singup?.statusCode == 200) {
                 showToast("success", "Đăng kí thành công!")
@@ -314,10 +328,15 @@ export const LoginScreen = observer(function LoginScreen() {
     const topComponent = () => {
         return (
             <View style={{paddingHorizontal: 30, paddingBottom: 16}}>
-                <View style={styles.header}>
-                    <Image source={images.logo_1} style={styles.logo} />
-                    <Text style={{color: color.nau_nhat2, fontSize: 14, marginTop: 14}}>Dựng tài năng, xây hạnh phúc</Text>
-                </View>
+                <TouchableOpacity style={styles.header} onPress={() => navigation.navigate('MainScreen',{screen: 'DashboardScreen'})}>
+                    {iconLogin ?
+                        <Image source={{uri: iconLogin}} style={styles.logo} />
+                    : 
+                        <Image source={images.logo_1} style={styles.logo} />
+                    }
+                    <Text style={{color: color.blue, fontSize: 15, marginTop: 5, fontWeight: '600'}}>Quẳng gánh lo đi và vui sống</Text>
+                    {/* <Text style={{color: color.blue, fontSize: 12, marginTop: 5, fontWeight: '600'}}>Token: {token}</Text> */}
+                </TouchableOpacity>
                 {tapIndex == 'Login' ? 
                     <View>
                         <Text style={[styles.text_header,{marginTop: 30}]}>Đăng nhập</Text>
@@ -340,7 +359,6 @@ export const LoginScreen = observer(function LoginScreen() {
                                 placeholderTextColor={color.nau_nhat2}
                                 // keyboardType='numeric'
                                 value={formData?.phone}
-                                // value={token}
                                 onChangeText={(value) => setChangeText('phone', value)}
                             />
                         </View>
@@ -544,7 +562,7 @@ export const LoginScreen = observer(function LoginScreen() {
         <>
             {isLoading && <CenterSpinner/>}
             <Screen style={ROOT} preset="fixed">
-                <View style={{flex: 1}}>
+                <View style={{flex: 1, backgroundColor: color.white}}>
                     <FlatList
                         refreshing={isRefresh}
                         onRefresh={() => onRefresh()}
@@ -569,8 +587,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     logo:{
-        width: layout.width/10*3,
-        height: layout.width/10*3
+        width: layout.width/10*4,
+        height: layout.width/10*4
     },
     text_header: {
         fontWeight: '600',

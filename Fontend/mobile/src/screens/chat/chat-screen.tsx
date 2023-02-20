@@ -44,7 +44,7 @@ import React, {
     onValue,
     query, 
     orderByChild, 
-    equalTo, Database, limitToFirst, limitToLast, update
+    equalTo, Database, limitToFirst, limitToLast, update, push
   } from '../../config/firebase';
   import { formatDate, formatDate_name } from "../../services";
 //   import { startAt } from "firebase/firestore";
@@ -94,6 +94,7 @@ import { toJS } from "mobx";
     }, [isFocus]);
 
     const fetchData = async () => {
+      
       setRefresh(false)
       if(params){
         setRoomName(params?.data?.roomname)
@@ -110,7 +111,7 @@ import { toJS } from "mobx";
 
     const getAllMessage = async () => {
       let listMessage = []
-      await get(query(firebaseDatabaseRef(firebaseDatabase, `chats/${params?.data?.roomname}`)))
+      await get(query(firebaseDatabaseRef(firebaseDatabase, `chats/${params?.data?.roomname}`), limitToLast(10)))
       .then((snapshot) => {
         let value = snapshot.val()
         let keys = Object.keys(snapshot.val())
@@ -124,11 +125,13 @@ import { toJS } from "mobx";
           listMessage.push(obj)
         })
       })
-      listMessage.sort((a,b) => {
-        return b?.timestamp - a?.timestamp
-      })
-      await HDLTModel.thay_moi_listMessageChat(listMessage)
+      // listMessage.sort((a,b) => {
+      //   return b?.timestamp - a?.timestamp
+      // })
+
+      listMessage.reverse()
       setMessages(listMessage)
+      await HDLTModel.thay_moi_listMessageChat(listMessage)
     }
 
     const onValueMessgaes_User = async () => { 
@@ -138,7 +141,7 @@ import { toJS } from "mobx";
         
         let _listMessageChat = await HDLTModel.getListMessage()
         let listMessageChat = toJS(_listMessageChat)
-        if(onSnapshot.exists()){     
+        if(onSnapshot.exists()){    
           let value = onSnapshot.val()
           let keys = Object.keys(onSnapshot.val())
           keys.map(async (item) => {   
@@ -148,16 +151,17 @@ import { toJS } from "mobx";
               senderID :  value[item]?.senderId,
               isSeen : value[item]?.isSeen
             }
-            
+
+            setMessages(listMessageChat)
             let check = false
             listMessageChat.map((item) => {
                 if(item?.timestamp == obj?.timestamp) check=true
             })
             if(!check){      
-              listMessageChat.push(obj)
-              listMessageChat.sort((a,b) => {
-                  return b?.timestamp - a?.timestamp
-              })
+              listMessageChat.unshift(obj)
+              // listMessageChat.sort((a,b) => {
+              //     return b?.timestamp - a?.timestamp
+              // })
               setMessages(listMessageChat)
               await HDLTModel.thay_moi_listMessageChat(listMessageChat)
           }  
@@ -170,7 +174,18 @@ import { toJS } from "mobx";
       let newDate = new Date().getTime()
       let nickname_user = await HDLTModel.getUserInfoByKey('userFullName')
       if(textSend){
-          firebaseSet(firebaseDatabaseRef(firebaseDatabase, `chats/${roomname}/${newDate}`), {
+        //   firebaseSet(firebaseDatabaseRef(firebaseDatabase, `chats/${roomname}/${newDate}`), {
+        //   date: newDate ,
+        //   message: textSend,
+        //   isSeen: false,
+        //   // message_type: 'text',
+        //   nickname: nickname_user,
+        //   roomname: roomname,
+        //   senderId: userId,
+        //   // receiverId: params?.data?.receiver
+        // });
+
+        await push(firebaseDatabaseRef(firebaseDatabase, `chats/${roomname}`), {
           date: newDate ,
           message: textSend,
           isSeen: false,
@@ -178,8 +193,9 @@ import { toJS } from "mobx";
           nickname: nickname_user,
           roomname: roomname,
           senderId: userId,
-          // receiverId: params?.data?.receiver
-        });
+        })
+
+
         let listMessage = [...messages]
         let obj = {
           timestamp : newDate,
@@ -187,13 +203,12 @@ import { toJS } from "mobx";
           senderID : userId,
           isSeen : false
         }
-        listMessage.push(obj)
-        listMessage.sort((a,b) => {
-          return b?.timestamp - a?.timestamp
-        })
+        listMessage.unshift(obj)
+        // listMessage.sort((a,b) => {
+        //   return b?.timestamp - a?.timestamp
+        // })
         await HDLTModel.addMessageListChat(obj)
         setMessages(listMessage)
-
         setTextSend('')
       }
       
@@ -213,9 +228,8 @@ import { toJS } from "mobx";
             }
           }
         }
-      })
-      
-  }
+      }) 
+    }
 
     const ItemView = ({item,index}) => {
         return (
@@ -238,7 +252,7 @@ import { toJS } from "mobx";
       return (
         <View style={styles.bottomChat}>
           <View style={styles.containerChat}>
-            <Image style={{ marginLeft: "5%" }} source={images.iconGhim} />
+            {/* <Image style={{ marginLeft: "5%" }} source={images.iconGhim} /> */}
             <TextInput
               style={styles.textInput}
               placeholder="Message"
@@ -247,7 +261,7 @@ import { toJS } from "mobx";
               onChangeText={(value) => setTextSend(value)}
               onFocus={ConverMessageIsSeen}
             />
-            <Image source={images.iconHappy} />
+            {/* <Image source={images.iconHappy} /> */}
           </View>
           <TouchableOpacity style={styles.containerEnter} onPress={onSendMessage}>
             <Image source={images.iconEnter} />
@@ -285,6 +299,7 @@ import { toJS } from "mobx";
                                 setMessages([])
                                 setTextSend('')
                                 // goToPage("RoomsScreen")
+                                await HDLTModel.removeListMessageChat()
                                 navigation.goBack()
                             } }
                         >
@@ -440,7 +455,7 @@ import { toJS } from "mobx";
         marginLeft: '4%',
     },
     textInput: {
-        width: '72%',
+        width: '100%',
         color: 'black',
         fontSize: 15,
         marginLeft: '3%',

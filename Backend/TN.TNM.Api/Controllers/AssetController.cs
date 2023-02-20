@@ -8,6 +8,8 @@ using TN.TNM.DataAccess.Messages.Parameters.Asset;
 using TN.TNM.DataAccess.Messages.Results.Employee;
 using TN.TNM.DataAccess.Messages.Parameters.Contract;
 using TN.TNM.DataAccess.Messages.Parameters.Employee;
+using NLog.Fluent;
+using NLog;
 
 namespace TN.TNM.Api.Controllers
 {
@@ -18,6 +20,39 @@ namespace TN.TNM.Api.Controllers
         public AssetController(IAssetDataAccess iAssetDataAccess)
         {
             _iAssetDataAccess = iAssetDataAccess;
+        }
+
+        [HttpPost]
+        [Route("iclock/cdata")]
+        public GetMasterDataAssetFormResult cdata1(GetMasterDataAssetFormParameter request)
+        {
+            var logger= NLog.LogManager.GetCurrentClassLogger();
+            try
+            {
+                logger.Info($"====================Call iclock/cdata=================");
+                return null;
+            }
+            catch (System.Exception ex)
+            {
+                logger.Info($"Call iclock/cdata{ex}");
+                throw;
+            }
+        }
+
+        [HttpPost]
+        [Route("v3/iclock/cdata")]
+        public GetMasterDataAssetFormResult cdata(GetMasterDataAssetFormParameter request)
+        {
+            Log.Info("Call v3/iclock/cdata");
+            return null;
+        }
+
+        [HttpGet]
+        [Route("iclock/cdata")]
+        public GetMasterDataAssetFormResult cdata2(GetMasterDataAssetFormParameter request)
+        {
+            Log.Info("Call Get iclock/cdata");
+            return null;
         }
 
         [HttpPost]

@@ -14,8 +14,8 @@ export const StorageKey = {
     DEVICE_TOKEN: 'DEVICE_TOKEN'
 }
 import {Dimensions, Platform} from "react-native";
-// import "intl"
-// import "intl/locale-data/jsonp/en"
+import "intl"
+import "intl/locale-data/jsonp/en"
 import { HTTPS_URL, HTTP_URL } from '../config';
 
 const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -132,7 +132,7 @@ export const isIphoneWithNotch = () => {
 };
 
 export const StatusBarHeight = Platform.select({
-    ios: isIphoneWithNotch() ? -20 : 0,
+    ios: isIphoneWithNotch() ? 0 : 0,
     // android: StatusBar.currentHeight,
     android: 0,
     default: 0
@@ -204,6 +204,8 @@ export const formatDate = (date, type = null) => {
         return `${monthNames[date.getMonth()]} ${date.getFullYear()}`
     }else if (type == "dd/MM/YY hh:mm") {
         return `${padTo2Digits(date.getDate())}/${padTo2Digits(date.getMonth() + 1)}/${date.getFullYear()?.toString().substr(-2)} ${padTo2Digits(date.getHours())}:${padTo2Digits(date.getMinutes())}`
+    }else if (type == "dd/MM/YY - hh:mm") {
+        return `${padTo2Digits(date.getDate())}/${padTo2Digits(date.getMonth() + 1)}/${date.getFullYear()?.toString().substr(-2)} - ${padTo2Digits(date.getHours())}:${padTo2Digits(date.getMinutes())}`
     }else if (type == "hh:mm:ss") {
         return `${padTo2Digits(date.getHours())}:${padTo2Digits(date.getMinutes())}:${padTo2Digits(date.getSeconds())}`
     }

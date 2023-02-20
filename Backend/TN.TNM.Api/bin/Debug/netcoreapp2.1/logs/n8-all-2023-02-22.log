@@ -1,0 +1,458 @@
+2023-02-22 10:43:42.8735||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:43:42.8735||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:43:42.9053||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:43:42.9053||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:43:47.8915||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:43:47.8915||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:43:47.9226||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:43:47.9226||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:43:51.0853||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f heartbeat successfully sent 
+2023-02-22 10:43:51.0853||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:43:51.7091||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca heartbeat successfully sent 
+2023-02-22 10:43:51.7091||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:43:52.9205||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:43:52.9205||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:43:52.9363||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:43:52.9363||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:43:57.9234||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:43:57.9234||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:43:57.9394||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:43:57.9394||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:02.9335||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:02.9353||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:02.9353||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:02.9507||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:07.2930||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (LastExecution:2023-02-22T03:43:07.2048174Z;LastJobId:12400;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-22T03:41:50.9624781Z;V:2;NextExecution:2023-02-22T03:44:00.0000000Z), Changes: (LastExecution:2023-02-22T03:44:07.2842420Z;NextExecution:2023-02-22T03:45:00.0000000Z;LastJobId:12401), NextExecution: (2/22/2023 3:45:00 AM) 
+2023-02-22 10:44:07.2988||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. 
+2023-02-22 10:44:07.9392||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:07.9392||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:07.9631||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:07.9631||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:10.9410|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-02-22 10:44:10.9410|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Content", x."CreatedById", x."CreatedDate", x."Deadline", x."EmpId", x."IsCusView", x."Name", x."OptionId", x."Order", x."OrderActionId", x."ServicePacketMappingOptionsId", x."Status", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ReportPoint" AS x
+WHERE (x."Deadline" IS NOT NULL AND ((x."Status" <> 3) OR x."Status" IS NULL)) AND (TRUE = TRUE) 
+2023-02-22 10:44:10.9410|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."OrderId", x."Active", x."Amount", x."ApprovedDate", x."BankAccountId", x."CloneCount", x."CreatedById", x."CreatedDate", x."CustomerAddress", x."CustomerCode", x."CustomerContactId", x."CustomerId", x."CustomerName", x."CustomerNumber", x."CustomerPhone", x."DaysAreOwed", x."Description", x."DiscountType", x."DiscountValue", x."Especially", x."IsAutoGenReceiveInfor", x."IsOrderAction", x."LocationOfShipment", x."ManufactureDate", x."MaxDebt", x."Note", x."NoteTechnique", x."ObjectId", x."OrderCode", x."OrderContractId", x."OrderDate", x."OrderProcessId", x."OrderType", x."PaymentContent", x."PaymentMethod", x."PaymentMethodOrder", x."PercentAdvance", x."PercentAdvanceType", x."PlaceOfDelivery", x."QuoteId", x."ReasonCancel", x."ReceiptInvoiceAmount", x."ReceivedDate", x."ReceivedHour", x."RecipientEmail", x."RecipientName", x."RecipientPhone", x."Seller", x."ServicePacketId", x."ShippingNote", x."StatusId", x."StatusOrder", x."TenantId", x."UpdatedById", x."UpdatedDate", x."VAT", x."WarehouseId"
+FROM "CustomerOrder" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:44:10.9410|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Active", x."AttributeName", x."Code", x."CreatedById", x."CreatedDate", x."Description", x."Message", x."Name", x."ProductCategoryId", x."ProvinceId", x."Status", x."Stt", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ServicePacket" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:44:10.9410|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryTypeId", x."Active", x."CategoryTypeCode", x."CategoryTypeName", x."CreatedById", x."CreatedDate", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "CategoryType" AS x
+WHERE x."CategoryTypeCode" = 'NOTIFICATIONCONFIG'
+LIMIT 1 
+2023-02-22 10:44:10.9410|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__notificationCateTypeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryId", x."Active", x."CategoryCode", x."CategoryName", x."CategoryTypeId", x."CreatedById", x."CreatedDate", x."IsDefauld", x."IsEdit", x."SortOrder", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "Category" AS x
+WHERE x."CategoryTypeId" = @__notificationCateTypeId_0 
+2023-02-22 10:44:10.9410|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CategoryId", x."CreatedById", x."CreatedDate", x."Reporter", x."ServiceManagement", x."ServicePacketId", x."ServiceRequestMaker", x."ServiceSupporter", x."Supporter", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "NotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:44:10.9410|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CreatedById", x."CreatedDate", x."EmployeeId", x."NotificationConfigurationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "EmployeeMappingNotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:44:12.9577||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:12.9577||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:12.9890||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:12.9890||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:17.9633||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:17.9633||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:17.9954||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:17.9971||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:21.1201||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f heartbeat successfully sent 
+2023-02-22 10:44:21.1201||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:44:21.7382||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca heartbeat successfully sent 
+2023-02-22 10:44:21.7382||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:44:22.9678||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:22.9678||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:22.9981||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:22.9981||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:27.9783||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:27.9783||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:28.0092||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:28.0092||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:32.9888||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:32.9888||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:33.0196||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:33.0196||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:38.0004||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:38.0004||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:38.0322||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:38.0322||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:43.0053||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:43.0053||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:43.0352||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:43.0352||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:48.0069||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:48.0069||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:48.0389||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:48.0389||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:51.1316||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f heartbeat successfully sent 
+2023-02-22 10:44:51.1316||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:44:51.7416||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca heartbeat successfully sent 
+2023-02-22 10:44:51.7416||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:44:53.0117||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:53.0117||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:53.0425||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:53.0425||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:58.0175||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:58.0175||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:44:58.0487||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:44:58.0487||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:03.0284||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:03.0299||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:03.0595||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:03.0606||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:07.3822||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (LastExecution:2023-02-22T03:44:07.2842420Z;LastJobId:12401;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-22T03:41:50.9624781Z;V:2;NextExecution:2023-02-22T03:45:00.0000000Z), Changes: (LastExecution:2023-02-22T03:45:07.3759477Z;NextExecution:2023-02-22T03:46:00.0000000Z;LastJobId:12402), NextExecution: (2/22/2023 3:46:00 AM) 
+2023-02-22 10:45:07.3822||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. 
+2023-02-22 10:45:08.0422||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:08.0422||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:08.0730||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:08.0730||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:11.0304|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-02-22 10:45:11.0304|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Content", x."CreatedById", x."CreatedDate", x."Deadline", x."EmpId", x."IsCusView", x."Name", x."OptionId", x."Order", x."OrderActionId", x."ServicePacketMappingOptionsId", x."Status", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ReportPoint" AS x
+WHERE (x."Deadline" IS NOT NULL AND ((x."Status" <> 3) OR x."Status" IS NULL)) AND (TRUE = TRUE) 
+2023-02-22 10:45:11.0304|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."OrderId", x."Active", x."Amount", x."ApprovedDate", x."BankAccountId", x."CloneCount", x."CreatedById", x."CreatedDate", x."CustomerAddress", x."CustomerCode", x."CustomerContactId", x."CustomerId", x."CustomerName", x."CustomerNumber", x."CustomerPhone", x."DaysAreOwed", x."Description", x."DiscountType", x."DiscountValue", x."Especially", x."IsAutoGenReceiveInfor", x."IsOrderAction", x."LocationOfShipment", x."ManufactureDate", x."MaxDebt", x."Note", x."NoteTechnique", x."ObjectId", x."OrderCode", x."OrderContractId", x."OrderDate", x."OrderProcessId", x."OrderType", x."PaymentContent", x."PaymentMethod", x."PaymentMethodOrder", x."PercentAdvance", x."PercentAdvanceType", x."PlaceOfDelivery", x."QuoteId", x."ReasonCancel", x."ReceiptInvoiceAmount", x."ReceivedDate", x."ReceivedHour", x."RecipientEmail", x."RecipientName", x."RecipientPhone", x."Seller", x."ServicePacketId", x."ShippingNote", x."StatusId", x."StatusOrder", x."TenantId", x."UpdatedById", x."UpdatedDate", x."VAT", x."WarehouseId"
+FROM "CustomerOrder" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:45:11.0304|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Active", x."AttributeName", x."Code", x."CreatedById", x."CreatedDate", x."Description", x."Message", x."Name", x."ProductCategoryId", x."ProvinceId", x."Status", x."Stt", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ServicePacket" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:45:11.0304|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryTypeId", x."Active", x."CategoryTypeCode", x."CategoryTypeName", x."CreatedById", x."CreatedDate", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "CategoryType" AS x
+WHERE x."CategoryTypeCode" = 'NOTIFICATIONCONFIG'
+LIMIT 1 
+2023-02-22 10:45:11.0304|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__notificationCateTypeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryId", x."Active", x."CategoryCode", x."CategoryName", x."CategoryTypeId", x."CreatedById", x."CreatedDate", x."IsDefauld", x."IsEdit", x."SortOrder", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "Category" AS x
+WHERE x."CategoryTypeId" = @__notificationCateTypeId_0 
+2023-02-22 10:45:11.0304|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CategoryId", x."CreatedById", x."CreatedDate", x."Reporter", x."ServiceManagement", x."ServicePacketId", x."ServiceRequestMaker", x."ServiceSupporter", x."Supporter", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "NotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:45:11.0304|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CreatedById", x."CreatedDate", x."EmployeeId", x."NotificationConfigurationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "EmployeeMappingNotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:45:13.0511||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:13.0511||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:13.0828||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:13.0828||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:18.0529||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:18.0529||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:18.1025||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:18.1025||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:21.1422||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f heartbeat successfully sent 
+2023-02-22 10:45:21.1422||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:45:21.7597||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca heartbeat successfully sent 
+2023-02-22 10:45:21.7597||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:45:23.0686||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:23.0799||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:23.1154||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:23.1154||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:28.0903||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:28.0927||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:28.1208||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:28.1208||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:33.1033||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:33.1033||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:33.1342||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:33.1342||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:38.1099||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:38.1099||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:38.1419||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:38.1419||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:43.1131||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:43.1131||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:43.1451||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:43.1451||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:48.1204||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:48.1204||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:48.1523||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:48.1523||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:51.1518||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f heartbeat successfully sent 
+2023-02-22 10:45:51.1518||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:45:51.7694||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca heartbeat successfully sent 
+2023-02-22 10:45:51.7694||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:45:53.1279||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:53.1279||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:53.1598||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:53.1598||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:58.1358||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:58.1418||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:45:58.1654||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:45:58.1654||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:03.1506||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:03.1506||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:03.1702||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:03.1702||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:07.4257||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (LastExecution:2023-02-22T03:45:07.3759477Z;LastJobId:12402;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-22T03:41:50.9624781Z;V:2;NextExecution:2023-02-22T03:46:00.0000000Z), Changes: (LastExecution:2023-02-22T03:46:07.4205313Z;NextExecution:2023-02-22T03:47:00.0000000Z;LastJobId:12403), NextExecution: (2/22/2023 3:47:00 AM) 
+2023-02-22 10:46:07.4257||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. 
+2023-02-22 10:46:08.1625||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:08.1625||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:08.1785||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:08.1785||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:12.0504|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-02-22 10:46:12.0504|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Content", x."CreatedById", x."CreatedDate", x."Deadline", x."EmpId", x."IsCusView", x."Name", x."OptionId", x."Order", x."OrderActionId", x."ServicePacketMappingOptionsId", x."Status", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ReportPoint" AS x
+WHERE (x."Deadline" IS NOT NULL AND ((x."Status" <> 3) OR x."Status" IS NULL)) AND (TRUE = TRUE) 
+2023-02-22 10:46:12.0504|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."OrderId", x."Active", x."Amount", x."ApprovedDate", x."BankAccountId", x."CloneCount", x."CreatedById", x."CreatedDate", x."CustomerAddress", x."CustomerCode", x."CustomerContactId", x."CustomerId", x."CustomerName", x."CustomerNumber", x."CustomerPhone", x."DaysAreOwed", x."Description", x."DiscountType", x."DiscountValue", x."Especially", x."IsAutoGenReceiveInfor", x."IsOrderAction", x."LocationOfShipment", x."ManufactureDate", x."MaxDebt", x."Note", x."NoteTechnique", x."ObjectId", x."OrderCode", x."OrderContractId", x."OrderDate", x."OrderProcessId", x."OrderType", x."PaymentContent", x."PaymentMethod", x."PaymentMethodOrder", x."PercentAdvance", x."PercentAdvanceType", x."PlaceOfDelivery", x."QuoteId", x."ReasonCancel", x."ReceiptInvoiceAmount", x."ReceivedDate", x."ReceivedHour", x."RecipientEmail", x."RecipientName", x."RecipientPhone", x."Seller", x."ServicePacketId", x."ShippingNote", x."StatusId", x."StatusOrder", x."TenantId", x."UpdatedById", x."UpdatedDate", x."VAT", x."WarehouseId"
+FROM "CustomerOrder" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:46:12.0504|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Active", x."AttributeName", x."Code", x."CreatedById", x."CreatedDate", x."Description", x."Message", x."Name", x."ProductCategoryId", x."ProvinceId", x."Status", x."Stt", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ServicePacket" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:46:12.0504|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryTypeId", x."Active", x."CategoryTypeCode", x."CategoryTypeName", x."CreatedById", x."CreatedDate", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "CategoryType" AS x
+WHERE x."CategoryTypeCode" = 'NOTIFICATIONCONFIG'
+LIMIT 1 
+2023-02-22 10:46:12.0637|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__notificationCateTypeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryId", x."Active", x."CategoryCode", x."CategoryName", x."CategoryTypeId", x."CreatedById", x."CreatedDate", x."IsDefauld", x."IsEdit", x."SortOrder", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "Category" AS x
+WHERE x."CategoryTypeId" = @__notificationCateTypeId_0 
+2023-02-22 10:46:12.0637|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CategoryId", x."CreatedById", x."CreatedDate", x."Reporter", x."ServiceManagement", x."ServicePacketId", x."ServiceRequestMaker", x."ServiceSupporter", x."Supporter", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "NotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:46:12.0637|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CreatedById", x."CreatedDate", x."EmployeeId", x."NotificationConfigurationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "EmployeeMappingNotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:46:13.1669||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:13.1669||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:13.1828||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:13.1828||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:18.1719||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:18.1719||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:18.1879||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:18.1879||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:21.1631||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f heartbeat successfully sent 
+2023-02-22 10:46:21.1631||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:46:21.7795||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca heartbeat successfully sent 
+2023-02-22 10:46:21.7795||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:46:23.1753||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:23.1753||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:23.1913||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:23.1913||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:28.1936||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:28.1936||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:28.1936||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:28.1936||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:33.2007||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:33.2007||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:33.2007||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:33.2007||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:38.5297||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:38.5297||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:38.5297||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:38.5297||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:43.1865|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 POST http://localhost:5001/iclock/cdata?SN=2145224260046&table=ATTLOG application/json 61 
+2023-02-22 10:46:43.1882|3|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Route matched with {action = "cdata1", controller = "Asset"}. Executing controller action with signature TN.TNM.DataAccess.Messages.Results.Asset.GetMasterDataAssetFormResult cdata1(TN.TNM.DataAccess.Messages.Parameters.Asset.GetMasterDataAssetFormParameter) on controller TN.TNM.Api.Controllers.AssetController (TN.TNM.Api). 
+2023-02-22 10:46:43.1882|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-02-22 10:46:43.1882|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__domain_0='?' (Size = 500)], CommandType='Text', CommandTimeout='30']
+SELECT t."TenantId", t."Status", t."TenantHost", t."TenantMode", t."TenantName", t."UserNumber"
+FROM "Tenants" AS t
+WHERE t."TenantHost" = @__domain_0
+LIMIT 1 
+2023-02-22 10:46:43.1882|1|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executing action method TN.TNM.Api.Controllers.AssetController.cdata1 (TN.TNM.Api) - Validation state: Valid 
+2023-02-22 10:46:47.0703||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:47.0703||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:47.0703||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:47.0703||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:47.5613||INFO|TN.TNM.Api.Controllers.AssetController|Call iclock/cdata 
+2023-02-22 10:46:50.3454|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action method TN.TNM.Api.Controllers.AssetController.cdata1 (TN.TNM.Api), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 7143.2662ms. 
+2023-02-22 10:46:50.3454|1|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing ObjectResult, writing value of type 'null'. 
+2023-02-22 10:46:50.3454|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action TN.TNM.Api.Controllers.AssetController.cdata1 (TN.TNM.Api) in 7157.8101ms 
+2023-02-22 10:46:50.3454|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 7160.4594ms 204  
+2023-02-22 10:46:50.3454|32|INFO|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HMOKGQTS15K9", Request id "0HMOKGQTS15K9:00000001": the application completed without reading the entire request body. 
+2023-02-22 10:46:51.1785||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f heartbeat successfully sent 
+2023-02-22 10:46:51.1785||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:46:51.7883||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca heartbeat successfully sent 
+2023-02-22 10:46:51.7883||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:46:52.0834||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:52.0834||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:52.5662||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:52.5662||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:57.0965||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:57.0965||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:46:57.5781||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:46:57.5793||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:02.1098||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:02.1124||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:02.5913||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:02.5913||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:07.1152||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:07.1152||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:07.4833||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (LastExecution:2023-02-22T03:46:07.4205313Z;LastJobId:12403;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-22T03:41:50.9624781Z;V:2;NextExecution:2023-02-22T03:47:00.0000000Z), Changes: (LastExecution:2023-02-22T03:47:07.4738862Z;NextExecution:2023-02-22T03:48:00.0000000Z;LastJobId:12404), NextExecution: (2/22/2023 3:48:00 AM) 
+2023-02-22 10:47:07.4906||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. 
+2023-02-22 10:47:07.5962||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:07.5962||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:10.8363|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-02-22 10:47:10.8927|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Content", x."CreatedById", x."CreatedDate", x."Deadline", x."EmpId", x."IsCusView", x."Name", x."OptionId", x."Order", x."OrderActionId", x."ServicePacketMappingOptionsId", x."Status", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ReportPoint" AS x
+WHERE (x."Deadline" IS NOT NULL AND ((x."Status" <> 3) OR x."Status" IS NULL)) AND (TRUE = TRUE) 
+2023-02-22 10:47:10.8927|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."OrderId", x."Active", x."Amount", x."ApprovedDate", x."BankAccountId", x."CloneCount", x."CreatedById", x."CreatedDate", x."CustomerAddress", x."CustomerCode", x."CustomerContactId", x."CustomerId", x."CustomerName", x."CustomerNumber", x."CustomerPhone", x."DaysAreOwed", x."Description", x."DiscountType", x."DiscountValue", x."Especially", x."IsAutoGenReceiveInfor", x."IsOrderAction", x."LocationOfShipment", x."ManufactureDate", x."MaxDebt", x."Note", x."NoteTechnique", x."ObjectId", x."OrderCode", x."OrderContractId", x."OrderDate", x."OrderProcessId", x."OrderType", x."PaymentContent", x."PaymentMethod", x."PaymentMethodOrder", x."PercentAdvance", x."PercentAdvanceType", x."PlaceOfDelivery", x."QuoteId", x."ReasonCancel", x."ReceiptInvoiceAmount", x."ReceivedDate", x."ReceivedHour", x."RecipientEmail", x."RecipientName", x."RecipientPhone", x."Seller", x."ServicePacketId", x."ShippingNote", x."StatusId", x."StatusOrder", x."TenantId", x."UpdatedById", x."UpdatedDate", x."VAT", x."WarehouseId"
+FROM "CustomerOrder" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:47:10.8927|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Active", x."AttributeName", x."Code", x."CreatedById", x."CreatedDate", x."Description", x."Message", x."Name", x."ProductCategoryId", x."ProvinceId", x."Status", x."Stt", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ServicePacket" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:47:10.8927|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryTypeId", x."Active", x."CategoryTypeCode", x."CategoryTypeName", x."CreatedById", x."CreatedDate", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "CategoryType" AS x
+WHERE x."CategoryTypeCode" = 'NOTIFICATIONCONFIG'
+LIMIT 1 
+2023-02-22 10:47:10.9107|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__notificationCateTypeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryId", x."Active", x."CategoryCode", x."CategoryName", x."CategoryTypeId", x."CreatedById", x."CreatedDate", x."IsDefauld", x."IsEdit", x."SortOrder", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "Category" AS x
+WHERE x."CategoryTypeId" = @__notificationCateTypeId_0 
+2023-02-22 10:47:10.9107|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CategoryId", x."CreatedById", x."CreatedDate", x."Reporter", x."ServiceManagement", x."ServicePacketId", x."ServiceRequestMaker", x."ServiceSupporter", x."Supporter", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "NotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:47:10.9107|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CreatedById", x."CreatedDate", x."EmployeeId", x."NotificationConfigurationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "EmployeeMappingNotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:47:12.1336||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:12.1336||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:12.6012||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:12.6012||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:17.1434||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:17.1434||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:17.6097||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:17.6111||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:21.1906||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f heartbeat successfully sent 
+2023-02-22 10:47:21.1906||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:47:21.8024||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca heartbeat successfully sent 
+2023-02-22 10:47:21.8024||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:47:22.1584||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:22.1584||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:22.6128||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:22.6128||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:27.1716||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:27.1738||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:27.6160||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:27.6160||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:32.1876||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:32.1876||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:32.6256||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:32.6256||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:37.1889||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:37.1912||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:37.6405||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:37.6405||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:42.1924||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:42.1924||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:42.6481||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:42.6481||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:47.2052||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:47.2052||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:47.6556||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:47.6556||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:48.2558|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 POST http://localhost:5001/iclock/cdata?SN=2145224260046&table=ATTLOG application/json 61 
+2023-02-22 10:47:48.2558|3|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Route matched with {action = "cdata1", controller = "Asset"}. Executing controller action with signature TN.TNM.DataAccess.Messages.Results.Asset.GetMasterDataAssetFormResult cdata1(TN.TNM.DataAccess.Messages.Parameters.Asset.GetMasterDataAssetFormParameter) on controller TN.TNM.Api.Controllers.AssetController (TN.TNM.Api). 
+2023-02-22 10:47:48.2558|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-02-22 10:47:48.2558|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__domain_0='?' (Size = 500)], CommandType='Text', CommandTimeout='30']
+SELECT t."TenantId", t."Status", t."TenantHost", t."TenantMode", t."TenantName", t."UserNumber"
+FROM "Tenants" AS t
+WHERE t."TenantHost" = @__domain_0
+LIMIT 1 
+2023-02-22 10:47:48.2558|1|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executing action method TN.TNM.Api.Controllers.AssetController.cdata1 (TN.TNM.Api) - Validation state: Valid 
+2023-02-22 10:47:49.8763||INFO|TN.TNM.Api.Controllers.AssetController|====================Call iclock/cdata================= 
+2023-02-22 10:47:51.5271|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action method TN.TNM.Api.Controllers.AssetController.cdata1 (TN.TNM.Api), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 3266.0761ms. 
+2023-02-22 10:47:51.5271|1|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing ObjectResult, writing value of type 'null'. 
+2023-02-22 10:47:51.5271|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action TN.TNM.Api.Controllers.AssetController.cdata1 (TN.TNM.Api) in 3272.6734ms 
+2023-02-22 10:47:51.5271|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 3273.8362ms 204  
+2023-02-22 10:47:51.5271||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f heartbeat successfully sent 
+2023-02-22 10:47:51.5345|32|INFO|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HMOKGQTS15K9", Request id "0HMOKGQTS15K9:00000002": the application completed without reading the entire request body. 
+2023-02-22 10:47:51.5345||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:47:51.8103||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca heartbeat successfully sent 
+2023-02-22 10:47:51.8103||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:47:52.2146||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:52.2146||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:52.6659||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:52.6659||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:57.2219||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:57.2219||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:47:57.6751||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:47:57.6751||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:48:02.2244||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:48:02.2244||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:48:02.6895||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:48:02.6908||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:48:07.2310||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:48:07.2310||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:48:07.5509||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (LastExecution:2023-02-22T03:47:07.4738862Z;LastJobId:12404;NextExecution:2023-02-22T03:48:00.0000000Z;Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-02-22T03:41:50.9624781Z;V:2), Changes: (LastExecution:2023-02-22T03:48:07.5457646Z;NextExecution:2023-02-22T03:49:00.0000000Z;LastJobId:12405), NextExecution: (2/22/2023 3:49:00 AM) 
+2023-02-22 10:48:07.5509||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. 
+2023-02-22 10:48:07.6986||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:48:07.6986||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:48:10.9442|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-02-22 10:48:10.9442|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Content", x."CreatedById", x."CreatedDate", x."Deadline", x."EmpId", x."IsCusView", x."Name", x."OptionId", x."Order", x."OrderActionId", x."ServicePacketMappingOptionsId", x."Status", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ReportPoint" AS x
+WHERE (x."Deadline" IS NOT NULL AND ((x."Status" <> 3) OR x."Status" IS NULL)) AND (TRUE = TRUE) 
+2023-02-22 10:48:10.9442|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."OrderId", x."Active", x."Amount", x."ApprovedDate", x."BankAccountId", x."CloneCount", x."CreatedById", x."CreatedDate", x."CustomerAddress", x."CustomerCode", x."CustomerContactId", x."CustomerId", x."CustomerName", x."CustomerNumber", x."CustomerPhone", x."DaysAreOwed", x."Description", x."DiscountType", x."DiscountValue", x."Especially", x."IsAutoGenReceiveInfor", x."IsOrderAction", x."LocationOfShipment", x."ManufactureDate", x."MaxDebt", x."Note", x."NoteTechnique", x."ObjectId", x."OrderCode", x."OrderContractId", x."OrderDate", x."OrderProcessId", x."OrderType", x."PaymentContent", x."PaymentMethod", x."PaymentMethodOrder", x."PercentAdvance", x."PercentAdvanceType", x."PlaceOfDelivery", x."QuoteId", x."ReasonCancel", x."ReceiptInvoiceAmount", x."ReceivedDate", x."ReceivedHour", x."RecipientEmail", x."RecipientName", x."RecipientPhone", x."Seller", x."ServicePacketId", x."ShippingNote", x."StatusId", x."StatusOrder", x."TenantId", x."UpdatedById", x."UpdatedDate", x."VAT", x."WarehouseId"
+FROM "CustomerOrder" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:48:10.9442|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Active", x."AttributeName", x."Code", x."CreatedById", x."CreatedDate", x."Description", x."Message", x."Name", x."ProductCategoryId", x."ProvinceId", x."Status", x."Stt", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ServicePacket" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:48:10.9442|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryTypeId", x."Active", x."CategoryTypeCode", x."CategoryTypeName", x."CreatedById", x."CreatedDate", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "CategoryType" AS x
+WHERE x."CategoryTypeCode" = 'NOTIFICATIONCONFIG'
+LIMIT 1 
+2023-02-22 10:48:10.9442|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__notificationCateTypeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryId", x."Active", x."CategoryCode", x."CategoryName", x."CategoryTypeId", x."CreatedById", x."CreatedDate", x."IsDefauld", x."IsEdit", x."SortOrder", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "Category" AS x
+WHERE x."CategoryTypeId" = @__notificationCateTypeId_0 
+2023-02-22 10:48:10.9442|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CategoryId", x."CreatedById", x."CreatedDate", x."Reporter", x."ServiceManagement", x."ServicePacketId", x."ServiceRequestMaker", x."ServiceSupporter", x."Supporter", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "NotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:48:10.9442|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CreatedById", x."CreatedDate", x."EmployeeId", x."NotificationConfigurationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "EmployeeMappingNotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-02-22 10:48:12.2364||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:48:12.2381||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:48:12.7042||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:48:12.7042||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:48:17.2423||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:48:17.2423||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:48:17.7089||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:48:17.7089||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:48:21.5563||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f heartbeat successfully sent 
+2023-02-22 10:48:21.5563||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:a1b0768f waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:48:21.8200||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca heartbeat successfully sent 
+2023-02-22 10:48:21.8200||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:26992:e98124ca waiting for 00:00:30 delay before sending a heartbeat 
+2023-02-22 10:48:22.2569||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:48:22.2569||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:48:22.7254||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:48:22.7254||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:48:27.2648||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:48:27.2648||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-02-22 10:48:27.7313||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-02-22 10:48:27.7313||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
