@@ -30,12 +30,18 @@ namespace TN.TNM.Api.Controllers
             try
             {
                 logger.Info($"====================Call iclock/cdata=================");
-                return null;
+                return new GetMasterDataAssetFormResult
+                {
+                    Message = "Call thành công!"
+                };
             }
             catch (System.Exception ex)
             {
                 logger.Info($"Call iclock/cdata{ex}");
-                throw;
+                return new GetMasterDataAssetFormResult
+                {
+                    Message = "Call thành công!"
+                };
             }
         }
 
@@ -43,16 +49,40 @@ namespace TN.TNM.Api.Controllers
         [Route("v3/iclock/cdata")]
         public GetMasterDataAssetFormResult cdata(GetMasterDataAssetFormParameter request)
         {
-            Log.Info("Call v3/iclock/cdata");
-            return null;
+            var logger = NLog.LogManager.GetCurrentClassLogger();
+            try
+            {
+                logger.Info($"====================Call iclock/cdata=================");
+                return new GetMasterDataAssetFormResult
+                {
+                    Message = "Call thành công!"
+                };
+            }
+            catch (System.Exception ex)
+            {
+                logger.Info($"Call iclock/cdata{ex}");
+                return new GetMasterDataAssetFormResult
+                {
+                    Message = "Call thành công!"
+                };
+            }
         }
 
         [HttpGet]
         [Route("iclock/cdata")]
         public GetMasterDataAssetFormResult cdata2(GetMasterDataAssetFormParameter request)
         {
-            Log.Info("Call Get iclock/cdata");
-            return null;
+            var logger = NLog.LogManager.GetCurrentClassLogger();
+            try
+            {
+                logger.Info($"====================Call iclock/cdata=================");
+                return null;
+            }
+            catch (System.Exception ex)
+            {
+                logger.Info($"Call iclock/cdata{ex}");
+                throw;
+            }
         }
 
         [HttpPost]

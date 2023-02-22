@@ -25,9 +25,14 @@ import { RevenueStatisticWaitingPaymentComponent } from './dashboard/revenue-sta
 import { RatingStatisticsComponent } from './dashboard/rating-statistics/rating-statistics.component';
 import { RevenueStatisticServicePacketComponent } from './dashboard/revenue-statistic-service-packet/revenue-statistic-service-packet.component';
 import { StatisticServiceTicketComponent } from './dashboard/statistic-service-ticket/statistic-service-ticket.component';
+import { environment } from '../environments/environment';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+export function create(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/appconfig', '.json');
 }
 
 @NgModule({
@@ -71,21 +76,23 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private commonService: CommonService) {
-
-    // localStorage.setItem('ApiEndPoint', 'http://localhost:5001');
-    // localStorage.setItem('Version', '1.0.0');
-
-    commonService.getApiEndPoint().subscribe(result => {
-      if (result.value !== localStorage.getItem('ApiEndPoint')) {
-        localStorage.setItem('ApiEndPoint', result.value);
-      }
-    });
-    commonService.getVersion().subscribe(result => {
-      if (result.value !== localStorage.getItem('Version')) {
-        localStorage.setItem('Version', result.value);
-      }
+  constructor(private commonService: CommonService, private httpClient: HttpClient) {
+    this.httpClient.get('./assets/appconfig.json').subscribe((config : any) => {
+      localStorage.setItem('ApiEndPoint', config.ApiEndPoint);
+      localStorage.setItem('Version', config.Version);
     });
 
+    // commonService.getApiEndPoint().subscribe(result => {
+    //   if (result.value !== localStorage.getItem('ApiEndPoint')) {
+    //     localStorage.setItem('ApiEndPoint', result.value);
+    //   }
+    // });
+    // commonService.getVersion().subscribe(result => {
+    //   if (result.value !== localStorage.getItem('Version')) {
+    //     localStorage.setItem('Version', result.value);
+    //   }
+    // });
+
+    
   }
 }
