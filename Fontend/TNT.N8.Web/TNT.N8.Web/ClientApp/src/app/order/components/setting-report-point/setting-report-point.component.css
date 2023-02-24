@@ -126,3 +126,10 @@
 select option:disabled {
     background: #AAAAAA;
 }
+
+.btn-primary:disabled {
+    color: #fff;
+    background-color: #5867dd !important;
+    border-color: #5867dd !important;
+    opacity: 0.65 !important;
+}

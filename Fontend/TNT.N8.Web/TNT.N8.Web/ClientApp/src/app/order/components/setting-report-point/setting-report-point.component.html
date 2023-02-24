@@ -13,22 +13,26 @@
     <div class="row form-input">
 
 
-      <form #formServicePacket="ngForm" novalidate autocomplete="off">
-
+      <form #requestForm="ngForm" novalidate autocomplete="off">
         <div class="col-md-12 form-input">
           <div class="row">
-
             <div class="col-md-3">
               <label>Tên điểm báo cáo:</label><span class="required">*</span>
             </div>
-
             <div class="col-md-9">
-              <input class="w100" 
+              <input class="w100"
+                #name
                 class="form-control"
                 type="text" 
                 name="Name"
                 [(ngModel)]="newReportPoint.name"
+                required
                 >
+                <validation-messages 
+                    [formCtrl]="name"
+                    [customMessage]="[{error:'required', message:('Tên điểm báo cáo không được để trống')}]"
+                    >
+                </validation-messages>
             </div>
 
             <!-- <div class="col-md-3" [hidden]="nameControl.valid || nameControl.untouched"></div>
@@ -78,11 +82,18 @@
             <div class="col-md-3">
 
               <input type="text" 
+                #order
                 class="number-input" 
                 name="Order"
                 [(ngModel)]="newReportPoint.order"
                 [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
+                required
                 />
+              <!-- <validation-messages 
+                  [formCtrl]="order"
+                  [customMessage]="[{error:'required', message:('Thứ tự không được để trống')}]"
+                  >
+              </validation-messages> -->
             </div>
 
             <div class="col-md-3">
@@ -184,18 +195,31 @@
               <label>Nội dung báo cáo:</label><span class="required">*</span>
             </div>
             <div class="col-md-9">
-              <textarea rows="4" 
+              <textarea 
+                #content
+                rows="4" 
                 name="Content"
-                [(ngModel)]="newReportPoint.content" 
                 class="w-100"
+                [(ngModel)]="newReportPoint.content" 
+                required
                 >
               </textarea>
+              <!-- <div class="row">
+                <div class="col-md-12">
+                  <validation-messages 
+                    [formCtrl]="content"
+                    [customMessage]="[{error:'required', message:('Nội dung báo cáo không được để trống')}]"
+                    >
+                  </validation-messages>
+                </div>
+              </div> -->
             </div>
-
-            <!-- <div class="col-md-3" [hidden]="contentControl.valid || contentControl.untouched"></div>
-            <div class="col-md-3" [hidden]="contentControl.valid || contentControl.untouched">
-              <span *ngIf="contentControl.hasError('required') || contentControl.hasError('blankString') "
-                class="error-message-span"> Không được để trống</span>
+            <!-- <div class="col-md-3">
+              <validation-messages 
+                    [formCtrl]="content"
+                    [customMessage]="[{error:'required', message:('Nội dung báo cáo không được để trống')}]"
+                    >
+                </validation-messages>
             </div> -->
 
           </div>
@@ -210,7 +234,7 @@
   <div class="col-md-12 mt-5">
     <div class="group-button-footer">
       <button type="button" class="cancel" (click)="cancel()"><span class="cancel-label">Hủy</span></button>
-      <button type="button" class="save" (click)="save()"><span class="save-label">Lưu</span></button>
+      <button type="button" class="save btn-primary" [disabled]="!requestForm.form.valid || newReportPoint.empId == emptyGuid"  (click)="save()"><span class="save-label">Lưu</span></button>
     </div>
   </div>
 
