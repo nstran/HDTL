@@ -540,6 +540,8 @@ export class EmployeeEntityModel {
   PositionId: string;
   EmployeeCodeName: string;
   roleId : string | null;
+  isDisable : boolean | null;
+  value : string | null;
 }
 
 export class ProvinceEntityModel {

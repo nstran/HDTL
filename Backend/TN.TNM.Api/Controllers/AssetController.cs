@@ -10,6 +10,9 @@ using TN.TNM.DataAccess.Messages.Parameters.Contract;
 using TN.TNM.DataAccess.Messages.Parameters.Employee;
 using NLog.Fluent;
 using NLog;
+using System;
+using System.Threading.Tasks;
+using TN.TNM.DataAccess.Messages.Results.MilestoneConfiguration;
 
 namespace TN.TNM.Api.Controllers
 {
@@ -22,37 +25,37 @@ namespace TN.TNM.Api.Controllers
             _iAssetDataAccess = iAssetDataAccess;
         }
 
+        [HttpGet]
+        [Route("iclock/cdata")]
+        public string getCdata(GetDataMCCParameter parameter)
+        {
+            var logger = NLog.LogManager.GetCurrentClassLogger();
+            try
+            {
+                logger.Info($"==================== API Get iclock/cdata =================");
+                string a = $"GET OPTION FROM: 2145224260046\\r\\nStamp=9999\\r\\nOpStamp=9999\\r\\nErrorDelay=60\\r\\nDelay=30\\r\\nTransTimes=00:00;14:05\\r\\nTransInterval=1\\r\\nTransFlag=111111111111\\r\\nRealtime=1\\r\\nTimeZone=7\\r\\nADMSSyncTime=1\\r\\n\"";
+                logger.Info($"{a}");
+                return "GET OPTION FROM: 2145224260046\r\nStamp=9999\r\nOpStamp=9999\r\nErrorDelay=60\r\nDelay=30\r\nTransTimes=00:00;14:05\r\nTransInterval=1\r\nTransFlag=111111111111\r\nRealtime=1\r\nTimeZone=7\r\nADMSSyncTime=1\r\n";
+                
+            }
+            catch (System.Exception ex)
+            {
+                logger.Info($"Call iclock/cdata{ex}");
+                //return new GetDataMCCResult
+                //{
+                //};
+                return "";
+            }
+        }
+
         [HttpPost]
         [Route("iclock/cdata")]
         public GetMasterDataAssetFormResult cdata1(GetMasterDataAssetFormParameter request)
         {
-            var logger= NLog.LogManager.GetCurrentClassLogger();
-            try
-            {
-                logger.Info($"====================Call iclock/cdata=================");
-                return new GetMasterDataAssetFormResult
-                {
-                    Message = "Call thành công!"
-                };
-            }
-            catch (System.Exception ex)
-            {
-                logger.Info($"Call iclock/cdata{ex}");
-                return new GetMasterDataAssetFormResult
-                {
-                    Message = "Call thành công!"
-                };
-            }
-        }
-
-        [HttpPost]
-        [Route("v3/iclock/cdata")]
-        public GetMasterDataAssetFormResult cdata(GetMasterDataAssetFormParameter request)
-        {
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
             {
-                logger.Info($"====================Call iclock/cdata=================");
+                logger.Info($"+++++++++++++++++++++ API Post iclock/cdata +++++++++++++++++++++++++++");
                 return new GetMasterDataAssetFormResult
                 {
                     Message = "Call thành công!"
@@ -65,23 +68,6 @@ namespace TN.TNM.Api.Controllers
                 {
                     Message = "Call thành công!"
                 };
-            }
-        }
-
-        [HttpGet]
-        [Route("iclock/cdata")]
-        public GetMasterDataAssetFormResult cdata2(GetMasterDataAssetFormParameter request)
-        {
-            var logger = NLog.LogManager.GetCurrentClassLogger();
-            try
-            {
-                logger.Info($"====================Call iclock/cdata=================");
-                return null;
-            }
-            catch (System.Exception ex)
-            {
-                logger.Info($"Call iclock/cdata{ex}");
-                throw;
             }
         }
 

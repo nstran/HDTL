@@ -154,3 +154,9 @@ export class ReportPointEntityModel {
   servicePacketMappingOptionsId: string;
   isReporter: string;
 }
+
+export interface SelectItem {
+  label: string;
+  value: any;
+  disabled: boolean;
+}

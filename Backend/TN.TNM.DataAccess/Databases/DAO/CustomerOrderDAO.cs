@@ -45,6 +45,7 @@ using TN.TNM.DataAccess.Models.PermissionConfiguration;
 using TN.TNM.DataAccess.Messages.Results;
 using TN.TNM.DataAccess.Models.Entities;
 using static iTextSharp.text.pdf.AcroFields;
+using System.Net.WebSockets;
 
 namespace TN.TNM.DataAccess.Databases.DAO
 {
@@ -11208,6 +11209,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listAllMapping = context.OrderTaskMappingEmp.Where(x => listOrderTaskId.Contains(x.CustomerOrderTaskId)).ToList();
                 var listAllEmpId = listAllMapping.Select(x => x.EmployeeId).ToList();
                 var listAllEmp = context.Employee.Where(x => listAllEmpId.Contains(x.EmployeeId)).ToList();
+                var listAllEmpContact = context.Contact.Where(x => listAllEmpId.Contains(x.ObjectId) && x.ObjectType == "EMP").ToList();
                 //Nhà cung cấp
                 var listAllVendorId = listCustomerOrderTask.Select(x => x.VendorId).Distinct().ToList();
                 var listAllVendor = context.Vendor.Where(x => listAllVendorId.Contains(x.VendorId)).ToList();
@@ -11220,6 +11222,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     var listMapping = listAllMapping.Where(x => x.CustomerOrderTaskId == item.Id).Select(x => x.EmployeeId).ToList();
 
                     var emp = listAllEmp.Where(x => listMapping.Contains(x.EmployeeId)).ToList();
+                    var contact = listAllEmpContact.Where(x => listMapping.Contains(x.ObjectId)).ToList();
                     var servicePacketMappingOptionsItem = listAllServicePacketMappingOptions.FirstOrDefault(x => x.Id == item.ServicePacketMappingOptionsId);
                     item.OptionId = servicePacketMappingOptionsItem?.OptionId;
                     item.ServicePacketId = customerOrderAction.ServicePacketId;
@@ -11227,6 +11230,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     item.ListEmpId = new List<Guid>();
                     item.ListEmpName = "";
                     emp.ForEach(obj => {
+                        item.EmpPhone = contact.FirstOrDefault(x => x.ObjectId == obj.EmployeeId)?.Phone;
                         item.ListEmpId.Add(obj.EmployeeId);
                         item.ListEmpName += ", " + obj.EmployeeName;
                     });
@@ -11279,6 +11283,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     Content = x.Content,
                     Status = x.Status,
                     StatusName = listStatuReport.FirstOrDefault(y => y.Value == x.Status).Name,
+                    UpdatedDate = x.UpdatedDate
+
                 }).OrderBy(x => x.Order).ToList();
 
                 foreach (var item in listReportPoint)
@@ -11468,6 +11474,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
 
                 var listEmp = new List<EmployeeEntityModel>();
+                var listEmpReportPoint = context.ReportPoint.Where(x => x.Status == 2 && x.EmpId != Guid.Empty && x.EmpId != null).Select(x => x.EmpId).Distinct().ToList();
                 if (parameter.ServicePacketMappingOptionsId != null)
                 {
                     var customerOrderTask = context.CustomerOrderTask.FirstOrDefault(x => x.ServicePacketMappingOptionsId == parameter.ServicePacketMappingOptionsId && x.OrderActionId == parameter.OrderActionId);
@@ -11481,7 +11488,9 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             EmployeeName = x.EmployeeName,
                             Mission = x.Mission != null ? listMission.FirstOrDefault(y => y.CategoryId == x.Mission).CategoryName : "",
                             EmployeeCodeName = x.EmployeeCode + " - " + x.EmployeeName,
+                            IsDisable = listEmpReportPoint != null ? listEmpReportPoint.Contains(x.EmployeeId) ? true : false : false
                         }).ToList();
+
                     }
                 }
                 else
@@ -11489,7 +11498,6 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     //Lấy các nhân viện tại bước hộ trợ dịch vụ: 
                     var cateTypeIdOfStep = context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeActionStep).CategoryTypeId;
                     var supportStepId = context.Category.FirstOrDefault(x => x.CategoryTypeId == cateTypeIdOfStep && x.CategoryCode == ProductConsts.CategoryCodeSupportStep).CategoryId;
-
 
                     var listConfigurePermissionId = context.PermissionConfiguration.FirstOrDefault(x => x.ServicePacketId == orderAction.ServicePacketId
                      && x.CategoryId == supportStepId).Id;
@@ -11501,6 +11509,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         EmployeeName = x.EmployeeName,
                         Mission = x.Mission != null ? listMission.FirstOrDefault(y => y.CategoryId == x.Mission).CategoryName : "",
                         EmployeeCodeName = x.EmployeeCode + " - " + x.EmployeeName,
+                        IsDisable = listEmpReportPoint != null ? listEmpReportPoint.Contains(x.EmployeeId) ? true : false : false
                     }).ToList();
                 }
 

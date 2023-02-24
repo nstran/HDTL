@@ -1,14 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FormControl, Validators, FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
 import { DynamicDialogRef, DynamicDialogConfig, DialogService } from 'primeng/dynamicdialog';
-import { MessageService, TreeNode } from 'primeng/api';
-
+import { MessageService } from 'primeng/api';
 import { CustomerOrderService } from '../../services/customer-order.service';
-
-import { ProductCategoryService } from '../../../admin/components/product-category/services/product-category.service';
-import { ServicePacket } from '../../../product/models/productPacket.model';
-import { AttributeConfigurationEntityModel, CustomerOrderExtension, EmployeeEntityModel, OptionsEntityModel } from '../../../product/models/product.model';
-import { VendorListModel, VendorModel } from '../../../product/components/product-options/model/list-vendor';
+import { EmployeeEntityModel } from '../../../product/models/product.model';
 import { CustomerOrderTaskEntityModel, ReportPointEntityModel } from '../../models/customer-order.model';
 
 class ResultDialog {
@@ -34,9 +28,6 @@ export class SettingReportPointComponent implements OnInit {
   cols: any[];
 
   /*Các biến điều kiện*/
-  isCreate: boolean = true; //true: Tạo mới sản phẩm dịch vụ(hoặc chi phí phát sinh), false: Sửa sản phẩm dịch vụ(hoặc chi phí phát sinh)
-  selectedOrderDetailType: number = 0;  //0: Sản phẩm dịch vụ, 1: Chi phí phát sinh
-  isShowRadioProduct: boolean = true;
   isShowRadioOC: boolean = true;
   /*End*/
 
@@ -47,58 +38,25 @@ export class SettingReportPointComponent implements OnInit {
 
   //List nhân viên hỗ trợ
   listSupporter: Array<EmployeeEntityModel> = [];
-
-  //Databinding
-  settingFormGroup: FormGroup;
-  nameControl: FormControl;
-  optionControl: FormControl;
-  orderControl: FormControl; // Thứ tự
-  reporterControl: FormControl;
-  deadlineControl: FormControl;
-  isCusViewControl: FormControl;
-  contentControl: FormControl;
-
   rowData: ReportPointEntityModel = new ReportPointEntityModel();
+  employee = new EmployeeEntityModel();
+  newReportPoint: ReportPointEntityModel = new ReportPointEntityModel();
+  option : CustomerOrderTaskEntityModel;
 
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
     private messageService: MessageService,
     private customerOrderService: CustomerOrderService,
-    public dialogService: DialogService,
-    private productCategoryService: ProductCategoryService,
+    public dialogService: DialogService
   ) {
     this.orderActionId = this.config.data.orderActionId;
     this.rowData = this.config.data.rowData;
   }
 
   ngOnInit() {
-    this.setForm();
     this.getMasterData();
   }
-
-
-  setForm() {
-    this.nameControl = new FormControl(null, [Validators.required]);
-    this.optionControl = new FormControl(null);
-    this.orderControl = new FormControl("1", [Validators.required]);
-    this.reporterControl = new FormControl(null, [Validators.required]);
-    this.deadlineControl = new FormControl(null);
-    this.isCusViewControl = new FormControl(null);
-    this.contentControl = new FormControl(null, [Validators.required]);
-
-    this.settingFormGroup = new FormGroup({
-      nameControl: this.nameControl,
-      optionControl: this.optionControl,
-      orderControl: this.orderControl,
-      reporterControl: this.reporterControl,
-      deadlineControl: this.deadlineControl,
-      isCusViewControl: this.isCusViewControl,
-      contentControl: this.contentControl
-    });
-
-  }
-
 
   /*Event set giá trị mặc định cho các control*/
   getMasterData() {
@@ -119,22 +77,18 @@ export class SettingReportPointComponent implements OnInit {
   /*End*/
 
   setDefaultData() {
-    this.nameControl.setValue(this.rowData.name);
-    let option = this.listOption.find(x => x.servicePacketMappingOptionsId == this.rowData.servicePacketMappingOptionsId);
-    if(option != null ){
-      this.optionControl.setValue(option);
-      this.changeOption(option)
+    this.newReportPoint = this.rowData;
+    this.newReportPoint.deadline = new Date(this.newReportPoint.deadline);
+    this.employee = this.listSupporter.find(x => x.employeeId == this.rowData.empId);
+    this.option = this.listOption.find(x => x.servicePacketMappingOptionsId == this.rowData.servicePacketMappingOptionsId);
+    if(this.option != null ){
+      // this.optionControl.setValue(this.option);
+      // this.changeOption(this.option);
     }
-    this.orderControl.setValue(this.rowData.order);
-    this.reporterControl.setValue(this.listSupporter.find(x => x.employeeId == this.rowData.empId));
-    this.contentControl.setValue(this.rowData.content);
-    this.isCusViewControl.setValue(this.rowData.isCusView);
-    this.deadlineControl.setValue(this.rowData.deadline != null ?  convertToUTCTime(new Date(this.rowData.deadline)) : null)
-
   }
 
   //Đổi listemp theo dịch vụ
-  changeOption(option){
+  changeOption(option: CustomerOrderTaskEntityModel): void {
     let servicePacketMappingOptionsId = option != null ?  option.servicePacketMappingOptionsId : null;
     this.customerOrderService.getOptionAndEmpOfOrderAction(this.orderActionId, servicePacketMappingOptionsId).subscribe(response => {
       let result: any = response;
@@ -160,33 +114,16 @@ export class SettingReportPointComponent implements OnInit {
 
   /*Event Lưu dialog*/
   save() {
-    if (!this.settingFormGroup.valid) {
-      Object.keys(this.settingFormGroup.controls).forEach(key => {
-        if (this.settingFormGroup.controls[key].valid == false) {
-          this.settingFormGroup.controls[key].markAsTouched();
-        }
-      });
-      let msg = { severity: 'error', summary: 'Thông báo:', detail: 'Vui lòng nhập đầy đủ thông tin các trường dữ liệu.' };
-      this.showMessage(msg);
-      return;
-    }
-
-    var newReportPoint = new ReportPointEntityModel();
     if(this.rowData){
-      newReportPoint.id = this.rowData.id;
-      newReportPoint.status = this.rowData.status;
+      this.newReportPoint.id = this.rowData.id;
+      this.newReportPoint.status = this.rowData.status;
     } 
-    newReportPoint.name = this.nameControl.value;
-    newReportPoint.optionId = this.optionControl.value ? this.optionControl.value.id : this.emptyGuid;
-    newReportPoint.order = this.orderControl.value;
-    newReportPoint.empId = this.reporterControl.value.employeeId;
-    newReportPoint.content = this.contentControl.value;
-    newReportPoint.servicePacketMappingOptionsId = this.optionControl.value != null ? this.optionControl.value.servicePacketMappingOptionsId : null;
-    newReportPoint.isCusView = this.isCusViewControl.value;
-    newReportPoint.deadline = this.deadlineControl.value != null ? convertToUTCTime(new Date(this.deadlineControl.value)) : null;
-    newReportPoint.isExtend = this.optionControl.value ? this.optionControl.value.isExtend : false;
+    this.newReportPoint.optionId = this.option ? this.option.id : this.emptyGuid;
+    this.newReportPoint.servicePacketMappingOptionsId = this.option != null ? this.option.servicePacketMappingOptionsId : null;
+    this.newReportPoint.deadline = this.newReportPoint.deadline != null ? convertToUTCTime(new Date(this.newReportPoint.deadline)) : null;
+    this.newReportPoint.isExtend = this.option ? this.option.isExtend : false;
 
-    this.customerOrderService.createOrUpdateCustomerReportPoint(newReportPoint, this.orderActionId).subscribe(response => {
+    this.customerOrderService.createOrUpdateCustomerReportPoint(this.newReportPoint, this.orderActionId).subscribe(response => {
       let result: any = response;
       this.loading = false;
       if (result.statusCode == 200) {
@@ -203,8 +140,6 @@ export class SettingReportPointComponent implements OnInit {
       resultDialog.status = true;
       this.ref.close(resultDialog);
     });
-
-   
   }
 
 

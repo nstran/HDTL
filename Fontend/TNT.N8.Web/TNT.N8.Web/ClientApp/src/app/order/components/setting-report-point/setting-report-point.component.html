@@ -13,7 +13,7 @@
     <div class="row form-input">
 
 
-      <form [formGroup]="settingFormGroup">
+      <form #formServicePacket="ngForm" novalidate autocomplete="off">
 
         <div class="col-md-12 form-input">
           <div class="row">
@@ -23,15 +23,19 @@
             </div>
 
             <div class="col-md-9">
-              <input class="w100" type="text" formControlName="nameControl" pInputText
-                [ngClass]="(nameControl.invalid  && (nameControl.dirty ||  nameControl.touched)) ? 'error-border': ''">
+              <input class="w100" 
+                class="form-control"
+                type="text" 
+                name="Name"
+                [(ngModel)]="newReportPoint.name"
+                >
             </div>
 
-            <div class="col-md-3" [hidden]="nameControl.valid || nameControl.untouched"></div>
+            <!-- <div class="col-md-3" [hidden]="nameControl.valid || nameControl.untouched"></div>
             <div class="col-md-9" [hidden]="nameControl.valid || nameControl.untouched">
               <span *ngIf="nameControl.hasError('required') || nameControl.hasError('blankString') "
                 class="error-message-span"> Không được để trống</span>
-            </div>
+            </div> -->
 
           </div>
         </div>
@@ -44,12 +48,20 @@
             </div>
 
             <div class="col-md-9">
-              <p-dropdown [options]="listOption" [virtualScroll]="true" itemSize="30" [filter]="true"
-                formControlName="optionControl" [showClear]="true" [resetFilterOnHide]="true" appendTo="body"
+              <p-dropdown [options]="listOption" 
+                name="Option"
+                [virtualScroll]="true" 
+                itemSize="30" 
+                [filter]="true"
+                [(ngModel)]="option"
+                [showClear]="true" 
+                [resetFilterOnHide]="true" 
+                appendTo="body"
                 [baseZIndex]="99999"
                 (onChange)="changeOption($event.value)"
-                [styleClass]="(optionControl.invalid && (optionControl.dirty || optionControl.touched)) ? 'error-border' : ''"
-                placeholder="Chọn dịch vụ" optionLabel="path" [style]="{'width': '100%'}">
+                placeholder="Chọn dịch vụ" 
+                optionLabel="path" 
+                [style]="{'width': '100%'}">
               </p-dropdown>
             </div>
 
@@ -65,9 +77,12 @@
 
             <div class="col-md-3">
 
-              <input type="text" class="number-input" formControlName="orderControl"
+              <input type="text" 
+                class="number-input" 
+                name="Order"
+                [(ngModel)]="newReportPoint.order"
                 [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}"
-                [ngClass]="(orderControl.invalid  && (orderControl.dirty ||  orderControl.touched)) ? 'error-border': ''" />
+                />
             </div>
 
             <div class="col-md-3">
@@ -75,24 +90,44 @@
             </div>
 
             <div class="col-md-3">
-              <p-dropdown [options]="listSupporter" [virtualScroll]="true" itemSize="30" [filter]="true"
-                formControlName="reporterControl" [showClear]="true" [resetFilterOnHide]="true" appendTo="body"
+              <!-- <p-dropdown [options]="listSupporter" 
+                [virtualScroll]="true" 
+                itemSize="30" 
+                [filter]="true"
+                formControlName="reporterControl" 
+                [showClear]="true" 
+                [resetFilterOnHide]="true" 
+                appendTo="body"
                 [baseZIndex]="99999"
                 [styleClass]="(reporterControl.invalid && (reporterControl.dirty || reporterControl.touched)) ? 'error-border' : ''"
-                placeholder="Chọn nhân viên hỗ trợ" optionLabel="employeeName" [style]="{'width': '100%'}">
-              </p-dropdown>
+                placeholder="Chọn nhân viên hỗ trợ" 
+                optionLabel="employeeName" 
+                [style]="{'width': '100%'}"
+                >
+              </p-dropdown> -->
+                <select name="Employee" 
+                  class="form-control" 
+                  required #Employee
+                  [(ngModel)]="newReportPoint.empId">
+                  <option *ngFor="let item of listSupporter" 
+                    [value]="item.employeeId"
+                    [disabled]="item.isDisable ? true : false"
+                    >
+                    {{item.employeeName}}
+                  </option>
+                </select>
             </div>
 
 
             <div class="col-md-3"></div>
             <div class="col-md-3">
-              <span *ngIf="orderControl.hasError('required') || orderControl.hasError('blankString') "
-                class="error-message-span"> Không được để trống</span>
+              <!-- <span *ngIf="orderControl.hasError('required') || orderControl.hasError('blankString') "
+                class="error-message-span"> Không được để trống</span> -->
             </div>
 
             <div class="col-md-3"></div>
             <div class="col-md-3">
-              <span [hidden]="reporterControl.valid || reporterControl.untouched" *ngIf="reporterControl.hasError('required')" class="error-message-span"> Không được để trống</span>
+              <!-- <span [hidden]="employee" class="error-message-span"> Không được để trống</span> -->
             </div>
 
           </div>
@@ -106,14 +141,37 @@
               <label>Hạn báo cáo:</label>
             </div>
             <div class="col-md-3">
-              <p-calendar formControlName="deadlineControl" [yearNavigator]="true" dateFormat="dd/mm/yy" showTime="true"
-                hourFormat="24" [style]="{'width':'100%'}" placeholder="dd/mm/yy hh:mm" showButtonBar="true"
-                appendTo="body" [inputStyle]="{'width':'100%'}" [baseZIndex]="99999"></p-calendar>
+              <p-calendar 
+                name="Deadline"
+                [(ngModel)]="newReportPoint.deadline"
+                [yearNavigator]="true" 
+                dateFormat="dd/mm/yy" 
+                showTime="true"
+                hourFormat="24" 
+                [style]="{'width':'100%'}" 
+                placeholder="dd/mm/yy hh:mm" 
+                showButtonBar="true"
+                appendTo="body" 
+                [inputStyle]="{'width':'100%'}" 
+                [baseZIndex]="99999">
+              </p-calendar>
+              <!-- <p-calendar
+                  styleClass="d-block"
+                  [(ngModel)]="newReportPoint.deadline"
+                  showButtonBar="true"
+                  dateFormat="dd/mm/yy"
+                  [ngModelOptions]="{standalone: true}"
+                >
+              </p-calendar> -->
             </div>
 
             <div class="col-md-6">
-              <p-checkbox formControlName="isCusViewControl" [binary]="true"
-                label="Khách hàng được xem nội dung điểm báo cáo">
+              <p-checkbox 
+                [(ngModel)]="newReportPoint.isCusView" 
+                name="IsCusViewControl" 
+                [binary]="true"
+                label="Khách hàng được xem nội dung điểm báo cáo"
+                >
               </p-checkbox>
             </div>
 
@@ -126,15 +184,19 @@
               <label>Nội dung báo cáo:</label><span class="required">*</span>
             </div>
             <div class="col-md-9">
-              <textarea rows="4" formControlName="contentControl" class="w-100"
-                [ngClass]="(contentControl.invalid && (contentControl.dirty || contentControl.touched)) ? 'error-border' : ''"></textarea>
+              <textarea rows="4" 
+                name="Content"
+                [(ngModel)]="newReportPoint.content" 
+                class="w-100"
+                >
+              </textarea>
             </div>
 
-            <div class="col-md-3" [hidden]="contentControl.valid || contentControl.untouched"></div>
+            <!-- <div class="col-md-3" [hidden]="contentControl.valid || contentControl.untouched"></div>
             <div class="col-md-3" [hidden]="contentControl.valid || contentControl.untouched">
               <span *ngIf="contentControl.hasError('required') || contentControl.hasError('blankString') "
                 class="error-message-span"> Không được để trống</span>
-            </div>
+            </div> -->
 
           </div>
         </div>

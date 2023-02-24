@@ -122,3 +122,7 @@
         margin: 0px;
     }
 }
+
+select option:disabled {
+    background: #AAAAAA;
+}
