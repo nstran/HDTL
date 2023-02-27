@@ -586,7 +586,8 @@ where "CategoryTypeId" not in(
 'c0a2f501-2a8e-e811-80d3-8cec4b4327a4',
 '566ca279-2122-4ea8-bde3-0d416ced6bd5',
 'cd7fe20b-9548-4edf-b0a4-000d0a0798ef',
-'008489b0-81c7-4acc-8317-26d6aced9a9e'
+'008489b0-81c7-4acc-8317-26d6aced9a9e',
+'cca041dd-a79d-4adf-95ce-4632626f8c2e'
 );
 
 INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
