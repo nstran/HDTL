@@ -78,7 +78,7 @@ export class SettingReportPointComponent implements OnInit {
 
   setDefaultData() {
     this.newReportPoint = this.rowData;
-    this.newReportPoint.deadline = new Date(this.newReportPoint.deadline);
+    this.newReportPoint.deadline = this.newReportPoint.deadline ? new Date(this.newReportPoint.deadline) : null;
     this.employee = this.listSupporter.find(x => x.employeeId == this.rowData.empId);
     this.option = this.listOption.find(x => x.servicePacketMappingOptionsId == this.rowData.servicePacketMappingOptionsId);
     if(this.option != null ){
