@@ -2646,7 +2646,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             {
                 var user = context.User.FirstOrDefault(x => x.UserId == parameter.UserId);
                 user.Active = false;
-                context.User.Add(user);
+                context.User.Update(user);
                 context.SaveChanges();
 
                 return new UpdateUserToNotActiveResult
