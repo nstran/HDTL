@@ -2639,5 +2639,30 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 };
             }
         }
+
+        public UpdateUserToNotActiveResult UpdateUserToNotActive (UpdateUserNotActiveParameter parameter)
+        {
+            try
+            {
+                var user = context.User.FirstOrDefault(x => x.UserId == parameter.UserId);
+                user.Active = false;
+                context.User.Add(user);
+                context.SaveChanges();
+
+                return new UpdateUserToNotActiveResult
+                {
+                    Message = "Thành công",
+                    StatusCode = HttpStatusCode.OK,
+                };
+            }
+            catch (Exception e)
+            {
+                return new UpdateUserToNotActiveResult
+                {
+                    Message = e.Message,
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                };
+            }
+        }
     }
 }

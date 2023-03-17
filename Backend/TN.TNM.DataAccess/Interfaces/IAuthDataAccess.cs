@@ -42,5 +42,7 @@ namespace TN.TNM.DataAccess.Interfaces
         GetListProvinceResult TakeListProvince(GetListProvinceParameter parameter);
         ChangePasswordResult ChangePasswordForgot(ChangePasswordForgotParameter parameter);
         RemoveDeviceIdResult RemoveDeviceId(RemoveDeviceIdParameter parameter);
+
+        UpdateUserToNotActiveResult UpdateUserToNotActive(UpdateUserNotActiveParameter parameter);
     }
 }

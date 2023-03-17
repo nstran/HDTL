@@ -482,5 +482,14 @@ namespace TN.TNM.Api.Controllers
             var response = this.AuthDataAccess.RemoveDeviceId(request);
             return response;
         }
+
+        [Route("api/auth/updateUserToNotActive")]
+        [HttpPost]
+        [Authorize(Policy = "Member")]
+        public UpdateUserToNotActiveResult UpdateUserToNotActive([FromBody] UpdateUserNotActiveParameter request)
+        {
+            var response = this.AuthDataAccess.UpdateUserToNotActive(request);
+            return response;
+        }
     }
 }
