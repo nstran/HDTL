@@ -501,6 +501,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
         this.listOptionTreeNode.push(nodeRoot);
       });
       this.listOptionTreeNode = [...this.listOptionTreeNode.sort((a, b) => (a.sortOrder > b.sortOrder) ? 1 : -1)];
+      console.log(this.listOptionTreeNode)
     }
     else if (result.statusCode !== 200) {
       let msg = { key: 'popup', severity: 'error', summary: 'Thông báo:', detail: result.messageCode };

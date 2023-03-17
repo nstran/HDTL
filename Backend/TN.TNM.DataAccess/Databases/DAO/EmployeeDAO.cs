@@ -277,11 +277,11 @@ namespace TN.TNM.DataAccess.Databases.DAO
             }
 
             #region SEND MAIL
-            //gửi mail tới nhân viên được tạo 
-            NotificationHelper.AccessNotification(context, "EMPLOYEE", "CRE", new Employee(), employee, true);
+            ////gửi mail tới nhân viên được tạo 
+            //NotificationHelper.AccessNotification(context, "EMPLOYEE", "CRE", new Employee(), employee, true);
 
-            //gửi mail tới những người liên quan (HR,..)
-            NotificationHelper.AccessNotification(context, "EMPLOYEE", "EMPLOYEE_CREATE", new Employee(), employee, true);
+            ////gửi mail tới những người liên quan (HR,..)
+            //NotificationHelper.AccessNotification(context, "EMPLOYEE", "EMPLOYEE_CREATE", new Employee(), employee, true);
 
             #endregion
 

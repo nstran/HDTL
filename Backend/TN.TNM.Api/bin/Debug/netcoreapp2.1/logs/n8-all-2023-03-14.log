@@ -1,0 +1,515 @@
+2023-03-14 09:35:38.9436||INFO|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|User profile is available. Using 'C:\Users\TriNghia-PC-29\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2023-03-14 09:35:39.0233|48|ERROR|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider|An error occurred while reading the key ring. System.Xml.XmlException: '.', hexadecimal value 0x00, is an invalid character. Line 1, position 1.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   at System.Xml.XmlTextReaderImpl.ParseRootLevelWhitespace()
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlReader.MoveToContent()
+   at System.Xml.Linq.XElement.Load(XmlReader reader, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.ReadElementFromFile(String fullPath)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElementsCore()+MoveNext()
+   at System.Collections.Generic.List`1.AddEnumerable(IEnumerable`1 enumerable)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElements()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.GetAllKeys()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.CreateCacheableKeyRingCore(DateTimeOffset now, IKey keyJustAdded)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.ICacheableKeyRingProvider.GetCacheableKeyRing(DateTimeOffset now)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.GetCurrentKeyRingCore(DateTime utcNow)
+2023-03-14 09:35:39.1184||INFO|Microsoft.AspNetCore.DataProtection.Internal.DataProtectionStartupFilter|Key ring failed to load during application startup. System.Xml.XmlException: '.', hexadecimal value 0x00, is an invalid character. Line 1, position 1.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   at System.Xml.XmlTextReaderImpl.ParseRootLevelWhitespace()
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlReader.MoveToContent()
+   at System.Xml.Linq.XElement.Load(XmlReader reader, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.ReadElementFromFile(String fullPath)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElementsCore()+MoveNext()
+   at System.Collections.Generic.List`1.AddEnumerable(IEnumerable`1 enumerable)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElements()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.GetAllKeys()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.CreateCacheableKeyRingCore(DateTimeOffset now, IKey keyJustAdded)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.ICacheableKeyRingProvider.GetCacheableKeyRing(DateTimeOffset now)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.GetCurrentKeyRingCore(DateTime utcNow)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.GetCurrentKeyRing()
+   at Microsoft.AspNetCore.DataProtection.Internal.DataProtectionStartupFilter.Configure(Action`1 next)
+2023-03-14 09:35:40.1784||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Start installing Hangfire SQL objects... 
+2023-03-14 09:35:40.2650||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Hangfire SQL objects installed. 
+2023-03-14 09:35:41.0402||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL, Schema: hangfire' 
+2023-03-14 09:35:41.0402||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: 
+2023-03-14 09:35:41.0402||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. 
+2023-03-14 09:35:41.0402||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. 
+2023-03-14 09:35:41.0402||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 
+2023-03-14 09:35:41.0650||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:8dd8e95f has started in 10.8275 ms 
+2023-03-14 09:35:41.0995||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20488:ece30d03 is announcing itself... 
+2023-03-14 09:35:41.2110||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20488:ece30d03 successfully announced in 108.9878 ms 
+2023-03-14 09:35:41.2110|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 GET http://localhost:5001/   
+2023-03-14 09:35:41.2110|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 DEBUG http://localhost:5001/  0 
+2023-03-14 09:35:41.2242||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:fd25ec10 has started in 10.9106 ms 
+2023-03-14 09:35:41.2242||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20488:ece30d03 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... 
+2023-03-14 09:35:41.2242||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:f1c1f3f8 has started in 4.4351 ms 
+2023-03-14 09:35:41.2242||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:7b989e6b has started in 9.9338 ms 
+2023-03-14 09:35:41.2409||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:20488:ece30d03 waiting for 00:00:30 delay before sending a heartbeat 
+2023-03-14 09:35:41.2409||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:35:41.2409||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:b4d20875 has started in 6.397 ms 
+2023-03-14 09:35:41.2409||INFO|Hangfire.Server.ServerWatchdog|2 servers were removed due to timeout 
+2023-03-14 09:35:41.2409||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:e60931af has started in 14.9338 ms 
+2023-03-14 09:35:41.2570||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:807fdfb4 has started in 19.5024 ms 
+2023-03-14 09:35:41.2570||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... 
+2023-03-14 09:35:41.2740||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:20e985eb has started in 36.4507 ms 
+2023-03-14 09:35:41.2892||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b33dbf57 has started in 51.6954 ms 
+2023-03-14 09:35:41.3259||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:54863a71 has started in 88.4693 ms 
+2023-03-14 09:35:41.3565||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:f1b3998c has started in 119.0722 ms 
+2023-03-14 09:35:41.3618||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:35:41.3618|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 161.8935ms 200  
+2023-03-14 09:35:41.3906||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:efa18a84 has started in 153.0981 ms 
+2023-03-14 09:35:41.3997||TRACE|Hangfire.RecurringJobManager|Recurring job 'Deadline' is being updated. RecurringJob: (), Changes: (Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-03-14T02:35:41.1356216Z;NextExecution:2023-03-14T02:36:00.0000000Z;V:2), NextExecution: (3/14/2023 2:36:00 AM) 
+2023-03-14 09:35:41.4328||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 1000 outdated record(s) from 'counter' table. 
+2023-03-14 09:35:41.4940||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:57393b12 has started in 252.5734 ms 
+2023-03-14 09:35:41.5204||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:8334592d has started in 282.904 ms 
+2023-03-14 09:35:41.5204||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:17558f7b has started in 290.3812 ms 
+2023-03-14 09:35:41.5446||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d373ecc8 has started in 306.6878 ms 
+2023-03-14 09:35:41.5611||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:54e90e23 has started in 323.3168 ms 
+2023-03-14 09:35:41.5763||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a3d1aeaa has started in 338.8279 ms 
+2023-03-14 09:35:41.5820||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:3406d94c has started in 343.9529 ms 
+2023-03-14 09:35:41.5820||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d4cfab93 has started in 353.2549 ms 
+2023-03-14 09:35:41.5989||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:6721446b has started in 361.4657 ms 
+2023-03-14 09:35:41.6248||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:4b0b6d76 has started in 387.2678 ms 
+2023-03-14 09:35:41.6716||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:acec2773 has started in 433.6649 ms 
+2023-03-14 09:35:41.6922||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b586b4c1 has started in 454.7506 ms 
+2023-03-14 09:35:41.7447||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:3e55d8ad has started in 507.2609 ms 
+2023-03-14 09:35:41.7671||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:b8f8f69d has started in 80.0024 ms 
+2023-03-14 09:35:41.8041||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20488:ece30d03 all the dispatchers started 
+2023-03-14 09:35:41.8622||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:1272fdae has started in 111.8628 ms 
+2023-03-14 09:35:41.9959||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL, Schema: hangfire' 
+2023-03-14 09:35:41.9959||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: 
+2023-03-14 09:35:41.9959||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. 
+2023-03-14 09:35:41.9959||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. 
+2023-03-14 09:35:41.9959||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:30
+    Schedule polling interval: 00:00:15 
+2023-03-14 09:35:42.0676||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:1b50c1ec has started in 68.857 ms 
+2023-03-14 09:35:42.0676||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20488:591abca5 is announcing itself... 
+2023-03-14 09:35:42.0993||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20488:591abca5 successfully announced in 13.8638 ms 
+2023-03-14 09:35:42.0993||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20488:591abca5 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... 
+2023-03-14 09:35:42.0993||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:c68c00a6 has started in 9.9621 ms 
+2023-03-14 09:35:42.0993||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:20488:591abca5 waiting for 00:00:30 delay before sending a heartbeat 
+2023-03-14 09:35:42.1228||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-03-02T02:12:07.1395287Z;NextExecution:2023-03-02T02:14:00.0000000Z;LastJobId:16227), Changes: (LastExecution:2023-03-14T02:35:41.9058427Z;NextExecution:2023-03-14T02:36:00.0000000Z;LastJobId:16231), NextExecution: (3/14/2023 2:36:00 AM) 
+2023-03-14 09:35:42.1354||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:3c2c1b16 has started in 29.6073 ms 
+2023-03-14 09:35:42.1354||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:fa016fd7 has started in 21.3835 ms 
+2023-03-14 09:35:42.1451||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:35:42.1451||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:35:42.1588||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:09361257 has started in 19.4509 ms 
+2023-03-14 09:35:42.1588||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'EVMDaily' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-11T06:09:11.7098468Z;V:2;Queue:default;Cron:*/10 * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-03-02T02:10:06.9857808Z;NextExecution:2023-03-02T02:20:00.0000000Z;LastJobId:16223), Changes: (LastExecution:2023-03-14T02:35:42.1474824Z;NextExecution:2023-03-14T02:40:00.0000000Z;LastJobId:16232), NextExecution: (3/14/2023 2:40:00 AM) 
+2023-03-14 09:35:42.1588||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... 
+2023-03-14 09:35:42.1832||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 829 outdated record(s) from 'counter' table. 
+2023-03-14 09:35:42.1832||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5a269026 has started in 43.2978 ms 
+2023-03-14 09:35:42.1832||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'StatusTask' is being updated. RecurringJob: (Queue:default;Cron:*/59 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"UpdateStatusTask","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-11T06:09:11.6277951Z;V:2;LastExecution:2023-03-02T02:00:06.1587000Z;NextExecution:2023-03-02T02:59:00.0000000Z;LastJobId:16209), Changes: (LastExecution:2023-03-14T02:35:42.1698732Z;NextExecution:2023-03-14T02:59:00.0000000Z;LastJobId:16233), NextExecution: (3/14/2023 2:59:00 AM) 
+2023-03-14 09:35:42.1939||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a113f915 has started in 48.6324 ms 
+2023-03-14 09:35:42.2085||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5b615a0d has started in 63.1807 ms 
+2023-03-14 09:35:42.2085||DEBUG|Hangfire.Server.RecurringJobScheduler|3 recurring job(s) processed by scheduler. 
+2023-03-14 09:35:42.2085||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:69664b16 has started in 73.5011 ms 
+2023-03-14 09:35:42.2316||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:2f2a1480 has started in 86.2883 ms 
+2023-03-14 09:35:42.2455||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:8c2029fd has started in 100.2061 ms 
+2023-03-14 09:35:42.2566||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:f621afe9 has started in 111.0239 ms 
+2023-03-14 09:35:42.2566||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:35370bdd has started in 117.5404 ms 
+2023-03-14 09:35:42.2713||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:9a2b8aad has started in 124.9917 ms 
+2023-03-14 09:35:42.2713||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a54c21bb has started in 130.4004 ms 
+2023-03-14 09:35:42.2882||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:4fa9d988 has started in 142.9017 ms 
+2023-03-14 09:35:42.3118||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:837069ef has started in 166.5677 ms 
+2023-03-14 09:35:42.3226||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:0a46b0d6 has started in 177.2501 ms 
+2023-03-14 09:35:42.3447||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ed67ef86 has started in 199.3836 ms 
+2023-03-14 09:35:42.3774||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:cbb8b0e2 has started in 232.1459 ms 
+2023-03-14 09:35:42.4308||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5955bf57 has started in 285.4938 ms 
+2023-03-14 09:35:42.4586||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:7af838e1 has started in 313.2483 ms 
+2023-03-14 09:35:42.5338||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:730422cb has started in 388.3407 ms 
+2023-03-14 09:35:42.5558||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:37515382 has started in 410.5256 ms 
+2023-03-14 09:35:42.5730||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:8ba4c601 has started in 424.0995 ms 
+2023-03-14 09:35:42.6081||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:bbc888b0 has started in 52.1478 ms 
+2023-03-14 09:35:42.6081||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... 
+2023-03-14 09:35:42.6193||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20488:591abca5 all the dispatchers started 
+2023-03-14 09:35:42.6193||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:1e2cea56 has started in 48.3877 ms 
+2023-03-14 09:35:42.8034||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 48 outdated record(s) from 'job' table. 
+2023-03-14 09:35:43.2018||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... 
+2023-03-14 09:35:43.2069||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... 
+2023-03-14 09:35:43.2069||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... 
+2023-03-14 09:35:43.2069||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... 
+2023-03-14 09:35:43.4073|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 2196.172ms 404  
+2023-03-14 09:35:43.8143||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... 
+2023-03-14 09:35:43.8157||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... 
+2023-03-14 09:35:43.8157||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... 
+2023-03-14 09:35:46.0924|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-03-14 09:35:46.0924|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-03-14 09:35:46.0924|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-03-14 09:35:46.2549|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT t."TenantId", t."Status", t."TenantHost", t."TenantMode", t."TenantName", t."UserNumber"
+FROM "Tenants" AS t 
+2023-03-14 09:35:46.2549|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Content", x."CreatedById", x."CreatedDate", x."Deadline", x."EmpId", x."IsCusView", x."Name", x."OptionId", x."Order", x."OrderActionId", x."ServicePacketMappingOptionsId", x."Status", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ReportPoint" AS x
+WHERE (x."Deadline" IS NOT NULL AND ((x."Status" <> 3) OR x."Status" IS NULL)) AND x."Id" NOT IN ('0ec5cab5-52c5-454a-8a86-34b61cb83145', '64d50ba8-b304-4c73-a0bc-61b73669ccea', '53b0296c-af1a-4540-9c1b-b8c387586eec', '23837d36-ff7d-4c30-85ea-1dfd009a4463') 
+2023-03-14 09:35:46.2549|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (16ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Content", x."CreatedById", x."CreatedDate", x."Deadline", x."EmpId", x."IsCusView", x."Name", x."OptionId", x."Order", x."OrderActionId", x."ServicePacketMappingOptionsId", x."Status", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ReportPoint" AS x
+WHERE (x."Deadline" IS NOT NULL AND ((x."Status" <> 3) OR x."Status" IS NULL)) AND x."Id" NOT IN ('0ec5cab5-52c5-454a-8a86-34b61cb83145', '64d50ba8-b304-4c73-a0bc-61b73669ccea', '53b0296c-af1a-4540-9c1b-b8c387586eec', '23837d36-ff7d-4c30-85ea-1dfd009a4463') 
+2023-03-14 09:35:46.3132|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."OrderId", x."Active", x."Amount", x."ApprovedDate", x."BankAccountId", x."CloneCount", x."CreatedById", x."CreatedDate", x."CustomerAddress", x."CustomerCode", x."CustomerContactId", x."CustomerId", x."CustomerName", x."CustomerNumber", x."CustomerPhone", x."DaysAreOwed", x."Description", x."DiscountType", x."DiscountValue", x."Especially", x."IsAutoGenReceiveInfor", x."IsOrderAction", x."LocationOfShipment", x."ManufactureDate", x."MaxDebt", x."Note", x."NoteTechnique", x."ObjectId", x."OrderCode", x."OrderContractId", x."OrderDate", x."OrderProcessId", x."OrderType", x."PaymentContent", x."PaymentMethod", x."PaymentMethodOrder", x."PercentAdvance", x."PercentAdvanceType", x."PlaceOfDelivery", x."QuoteId", x."ReasonCancel", x."ReceiptInvoiceAmount", x."ReceivedDate", x."ReceivedHour", x."RecipientEmail", x."RecipientName", x."RecipientPhone", x."Seller", x."ServicePacketId", x."ShippingNote", x."StatusId", x."StatusOrder", x."TenantId", x."UpdatedById", x."UpdatedDate", x."VAT", x."WarehouseId"
+FROM "CustomerOrder" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:35:46.3132|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (19ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."OrderId", x."Active", x."Amount", x."ApprovedDate", x."BankAccountId", x."CloneCount", x."CreatedById", x."CreatedDate", x."CustomerAddress", x."CustomerCode", x."CustomerContactId", x."CustomerId", x."CustomerName", x."CustomerNumber", x."CustomerPhone", x."DaysAreOwed", x."Description", x."DiscountType", x."DiscountValue", x."Especially", x."IsAutoGenReceiveInfor", x."IsOrderAction", x."LocationOfShipment", x."ManufactureDate", x."MaxDebt", x."Note", x."NoteTechnique", x."ObjectId", x."OrderCode", x."OrderContractId", x."OrderDate", x."OrderProcessId", x."OrderType", x."PaymentContent", x."PaymentMethod", x."PaymentMethodOrder", x."PercentAdvance", x."PercentAdvanceType", x."PlaceOfDelivery", x."QuoteId", x."ReasonCancel", x."ReceiptInvoiceAmount", x."ReceivedDate", x."ReceivedHour", x."RecipientEmail", x."RecipientName", x."RecipientPhone", x."Seller", x."ServicePacketId", x."ShippingNote", x."StatusId", x."StatusOrder", x."TenantId", x."UpdatedById", x."UpdatedDate", x."VAT", x."WarehouseId"
+FROM "CustomerOrder" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:35:46.3400|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT t."TaskId", t."ActualEndTime", t."ActualHour", t."ActualStartTime", t."CompleteDate", t."CreateBy", t."CreateDate", t."Description", t."EstimateCost", t."EstimateHour", t."IncludeWeekend", t."IsSendMail", t."MilestonesId", t."ParentId", t."PlanEndTime", t."PlanStartTime", t."Priority", t."ProjectId", t."ProjectScopeId", t."SoLanMoLai", t."Status", t."TaskCode", t."TaskComplate", t."TaskName", t."TaskTypeId", t."TenantId", t."TimeType", t."UpdateBy", t."UpdateDate"
+FROM "Task" AS t 
+2023-03-14 09:35:46.3737||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:35:46.3737|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (10ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Active", x."AttributeName", x."Code", x."CreatedById", x."CreatedDate", x."Description", x."Message", x."Name", x."ProductCategoryId", x."ProvinceId", x."Status", x."Stt", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ServicePacket" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:35:46.3737|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (11ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Active", x."AttributeName", x."Code", x."CreatedById", x."CreatedDate", x."Description", x."Message", x."Name", x."ProductCategoryId", x."ProvinceId", x."Status", x."Stt", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ServicePacket" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:35:46.3737||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:35:46.4075|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryTypeId", x."Active", x."CategoryTypeCode", x."CategoryTypeName", x."CreatedById", x."CreatedDate", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "CategoryType" AS x
+WHERE x."CategoryTypeCode" = 'NOTIFICATIONCONFIG'
+LIMIT 1 
+2023-03-14 09:35:46.4075|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryTypeId", x."Active", x."CategoryTypeCode", x."CategoryTypeName", x."CreatedById", x."CreatedDate", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "CategoryType" AS x
+WHERE x."CategoryTypeCode" = 'NOTIFICATIONCONFIG'
+LIMIT 1 
+2023-03-14 09:35:46.4343|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT c."CategoryTypeId"
+FROM "CategoryType" AS c
+WHERE c."CategoryTypeCode" = 'TTCV' 
+2023-03-14 09:35:46.4397|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (11ms) [Parameters=[@__notificationCateTypeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryId", x."Active", x."CategoryCode", x."CategoryName", x."CategoryTypeId", x."CreatedById", x."CreatedDate", x."IsDefauld", x."IsEdit", x."SortOrder", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "Category" AS x
+WHERE x."CategoryTypeId" = @__notificationCateTypeId_0 
+2023-03-14 09:35:46.4397|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (11ms) [Parameters=[@__notificationCateTypeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryId", x."Active", x."CategoryCode", x."CategoryName", x."CategoryTypeId", x."CreatedById", x."CreatedDate", x."IsDefauld", x."IsEdit", x."SortOrder", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "Category" AS x
+WHERE x."CategoryTypeId" = @__notificationCateTypeId_0 
+2023-03-14 09:35:46.4397|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT c."CategoryId", c."Active", c."CategoryCode", c."CategoryName", c."CategoryTypeId", c."CreatedById", c."CreatedDate", c."IsDefauld", c."IsEdit", c."SortOrder", c."TenantId", c."UpdatedById", c."UpdatedDate"
+FROM "Category" AS c
+WHERE c."CategoryTypeId" IN ('89b7ac7a-02b0-4d3d-9927-1036e52ccfea') AND (c."Active" = TRUE) 
+2023-03-14 09:35:46.5470|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CategoryId", x."CreatedById", x."CreatedDate", x."Reporter", x."ServiceManagement", x."ServicePacketId", x."ServiceRequestMaker", x."ServiceSupporter", x."Supporter", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "NotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:35:46.5470|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (6ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CategoryId", x."CreatedById", x."CreatedDate", x."Reporter", x."ServiceManagement", x."ServicePacketId", x."ServiceRequestMaker", x."ServiceSupporter", x."Supporter", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "NotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:35:46.5708|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CreatedById", x."CreatedDate", x."EmployeeId", x."NotificationConfigurationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "EmployeeMappingNotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:35:46.5708|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CreatedById", x."CreatedDate", x."EmployeeId", x."NotificationConfigurationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "EmployeeMappingNotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:35:46.7287|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (12ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Boolean), @p2='?' (DbType = Guid), @p3='?' (DbType = DateTime), @p4='?', @p5='?' (Size = 200), @p6='?' (DbType = Guid), @p7='?' (Size = 15), @p8='?' (DbType = Guid), @p9='?' (Size = 3), @p10='?' (DbType = Guid), @p11='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+INSERT INTO "Note" ("NoteId", "Active", "CreatedById", "CreatedDate", "Description", "NoteTitle", "ObjectId", "ObjectType", "TenantId", "Type", "UpdatedById", "UpdatedDate")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11)
+RETURNING "ObjectNumber"; 
+2023-03-14 09:35:47.1570||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:35:47.1570||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:35:47.6298|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 POST http://localhost:5001/swipe/dataSwipe?mId=2145224260046&cardId=123456789&time=1678761295  0 
+2023-03-14 09:35:47.6631|3|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Route matched with {action = "checkData", controller = "Asset"}. Executing controller action with signature TN.TNM.DataAccess.Messages.Results.Asset.TakeDataSwipeResult checkData(TN.TNM.DataAccess.Messages.Parameters.Asset.TakeDataSwipeParameter) on controller TN.TNM.Api.Controllers.AssetController (TN.TNM.Api). 
+2023-03-14 09:35:47.6631|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-03-14 09:35:47.6780|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__domain_0='?' (Size = 500)], CommandType='Text', CommandTimeout='30']
+SELECT t."TenantId", t."Status", t."TenantHost", t."TenantMode", t."TenantName", t."UserNumber"
+FROM "Tenants" AS t
+WHERE t."TenantHost" = @__domain_0
+LIMIT 1 
+2023-03-14 09:35:48.0952|1|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executing action method TN.TNM.Api.Controllers.AssetController.checkData (TN.TNM.Api) - Validation state: Valid 
+2023-03-14 09:35:56.8596||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:35:56.8596||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:35:56.8596||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:35:56.8629||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:35:56.8629||INFO|TN.TNM.Api.Controllers.AssetController|+++++++++++++++++++++ API Post dataSwipe +++++++++++++++++++++++++++ 
+2023-03-14 09:35:56.8943|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action method TN.TNM.Api.Controllers.AssetController.checkData (TN.TNM.Api), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 8796.1008ms. 
+2023-03-14 09:35:56.8943|1|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing ObjectResult, writing value of type 'TN.TNM.DataAccess.Messages.Results.Asset.TakeDataSwipeResult'. 
+2023-03-14 09:35:57.0901|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action TN.TNM.Api.Controllers.AssetController.checkData (TN.TNM.Api) in 9424.5984ms 
+2023-03-14 09:35:57.0901|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 9462.6588ms 200 application/json; charset=utf-8 
+2023-03-14 09:36:01.8763||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:01.8763||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:01.8776||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:01.8776||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:06.8827||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:06.8827||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:06.8827||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:06.8827||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:28.3798||INFO|Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager|User profile is available. Using 'C:\Users\TriNghia-PC-29\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest. 
+2023-03-14 09:36:28.4428|48|ERROR|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider|An error occurred while reading the key ring. System.Xml.XmlException: '.', hexadecimal value 0x00, is an invalid character. Line 1, position 1.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   at System.Xml.XmlTextReaderImpl.ParseRootLevelWhitespace()
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlReader.MoveToContent()
+   at System.Xml.Linq.XElement.Load(XmlReader reader, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.ReadElementFromFile(String fullPath)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElementsCore()+MoveNext()
+   at System.Collections.Generic.List`1.AddEnumerable(IEnumerable`1 enumerable)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElements()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.GetAllKeys()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.CreateCacheableKeyRingCore(DateTimeOffset now, IKey keyJustAdded)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.ICacheableKeyRingProvider.GetCacheableKeyRing(DateTimeOffset now)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.GetCurrentKeyRingCore(DateTime utcNow)
+2023-03-14 09:36:28.4992||INFO|Microsoft.AspNetCore.DataProtection.Internal.DataProtectionStartupFilter|Key ring failed to load during application startup. System.Xml.XmlException: '.', hexadecimal value 0x00, is an invalid character. Line 1, position 1.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   at System.Xml.XmlTextReaderImpl.ParseRootLevelWhitespace()
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlReader.MoveToContent()
+   at System.Xml.Linq.XElement.Load(XmlReader reader, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.ReadElementFromFile(String fullPath)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElementsCore()+MoveNext()
+   at System.Collections.Generic.List`1.AddEnumerable(IEnumerable`1 enumerable)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElements()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.GetAllKeys()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.CreateCacheableKeyRingCore(DateTimeOffset now, IKey keyJustAdded)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.ICacheableKeyRingProvider.GetCacheableKeyRing(DateTimeOffset now)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.GetCurrentKeyRingCore(DateTime utcNow)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.GetCurrentKeyRing()
+   at Microsoft.AspNetCore.DataProtection.Internal.DataProtectionStartupFilter.Configure(Action`1 next)
+2023-03-14 09:36:29.5066||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Start installing Hangfire SQL objects... 
+2023-03-14 09:36:29.5526||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Hangfire SQL objects installed. 
+2023-03-14 09:36:30.1300||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL, Schema: hangfire' 
+2023-03-14 09:36:30.1300||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: 
+2023-03-14 09:36:30.1300||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. 
+2023-03-14 09:36:30.1300||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. 
+2023-03-14 09:36:30.1300||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 
+2023-03-14 09:36:30.1633||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:cb019a64 has started in 13.9792 ms 
+2023-03-14 09:36:30.1892||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:6588:f04a8869 is announcing itself... 
+2023-03-14 09:36:30.2644||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:6588:f04a8869 successfully announced in 73.9531 ms 
+2023-03-14 09:36:30.2733||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:fc25be28 has started in 6.0272 ms 
+2023-03-14 09:36:30.2733||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:6588:f04a8869 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... 
+2023-03-14 09:36:30.2733||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:b0091f3a has started in 5.7388 ms 
+2023-03-14 09:36:30.2864||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:7928693c has started in 11.8756 ms 
+2023-03-14 09:36:30.2864||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:120ee3e2 has started in 10.4319 ms 
+2023-03-14 09:36:30.2864||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:30.2864||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:6588:f04a8869 waiting for 00:00:30 delay before sending a heartbeat 
+2023-03-14 09:36:30.2864||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:6a23a69b has started in 8.4815 ms 
+2023-03-14 09:36:30.3026||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:353fae10 has started in 15.3141 ms 
+2023-03-14 09:36:30.3026||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:48b9466c has started in 18.4269 ms 
+2023-03-14 09:36:30.3026||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... 
+2023-03-14 09:36:30.3026||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c9c3595a has started in 22.4222 ms 
+2023-03-14 09:36:30.3026||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:f60d826b has started in 26.3232 ms 
+2023-03-14 09:36:30.3353||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:69145950 has started in 48.2442 ms 
+2023-03-14 09:36:30.3621||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:68a10909 has started in 75.0534 ms 
+2023-03-14 09:36:30.3995||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:6211a709 has started in 111.5077 ms 
+2023-03-14 09:36:30.4435||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b58ee398 has started in 156.3361 ms 
+2023-03-14 09:36:30.4596||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:30.4804||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:774b8012 has started in 193.4059 ms 
+2023-03-14 09:36:30.5111||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c56d8d3c has started in 211.9998 ms 
+2023-03-14 09:36:30.5243||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b58b0f85 has started in 237.2568 ms 
+2023-03-14 09:36:30.5772||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:93d154f4 has started in 289.8051 ms 
+2023-03-14 09:36:30.5994||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... 
+2023-03-14 09:36:30.5994||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... 
+2023-03-14 09:36:30.5994||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... 
+2023-03-14 09:36:30.5994||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... 
+2023-03-14 09:36:30.7018||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:70f57c11 has started in 414.7307 ms 
+2023-03-14 09:36:30.7521||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:0da74223 has started in 465.0053 ms 
+2023-03-14 09:36:30.7631||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:8ccb2903 has started in 476.0027 ms 
+2023-03-14 09:36:30.8094||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:6c3c6b76 has started in 521.8823 ms 
+2023-03-14 09:36:30.8177||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:9e3ce1be has started in 530.6981 ms 
+2023-03-14 09:36:30.8177||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c1ecc927 has started in 538.5068 ms 
+2023-03-14 09:36:30.8177||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5c050f1b has started in 542.8326 ms 
+2023-03-14 09:36:30.8380||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:599f2c5c has started in 12.4167 ms 
+2023-03-14 09:36:30.8380||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:6588:f04a8869 all the dispatchers started 
+2023-03-14 09:36:30.8571||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:505a77c9 has started in 25.6128 ms 
+2023-03-14 09:36:30.8697||TRACE|Hangfire.RecurringJobManager|Recurring job 'Deadline' is being updated. RecurringJob: (), Changes: (Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-03-14T02:36:30.2238970Z;NextExecution:2023-03-14T02:37:00.0000000Z;V:2), NextExecution: (3/14/2023 2:37:00 AM) 
+2023-03-14 09:36:30.8942||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL, Schema: hangfire' 
+2023-03-14 09:36:30.8942||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: 
+2023-03-14 09:36:30.8942||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. 
+2023-03-14 09:36:30.8942||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. 
+2023-03-14 09:36:30.8942||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:30
+    Schedule polling interval: 00:00:15 
+2023-03-14 09:36:30.8942|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 DEBUG http://localhost:5001/  0 
+2023-03-14 09:36:30.8942|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 GET http://localhost:5001/   
+2023-03-14 09:36:30.9245||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:4ab61455 has started in 28.2014 ms 
+2023-03-14 09:36:30.9263||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:6588:db301109 is announcing itself... 
+2023-03-14 09:36:30.9263||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:6588:db301109 successfully announced in 3.2063 ms 
+2023-03-14 09:36:30.9470||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:6588:db301109 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... 
+2023-03-14 09:36:30.9713||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:a1227234 has started in 40.1472 ms 
+2023-03-14 09:36:30.9720||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:6588:db301109 waiting for 00:00:30 delay before sending a heartbeat 
+2023-03-14 09:36:30.9720||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:6eca88a3 has started in 35.842 ms 
+2023-03-14 09:36:30.9940||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:881adfd5 has started in 18.4553 ms 
+2023-03-14 09:36:30.9940||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:30.9940||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:30.9940||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:15f4bc64 has started in 18.3815 ms 
+2023-03-14 09:36:31.0032||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... 
+2023-03-14 09:36:31.0032||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:aabcc08f has started in 15.3968 ms 
+2023-03-14 09:36:31.0032||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... 
+2023-03-14 09:36:31.0191||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:45da47bd has started in 25.0515 ms 
+2023-03-14 09:36:31.0191||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... 
+2023-03-14 09:36:31.0191||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d060b037 has started in 30.762 ms 
+2023-03-14 09:36:31.0191||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... 
+2023-03-14 09:36:31.0191||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:3c66dd2d has started in 38.7912 ms 
+2023-03-14 09:36:31.0387||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:8cce0e84 has started in 42.8432 ms 
+2023-03-14 09:36:31.0387||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:444fabf6 has started in 52.063 ms 
+2023-03-14 09:36:31.0537||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b9d1967e has started in 59.6881 ms 
+2023-03-14 09:36:31.0537||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-03-14T02:35:41.9058427Z;NextExecution:2023-03-14T02:36:00.0000000Z;LastJobId:16231), Changes: (LastExecution:2023-03-14T02:36:30.8795932Z;NextExecution:2023-03-14T02:38:00.0000000Z;LastJobId:16235), NextExecution: (3/14/2023 2:38:00 AM) 
+2023-03-14 09:36:31.0537||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:cf2340d0 has started in 66.5386 ms 
+2023-03-14 09:36:31.0672||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. 
+2023-03-14 09:36:31.0966||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:2869699e has started in 102.5915 ms 
+2023-03-14 09:36:31.1520||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a017f74e has started in 153.7616 ms 
+2023-03-14 09:36:31.1681||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... 
+2023-03-14 09:36:31.1934||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:9c5bc5f7 has started in 199.3797 ms 
+2023-03-14 09:36:31.1934|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 124.2068ms 200  
+2023-03-14 09:36:31.2746||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:72cf7a70 has started in 279.8863 ms 
+2023-03-14 09:36:31.2746||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:4f6d04cc has started in 287.0702 ms 
+2023-03-14 09:36:31.2897||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:fff59a55 has started in 295.6668 ms 
+2023-03-14 09:36:31.2897||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:2075676e has started in 303.3666 ms 
+2023-03-14 09:36:31.3108||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:829aa70e has started in 316.7972 ms 
+2023-03-14 09:36:31.3255||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:f8b0e248 has started in 331.5275 ms 
+2023-03-14 09:36:31.3409||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:47b03581 has started in 346.7912 ms 
+2023-03-14 09:36:31.3591||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:9859807e has started in 365.0841 ms 
+2023-03-14 09:36:31.3766||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:8086da95 has started in 382.5501 ms 
+2023-03-14 09:36:31.4262||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:b33f6304 has started in 100.7212 ms 
+2023-03-14 09:36:31.4494||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:6588:db301109 all the dispatchers started 
+2023-03-14 09:36:31.4697||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:bb0321f1 has started in 106.4362 ms 
+2023-03-14 09:36:32.2259|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 1319.0708ms 404  
+2023-03-14 09:36:35.4742||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:35.4742||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:36.0091||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:36.0091||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:36.3900|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-03-14 09:36:36.5833|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Content", x."CreatedById", x."CreatedDate", x."Deadline", x."EmpId", x."IsCusView", x."Name", x."OptionId", x."Order", x."OrderActionId", x."ServicePacketMappingOptionsId", x."Status", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ReportPoint" AS x
+WHERE (x."Deadline" IS NOT NULL AND ((x."Status" <> 3) OR x."Status" IS NULL)) AND x."Id" NOT IN ('0ec5cab5-52c5-454a-8a86-34b61cb83145', '64d50ba8-b304-4c73-a0bc-61b73669ccea', '53b0296c-af1a-4540-9c1b-b8c387586eec', '23837d36-ff7d-4c30-85ea-1dfd009a4463') 
+2023-03-14 09:36:36.6145|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."OrderId", x."Active", x."Amount", x."ApprovedDate", x."BankAccountId", x."CloneCount", x."CreatedById", x."CreatedDate", x."CustomerAddress", x."CustomerCode", x."CustomerContactId", x."CustomerId", x."CustomerName", x."CustomerNumber", x."CustomerPhone", x."DaysAreOwed", x."Description", x."DiscountType", x."DiscountValue", x."Especially", x."IsAutoGenReceiveInfor", x."IsOrderAction", x."LocationOfShipment", x."ManufactureDate", x."MaxDebt", x."Note", x."NoteTechnique", x."ObjectId", x."OrderCode", x."OrderContractId", x."OrderDate", x."OrderProcessId", x."OrderType", x."PaymentContent", x."PaymentMethod", x."PaymentMethodOrder", x."PercentAdvance", x."PercentAdvanceType", x."PlaceOfDelivery", x."QuoteId", x."ReasonCancel", x."ReceiptInvoiceAmount", x."ReceivedDate", x."ReceivedHour", x."RecipientEmail", x."RecipientName", x."RecipientPhone", x."Seller", x."ServicePacketId", x."ShippingNote", x."StatusId", x."StatusOrder", x."TenantId", x."UpdatedById", x."UpdatedDate", x."VAT", x."WarehouseId"
+FROM "CustomerOrder" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:36:36.6423|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Active", x."AttributeName", x."Code", x."CreatedById", x."CreatedDate", x."Description", x."Message", x."Name", x."ProductCategoryId", x."ProvinceId", x."Status", x."Stt", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ServicePacket" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:36:36.6605|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryTypeId", x."Active", x."CategoryTypeCode", x."CategoryTypeName", x."CreatedById", x."CreatedDate", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "CategoryType" AS x
+WHERE x."CategoryTypeCode" = 'NOTIFICATIONCONFIG'
+LIMIT 1 
+2023-03-14 09:36:36.7169|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (4ms) [Parameters=[@__notificationCateTypeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryId", x."Active", x."CategoryCode", x."CategoryName", x."CategoryTypeId", x."CreatedById", x."CreatedDate", x."IsDefauld", x."IsEdit", x."SortOrder", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "Category" AS x
+WHERE x."CategoryTypeId" = @__notificationCateTypeId_0 
+2023-03-14 09:36:36.8532|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CategoryId", x."CreatedById", x."CreatedDate", x."Reporter", x."ServiceManagement", x."ServicePacketId", x."ServiceRequestMaker", x."ServiceSupporter", x."Supporter", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "NotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:36:36.8707|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CreatedById", x."CreatedDate", x."EmployeeId", x."NotificationConfigurationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "EmployeeMappingNotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:36:40.4779||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:40.4779||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:41.0207||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:41.0207||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:42.6569|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 POST http://localhost:5001/swipe/dataSwipe?mId=2145224260046&cardId=123456789&time=1678761295  0 
+2023-03-14 09:36:42.6838|3|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Route matched with {action = "checkData", controller = "Asset"}. Executing controller action with signature TN.TNM.DataAccess.Messages.Results.Asset.TakeDataSwipeResult checkData(TN.TNM.DataAccess.Messages.Parameters.Asset.TakeDataSwipeParameter) on controller TN.TNM.Api.Controllers.AssetController (TN.TNM.Api). 
+2023-03-14 09:36:42.6914|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-03-14 09:36:42.6914|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__domain_0='?' (Size = 500)], CommandType='Text', CommandTimeout='30']
+SELECT t."TenantId", t."Status", t."TenantHost", t."TenantMode", t."TenantName", t."UserNumber"
+FROM "Tenants" AS t
+WHERE t."TenantHost" = @__domain_0
+LIMIT 1 
+2023-03-14 09:36:43.0594|1|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executing action method TN.TNM.Api.Controllers.AssetController.checkData (TN.TNM.Api) - Validation state: Valid 
+2023-03-14 09:36:46.1910||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:46.1910||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:46.1910||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:46.4858||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:47.2997||INFO|TN.TNM.Api.Controllers.AssetController|+++++++++++++++++++++ API Post dataSwipe +++++++++++++++++++++++++++ 
+2023-03-14 09:36:51.4385||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:51.4385||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:51.4424|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action method TN.TNM.Api.Controllers.AssetController.checkData (TN.TNM.Api), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 8379.1806ms. 
+2023-03-14 09:36:51.4424|1|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing ObjectResult, writing value of type 'TN.TNM.DataAccess.Messages.Results.Asset.TakeDataSwipeResult'. 
+2023-03-14 09:36:51.4979||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:51.4979||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:51.5108|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action TN.TNM.Api.Controllers.AssetController.checkData (TN.TNM.Api) in 8824.0683ms 
+2023-03-14 09:36:51.5108|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 8856.4186ms 200 application/json; charset=utf-8 
+2023-03-14 09:36:56.4429||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:56.4429||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:36:56.5059||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:36:56.5059||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:37:00.3325||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:6588:f04a8869 heartbeat successfully sent 
+2023-03-14 09:37:00.3325||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:6588:f04a8869 waiting for 00:00:30 delay before sending a heartbeat 
+2023-03-14 09:37:00.9831||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:6588:db301109 heartbeat successfully sent 
+2023-03-14 09:37:00.9831||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:6588:db301109 waiting for 00:00:30 delay before sending a heartbeat 
+2023-03-14 09:37:01.2322||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (Queue:default;Cron:* * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-03-14T02:36:30.2238970Z;NextExecution:2023-03-14T02:37:00.0000000Z;V:2), Changes: (LastExecution:2023-03-14T02:37:01.2221855Z;NextExecution:2023-03-14T02:38:00.0000000Z;LastJobId:16236), NextExecution: (3/14/2023 2:38:00 AM) 
+2023-03-14 09:37:01.2392||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. 
+2023-03-14 09:37:01.4495||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:37:01.4495||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:37:01.5125||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:37:01.5125||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:37:02.9831|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-03-14 09:37:02.9831|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Content", x."CreatedById", x."CreatedDate", x."Deadline", x."EmpId", x."IsCusView", x."Name", x."OptionId", x."Order", x."OrderActionId", x."ServicePacketMappingOptionsId", x."Status", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ReportPoint" AS x
+WHERE (x."Deadline" IS NOT NULL AND ((x."Status" <> 3) OR x."Status" IS NULL)) AND x."Id" NOT IN ('0ec5cab5-52c5-454a-8a86-34b61cb83145', '64d50ba8-b304-4c73-a0bc-61b73669ccea', '53b0296c-af1a-4540-9c1b-b8c387586eec', '23837d36-ff7d-4c30-85ea-1dfd009a4463') 
+2023-03-14 09:37:02.9831|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."OrderId", x."Active", x."Amount", x."ApprovedDate", x."BankAccountId", x."CloneCount", x."CreatedById", x."CreatedDate", x."CustomerAddress", x."CustomerCode", x."CustomerContactId", x."CustomerId", x."CustomerName", x."CustomerNumber", x."CustomerPhone", x."DaysAreOwed", x."Description", x."DiscountType", x."DiscountValue", x."Especially", x."IsAutoGenReceiveInfor", x."IsOrderAction", x."LocationOfShipment", x."ManufactureDate", x."MaxDebt", x."Note", x."NoteTechnique", x."ObjectId", x."OrderCode", x."OrderContractId", x."OrderDate", x."OrderProcessId", x."OrderType", x."PaymentContent", x."PaymentMethod", x."PaymentMethodOrder", x."PercentAdvance", x."PercentAdvanceType", x."PlaceOfDelivery", x."QuoteId", x."ReasonCancel", x."ReceiptInvoiceAmount", x."ReceivedDate", x."ReceivedHour", x."RecipientEmail", x."RecipientName", x."RecipientPhone", x."Seller", x."ServicePacketId", x."ShippingNote", x."StatusId", x."StatusOrder", x."TenantId", x."UpdatedById", x."UpdatedDate", x."VAT", x."WarehouseId"
+FROM "CustomerOrder" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:37:02.9880|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Active", x."AttributeName", x."Code", x."CreatedById", x."CreatedDate", x."Description", x."Message", x."Name", x."ProductCategoryId", x."ProvinceId", x."Status", x."Stt", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ServicePacket" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:37:02.9880|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryTypeId", x."Active", x."CategoryTypeCode", x."CategoryTypeName", x."CreatedById", x."CreatedDate", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "CategoryType" AS x
+WHERE x."CategoryTypeCode" = 'NOTIFICATIONCONFIG'
+LIMIT 1 
+2023-03-14 09:37:02.9880|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__notificationCateTypeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryId", x."Active", x."CategoryCode", x."CategoryName", x."CategoryTypeId", x."CreatedById", x."CreatedDate", x."IsDefauld", x."IsEdit", x."SortOrder", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "Category" AS x
+WHERE x."CategoryTypeId" = @__notificationCateTypeId_0 
+2023-03-14 09:37:02.9880|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CategoryId", x."CreatedById", x."CreatedDate", x."Reporter", x."ServiceManagement", x."ServicePacketId", x."ServiceRequestMaker", x."ServiceSupporter", x."Supporter", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "NotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:37:02.9880|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CreatedById", x."CreatedDate", x."EmployeeId", x."NotificationConfigurationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "EmployeeMappingNotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-03-14 09:37:06.4615||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:37:06.4615||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-03-14 09:37:06.5153||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-03-14 09:37:06.5153||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 

@@ -13,6 +13,7 @@ using NLog;
 using System;
 using System.Threading.Tasks;
 using TN.TNM.DataAccess.Messages.Results.MilestoneConfiguration;
+using System.Net;
 
 namespace TN.TNM.Api.Controllers
 {
@@ -49,24 +50,32 @@ namespace TN.TNM.Api.Controllers
         }
 
         [HttpPost]
-        [Route("iclock/cdata")]
-        public GetMasterDataAssetFormResult cdata1(GetMasterDataAssetFormParameter request)
+        [Route("swipe/dataSwipe")]
+        public TakeDataSwipeResult checkData(TakeDataSwipeParameter parameter)
         {
             var logger = NLog.LogManager.GetCurrentClassLogger();
             try
             {
-                logger.Info($"+++++++++++++++++++++ API Post iclock/cdata +++++++++++++++++++++++++++");
-                return new GetMasterDataAssetFormResult
+                logger.Info($"+++++++++++++++++++++ API Post dataSwipe +++++++++++++++++++++++++++");
+                logger.Info($"+++++++++++++++++++++ CardID{parameter.CardId} +++++++++++++++++++++++++++");
+                logger.Info($"+++++++++++++++++++++ MId{parameter.MId} +++++++++++++++++++++++++++");
+                logger.Info($"+++++++++++++++++++++ Time{parameter.Time} +++++++++++++++++++++++++++");
+
+                return new TakeDataSwipeResult
                 {
-                    Message = "Call thành công!"
+                    CardId = parameter.CardId,
+                    MId = parameter.MId,
+                    Time = parameter.Time,
+                    StatusCode = HttpStatusCode.OK,
+                    Message = "Success"
                 };
             }
             catch (System.Exception ex)
             {
-                logger.Info($"Call iclock/cdata{ex}");
-                return new GetMasterDataAssetFormResult
+                return new TakeDataSwipeResult
                 {
-                    Message = "Call thành công!"
+                    MessageCode = ex.Message,
+                    StatusCode = HttpStatusCode.ExpectationFailed
                 };
             }
         }

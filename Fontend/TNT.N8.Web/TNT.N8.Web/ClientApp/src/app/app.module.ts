@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -25,7 +24,6 @@ import { RevenueStatisticWaitingPaymentComponent } from './dashboard/revenue-sta
 import { RatingStatisticsComponent } from './dashboard/rating-statistics/rating-statistics.component';
 import { RevenueStatisticServicePacketComponent } from './dashboard/revenue-statistic-service-packet/revenue-statistic-service-packet.component';
 import { StatisticServiceTicketComponent } from './dashboard/statistic-service-ticket/statistic-service-ticket.component';
-import { environment } from '../environments/environment';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -76,7 +74,11 @@ export function create(http: HttpClient) {
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(private commonService: CommonService, private httpClient: HttpClient) {
+  constructor(
+    // private commonService: CommonService, 
+    private httpClient: HttpClient
+    ) 
+    {
     this.httpClient.get('./assets/appconfig.json').subscribe((config : any) => {
       localStorage.setItem('ApiEndPoint', config.ApiEndPoint);
       localStorage.setItem('Version', config.Version);
