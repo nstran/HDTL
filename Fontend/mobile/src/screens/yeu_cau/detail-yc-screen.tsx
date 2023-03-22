@@ -43,20 +43,29 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
     const isFocus = useIsFocused()
     const [isRefresh, setRefresh] = useState(false)
     const [userID, setUserID] = useState()
-    const [tapIndex_Detail, setTapIndexDetail] = useState(true)
+    const [tapIndex_Detail, setTapIndexDetail] = useState(1)
     const { params }: any = useRoute();
     const [masterData, setMasterData] = useState()
     const [masterDataDetail, setMasterDataDetail] = useState()
     const [masterData_Phieu_hotro, setMasterData_Phieu_hotro] = useState()
+    const [masterDataDetail_bosung, setMasterDataDetail_bosung] = useState()
+    const [masterData_Phieu_hotro_bosung, setMasterData_Phieu_hotro_bosung] = useState()
     const [showModal, setShowModal] = useState({
         modal_choose_dv: false,
         modal_thanh_toan: false,
         modal_chon_thanh_toan: false,
-        show_detail_option: false
+        show_detail_option: false,
+        modal_note: false,
+        modal_thanh_toan_bosung: false
     })
     const [dataConfigPayment,setDataConfigPayment] = useState([])
     const [TypePayment,setTypePayment] = useState({})
-    const [image_payment, setImage_payment] = useState('') 
+    const [image_payment, setImage_payment] = useState('')
+    const [listNote, setListNote] = useState([]) 
+
+
+    // listServicePacket : yêu cầu bổ sung
+    // listCustomerOrderAction; hỗ trợ dịch vụ
 
 
     useEffect(() => {
@@ -105,7 +114,7 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
                 text: "OK",
                 onPress: async () => {
                     let res_change_status = await _unitOfWork.user.changeStatusCustomerOrder({
-                        OrderId: masterDataDetail?.customerOrder?.orderId,
+                        OrderId: tapIndex_Detail == 1 ? masterDataDetail?.customerOrder?.orderId : masterDataDetail_bosung?.customerOrder?.orderId,
                         StatusOrder: 6 ,
                         UserId: userID
                     })
@@ -156,12 +165,23 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
     }
     const calculateTotalPrice = () => {
         let price = 0
-        masterDataDetail?.listDetail.map((item) => {
-            price += calculatePriceVat(item)
-        })
-        masterDataDetail?.listOptionExten.map((item) => {
-            price += item?.price
-        })
+        if(tapIndex_Detail == 1){
+            masterDataDetail?.listDetail.map((item) => {
+                price += calculatePriceVat(item)
+            })
+            masterDataDetail?.listOptionExten.map((item) => {
+                price += item?.price
+            })
+        }
+        if(tapIndex_Detail == 3){
+            masterDataDetail_bosung?.listDetail.map((item) => {
+                price += calculatePriceVat(item)
+            })
+            masterDataDetail_bosung?.listOptionExten.map((item) => {
+                price += item?.price
+            })
+        }
+        
         return price
     }
 
@@ -178,9 +198,8 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
 
     const handleXacNhanYc = async () => {
         if(TypePayment?.id) {
-
                 let res_change_status = await _unitOfWork.user.changeStatusCustomerOrder({
-                        OrderId: masterDataDetail?.customerOrder?.orderId,
+                        OrderId: tapIndex_Detail == 1 ? masterDataDetail?.customerOrder?.orderId : masterDataDetail_bosung?.customerOrder?.orderId,
                         StatusOrder: 3,
                         UserId: userID,
                         PaymentMethod: TypePayment?.id
@@ -248,11 +267,61 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
                 OrderActionId: orderId_phieuhotro,
             })
             setMasterData_Phieu_hotro(res)
-            console.log("Res ho tro: ", res);
-            
+            console.log("Res ho tro: ", res);   
         }
-
     }
+
+    const getData_Phieu_hotro_bo_sung = async () => {
+        console.log(userID);
+        let orderId_yeucau = masterDataDetail_bosung?.listDetail[0]?.orderId
+        let orderId_phieuhotro = ''
+        
+        masterDataDetail_bosung?.listCustomerOrderAction.map((item) => {
+            if(item?.objectId == orderId_yeucau) orderId_phieuhotro = item?.orderId
+        })
+
+
+        if(orderId_phieuhotro){
+            
+            let res = await _unitOfWork.user.getMasterDataOrderActionDetail({
+                UserId: userID, 
+                OrderActionId: orderId_phieuhotro,
+            })
+            setMasterData_Phieu_hotro_bosung(res)
+            console.log("Res ho tro: ", res);   
+        }
+    }
+
+    const getDataNote_hotrodichvu = async (id_report_point) => {
+        let response = await _unitOfWork.user.getListNote({
+            "ObjectType":"Report_Point",
+            "ObjectId": id_report_point,
+            "ObjectNumber":null,
+            "PageSize":20,
+            "PageIndex":0,
+            "UserId": userID
+        })
+
+        console.log("Note: ", response)
+        if(response?.statusCode == 200){
+            setListNote(response?.listNote)
+            handleSetShowModal('modal_note', true)
+        }
+    }
+
+    const getDataDetal_Bosungyeucau = async () => {
+
+        let response = await _unitOfWork.user.getMasterDataOrderDetail(
+            {OrderId: masterDataDetail?.listAllOrderExten[0]?.orderId,
+            UserId: userID
+        })
+        console.log("Response bosung: ",response );
+        if(response?.statusCode == 200){
+            setMasterDataDetail_bosung(response)
+        }
+        
+    }
+
 
     const chatWith_quanly = async () => {
         setLoading(true)
@@ -318,31 +387,65 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
         setRefresh(true)
     };
 
+    const Net_dut = () => {
+        return (
+            <View>
+                <Text numberOfLines={1} ellipsizeMode="clip"  style={{color: color.lighterGrey, width: '100%'}}>--------------------------------------------------------------------------------------------------------------------------------------------</Text>
+            </View>
+            
+        )
+    }
+
     const topComponent = () => {
         return (
             <View>
                 <View style={styles.modal_detail_container}>
                             <View style={{flex: 1, paddingBottom: 50}}>
-                                {/* <ScrollView style={{marginBottom: 20}}> */}
-                                    {/* Chuyen tapindex */}
-                                    <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 16, marginTop: 12}}>
-                                        <TouchableOpacity 
-                                            style={[styles.btn_tapIndex, tapIndex_Detail ? {backgroundColor: color.blue} : {}]}
-                                            onPress={() => setTapIndexDetail(true)}
+                            
+                                    <View style={[{height: 40, paddingHorizontal: 16, width: layout.width, alignItems: 'center', marginTop: 10}]}>
+                                        <ScrollView 
+                                            horizontal={true} 
+                                            style={{flex: 1}}
+                                            showsHorizontalScrollIndicator={false}
+                                            showsVerticalScrollIndicator={false}
                                         >
-                                            <Text style={tapIndex_Detail ? {color: color.white} : {}}>Phiếu yêu cầu</Text>
-                                        </TouchableOpacity>
-                                        <TouchableOpacity 
-                                            style={[styles.btn_tapIndex,tapIndex_Detail ? {} : {backgroundColor: color.blue}]}
-                                            onPress={() => {
-                                                getData_Phieu_hotro_dichvu()
-                                                setTapIndexDetail(false)
-                                            }}
-                                        >
-                                            <Text style={tapIndex_Detail ? {} : {color: color.white}}>Phiếu hỗ trợ dịch vụ</Text>
-                                        </TouchableOpacity>
+                                            <TouchableOpacity 
+                                                style={[styles.btn_tapIndex, tapIndex_Detail == 1 ? {backgroundColor: color.blue} : {}]}
+                                                onPress={() => setTapIndexDetail(1)}
+                                            >
+                                                <Text style={tapIndex_Detail == 1 ? {color: color.white} : {}}>Phiếu yêu cầu</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity 
+                                                style={[styles.btn_tapIndex,tapIndex_Detail == 2 ? {backgroundColor: color.blue} : {}]}
+                                                onPress={() => {
+                                                    getData_Phieu_hotro_dichvu()
+                                                    setTapIndexDetail(2)
+                                                }}
+                                            >
+                                                <Text style={tapIndex_Detail == 2 ? {color: color.white} : {}}>Phiếu hỗ trợ dịch vụ</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity 
+                                                style={[styles.btn_tapIndex, tapIndex_Detail == 3 ? {backgroundColor: color.blue} : {}]}
+                                                onPress={() => {
+                                                    getDataDetal_Bosungyeucau()
+                                                    setTapIndexDetail(3)
+                                                } }
+                                            >
+                                                <Text style={tapIndex_Detail == 3 ? {color: color.white} : {}}>Phiếu Bổ sung yêu cầu</Text>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity 
+                                                style={[styles.btn_tapIndex,tapIndex_Detail == 4 ? {backgroundColor: color.blue} : {}]}
+                                                onPress={() => {
+                                                    getData_Phieu_hotro_bo_sung()
+                                                    setTapIndexDetail(4)
+                                                }}
+                                            >
+                                                <Text style={tapIndex_Detail == 4 ? {color: color.white} : {}}>Phiếu hỗ trợ bổ sung</Text>
+                                            </TouchableOpacity>
+                                        </ScrollView>
                                     </View>
-                                    {tapIndex_Detail ? 
+                                    
+                                    {tapIndex_Detail == 1 ? 
                                         <View style={{marginTop: 24}}>
                                             <View style={{alignItems: 'center', marginBottom: 24}}>
                                                 <Text style={styles.text_header_blue}>{masterDataDetail?.listServicePacket[0]?.name}</Text>
@@ -458,12 +561,13 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
                                             
                                                                               
                                         </View>
-                                    :
-                                        // phiếu hỗ trợ dịch vụ
+                                    : null}
+                                    {/* phiếu hỗ trợ dịch vụ */}
+                                    {tapIndex_Detail == 2 ?
                                         <View style={{marginTop: 24}}>
                                             <View style={styles.box}>
                                                 <Text style={[styles.text_header_blue, {marginBottom: 10}]}>Nhân viên phụ trách</Text>
-                                                {masterData_Phieu_hotro?.listCustomerOrderTask?.map((item) => {
+                                                {masterData_Phieu_hotro?.listCustomerOrderTask?.map((item, index) => {
                                                     return(
                                                         <View>
                                                             <View style={{flexDirection: 'row', justifyContent: 'space-between',  marginBottom: 7}}>
@@ -472,11 +576,11 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
                                                             </View>
                                                             <View style={{flexDirection: 'row', justifyContent: 'space-between',  marginBottom: 7}}>
                                                                 <Text style={styles.text}>Số điện thoại</Text>
-                                                                <Text style={styles.text}>12345678</Text>
-                                                            </View> 
+                                                                <Text style={styles.text}>{item?.empPhone}</Text>
+                                                            </View>
+                                                            {index < masterData_Phieu_hotro?.listCustomerOrderTask?.length - 1 ? 
+                                                            <Net_dut /> : null }
                                                         </View>
-                                                        
-
                                                     )
                                                 })}
                                                 
@@ -490,11 +594,18 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
                                                             <View style={{marginLeft: 10}}>
                                                                 <Text style={[styles.text_header,{marginBottom: 16, fontSize: 15}]}>{item?.name}</Text>
                                                                 <Text style={[styles.text, {marginBottom: 7}]}>Người phụ trách: {item?.empName}</Text>
-                                                                <Text style={[styles.text, {marginBottom: 7}]}>Thời gian: {formatDate(item?.deadline, "dd/MM/YY - hh:mm")}</Text>
-                                                                <Text style={[styles.text, {marginBottom: 7}]}>Nội dung: {item?.content}</Text>
-                                                                {/* <TouchableOpacity style={{borderWidth: 1, paddingVertical: 5, alignItems: 'center', width: '45%', borderRadius: 7}}>
-                                                                    <Text style={styles.text_blue}>Xem chi tiết</Text>
-                                                                </TouchableOpacity> */}
+                                                                {item?.updatedDate && item?.status == 3 ? 
+                                                                    <Text style={[styles.text, {marginBottom: 7}]}>Thời gian: {formatDate(item?.updatedDate, "dd/MM/YY - hh:mm")}</Text>
+                                                                : null }
+                                                                <Text style={[styles.text, {marginBottom: 7}]}>Trạng thái: {item?.statusName == 'Mới' ? 'Chưa bắt đầu' : item?.statusName}</Text>
+                                                                {item?.isCusView ? 
+                                                                    <TouchableOpacity 
+                                                                        style={{borderWidth: 1, paddingVertical: 5, alignItems: 'center', width: '45%', borderRadius: 7}}
+                                                                        onPress={() => getDataNote_hotrodichvu(item?.id)}
+                                                                    >
+                                                                        <Text style={styles.text_blue}>Xem chi tiết</Text>
+                                                                    </TouchableOpacity>
+                                                                : null }
                                                             </View>
                                                         </View>
                                                     )
@@ -503,8 +614,178 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
                                             </View>
                                            
                                         </View>
-                                    }
-                                {/* </ScrollView> */}
+                                    : null}
+
+                                    {tapIndex_Detail == 3 ? 
+                                        <View style={{marginTop: 24}}>
+                                            <View style={{alignItems: 'center', marginBottom: 24}}>
+                                                <Text style={styles.text_header_blue}>{masterDataDetail_bosung?.listServicePacket[0]?.name}</Text>
+                                            </View>
+                                            {masterDataDetail_bosung?.listDetail.map((item,index) => {
+                                                return (
+                                                    <View style={[styles.box_item,{flexDirection: 'column'}]}>
+                                                        <Text style={[{fontWeight: '600',color: color.black}]}>{index + 1}. {item.optionName.split('--->')[1]}</Text>
+                                                        {showDetailProperty(item)}
+                                                        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                                            <Text style={{color: color.black, marginTop: 10}}>Thành tiền: {formatNumber(calculatePriceVat(item))} vnd  <Text style={{color: color.orange}}>(VAT: {item?.vat ? item?.vat : 0} % )</Text></Text>
+                                                            {masterDataDetail_bosung?.customerOrder?.statusOrder == 3 ? 
+                                                            <TouchableOpacity
+                                                                onPress={() => handleDeleteOption(item?.orderDetailId, false, masterDataDetail_bosung?.listDetail?.length)}
+                                                            >
+                                                                <Ionicons name='trash-outline' size={25} color={color.error} />
+                                                            </TouchableOpacity>
+                                                            : null }
+                                                        </View>
+                                                        
+                                                        <Text style={[{position: 'absolute', right: 0, marginRight: 16, marginTop: 16}]}>{formatNumber(item?.priceInitial)} vnd</Text>
+                                                    </View>
+                                                )
+                                            })}
+
+                                            {masterDataDetail_bosung?.listOptionExten?.length > 0 ?
+                                                <View>
+                                                    <View style={[styles.box_item,{marginBottom: 0}]}>
+                                                        <Image source={images.memo_pencil} style={{width: 20, height: 20}} />
+                                                        <Text style={[styles.text,{fontWeight: '600'}]}>Yêu cầu bổ sung</Text>
+                                                    </View>
+                                                    <View style={{backgroundColor: color.white, paddingHorizontal: 16, paddingVertical: 10}}>
+                                                            {masterDataDetail_bosung?.listOptionExten.map((item,index) => {
+                                                                return (
+                                                                    <View style={{}}>
+                                                                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                                                            <Ionicons name='ellipse' size={10} color={color.black} />
+                                                                            <Text style={[styles.text,{marginLeft: 5}]}>{item?.name} {masterDataDetail_bosung?.customerOrder?.statusOrder == 3 ? <Text style={{color: color.orange}}>({item?.statusName})</Text> : null}</Text>
+                                                                        </View>
+                                                                        {masterDataDetail_bosung?.customerOrder?.statusOrder != 2 ?
+                                                                            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                                                                                <Text>Giá: {formatNumber(item?.price)}</Text>
+                                                                                {masterDataDetail_bosung?.customerOrder?.statusOrder == 3 ? 
+                                                                                    <TouchableOpacity
+                                                                                        onPress={() => handleDeleteOption(item?.id, true, index)}
+                                                                                    >
+                                                                                        <Ionicons name='trash-outline' size={25} color={color.error} />
+                                                                                    </TouchableOpacity>
+                                                                                : null }
+                                                                            </View>
+                                                                        : null }
+                                                                    </View>   
+                                                                )
+                                                            })}
+                                                    </View>
+                                                </View>
+                                                
+                                            : null }
+                                            <View style={[styles.box_item, {paddingTop: 24, flexDirection: 'column'}]}>
+                                                <View style={styles.box_item_child}>
+                                                    <Text style={styles.text_blue}>Số tiền</Text>
+                                                    <Text style={styles.text_blue}>{formatNumber(calculateTotalPrice())} đ</Text>
+                                                </View>
+                                                {/* <View style={styles.box_item_child}>
+                                                    <Text style={[styles.text_blue, {color: color.orange}]}>Giảm giá</Text>
+                                                    <Text style={[styles.text_blue, {color: color.orange}]}>{formatNumber(calculateGiamGia())} đ</Text>
+                                                </View> */}
+                                                <View style={styles.box_item_child}>
+                                                    <Text style={styles.text_blue}>Thanh toán</Text>
+                                                    <Text style={styles.text_blue}>{formatNumber(calculateTotalPrice())} đ</Text>
+                                                </View>
+                                                <View style={styles.box_item_child}>
+                                                    <Text style={styles.text_blue}>Hình thức thanh toán</Text>
+                                                    <Text style={styles.text_blue}>{masterDataDetail?.customerOrder?.paymentMethodOrder == 1 ? 'Chuyển khoản' : 'Thanh toán qua VNPAY'}</Text>
+                                                </View>
+                                                <View style={styles.box_item_child}>
+                                                    <Text style={styles.text_blue}>Trạng thái</Text>
+                                                    <Text style={[styles.text_blue, {color: color.text_naunhat}]}>{params?.item?.orderStatusName}</Text>
+                                                </View>
+                                            </View>
+
+                                            {/* Huỷ hoặc xác nhận phiếu yêu cầu */}
+                                            <View style={[{flexDirection: 'row', justifyContent:'space-around', marginTop: 16}]}>
+                                                {masterDataDetail_bosung?.listOptionExten?.length > 0 ?
+                                                    [2,3].includes(masterDataDetail_bosung?.customerOrder?.statusOrder) ?
+                                                        <TouchableOpacity 
+                                                            style={{width: '40%', backgroundColor: color.error, paddingVertical: 12, borderRadius: 6, alignItems: 'center'}}
+                                                            onPress={() => handleHuyPhieuYc()}
+                                                        >
+                                                            <Text style={{fontSize: 18, color: color.white, fontWeight: '600'}}>Huỷ</Text>
+                                                        </TouchableOpacity>
+                                                    : null
+                                                : null }
+                                                {masterDataDetail_bosung?.customerOrder?.statusOrder == 3 ? 
+                                                    <TouchableOpacity 
+                                                        style={{width: '40%', backgroundColor: color.blue, paddingVertical: 12, borderRadius: 6, alignItems: 'center'}}
+                                                        onPress={() => handleSetShowModal("modal_thanh_toan_bosung", true)}
+                                                    >
+                                                        <Text style={{fontSize: 18, color: color.white, fontWeight: '600'}}>Xác nhận</Text>
+                                                    </TouchableOpacity>
+                                                : null }
+                                            </View>
+                                            
+                                            {/* CHat với quản lý */}
+                                            <View style={{alignItems: 'center'}}>
+                                                <TouchableOpacity 
+                                                    style={[styles.btn]}
+                                                    onPress={chatWith_quanly}
+                                                >
+                                                    <Text style={[styles.text, {color: color.white}]}>Chat với quản lý</Text>
+                                                </TouchableOpacity>
+                                            </View>                                 
+                                        </View>
+                                    : null}
+
+                                    {tapIndex_Detail == 4 ?
+                                        <View style={{marginTop: 24}}>
+                                            <View style={styles.box}>
+                                                <Text style={[styles.text_header_blue, {marginBottom: 10}]}>Nhân viên phụ trách</Text>
+                                                {masterData_Phieu_hotro_bosung?.listCustomerOrderTask?.map((item, index) => {
+                                                    return(
+                                                        <View>
+                                                            <View style={{flexDirection: 'row', justifyContent: 'space-between',  marginBottom: 7}}>
+                                                                <Text style={styles.text}>{converName_Tuychon(item?.path) }</Text>
+                                                                <Text style={styles.text}>{converName_nhanvien(item?.listEmpName)}</Text>
+                                                            </View>
+                                                            <View style={{flexDirection: 'row', justifyContent: 'space-between',  marginBottom: 7}}>
+                                                                <Text style={styles.text}>Số điện thoại</Text>
+                                                                <Text style={styles.text}>{item?.empPhone}</Text>
+                                                            </View>
+                                                            {index < masterData_Phieu_hotro_bosung?.listCustomerOrderTask?.length - 1 ? 
+                                                            <Net_dut /> : null }
+                                                        </View>
+                                                    )
+                                                })}
+                                                
+                                            </View>
+                                            <View style={styles.box}>
+                                                <Text style={[styles.text_header_blue, {marginBottom: 10}]}>Báo cáo tiến độ</Text>
+                                                {masterData_Phieu_hotro_bosung?.listReportPoint?.map((item) => {
+                                                    return (
+                                                        <View style={{flexDirection: 'row',  marginBottom: 7}}>
+                                                            <Ionicons name='ellipse' size={24} color={color.orange} />
+                                                            <View style={{marginLeft: 10}}>
+                                                                <Text style={[styles.text_header,{marginBottom: 16, fontSize: 15}]}>{item?.name}</Text>
+                                                                <Text style={[styles.text, {marginBottom: 7}]}>Người phụ trách: {item?.empName}</Text>
+                                                                {item?.updatedDate && item?.status == 3 ? 
+                                                                    <Text style={[styles.text, {marginBottom: 7}]}>Thời gian: {formatDate(item?.updatedDate, "dd/MM/YY - hh:mm")}</Text>
+                                                                : null }
+                                                                <Text style={[styles.text, {marginBottom: 7}]}>Trạng thái: {item?.statusName == 'Mới' ? 'Chưa bắt đầu' : item?.statusName}</Text>
+                                                                {item?.isCusView ? 
+                                                                    <TouchableOpacity 
+                                                                        style={{borderWidth: 1, paddingVertical: 5, alignItems: 'center', width: '45%', borderRadius: 7}}
+                                                                        onPress={() => getDataNote_hotrodichvu(item?.id)}
+                                                                    >
+                                                                        <Text style={styles.text_blue}>Xem chi tiết</Text>
+                                                                    </TouchableOpacity>
+                                                                : null }
+                                                            </View>
+                                                        </View>
+                                                    )
+                                                })}
+                                                
+                                            </View>
+                                           
+                                        </View>
+                                    : null}
+
+                            
                             </View>
                     </View>
             </View>
@@ -515,7 +796,7 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
         <>
             {isLoading && <CenterSpinner/>}
             <Screen style={ROOT} preset="fixed">
-                <View style={{flex: 1, backgroundColor: color.nau_nhat}}>
+                <View style={[{flex: 1, backgroundColor: color.nau_nhat}, showModal?.modal_note ? {opacity: 0.4} : {}]}>
                     <Header headerText='Chi tiết' onLeftPress={() => navigation.goBack()} />
                     <FlatList
                         refreshing={isRefresh}
@@ -529,6 +810,8 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
                         keyExtractor={(item, index) => 'detail-yc-' + index + String(item)}
                     />
                 </View>
+{/* 
+                Thanh toán phiếu yêu cầu */}
                 <Modal
                     animationType={"slide"}
                     transparent={true}
@@ -634,7 +917,8 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
                         </ScrollView>
                         
                     </View>
-                    <Toast /> 
+                    <Toast />
+                    {/* Modal thanh toán  */}
                     <Modal
                          animationType={"slide"}
                          transparent={true}
@@ -705,6 +989,221 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
                         </View>
                     </Modal>
                 </Modal>
+
+                {/* Thanh toán bổ sung yêu cầu */}
+                <Modal
+                    animationType={"slide"}
+                    transparent={true}
+                    visible={showModal?.modal_thanh_toan_bosung}
+                    onRequestClose={() => { }}
+                >
+                    <View style={styles.modal_container_thanh_toan}>
+                        <View style={styles.header_thanh_toan}>
+                            <TouchableOpacity 
+                                style={{width: '10%', justifyContent: 'center', alignItems: 'center'}}
+                                onPress={() => handleSetShowModal("modal_thanh_toan_bosung", false)}>
+                                <Ionicons name='chevron-back-outline' size={30} color={color.black}/>
+                            </TouchableOpacity>
+                            <Text style={styles.text_header} >Thanh toán dịch vụ</Text>
+                            <View style={{width: '5%'}}></View>
+                        </View>
+                        <ScrollView style={{flex: 1}}>
+                            <View style={[styles.body_thanh_toan]}>
+                                <Text style={[styles.text_header_2,{fontSize: 16}]}>Dịch vụ</Text>
+                                {/* <Text style={[styles.text_header,{fontSize: 16, marginTop: 5}]}>{data_Parent?.name}</Text> */}
+                                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                                    <Text style={[styles.text_header_2,{fontSize: 16, marginTop: 16}]}>Chi tiết dịch vụ:</Text>
+                                    {showModal?.show_detail_option ? 
+                                        <TouchableOpacity onPress={() => handleSetShowModal("show_detail_option", false)}>
+                                            <Text style={[styles.text_header_2,{fontSize: 16, marginTop: 16}]}>Thu gọn</Text>
+                                        </TouchableOpacity>
+                                    :
+                                        <TouchableOpacity onPress={() => handleSetShowModal("show_detail_option", true)}>
+                                            <Text style={[styles.text_header_2,{fontSize: 16, marginTop: 16}]}>Xem</Text>
+                                        </TouchableOpacity>
+                                    }
+                                </View>
+                                {masterDataDetail_bosung?.listDetail.map((item,index) => {
+                                    return (
+                                        <View style={[styles.box_item,{flexDirection: 'column', paddingHorizontal: 0}]}>
+                                            <Text style={[{fontWeight: '600',color: color.black}]}>{index + 1}. {masterDataDetail_bosung?.listDetail[0].optionName.split('--->')[1]}</Text>
+                                            {showDetailProperty(item?.optionId, index + 1)}
+                                            <Text style={{color: color.black, marginTop: 10}}>Thành tiền: {formatNumber(calculatePriceVat(item))} vnd  <Text style={{color: color.orange}}>(VAT: {item?.vat ? item?.vat : 0} % )</Text></Text>
+                                            <Text style={[{position: 'absolute', right: 0, marginRight: 16, marginTop: 16}]}>{formatNumber(item?.priceInitial)} vnd</Text>
+                                        </View>
+                                    )
+                                })}
+
+                                {masterDataDetail_bosung?.listOptionExten?.length > 0 ?
+                                    <View style={[styles.box_item,{paddingLeft: 0}]}>
+                                        <Image source={images.memo_pencil} style={{width: 20, height: 20}} />
+                                        <View style={{width: '95%',marginLeft: 5}}>
+                                            <Text style={[styles.text,{fontWeight: '600'}]}>Yêu cầu bổ sung</Text>
+                                            {masterDataDetail_bosung?.listOptionExten.map((item => {
+                                                return (
+                                                    <View style={{flexDirection: 'row'}}>
+                                                        <Ionicons name='ellipse' size={12} color={color.black} />
+                                                        <View style={{marginLeft: 5}}>
+                                                            <Text style={styles.text}>{item?.name} {item?.status == 2 ? <Text style={{color: color.orange}}>({item?.statusName})</Text> : null}</Text>
+                                                            <Text>Giá: {formatNumber(item?.price)}</Text>
+                                                        </View>
+                                                    </View>
+                                                    
+                                                        
+                                                )
+                                            }))}
+                                            
+                                        </View>
+                                    </View>
+                                : null }
+
+
+
+                                <View style={[styles.box_flex,{marginTop: 16}]}>
+                                    <Text style={[styles.text_header_2,{fontSize: 16}]}>Số tiền</Text>
+                                    <Text>{formatNumber(calculateTotalPrice())} vnd</Text>
+                                </View>
+                                <View style={[styles.box_flex]}>
+                                    <Text style={[styles.text_header_2,{fontSize: 16}]}>Thanh toán</Text>
+                                    <Text>{formatNumber(calculateTotalPrice())} vnd</Text>
+                                </View>
+                            </View>
+                            <View style={{backgroundColor: color.trang_nhat_2, paddingHorizontal: 16, paddingBottom: 16,paddingTop: 24, flexDirection: 'row'}}>
+                                 {image_payment ? 
+                                <Image source={{uri: image_payment}} style={{width: 22, height: 22}} />
+                                : <Image source={images.iconPayment} style={{width: 22, height: 22}} /> }
+                                <Text style={[styles.text_header_2, {marginLeft: 12}]}>Chọn hình thức thanh toán</Text>
+                            </View>
+                            <TouchableOpacity 
+                                style={{backgroundColor: color.white, paddingHorizontal: 16, paddingVertical: 18, flexDirection: 'row', justifyContent: 'space-between'}}
+                                onPress={() => handleSetShowModal('modal_chon_thanh_toan', true)}
+                            >
+                                <Text style={[styles.text_header_2, {color: color.black}]}>{TypePayment?.categoryName ? TypePayment?.categoryName : 'Lựa chọn hình thức thanh toán'}</Text>
+                                <Ionicons name='caret-forward-outline' size={20} />
+                            </TouchableOpacity>
+                            <View style={{flex: 1, backgroundColor: color.trang_nhat_2, alignItems: 'center', marginBottom: 16}}>
+                                <TouchableOpacity 
+                                    style={{backgroundColor: color.blue, width: layout.width - 32, paddingVertical: 15, borderRadius: 6, alignItems: 'center', marginVertical: 33}}
+                                    onPress={() => handleXacNhanYc()}
+                                >
+                                    <Text style={[styles.text_header_2, {color: color.white}]}>Xác Nhận</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </ScrollView>
+                        
+                    </View>
+                    <Toast />
+                    {/* Modal thanh toán  */}
+                    <Modal
+                         animationType={"slide"}
+                         transparent={true}
+                         visible={showModal?.modal_chon_thanh_toan}
+                         onRequestClose={() => { }}
+                    >
+                        <View style={{height: layout.height - 70, marginTop: 70, backgroundColor: color.white, borderRadius: 10}}>
+                            <View style={{padding: 20, backgroundColor: color.blue, borderTopStartRadius: 10,borderTopEndRadius: 10, flexDirection: 'row', justifyContent: 'space-between'}}>
+                                <Text style={[styles.text_header_2, {color: color.white}]}>Hình thức thanh toán</Text>
+                                <TouchableOpacity onPress={() => handleSetShowModal('modal_chon_thanh_toan', false)}>
+                                    <Ionicons name={'close-outline'} color={color.white} size={30} />
+                                </TouchableOpacity>
+                            </View>
+                            <View style={{padding: 16, flexDirection: 'row'}}>
+                                {image_payment ? 
+                                <Image source={{uri: image_payment}} style={{width: 22, height: 22}} />
+                                : <Image source={images.iconPayment} style={{width: 22, height: 22}} /> }
+                                <Text style={[styles.text_header_2, {marginLeft: 12}]}>Chọn hình thức thanh toán</Text>
+                            </View>
+                            {dataConfigPayment.map((item) => {
+                                    return (
+                                        <TouchableOpacity 
+                                            style={{marginHorizontal: 16, borderWidth: 1, borderColor: color.lighterGrey, paddingHorizontal: 16, paddingVertical: 20, borderRadius: 10, marginTop: 8}}
+                                            onPress={() => {
+                                                let obj = {
+                                                    id: item?.id,
+                                                    categoryName: item?.categoryName,
+                                                    content: item?.content
+                                                }
+                                                
+                                                setTypePayment({...obj})
+                                                handleSetShowModal('modal_chon_thanh_toan', false)
+                                            }}
+                                        >
+                                            <View style={{flexDirection: 'row'}}>
+                                                {/* <Image source={{uri: dataConfigPayment?.paymentScreenIconTransfer}} style={{width: 22, height: 15}}/> */}
+                                                <Text style={{fontWeight: '700', fontSize: 15, color: color.black, marginLeft: 10}}>{item?.categoryName}</Text>
+                                            </View>
+                                            <RenderHtml
+                                            // contentWidth={layout.width/10*8}
+                                            // tagsStyles={tagsStyles}
+                                                renderers={renderers}
+                                                // WebView={WebView}
+                                                source={{
+                                                    html: `<div>${item?.content}</div>`,
+                                                }}
+                                                customHTMLElementModels={customHTMLElementModels}
+                                                tagsStyles={{
+                                       
+                                                }}
+                                                renderersProps={{
+                                                    iframe: {
+                                                    scalesPageToFit: true,
+                                                    webViewProps: {
+                                                    }
+                                                    }
+                                                }}
+                                            /> 
+                                        </TouchableOpacity>
+                                    )
+                                })}
+                            
+                        </View>
+                    </Modal>
+                </Modal>
+
+                {/* Modal list Note */}
+                <Modal
+                    animationType={"slide"}
+                    transparent={true}
+                    visible={showModal?.modal_note}
+                >
+                    <View style={[styles.container_note]}>
+                        <TouchableOpacity style={{position: 'absolute', right: 5,top: 5}}
+                            onPress={() => handleSetShowModal('modal_note', false)}
+                        >
+                            <Ionicons name='close-outline' color={color.black} size={30}  />
+                        </TouchableOpacity>
+                        <View style={{marginTop: 40, paddingHorizontal:16, height: layout.height*0.5 - 50}}>
+                            <ScrollView style={{flex:1}}>
+                                {listNote && listNote?.map((item,index) => {
+                                    return(
+                                        <View>
+                                            <Text style={[styles.text_header,{fontSize: 16}]}>{item?.responsibleName}</Text>
+                                            <Text>{formatDate(item?.createdDate, "dd/MM/YYYY hh:mm")}</Text>
+                                            <RenderHtml
+                                                renderers={renderers}
+                                                source={{
+                                                    html: `<div>${item?.description}</div>`,
+                                                }}
+                                                customHTMLElementModels={customHTMLElementModels}
+                                                tagsStyles={{
+                                                    div: {
+                                                        marginTop: 0
+                                                    }
+                                                }}
+                                                renderersProps={{
+                                                }}
+                                            />
+                                            {index < listNote?.length - 1 ? 
+                                                <Net_dut /> : null }
+                                        </View>
+                                    )
+                                })}
+                                
+                            </ScrollView>
+                        </View>
+                        
+                    </View>
+                </Modal>
             </Screen>
         </>
     );
@@ -749,11 +1248,13 @@ const styles = StyleSheet.create({
         paddingVertical: 12
     },
     btn_tapIndex: {
-        width: '49%',
+        width: (layout.width-32)*0.5 - 5,
         alignItems: 'center',
-        paddingVertical: 12,
+        justifyContent: 'center',
         borderRadius: 7,
-        borderWidth: 1
+        borderWidth: 1,
+        marginRight: 10,
+        height: 40
     },
     box: {
         width: '100%', 
@@ -806,5 +1307,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 10,
         marginTop: 16
+    },
+    container_note: {
+        height: layout.height*0.5,
+        marginTop: layout.height*0.2,
+        width: layout.width - 32,
+        marginLeft: 16,
+        borderRadius: 10,
+        backgroundColor: color.white
     }
 });

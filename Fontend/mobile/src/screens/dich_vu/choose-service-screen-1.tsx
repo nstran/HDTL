@@ -1150,7 +1150,7 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                          visible={showModal?.modal_success}
                          onRequestClose={() => { }}
                     >
-                        <View style={{height: layout.height/10*7, marginTop: layout.height/10, backgroundColor: color.lighterGrey, borderRadius: 20, width: layout.width - 60, marginLeft: 30, alignItems: 'center', padding: 16}}>
+                        <View style={{height: layout.height/10*8, marginTop: layout.height/10, backgroundColor: color.lighterGrey, borderRadius: 20, width: layout.width - 60, marginLeft: 30, alignItems: 'center', padding: 16}}>
                             <Image source={{uri: image_success}} style={{height: layout.width - 100, width: layout.width - 100}} />
                             <Text style={[styles.text_header,{marginVertical: 20}]}>Thành công!</Text>
                             <Text style={[styles.text_black,{fontWeight: '400', textAlign: 'center'}]} >Dịch vụ của bạn đã được đặt thành công.Chúng tôi sẽ liên hệ bạn trong thời gian sớm nhất.</Text>

@@ -269,4 +269,15 @@ export class UserApi {
     return response.data;
   }
 
+  // lấy chi tiết tiết độ hỗ trợ dịch vụ
+  async getListNote(payload: any): Promise<any> {
+    const accessToken = await this._storage.getItem(StorageKey.TOKEN);
+    const response = await this._apisauce.post(
+      `/api/note/getListNote`,
+      payload,
+      { headers: { Authorization: `Bearer ${accessToken}` } }
+    );
+    return response.data;
+  }
+
 }
