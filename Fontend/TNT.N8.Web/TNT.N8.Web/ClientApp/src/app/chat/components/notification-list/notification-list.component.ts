@@ -40,11 +40,9 @@ export class NotificationListComponent extends AbstractBase implements OnInit {
   }
 
   getListNotification(): void {
-    this.loading = true;
     firebase.database().ref('notification/').child(this.employeeId).once('value', resp => {
       this.listNotification = this.snapshotToArray(resp).sort((a, b): any => { return b.date.localeCompare(a.date) });
       this.listCurrentNotification = this.listNotification;
-      this.loading = false;
     })
   }
 
