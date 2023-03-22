@@ -36,9 +36,6 @@
           }
         },
         "warningProperties": {
-          "noWarn": [
-            "NU1605"
-          ],
           "warnAsError": [
             "NU1605"
           ]
@@ -95,11 +92,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "win-x64": {
-          "#import": []
         }
       }
     }

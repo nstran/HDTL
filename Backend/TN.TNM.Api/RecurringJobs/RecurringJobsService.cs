@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.WebSockets;
 using System.Threading;
 using System.Threading.Tasks;
 using Firebase.Database;
@@ -52,7 +53,7 @@ namespace TN.TNM.Api.RecurringJobs
                 RecurringJob.RemoveIfExists("Deadline");//  Chạy 10p / 1 lần
                 _recurringJobs.AddOrUpdate("Deadline",
                     () => AlertReportPoint(),
-                    "* * * * *", TimeZoneInfo.Local);
+                    "*/10 * * * *", TimeZoneInfo.Local);
             }
             catch (Exception e)
             {
@@ -481,8 +482,9 @@ namespace TN.TNM.Api.RecurringJobs
                     ).ToList();
 
                     var newList = new List<ReportPoint>();
-                    listReportPoint.ForEach(item => { 
-                        if(item.Deadline <= now)
+                    listReportPoint.ForEach(item => {
+                    var time = DateTime.Now - ((DateTime)(item.Deadline)); 
+                    if ((int)time.TotalMinutes > 10)
                         {
                             newList.Add(item);
                         }
