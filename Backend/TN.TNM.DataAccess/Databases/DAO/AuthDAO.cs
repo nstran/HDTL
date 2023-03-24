@@ -2180,6 +2180,11 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 },
                 new PermissionTempModel()
                 {
+                    Key = "employee/organization",
+                    Name = "Sơ đồ tổ chức"
+                },
+                new PermissionTempModel()
+                {
                     Key = "vendor/create",
                     Name = "Tạo mới nhà cung cấp"
                 },

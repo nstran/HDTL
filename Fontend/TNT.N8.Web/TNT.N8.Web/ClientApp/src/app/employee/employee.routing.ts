@@ -64,6 +64,7 @@ import { ChiTietPhieuDanhGiaComponent } from "./components/quan-ly-danh-gia/chi-
 import { DanhSachKyDanhGiaComponent } from "./components/quan-ly-danh-gia/danh-sach-ky-danh-gia/danh-sach-ky-danh-gia.component";
 import { ThucHienDanhGiaComponent } from "./components/quan-ly-danh-gia/thuc-hien-danh-gia/thuc-hien-danh-gia.component";
 import { BaoCaoNhanSuComponent } from "./components/bao-cao-nhan-su/bao-cao-nhan-su.component";
+import { OrganizationComponent } from "./components/organization/organization.component";
 
 @NgModule({
   imports: [
@@ -357,6 +358,11 @@ import { BaoCaoNhanSuComponent } from "./components/bao-cao-nhan-su/bao-cao-nhan
           {
             path: 'bao-cao-nhan-su',
             component: BaoCaoNhanSuComponent,
+            canActivate: [AuthGuard]
+          },
+          {
+            path: 'organization',
+            component: OrganizationComponent,
             canActivate: [AuthGuard]
           },
         ]

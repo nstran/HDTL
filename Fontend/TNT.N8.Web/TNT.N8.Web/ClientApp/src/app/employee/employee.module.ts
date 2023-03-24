@@ -144,6 +144,7 @@ import { ThemQuyenLoiBaoHiemComponent } from "./components/cauhinh-baohiem/them-
 import { EmployeeImportDetailComponent } from './components/employee-import-detail/employee-import-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HopDongImportDetailComponent } from './components/employee-profile/employee-details/hop-dong/hop-dong-import-detail/hop-dong-import-detail.component';
+import { OrganizationComponent } from './components/organization/organization.component';
 
 
 @NgModule({
@@ -257,7 +258,8 @@ import { HopDongImportDetailComponent } from './components/employee-profile/empl
     ThemQuyenLoiBaoHiemComponent,
     EmployeeImportDetailComponent,
     ThemMoiLichsuThanhtoanBaohiemComponent,
-    HopDongImportDetailComponent
+    HopDongImportDetailComponent,
+    OrganizationComponent,
   ],
   providers: [
     ContactService,
