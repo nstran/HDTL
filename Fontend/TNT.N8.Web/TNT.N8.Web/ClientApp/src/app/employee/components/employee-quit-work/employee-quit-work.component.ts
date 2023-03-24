@@ -176,7 +176,7 @@ export class EmployeeQuitWorkComponent implements OnInit {
       this.userModel.UserName,
       this.contactModel.IdentityID,
       [],
-      this.employeeModel.OrganizationId, null, null, null, null, true).subscribe(response => {
+      this.employeeModel.OrganizationId, null, null, null, null, true, []).subscribe(response => {
         let result = <any>response;
         this.loading = false;
         if (result.statusCode == 200) {
