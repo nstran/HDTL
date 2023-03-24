@@ -1865,6 +1865,8 @@ namespace TN.TNM.DataAccess.Databases
 
                 entity.Property(e => e.OrderCode).HasColumnType("character varying(20)");
 
+                entity.Property(e => e.PaymentMethodNote).HasColumnType("character varying(255)");
+
                 entity.Property(e => e.PercentAdvance).HasColumnType("numeric(18,2)");
 
                 entity.Property(e => e.PercentAdvanceType)

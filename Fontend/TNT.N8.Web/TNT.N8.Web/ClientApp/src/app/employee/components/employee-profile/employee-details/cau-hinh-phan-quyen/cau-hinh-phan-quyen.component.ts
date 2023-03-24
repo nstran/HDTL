@@ -13,6 +13,25 @@ class ThanhVienPhongBan {
   organizationName: string;
 }
 
+class ThongTinChung {
+  employeeId: string;
+  employeeCode: string;
+  avatarUrl: string;
+  userName: string; //Tên đăng nhập
+  trangThaiId: number;
+  organizationId: string;
+  organizationName: string;
+  dateOfBirth: Date;
+  phone: string;
+  workEmail: string;
+  firstName: string;
+  lastName: string;
+  gioiTinh: string;
+  mission: string;
+  benefit: number;
+  percenBenefit: number;
+  employeeType: number;
+}
 @Component({
   selector: 'app-cau-hinh-phan-quyen',
   templateUrl: './cau-hinh-phan-quyen.component.html',
@@ -44,6 +63,7 @@ export class CauHinhPhanQuyenComponent implements OnInit, OnChanges {
   cols: Array<any> = [];
 
   isShowButtonSua: boolean = true;
+  thongTinChung = new ThongTinChung();
 
   constructor(
     private messageService: MessageService,
@@ -85,6 +105,7 @@ export class CauHinhPhanQuyenComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.listOrganization?.length > 0)
       this.getCauHinhPhanQuyen();
+      this.getThongTinChungThanhVien();
   }
 
   async getCauHinhPhanQuyen() {
@@ -222,6 +243,16 @@ export class CauHinhPhanQuyenComponent implements OnInit, OnChanges {
   showMessage(severity: string, detail: string) {
     let msg = { severity: severity, summary: 'Thông báo:', detail: detail };
     this.messageService.add(msg);
+  }
+
+  async getThongTinChungThanhVien() {
+    this.loading = true;
+    let result: any = await this.employeeService.getThongTinChungThanhVien(this.employeeId);
+    this.loading = false;
+
+    if (result.statusCode == 200) {
+      this.thongTinChung = result.thongTinChung;
+    }
   }
 
 }

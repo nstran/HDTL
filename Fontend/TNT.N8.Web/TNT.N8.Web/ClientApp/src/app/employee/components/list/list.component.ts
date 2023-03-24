@@ -4,7 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { EmployeeService } from "../../services/employee.service";
 import { EmployeeListService } from '../../services/employee-list/employee-list.service';
 import { OrganizationService } from "../../../shared/services/organization.service";
-import { EmployeeModel } from "../../models/employee.model";
+import { EmployeeModel, OrganizationEntityModel } from "../../models/employee.model";
 import { ContactModel } from "../../../shared/models/contact.model";
 import { UserModel } from '../../../shared/models/user.model';
 import * as $ from 'jquery';
@@ -236,7 +236,8 @@ export class ListComponent implements OnInit {
 
   listHopDong: Array<HopDongNhanSuModel> = [];
   isShowButton: boolean = false;
-
+  listOrganizationEntityModel : OrganizationEntityModel[]=[];
+  listOrganizationSelected : OrganizationEntityModel[]=[];
 
   constructor(
     private translate: TranslateService,
@@ -296,6 +297,7 @@ export class ListComponent implements OnInit {
 
       this.searchEmployee();
     }
+    this.getListOrganization();
   }
 
   initTable() {
@@ -316,6 +318,13 @@ export class ListComponent implements OnInit {
 
   clear() {
     this.messageService.clear();
+  }
+
+  getListOrganization(): void {
+    this.employeeListService.takeListOrganizationToFilterEmployee()
+      .subscribe(result => {
+        this.listOrganizationEntityModel = result.listOrganizationEntityModel;
+      })
   }
 
   searchEmployee() {
@@ -349,7 +358,7 @@ export class ListComponent implements OnInit {
     this.loading = true;
     this.employeeListService.searchEmployeeFromList(this.isManager, this.employeeId, this.contactModel.FirstName, this.contactModel.LastName,
       this.userModel.UserName, this.contactModel.IdentityID, [], this.employeeModel.OrganizationId, this.fromContractExpiryDate,
-      this.toContractExpiryDate, this.fromBirthDay, this.toBirthDay, false).subscribe(response => {
+      this.toContractExpiryDate, this.fromBirthDay, this.toBirthDay, false, this.listOrganizationSelected.map(x => x.organizationId)).subscribe(response => {
         let result = <any>response;
         this.loading = false;
         if (result.statusCode == 200) {
@@ -395,6 +404,7 @@ export class ListComponent implements OnInit {
     this.leftColNumber = 12;
     this.rightColNumber = 0;
     this.listEmp = [];
+    this.listOrganizationSelected = [];
     this.searchEmployee();
   }
 
@@ -449,28 +459,28 @@ export class ListComponent implements OnInit {
   }
 
   openOrgPopup() {
-    let ref = this.dialogService.open(OrganizationDialogComponent, {
-      data: {
-        chooseFinancialIndependence: false
-      },
-      header: 'Chọn đơn vị',
-      width: '65%',
-      baseZIndex: 1030,
-      contentStyle: {
-        "min-height": "350px",
-        "max-height": "500px",
-        "overflow": "auto"
-      }
-    });
+    // let ref = this.dialogService.open(OrganizationDialogComponent, {
+    //   data: {
+    //     chooseFinancialIndependence: false
+    //   },
+    //   header: 'Chọn đơn vị',
+    //   width: '65%',
+    //   baseZIndex: 1030,
+    //   contentStyle: {
+    //     "min-height": "350px",
+    //     "max-height": "500px",
+    //     "overflow": "auto"
+    //   }
+    // });
 
-    ref.onClose.subscribe((result: any) => {
-      if (result) {
-        if (result.status) {
-          this.employeeModel.OrganizationId = result.selectedOrgId;
-          this.employeeModel.OrganizationName = result.selectedOrgName;
-        }
-      }
-    });
+    // ref.onClose.subscribe((result: any) => {
+    //   if (result) {
+    //     if (result.status) {
+    //       this.employeeModel.OrganizationId = result.selectedOrgId;
+    //       this.employeeModel.OrganizationName = result.selectedOrgName;
+    //     }
+    //   }
+    // });
   }
 
 

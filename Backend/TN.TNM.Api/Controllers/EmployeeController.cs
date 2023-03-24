@@ -1875,6 +1875,14 @@ namespace TN.TNM.Api.Controllers
         {
             return this._iEmployeeDataAccess.TakeListEmployeeByUserName(request);
         }
+
+        [HttpPost]
+        [Route("api/employee/takeListOrganizationToFilterEmployee")]
+        [Authorize(Policy = "Member")]
+        public TakeListOrganizationToFilterEmployeeResult TakeListOrganizationToFilterEmployee([FromBody] TakeListOrganizationToFilterEmployeeParameter request)
+        {
+            return this._iEmployeeDataAccess.TakeListOrganizationToFilterEmployee(request);
+        }
     }
 }
 

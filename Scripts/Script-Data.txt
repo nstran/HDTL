@@ -599,3 +599,25 @@ VALUES (
 	'6154e00e-cc15-4838-9a30-7045ba698b5f', 
 	'sal/product/product-packet-createOrUpdate/action'
 ) ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'6154e00e-cc15-4838-9a30-7045ba788b5f', 
+	'hrm/employee/organization/view'
+) ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit","IsDefauld")
+VALUES (
+	'11af36d1-18a8-48a7-adf6-91996cf07001', 
+	'Tiền mặt', 
+	'TM',
+	'a94e6824-82f8-4975-b16c-4af67908369a',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	false,
+	true
+) ON CONFLICT DO NOTHING;

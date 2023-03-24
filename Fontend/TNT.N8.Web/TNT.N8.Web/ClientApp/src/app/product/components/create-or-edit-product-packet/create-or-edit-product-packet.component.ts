@@ -98,7 +98,6 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   //Danh sách quản lý dịch vụ
   listManager: EmployeeEntityModel[];
 
-
   get quyTrinh() {
     return this.form.get('quyTrinh') as FormArray;
   }
@@ -110,6 +109,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   ];
 
   listOrganization: Array<any> = [];
+  listProvinceSelected : ProvinceEntityModel[];
 
   constructor(
     injector : Injector,
@@ -237,10 +237,8 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
           this.listOrganization = result.listAll;
           this.mapDataToForm(this.cauHinhQuyTrinh);
         });
-        
 
         this.listManager = this.listEmpWithRole.filter(x => result.listManager.indexOf(x.employeeId) != -1);
-
         this.listServicePacketConfigurationPermissionModel = result.servicePacketEntityModel.listPermissionConfigurationEntityModel;
         this.listRoleServicePacket = result.servicePacketEntityModel.listRoleServicePacket;
         this.servicePacketEntityModel = result.servicePacketEntityModel;
@@ -257,8 +255,12 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
           this.servicePacketImageEntityModel = result.servicePacketImageEntityModel;
         }
 
-        if(this.listProvince.find(x => x.provinceId == result.servicePacketEntityModel.provinceId)){
-          this.provinceEntityModel = this.listProvince.find(x => x.provinceId == result.servicePacketEntityModel.provinceId);
+        // if(this.listProvince.find(x => x.provinceId == result.servicePacketEntityModel.provinceId)){
+        //   this.listProvinceSelected = this.listProvince.filter(x => x.provinceId == result.servicePacketEntityModel.provinceId);
+        // }
+        if(result.servicePacketEntityModel.provinceIds != null && result.servicePacketEntityModel.provinceIds.length > 0){
+          let listProvinceId = result.servicePacketEntityModel.provinceIds.map(i => i);
+          this.listProvinceSelected = this.listProvince.filter(x => listProvinceId.indexOf(x.provinceId) != -1);
         }
 
         this.listServicePacketAttributeEntityModel.forEach(x => {
@@ -334,9 +336,9 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
     this.servicePacketEntityModel.productCategoryId = event.productCategoryId;
   }
 
-  changeProvince(event: ProvinceEntityModel): void {
-    this.servicePacketEntityModel.provinceId = event.provinceId;
-  }
+  // changeProvince(event: ProvinceEntityModel): void {
+  //   this.servicePacketEntityModel.provinceId = event.provinceId;
+  // }
 
   changeAttrName(event : CategoryEntityModel): void {
     this.servicePacketAttributeEntityModelAdd.categoryId = event.categoryId;
@@ -462,7 +464,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   }
 
   checkValidateProvince(): boolean {
-    if(this.provinceEntityModel == undefined){
+    if(this.listProvinceSelected == undefined || this.listProvinceSelected.length == 0){
       return this.showErrorProvinceEntityModel = true;
     } else {
       return this.showErrorProvinceEntityModel = false;
@@ -501,7 +503,6 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
         this.listOptionTreeNode.push(nodeRoot);
       });
       this.listOptionTreeNode = [...this.listOptionTreeNode.sort((a, b) => (a.sortOrder > b.sortOrder) ? 1 : -1)];
-      console.log(this.listOptionTreeNode)
     }
     else if (result.statusCode !== 200) {
       let msg = { key: 'popup', severity: 'error', summary: 'Thông báo:', detail: result.messageCode };
@@ -738,7 +739,6 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
     
     let cauHinhQuyTrinh = this.mapDataToModel(this.cauHinhQuyTrinh);
 
-
     if(!this.checkValidateServicePacket() && !this.checkValidateProvince()){
       if(this.listServicePacketConfigurationPermissionModel.some(x => x.listEmployeeEntityModel == undefined || x.listEmployeeEntityModel == null) ||
         this.listServicePacketConfigurationPermissionModel.some(x => x.roleId == undefined || x.roleId == null)
@@ -758,6 +758,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
         this.setStepIdAgain();
         let createOrEditProductParameter = new CreateOrUpdateServicePacketParameter();
         createOrEditProductParameter.servicePacketEntityModel = this.servicePacketEntityModel;
+        createOrEditProductParameter.servicePacketEntityModel.provinceIds = this.listProvinceSelected.map(x => x.provinceId);
         createOrEditProductParameter.listServicePacketAttributeEntityModel = this.listServicePacketAttributeEntityModel;
         createOrEditProductParameter.listServicePacketConfigurationPermissionModel = this.listServicePacketConfigurationPermissionModel;
         createOrEditProductParameter.servicePacketImageEntityModel = this.servicePacketImageEntityModel;

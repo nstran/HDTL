@@ -17,9 +17,10 @@ namespace TN.TNM.DataAccess.Databases.Entities
         public DateTime UpdatedDate { get; set; }
         public Guid TenantId { get; set; }
         public string Description { get; set; }
-        public Guid? ProvinceId { get; set; }
         public string Code { get; set; }
         public int? Stt { get; set; }
-        public bool Active { get; set; }
+        public bool? Active { get; set; }
+        public Guid? RoleId { get; set; }
+        public Guid[] ProvinceIds { get; set; }
     }
 }

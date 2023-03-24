@@ -105,9 +105,21 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     employee.CreatedById = parameter.UserId;
                     employee.IsManager = false;
                     employee.MucPhi = employee.MucPhi != null ? employee.MucPhi : 0;
-                    //employee.EmployeeCode = parameter.Employee.EmployeeCode;
+
+                    var organizationCode = context.Organization.FirstOrDefault(x => parameter.ListPhongBanId.Any(y => y == x.OrganizationId)).OrganizationCode;
+                    var employeeByOrganization = context.Employee.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => parameter.ListPhongBanId.Any(y => y == x.OrganizationId) && x.EmployeeCode.Contains(organizationCode))?.EmployeeCode;
+                    if (!string.IsNullOrEmpty(employeeByOrganization))
+                    {
+                        var resultString = Regex.Match(employeeByOrganization, @"\d+").Value;
+                        employee.EmployeeCode = organizationCode + (Int16.Parse(resultString) + 1).ToString();
+                    }
+                    else
+                    {
+                        employee.EmployeeCode = organizationCode + 1.ToString();
+                    }
+
                     #region Kiểm tra cộng tác viên hay không
-                    if(parameter.Employee.EmployeeType == 1)
+                    if (parameter.Employee.EmployeeType == 1)
                     {
                         // là nhân viên, không phải là cộng tác viên
                         employee.EmployeeType = parameter.Employee.EmployeeType;
@@ -1648,6 +1660,25 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     listEmployeeId.Add(item.EmployeeId.Value);
                 });
 
+                if (parameter.OrganizationIds != null && parameter.OrganizationIds.Length > 0)
+                {
+                    employeeList = employeeList.Where(x => parameter.OrganizationIds.Any(y => y == x.OrganizationId))
+                                               .Select(e => new EmployeeEntityModel
+                                               {
+                                                   EmployeeId = e.EmployeeId,
+                                                   EmployeeName = e.EmployeeName,
+                                                   OrganizationId = e.OrganizationId,
+                                                   OrganizationName = organizations.FirstOrDefault(o => o.OrganizationId == e.OrganizationId) == null
+                                                   ? "" : organizations.FirstOrDefault(o => o.OrganizationId == e.OrganizationId).OrganizationName,
+                                                   EmployeeCode = e.EmployeeCode,
+                                                   PositionId = e.PositionId,
+                                                   CreatedById = e.CreatedById,
+                                                   CreatedDate = e.CreatedDate,
+                                                   Active = e.Active,
+                                                   SoPhepConLai = e.SoPhepConLai,
+                                               }).ToList();
+                }
+
                 var contacts = context.Contact.Where(w =>
                     listEmployeeId.Contains(w.ObjectId) && w.ObjectType == ObjectType.EMPLOYEE &&
                     (parameter.FirstName == null || parameter.FirstName.Trim() == "" ||
@@ -1713,6 +1744,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         item.IsTruongBoPhan = true;
                     }
                 });
+
+
 
                 return new SearchEmployeeFromListResult
                 {
@@ -26703,6 +26736,35 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     StatusCode = HttpStatusCode.ExpectationFailed,
                     MessageCode = e.Message
+                };
+            }
+        }
+
+        public TakeListOrganizationToFilterEmployeeResult TakeListOrganizationToFilterEmployee(TakeListOrganizationToFilterEmployeeParameter parameter)
+        {
+            try
+            {
+                var listOrganizationEntityModel = context.Organization
+                                       .Select(x => new OrganizationEntityModel
+                                       {
+                                           OrganizationId = x.OrganizationId,
+                                           OrganizationCode = x.OrganizationCode,
+                                           OrganizationName = x.OrganizationName
+                                       }).ToList();
+
+                return new TakeListOrganizationToFilterEmployeeResult
+                {
+                    ListOrganizationEntityModel = listOrganizationEntityModel,
+                    StatusCode = HttpStatusCode.OK,
+                    Message = "Thành công"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new TakeListOrganizationToFilterEmployeeResult
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    Message = ex.Message
                 };
             }
         }

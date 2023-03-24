@@ -2755,23 +2755,22 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
+                var listProvince = context.Province.Select(x => new { ProvinceId = x.ProvinceId, ProvinceName = x.ProvinceName }).ToList();
                 var listServicePacket = new List<ServicePacketEntityModel>();
                 if (!string.IsNullOrEmpty(parameter.FilterText))
                 {
                     listServicePacket = await (from s in context.ServicePacket
                                                join c in context.ProductCategory on s.ProductCategoryId equals c.ProductCategoryId
-                                               join p in context.Province on s.ProvinceId equals p.ProvinceId
                                                join si in context.ServicePacketImage on s.Id equals si.ServicePacketId
                                                where (s.Name.ToLower().Contains(parameter.FilterText.ToLower()) || 
-                                               c.ProductCategoryName.ToLower().Contains(parameter.FilterText.ToLower()) ||
-                                               p.ProvinceName.ToLower().Contains(parameter.FilterText.ToLower()))
+                                               c.ProductCategoryName.ToLower().Contains(parameter.FilterText.ToLower()))
                                                select new ServicePacketEntityModel
                                                {
                                                    Id = s.Id,
                                                    AttributeName = s.AttributeName,
                                                    Description = s.Description,
-                                                   ProvinceId = s.ProvinceId,
-                                                   ProvinceName = p.ProvinceName,
+                                                   ProvinceIds = s.ProvinceIds,
+                                                   ProvinceName = (s.ProvinceIds != null && s.ProvinceIds.Length > 0) ? String.Join(", ", listProvince.Where(x => s.ProvinceIds.Any(y => y == x.ProvinceId)).Select(z => z.ProvinceName).ToList()) : "",
                                                    Message = s.Message,
                                                    Name = s.Name,
                                                    ProductCategoryId = s.ProductCategoryId,
@@ -2788,15 +2787,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     listServicePacket = await (from s in context.ServicePacket
                                                join c in context.ProductCategory on s.ProductCategoryId equals c.ProductCategoryId
-                                               join p in context.Province on s.ProvinceId equals p.ProvinceId
                                                join si in context.ServicePacketImage on s.Id equals si.ServicePacketId
                                                select new ServicePacketEntityModel
                                                {
                                                    Id = s.Id,
                                                    AttributeName = s.AttributeName,
                                                    Description = s.Description,
-                                                   ProvinceId = s.ProvinceId,
-                                                   ProvinceName = p.ProvinceName,
+                                                   ProvinceIds = s.ProvinceIds,
+                                                   ProvinceName = (s.ProvinceIds != null && s.ProvinceIds.Length > 0) ? String.Join(", ", listProvince.Where(x => s.ProvinceIds.Any(y => y == x.ProvinceId)).Select(z => z.ProvinceName).ToList()) : "",
                                                    Message = s.Message,
                                                    Name = s.Name,
                                                    ProductCategoryId = s.ProductCategoryId,
@@ -3009,7 +3007,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                         ListRoleServicePacket = listRoleServicePacket,
                                         ListServicePacketAttributeEntityModel = listServicePacketAttributeEntityModel,
                                         ListNotificationConfigurationEntityModel = listNotificationConfigurationModel,
-                                        ProvinceId = s.ProvinceId,
+                                        ProvinceIds = s.ProvinceIds,
                                         Stt = s.Stt,
                                         Active = s.Active
                                     }).FirstOrDefaultAsync();

@@ -251,7 +251,7 @@ namespace TN.TNM.DataAccess.Interfaces
         GetMasterDateImportHDNSResult GetMasterDateImportHDNS(GetMasterDateImportHDNSParameter parameter);
         ImportHDNSResult ImportHDNS(ImportHDNSParameter parameter);
         Task<GetBenefitType> GetBenefitType();
-
         TakeListEmployeeByUserNameResult TakeListEmployeeByUserName(TakeListEmployeeByUserNameParameter parameter);
+        TakeListOrganizationToFilterEmployeeResult TakeListOrganizationToFilterEmployee(TakeListOrganizationToFilterEmployeeParameter parameter);
     }
 }

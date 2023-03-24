@@ -24,14 +24,14 @@ namespace TN.TNM.DataAccess.Models.Product
         public Guid? UpdatedById { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public Guid? TenantId { get; set; }
-        public Guid? ProvinceId { get; set; }
+        public Guid[] ProvinceIds { get; set; }
         public string ProvinceName { get; set; }
         public string MainImage { get; set; }
         public string Icon { get; set; }
         public string BackgroundImage { get; set; }
         public int? CountOption { get; set; }
         public int? Stt { get; set; }
-        public bool Active { get; set; }
+        public bool? Active { get; set; }
         public List<PermissionConfigurationEntityModel> ListPermissionConfigurationEntityModel { get; set; }
         public List<RoleEntityModel> ListRoleServicePacket { get; set; }
         public List<ServicePacketAttributeEntityModel> ListServicePacketAttributeEntityModel { get; set; }

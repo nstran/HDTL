@@ -404,3 +404,7 @@ CREATE TABLE IF NOT EXISTS public."AdvertisementConfiguration"
 ALTER TABLE public."AdvertisementConfiguration" ADD COLUMN IF NOT EXISTS "SortOrder" integer;
 
 ALTER TABLE public."ServicePacket" ADD COLUMN IF NOT EXISTS "Active" bool default true;
+
+ALTER TABLE public."ServicePacket" DROP COLUMN IF EXISTS "ProvinceId";
+
+ALTER TABLE public."ServicePacket" ADD COLUMN IF NOT EXISTS "ProvinceIds" uuid[];

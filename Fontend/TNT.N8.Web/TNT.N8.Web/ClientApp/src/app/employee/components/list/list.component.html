@@ -290,12 +290,29 @@
         <div class="row no-margin">
           <div class="col-md-12 mt-5">
             <span>Chọn đơn vị</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect 
+                [options]="listOrganizationEntityModel"
+                [(ngModel)]="listOrganizationSelected"
+                [style]="{'width': '100%'}"
+                [id]="'Organization'"
+                [name]="'Organization'"
+                optionLabel="organizationName"
+                selectedItemsLabel="{0} phòng ban được chọn"
+                itemSize="30"
+                defaultLabel="Chọn phòng ban"
+                >
+            </p-multiSelect>
+          </div>
+          <!-- <div class="col-md-12 mt-5">
+            <span>Chọn đơn vị</span>
             <a href="javascript:(0)" (click)="openOrgPopup()"> <u>(Xem sơ đồ tổ chức)</u></a>
           </div>
           <div class="col-md-12">
             <input type="text" value="{{this.employeeModel.OrganizationName}}" placeholder="Chọn đơn vị"
               class="employee-code-text" disabled>
-          </div>
+          </div> -->
         </div>
 
         <div class="row no-margin pb-1">

@@ -302,7 +302,6 @@ export class HomeComponent implements OnInit {
           Name: "Sơ đồ tổ chức", Path: "", ObjectType: "employee", LevelMenu: 2, Active: false, nameIcon: "fas fa-users", IsDefault: false, CodeParent: "hrm_nv", Display: "none", LstChildren: [
             { Name: "Sơ đồ tổ chức", Path: "/employee/organization", ObjectType: "HRM", LevelMenu: 3, Active: false, nameIcon: "person_add", IsDefault: false, CodeParent: "hrm_nv", LstChildren: [], Display: "none", Code: '' },
           ], Code: ''
-          
         },
       ],
        Code: ''

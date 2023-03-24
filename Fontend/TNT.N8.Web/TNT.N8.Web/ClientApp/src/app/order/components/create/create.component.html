@@ -794,9 +794,16 @@
                 <label class="total-monney-label">Hình thức thanh toán<span class='required'>*</span>:</label>
               </div>
               <div class="col-md-7">
-                <p-dropdown [options]="listPaymentMethod" optionLabel="categoryName" [(ngModel)]="selectedPayMentMethod"
+                <p-dropdown 
+                  [options]="listPaymentMethod" 
+                  optionLabel="categoryName" 
+                  [(ngModel)]="selectedPayMentMethod"
                   [disabled]="statusOrder != 1 && statusOrder != 2 && statusOrder != 3"
-                  placeholder="Chọn hình thức thanh toán" [autoDisplayFirst]="false" [style]="{'width': '100%'}">
+                  placeholder="Chọn hình thức thanh toán" 
+                  [autoDisplayFirst]="false" 
+                  [style]="{'width': '100%'}"
+                  (onChange)="changePaymentMethod($event.value)"
+                  >
                 </p-dropdown>
               </div>
 
@@ -832,8 +839,20 @@
                     </label>
                   </div>
                 </div>
-              </div>
 
+                <div class="row mt-10" *ngIf="isShowNote">
+                  <div class="col-md-12">
+                    <label class="total-monney-label">Ghi chú :</label>
+                    <textarea class="w100" 
+                      rows="3" 
+                      pInputTextarea
+                      [(ngModel)]="paymentMethodNote"
+                      >
+                    </textarea>
+                  </div>
+                </div>
+  
+              </div>
             </div>
           </div>
         </div>

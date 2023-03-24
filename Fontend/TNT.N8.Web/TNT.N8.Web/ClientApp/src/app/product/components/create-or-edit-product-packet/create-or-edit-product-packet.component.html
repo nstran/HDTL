@@ -178,7 +178,7 @@
                                     <p class="service-type font-weight-bold">
                                         Khu vực áp dụng <span class="text-danger">*</span>
                                     </p>
-                                    <p-dropdown 
+                                    <!-- <p-dropdown 
                                         [options]="listProvince" 
                                         [(ngModel)]="provinceEntityModel"
                                         [filter]="true" 
@@ -189,7 +189,19 @@
                                         placeholder="Chọn khu vực áp dụng" 
                                         required
                                         >
-                                    </p-dropdown>
+                                    </p-dropdown> -->
+                                    <p-multiSelect 
+                                        [options]="listProvince"
+                                        [(ngModel)]="listProvinceSelected"
+                                        [style]="{'width': '250px'}"
+                                        [id]="'Province'"
+                                        [name]="'Province'"
+                                        optionLabel="provinceName"
+                                        selectedItemsLabel="{0} khu vực được chọn"
+                                        itemSize="30"
+                                        defaultLabel="Chọn khu vực áp dụng"
+                                        >
+                                    </p-multiSelect>
                                     <p *ngIf="showErrorProvinceEntityModel" class="text-danger">Chọn khu vực áp dụng</p>
                                 </div>
                             </div>
@@ -198,7 +210,7 @@
                 </div>
 
                 <div class="row" *ngIf="isShowButtonActive">
-                    <div class="col-md-12">
+                    <div class="col-md-2">
                         <div class="form-group">
                             <label class="isActive font-weight-bold">Kích hoạt
                                 <input type="checkbox" 

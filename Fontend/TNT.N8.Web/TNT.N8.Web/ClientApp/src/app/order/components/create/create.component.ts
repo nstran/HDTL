@@ -287,7 +287,9 @@ export class CreateComponent extends AbstractBase implements OnInit {
   listStatusOrderExtenDetail = [
     { value: 3, name: "Chờ phê duyệt" },
     { value: 1, name: "Từ chối" },
-  ]
+  ];
+  isShowNote = false;
+  paymentMethodNote = "";
 
   constructor(
     injector: Injector,
@@ -514,6 +516,10 @@ export class CreateComponent extends AbstractBase implements OnInit {
 
         this.payContent = result.customerOrder.paymentContent;
         this.selectedPayMentMethod = this.listPaymentMethod.find(x => x.id == result.customerOrder.paymentMethod);
+        if(this.selectedPayMentMethod && this.selectedPayMentMethod.categoryCode == "TM"){
+          this.isShowNote = true;
+          this.paymentMethodNote = this.customerOrder.paymentMethodNote;
+        }
 
         this.vat = this.listTax.find(x => x.value == result.customerOrder.vat);
         this.discountType = result.customerOrder.discountType == true ? this.discountTypeList.find(x => x.value == 2) : this.discountTypeList.find(x => x.value == 1);
@@ -890,6 +896,8 @@ export class CreateComponent extends AbstractBase implements OnInit {
     cusOrder.OrderType = this.orderTypeControl.value.value;
     cusOrder.PaymentMethod = this.selectedPayMentMethod.id;
     cusOrder.PaymentContent = this.selectedPayMentMethod.content;
+    cusOrder.PaymentMethodNote = this.paymentMethodNote;
+
     if (cusOrder.OrderType == 2) cusOrder.ObjectId = this.objectControl.value.orderId;
 
     //Các gói dịch vụ được thêm 
@@ -1277,6 +1285,10 @@ export class CreateComponent extends AbstractBase implements OnInit {
         });
       }
     });
+  }
+
+  changePaymentMethod(event: PaymentMethodConfigure): void {
+    this.isShowNote = event.categoryCode == "TM" ? true : false;
   }
 
 }

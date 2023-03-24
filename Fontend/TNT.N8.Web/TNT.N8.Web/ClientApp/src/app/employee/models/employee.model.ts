@@ -50,3 +50,13 @@ export class CreateEmployeeModel {
   Benefit: number;
   PercenBenefit: number;
 }
+
+export class TakeListOrganizationToFilterEmployeeResult {
+  listOrganizationEntityModel: OrganizationEntityModel[]
+}
+
+export class OrganizationEntityModel {
+  organizationId : string;
+  organizationCode : string;
+  organizationName : string;
+}

@@ -238,7 +238,7 @@ export class EmployeeCreateComponent implements OnInit, AfterViewChecked {
   initForm() {
     let emailPattern = '^([" +"]?)+[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]+([" +"]?){2,64}';
     this.createEmpForm = new FormGroup({
-      EmployeeCode: new FormControl('', [Validators.required, Validators.pattern(this.validaytorsService.regex.username), checkDuplicateUsername(this.empAccountList), Validators.maxLength(250), forbiddenSpaceText]),
+      // EmployeeCode: new FormControl('', [Validators.required, Validators.pattern(this.validaytorsService.regex.username), checkDuplicateUsername(this.empAccountList), Validators.maxLength(250), forbiddenSpaceText]),
       IsAccessable: new FormControl('true'),
       FirstName: new FormControl('', [Validators.required, Validators.maxLength(250), forbiddenSpaceText]),
       LastName: new FormControl('', [Validators.required, Validators.maxLength(250), forbiddenSpaceText]),
@@ -324,15 +324,15 @@ export class EmployeeCreateComponent implements OnInit, AfterViewChecked {
     let OrganizationId = this.createEmpForm.get('OrganizationId').value;
 
     if (!this.createEmpForm.valid || !OrganizationId) {
-      if (this.createEmpForm.get('EmployeeCode').errors?.required || this.createEmpForm.get('EmployeeCode').errors?.forbiddenSpaceText) {
-        this.error['EmployeeCode'] = 'Không được để trống';
-      } else if (this.createEmpForm.get('EmployeeCode').hasError('duplicateCode')) {
-        this.error['EmployeeCode'] = 'Mã nhân viên đã tồn tại';
-      } else if (this.createEmpForm.get('EmployeeCode').errors?.maxlength) {
-        this.error['EmployeeCode'] = 'Không vượt quá 250 kí tự';
-      } else if (this.createEmpForm.get('EmployeeCode').errors?.pattern) {
-        this.error['EmployeeCode'] = 'Mã nhân viên không đúng định dạng';
-      }
+      // if (this.createEmpForm.get('EmployeeCode').errors?.required || this.createEmpForm.get('EmployeeCode').errors?.forbiddenSpaceText) {
+      //   this.error['EmployeeCode'] = 'Không được để trống';
+      // } else if (this.createEmpForm.get('EmployeeCode').hasError('duplicateCode')) {
+      //   this.error['EmployeeCode'] = 'Mã nhân viên đã tồn tại';
+      // } else if (this.createEmpForm.get('EmployeeCode').errors?.maxlength) {
+      //   this.error['EmployeeCode'] = 'Không vượt quá 250 kí tự';
+      // } else if (this.createEmpForm.get('EmployeeCode').errors?.pattern) {
+      //   this.error['EmployeeCode'] = 'Mã nhân viên không đúng định dạng';
+      // }
 
       if (this.createEmpForm.get('FirstName').errors?.required || this.createEmpForm.get('FirstName').errors?.forbiddenSpaceText) {
         this.error['FirstName'] = 'Không được để trống';
@@ -408,7 +408,7 @@ export class EmployeeCreateComponent implements OnInit, AfterViewChecked {
       this.contactModel.Phone = data.Phone.trim();
       this.contactModel.WorkEmail = data.WorkEmail.trim();
 
-      this.userModel.EmployeeCode = data.EmployeeCode.trim();
+      // this.userModel.EmployeeCode = data.EmployeeCode.trim();
 
       //List Phòng ban
       let listPhongBanId = this.listSelectedDonVi.map(item => item.organizationId);

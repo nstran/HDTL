@@ -42,6 +42,7 @@ export class PaymentMethodConfigure {
     id: string;
     categoryId: string;
     categoryName: string;
+    categoryCode: string;
     categoryObject: any;
     content: string;
     status: number;

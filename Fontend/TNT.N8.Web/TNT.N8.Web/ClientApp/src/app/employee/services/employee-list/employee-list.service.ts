@@ -2,7 +2,7 @@
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { EmployeeModel } from "../../models/employee.model";
+import { EmployeeModel, TakeListOrganizationToFilterEmployeeResult } from "../../models/employee.model";
 import { ContactModel } from "../../../shared/models/contact.model";
 import { UserModel } from '../../../shared/models/user.model';
 
@@ -11,8 +11,9 @@ export class EmployeeListService {
 
   constructor(private httpClient: HttpClient) { }
 
-  searchEmployeeFromList(isManager: boolean, employeeId: string, firstName: string, lastName: string, userName: string, identityId: string, position: Array<any>, organizationId: string,
-    fromContractExpiryDate: Date, toContractExpiryDate: Date, fromBirthDay: Date, toBirthDay: Date, isQuitWork: boolean) {
+  searchEmployeeFromList(
+    isManager: boolean, employeeId: string, firstName: string, lastName: string, userName: string, identityId: string, position: Array<any>, organizationId: string,
+    fromContractExpiryDate: Date, toContractExpiryDate: Date, fromBirthDay: Date, toBirthDay: Date, isQuitWork: boolean, organizationIds: string[]) {
 
     const currentUser = <any>localStorage.getItem('auth');
     const url = localStorage.getItem('ApiEndPoint') + '/api/employee/searchFromList';
@@ -30,7 +31,8 @@ export class EmployeeListService {
       FromBirthDay: fromBirthDay,
       ToBirthDay: toBirthDay,
       isQuitWork: isQuitWork,
-      UserId: JSON.parse(currentUser).UserId
+      UserId: JSON.parse(currentUser).UserId,
+      OrganizationIds : organizationIds
     }).pipe(
       map((response: Response) => {
         return response;
@@ -149,5 +151,13 @@ export class EmployeeListService {
     }));
   }
 
+  takeListOrganizationToFilterEmployee() {
+    const url = localStorage.getItem('ApiEndPoint') + '/api/employee/takeListOrganizationToFilterEmployee';
+    return this.httpClient.post(url, {})
+    .pipe(
+      map((response: TakeListOrganizationToFilterEmployeeResult) => {
+        return response;
+    }));
+  }
 
 }

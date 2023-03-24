@@ -105,7 +105,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     customerOrder.ServicePacketId = parameter.ServicePacketId;
                     customerOrder.PaymentMethod = parameter.CusOrder.PaymentMethod;
                     customerOrder.PaymentContent = parameter.CusOrder.PaymentContent;
-
+                    customerOrder.PaymentMethodNote = parameter.CusOrder.PaymentMethodNote;
 
                     //Nếu tạo phiếu yêu cầu => lấy OrderProcessId của phiếu cũ để mapp vào trường orderprocessId
                     if (parameter.CusOrder.OrderType == 2)
@@ -247,6 +247,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     customerOrder.UpdatedDate = DateTime.Now;
                     customerOrder.PaymentMethod = parameter.CusOrder.PaymentMethod;
                     customerOrder.PaymentContent = parameter.CusOrder.PaymentContent;
+                    customerOrder.PaymentMethodNote = parameter.CusOrder.PaymentMethodNote;
                     parameter.OrderProcessId = customerOrder.OrderProcessId;
                     context.CustomerOrder.Update(customerOrder);
 
@@ -4720,15 +4721,16 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         .Select(y => new CategoryEntityModel
                         {
                             CategoryId = y.CategoryId,
-                            CategoryName = y.CategoryName
+                            CategoryName = y.CategoryName,
+                            CategoryCode = y.CategoryCode
                         }).OrderBy(z => z.CategoryName).ToList();
-
 
                 listPaymentMethod = context.PaymentMethodConfigure.Select(x => new PaymentMethodConfigureEntityModel()
                 {
                     Id = x.Id,
                     CategoryId = x.CategoryId,
                     CategoryName = listPayMentCategory.FirstOrDefault(y => y.CategoryId == x.CategoryId).CategoryName,
+                    CategoryCode = listPayMentCategory.FirstOrDefault(y => y.CategoryId == x.CategoryId).CategoryCode,
                     Content = x.Content,
                     CreatedById = x.CreatedById,
                 }).ToList();
@@ -4923,6 +4925,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     PaymentContent = x.PaymentContent,
                     PaymentMethod = x.PaymentMethod,
                     PaymentMethodOrder = x.PaymentMethodOrder,
+                    PaymentMethodNote = x.PaymentMethodNote
                 }).ToList();
 
                 var customerOrder = listAllCustomerOrder.FirstOrDefault(x => x.OrderId == parameter.OrderId);

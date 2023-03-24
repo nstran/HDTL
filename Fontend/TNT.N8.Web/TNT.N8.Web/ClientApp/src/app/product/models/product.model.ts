@@ -468,7 +468,7 @@ export class ServicePacketEntityModel {
   updatedById: string;
   updatedDate: Date;
   tenantId: string;
-  provinceId: string;
+  provinceIds: string[];
   provinceName: string;
   stt: number;
   code: string;

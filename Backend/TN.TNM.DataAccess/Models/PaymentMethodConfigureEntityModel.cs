@@ -9,6 +9,7 @@ namespace TN.TNM.DataAccess.Models
         public Guid? Id { get; set; }
         public Guid? CategoryId { get; set; }
         public string CategoryName { get; set; }
+        public string CategoryCode { get; set; }
         public bool Edit { get; set; }
         public CategoryEntityModel CategoryObject { get; set; }
         public string Content { get; set; }

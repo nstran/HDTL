@@ -18,5 +18,6 @@ namespace TN.TNM.DataAccess.Messages.Parameters.Employee
         public DateTime? FromBirthDay { get; set; }
         public DateTime? ToBirthDay { get; set; }
         public bool IsQuitWork { get; set; }
+        public Guid[] OrganizationIds { get; set; }
     }
 }

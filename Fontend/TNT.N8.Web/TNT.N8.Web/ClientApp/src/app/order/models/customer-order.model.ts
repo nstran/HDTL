@@ -42,8 +42,7 @@ export class CustomerOrder {
   StatusOrder: number;
   OrderType: number;
   ObjectId: string;
-
-  
+  PaymentMethodNote: string;
   PaymentMethodOrder: number;
   PaymentContent: string;
 

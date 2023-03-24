@@ -69,6 +69,7 @@ namespace TN.TNM.DataAccess.Databases.Entities
         public int? PaymentMethodOrder { get; set; }
         public string PaymentContent { get; set; }
         public OrderStatus Status { get; set; }
+        public string PaymentMethodNote { get; set; }
         public ICollection<CustomerOrderDetail> CustomerOrderDetail { get; set; }
         public ICollection<OrderCostDetail> OrderCostDetail { get; set; }
     }
