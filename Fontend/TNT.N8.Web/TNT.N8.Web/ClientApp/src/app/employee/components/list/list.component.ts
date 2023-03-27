@@ -25,6 +25,7 @@ import { EmployeeImportDetailComponent } from '../employee-import-detail/employe
 import { Workbook } from 'exceljs';
 import { HopDongImportDetailComponent } from '../employee-profile/employee-details/hop-dong/hop-dong-import-detail/hop-dong-import-detail.component';
 import { HopDongNhanSuModel } from '../../models/hop-dong-nhan-su.model';
+import { tap } from 'rxjs/operators';
 
 interface Employee {
   index: number,
@@ -249,6 +250,7 @@ export class ListComponent implements OnInit {
     private router: Router,
     private messageService: MessageService,
     public dialogService: DialogService,
+    public confirmationService: ConfirmationService
   ) {
     translate.setDefaultLang('vi');
     this.innerWidth = window.innerWidth;
@@ -948,6 +950,28 @@ export class ListComponent implements OnInit {
   }
 
   /*End*/
+
+  deleteEmployee(event): void {
+    this.confirmationService.confirm({
+      message: 'Bạn có chắc chắn muốn xóa?',
+      accept: () => {
+        this.employeeService.deleteEmployee([event.employeeId])
+          .pipe(
+            tap(() => { this.loading = false; }),
+          )
+          .subscribe(result => {
+            if (result.statusCode == 200) {
+              this.searchEmployee();
+              let mgs = { severity: 'success', summary: 'Thông báo', detail: 'Xóa thành công' };
+              this.showMessage(mgs);
+            } else {
+              let mgs = { severity: 'error', summary: 'Thông báo', detail: result.message };
+              this.showMessage(mgs);
+            }
+          })
+      }
+    });
+  }
 }
 
 function convertToUTCTime(time: any) {

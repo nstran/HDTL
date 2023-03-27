@@ -1883,6 +1883,14 @@ namespace TN.TNM.Api.Controllers
         {
             return this._iEmployeeDataAccess.TakeListOrganizationToFilterEmployee(request);
         }
+
+        [HttpPost]
+        [Route("api/employee/deleteEmployee")]
+        [Authorize(Policy = "Member")]
+        public DeleteEmployeeResult DeleteEmployee([FromBody] DeleteEmployeeParameter request)
+        {
+            return this._iEmployeeDataAccess.DeleteEmployee(request);
+        }
     }
 }
 

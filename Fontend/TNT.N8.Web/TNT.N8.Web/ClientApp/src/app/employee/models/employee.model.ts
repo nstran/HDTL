@@ -60,3 +60,8 @@ export class OrganizationEntityModel {
   organizationCode : string;
   organizationName : string;
 }
+
+export class DeleteEmployeeResult {
+  statusCode: number;
+  message : string;
+}

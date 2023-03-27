@@ -26768,5 +26768,45 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 };
             }
         }
+        
+        public DeleteEmployeeResult DeleteEmployee (DeleteEmployeeParameter parameter)
+        {
+            try
+            {
+                var listEmployeeByIds = context.Employee.Where(x => parameter.ListEmployeeId.Any(y => y == x.EmployeeId)).ToList();
+                var listContactByEmpIds = context.Contact.Where(x => parameter.ListEmployeeId.Any(y => y == x.ObjectId)).ToList();
+                var listUserByEmpIds = context.User.Where(x => parameter.ListEmployeeId.Any(y => y == x.EmployeeId)).ToList();
+                foreach (var item in listEmployeeByIds)
+                {
+                    context.Employee.Remove(item);
+                    var contact = listContactByEmpIds.FirstOrDefault(x => x.ObjectId == item.EmployeeId);
+                    if (contact != null)
+                    {
+                        context.Contact.Remove(contact);
+                    }
+                    var user = listUserByEmpIds.FirstOrDefault(x => x.EmployeeId == item.EmployeeId);
+                    if (user != null)
+                    {
+                        context.User.Remove(user);
+                    }
+                }
+
+                context.SaveChanges();
+
+                return new DeleteEmployeeResult
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Message = "Thành công"
+                };
+            }
+            catch (Exception ex)
+            {
+                return new DeleteEmployeeResult
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    Message = ex.Message
+                };
+            }
+        }
     }
 }

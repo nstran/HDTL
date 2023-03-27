@@ -1,7 +1,7 @@
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { EmployeeModel } from "../models/employee.model";
+import { DeleteEmployeeResult, EmployeeModel } from "../models/employee.model";
 import { CreateEmployeeModel } from "../models/employee.model";
 import { ContactModel } from "../../shared/models/contact.model";
 import { UserModel } from '../../shared/models/user.model';
@@ -3075,6 +3075,16 @@ export class EmployeeService {
     });
   }
 
+  deleteEmployee(listEmployeeId: string[]): Observable<DeleteEmployeeResult> {
+    const url = localStorage.getItem('ApiEndPoint') + '/api/employee/deleteEmployee';
+    return this.httpClient.post(url, {
+      ListEmployeeId: listEmployeeId
+    }).pipe(
+      map((response: DeleteEmployeeResult) => {
+        return response;
+      })
+    );
+  }
   
 }
 

@@ -253,5 +253,6 @@ namespace TN.TNM.DataAccess.Interfaces
         Task<GetBenefitType> GetBenefitType();
         TakeListEmployeeByUserNameResult TakeListEmployeeByUserName(TakeListEmployeeByUserNameParameter parameter);
         TakeListOrganizationToFilterEmployeeResult TakeListOrganizationToFilterEmployee(TakeListOrganizationToFilterEmployeeParameter parameter);
+        DeleteEmployeeResult DeleteEmployee(DeleteEmployeeParameter parameter);
     }
 }

@@ -109,7 +109,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   ];
 
   listOrganization: Array<any> = [];
-  listProvinceSelected : ProvinceEntityModel[];
+  listProvinceSelected : ProvinceEntityModel[] = [];
 
   constructor(
     injector : Injector,
@@ -718,6 +718,26 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
           abstractControl.get('loaiPheDuyet').markAsTouched();
         }
       });
+      return;
+    }
+
+    if (this.listProvinceSelected.length == 0) {
+      this.showToast('warn', 'Thông báo','Chọn khu vực áp dụng');
+      return;
+    }
+
+    if (!this.servicePacketEntityModel.name) {
+      this.showToast('warn', 'Thông báo','Tên gói dịch vụ không được để trống');
+      return;
+    }
+
+    if (!this.servicePacketEntityModel.description) {
+      this.showToast('warn', 'Thông báo','Mô tả không được để trống');
+      return;
+    }
+
+    if (!this.productCategoryEntityModel) {
+      this.showToast('warn', 'Thông báo','Loại gói không được để trống');
       return;
     }
     
