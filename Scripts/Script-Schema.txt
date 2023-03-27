@@ -408,3 +408,5 @@ ALTER TABLE public."ServicePacket" ADD COLUMN IF NOT EXISTS "Active" bool defaul
 ALTER TABLE public."ServicePacket" DROP COLUMN IF EXISTS "ProvinceId";
 
 ALTER TABLE public."ServicePacket" ADD COLUMN IF NOT EXISTS "ProvinceIds" uuid[];
+
+ALTER TABLE public."CustomerOrder" ADD COLUMN IF NOT EXISTS "PaymentMethodNote" character varying(255);
