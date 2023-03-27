@@ -114,7 +114,6 @@ namespace TN.TNM.Api.Controllers
 
         [HttpPost]
         [Route("api/MobileAppConfiguration/takeListAdvertisementConfiguration")]
-        [Authorize(Policy = "Member")]
         public TakeListAdvertisementConfigurationResult TakeListAdvertisementConfiguration([FromBody] TakeListAdvertisementConfigurationParameter request)
         {
             return this.iMobileAppConfigurationDataAccess.TakeListAdvertisementConfiguration(request);

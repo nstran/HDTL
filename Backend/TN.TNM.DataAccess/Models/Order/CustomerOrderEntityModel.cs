@@ -91,6 +91,11 @@ namespace TN.TNM.DataAccess.Models.Order
         public int? PaymentMethodOrder { get; set; }
         public string PaymentContent { get; set; }
         public string PaymentMethodNote { get; set; }
+
+        public Guid? OrderProcesId { get; set; }
+        public int? RateStar { get; set; }
+        public string RateConent { get; set; }
+
         public List<CustomerOrderEntityModel> ListOrderExtend { get; set; }
         public List<CustomerOrderDetailEntityModel> ListCustomerOrderDetail{ get; set; }
 

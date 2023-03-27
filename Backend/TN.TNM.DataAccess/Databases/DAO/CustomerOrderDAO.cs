@@ -12120,8 +12120,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
             {
                 var listOrderStatus = GeneralList.GetTrangThais("CustomerOrder").ToList();
                 var listCustomerOrderStatus = GeneralList.GetTrangThais("CustomerOrderAction").ToList();
+                var listOrderProcess = context.OrderProcess.Where(x => x.CustomerId == parameter.CustomerId).ToList();
 
-                var listOrderProcessId = context.OrderProcess.Where(x => x.CustomerId == parameter.CustomerId).Select(x => x.Id).ToList();
+                var listOrderProcessId = listOrderProcess.Select(x => x.Id).ToList();
+
                 var listAllOrderOfCus = context.CustomerOrder.Where(x => listOrderProcessId.Contains(x.OrderProcessId.Value)).Select(x => new CustomerOrderEntityModel { 
                     OrderId = x.OrderId,
                     OrderType = x.OrderType,
@@ -12129,7 +12131,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     OrderCode = x.OrderCode,
                     ServicePacketId = x.ServicePacketId,
                     StatusOrder = x.StatusOrder,
-                    CreatedDate = x.CreatedDate
+                    CreatedDate = x.CreatedDate,
+                    OrderProcesId = x.OrderProcessId
                 }).ToList();
 
 
@@ -12157,6 +12160,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 listOrder.ForEach(item =>
                 {
+                    var orderProcess = listOrderProcess.FirstOrDefault(x => x.Id == item.OrderProcesId);
+                    if(orderProcess != null)
+                    {
+                        item.RateStar = orderProcess.RateStar;
+                        item.OrderProcessId = orderProcess.Id;
+                        item.RateConent = orderProcess.RateContent;
+                    }
+
                     item.ListPacketServiceName = listPack.FirstOrDefault(x => x.Id == item.ServicePacketId)?.Name;
                     item.OrderStatusName = listOrderStatus.FirstOrDefault(x => x.Value == item.StatusOrder).Name;
 
@@ -12195,6 +12206,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     }).ToList();
 
                     //Lấy các phiếu yêu cầu bổ sung dịch vụ
+                    //OrderType == 2 : Phiểu yêu cầu bổ sung, OrderType == 1 : Phiểu yêu cầu, 
                     var listOrderExten = listAllOrderOfCus.Where(x => x.OrderType == 2 && x.IsOrderAction == false).ToList();
                     listOrderExten.ForEach(obj =>
                     {
