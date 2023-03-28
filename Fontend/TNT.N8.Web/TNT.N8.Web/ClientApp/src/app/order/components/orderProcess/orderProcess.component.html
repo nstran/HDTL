@@ -337,13 +337,13 @@
           </div>
 
 
-          <!-- <div class="row no-margin w-100" *ngIf="orderProcessId">
+          <div class="row no-margin w-100" *ngIf="orderProcessId">
             <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
               class="w-100">
               <p-accordionTab header="Đánh giá" [selected]="true">
                 
                 <div class="col-md-12">
-                  Điểm đánh giá: <span style="margin-left: 7px;"> {{ rateStart == 0 ? "" : rateStart + "/5" }} </span>
+                  Điểm đánh giá: <span style="margin-left: 7px;"> {{ rateStar == 0 ? "" : rateStar + "/5" }} </span>
 
                 </div>
 
@@ -354,10 +354,10 @@
 
               </p-accordionTab>
             </p-accordion>
-          </div> -->
+          </div>
 
-
-          <!-- <div class="row no-margin w-100" *ngIf="orderProcessId">
+<!-- 
+          <div class="row no-margin w-100" *ngIf="orderProcessId">
             <app-note-time-line [viewNote]="viewNote" [viewTimeline]="viewTimeline" objectType="ORDERPROCESS"  [ngStyle]="{'width': '100%'}"
               [isReportPoint]="false" [objectId]="orderProcessId" [actionAdd]="actionAdd" [actionEdit]="actionEdit"
               [actionDelete]="actionDelete" [pageSize]="pageSize"></app-note-time-line>

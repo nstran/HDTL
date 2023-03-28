@@ -71,7 +71,7 @@ export class OrderProcessComponent extends AbstractBase implements OnInit {
   actionDelete: boolean = true;
   isReportPoint: boolean = false; // là điểm báo cáo ?
 
-  rateStart:number = 5;
+  rateStar:number = 5;
   rateContent:string = "";
   
   listCus: Array<any> = [];
@@ -214,7 +214,7 @@ export class OrderProcessComponent extends AbstractBase implements OnInit {
 
         this.heightOfReportPoint = (150 * (this.listProcessOfOder.length - 1)).toString() + "px";
 
-        this.rateStart =  result.orderProcess.rateStar;
+        this.rateStar =  result.orderProcess.rateStar;
         this.rateContent = result.orderProcess.rateContent;
 
       } else {
