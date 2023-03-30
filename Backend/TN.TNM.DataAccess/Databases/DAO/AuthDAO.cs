@@ -232,6 +232,16 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 Guid? roleId = Guid.Empty;
 
                 var emp = context.Employee.FirstOrDefault(e => e.EmployeeId == empId);
+
+                if(emp.Active == false)
+                {
+                    return new LoginResult
+                    {
+                        StatusCode = HttpStatusCode.ExpectationFailed,
+                        MessageCode = "Bạn không có quyền truy cập!"
+                    };
+                }
+
                 //Nếu là nhân viên
                 if (emp != null)
                 {
@@ -2119,11 +2129,11 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     Key = "hrm",
                     Name = "Module Quản trị nhân sự"
                 },
-                 new PermissionTempModel()
+                new PermissionTempModel()
                 {
                     Key = "cusOrder",
                     Name = "Module Quản trị đặt dịch vụ"
-                },
+                }
             };
 
             resource_Mapping = new List<PermissionTempModel>()
@@ -2234,43 +2244,47 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     Key = "admin/permission-detail",
                     Name = "Xem chi tiết thông tin nhóm quyền"
                 },
-                 new PermissionTempModel()
+                new PermissionTempModel()
+                {
+                    Key = "admin/mobile-app-config",
+                    Name = "Cấu hình mobile"
+                },
+                new PermissionTempModel()
                 {
                     Key = "order/orderProcess",
                     Name = "Tạo mới quy trình dịch vụ"
                 },
-                   new PermissionTempModel()
+                new PermissionTempModel()
                 {
                     Key = "order/orderProcessList",
                     Name = "Tìm kiếm quy trình dịch vụ"
                 },
-                    new PermissionTempModel()
+                new PermissionTempModel()
                 {
                     Key = "order/orderAction",
                     Name = "Tạo mới phiếu hỗ trợ"
                 },
-                   new PermissionTempModel()
+                new PermissionTempModel()
                 {
                     Key = "order/orderActionList",
                     Name = "Tìm kiếm phiếu hỗ trợ"
                 },
-
-                   new PermissionTempModel()
+                new PermissionTempModel()
                 {
                     Key = "product/product-option-detail",
                     Name = "Tạo mới tùy chọn dịch vụ"
                 },
-                   new PermissionTempModel()
+                new PermissionTempModel()
                 {
                     Key = "product/product-option-list",
                     Name = "Tìm kiếm tùy chọn dịch vụ"
                 },
-                   new PermissionTempModel()
+                new PermissionTempModel()
                 {
                     Key = "product/product-packet-createOrUpdate",
                     Name = "Tạo mới gói dịch vụ"
                 },
-                   new PermissionTempModel()
+                new PermissionTempModel()
                 {
                     Key = "product/list-product-packet",
                     Name = "Danh sách gói dịch vụ"

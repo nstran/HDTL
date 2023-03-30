@@ -1615,7 +1615,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 else
                 {
                     var userEmployeeIds = context.User.Where(c => c.Disabled == false).Select(c => c.EmployeeId).ToList();
-                    employeeList = context.Employee.Where(e => e.Active == true &&
+                    employeeList = context.Employee.Where(e => 
                                                                userEmployeeIds.Contains(e.EmployeeId) &&
                                                                (e.EmployeeCode.ToLower()
                                                                     .Contains(parameter.IdentityId.ToLower().Trim()) ||

@@ -238,6 +238,10 @@
   object-fit: contain;
 }
 
+.text-danger {
+  color: #a94442 !important;
+}
+
 ::ng-deep .employee-list .ui-datepicker {
   top: 28px !important;
 }

@@ -205,13 +205,14 @@
             <td *ngFor="let col of columns" [ngSwitch]="col.field"
               [ngStyle]="{ 'text-align': col.textAlign, display: col.display, width: col.width }">
               <span class="ui-column-title">{{col.header}}</span>
-              <span *ngSwitchCase="'employeeName'" (click)="onViewDetail(rowData)" class="link" style="display: inline-block;
+              <span *ngSwitchCase="'employeeName'" [ngClass]="rowData.active? '': 'text-danger'" (click)="onViewDetail(rowData)" class="link" style="display: inline-block;
             padding: 3px 3px;">{{rowData[col.field]}}</span>
               <span *ngSwitchCase="'isTruongBoPhan'">
                 <ng-container *ngIf="rowData[col.field] == true">
                   <i class="fa fa-check" aria-hidden="true"></i>
                 </ng-container>
               </span>
+
               <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
             </td>
             <td style="text-align: center;  width: 10rem;">

@@ -365,6 +365,7 @@ export class ListComponent implements OnInit {
         this.loading = false;
         if (result.statusCode == 200) {
           this.listEmp = result.employeeList;
+          console.log(this.listEmp)
           this.isNhanSu = result.isNhanSu;
           if (this.listEmp.length === 0) {
             let msg = { severity: 'warn', summary: 'Thông báo:', detail: 'Không tìm thấy nhân viên nào!' };

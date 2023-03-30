@@ -4,6 +4,8 @@ import { AbstractBase } from '../../../shared/abstract-base.component';
 import { MobileAppConfigurationService } from '../../services/mobile-app-configuration.service';
 import { tap } from 'rxjs/operators';
 import { CategoryEntityModel } from '../../../../../src/app/product/models/product.model';
+import { GetPermission } from '../../../../../src/app/shared/permission/get-permission';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-mobile-app-configuration',
@@ -31,12 +33,14 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
   constructor(
     injector: Injector,
     public _mobileAppConfigurationService: MobileAppConfigurationService,
-    public changeDetector: ChangeDetectorRef
-  ) {
+    public changeDetector: ChangeDetectorRef,
+    private getPermission: GetPermission,
+    private router: Router
+    ) {
     super(injector)
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.takeMobileAppConfiguration();
     this.selectedColumns2 = [
       { field: 'categoryName', header: 'Loại hình thức', width: '80px', textAlign: 'left', color: '#f44336' },
@@ -51,6 +55,14 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
       { field: 'content', header: 'Nội dung', width: '120px', textAlign: 'center', color: '#f44336' },
       { field: 'action', header: 'Thao tác', width: '30px', textAlign: 'center', color: '#f44336' }
     ];
+
+    let resource = "admin/mobile-app-config";
+    let permission: any = await this.getPermission.getPermission(resource);
+    if (permission.status == false) {
+      let mgs = { severity: 'warn', summary: 'Thông báo:', detail: 'Bạn không có quyền truy cập vào đường dẫn này vui lòng quay lại trang chủ' };
+      this.showMessage(mgs);
+      this.router.navigate(['/home']);
+    }
   }
 
   //#region Image

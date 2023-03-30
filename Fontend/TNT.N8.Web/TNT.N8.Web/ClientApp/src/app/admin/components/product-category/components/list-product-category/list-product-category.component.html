@@ -42,7 +42,7 @@
             <td class="width-10">
               <i class="material-icons btn-edit" *ngIf="actionEdit" matTooltip="{{ 'productcategory.tooltip.edit' | translate }}" (click)="onClickButtonCreate('edit',element.productCategoryId,element.productCategoryName,element.productCategoryLevel)">edit</i>
               <i class="material-icons btn-add" *ngIf="actionAdd" matTooltip="{{ 'productcategory.tooltip.add' | translate }}" (click)="onClickButtonCreate('create',element.productCategoryId,element.productCategoryName,element.productCategoryLevel)">add</i>
-              <i class="material-icons btn-delete" *ngIf="element.countProductCategory === 0 && actionDelete" matTooltip="{{ 'productcategory.tooltip.delete' | translate }}" (click)="del_productCategory(element.productCategoryId)">delete</i>
+              <i class="material-icons btn-delete" *ngIf="actionDelete" matTooltip="{{ 'productcategory.tooltip.delete' | translate }}" (click)="del_productCategory(element.productCategoryId)">delete</i>
             </td>
           </tr>
       </table>
@@ -64,7 +64,7 @@
             <td class="width-10">
               <i class="material-icons btn-edit" *ngIf="actionEdit" matTooltip="{{ 'productcategory.tooltip.edit' | translate }}" (click)="onClickButtonCreate('edit',elementChild.productCategoryId,elementChild.productCategoryName,elementChild.productCategoryLevel)">edit</i>
               <i class="material-icons btn-add" *ngIf="actionAdd" matTooltip="{{ 'productcategory.tooltip.add' | translate }}" (click)="onClickButtonCreate('create',elementChild.productCategoryId,elementChild.productCategoryName,elementChild.productCategoryLevel)">add</i>
-              <i class="material-icons btn-delete" *ngIf="element.countProductCategory === 0 && actionDelete" matTooltip="{{ 'productcategory.tooltip.delete' | translate }}" (click)="del_productCategory(elementChild.productCategoryId)">delete</i>
+              <i class="material-icons btn-delete" *ngIf="actionDelete" matTooltip="{{ 'productcategory.tooltip.delete' | translate }}" (click)="del_productCategory(elementChild.productCategoryId)">delete</i>
             </td>
           </tr>
         </table>

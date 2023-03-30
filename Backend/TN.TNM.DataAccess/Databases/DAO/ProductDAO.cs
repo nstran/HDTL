@@ -2343,6 +2343,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listEmployeeWithRole = (from ur in context.UserRole
                                     join u in context.User on ur.UserId equals u.UserId
                                     join e in context.Employee on u.EmployeeId equals e.EmployeeId
+                                    where e.Active == true
                                     select new EmployeeEntityModel
                                     {
                                         EmployeeId = e.EmployeeId,

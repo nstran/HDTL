@@ -621,3 +621,10 @@ VALUES (
 	false,
 	true
 ) ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'6154e00e-cc78-4838-9a30-7045ba788b5f', 
+	'sys/admin/mobile-app-config/view'
+) ON CONFLICT DO NOTHING;
