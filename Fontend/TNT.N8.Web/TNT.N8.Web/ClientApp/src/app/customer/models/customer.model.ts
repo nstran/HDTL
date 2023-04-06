@@ -43,6 +43,7 @@ export class CustomerModel {
   SalesUpdateAfterMeeting: string;
   AreaId: string;
   KhachDuAn: boolean;
+  SubjectsApplication : boolean
   /**
    *
    */

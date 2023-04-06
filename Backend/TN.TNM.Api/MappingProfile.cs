@@ -27,7 +27,7 @@ namespace TN.TNM.Api
             CreateMap<Product, ProductEntityModel>().ReverseMap();
             CreateMap<ProductMappingOptions, ProductMappingOptionModel>().ReverseMap();
             CreateMap<AttributeConfiguration, AttributeConfigurationEntityModel>().ReverseMap();
-            CreateMap<ServicePacket, ServicePacketEntityModel>().ReverseMap();
+            CreateMap<ServicePacketEntityModel, ServicePacket>();
             CreateMap<PermissionConfiguration, PermissionConfigurationEntityModel>().ReverseMap();
             CreateMap<ServicePacketImage, ServicePacketImageEntityModel>().ReverseMap();
             CreateMap<CustomerOrderDetail, CustomerOrderDetailEntityModel>().ReverseMap();

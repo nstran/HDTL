@@ -130,6 +130,13 @@ export class ChatroomComponent implements OnInit {
   }
 
   chat(value: string): void {
+    let re1 = /\<p>/gi;
+    let re2 = /\<\/p>/gi;
+    let re3 = /\<br>/gi;
+    value = value.replace(re1, "");
+    value = value.replace(re2, "");
+    value = value.replace(re3, "");
+    
     if(value){
       let chat : any = {
         message : value

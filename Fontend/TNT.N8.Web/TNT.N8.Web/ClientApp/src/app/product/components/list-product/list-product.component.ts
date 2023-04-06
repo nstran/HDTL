@@ -21,7 +21,7 @@ export class ListProductComponent extends AbstractBase implements OnInit {
   listProduct: Product[] = [];
   rows: number = 10;
   cols: any[];
-  filterText: string;
+  filterText: string = "";
   queryControl = new FormControl("");
 
   constructor(
@@ -69,7 +69,7 @@ export class ListProductComponent extends AbstractBase implements OnInit {
       startWith(this.filterText != "" ? this.filterText : ""),
       switchMap((query: string) =>
         this.productService.getListProduct(
-          query
+          query != "" ? query : ""
         ).pipe(tap(() => {
           this.loading = false;
           this.filterText = query;

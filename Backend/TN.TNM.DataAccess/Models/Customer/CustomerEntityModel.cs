@@ -101,6 +101,7 @@ namespace TN.TNM.DataAccess.Models.Customer
 
         public decimal? Point { get; set; }
         public decimal? PayPoint { get; set; }
+        public bool SubjectsApplication { get; set; }
 
         public List<BankAccountEntityModel> ListBankAccount { get; set; }
         public List<Guid> ListOrderId { get; set; }

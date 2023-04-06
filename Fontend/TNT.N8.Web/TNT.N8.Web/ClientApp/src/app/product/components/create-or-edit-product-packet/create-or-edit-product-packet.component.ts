@@ -51,6 +51,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   showModalNoitiConfig: boolean = false;
   showErrorProductCategoryEntityModel : boolean = false;
   showErrorProvinceEntityModel : boolean = false;
+  showErrorSubjectsApplication : boolean = false;
   colsAttr: any[];
   colsRole: any[];
   colsNotiConfig: any[];
@@ -82,6 +83,8 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   ratioIconImage : string = '1:1';
   listEmpWithRole: EmployeeEntityModel[];
   listNotificationConfigurationModel: NotificationConfigurationEntityModel[] = [];
+  listSubjectsApplicationCategory: CategoryEntityModel[] = [];
+  subjectsApplication: CategoryEntityModel;
   notificationConfigurationEntityModel = new NotificationConfigurationEntityModel();
   isShowButtonActive: boolean = false;
 
@@ -208,7 +211,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
         this.listOptionEntityModel = result.listOptionEntityModel;
         this.listEmpWithRole = result.listEmpWithRole;
         this.listNotificationConfigurationModel = result.listNotificationConfigurationEntityModel.sort((a,b) => {return a.sortOrder - b.sortOrder});
-
+        this.listSubjectsApplicationCategory = result.listSubjectsApplicationCategory;
         this.listNotificationConfigurationModel.forEach(item => {
           item.listEmployeeEntityModel = [];
         });
@@ -245,6 +248,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
         this.productCategoryEntityModel = this.listProductCategoryEntityModel.find(x => x.productCategoryId == result.servicePacketEntityModel.productCategoryId);
         this.listServicePacketAttributeEntityModel = result.servicePacketEntityModel.listServicePacketAttributeEntityModel;
         this.listNotificationConfigurationModel = result.servicePacketEntityModel.listNotificationConfigurationEntityModel.sort((a,b) => {return a.sortOrder - b.sortOrder});
+        this.subjectsApplication = this.listSubjectsApplicationCategory.find(x => x.categoryId == result.servicePacketEntityModel.subjectsApplicationId);
         this.listNotificationConfigurationModel.forEach(x => {
           x = this.customerNotificationRecipient(x);
         })
@@ -255,9 +259,6 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
           this.servicePacketImageEntityModel = result.servicePacketImageEntityModel;
         }
 
-        // if(this.listProvince.find(x => x.provinceId == result.servicePacketEntityModel.provinceId)){
-        //   this.listProvinceSelected = this.listProvince.filter(x => x.provinceId == result.servicePacketEntityModel.provinceId);
-        // }
         if(result.servicePacketEntityModel.provinceIds != null && result.servicePacketEntityModel.provinceIds.length > 0){
           let listProvinceId = result.servicePacketEntityModel.provinceIds.map(i => i);
           this.listProvinceSelected = this.listProvince.filter(x => listProvinceId.indexOf(x.provinceId) != -1);
@@ -336,9 +337,9 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
     this.servicePacketEntityModel.productCategoryId = event.productCategoryId;
   }
 
-  // changeProvince(event: ProvinceEntityModel): void {
-  //   this.servicePacketEntityModel.provinceId = event.provinceId;
-  // }
+  changeSubjectsApplication(event: CategoryEntityModel): void {
+    this.servicePacketEntityModel.subjectsApplicationId = event.categoryId;
+  }
 
   changeAttrName(event : CategoryEntityModel): void {
     this.servicePacketAttributeEntityModelAdd.categoryId = event.categoryId;
@@ -468,6 +469,14 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
       return this.showErrorProvinceEntityModel = true;
     } else {
       return this.showErrorProvinceEntityModel = false;
+    }
+  }
+
+  checkValidatesubjectsApplication(): boolean {
+    if(this.subjectsApplication == undefined){
+      return this.showErrorSubjectsApplication = true;
+    } else {
+      return this.showErrorSubjectsApplication = false;
     }
   }
 
@@ -740,6 +749,12 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
       this.showToast('warn', 'Thông báo','Loại gói không được để trống');
       return;
     }
+
+    if (!this.subjectsApplication) {
+      this.showToast('warn', 'Thông báo','Chọn đối tượng áp dụng');
+      return;
+    }
+
     
     //Kiểm tra nếu Loại phê duyệt là Phòng ban phê duyệt hoặc Phòng ban xác nhận => Đã chọn phòng ban chưa?
     let error = false;

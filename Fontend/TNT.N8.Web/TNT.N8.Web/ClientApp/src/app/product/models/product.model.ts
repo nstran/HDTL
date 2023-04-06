@@ -473,6 +473,7 @@ export class ServicePacketEntityModel {
   stt: number;
   code: string;
   active: boolean;
+  subjectsApplicationId: string;
   listPermissionConfigurationEntityModel : PermissionConfigurationEntityModel[];
   listRoleServicePacket : RoleEntityModel[];
   listServicePacketAttributeEntityModel : ServicePacketAttributeEntityModel[];
@@ -563,6 +564,7 @@ export class GetMasterDataCreateServicePacketResult {
   listServicePacketConfigurationPermissionModel: PermissionConfigurationEntityModel[];
   listOptionEntityModel: OptionsEntityModel[];
   listNotificationConfigurationEntityModel : NotificationConfigurationEntityModel[];
+  listSubjectsApplicationCategory : CategoryEntityModel[];
   statusCode: number;
   messageCode: string;
 }

@@ -284,8 +284,16 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
+
+                var listServicePacket = context.ServicePacket
+                                  .Select(x => new ServicePacketEntityModel
+                                  {
+                                      Id = x.Id,
+                                      Name = x.Name,
+                                  }).ToList();
+
                 var listCustomerOrder = (from cu in context.OrderProcess
-                                         join s in context.ServicePacket on cu.ServicePacketId equals s.Id into sJoined
+                                         join s in listServicePacket on cu.ServicePacketId equals s.Id into sJoined
                                          from s in sJoined.DefaultIfEmpty()
                                          join c in context.ProductCategory on s.ProductCategoryId equals c.ProductCategoryId into csJoined
                                          from cs in csJoined.DefaultIfEmpty()
@@ -295,13 +303,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                              Status = cu.Status,
                                              ProductCategoryName = cs.ProductCategoryName
                                          }).ToList();
-
-                var listServicePacket = context.ServicePacket
-                                        .Select(x => new ServicePacketEntityModel
-                                        {
-                                            Id = x.Id,
-                                            Name = x.Name,
-                                        });
+          
                 var listCustomerOrderGroupByServicePacketId = listCustomerOrder.GroupBy(x => x.ServicePacketId).ToList();
                 var listStatisticServicePacketNewStatus = new List<NewStatus>();
                 var listStatisticServicePacketProgressStatus = new List<ProgressStatus>();
@@ -310,26 +312,26 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 foreach (var item in listCustomerOrderGroupByServicePacketId)
                 {
                     var statisticServicePacketNewStatus = new NewStatus();
-                    statisticServicePacketNewStatus.ServicePacketName = listServicePacket.Where(x => x.Id == item.Key).FirstOrDefault().Name;
-                    statisticServicePacketNewStatus.ProductCategoryName = item.FirstOrDefault().ProductCategoryName;
+                    statisticServicePacketNewStatus.ServicePacketName = listServicePacket.Where(x => x.Id == item.Key).FirstOrDefault()?.Name;
+                    statisticServicePacketNewStatus.ProductCategoryName = item.FirstOrDefault()?.ProductCategoryName;
                     statisticServicePacketNewStatus.Count = listCustomerOrder.Count(x => x.Status == 1 && x.ServicePacketId == item.Key);
                     listStatisticServicePacketNewStatus.Add(statisticServicePacketNewStatus);
 
                     var statisticServicePacketProgressStatus = new ProgressStatus();
-                    statisticServicePacketProgressStatus.ServicePacketName = listServicePacket.Where(x => x.Id == item.Key).FirstOrDefault().Name;
-                    statisticServicePacketProgressStatus.ProductCategoryName = item.FirstOrDefault().ProductCategoryName;
+                    statisticServicePacketProgressStatus.ServicePacketName = listServicePacket.Where(x => x.Id == item.Key).FirstOrDefault()?.Name;
+                    statisticServicePacketProgressStatus.ProductCategoryName = item.FirstOrDefault()?.ProductCategoryName;
                     statisticServicePacketProgressStatus.Count = listCustomerOrder.Count(x => x.Status == 2 && x.ServicePacketId == item.Key);
                     listStatisticServicePacketProgressStatus.Add(statisticServicePacketProgressStatus);
 
                     var statisticServicePacketDoneStatus = new DoneStatus();
-                    statisticServicePacketDoneStatus.ServicePacketName = listServicePacket.Where(x => x.Id == item.Key).FirstOrDefault().Name;
-                    statisticServicePacketDoneStatus.ProductCategoryName = item.FirstOrDefault().ProductCategoryName;
+                    statisticServicePacketDoneStatus.ServicePacketName = listServicePacket.Where(x => x.Id == item.Key).FirstOrDefault()?.Name;
+                    statisticServicePacketDoneStatus.ProductCategoryName = item.FirstOrDefault()?.ProductCategoryName;
                     statisticServicePacketDoneStatus.Count = listCustomerOrder.Count(x => x.Status == 3 && x.ServicePacketId == item.Key);
                     listStatisticServicePacketDoneStatus.Add(statisticServicePacketDoneStatus);
 
-                    var statisticServicePacketCancelStatus= new CancelStatus();
-                    statisticServicePacketCancelStatus.ServicePacketName = listServicePacket.Where(x => x.Id == item.Key).FirstOrDefault().Name;
-                    statisticServicePacketCancelStatus.ProductCategoryName = item.FirstOrDefault().ProductCategoryName;
+                    var statisticServicePacketCancelStatus = new CancelStatus();
+                    statisticServicePacketCancelStatus.ServicePacketName = listServicePacket.Where(x => x.Id == item.Key).FirstOrDefault()?.Name;
+                    statisticServicePacketCancelStatus.ProductCategoryName = item.FirstOrDefault()?.ProductCategoryName;
                     statisticServicePacketCancelStatus.Count = listCustomerOrder.Count(x => (x.Status == 4 || x.Status == 5 || x.Status == 6) && x.ServicePacketId == item.Key);
                     listStatisticServicePacketCancelStatus.Add(statisticServicePacketCancelStatus);
                 }

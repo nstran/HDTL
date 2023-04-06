@@ -13,7 +13,8 @@
                         <h3>{{chat.date | date : 'hh:mm:ss dd/MM/yyyy'}}</h3>
                     </div>
                     <div class="message">
-                        {{chat.message}}
+                        <!-- {{chat.message}} -->
+                        <div [innerHTML]="chat.message"></div>
                     </div>
                     <ng-container *ngIf="last">{{getScroll()}}</ng-container>
                 </li>
@@ -21,12 +22,23 @@
         </ng-container>
     </ul>
     <footer>
-        <textarea 
+        <!-- <textarea 
             type="text"
             placeholder="Type your message" 
             (keyup.enter)="chat(message)"
             [(ngModel)]="message"
             >
-        </textarea>
+        </textarea> -->
+        <p-editor [(ngModel)]="message" [style]="{'height':'80px'}" (keyup.enter)="chat(message)">
+            <p-header>
+                <span class="ql-formats">
+                    <button type="button" 
+                        class="ql-image" 
+                        aria-label="Image"
+                        >
+                    </button>
+                </span>
+            </p-header>
+        </p-editor>
     </footer>
 </main>

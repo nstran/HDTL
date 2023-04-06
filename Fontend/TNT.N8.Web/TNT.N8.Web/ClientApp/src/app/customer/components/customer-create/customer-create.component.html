@@ -79,14 +79,39 @@
   </div>
 
   <div class="header-top" style="margin-top:10px;">
-    <div class="row bottom-buffer" id="parent" *ngIf="customerType == 2">
+    <div class="row bottom-buffer" id="parent">
       <div class="col-md-12" >
         <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
           <p-accordionTab header="Thông tin khách hàng" [selected]="true">
             <div class="col-md-12">
               <!-- khach hang ca nhan -->
-              <div *ngIf="customerType == 2" class="col-md-12">
+              <div class="col-md-12">
+                <div class="row pb-3">
+                  <div class="col-md-12">
+                    <div class="row bottom-buffer">
+                      <div class="col-md-3">
+                        <p-radioButton 
+                          name="CustomerTypeCompanyForm" 
+                          value="2" 
+                          [(ngModel)]="customerType"
+                          label="Cá nhân"
+                        >
+                        </p-radioButton>
+                      </div>
+                      <div class="col-md-3">
+                        <p-radioButton 
+                          name="CustomerTypeCompanyForm" 
+                          value="1" 
+                          [(ngModel)]="customerType"
+                          label="Doanh nghiệp"
+                        >
+                        </p-radioButton>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <form [formGroup]="personalCustomerForm">
+    
                   <div class="row top-buffer bottom-buffer">
                     <div class="col-md-3">
                       <div class="row bottom-buffer">

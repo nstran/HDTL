@@ -105,7 +105,7 @@ export class ThongTinChungComponent implements OnInit {
     WorkEmail: '',
     Benefit: 1,
     PercenBenefit: null
-  }
+  };
 
   constructor(
     public messageService: MessageService,

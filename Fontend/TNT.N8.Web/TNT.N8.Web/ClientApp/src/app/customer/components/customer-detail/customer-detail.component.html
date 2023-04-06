@@ -38,13 +38,13 @@
             <span class="btn-remove-text">Xóa</span>
           </button>
 
-          <!-- <button *ngIf="actionEdit && isEdit" type="button" class="btn-cancel-edit" (click)="isCancelEditCustomer()">
+          <button *ngIf="actionEdit && isEdit" type="button" class="btn-cancel-edit" (click)="isCancelEditCustomer()">
             <span class="btn-remove-text">Hủy chỉnh sửa</span>
           </button>
 
           <button *ngIf="actionEdit && !isEdit" type="button" class="btn-save" (click)="isEditCustomer()">
             <span class="btn-save-text">Sửa</span>
-          </button> -->
+          </button>
 
           <button *ngIf="actionEdit && isEdit" type="button" class="btn-save" (click)="saveCustomer()">
             <span class="btn-save-text">Lưu</span>
@@ -70,6 +70,33 @@
 
                 <!-- NẾU LÀ SỬA -->
                 <div class="col-md-10" *ngIf="isEdit">
+                  <div class="row pb-3">
+                    <div class="col-md-12">
+                      <div class="row bottom-buffer">
+                        <div class="col-md-3">
+                          <p-radioButton 
+                            name="CustomerTypeCompanyForm" 
+                            value="2" 
+                            [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="customerType" 
+                            label="Cá nhân"
+                          >
+                          </p-radioButton>
+                        </div>
+                        <div class="col-md-3">
+                          <p-radioButton 
+                            name="CustomerTypeCompanyForm" 
+                            value="1" 
+                            [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="customerType"
+                            label="Doanh nghiệp"
+                          >
+                          </p-radioButton>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="row">
                     <div class="col-md-3">
 
@@ -94,9 +121,7 @@
                           </div>
                         </div>
 
-
-                        <span class="infor-label">{{customerModel.CustomerType == 1 ? 'Tên công ty' : 'Họ và tên
-                          đệm'}}</span>
+                        <span class="infor-label">{{customerModel.CustomerType == 1 ? 'Tên công ty' : 'Họ và tên đệm'}}</span>
                         <div class="row">
                           <div class="col-md-12">
                             <input type="text" class="w100" pInputText formControlName="cusFirstNameControl"
@@ -134,13 +159,14 @@
                               tự</span>
                           </div>
 
-                        </div>
+                        </div>                   
+
                       </form>
                     </div>
 
                     <!-- NẾU LÀ SỬA -->
                     <div class="col-md-9">
-                      <form *ngIf="(customerModel.CustomerType != 1) && customerPersonalInforForm && isEdit"
+                      <form *ngIf="customerPersonalInforForm && isEdit"
                         [formGroup]="customerPersonalInforForm">
                         <div class="row">
                           <!-- Hàng 1 -->
@@ -260,6 +286,23 @@
 
                         </div>
 
+                        <!-- Khách hàng Review -->
+                        <div class="row" style="margin-top: 5px;">
+                          <div class="col-md-4">
+                            <span>&nbsp;</span>
+                            <div class="form-group">
+                              <label class="isActive font-weight-bold">Khách hàng Review
+                                  <input type="checkbox" 
+                                    [(ngModel)]="subjectsApplication"
+                                    name="Active"
+                                    [disabled]="!this.isEdit"
+                                    [ngModelOptions]="{standalone: true}"
+                                  >
+                                  <span class="checkmark" [ngClass]="!this.isEdit ? 'checkmark-disable' : ''"></span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
                       </form>
                     </div>
                   </div>
@@ -268,6 +311,36 @@
 
                 <!-- NẾU LÀ HỦY SỬA -->
                 <div class="col-md-10 " *ngIf="!isEdit">
+                  
+                  <div class="row pb-3">
+                    <div class="col-md-12">
+                      <div class="row bottom-buffer">
+                        <div class="col-md-3">
+                          <p-radioButton 
+                            name="CustomerTypeCompanyForm" 
+                            value="2" 
+                            [disabled]="!isEdit"
+                            [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="customerType" 
+                            label="Cá nhân"
+                          >
+                          </p-radioButton>
+                        </div>
+                        <div class="col-md-3">
+                          <p-radioButton 
+                            name="CustomerTypeCompanyForm" 
+                            value="1" 
+                            [disabled]="!isEdit"
+                            [ngModelOptions]="{standalone: true}"
+                            [(ngModel)]="customerType"
+                            label="Doanh nghiệp"
+                          >
+                          </p-radioButton>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <div class="row">
                     <div class="col-md-3">
                       <span class="infor-label">Mã khách hàng:</span> <strong
@@ -289,8 +362,7 @@
 
                   <div class="row" style="padding-top: 10px; word-break: break-word;">
                     <div class="col-md-3">
-                      <span class="infor-label">{{customerModel.CustomerType == 1 ? 'Tên công ty:' : 'Họ và tên
-                        đệm:'}}</span> <strong style="margin-left:8px;">{{contactModel.FirstName}}</strong>
+                      <span class="infor-label">{{customerModel.CustomerType == 1 ? 'Tên công ty:' : 'Họ và tên đệm:'}}</span> <strong style="margin-left:8px;">{{contactModel.FirstName}}</strong>
                     </div>
 
                     <div class="col-md-3">
@@ -316,6 +388,20 @@
                     <div class="col-md-3">
                       <span class="infor-label">Tên:</span> <strong
                         style="margin-left:8px;">{{contactModel.LastName}}</strong>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="form-group">
+                        <label class="isActive font-weight-bold">Khách hàng Review
+                            <input type="checkbox" 
+                              [(ngModel)]="subjectsApplication"
+                              name="Active"
+                              [disabled]="!this.isEdit"
+                              [ngModelOptions]="{standalone: true}"
+                            >
+                            <span class="checkmark" [ngClass]="!this.isEdit ? 'checkmark-disable' : ''"></span>
+                        </label>
+                      </div>
                     </div>
                   </div>
                 </div>

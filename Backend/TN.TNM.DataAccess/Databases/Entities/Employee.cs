@@ -88,7 +88,6 @@ namespace TN.TNM.DataAccess.Databases.Entities
         public int? EmployeeType { get; set; }
         public int? Benefit { get; set; }
         public decimal? PercenBenefit { get; set; }
-
         public Organization Organization { get; set; }
         public ICollection<EmployeeAllowance> EmployeeAllowance { get; set; }
         public ICollection<EmployeeAssessment> EmployeeAssessment { get; set; }

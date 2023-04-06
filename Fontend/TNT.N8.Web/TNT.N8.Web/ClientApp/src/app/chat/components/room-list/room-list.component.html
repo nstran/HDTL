@@ -45,7 +45,7 @@
                                     {{room.messageUnreadCount >= 5 ? room.messageUnreadCount + '+' : room.messageUnreadCount}}
                                 </span>
                             </h2>
-                            <p class="last-message no-margin">{{room.lastMessage}}</p>
+                            <p class="last-message no-margin">{{room.lastMessage?.includes('img src="data:image') ? 'Hình ảnh' : room.lastMessage}}</p>
                         </div>
                     </li>
                 </ng-container>

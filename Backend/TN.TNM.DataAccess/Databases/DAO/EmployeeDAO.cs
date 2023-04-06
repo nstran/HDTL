@@ -2524,7 +2524,6 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 employee.Benefit = parameter.ThongTinChungThanhVien.Benefit;
                 employee.PercenBenefit = parameter.ThongTinChungThanhVien.PercenBenefit;
 
-
                 #region Các phòng ban mà nhân viên trực thuộc
 
                 var listThanhVienPhongBan = new List<ThanhVienPhongBan>();

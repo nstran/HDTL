@@ -6,12 +6,18 @@ namespace TN.TNM.DataAccess.Consts.Product
 {
     public class ProductConsts
     {
+        //CategoryType
         public const string CategoryTypeCodeService = "SERVICE";
         public const string CategoryTypeCodeOptionType = "OPTIONTYPE";
         public const string CategoryTypeCodeATR = "ATTRIBUTE";
         public const string CategoryTypeCodeActionStep = "ACTIONSTEP";
         public const string CategoryTypeCodeNotificationConfig = "NOTIFICATIONCONFIG";
         public const string CategoryTypeCodeUnit = "CategoryUnit";
+        public const string CategoryTypeCodeSubjectsApplication = "SubjectsApplication";
+
+        //CategoryType
+        public const string CategoryCodeUserReview = "UserReview";
+        public const string CategoryCodeUpMobile = "UpMobile";
 
         //Danh mục nhiệm vụ
         public const string CategoryTypeCodeEmpMission = "EmpMission";

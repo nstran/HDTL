@@ -2281,31 +2281,67 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                 RoleValue = x.RoleValue
                                             }).ToList();
 
+                var listCategoryEntityModel = await (from c in context.Category
+                                                     join ct in context.CategoryType
+                                                     on c.CategoryTypeId equals ct.CategoryTypeId into cct
+                                                     from cctJoined in cct.DefaultIfEmpty()
+                                                     where cctJoined.CategoryTypeCode == ProductConsts.CategoryTypeCodeActionStep
+                                                        || cctJoined.CategoryTypeCode == ProductConsts.CategoryTypeCodeNotificationConfig
+                                                        || cctJoined.CategoryTypeCode == ProductConsts.CategoryTypeCodeATR
+                                                        || cctJoined.CategoryTypeCode == ProductConsts.CategoryTypeCodeSubjectsApplication
+                                                     select new CategoryEntityModel
+                                                     {
+                                                         StepId = c.SortOrder,
+                                                         CategoryName = c.CategoryName,
+                                                         IsEdit = c.IsEdit,
+                                                         CategoryId = c.CategoryId,
+                                                         CategoryTypeCode = cctJoined.CategoryTypeCode
+                                                     }).ToListAsync();
+
                 //List các bước gói dv
-                Guid categoryTypeCodeActionStepId = context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeActionStep).CategoryTypeId;
-                var listStepServicePacketSelect = context.Category
-                                            .Where(x => x.CategoryTypeId == categoryTypeCodeActionStepId && x.IsEdit == true)
+                //Guid categoryTypeCodeActionStepId = context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeActionStep).CategoryTypeId;
+                //var listStepServicePacketSelect = context.Category
+                //                            .Where(x => x.CategoryTypeId == categoryTypeCodeActionStepId && x.IsEdit == true)
+                //                            .Select(x => new PermissionConfigurationEntityModel
+                //                            {
+                //                                StepId = x.SortOrder,
+                //                                CategoryName = x.CategoryName,
+                //                                IsEdit = x.IsEdit,
+                //                                CategoryId = x.CategoryId
+                //                            }).ToList();
+
+                var listStepServicePacketSelect = listCategoryEntityModel
+                                            .Where(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeActionStep && x.IsEdit == true)
                                             .Select(x => new PermissionConfigurationEntityModel
                                             {
                                                 StepId = x.SortOrder,
                                                 CategoryName = x.CategoryName,
                                                 IsEdit = x.IsEdit,
-                                                CategoryId = x.CategoryId
+                                                CategoryId = (Guid)x.CategoryId
                                             }).ToList();
 
-                var listServicePacketConfigurationPermissionModel = context.Category
-                                            .Where(x => x.CategoryTypeId == categoryTypeCodeActionStepId && x.IsEdit == false)
+                var listServicePacketConfigurationPermissionModel = listCategoryEntityModel
+                                            .Where(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeActionStep && x.IsEdit == false)
                                             .Select(x => new PermissionConfigurationEntityModel
                                             {
                                                 StepId = x.SortOrder,
                                                 CategoryName = x.CategoryName,
                                                 IsEdit = x.IsEdit,
-                                                CategoryId = x.CategoryId
+                                                CategoryId = (Guid)x.CategoryId
                                             }).ToList();
 
-                Guid categoryTypeCodeNotificationConfigId = context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeNotificationConfig).CategoryTypeId;
-                var listNotificationConfigurationModel = context.Category
-                                            .Where(x => x.CategoryTypeId == categoryTypeCodeNotificationConfigId)
+                //Guid categoryTypeCodeNotificationConfigId = context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeNotificationConfig).CategoryTypeId;
+                //var listNotificationConfigurationModel = context.Category
+                //                            .Where(x => x.CategoryTypeId == categoryTypeCodeNotificationConfigId)
+                //                            .Select(x => new NotificationConfigurationEntityModel
+                //                            {
+                //                                SortOrder = x.SortOrder,
+                //                                CategoryName = x.CategoryName,
+                //                                CategoryId = x.CategoryId
+                //                            }).ToList();
+
+                var listNotificationConfigurationModel = listCategoryEntityModel
+                                            .Where(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeNotificationConfig)
                                             .Select(x => new NotificationConfigurationEntityModel
                                             {
                                                 SortOrder = x.SortOrder,
@@ -2314,7 +2350,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                             }).ToList();
 
                 //ListProvince
-                var listProvince = context.Province
+                var listProvince = context.Province.OrderBy(x => x.ProvinceName)
                                    .Select(x => new ProvinceEntityModel
                                    {
                                        ProvinceId = x.ProvinceId,
@@ -2322,12 +2358,22 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                    }).ToList();
 
                 //List tên thuộc tính
-                var attrCateType = context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeATR);
-                var listAttrCategory = await context.Category.Where(x => x.CategoryTypeId == attrCateType.CategoryTypeId).Select(x => new CategoryEntityModel
-                {
-                    CategoryId = x.CategoryId,
-                    CategoryName = x.CategoryName
-                }).ToListAsync();
+                //var attrCateType = context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeATR);
+                //var listAttrCategory = await context.Category
+                //                    .Where(x => x.CategoryTypeId == attrCateType.CategoryTypeId)
+                //                    .Select(x => new CategoryEntityModel
+                //                    {
+                //                        CategoryId = x.CategoryId,
+                //                        CategoryName = x.CategoryName
+                //                    }).ToListAsync();
+
+                var listAttrCategory = listCategoryEntityModel
+                                    .Where(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeATR)
+                                    .Select(x => new CategoryEntityModel
+                                    {
+                                        CategoryId = x.CategoryId,
+                                        CategoryName = x.CategoryName
+                                    }).ToList();
 
                 //List loại gói dịch vụ
                 var listProductCategoryEntityModel = await context.ProductCategory.Where(x => x.Active == true).Select(x => new ProductCategoryEntityModel
@@ -2361,6 +2407,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                 Description = x.Description
                                             }).ToListAsync();
 
+                var listSubjectsApplicationCategory = listCategoryEntityModel
+                               .Where(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeSubjectsApplication)
+                               .Select(x => new CategoryEntityModel
+                               {
+                                   CategoryId = x.CategoryId,
+                                   CategoryName = x.CategoryName
+                               }).ToList();
+
                 return new GetMasterDataCreateServicePacketResult()
                 {
                     ListDataTypeAttr = listDataTypeAttr,
@@ -2373,8 +2427,9 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     ListStepServicePacketSelect = listStepServicePacketSelect,
                     ListServicePacketConfigurationPermissionModel = listServicePacketConfigurationPermissionModel,
                     ListNotificationConfigurationEntityModel = listNotificationConfigurationModel,
+                    ListSubjectsApplicationCategory = listSubjectsApplicationCategory,
                     StatusCode = HttpStatusCode.OK,
-                    MessageCode = ""
+                    Message = "Thành công"
                 };
             }
             catch (Exception e)
@@ -2756,15 +2811,16 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
+                var user = await context.User.FirstOrDefaultAsync(x => x.UserId == parameter.UserId);
+                var customerSubjectsApplication = context.Customer.FirstOrDefault(x => x.CustomerId == user.EmployeeId)?.SubjectsApplication;
                 var listProvince = context.Province.Select(x => new { ProvinceId = x.ProvinceId, ProvinceName = x.ProvinceName }).ToList();
-                var listServicePacket = new List<ServicePacketEntityModel>();
-                if (!string.IsNullOrEmpty(parameter.FilterText))
-                {
-                    listServicePacket = await (from s in context.ServicePacket
-                                               join c in context.ProductCategory on s.ProductCategoryId equals c.ProductCategoryId
+                var listServicePacket = await (from s in context.ServicePacket
+                                               join pc in context.ProductCategory on s.ProductCategoryId equals pc.ProductCategoryId
                                                join si in context.ServicePacketImage on s.Id equals si.ServicePacketId
-                                               where (s.Name.ToLower().Contains(parameter.FilterText.ToLower()) || 
-                                               c.ProductCategoryName.ToLower().Contains(parameter.FilterText.ToLower()))
+                                               join c in context.Category on s.SubjectsApplicationId equals c.CategoryId
+                                               into sc from scJoined in sc.DefaultIfEmpty()
+                                               where (s.Name.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || pc.ProductCategoryName.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || parameter.FilterText == null)
+                                               orderby s.Stt
                                                select new ServicePacketEntityModel
                                                {
                                                    Id = s.Id,
@@ -2775,39 +2831,15 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                    Message = s.Message,
                                                    Name = s.Name,
                                                    ProductCategoryId = s.ProductCategoryId,
-                                                   ProductCategoryName = c.ProductCategoryName,  
+                                                   ProductCategoryName = pc.ProductCategoryName,  
                                                    Status = s.Status,
                                                    Icon = si.Icon,
                                                    BackgroundImage = si.BackgroundImage,
                                                    MainImage = si.MainImage,
                                                    Stt = s.Stt,
-                                                   Active = s.Active
-                                               }).OrderBy(x => x.Stt).ToListAsync();
-                }
-                else
-                {
-                    listServicePacket = await (from s in context.ServicePacket
-                                               join c in context.ProductCategory on s.ProductCategoryId equals c.ProductCategoryId
-                                               join si in context.ServicePacketImage on s.Id equals si.ServicePacketId
-                                               select new ServicePacketEntityModel
-                                               {
-                                                   Id = s.Id,
-                                                   AttributeName = s.AttributeName,
-                                                   Description = s.Description,
-                                                   ProvinceIds = s.ProvinceIds,
-                                                   ProvinceName = (s.ProvinceIds != null && s.ProvinceIds.Length > 0) ? String.Join(", ", listProvince.Where(x => s.ProvinceIds.Any(y => y == x.ProvinceId)).Select(z => z.ProvinceName).ToList()) : "",
-                                                   Message = s.Message,
-                                                   Name = s.Name,
-                                                   ProductCategoryId = s.ProductCategoryId,
-                                                   ProductCategoryName = c.ProductCategoryName,
-                                                   Status = s.Status,
-                                                   Icon = si.Icon,
-                                                   BackgroundImage = si.BackgroundImage,
-                                                   MainImage = si.MainImage,
-                                                   Stt = s.Stt,
-                                                   Active = s.Active
-                                               }).OrderBy(x => x.Stt).ToListAsync();
-                }
+                                                   SubjectsApplication = customerSubjectsApplication != null ? scJoined.CategoryCode == ProductConsts.CategoryCodeUpMobile ? true : (scJoined.CategoryCode == ProductConsts.CategoryCodeUserReview && customerSubjectsApplication == true) ? true : false : false
+                                               }).ToListAsync();
+
                 var listAllServiceMappingOptions = context.ServicePacketMappingOptions.ToList();
                 listServicePacket.ForEach(item => {
                     item.CountOption = listAllServiceMappingOptions.Count(x => x.ServicePacketId == item.Id && x.OptionId != null);
@@ -3010,7 +3042,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                         ListNotificationConfigurationEntityModel = listNotificationConfigurationModel,
                                         ProvinceIds = s.ProvinceIds,
                                         Stt = s.Stt,
-                                        Active = s.Active
+                                        SubjectsApplicationId = s.SubjectsApplicationId
                                     }).FirstOrDefaultAsync();
 
                 //Lấy cấu hình phê duyệt

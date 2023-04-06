@@ -1680,6 +1680,10 @@ namespace TN.TNM.DataAccess.Databases
 
                 entity.Property(e => e.Website).HasColumnType("character varying(255)");
 
+                entity.Property(e => e.SubjectsApplication)
+                    .IsRequired()
+                    .HasDefaultValueSql("false");
+
                 entity.HasOne(d => d.CustomerServiceLevel)
                     .WithMany(p => p.Customer)
                     .HasForeignKey(d => d.CustomerServiceLevelId)
@@ -5291,10 +5295,6 @@ namespace TN.TNM.DataAccess.Databases
                 entity.Property(e => e.Status).HasColumnType("character varying(255)");
 
                 entity.Property(e => e.Code).HasColumnType("character varying(50)");
-
-                entity.Property(e => e.Active)
-                    .IsRequired()
-                    .HasDefaultValueSql("true");
 
                 entity.HasQueryFilter(e => e.TenantId == _tenantId);
             });

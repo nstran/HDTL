@@ -24,6 +24,7 @@ namespace TN.TNM.DataAccess.Messages.Results.Admin.Product
         public List<PermissionConfigurationEntityModel> ListStepServicePacketSelect { get; set; }
         public List<PermissionConfigurationEntityModel> ListServicePacketConfigurationPermissionModel { get; set; }
         public List<NotificationConfigurationEntityModel> ListNotificationConfigurationEntityModel { get; set; }
+        public List<CategoryEntityModel> ListSubjectsApplicationCategory { get; set; }
 
     }
 }

@@ -628,3 +628,49 @@ VALUES (
 	'6154e00e-cc78-4838-9a30-7045ba788b5f', 
 	'sys/admin/mobile-app-config/view'
 ) ON CONFLICT DO NOTHING;
+
+
+INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
+VALUES ('cca041ff-a79d-4adf-95ce-4632626f8c2e', 'Đối tượng áp dụng', 'SubjectsApplication', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit","IsDefauld")
+VALUES (
+	'7bbc84c4-21cd-4342-9b63-0df1602dd70d', 
+	'Chưa đăng lên mobile', 
+	'DontMobile',
+	'cca041ff-a79d-4adf-95ce-4632626f8c2e',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	false,
+	true
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit","IsDefauld")
+VALUES (
+	'a6720c5a-da18-4531-b191-04ceff99d4a8', 
+	'Đăng lên mobile', 
+	'UpMobile',
+	'cca041ff-a79d-4adf-95ce-4632626f8c2e',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	false,
+	true
+) ON CONFLICT DO NOTHING;
+
+INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit","IsDefauld")
+VALUES (
+	'f1b8fc13-7ae1-481e-9d97-9426ab67debd', 
+	'Khách hàng Review', 
+	'UserReview',
+	'cca041ff-a79d-4adf-95ce-4632626f8c2e',
+	true, 
+	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
+	'2022-10-05 13:21:46.033',
+	'04d0d35e-eacb-49da-87fd-cdc0913caeec',
+	false,
+	true
+) ON CONFLICT DO NOTHING;

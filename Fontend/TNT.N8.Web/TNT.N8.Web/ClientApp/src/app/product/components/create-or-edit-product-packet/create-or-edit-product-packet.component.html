@@ -132,7 +132,7 @@
                                     >
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-2">
                                 <div class="form-group">
                                     <p class="service-type font-weight-bold">
                                         Loại gói dịch vụ <span class="text-danger">*</span>
@@ -177,18 +177,6 @@
                                     <p class="service-type font-weight-bold">
                                         Khu vực áp dụng <span class="text-danger">*</span>
                                     </p>
-                                    <!-- <p-dropdown 
-                                        [options]="listProvince" 
-                                        [(ngModel)]="provinceEntityModel"
-                                        [filter]="true" 
-                                        [style]="{'width': '100%'}"
-                                        optionLabel="provinceName" 
-                                        (onChange)="changeProvince($event.value)"
-                                        [ngModelOptions]="{standalone: true}"
-                                        placeholder="Chọn khu vực áp dụng" 
-                                        required
-                                        >
-                                    </p-dropdown> -->
                                     <p-multiSelect 
                                         [options]="listProvince"
                                         [(ngModel)]="listProvinceSelected"
@@ -204,20 +192,26 @@
                                     <p *ngIf="showErrorProvinceEntityModel" class="text-danger">Chọn khu vực áp dụng</p>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row" *ngIf="isShowButtonActive">
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label class="isActive font-weight-bold">Kích hoạt
-                                <input type="checkbox" 
-                                [(ngModel)]="servicePacketEntityModel.active"
-                                name="Active"
-                                >
-                                <span class="checkmark"></span>
-                            </label>
+                            <div class="col-md-3" *ngIf="isShowButtonActive">
+                                <div class="form-group">
+                                    <p class="service-type font-weight-bold">
+                                        Đối tượng áp dụng <span class="text-danger">*</span>
+                                    </p>
+                                    <p-dropdown 
+                                        [options]="listSubjectsApplicationCategory" 
+                                        [(ngModel)]="subjectsApplication"
+                                        [filter]="true" 
+                                        [style]="{'width': '100%'}"
+                                        optionLabel="categoryName" 
+                                        (onChange)="changeSubjectsApplication($event.value)"
+                                        [ngModelOptions]="{standalone: true}"
+                                        placeholder="Chọn đối tượng áp dụng" 
+                                        required
+                                        >
+                                    </p-dropdown>
+                                    <p *ngIf="showErrorSubjectsApplication" class="text-danger">Đối tượng áp dụng không được để trống</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

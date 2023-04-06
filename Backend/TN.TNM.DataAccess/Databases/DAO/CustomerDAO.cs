@@ -765,8 +765,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 #region Gửi thông báo
 
-                NotificationHelper.AccessNotification(context, TypeModel.Customer, "CRE", new Customer(),
-                    customer, true);
+                //NotificationHelper.AccessNotification(context, TypeModel.Customer, "CRE", new Customer(),
+                //    customer, true);
 
                 #endregion
             }
@@ -1369,7 +1369,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     Point = customer.Point ?? 0,
                     PayPoint = customer.PayPoint ?? 0,
                     StatusCareId = customer.StatusCareId,
-                    KhachDuAn = customer.KhachDuAn
+                    KhachDuAn = customer.KhachDuAn,
+                    SubjectsApplication = customer.SubjectsApplication
                 };
 
                 var contact = contacts.FirstOrDefault(c => c.ObjectId == customer.CustomerId && c.ObjectType == ObjectType.CUSTOMER);
@@ -7308,6 +7309,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 customer.UpdatedById = parameter.UserId;
                 customer.UpdatedDate = DateTime.Now;
                 customer.KhachDuAn = parameter.CustomerModel.KhachDuAn ?? false;
+                customer.SubjectsApplication = parameter.CustomerModel.SubjectsApplication;
+                customer.CustomerType = parameter.CustomerModel.CustomerType;
 
                 customerContact.FirstName = parameter.ContactModel.FirstName;
                 customerContact.LastName = parameter.ContactModel.LastName;
@@ -7346,8 +7349,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
             #region Gửi mail thông báo
 
-            NotificationHelper.AccessNotification(context, TypeModel.CustomerDetail, "UPD", new Customer(),
-                customer, true);
+            //NotificationHelper.AccessNotification(context, TypeModel.CustomerDetail, "UPD", new Customer(),
+            //    customer, true);
 
             #endregion
 

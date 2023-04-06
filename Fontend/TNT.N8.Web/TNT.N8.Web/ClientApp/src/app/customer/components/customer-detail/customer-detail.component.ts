@@ -208,6 +208,8 @@ export class CustomerDetailComponent implements OnInit {
   cusPerPositionLableName: string = '';
 
   khachDuAn: boolean = false;
+  subjectsApplication = false;
+  customerType: number = 2;
 
   constructor(
     private translate: TranslateService,
@@ -371,7 +373,7 @@ export class CustomerDetailComponent implements OnInit {
 
   mapDataResponse(customer: any, contact: any, isEdit: boolean) {
     this.khachDuAn = customer.khachDuAn;
-
+    this.subjectsApplication = customer.subjectsApplication;
     if (!isEdit) {
       //Điểm tích lũy
       this.point = customer.point;
@@ -887,7 +889,8 @@ export class CustomerDetailComponent implements OnInit {
 
     this.customerModel.CustomerName = fullName;
     this.customerModel.CustomerCode = this.cusCodeControl.value != null ? this.cusCodeControl.value.trim() : "";
-
+    this.customerModel.SubjectsApplication = this.subjectsApplication;
+    this.customerModel.CustomerType = this.customerType;
     this.contactModel.FirstName = firstName;
     this.contactModel.LastName = lastName;
 

@@ -31,7 +31,8 @@ namespace TN.TNM.DataAccess.Models.Product
         public string BackgroundImage { get; set; }
         public int? CountOption { get; set; }
         public int? Stt { get; set; }
-        public bool? Active { get; set; }
+        public Guid? SubjectsApplicationId { get; set; }
+        public bool SubjectsApplication{ get; set; }
         public List<PermissionConfigurationEntityModel> ListPermissionConfigurationEntityModel { get; set; }
         public List<RoleEntityModel> ListRoleServicePacket { get; set; }
         public List<ServicePacketAttributeEntityModel> ListServicePacketAttributeEntityModel { get; set; }

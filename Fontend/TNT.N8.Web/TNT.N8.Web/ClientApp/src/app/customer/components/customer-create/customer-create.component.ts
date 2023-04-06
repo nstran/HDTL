@@ -1546,10 +1546,10 @@ export class CustomerCreateComponent implements OnInit {
       this.personalCustomerForm.get('PersonalPhoneWork').setValidators([Validators.pattern(this.getPhonePattern())]);
       this.personalCustomerForm.get('PersonalPhoneWork').updateValueAndValidity();
 
-      this.agentCustomerForm.get('PersonalPhoneOther').setValidators([Validators.pattern(this.getPhonePattern())]);
-      this.agentCustomerForm.get('PersonalPhoneOther').updateValueAndValidity();
-      this.agentCustomerForm.get('PersonalPhoneWork').setValidators([Validators.pattern(this.getPhonePattern())]);
-      this.agentCustomerForm.get('PersonalPhoneWork').updateValueAndValidity();
+      // this.agentCustomerForm.get('PersonalPhoneOther').setValidators([Validators.pattern(this.getPhonePattern())]);
+      // this.agentCustomerForm.get('PersonalPhoneOther').updateValueAndValidity();
+      // this.agentCustomerForm.get('PersonalPhoneWork').setValidators([Validators.pattern(this.getPhonePattern())]);
+      // this.agentCustomerForm.get('PersonalPhoneWork').updateValueAndValidity();
     }
     else {
       this.personalCustomerForm.get('PersonalPhoneOther').setValidators([Validators.required, Validators.pattern(this.getPhonePattern())]);
@@ -1557,10 +1557,10 @@ export class CustomerCreateComponent implements OnInit {
       this.personalCustomerForm.get('PersonalPhoneWork').setValidators([Validators.required, Validators.pattern(this.getPhonePattern())]);
       this.personalCustomerForm.get('PersonalPhoneWork').updateValueAndValidity();
 
-      this.agentCustomerForm.get('PersonalPhoneOther').setValidators([Validators.required, Validators.pattern(this.getPhonePattern())]);
-      this.agentCustomerForm.get('PersonalPhoneOther').updateValueAndValidity();
-      this.agentCustomerForm.get('PersonalPhoneWork').setValidators([Validators.required, Validators.pattern(this.getPhonePattern())]);
-      this.agentCustomerForm.get('PersonalPhoneWork').updateValueAndValidity();
+      // this.agentCustomerForm.get('PersonalPhoneOther').setValidators([Validators.required, Validators.pattern(this.getPhonePattern())]);
+      // this.agentCustomerForm.get('PersonalPhoneOther').updateValueAndValidity();
+      // this.agentCustomerForm.get('PersonalPhoneWork').setValidators([Validators.required, Validators.pattern(this.getPhonePattern())]);
+      // this.agentCustomerForm.get('PersonalPhoneWork').updateValueAndValidity();
     }
   }
   /* end */

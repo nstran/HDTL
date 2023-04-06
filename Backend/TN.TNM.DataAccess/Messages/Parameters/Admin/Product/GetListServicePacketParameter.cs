@@ -4,8 +4,8 @@ using System.Text;
 
 namespace TN.TNM.DataAccess.Messages.Parameters.Admin.Product
 {
-    public class GetListServicePacketParameter
+    public class GetListServicePacketParameter : BaseParameter
     {
-        public string FilterText { get; set; }
+        public string FilterText { get; set; } = "";
     }
 }

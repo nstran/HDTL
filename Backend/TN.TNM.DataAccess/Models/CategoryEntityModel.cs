@@ -20,7 +20,7 @@ namespace TN.TNM.DataAccess.Models
         public int? CountCategoryById { get; set; }
         public int? SortOrder { get; set; }
         public bool? IsDefauld { get; set; }
-
+        public int? StepId { get; set; }
         public Guid? TenantId { get; set; }
 
         public CategoryEntityModel()
