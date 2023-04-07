@@ -46,9 +46,16 @@
                 <td style="text-align: center;">
                   {{index + 1}}
                 </td>
-                <td *ngFor="let col of columns">
-                  {{rowData[col.field]}}
+                <td *ngFor="let col of columns" [ngSwitch]="col.field">
+                  <span *ngSwitchCase="'price'">
+                    {{rowData[col.field] | number: '1.0-0'}}
+                  </span>
+
+                  <span *ngSwitchDefault>
+                    {{rowData[col.field]}}
+                  </span>
                 </td>
+                
                 <td style="text-align: center;  width: 10rem;">
                   <button class="ui-button-danger" pButton icon="pi pi-trash"
                     (click)="deleteVendorMappingOption(rowData['vendorId'])"></button>

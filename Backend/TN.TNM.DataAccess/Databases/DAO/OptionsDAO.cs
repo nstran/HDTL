@@ -673,6 +673,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                 Email = v.Email,
                                 PhoneNumber = v.PhoneNumber,
                                 Active = v.Active,
+                                Price = v.Price,
                             }).OrderByDescending(v => v.CreatedDate).ToList();
 
             var listVendorIdMappingOption = context.VendorMappingOption.Where(x => x.OptionId == parameter.OptionId).Select(x => x.VendorId).ToList();

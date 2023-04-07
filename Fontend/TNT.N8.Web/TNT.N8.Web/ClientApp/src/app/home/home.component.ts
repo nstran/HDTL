@@ -313,7 +313,7 @@ export class HomeComponent implements OnInit {
         {
           Name: "Khách hàng", Path: "", ObjectType: "customer", LevelMenu: 2, Active: false, nameIcon: "fa-user", IsDefault: false, CodeParent: "crm_kh", Display: "none",
           LstChildren: [
-            // { Name: "Dashboard", Path: "/customer/dashboard", ObjectType: "cus", LevelMenu: 3, Active: false, nameIcon: "u39.png", IsDefault: true, CodeParent: "crm_kh", LstChildren: [], Display: "none", Code: '' },
+            { Name: "Dashboard", Path: "/customer/dashboard", ObjectType: "cus", LevelMenu: 3, Active: false, nameIcon: "u39.png", IsDefault: true, CodeParent: "crm_kh", LstChildren: [], Display: "none", Code: '' },
             { Name: "Tạo mới", Path: "/customer/create", ObjectType: "cus", LevelMenu: 3, Active: false, nameIcon: "u43.png", IsDefault: false, CodeParent: "crm_kh", LstChildren: [], Display: "none", Code: '' },
             { Name: "Tìm kiếm", Path: "/customer/list", ObjectType: "cus", LevelMenu: 3, Active: false, nameIcon: "u41.png", IsDefault: false, CodeParent: "crm_kh", LstChildren: [], Display: "none", Code: 'Customer_TK' },
           ], Code: ''

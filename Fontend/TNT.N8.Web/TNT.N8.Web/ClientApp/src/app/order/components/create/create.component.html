@@ -134,7 +134,12 @@
                     <span class="text-cancel">Hủy</span>
                   </button>
 
-
+                  <button type="button" 
+                    class="btn-create" 
+                    *ngIf="actionAdd" 
+                    (click)="exportExcel()">
+                    <span class="btn-create-text">Xuất excel</span>
+                  </button>
 
                   <button class="total" type="button" (click)="showTotalOrder()" *ngIf="!isShow">
                     <span class="text-total"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp;

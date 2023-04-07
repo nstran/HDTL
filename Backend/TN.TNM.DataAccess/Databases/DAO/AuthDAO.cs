@@ -2155,6 +2155,11 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 },
                 new PermissionTempModel()
                 {
+                    Key = "customer/dashboard",
+                    Name = "Dashboard khách hàng"
+                },
+                new PermissionTempModel()
+                {
                     Key = "admin/list-product-category",
                     Name = "Quản lý danh mục"
                 },

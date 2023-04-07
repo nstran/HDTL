@@ -19,7 +19,7 @@ namespace TN.TNM.DataAccess.Databases.Entities
         public string Description { get; set; }
         public string Code { get; set; }
         public int? Stt { get; set; }
-        public Guid SubjectsApplicationId { get; set; }
+        public Guid? SubjectsApplicationId { get; set; }
         public Guid? RoleId { get; set; }
         public Guid[] ProvinceIds { get; set; }
     }

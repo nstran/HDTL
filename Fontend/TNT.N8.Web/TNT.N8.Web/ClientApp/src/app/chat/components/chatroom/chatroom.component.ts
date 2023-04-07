@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase';
 
@@ -136,7 +136,10 @@ export class ChatroomComponent implements OnInit {
     value = value.replace(re1, "");
     value = value.replace(re2, "");
     value = value.replace(re3, "");
-    
+    // if(value.includes('img src="data:image')){
+    //   value = value.replace('>', "");
+    //   value + " style='width: 150px'>";
+    // }
     if(value){
       let chat : any = {
         message : value

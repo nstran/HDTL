@@ -11,7 +11,8 @@ import 'moment/locale/pt-br';
 import { DecimalPipe } from '@angular/common';
 import { ReSearchService } from '../../../services/re-search.service';
 import { EmployeeEntityModel, ServicePacketEntityModel, TrangThaiGeneral } from '../../../product/models/product.model';
-
+import { Workbook } from 'exceljs';
+import { saveAs } from "file-saver";
 
 interface Vat {
   value: number,
@@ -54,6 +55,8 @@ interface Order {
   canDelete: boolean,
   orderTypeName: string,
   orderType: number,
+  orderRequireCode: string,
+  createdDate: string
 }
 
 @Component({
@@ -301,6 +304,124 @@ export class ListOrderActionComponent implements OnInit {
         });
       }
     });
+  }
+
+  exportExcel() {
+    let pdfOrder = this.listOrder;
+    let title = "Danh sách phiếu hỗ trợ dịch vụ";
+    let workbook = new Workbook();
+    let worksheet = workbook.addWorksheet(title);
+    worksheet.pageSetup.margins = {
+      left: 0.25, right: 0.25,
+      top: 0.75, bottom: 0.75,
+      header: 0.3, footer: 0.3
+    };
+    worksheet.pageSetup.paperSize = 9;  //A4 : 9
+
+    /* Header row */
+    let dataHeaderRow = ['Mã phiếu', '', '', 'Mã yêu cầu', '', 'Ngày yêu cầu', '', 'Tên khách hàng', '', 'Trạng thái', ''];
+    
+    let headerRow = worksheet.addRow(dataHeaderRow);
+    worksheet.mergeCells(`A${headerRow.number}:C${headerRow.number}`);
+    worksheet.mergeCells(`D${headerRow.number}:E${headerRow.number}`);
+    worksheet.mergeCells(`F${headerRow.number}:G${headerRow.number}`);
+    worksheet.mergeCells(`H${headerRow.number}:I${headerRow.number}`);
+    worksheet.mergeCells(`J${headerRow.number}:K${headerRow.number}`);
+    // worksheet.mergeCells(`L${headerRow.number}:M${headerRow.number}`);
+    // worksheet.mergeCells(`N${headerRow.number}:O${headerRow.number}`);
+    // worksheet.mergeCells(`P${headerRow.number}:Q${headerRow.number}`);
+    // worksheet.mergeCells(`R${headerRow.number}:S${headerRow.number}`);
+    headerRow.font = { name: 'Times New Roman', size: 10, bold: true };
+    dataHeaderRow.forEach((item, index) => {
+      headerRow.getCell(index + 1).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      headerRow.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+      headerRow.getCell(index + 1).fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: '8DB4E2' }
+      };
+    });
+    headerRow.height = 35;
+
+    /* Data table */
+    let data: Array<any> = []; //[1, 'Dịch vụ CNTT', 'Gói', '2', '6.000.000', '12.000.000']
+
+    let rg = /\, /gi;
+    pdfOrder.forEach(item => {
+      let row: Array<any> = [];
+      row[0] = item.orderCode;
+      row[3] = item.orderRequireCode;
+      row[5] = this.datePipe.transform(item.createdDate, 'dd/MM/yyyy');
+      row[7] = item.customerName;
+      row[9] = item.orderStatusName;
+
+      data.push(row);
+    });
+
+    data.forEach((el, index, array) => {
+      let row = worksheet.addRow(el);
+      worksheet.mergeCells(`A${row.number}:C${row.number}`);
+      worksheet.mergeCells(`D${row.number}:E${row.number}`);
+      worksheet.mergeCells(`F${row.number}:G${row.number}`);
+      worksheet.mergeCells(`H${row.number}:I${row.number}`);
+      worksheet.mergeCells(`J${row.number}:K${row.number}`);
+      // worksheet.mergeCells(`L${row.number}:M${row.number}`);
+      // worksheet.mergeCells(`N${row.number}:O${row.number}`);
+      // worksheet.mergeCells(`P${row.number}:Q${row.number}`);
+      // worksheet.mergeCells(`R${row.number}:S${row.number}`);
+
+      row.font = { name: 'Times New Roman', size: 11 };
+
+      row.getCell(1).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      row.getCell(1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+      row.getCell(2).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      row.getCell(2).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+      row.getCell(3).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      row.getCell(3).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+
+      row.getCell(4).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      row.getCell(4).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+      row.getCell(5).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      row.getCell(5).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+      row.getCell(6).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      row.getCell(6).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+      row.getCell(7).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      row.getCell(7).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+
+      row.getCell(8).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      row.getCell(8).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+      row.getCell(9).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      row.getCell(9).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+
+      row.getCell(10).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      row.getCell(10).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+      row.getCell(11).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      row.getCell(11).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+
+      // row.getCell(12).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      // row.getCell(12).alignment = { vertical: 'middle', horizontal: 'right', wrapText: true };
+      // row.getCell(13).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      // row.getCell(13).alignment = { vertical: 'middle', horizontal: 'right', wrapText: true };
+
+      // row.getCell(14).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      // row.getCell(14).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+
+      // row.getCell(15).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      // row.getCell(15).alignment = { vertical: 'middle', horizontal: 'right', wrapText: true };
+      // row.getCell(16).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      // row.getCell(16).alignment = { vertical: 'middle', horizontal: 'right', wrapText: true };
+      // row.getCell(17).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      // row.getCell(17).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+    });
+
+    this.exportToExel(workbook, title);
+  }
+
+  exportToExel(workbook: Workbook, fileName: string) {
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      saveAs.saveAs(blob, fileName);
+    })
   }
 
 }

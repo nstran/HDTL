@@ -1,40 +1,26 @@
-import { Component, OnInit, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl, Validators, FormGroup, FormBuilder, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormControl, Validators, FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Location } from '@angular/common';
 import * as $ from 'jquery';
 import { TranslateService } from '@ngx-translate/core';
-import { CategoryService } from "../../../shared/services/category.service";
 import { CustomerService } from "../../services/customer.service";
-import { ContactService } from "../../../shared/services/contact.service";
-import { WardService } from '../../../shared/services/ward.service';
-import { ProvinceService } from '../../../shared/services/province.service';
-import { DistrictService } from '../../../shared/services/district.service';
 import { ImageUploadService } from '../../../shared/services/imageupload.service';
-
 import { CustomerModel } from "../../models/customer.model";
 import { ContactModel } from "../../../shared/models/contact.model";
 import { NoteModel } from '../../../shared/models/note.model';
 import { NoteService } from '../../../shared/services/note.service';
-import { BankService } from '../../../shared/services/bank.service';
-import { EmployeeService } from "../../../employee/services/employee.service";
-import { CustomerCareService } from '../../services/customer-care.service';
 import { GetPermission } from '../../../shared/permission/get-permission';
-
 import { MessageService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 import { ConfirmationService } from 'primeng/api';
 import { NoteDocumentModel } from '../../../shared/models/note-document.model';
 import { SendEmailModel } from '../../../admin/models/sendEmail.model';
-import { DialogService } from 'primeng/dynamicdialog';
 import { EmailConfigService } from '../../../admin/services/email-config.service';
 import { GoogleService } from '../../../shared/services/google.service';
-
 import { WarningComponent } from '../../../shared/toast/warning/warning.component';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { TemplatePreviewEmailComponent } from '../../../shared/components/template-preview-email/template-preview-email.component';
-
-declare var google: any;
+import { CategoryModel } from '../../models/customer-care.model';
 
 interface Category {
   categoryId: string;
@@ -210,30 +196,27 @@ export class CustomerDetailComponent implements OnInit {
   khachDuAn: boolean = false;
   subjectsApplication = false;
   customerType: number = 2;
+  listStaffCharge: any[] = [];
+  listStaffChargeModel: any[] = [];
+  customerGroupId: string;
+  customerGroupModel: Category;
+  listCustomerGroup: Array<Category> = []; //nhom khach hang
+  customerGroupName: string;
+  listStaffChargeName: string
+  // listEmployeeEntityModel: any[] = [];
+  // listCategoryByCustomerGroup: CategoryModel[] = [];
 
   constructor(
     private translate: TranslateService,
     private getPermission: GetPermission,
     private customerService: CustomerService,
-    private categoryService: CategoryService,
     private route: ActivatedRoute,
-    private wardService: WardService,
-    private districtService: DistrictService,
-    private provinceService: ProvinceService,
-    private employeeService: EmployeeService,
-    private customerCareService: CustomerCareService,
-    private contactService: ContactService,
-    private bankService: BankService,
     private router: Router,
-    private fb: FormBuilder,
     private imageService: ImageUploadService,
     private noteService: NoteService,
-    private el: ElementRef,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     private emailConfigService: EmailConfigService,
-    private googleService: GoogleService,
-    private dialogService: DialogService,
     private snackBar: MatSnackBar,
     public location: Location
   ) {
@@ -287,6 +270,14 @@ export class CustomerDetailComponent implements OnInit {
 
       if (result.statusCode == 200) {
         this.listProvince = result.listProvince;
+        this.listStaffCharge = result.listEmployeeEntityModel;
+        this.listCustomerGroup = result.listCategoryByCustomerGroup;
+        this.customerGroupModel = this.listCustomerGroup.find(x => result.customer?.customerGroupId == x.categoryId);
+        this.customerGroupName = this.customerGroupModel?.categoryName;
+        if(result.customer.staffChargeIds != null && result.customer.staffChargeIds.length > 0){
+          this.listStaffChargeModel = this.listStaffCharge.filter(x => result.customer.staffChargeIds.indexOf(x.employeeId) != -1);
+          this.listStaffChargeName = this.listStaffChargeModel.length > 3 ? this.listStaffChargeModel.length + ' nhân viên' : this.listStaffChargeModel.map(x => x.employeeName).join(",  ")
+        }
 
         this.mapDataResponse(result.customer, result.contact, false);
 
@@ -515,7 +506,7 @@ export class CustomerDetailComponent implements OnInit {
       let toSelectedProvince: Province = this.listProvince.find(x => x.provinceId == this.contactModel.ProvinceId);
       this.provinceControl.setValue(toSelectedProvince)
 
-      this.provinceLableName = toSelectedProvince.provinceName;
+      this.provinceLableName = toSelectedProvince?.provinceName;
       /*End*/
     }
     /*End*/
@@ -891,9 +882,11 @@ export class CustomerDetailComponent implements OnInit {
     this.customerModel.CustomerCode = this.cusCodeControl.value != null ? this.cusCodeControl.value.trim() : "";
     this.customerModel.SubjectsApplication = this.subjectsApplication;
     this.customerModel.CustomerType = this.customerType;
+    this.customerModel.CustomerGroupId = this.customerGroupModel.categoryId;
+    this.customerModel.StaffChargeIds = this.listStaffChargeModel.map(x => x.employeeId);
+
     this.contactModel.FirstName = firstName;
     this.contactModel.LastName = lastName;
-
 
     /*End Form chung*/
     if (this.customerModel.CustomerType == 2) {
@@ -1060,6 +1053,10 @@ export class CustomerDetailComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  changeCustomerGroup(event: Category):void {
+    this.customerGroupId = event.categoryId;
   }
 
 }

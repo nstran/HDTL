@@ -29,6 +29,7 @@ namespace TN.TNM.DataAccess.Models.Vendor
         public List<Guid> ListProductId { get; set; }
         public string VendorCodeName { get; set; }
         public bool ExitsAccount { get; set; }
+        public decimal? Price { get; set; }
         public List<Guid> ListoptionId { get; set; }
 
         public VendorEntityModel()

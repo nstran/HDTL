@@ -111,7 +111,6 @@
                   </div>
                 </div>
                 <form [formGroup]="personalCustomerForm">
-    
                   <div class="row top-buffer bottom-buffer">
                     <div class="col-md-3">
                       <div class="row bottom-buffer">
@@ -179,7 +178,7 @@
                           Số điện thoại<span class="required">*</span>
                         </div>
                         <div class="col-md-12">
-                          <input (change)="checkDuplicateInforCustomer(2,  personalCustomerForm.get('PersonalPhone'))"
+                          <input
                             maxlength="32" formControlName="PersonalPhone" type="text" pInputText placeholder="Cá nhân"
                             (focusout)="onCheckInvail(personalCustomerForm.get('PersonalPhone'))"
                             (keypress)="PhonePattern($event)"
@@ -194,7 +193,7 @@
                         </div>
                         <div class="col-md-12"
                           [hidden]="!personalCustomerForm.get('PersonalPhone').valid && !personalCustomerForm.get('PersonalPhone').untouched">
-                          &nbsp;
+                          <!-- &nbsp; -->
                         </div>
                       </div>
                     </div>
@@ -205,7 +204,7 @@
                           Email
                         </div>
                         <div class="col-md-12">
-                          <input (change)="checkDuplicateInforCustomer(1,  personalCustomerForm.get('PersonalEmail'))"
+                          <input
                             maxlength="100" formControlName="PersonalEmail" type="text" pInputText placeholder="Cá nhân"
                             [ngClass]="(personalCustomerForm.get('PersonalEmail').invalid && (personalCustomerForm.get('PersonalEmail').dirty || personalCustomerForm.get('PersonalEmail').touched)) ? 'error-border' : ''" />
                         </div>
@@ -247,6 +246,51 @@
                           <input maxlength="100" formControlName="addressControl" type="text" pInputText
                             placeholder="Địa chỉ"
                             [ngClass]="(contactCustomerForm.get('addressControl').invalid && (contactCustomerForm.get('addressControl').dirty || contactCustomerForm.get('addressControl').touched)) ? 'error-border' : ''" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="row bottom-buffer">
+                        <div class="col-md-12 buffer-bottom-label">
+                          Nhóm khách hàng
+                        </div>
+                        <div class="col-md-12">
+                          <p-dropdown 
+                            class="customer-dropdown" 
+                            (onChange)="changeCustomerGroup($event.value)"
+                            [(ngModel)]="customerGroupModel"
+                            [ngModelOptions]="{standalone: true}"
+                            [options]="listCustomerGroup"
+                            optionLabel="categoryName" 
+                            placeholder="Nhóm khách hàng"
+                            [showClear]="true" 
+                            [filter]="true" 
+                            >
+                          </p-dropdown>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3">
+                      <div class="row bottom-buffer">
+                        <div class="col-md-12 buffer-bottom-label">
+                          Nhân viên phụ trách
+                        </div>
+                        <div class="col-md-12">
+                          <p-multiSelect 
+                            [options]="listStaffCharge"
+                            [(ngModel)]="listStaffChargeModel"
+                            [ngModelOptions]="{standalone: true}"
+                            [style]="{'width': '100%'}"
+                            [id]="'EmployeeName'"
+                            [name]="'EmployeeName'"
+                            optionLabel="employeeName"
+                            selectedItemsLabel="{0} cột được chọn"
+                            itemSize="30"
+                            defaultLabel="Chọn nhân viên phụ trách"
+                            >
+                          </p-multiSelect>
                         </div>
                       </div>
                     </div>

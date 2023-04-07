@@ -416,3 +416,7 @@ ALTER TABLE public."ServicePacket" DROP COLUMN IF EXISTS "Active";
 ALTER TABLE public."ServicePacket" ADD COLUMN IF NOT EXISTS "SubjectsApplicationId" uuid;
 
 ALTER TABLE public."Customer" ADD COLUMN IF NOT EXISTS "SubjectsApplication" bool default false;
+
+ALTER TABLE public."Customer" ADD COLUMN IF NOT EXISTS "StaffChargeIds" uuid[];
+
+ALTER TABLE public."Vendor" ADD COLUMN IF NOT EXISTS "Price" decimal;

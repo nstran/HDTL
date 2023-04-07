@@ -39,7 +39,7 @@ namespace TN.TNM.DataAccess.Databases.Entities
         public string ContactPhoneNumber { get; set; }
         public Guid? ProductMappingOptionId { get; set; }
         public string Description { get; set; }
-
+        public decimal? Price { get; set; }
         public Category Payment { get; set; }
         public Category VendorGroup { get; set; }
         public ICollection<Inventory> Inventory { get; set; }

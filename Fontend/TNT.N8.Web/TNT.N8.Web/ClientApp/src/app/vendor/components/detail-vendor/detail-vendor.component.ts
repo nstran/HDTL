@@ -74,6 +74,7 @@ class vendorModel {
   vendorGroupName: string;
   paymentId: string;
   paymentName: string;
+  price: number;
 
   constructor() {
     this.vendorName = '';
@@ -304,6 +305,7 @@ export class DetailVendorComponent implements OnInit {
 
   //form
   editVendorForm: FormGroup;
+  vendorPrice: number;
 
   constructor(private translate: TranslateService,
     private getPermission: GetPermission,
@@ -769,6 +771,7 @@ export class DetailVendorComponent implements OnInit {
       this.handdleChart();
       //data by vendor id
       this.vendorModel = vendorDataResponse.vendor;
+      this.vendorPrice = vendorDataResponse.vendor.price;
       this.contactModel = vendorDataResponse.contact;
       this.listExchange = vendorDataResponse.listExchangeByVendor;
       this.handleBackgroundColorExchange();
@@ -962,6 +965,7 @@ export class DetailVendorComponent implements OnInit {
     vendorModel.CreatedDate = new Date();
     vendorModel.UpdatedById = null;
     vendorModel.UpdatedDate = null;
+    vendorModel.Price = this.vendorPrice;
 
     return vendorModel;
   }
@@ -1010,6 +1014,7 @@ export class DetailVendorComponent implements OnInit {
     this.contactModel.fullAddress = this.fullAddressBuilder(contactModel.Address, contactModel.ProvinceId, contactModel.DistrictId, contactModel.WardId);
     let _payment = this.listPaymentMethod.find(e => e.categoryId == vendorModel.PaymentId);
     this.vendorModel.paymentName = _payment ? _payment.categoryName : '';
+    this.vendorModel.price = Number(parseFloat(String(vendorModel.Price).replace(/,/g, '')));
     this.contactModel.socialUrl = contactModel.SocialUrl;
   }
 

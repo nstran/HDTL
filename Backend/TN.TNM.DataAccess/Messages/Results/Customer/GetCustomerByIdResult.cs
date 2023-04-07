@@ -17,8 +17,10 @@ namespace TN.TNM.DataAccess.Messages.Results.Customer
         public List<CustomerAdditionalInformationEntityModel> ListCustomerAdditionalInformation { get; set; }
         public List<CustomerOtherContactModel> ListCusContact { get; set; }
         public List<string> CustomerCode { get; set; }
-
         public CustomerEntityModel Customer { get; set; }
         public ContactEntityModel Contact { get; set; }
+        public List<EmployeeEntityModel> ListEmployeeEntityModel { get; set; }
+        public List<CategoryEntityModel> ListCategoryByCustomerGroup { get; set; }
+
     }
 }

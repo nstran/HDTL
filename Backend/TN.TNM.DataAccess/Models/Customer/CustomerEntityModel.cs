@@ -128,5 +128,6 @@ namespace TN.TNM.DataAccess.Models.Customer
         public Guid? PotentialCustomerId { get; set; }
         public int? YearCode { get; set; }
         public int? NumberCode { get; set; }
+        public Guid[] StaffChargeIds { get; set; }
     }
 }

@@ -367,6 +367,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 UpdatedDate = vendor.UpdatedDate,
                 VendorCode = vendor.VendorCode,
                 VendorGroupId = vendor.VendorGroupId,
+                Price = vendor.Price,
                 VendorGroupName = context.Category.FirstOrDefault(ct => ct.CategoryId == vendor.VendorGroupId).CategoryName,
                 PaymentName = context.Category.FirstOrDefault(ct => ct.CategoryId == vendor.PaymentId).CategoryName,
             };
@@ -541,6 +542,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 vendor.VendorCode = parameter.Vendor?.VendorCode?.Trim();
                 vendor.VendorGroupId = parameter.Vendor.VendorGroupId;
                 vendor.PaymentId = parameter.Vendor.PaymentId;
+                vendor.Price = parameter.Vendor.Price;
                 vendor.UpdatedById = parameter.UserId;
                 vendor.UpdatedDate = DateTime.Now;
 

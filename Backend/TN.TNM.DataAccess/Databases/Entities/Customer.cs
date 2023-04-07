@@ -80,6 +80,7 @@ namespace TN.TNM.DataAccess.Databases.Entities
         public string ContactAddress { get; set; }
         public string ContactEmail { get; set; }
         public bool SubjectsApplication { get; set; }
+        public Guid[] StaffChargeIds { get; set; }
         public CustomerServiceLevel CustomerServiceLevel { get; set; }
         public Category Field { get; set; }
         public Category Scale { get; set; }

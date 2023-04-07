@@ -64,6 +64,7 @@ export class ListVendorComponent extends AbstractBase implements OnInit {
       { field: 'email', header: 'Email' },
       { field: 'phoneNumber', header: 'Số điện thoại' },
       { field: 'address', header: 'Địa chỉ' },
+      { field: 'price', header: 'Đơn giá' }
     ];
     let [result]: any = await Promise.all([
       this.vendorService.getMasterDataAddVendorToOption(this.optionId)

@@ -93,6 +93,19 @@
                           >
                           </p-radioButton>
                         </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <label class="isActive font-weight-bold">Khách hàng Review
+                                <input type="checkbox" 
+                                  [(ngModel)]="subjectsApplication"
+                                  name="Active"
+                                  [disabled]="!this.isEdit"
+                                  [ngModelOptions]="{standalone: true}"
+                                >
+                                <span class="checkmark" [ngClass]="!this.isEdit ? 'checkmark-disable' : ''"></span>
+                            </label>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -289,21 +302,54 @@
                         <!-- Khách hàng Review -->
                         <div class="row" style="margin-top: 5px;">
                           <div class="col-md-4">
-                            <span>&nbsp;</span>
-                            <div class="form-group">
-                              <label class="isActive font-weight-bold">Khách hàng Review
-                                  <input type="checkbox" 
-                                    [(ngModel)]="subjectsApplication"
-                                    name="Active"
-                                    [disabled]="!this.isEdit"
-                                    [ngModelOptions]="{standalone: true}"
+                            <div class="row bottom-buffer">
+                              <div class="col-md-12 buffer-bottom-label">
+                                Nhóm khách hàng
+                              </div>
+                              <div class="col-md-12">
+                                <p-dropdown 
+                                  class="customer-dropdown" 
+                                  (onChange)="changeCustomerGroup($event.value)"
+                                  [(ngModel)]="customerGroupModel"
+                                  [ngModelOptions]="{standalone: true}"
+                                  [options]="listCustomerGroup"
+                                  optionLabel="categoryName" 
+                                  placeholder="Nhóm khách hàng"
+                                  [showClear]="true" 
+                                  [filter]="true" 
+                                  [style]="{'width': '100%'}"
                                   >
-                                  <span class="checkmark" [ngClass]="!this.isEdit ? 'checkmark-disable' : ''"></span>
-                              </label>
+                                </p-dropdown>
+                              </div>
+                            </div>
+                          </div>
+      
+                          <div class="col-md-4">
+                            <div class="row bottom-buffer">
+                              <div class="col-md-12 buffer-bottom-label">
+                                Nhân viên phụ trách
+                              </div>
+                              <div class="col-md-12">
+                                <p-multiSelect 
+                                  [options]="listStaffCharge"
+                                  [(ngModel)]="listStaffChargeModel"
+                                  [ngModelOptions]="{standalone: true}"
+                                  [style]="{'width': '100%'}"
+                                  [id]="'EmployeeName'"
+                                  [name]="'EmployeeName'"
+                                  optionLabel="employeeName"
+                                  selectedItemsLabel="{0} nhân viên được chọn"
+                                  itemSize="30"
+                                  defaultLabel="Chọn nhân viên phụ trách"
+                                  >
+                                </p-multiSelect>
+                              </div>
                             </div>
                           </div>
                         </div>
+
                       </form>
+
                     </div>
                   </div>
 
@@ -336,6 +382,19 @@
                             label="Doanh nghiệp"
                           >
                           </p-radioButton>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label class="isActive font-weight-bold">Khách hàng Review
+                                <input type="checkbox" 
+                                  [(ngModel)]="subjectsApplication"
+                                  name="Active"
+                                  [disabled]="!this.isEdit"
+                                  [ngModelOptions]="{standalone: true}"
+                                >
+                                <span class="checkmark" [ngClass]="!this.isEdit ? 'checkmark-disable' : ''"></span>
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -391,18 +450,15 @@
                     </div>
 
                     <div class="col-md-3">
-                      <div class="form-group">
-                        <label class="isActive font-weight-bold">Khách hàng Review
-                            <input type="checkbox" 
-                              [(ngModel)]="subjectsApplication"
-                              name="Active"
-                              [disabled]="!this.isEdit"
-                              [ngModelOptions]="{standalone: true}"
-                            >
-                            <span class="checkmark" [ngClass]="!this.isEdit ? 'checkmark-disable' : ''"></span>
-                        </label>
-                      </div>
+                      <span class="infor-label">Nhóm khách hàng:</span> 
+                      <strong style="margin-left:8px;">{{customerGroupName}}</strong>
                     </div>
+
+                    <div class="col-md-3">
+                      <span class="infor-label">Nhân viên phụ trách:</span> 
+                      <strong style="margin-left:8px;">{{listStaffChargeName}}</strong>
+                    </div>
+
                   </div>
                 </div>
 

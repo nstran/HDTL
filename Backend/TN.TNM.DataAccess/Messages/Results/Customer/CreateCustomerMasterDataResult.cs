@@ -25,5 +25,6 @@ namespace TN.TNM.DataAccess.Messages.Results.Customer
         public List<string> ListCustomerTax { get; set; }
         public List<GeographicalAreaEntityModel> ListArea { get; set; }
         public List<CustomerEntityModel> ListCustomer { get; set; }
+        public List<EmployeeEntityModel> ListStaffCharge { get; set; }
     }
 }

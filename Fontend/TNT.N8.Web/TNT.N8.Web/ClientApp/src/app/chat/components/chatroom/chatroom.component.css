@@ -237,3 +237,8 @@ app-chatroom {
 .d-flex {
   display: flex;
 }
+
+img {
+	width: 150px;
+	height: 150px;
+}

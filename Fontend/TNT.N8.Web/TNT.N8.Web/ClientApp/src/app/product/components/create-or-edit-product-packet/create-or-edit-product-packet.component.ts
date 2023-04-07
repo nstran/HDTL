@@ -96,7 +96,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
 
   form: FormGroup = this.fb.group({
     quyTrinh: this.fb.array([]),
-  });;
+  });
 
   //Danh sách quản lý dịch vụ
   listManager: EmployeeEntityModel[];

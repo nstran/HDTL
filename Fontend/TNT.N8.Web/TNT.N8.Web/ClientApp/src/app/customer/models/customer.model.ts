@@ -1,7 +1,7 @@
 export class CustomerModel {
   CustomerId: string;
   CustomerCode: string;
-  CustomerGroupId: string;
+  CustomerGroupId: string | null;
   CustomerName: string;
   LeadId: string;
   StatusId: string;
@@ -43,7 +43,9 @@ export class CustomerModel {
   SalesUpdateAfterMeeting: string;
   AreaId: string;
   KhachDuAn: boolean;
-  SubjectsApplication : boolean
+  SubjectsApplication : boolean;
+  StaffChargeIds : string[];
+
   /**
    *
    */

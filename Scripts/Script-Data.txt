@@ -674,3 +674,12 @@ VALUES (
 	false,
 	true
 ) ON CONFLICT DO NOTHING;
+
+INSERT INTO "ActionResource"("ActionResourceId", "ActionResource")
+VALUES (
+	'f7005efa-57d7-4663-9e8c-4c1f548e086d', 
+	'crm/customer/dashboard/view'
+) ON CONFLICT DO NOTHING;
+
+update "CategoryType" set "Active" = 'true' where "CategoryTypeCode" = 'NHA';
+delete from "Category" where "CategoryTypeId" = (select "CategoryTypeId" from "CategoryType" where "CategoryTypeCode" = 'NHA') and "IsEdit" = 'false';

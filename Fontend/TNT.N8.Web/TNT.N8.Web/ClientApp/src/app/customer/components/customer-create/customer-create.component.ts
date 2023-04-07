@@ -18,6 +18,7 @@ import { CreateEmployeeModel } from '../../../employee/models/employee.model';
 import { UserModel } from '../../../shared/models/user.model';
 import { DialogService } from 'primeng';
 import { ChonNhieuDvDialogComponent } from '../../../shared/components/chon-nhieu-dv-dialog/chon-nhieu-dv-dialog.component';
+import { CategoryModel } from '../../models/customer-care.model';
 
 class Category {
   public categoryId: string;
@@ -214,6 +215,11 @@ export class CustomerCreateComponent implements OnInit {
   validEmailCustomer: boolean = true;
   validPhoneCustomer: boolean = true;
   listSelectedDonVi: Array<any> = [];
+  listStaffCharge: any[] = [];
+  listStaffChargeModel: any[] = [];
+  customerGroupId: string;
+  customerGroupModel: Category;
+
   constructor(
     public messageService: MessageService,
     private getPermission: GetPermission,
@@ -681,6 +687,7 @@ export class CustomerCreateComponent implements OnInit {
       this.personalCustomerForm.get('CustomerCode').setValidators([checkDuplicateCode(this.listCustomerCode)]);
       this.companyCustomerForm.updateValueAndValidity();
       this.personalCustomerForm.updateValueAndValidity();
+      this.listStaffCharge = result.listStaffCharge;
     } else {
       this.showToast('error', 'Thông báo', 'Lấy dữ liệu thất bại')
     }
@@ -1061,7 +1068,8 @@ export class CustomerCreateComponent implements OnInit {
     customerModel.Active = true;
     customerModel.CreatedDate = new Date();
     customerModel.KhachDuAn = this.khachDuAn;
-
+    customerModel.CustomerGroupId = this.customerGroupId;
+    customerModel.StaffChargeIds = this.listStaffChargeModel.map(x => x.employeeId);
     return customerModel;
   }
 
@@ -1693,6 +1701,10 @@ export class CustomerCreateComponent implements OnInit {
         }
       }
     });
+  }
+
+  changeCustomerGroup(event: CategoryModel):void {
+    this.customerGroupId = event.categoryId;
   }
 
 }

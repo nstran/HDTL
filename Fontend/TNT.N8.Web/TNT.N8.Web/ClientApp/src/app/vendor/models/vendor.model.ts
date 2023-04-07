@@ -12,6 +12,7 @@ export class VendorModel {
   UpdatedById: string;
   UpdatedDate: Date;
   Active: boolean;
+  Price: number;
 
   constructor() {
     this.VendorId = '00000000-0000-0000-0000-000000000000';

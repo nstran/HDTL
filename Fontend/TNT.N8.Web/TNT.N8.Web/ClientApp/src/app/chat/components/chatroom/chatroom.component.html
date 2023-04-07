@@ -14,7 +14,7 @@
                     </div>
                     <div class="message">
                         <!-- {{chat.message}} -->
-                        <div [innerHTML]="chat.message"></div>
+                        <div class="inner-html" [innerHTML]="chat.message"></div>
                     </div>
                     <ng-container *ngIf="last">{{getScroll()}}</ng-container>
                 </li>

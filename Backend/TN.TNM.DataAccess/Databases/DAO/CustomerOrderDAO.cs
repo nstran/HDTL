@@ -4338,7 +4338,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     var listOrderDetail = context.CustomerOrderDetail.Where(x => listOrderId.Contains(x.OrderId)).ToList();
 
                     var listPacketId = listOrderDetail.Select(x => x.PacketServiceId).ToList();
-                    var listPacketService = context.ServicePacket.Where(x => listPacketId.Contains(x.Id)).ToList();
+                    var listPacketService = context.ServicePacket.Where(x => listPacketId.Any(y => y == x.Id)).ToList();
 
                     //Lấy categoryId của bước tạo yêu cầu + xác nhận thanh toán
                     var cateTypeIdOfStep = context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeActionStep).CategoryTypeId;

@@ -226,6 +226,16 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-6">
+                      <div class="row buffer-bottom">
+                        <div class="col-md-4 pr-0 supplier">
+                          Đơn giá:
+                        </div>
+                        <div class="col-md-8 pl-0 card-visit-value">
+                          {{vendorModel.price | number :'1.0-0'}}
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -365,11 +375,27 @@
                           </div>
                         </div>
 
+                        <div class="row buffer-bottom">
+                          <div class="col-md-12 buffer-bottom-label">
+                            <span>Đơn giá</span>
+                          </div>
+                          <div class="col-md-12">
+                            <input 
+                              type="text" 
+                              [(ngModel)]="vendorPrice"
+                              min="0"
+                              class="w100" 
+                              pInputText 
+                              [cleave]="{numeral: true, numeralPositiveOnly: true}"
+                              placeholder="Nhập đơn giá" 
+                              [ngModelOptions]="{standalone: true}"
+                            />
+                          </div>
+                        </div>
+
                       </div>
 
                       <div class="col-md-4">
-
-
                         <div class="row buffer-bottom">
                           <div class="col-md-12 buffer-bottom-label">
                             <span>Tỉnh/Thành phố</span>

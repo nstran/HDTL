@@ -22,6 +22,7 @@ using NpgsqlTypes;
 using OfficeOpenXml;
 using TN.TNM.Common;
 using TN.TNM.Common.NotificationSetting;
+using TN.TNM.DataAccess.Consts.Product;
 using TN.TNM.DataAccess.Databases.Entities;
 using TN.TNM.DataAccess.Helper;
 using TN.TNM.DataAccess.Interfaces;
@@ -117,6 +118,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     customer.CreatedById = parameter.UserId;
                     customer.UpdatedDate = DateTime.Now;
                     customer.UpdatedById = parameter.UserId;
+                    customer.CustomerGroupId = parameter.Customer.CustomerGroupId;
+                    customer.StaffChargeIds = parameter.Customer.StaffChargeIds;
 
                     contactCus.TaxCode = parameter.Contact.TaxCode == null ? "" : parameter.Contact.TaxCode.Trim();
 
@@ -1370,7 +1373,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     PayPoint = customer.PayPoint ?? 0,
                     StatusCareId = customer.StatusCareId,
                     KhachDuAn = customer.KhachDuAn,
-                    SubjectsApplication = customer.SubjectsApplication
+                    SubjectsApplication = customer.SubjectsApplication,
+                    StaffChargeIds = customer.StaffChargeIds
                 };
 
                 var contact = contacts.FirstOrDefault(c => c.ObjectId == customer.CustomerId && c.ObjectType == ObjectType.CUSTOMER);
@@ -1444,7 +1448,24 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 });
                 #endregion
 
-            
+                var listEmployeeEntityModel = context.Employee
+                                    .Select(x => new EmployeeEntityModel
+                                    {
+                                        EmployeeId = x.EmployeeId,
+                                        EmployeeName = x.EmployeeName
+                                    }).ToList();
+
+                var listCategoryByCustomerGroup = (from c in context.Category
+                                                    join ct in context.CategoryType
+                                                    on c.CategoryTypeId equals ct.CategoryTypeId into cct
+                                                    from cctJoined in cct.DefaultIfEmpty()
+                                                    where cctJoined.CategoryTypeCode == "NHA"
+                                                    select new CategoryEntityModel
+                                                    {
+                                                        CategoryName = c.CategoryName,
+                                                        CategoryId = c.CategoryId
+                                                    }).ToList();
+
                 return new GetCustomerByIdResult()
                 {
                     StatusCode = System.Net.HttpStatusCode.OK,
@@ -1454,6 +1475,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     CustomerCode = ListCustomerCode,
                     Contact = conEntityModel,
                     Customer = cusEntityModel,
+                    ListEmployeeEntityModel = listEmployeeEntityModel,
+                    ListCategoryByCustomerGroup = listCategoryByCustomerGroup
                 };
             }
             catch (Exception e)
@@ -6860,6 +6883,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             }).ToList();
                 }
 
+                var listStaffCharge = employeeList
+                                        .Select(x => new EmployeeEntityModel
+                                        {
+                                            EmployeeId = x.EmployeeId,
+                                            EmployeeName = x.EmployeeName
+                                        }).ToList();
+
                 #endregion
 
                 return new CreateCustomerMasterDataResult()
@@ -6878,6 +6908,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     ListCustomerTax = ListCustomerTax,
                     ListArea = listArea,
                     ListCustomer = ListCustomer,
+                    ListStaffCharge = listStaffCharge,
                     StatusCode = System.Net.HttpStatusCode.OK,
                     MessageCode = "OK",
                 };
@@ -7311,6 +7342,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 customer.KhachDuAn = parameter.CustomerModel.KhachDuAn ?? false;
                 customer.SubjectsApplication = parameter.CustomerModel.SubjectsApplication;
                 customer.CustomerType = parameter.CustomerModel.CustomerType;
+                customer.CustomerGroupId = parameter.CustomerModel.CustomerGroupId;
+                customer.StaffChargeIds = parameter.CustomerModel.StaffChargeIds;
 
                 customerContact.FirstName = parameter.ContactModel.FirstName;
                 customerContact.LastName = parameter.ContactModel.LastName;
