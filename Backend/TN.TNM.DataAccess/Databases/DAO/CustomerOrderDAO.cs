@@ -10463,8 +10463,20 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         CusOrderDate = x.CreatedDate
                     }).ToList();
 
+                var listEmployeeEntityModel = (from e in context.Employee
+                                               join c in context.Contact on e.EmployeeId equals c.ObjectId
+                                               into ec from ecJoined in ec.DefaultIfEmpty()
+                                               where e.Active == true
+                                               select new EmployeeEntityModel
+                                               {
+                                                   EmployeeId = e.EmployeeId,
+                                                   EmployeeName = e.EmployeeName,
+                                                   Phone = ecJoined.Phone
+                                               }).ToList();
+
                 return new GetMasterDataCreateOrderActionResult
                 {
+                    ListEmployeeEntityModel = listEmployeeEntityModel,
                     ListCustomerOrder = listCustomerOrder,
                     CreatorName = creatorName,
                     StatusCode = HttpStatusCode.OK,

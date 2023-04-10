@@ -58,6 +58,14 @@
                     type="button" [disabled]="awaitResult" (click)="createOrderAction(3)">
                     <span class="text-save">Hoàn thành dịch vụ</span>
                   </button>
+
+                  <button type="button" 
+                    class="save" 
+                    *ngIf="actionAdd" 
+                    (click)="exportExcel()">
+                    <span class="text-save">Xuất excel</span>
+                  </button>
+
                 </div>
               </div>
               <div style="clear: both;"></div>

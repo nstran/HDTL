@@ -19,6 +19,8 @@ import { SettingReportPointComponent } from '../setting-report-point/setting-rep
 import { SettingReportPointDetailComponent } from '../setting-report-point-detail/setting-report-point-detail.component';
 import { AbstractBase } from '../../../shared/abstract-base.component';
 import { NotificationFireBase } from '../../../shared/models/fire-base.model';
+import { Workbook } from 'exceljs';
+import { saveAs } from "file-saver";
 
 class ResultDialog {
   status: boolean;
@@ -46,6 +48,7 @@ export class OrderActionComponent extends AbstractBase implements OnInit {
   /* Masterdata */
   //List phiếu yêu cầu < customerOrder>
   listCustomerOrder: Array<any> = [];
+  listEmployeeEntity: Array<any> = [];
   /* End */
 
   editing: boolean = false;
@@ -104,16 +107,10 @@ export class OrderActionComponent extends AbstractBase implements OnInit {
     private router: Router,
     private getPermission: GetPermission,
     private route: ActivatedRoute,
-    private customerService: CustomerService,
-    private bankService: BankService,
     private customerOrderService: CustomerOrderService,
-    private quoteService: QuoteService,
-    private contactService: ContactService,
     public cdRef: ChangeDetectorRef,
-    private emailConfigService: EmailConfigService,
     private dialogService: DialogService,
     private messageService: MessageService,
-    private renderer: Renderer2,
     public datepipe: DatePipe,
   ) { 
     super(injector)
@@ -188,7 +185,7 @@ export class OrderActionComponent extends AbstractBase implements OnInit {
       if (result.statusCode == 200) {
         this.listCustomerOrder = result.listCustomerOrder;
         this.creatorName.setValue(result.creatorName);
-
+        this.listEmployeeEntity = result.listEmployeeEntityModel;
         if (this.orderId != null && this.orderActionId == null) {
           let order = this.listCustomerOrder.find(x => x.orderId == this.orderId);
           this.customerOrderInfor.setValue(order);
@@ -453,6 +450,204 @@ export class OrderActionComponent extends AbstractBase implements OnInit {
     });
   }
 
+
+  exportExcel(): void {
+    let title = "phiếu hỗ trợ dịch vụ";
+    let workBook = new Workbook();
+    let worksheet = workBook.addWorksheet(title);
+
+    let line = ['Công ty CP Kiến Tạo Tài Năng - HÃY ĐỂ TÔI LO                             Cộng hoà xã hội chủ nghĩa Việt Nam'];
+    let lineRow = worksheet.addRow(line);
+    lineRow.font = { name: 'Calibri', size: 10, bold: true };
+    worksheet.mergeCells(`A${lineRow.number}:J${lineRow.number}`);
+    lineRow.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow.height = 22;
+
+
+    // let line1 = ['Dịch vụ: ' + this.listCustomerOrderDetailModel[0].serviceName + '                                                                  ' + 'Độc Lập - Tự do - Hạnh phúc'];
+    // let lineRow1 = worksheet.addRow(line1);
+    // worksheet.mergeCells(`A${lineRow1.number}:J${lineRow1.number}`);
+    // lineRow1.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    // lineRow1.font = { name: 'Calibri', size: 10, bold: true };
+    // lineRow1.height = 22;
+
+    let line2 = ['                                                                                                                                   -----------------'];
+    let lineRow2 = worksheet.addRow(line2);
+    worksheet.mergeCells(`A${lineRow2.number}:J${lineRow2.number}`);
+    lineRow2.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow2.font = { name: 'Calibri', size: 10, bold: true };
+    lineRow2.height = 22;
+
+    let line3 = ['                                                                                                                                      ------------'];
+    let lineRow3 = worksheet.addRow(line3);
+    worksheet.mergeCells(`A${lineRow3.number}:J${lineRow3.number}`);
+    lineRow3.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow3.font = { name: 'Calibri', size: 10, bold: true };
+    lineRow3.height = 22;
+
+    let line4 = ['                                        PHIẾU HỖ TRỢ DỊCH VỤ'];
+    let lineRow4 = worksheet.addRow(line4);
+    worksheet.mergeCells(`A${lineRow4.number}:J${lineRow4.number}`);
+    lineRow4.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow4.font = { name: 'Calibri', size: 12, bold: true };
+    lineRow4.height = 22;
+
+    let line5 = ['Xác nhận thông tin khách hàng đã lựu chọn dịch vụ'];
+    let lineRow5 = worksheet.addRow(line5);
+    worksheet.mergeCells(`A${lineRow5.number}:J${lineRow5.number}`);
+    lineRow5.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow5.font = { name: 'Calibri', size: 10 };
+    lineRow5.height = 22;
+
+    let line6 = ['Khách hàng: ' + this.cusName?.value];
+    let lineRow6 = worksheet.addRow(line6);
+    worksheet.mergeCells(`A${lineRow6.number}:J${lineRow6.number}`);
+    lineRow6.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow6.font = { name: 'Calibri', size: 10 };
+    lineRow6.height = 22;
+    
+    let line7 = ['Địa chỉ: ' + this.cusAddress.value];
+    let lineRow7 = worksheet.addRow(line7);
+    worksheet.mergeCells(`A${lineRow7.number}:J${lineRow7.number}`);
+    lineRow7.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow7.font = { name: 'Calibri', size: 10 };
+    lineRow7.height = 22;
+    
+    let line8 = ['Số điện thoại: ' + this.cusPhone.value];
+    let lineRow8 = worksheet.addRow(line8);
+    worksheet.mergeCells(`A${lineRow8.number}:J${lineRow8.number}`);
+    lineRow8.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow8.font = { name: 'Calibri', size: 10 };
+    lineRow8.height = 22;
+    
+    let line9 = ['Dịch vụ hỗ trợ'];
+    let lineRow9 = worksheet.addRow(line9);
+    worksheet.mergeCells(`A${lineRow9.number}:J${lineRow9.number}`);
+    lineRow9.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow9.font = { name: 'Calibri', size: 10 };
+    lineRow9.height = 22;
+
+    let dataHeaderRow = ['Dịch vụ', '', '','Nhà cung cấp', '', '', 'Người phụ trách', '','Ghi chú', ''];
+    let headerRow = worksheet.addRow(dataHeaderRow);
+    worksheet.mergeCells(`A${headerRow.number}:C${headerRow.number}`);
+    worksheet.mergeCells(`D${headerRow.number}:F${headerRow.number}`);
+    worksheet.mergeCells(`G${headerRow.number}:H${headerRow.number}`);
+    worksheet.mergeCells(`I${headerRow.number}:J${headerRow.number}`);
+    headerRow.font = { name: 'Calibri', size: 10, bold: true };
+    dataHeaderRow.forEach((item, index) => {
+      headerRow.getCell(index + 1).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      headerRow.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+      headerRow.getCell(index + 1).fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFFFF' }
+      };
+    });
+    headerRow.height = 25;
+
+    if (this.listSettingTaskEmp != null && this.listSettingTaskEmp != undefined) {
+      this.listSettingTaskEmp.forEach((item, index) => {
+        let dataItem = [item.path, '', '', item.vendorName, '', '', item.listEmpName ? item.listEmpName.substring(2, item.listEmpName.length) : "", '', item.note, ''];
+        let itemRow = worksheet.addRow(dataItem);
+        worksheet.mergeCells(`A${itemRow.number}:C${itemRow.number}`);
+        worksheet.mergeCells(`D${itemRow.number}:F${itemRow.number}`);
+        worksheet.mergeCells(`G${itemRow.number}:H${itemRow.number}`);
+        worksheet.mergeCells(`I${itemRow.number}:J${itemRow.number}`);
+        itemRow.font = { name: 'Calibri', size: 10 };
+        dataItem.forEach((item, index) => {
+          itemRow.getCell(index + 1).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+          itemRow.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+          itemRow.getCell(index + 1).fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'FFFFFF' }
+          };
+          itemRow.height = 35;
+        });
+      });
+    }
+
+    this.listSettingTaskEmp.forEach(x => {
+      let line11 = ['Dịch vụ: ' + x.path];
+      let lineRow11 = worksheet.addRow(line11);
+      worksheet.mergeCells(`A${lineRow11.number}:J${lineRow11.number}`);
+      lineRow11.getCell(1).alignment = { vertical: 'middle', wrapText: true, };
+      lineRow11.font = { name: 'Calibri', size: 10, bold: true };
+      lineRow11.height = 22;
+
+      x.listEmpId.forEach(e => {
+        let line12 = ['Người phụ trách: ' + this.listEmployeeEntity.find(y => y.employeeId == e)?.employeeName + '        ' + 'SĐT: ' + this.listEmployeeEntity.find(y => y.employeeId == e)?.phone];
+        let lineRow12 = worksheet.addRow(line12);
+        worksheet.mergeCells(`A${lineRow12.number}:J${lineRow12.number}`);
+        lineRow12.getCell(1).alignment = { vertical: 'middle', wrapText: true, };
+        lineRow12.font = { name: 'Calibri', size: 10, bold: true };
+        lineRow12.height = 22;
+      })
+      worksheet.addRow([]);
+    });
+
+    if(this.listSettingTaskEmp.length < 10){
+      for (let index = 0; index <= (10 - this.listSettingTaskEmp.length); index++) {
+        let emptyRow = ['', '', '', '', '', '', '', '', '', ''];
+        let itemRow = worksheet.addRow(emptyRow);
+        worksheet.mergeCells(`A${itemRow.number}:J${itemRow.number}`);
+      }
+    }
+
+    let date = "                                                                                                                    Ngày: " + this.formatDate(new Date(), '-', false);
+    let line10 = [date];
+    let lineRow10 = worksheet.addRow(line10);
+    worksheet.mergeCells(`A${lineRow10.number}:J${lineRow10.number}`);
+    lineRow10.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow10.font = { name: 'Calibri', size: 10, bold: true };
+    lineRow10.height = 22;
+
+    let line11 = ['                                                                                                                    Kế toán'];
+    let lineRow11 = worksheet.addRow(line11);
+    worksheet.mergeCells(`A${lineRow11.number}:J${lineRow11.number}`);
+    lineRow11.getCell(1).alignment = { vertical: 'middle', wrapText: true, };
+    lineRow11.font = { name: 'Calibri', size: 10, bold: true };
+    lineRow11.height = 22;
+
+    /* fix with for column */
+    worksheet.getColumn(1).width = 8;
+    worksheet.getColumn(2).width = 8;
+    worksheet.getColumn(3).width = 9;
+    worksheet.getColumn(4).width = 9;
+    worksheet.getColumn(6).width = 8;
+    worksheet.getColumn(5).width = 8;
+    worksheet.getColumn(7).width = 8;
+    worksheet.getColumn(8).width = 8;
+
+    this.exportToExel(workBook, title);
+  }
+
+  exportToExel(workbook: Workbook, fileName: string): void {
+    workbook.xlsx.writeBuffer().then((data) => {
+      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+      saveAs.saveAs(blob, fileName);
+    })
+  }
+
+  formatDate(date: Date, txt: string, isMonth: boolean): string {
+    var dateItem = new Date(date);
+    const yyyy = dateItem.getFullYear();
+    let mm = dateItem.getMonth() + 1; // Months start at 0!
+    let dd = dateItem.getDate();
+  
+    let ddtxt = '' + dd;
+    let mmtxt = '' + mm;
+  
+    if (dd < 10) ddtxt = '0' + dd;
+    if (mm < 10) mmtxt = '0' + mm;
+  
+    let formattedToday = ddtxt + txt + mmtxt + txt + yyyy;
+  
+    if (isMonth) {
+      formattedToday = mmtxt + txt + yyyy;
+    }
+    return formattedToday;
+  }
 
 }
 

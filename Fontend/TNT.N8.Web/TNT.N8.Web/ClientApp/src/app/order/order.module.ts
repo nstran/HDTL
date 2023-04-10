@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, DecimalPipe } from '@angular/common';
 import { SharedModule } from '../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxLoadingModule } from 'ngx-loading';
@@ -106,7 +106,8 @@ import { OrderProcessListComponent } from './components/orderProcessList/orderPr
     ForderConfigurationService,
     ProductCategoryService,
     ReSearchService,
-    DatePipe
+    DatePipe,
+    DecimalPipe
   ],
 })
 export class OrderModule { }

@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, Renderer2, HostListener, Injector } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl, Validators, FormGroup, ValidatorFn, AbstractControl } from '@angular/forms';
-import { NumberToStringPipe } from '../../../shared/ConvertMoneyToString/numberToString.pipe';
+import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { CustomerOrder } from '../../models/customer-order.model';
 import { OrderProductDetailProductAttributeValue } from '../../models/order-product-detail-product-attribute-value.model';
 import { ContactModel } from '../../../shared/models/contact.model';
@@ -14,24 +13,20 @@ import { GetPermission } from '../../../shared/permission/get-permission';
 import { EmailConfigService } from '../../../admin/services/email-config.service';
 import { MessageService } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmationService } from 'primeng/api';
 import { FileUpload } from 'primeng/fileupload';
 import { NewTreeNode, OrderDetailDialogComponent } from '../order-detail-dialog/order-detail-dialog.component';
 import { CustomerOrderDetail, CustomerOrderExtension, CustomerOrderDetailExten } from '../../models/customer-order-detail.model';
 import * as $ from 'jquery';
-import { OrderCostDetail } from '../../models/customer-order-cost-detail.model';
 import { TranslateService } from '@ngx-translate/core';
-
 import { ServicePacket } from '../../../../../src/app/product/models/productPacket.model';
 import { TrangThaiGeneral } from '../../../../../src/app/product/models/product.model';
 import { AbstractBase } from '../../../shared/abstract-base.component';
 import { NotificationFireBase } from '../../../shared/models/fire-base.model';
-import { DatePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, DecimalPipe } from '@angular/common';
 import { QuyTrinhService } from '../../../../../src/app/admin/services/quy-trinh.service';
 import { PaymentMethodConfigure } from '../../../../../src/app/admin/models/mobile-app-configuraton.models';
 import { Workbook } from 'exceljs';
 import { saveAs } from "file-saver";
-
 interface Order {
   orderId: string,
   orderCode: string,
@@ -310,7 +305,7 @@ export class CreateComponent extends AbstractBase implements OnInit {
     private renderer: Renderer2,
     public datepipe: DatePipe,
     private quyTrinhService: QuyTrinhService,
-
+    private decimalPipe: DecimalPipe
   ) {
     super(injector)
     this.renderer.listen('window', 'click', (e: Event) => {
@@ -1292,164 +1287,153 @@ export class CreateComponent extends AbstractBase implements OnInit {
     this.isShowNote = event.categoryCode == "TM" ? true : false;
   }
 
-  exportExcel() {
+  exportExcel(): void {
     let title = "Phiếu xác nhận dịch vụ";
     let workBook = new Workbook();
     let worksheet = workBook.addWorksheet(title);
 
-    let line = ['Công ty CP Kiến Tạo Tài Năng - HÃY ĐỂ TÔI LO              Cộng hoà xã hội chủ nghĩa Việt Nam'];
+    let line = ['Công ty CP Kiến Tạo Tài Năng - HÃY ĐỂ TÔI LO                             Cộng hoà xã hội chủ nghĩa Việt Nam'];
     let lineRow = worksheet.addRow(line);
-    worksheet.mergeCells(`A${lineRow.number}:L${lineRow.number}`);
-    lineRow.font = { name: 'Calibri', size: 12, bold: true };
-    // lineRow.getCell(1).alignment = { vertical: 'middle', horizontal: 'right', wrapText: true };
-    // lineRow.height = 30;
+    lineRow.font = { name: 'Calibri', size: 10, bold: true };
+    worksheet.mergeCells(`A${lineRow.number}:J${lineRow.number}`);
+    lineRow.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow.height = 22;
 
-    let line1 = ['Dịch vụ'];
+
+    let line1 = ['Dịch vụ: ' + this.listCustomerOrderDetailModel[0].serviceName + '                                                                  ' + 'Độc Lập - Tự do - Hạnh phúc'];
     let lineRow1 = worksheet.addRow(line1);
-    worksheet.mergeCells(`A${lineRow1.number}:L${lineRow1.number}`);
-    lineRow1.font = { name: 'Calibri', size: 12 };
-    lineRow1.getCell(1).alignment = { vertical: 'middle' };
-    // lineRow1.height = 30;
+    worksheet.mergeCells(`A${lineRow1.number}:J${lineRow1.number}`);
+    lineRow1.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow1.font = { name: 'Calibri', size: 10, bold: true };
+    lineRow1.height = 22;
 
-    let line2 = ['Bộ phận: Kế toán                                                      -----------------'];
+    let line2 = ['                                                                                                                                   -----------------'];
     let lineRow2 = worksheet.addRow(line2);
-    worksheet.mergeCells(`A${lineRow2.number}:L${lineRow2.number}`);
-    lineRow2.font = { name: 'Calibri', size: 12, bold: true };
-    // lineRow2.getCell(1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-    // lineRow2.height = 30;
+    worksheet.mergeCells(`A${lineRow2.number}:J${lineRow2.number}`);
+    lineRow2.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow2.font = { name: 'Calibri', size: 10, bold: true };
+    lineRow2.height = 22;
 
-    let line3 = ['------------'];
+    let line3 = ['                                                                                                                                      ------------'];
     let lineRow3 = worksheet.addRow(line3);
-    worksheet.mergeCells(`A${lineRow3.number}:L${lineRow3.number}`);
-    lineRow3.font = { name: 'Calibri', size: 12, bold: true };
-    // lineRow3.getCell(1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-    // lineRow3.height = 30;
+    worksheet.mergeCells(`A${lineRow3.number}:J${lineRow3.number}`);
+    lineRow3.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow3.font = { name: 'Calibri', size: 10, bold: true };
+    lineRow3.height = 22;
 
-    let line4 = ['PHIẾU XÁC NHẬN DỊCH VỤ'];
+    let line4 = ['                                        PHIẾU XÁC NHẬN DỊCH VỤ'];
     let lineRow4 = worksheet.addRow(line4);
-    worksheet.mergeCells(`A${lineRow4.number}:L${lineRow4.number}`);
+    worksheet.mergeCells(`A${lineRow4.number}:J${lineRow4.number}`);
+    lineRow4.getCell(1).alignment = { vertical: 'middle', wrapText: true };
     lineRow4.font = { name: 'Calibri', size: 12, bold: true };
-    // lineRow4.getCell(1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-    // lineRow4.height = 30;
+    lineRow4.height = 22;
 
-    let line5 = ['Xác nhận thông tin khách hàng đã lựu chọn dịch vụ hỗ trợ khám bệnh'];
+    let line5 = ['Xác nhận thông tin khách hàng đã lựu chọn dịch vụ: ' + this.listCustomerOrderDetailModel[0].serviceName];
     let lineRow5 = worksheet.addRow(line5);
-    worksheet.mergeCells(`A${lineRow5.number}:L${lineRow5.number}`);
-    lineRow5.font = { name: 'Calibri', size: 12 };
-    // lineRow5.getCell(1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-    // lineRow5.height = 30;
+    worksheet.mergeCells(`A${lineRow5.number}:J${lineRow5.number}`);
+    lineRow5.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow5.font = { name: 'Calibri', size: 10 };
+    lineRow5.height = 22;
 
-    let line6 = ['Khách hàng'];
+    let line6 = ['Khách hàng: ' + this.customerControl.value?.customerName];
     let lineRow6 = worksheet.addRow(line6);
-    worksheet.mergeCells(`A${lineRow6.number}:L${lineRow6.number}`);
-    lineRow6.font = { name: 'Calibri', size: 12 };
-    // lineRow6.getCell(1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-    // lineRow6.height = 20;
-
+    worksheet.mergeCells(`A${lineRow6.number}:J${lineRow6.number}`);
+    lineRow6.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow6.font = { name: 'Calibri', size: 10 };
+    lineRow6.height = 22;
     
-    let line7 = ['Địa chỉ:'];
+    let line7 = ['Địa chỉ: ' + this.fullAddressControl.value];
     let lineRow7 = worksheet.addRow(line7);
-    worksheet.mergeCells(`A${lineRow7.number}:L${lineRow7.number}`);
-    lineRow7.font = { name: 'Calibri', size: 12 };
-    // lineRow7.getCell(1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-    // lineRow7.height = 20;
-
+    worksheet.mergeCells(`A${lineRow7.number}:J${lineRow7.number}`);
+    lineRow7.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow7.font = { name: 'Calibri', size: 10 };
+    lineRow7.height = 22;
     
-    let line8 = ['Số điện thoại'];
+    let line8 = ['Số điện thoại: ' + this.customerControl.value?.customerPhone];
     let lineRow8 = worksheet.addRow(line8);
-    worksheet.mergeCells(`A${lineRow8.number}:L${lineRow8.number}`);
-    lineRow8.font = { name: 'Calibri', size: 12 };
-    // lineRow8.getCell(1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-    // lineRow8.height = 20;
-
+    worksheet.mergeCells(`A${lineRow8.number}:J${lineRow8.number}`);
+    lineRow8.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow8.font = { name: 'Calibri', size: 10 };
+    lineRow8.height = 22;
     
     let line9 = ['Dịch vụ hỗ trợ'];
     let lineRow9 = worksheet.addRow(line9);
-    worksheet.mergeCells(`A${lineRow9.number}:L${lineRow9.number}`);
-    lineRow9.font = { name: 'Calibri', size: 12 };
+    worksheet.mergeCells(`A${lineRow9.number}:J${lineRow9.number}`);
+    lineRow9.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow9.font = { name: 'Calibri', size: 10 };
+    lineRow9.height = 22;
 
-    // lineRow9.getCell(1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-    // lineRow9.height = 20;
-
-    // let dataHeaderRow = [`Ngày xuất \n Date`, '', `Số lượng xuất \n Stock out - Q'ty'`, '', `LOT No (Nếu có)`, '', '', `Người nhận \n Person in charge`, '', ''];
-    // let headerRow = worksheet.addRow(dataHeaderRow);
-    // worksheet.mergeCells(`A${headerRow.number}:B${headerRow.number}`);
-    // worksheet.mergeCells(`C${headerRow.number}:D${headerRow.number}`);
-    // worksheet.mergeCells(`E${headerRow.number}:G${headerRow.number}`);
-    // worksheet.mergeCells(`H${headerRow.number}:J${headerRow.number}`);
-    // headerRow.font = { name: 'Calibri', size: 11, bold: true, italic: true };
-    // dataHeaderRow.forEach((item, index) => {
-    //   headerRow.getCell(index + 1).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
-    //   headerRow.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-    //   headerRow.getCell(index + 1).fill = {
-    //     type: 'pattern',
-    //     pattern: 'solid',
-    //     fgColor: { argb: 'FFFFFF' }
-    //   };
-    // });
-    // headerRow.height = 30;
-
-    // if (this.listData != null && this.listData != undefined) {
-    //   this.listData.forEach(item => {
-    //     let dataItem = [formatDate(item.exportDate, '/', false), '', item.exportQuantity, '', item.lotNoName, '', '', item.receivedByName, '', ''];
-    //     let itemRow = worksheet.addRow(dataItem);
-    //     worksheet.mergeCells(`A${itemRow.number}:B${itemRow.number}`);
-    //     worksheet.mergeCells(`C${itemRow.number}:D${itemRow.number}`);
-    //     worksheet.mergeCells(`E${itemRow.number}:G${itemRow.number}`);
-    //     worksheet.mergeCells(`H${itemRow.number}:J${itemRow.number}`);
-
-    //     itemRow.font = { name: 'Calibri', size: 11 };
-    //     dataItem.forEach((item, index) => {
-    //       itemRow.getCell(index + 1).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
-    //       itemRow.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-          
-    //       itemRow.getCell(index + 1).fill = {
-    //         type: 'pattern',
-    //         pattern: 'solid',
-    //         fgColor: { argb: 'FFFFFF' }
-    //       };
-    //     });
-    //   });
-    // }
-
-    worksheet.addRow([]);
-
-    let footerRow = ['', '', '', `Xác nhận của TBP \n (ký, ghi rõ họ tên)`, '', `Xác nhận của TBP \n (ký, ghi rõ họ tên)`, '', `Nhân viên kho \n (ký, ghi rõ họ tên)`, '', ''];
-    let ftRow = worksheet.addRow(footerRow);
-    worksheet.mergeCells(`D${ftRow.number}:E${ftRow.number}`);
-    worksheet.mergeCells(`F${ftRow.number}:G${ftRow.number}`);
-    worksheet.mergeCells(`H${ftRow.number}:J${ftRow.number}`);
-    ftRow.font = { name: 'Calibri', size: 10, bold: true };
-    footerRow.forEach((item, index) => {
-      if (index + 1 > 3) {
-        ftRow.getCell(index + 1).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
-        ftRow.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-        ftRow.getCell(index + 1).fill = {
-          type: 'pattern',
-          pattern: 'solid',
-          fgColor: { argb: 'FFFFFF' }
-        };
+    let dataHeaderRow = ['#', 'Tên gói dịch vụ', '','	Tên dịch vụ', '', '','Số lượng', 'VAT (%)', 'Giá tiền', ''];
+    let headerRow = worksheet.addRow(dataHeaderRow);
+    worksheet.mergeCells(`B${headerRow.number}:C${headerRow.number}`);
+    worksheet.mergeCells(`D${headerRow.number}:F${headerRow.number}`);
+    worksheet.mergeCells(`I${headerRow.number}:J${headerRow.number}`);
+    headerRow.font = { name: 'Calibri', size: 10, bold: true };
+    dataHeaderRow.forEach((item, index) => {
+      headerRow.getCell(index + 1).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+      if(item == "#" || item == "Số lượng" || item == "VAT (%)" || item == "Giá tiền" || index == dataHeaderRow.length - 1){
+        headerRow.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'right', wrapText: true };
+      } else {
+        headerRow.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
       }
+      headerRow.getCell(index + 1).fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFFFF' }
+      };
     });
-    ftRow.height = 30;
+    headerRow.height = 25;
 
-    footerRow = ['', '', '', '', '', '', '', '', '', ''];
-    ftRow = worksheet.addRow(footerRow);
-    worksheet.mergeCells(`D${ftRow.number}:E${ftRow.number + 3}`);
-    worksheet.mergeCells(`F${ftRow.number}:G${ftRow.number + 3}`);
-    worksheet.mergeCells(`H${ftRow.number}:J${ftRow.number + 3}`);
-    ftRow.font = { name: 'Calibri', size: 10, bold: true };
-    footerRow.forEach((item, index) => {
-      if (index + 1 > 3) {
-        ftRow.getCell(index + 1).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
-        ftRow.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-        ftRow.getCell(index + 1).fill = {
-          type: 'pattern',
-          pattern: 'solid',
-          fgColor: { argb: 'FFFFFF' }
-        };
+    if (this.listCustomerOrderDetailModel != null && this.listCustomerOrderDetailModel != undefined) {
+      this.listCustomerOrderDetailModel.forEach((item, index) => {
+        let dataItem = [index + 1, item.serviceName, '', item.optionName, '', '', item.number, item.vat, this.decimalPipe.transform(item.cost), ''];
+        let itemRow = worksheet.addRow(dataItem);
+        worksheet.mergeCells(`B${itemRow.number}:C${itemRow.number}`);
+        worksheet.mergeCells(`D${itemRow.number}:F${itemRow.number}`);
+        worksheet.mergeCells(`I${itemRow.number}:J${itemRow.number}`);
+
+        itemRow.font = { name: 'Calibri', size: 10 };
+        dataItem.forEach((item, index) => {
+          itemRow.getCell(index + 1).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
+          if(!Number.isNaN(Number(item)) && item != ""){
+            itemRow.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'right', wrapText: true };
+          } else if (index == dataHeaderRow.length - 1){
+            itemRow.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'right', wrapText: true };
+          } else {
+            itemRow.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
+          }
+          itemRow.getCell(index + 1).fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'FFFFFF' }
+          };
+          itemRow.height = 30;
+        });
+      });
+    }
+
+    if(this.listCustomerOrderDetailModel.length < 22){
+      for (let index = 0; index <= (22 - this.listCustomerOrderDetailModel.length); index++) {
+        let emptyRow = ['', '', '', '', '', '', '', '', '', ''];
+        let itemRow = worksheet.addRow(emptyRow);
+        worksheet.mergeCells(`A${itemRow.number}:J${itemRow.number}`);
       }
-    });
+    }
+
+    let date = "                                                                                                                    Ngày: " + this.formatDate(new Date(), '-', false);
+    let line10 = [date];
+    let lineRow10 = worksheet.addRow(line10);
+    worksheet.mergeCells(`A${lineRow10.number}:J${lineRow10.number}`);
+    lineRow10.getCell(1).alignment = { vertical: 'middle', wrapText: true };
+    lineRow10.font = { name: 'Calibri', size: 10, bold: true };
+    lineRow10.height = 22;
+
+    let line11 = ['                                                                                                                    Kế toán'];
+    let lineRow11 = worksheet.addRow(line11);
+    worksheet.mergeCells(`A${lineRow11.number}:J${lineRow11.number}`);
+    lineRow11.getCell(1).alignment = { vertical: 'middle', wrapText: true, };
+    lineRow11.font = { name: 'Calibri', size: 10, bold: true };
+    lineRow11.height = 22;
 
     /* fix with for column */
     worksheet.getColumn(1).width = 8;
@@ -1460,18 +1444,36 @@ export class CreateComponent extends AbstractBase implements OnInit {
     worksheet.getColumn(5).width = 8;
     worksheet.getColumn(7).width = 8;
     worksheet.getColumn(8).width = 8;
-    worksheet.getColumn(9).width = 8;
 
     this.exportToExel(workBook, title);
   }
 
-  exportToExel(workbook: Workbook, fileName: string) {
+  exportToExel(workbook: Workbook, fileName: string): void {
     workbook.xlsx.writeBuffer().then((data) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       saveAs.saveAs(blob, fileName);
     })
   }
 
+  formatDate(date: Date, txt: string, isMonth: boolean): string {
+    var dateItem = new Date(date);
+    const yyyy = dateItem.getFullYear();
+    let mm = dateItem.getMonth() + 1; // Months start at 0!
+    let dd = dateItem.getDate();
+  
+    let ddtxt = '' + dd;
+    let mmtxt = '' + mm;
+  
+    if (dd < 10) ddtxt = '0' + dd;
+    if (mm < 10) mmtxt = '0' + mm;
+  
+    let formattedToday = ddtxt + txt + mmtxt + txt + yyyy;
+  
+    if (isMonth) {
+      formattedToday = mmtxt + txt + yyyy;
+    }
+    return formattedToday;
+  }
 }
 
 
