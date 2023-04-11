@@ -11,6 +11,12 @@ using System.Threading.Tasks;
 using TN.TNM.DataAccess.Models.Options;
 using System;
 using TN.TNM.DataAccess.Databases.Entities;
+using System.IO;
+using System.Net;
+using TN.TNM.Common;
+using TN.TNM.BusinessLogic.Messages.Responses.File;
+using TN.TNM.BusinessLogic.Messages.Requests.File;
+using Microsoft.AspNetCore.Hosting;
 
 namespace TN.TNM.Api.Controllers
 {
@@ -18,10 +24,13 @@ namespace TN.TNM.Api.Controllers
     {
         private readonly IProduct iProduct;
         private readonly IProductDataAccess iProductDataAccess;
-        public ProductController(IProduct _iProduct, IProductDataAccess _iProductDataAccess)
+        private IHostingEnvironment _hostingEnvironment;
+
+        public ProductController(IProduct _iProduct, IProductDataAccess _iProductDataAccess, IHostingEnvironment hostingEnvironment)
         {
             this.iProduct = _iProduct;
             this.iProductDataAccess = _iProductDataAccess;
+            _hostingEnvironment = hostingEnvironment;
         }
         /// <summary>
         /// search product
@@ -402,6 +411,61 @@ namespace TN.TNM.Api.Controllers
         public ChangeOrderServicePackResult ChangeOrderServicePack([FromBody] ChangeOrderServicePackParameter request)
         {
             return this.iProductDataAccess.ChangeOrderServicePack(request);
+        }
+
+        [HttpPost]
+        [Route("api/Product/uploadServicePacketImage")]
+        [Authorize(Policy = "Member")]
+        public UploadFileResponse UploadProductImage(UploadFileRequest request)
+        {
+            try
+            {
+                if (request.FileList != null && request.FileList.Count > 0)
+                {
+                    string folderName = "ServicePacketImage";
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    string newPath = Path.Combine(webRootPath, folderName);
+                    if (!Directory.Exists(newPath))
+                    {
+                        Directory.CreateDirectory(newPath);
+                    }
+
+                    foreach (IFormFile item in request.FileList)
+                    {
+                        if (item.Length > 0)
+                        {
+                            string fileName = item.FileName.Trim();
+                            string fullPath = Path.Combine(newPath, fileName);
+                            using (var stream = new FileStream(fullPath, FileMode.Create))
+                            {
+                                item.CopyTo(stream);
+                            }
+                        }
+                    }
+
+                    return new UploadFileResponse()
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        MessageCode = CommonMessage.FileUpload.UPLOAD_SUCCESS,
+                    };
+                }
+                else
+                {
+                    return new UploadFileResponse()
+                    {
+                        StatusCode = HttpStatusCode.ExpectationFailed,
+                        MessageCode = CommonMessage.FileUpload.NO_FILE
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new UploadFileResponse()
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    MessageCode = ex.Message
+                };
+            }
         }
     }
 }

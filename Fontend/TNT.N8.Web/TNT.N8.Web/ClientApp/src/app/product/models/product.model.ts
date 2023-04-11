@@ -613,6 +613,7 @@ export class ServicePacketImageEntityModel {
   id: string;
   servicePacketId: string;
   mainImage: string;
+  mainImageName: string;
   data : string;
   type : string;
   createdById: string;
@@ -621,7 +622,9 @@ export class ServicePacketImageEntityModel {
   updatedDate: string | null;
   tenantId: string;
   backgroundImage: string;
+  backgroundImageName: string;
   icon: string;
+  iconName: string;
 }
 
 export class NotificationConfigurationEntityModel {
@@ -837,4 +840,14 @@ export class OrderProcessEntityModel {
   status: number | null;
   backgroundColorForStatus: string | null;
   isCreator: boolean;
+}
+
+export class ServicePacketImage {
+  source: string | null;
+  imageSize: number;
+  imageName: string;
+  imageType: string;
+  imageUrl: string;
+  alt: string | null;
+  title: string | null;
 }

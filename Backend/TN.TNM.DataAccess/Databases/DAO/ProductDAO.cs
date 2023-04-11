@@ -36,6 +36,8 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.Math;
 using TN.TNM.DataAccess.Models.ServicePacketImage;
 using Product = TN.TNM.DataAccess.Databases.Entities.Product;
 using TN.TNM.DataAccess.Models.QuyTrinh;
+using System.Drawing;
+using Org.BouncyCastle.Asn1.Ocsp;
 
 namespace TN.TNM.DataAccess.Databases.DAO
 {
@@ -2517,6 +2519,12 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     servicePacketImage.ServicePacketId = servicePacket.Id;
                     servicePacketImage.CreatedDate = DateTime.Now;
                     servicePacketImage.CreatedById = parameter.UserId;
+                    string folderName = "ServicePacketImage";
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    string newPath = Path.Combine(webRootPath, folderName);
+                    servicePacketImage.MainImage = parameter.ServicePacketImageEntityModel.MainImageName != null ? Path.Combine(newPath, parameter.ServicePacketImageEntityModel.MainImageName) : "";
+                    servicePacketImage.BackgroundImage = parameter.ServicePacketImageEntityModel.BackgroundImageName != null ? Path.Combine(newPath, parameter.ServicePacketImageEntityModel.BackgroundImageName) : "";
+                    servicePacketImage.Icon = parameter.ServicePacketImageEntityModel.IconName != null ? Path.Combine(newPath, parameter.ServicePacketImageEntityModel.IconName) : "";
                     context.ServicePacketImage.Add(servicePacketImage);
                 }
 
@@ -2833,9 +2841,9 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                    ProductCategoryId = s.ProductCategoryId,
                                                    ProductCategoryName = pc.ProductCategoryName,  
                                                    Status = s.Status,
-                                                   Icon = si.Icon,
-                                                   BackgroundImage = si.BackgroundImage,
-                                                   MainImage = si.MainImage,
+                                                   Icon = GetImageBase64(si.Icon),
+                                                   BackgroundImage = GetImageBase64(si.BackgroundImage),
+                                                   MainImage = GetImageBase64(si.MainImage),
                                                    Stt = s.Stt,
                                                    SubjectsApplication = customerSubjectsApplication != null ? scJoined.CategoryCode == ProductConsts.CategoryCodeUpMobile ? true : (scJoined.CategoryCode == ProductConsts.CategoryCodeUserReview && customerSubjectsApplication == true) ? true : false : false
                                                }).ToListAsync();
@@ -2993,9 +3001,9 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                              .Select(x => new ServicePacketImageEntityModel
                                              {
                                                  Id = x.Id,
-                                                 MainImage = x.MainImage,
-                                                 BackgroundImage = x.BackgroundImage,
-                                                 Icon = x.Icon
+                                                 MainImage = GetImageBase64(x.MainImage),
+                                                 BackgroundImage = GetImageBase64(x.BackgroundImage),
+                                                 Icon = GetImageBase64(x.Icon)
                                              }).FirstOrDefault();
 
                 var listNotificationConfigurationModel = (from n in context.NotificationConfiguration join
@@ -3108,6 +3116,23 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     StatusCode = HttpStatusCode.ExpectationFailed,
                     MessageCode = e.Message
                 };
+            }
+        }
+
+        private string GetImageBase64(string path)
+        {
+            using (MemoryStream m = new MemoryStream())
+            {
+                string base64String = string.Empty;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    Image image = Image.FromFile(path);
+                    image.Save(m, image.RawFormat);
+                    byte[] imageBytes = m.ToArray();
+                    string type = Path.GetExtension(path);
+                    base64String = $"data:image/{type.Replace(".","")};base64," + Convert.ToBase64String(imageBytes);
+                }
+                return base64String;
             }
         }
 

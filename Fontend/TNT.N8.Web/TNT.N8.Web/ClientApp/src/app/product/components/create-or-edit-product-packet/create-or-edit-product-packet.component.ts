@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { AbstractBase } from '../../../shared/abstract-base.component';
-import { AttrConfigure, CategoryEntityModel, CreateOrUpdateServicePacketParameter, EmployeeEntityModel, NewTreeNode, NotificationConfigurationEntityModel, OptionsEntityModel, PermissionConfigurationEntityModel, ProductCategoryEntityModel, ProvinceEntityModel,RoleEntityModel,ServicePacketAttributeEntityModel, ServicePacketEntityModel, ServicePacketImageEntityModel, ServicePacketMappingOptionsEntityModel } from '../../models/product.model';
+import { AttrConfigure, CategoryEntityModel, CreateOrUpdateServicePacketParameter, EmployeeEntityModel, NewTreeNode, NotificationConfigurationEntityModel, OptionsEntityModel, PermissionConfigurationEntityModel, ProductCategoryEntityModel, ProvinceEntityModel,RoleEntityModel,ServicePacketAttributeEntityModel, ServicePacketEntityModel, ServicePacketImage, ServicePacketImageEntityModel, ServicePacketMappingOptionsEntityModel } from '../../models/product.model';
 import { ProductService } from '../../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
@@ -100,6 +100,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
 
   //Danh sách quản lý dịch vụ
   listManager: EmployeeEntityModel[];
+  images: ServicePacketImage[] = [];
 
   get quyTrinh() {
     return this.form.get('quyTrinh') as FormArray;
@@ -294,16 +295,70 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   async uploadMainImage(event : {files : File[]}): Promise<void>{
     this.base64MainImage = await this.getBase64ImageFromURL(event);
     this.servicePacketImageEntityModel.mainImage = this.base64MainImage.toString();
+    for (let file of event.files) {
+      let fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = (reader: any) => {
+        let newImage = new ServicePacketImage();
+        newImage.source = reader.target.result; //base64
+        newImage.imageSize = file.size;
+        newImage.imageName = file.name;
+        this.servicePacketImageEntityModel.mainImageName = file.name;
+        newImage.imageType = file.type;
+        newImage.title = '';
+        newImage.alt = '';
+        var existImage = this.images.find(x => x.imageName == file.name);
+        if(!existImage){
+          this.images = [...this.images, newImage];
+        }
+      };
+    }
   }
 
   async uploadBackgroundImage(event : {files : File[]}): Promise<void> {
     this.base64BackgroundImage = await this.getBase64ImageFromURL(event);
     this.servicePacketImageEntityModel.backgroundImage = this.base64BackgroundImage.toString();
+    for (let file of event.files) {
+      let fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = (reader: any) => {
+        let newImage = new ServicePacketImage();
+        newImage.source = reader.target.result; //base64
+        newImage.imageSize = file.size;
+        newImage.imageName = file.name;
+        this.servicePacketImageEntityModel.backgroundImageName = file.name;
+        newImage.imageType = file.type;
+        newImage.title = '';
+        newImage.alt = '';
+        var existImage = this.images.find(x => x.imageName == file.name);
+        if(!existImage){
+          this.images = [...this.images, newImage];
+        }
+      };
+    }
   }
 
   async uploadIcon(event : {files : File[]}): Promise<void> {
     this.base64Icon = await this.getBase64ImageFromURL(event);
     this.servicePacketImageEntityModel.icon = this.base64Icon.toString();
+    for (let file of event.files) {
+      let fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = (reader: any) => {
+        let newImage = new ServicePacketImage();
+        newImage.source = reader.target.result; //base64
+        newImage.imageSize = file.size;
+        newImage.imageName = file.name;
+        this.servicePacketImageEntityModel.iconName = file.name;
+        newImage.imageType = file.type;
+        newImage.title = '';
+        newImage.alt = '';
+        var existImage = this.images.find(x => x.imageName == file.name);
+        if(!existImage){
+          this.images = [...this.images, newImage];
+        }
+      };
+    }
   }
 
   removeMainImage(): void {
@@ -636,7 +691,6 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   }
 
   changeOption(option: OptionsEntityModel): void {
-    console.log(option);
     this.optionModelService = option;
     this.servicePacketMappingOptionsEntityModel.optionId = option.id;
     this.servicePacketMappingOptionsEntityModel.name = option.name;
@@ -709,7 +763,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
     this.showModalNoitiConfig = false;
   }
 
-  save(): void {
+  async save(): Promise<void> {
     if (!this.formTenCauHinh.valid) {
       if (!this.tenCauHinhControl.valid)
         this.tenCauHinhControl.markAsTouched();
@@ -801,24 +855,56 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
         createOrEditProductParameter.cauHinhQuyTrinh = cauHinhQuyTrinh;
         createOrEditProductParameter.listManagerId = listManagerId;
 
-        this._productService.createOrUpdateServicePacket(createOrEditProductParameter)
-        .pipe(tap(() => {
-          this.loading = false; 
-        }))
-        .subscribe(result => {
-          if (result.statusCode == 200) {
-          this.showToast('success', 'Thông báo', 'Lưu thành công');
-
-          //Thêm cấu hình phân quyền
-
-          this._router.navigate(['/product/list-product-packet']);
-          this.getMasterDataServicePacket();
-          } else {
-            this.showToast('error', 'Thông báo', 'Lưu thất bại');
-          }
-        })
+        let fileList: File[] = this.getFileList();
+        let uploadResult: any = await this._productService.uploadServicePacketImage(fileList);
+        if(uploadResult.statusCode == 200){
+          this._productService.createOrUpdateServicePacket(createOrEditProductParameter)
+          .pipe(tap(() => {
+            this.loading = false; 
+          }))
+          .subscribe(result => {
+            if (result.statusCode == 200) {
+            this.showToast('success', 'Thông báo', 'Lưu thành công');
+  
+            //Thêm cấu hình phân quyền
+  
+            this._router.navigate(['/product/list-product-packet']);
+            this.getMasterDataServicePacket();
+            } else {
+              this.showToast('error', 'Thông báo', 'Lưu thất bại');
+            }
+          })
+        }
+        else {
+          this.loading = false;
+        }
       }
     }
+  }
+
+  getFileList(): File[] {
+    let files: File[] = [];
+    this.images.forEach((image, index) => {
+      // image.imageName = this.hashImageName(image.imageName, index);
+      let file = this.convertDataURItoFile(image.source, image.imageName, image.imageType);
+      files.push(file)
+    });
+    return files;
+  }
+
+  convertDataURItoFile(dataURI: string, fileName: string, type: string) {
+    var byteString = atob(dataURI.split(',')[1]);
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    var blob: any = new Blob([ia], { type: mimeString });
+    blob.lastModifiedDate = new Date();
+    blob.name = fileName;
+    let file = new File([blob], fileName, { type: type })
+    return file;
   }
 
   //Quy trình phê duyệt

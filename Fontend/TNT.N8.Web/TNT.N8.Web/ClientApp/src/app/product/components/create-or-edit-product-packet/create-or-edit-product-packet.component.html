@@ -46,7 +46,7 @@
                             Icon (200px X 200px)
                         </p>
                         <div class="image" [ngClass]="ratioIconImage == '2:1' ? 'wh375-188' : ratioIconImage == '1:2' ? 'wh188-375' : 'wh375-375'">
-                            <img [src]="base64Icon != undefined ? base64Icon : '/assets/images/no-product-image.jpg'">
+                            <img [src]="base64Icon ? base64Icon : '/assets/images/no-product-image.jpg'">
                         </div>
                         <div [ngClass]="ratioIconImage == '2:1' ? 'w188' : ratioIconImage == '1:2' ? 'w188' : 'w188'">
                             <p-fileUpload 
@@ -70,7 +70,7 @@
                                 Ảnh chính (188px X 375px)
                             </p>
                             <div class="image" [ngClass]=" ratioMainImage == '2:1' ? 'wh375-188' : ratioMainImage == '1:2' ? 'wh188-375' : 'wh375-375'">
-                                <img [src]="base64MainImage != undefined ? base64MainImage : '/assets/images/no-product-image.jpg'">
+                                <img [src]="base64MainImage ? base64MainImage : '/assets/images/no-product-image.jpg'">
                             </div>
                             <div [ngClass]="ratioMainImage == '2:1' ? 'w375' : ratioMainImage == '1:2' ? 'w188' : 'w375'">
                                 <p-fileUpload 
@@ -94,7 +94,7 @@
                             Ảnh nền (188px X 375px)
                         </p>
                         <div class="image" [ngClass]="ratioBackgroundImage == '2:1' ? 'wh375-188' : ratioBackgroundImage == '1:2' ? 'wh188-375' : 'wh375-375'">
-                            <img [src]="base64BackgroundImage != undefined ? base64BackgroundImage : '/assets/images/no-product-image.jpg'">
+                            <img [src]="base64BackgroundImage ? base64BackgroundImage : '/assets/images/no-product-image.jpg'">
                         </div>
                         <div [ngClass]="ratioBackgroundImage == '2:1' ? 'w375' : ratioBackgroundImage == '1:2' ? 'w188' : 'w375'">
                             <p-fileUpload 

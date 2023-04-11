@@ -2,7 +2,7 @@
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ProductModel, ProductModel2, ProductQuantityInWarehouseModel, ProductAttributeCategory, ProductImageModel, InventoryReportModel, ProductVendorMappingModel, PriceProductModel, GetListServiceTypeResult, CreateProductOptionResult, OptionsEntityModel, GetListProductOptionResult, TakeListOptionResult, ProductEntityModel, CreateOrEditProductResult, CreateOrEditProductParameter, TakeProductAndOptionsByIdResult, GetListServicePacketResult, GetServicePacketByIdResult, CreateOrUpdateServicePacketParameter, CreateOrUpdateServicePacketResult, GetMasterDataCreateServicePacketResult, DownloadServicePacketImageResponse, CreateServicePacketMappingOptionResult, DeleteServicePacketMappingOptionResult, ServicePacketMappingOptionsEntityModel, EditServicePacketMappingOptionResult, GetListEmployeeByRoleIdResult } from '../models/product.model';
+import { ProductModel, ProductModel2, ProductQuantityInWarehouseModel, ProductAttributeCategory, ProductImageModel, InventoryReportModel, ProductVendorMappingModel, PriceProductModel, GetListServiceTypeResult, CreateProductOptionResult, OptionsEntityModel, GetListProductOptionResult, TakeListOptionResult, ProductEntityModel, CreateOrEditProductResult, CreateOrEditProductParameter, TakeProductAndOptionsByIdResult, GetListServicePacketResult, GetServicePacketByIdResult, CreateOrUpdateServicePacketParameter, CreateOrUpdateServicePacketResult, GetMasterDataCreateServicePacketResult, DownloadServicePacketImageResponse, CreateServicePacketMappingOptionResult, DeleteServicePacketMappingOptionResult, ServicePacketMappingOptionsEntityModel, EditServicePacketMappingOptionResult, GetListEmployeeByRoleIdResult, ServicePacketImage } from '../models/product.model';
 import { ProductAttributeCategoryModel } from '../models/productAttributeCategory.model';
 import { Observable } from 'rxjs';
 import { GetListProductResult } from '../components/list-product/list-product-model';
@@ -371,7 +371,7 @@ export class ProductService {
   
   createOrUpdateServicePacket(createOrEditProductParameter: CreateOrUpdateServicePacketParameter): Observable<CreateOrUpdateServicePacketResult> {
     const url = localStorage.getItem('ApiEndPoint') + '/api/Product/createOrUpdateServicePacket';
-    return this.httpClient.post(url,
+    return this.httpClient.post(url, 
       {
         ServicePacketEntityModel: createOrEditProductParameter.servicePacketEntityModel,
         ListServicePacketAttributeEntityModel: createOrEditProductParameter.listServicePacketAttributeEntityModel,
@@ -384,7 +384,7 @@ export class ProductService {
       .pipe(
         map((response: CreateOrUpdateServicePacketResult) => {
           return <CreateOrUpdateServicePacketResult>response;
-        }));
+      }));
   }
 
   getListServicePacket(filterText : string): Observable<GetListServicePacketResult> {
@@ -462,5 +462,19 @@ export class ProductService {
       map((response) => {
         return response;
       }));
+  }
+
+  uploadServicePacketImage(fileList: File[]): Promise<Response> {
+    const url = localStorage.getItem('ApiEndPoint') + '/api/Product/uploadServicePacketImage';
+    let formData: FormData = new FormData();
+    for (var i = 0; i < fileList.length; i++) {
+      formData.append('fileList', fileList[i]);
+    }
+    return new Promise((resolve, reject) => {
+      return this.httpClient.post(url, formData).toPromise()
+        .then((response: Response) => {
+          resolve(response);
+        });
+    });
   }
 }
