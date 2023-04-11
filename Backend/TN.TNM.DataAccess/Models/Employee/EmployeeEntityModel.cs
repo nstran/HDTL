@@ -143,6 +143,7 @@ namespace TN.TNM.DataAccess.Models.Employee
         public Organization Organization { get; set; }
         public Guid UserId { get; set; }
         public bool? IsDisable { get; set; }
+        public string RateContent { get; set; }
 
         public EmployeeEntityModel() { }
 

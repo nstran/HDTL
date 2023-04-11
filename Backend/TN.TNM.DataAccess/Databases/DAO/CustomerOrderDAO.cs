@@ -12192,7 +12192,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                        }).ToList();
                 var listOrderTaskId = listCustomerOrderTask.Select(x => x.Id).ToList();
                 var listAllMapping = context.OrderTaskMappingEmp.Where(x => listOrderTaskId.Contains(x.CustomerOrderTaskId)).ToList();
-              
+                var listOrderProcessMappingEmployee = context.OrderProcessMappingEmployee.ToList();
                 listOrder.ForEach(item =>
                 {
                     var orderProcess = listOrderProcess.FirstOrDefault(x => x.Id == item.OrderProcesId);
@@ -12228,6 +12228,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         //}
                         listAllMappingEmp_Id.Add(orderProcess.CreatedById);
                         item.ListEmployeeEntityModel = listEmployeeEntityModel.Where(x => listAllMappingEmp_Id.Any(y => y == x.EmployeeId)).ToList();
+                        item.ListEmployeeEntityModel.ForEach(x =>
+                        {
+                            x.RateContent = listOrderProcessMappingEmployee.FirstOrDefault(y => y.EmployeeId == x.EmployeeId)?.RateContent;
+                        });
                     }
 
                     //Lấy các dịch vụ có trong phiếu
