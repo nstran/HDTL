@@ -11224,7 +11224,19 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listOrderTaskId = listCustomerOrderTask.Select(x => x.Id).ToList();
                 var listAllMapping = context.OrderTaskMappingEmp.Where(x => listOrderTaskId.Contains(x.CustomerOrderTaskId)).ToList();
                 var listAllEmpId = listAllMapping.Select(x => x.EmployeeId).ToList();
-                var listAllEmp = context.Employee.Where(x => listAllEmpId.Contains(x.EmployeeId)).ToList();
+                var listAllEmp = (from e in context.Employee
+                                  join
+                                  c in context.Contact on e.EmployeeId equals c.ObjectId
+                                  into ec
+                                  from ecJoined in ec.DefaultIfEmpty()
+                                  where listAllEmpId.Contains(e.EmployeeId)
+                                  select new EmployeeEntityModel
+                                  {
+                                      EmployeeId = e.EmployeeId,
+                                      EmployeeName = e.EmployeeName,
+                                      Phone = ecJoined.Phone
+                                  }).ToList();
+                    
                 var listAllEmpContact = context.Contact.Where(x => listAllEmpId.Contains(x.ObjectId) && x.ObjectType == "EMP").ToList();
                 //Nhà cung cấp
                 var listAllVendorId = listCustomerOrderTask.Select(x => x.VendorId).Distinct().ToList();
@@ -11237,18 +11249,18 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     var listMapping = listAllMapping.Where(x => x.CustomerOrderTaskId == item.Id).Select(x => x.EmployeeId).ToList();
 
-                    var emp = listAllEmp.Where(x => listMapping.Contains(x.EmployeeId)).ToList();
+                    var emp = listAllEmp.Where(x => listMapping.Contains((Guid)x.EmployeeId)).ToList();
                     var contact = listAllEmpContact.Where(x => listMapping.Contains(x.ObjectId)).ToList();
                     var servicePacketMappingOptionsItem = listAllServicePacketMappingOptions.FirstOrDefault(x => x.Id == item.ServicePacketMappingOptionsId);
                     item.OptionId = servicePacketMappingOptionsItem?.OptionId;
                     item.ServicePacketId = customerOrderAction.ServicePacketId;
                     item.VendorName = listAllVendor.FirstOrDefault(x => x.VendorId == item.VendorId)?.VendorName;
                     item.ListEmpId = new List<Guid>();
-                    item.ListEmployeeEntityModel = emp.Select(x => new EmployeeEntityModel { EmployeeId = x.EmployeeId, EmployeeName = x.EmployeeName }).ToList();
+                    item.ListEmployeeEntityModel = emp.Select(x => new EmployeeEntityModel { EmployeeId = x.EmployeeId, EmployeeName = x.EmployeeName, Phone = x.Phone }).ToList();
                     item.ListEmpName = "";
                     emp.ForEach(obj => {
                         item.EmpPhone = contact.FirstOrDefault(x => x.ObjectId == obj.EmployeeId)?.Phone;
-                        item.ListEmpId.Add(obj.EmployeeId);
+                        item.ListEmpId.Add((Guid)obj.EmployeeId);
                         item.ListEmpName += ", " + obj.EmployeeName;
                     });
                 });
