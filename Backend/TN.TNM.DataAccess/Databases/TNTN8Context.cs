@@ -378,6 +378,7 @@ namespace TN.TNM.DataAccess.Databases
         public virtual DbSet<ReportPoint> ReportPoint { get; set; }
         public virtual DbSet<OrderProcess> OrderProcess { get; set; }
         public virtual DbSet<OrderProcessDetail> OrderProcessDetail { get; set; }
+        public virtual DbSet<OrderProcessMappingEmployee> OrderProcessMappingEmployee { get; set; }
         public virtual DbSet<VendorMappingOption> VendorMappingOption { get; set; }
         public virtual DbSet<OrderTaskMappingEmp> OrderTaskMappingEmp { get; set; }
         public virtual DbSet<PaymentMethodConfigure> PaymentMethodConfigure { get; set; }
@@ -6143,6 +6144,13 @@ namespace TN.TNM.DataAccess.Databases
                 entity.Property(e => e.Status).HasDefaultValueSql("1");
                 entity.HasQueryFilter(e => e.TenantId == _tenantId);
 
+            });
+
+            modelBuilder.Entity<OrderProcessMappingEmployee>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.RateContent).HasColumnType("character varying(5000)");
             });
 
             modelBuilder.Entity<VendorMappingOption>(entity =>

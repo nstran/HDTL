@@ -10018,6 +10018,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             item.Price = option.Price;
                             item.Vat = option.VAT;
                             item.CategoryUnitName = option.CategoryUnitName;
+                            item.Description = option.Description;
                         }
                     }
                     else
@@ -11293,6 +11294,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     Order = x.Order,
                     EmpId = x.EmpId,
                     EmpName = listEmp.FirstOrDefault(y => y.EmployeeId == x.EmpId).EmployeeCodeName,
+                    ListEmployeeEntityModel = listEmp,
                     Deadline = x.Deadline,
                     IsCusView = x.IsCusView,
                     Content = x.Content,
@@ -12136,16 +12138,19 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 var listOrderProcessId = listOrderProcess.Select(x => x.Id).ToList();
 
-                var listAllOrderOfCus = context.CustomerOrder.Where(x => listOrderProcessId.Contains(x.OrderProcessId.Value)).Select(x => new CustomerOrderEntityModel { 
-                    OrderId = x.OrderId,
-                    OrderType = x.OrderType,
-                    IsOrderAction = x.IsOrderAction,
-                    OrderCode = x.OrderCode,
-                    ServicePacketId = x.ServicePacketId,
-                    StatusOrder = x.StatusOrder,
-                    CreatedDate = x.CreatedDate,
-                    OrderProcesId = x.OrderProcessId
-                }).ToList();
+                var listAllOrderOfCus = context.CustomerOrder
+                        .Where(x => listOrderProcessId.Contains(x.OrderProcessId.Value))
+                        .Select(x => new CustomerOrderEntityModel { 
+                                    OrderId = x.OrderId,
+                                    OrderType = x.OrderType,
+                                    IsOrderAction = x.IsOrderAction,
+                                    OrderCode = x.OrderCode,
+                                    ServicePacketId = x.ServicePacketId,
+                                    StatusOrder = x.StatusOrder,
+                                    CreatedDate = x.CreatedDate,
+                                    OrderProcesId = x.OrderProcessId,
+                                    ObjectId = x.ObjectId
+                        }).ToList();
 
 
                 //List phiếu yêu cầu
@@ -12170,6 +12175,23 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 var listAllCustomerOrderDetailExten = context.CustomerOrderDetailExten.ToList();
 
+                var listEmployeeEntityModel = context.Employee
+                                              .Select(x => new EmployeeEntityModel
+                                              {
+                                                  EmployeeId = x.EmployeeId,
+                                                  EmployeeName = x.EmployeeName
+                                              }).ToList();
+
+                var listCustomerOrderTask = context.CustomerOrderTask
+                       .Select(x => new CustomerOrderTaskEntityModel
+                       {
+                           Id = x.Id,
+                           EmpId = x.EmpId,
+                           OrderActionId = x.OrderActionId
+                       }).ToList();
+                var listOrderTaskId = listCustomerOrderTask.Select(x => x.Id).ToList();
+                var listAllMapping = context.OrderTaskMappingEmp.Where(x => listOrderTaskId.Contains(x.CustomerOrderTaskId)).ToList();
+              
                 listOrder.ForEach(item =>
                 {
                     var orderProcess = listOrderProcess.FirstOrDefault(x => x.Id == item.OrderProcesId);
@@ -12190,6 +12212,21 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         item.OrderActionId = orderAction.OrderId;
                         item.OrderActionCode = orderAction.OrderCode;
                         item.StatusOrderActionName = listCustomerOrderStatus.FirstOrDefault(x => x.Value == orderAction.StatusOrder).Name;
+
+                        //Lấy các task của phiếu hỗ trợ
+                        var listTask= listCustomerOrderTask.Where(y => y.OrderActionId == item.OrderActionId).ToList();
+                        var listTask_Id = listTask.Select(x => x.Id).ToList();
+                        //Lấy các nhân viên trong phiếu
+                        var listAllMappingEmp_Id = new List<Guid>();
+                        listAllMappingEmp_Id = listAllMapping.Where(x => listTask_Id.Contains(x.CustomerOrderTaskId)).Select(x => x.EmployeeId).ToList();
+                        
+                        //var listEmployeeIdByCustomerOrderTask = listCustomerOrderTask.Where(x => x.Id == item.OrderProcesId).Select(x => x.EmpId).ToList();
+                        //foreach (var empId in listEmployeeIdByCustomerOrderTask)
+                        //{
+                        //    listAllMappingEmp_Id.Add((Guid)empId);
+                        //}
+                        listAllMappingEmp_Id.Add(orderProcess.CreatedById);
+                        item.ListEmployeeEntityModel = listEmployeeEntityModel.Where(x => listAllMappingEmp_Id.Any(y => y == x.EmployeeId)).ToList();
                     }
 
                     //Lấy các dịch vụ có trong phiếu
@@ -12278,6 +12315,27 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 orderProcess.RateStar = parameter.RateStar;
                 orderProcess.RateContent = parameter.RateContent;
                 context.OrderProcess.Update(orderProcess);
+
+                var listEmployeeIdParameter = parameter.ListEmployeeRatingStar.Select(e => e.EmployeeId).ToList();
+                var listOrderProcessMappingEmployee = context.OrderProcessMappingEmployee.Where(x => listEmployeeIdParameter.Any(y => y == x.EmployeeId)).ToList();
+                foreach (var item in parameter.ListEmployeeRatingStar)
+                {
+                    if (item.EmployeeId != null && item.EmployeeId != Guid.Empty)
+                    {
+                        var orderProcessMappingEmployee = listOrderProcessMappingEmployee.FirstOrDefault(x => x.EmployeeId == item.EmployeeId);
+                        orderProcessMappingEmployee.RateContent = item.RateContent;
+                        context.OrderProcessMappingEmployee.Update(orderProcessMappingEmployee);
+                    }
+                    else
+                    {
+                        var orderProcessMappingEmployee = new OrderProcessMappingEmployee();
+                        orderProcessMappingEmployee.EmployeeId = item.EmployeeId;
+                        orderProcessMappingEmployee.OrderProcessId = item.OrderProcessId;
+                        orderProcessMappingEmployee.RateContent = item.RateContent;
+                        context.OrderProcessMappingEmployee.Add(orderProcessMappingEmployee);
+                    }
+                }
+
                 context.SaveChanges();
                 return new RatingOrderResult()
                 {
@@ -12502,10 +12560,6 @@ namespace TN.TNM.DataAccess.Databases.DAO
             
         }
     }
-
-
-
-
 
     public class ListCategoryId
     {

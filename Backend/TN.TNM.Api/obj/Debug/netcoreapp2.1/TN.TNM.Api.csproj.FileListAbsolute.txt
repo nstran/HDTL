@@ -1,10 +1,3 @@
-D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\Select.Html.dep
-D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.DataAccess.dll
-D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.dll
-D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.Common.dll
-D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.pdb
-D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.DataAccess.pdb
-D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.Common.pdb
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.csproj.AssemblyReference.cache
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.GeneratedMSBuildEditorConfig.editorconfig
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.AssemblyInfoInputs.cache
@@ -13,9 +6,7 @@ D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.RazorAssemblyInfo.cache
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.RazorAssemblyInfo.cs
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
-D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.RazorTargetAssemblyInfo.cache
-D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.dll
-D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\Select.Html.dep
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\web.config
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\appsettings.Development.json
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\appsettings.json
@@ -26,5 +17,14 @@ D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.Api.runtimeconfig.dev.json
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.Api.dll
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.Api.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.Common.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.DataAccess.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.BusinessLogic.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.DataAccess.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\TN.TNM.Common.pdb
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.RazorTargetAssemblyInfo.cache
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.csproj.CopyComplete
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.dll
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.pdb
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.genruntimeconfig.cache

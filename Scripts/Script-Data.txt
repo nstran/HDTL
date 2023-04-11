@@ -631,13 +631,13 @@ VALUES (
 
 
 INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
-VALUES ('cca041ff-a79d-4adf-95ce-4632626f8c2e', 'Đối tượng áp dụng', 'SubjectsApplication', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
+VALUES ('cca041ff-a79d-4adf-95ce-4632626f8c2e', N'Đối tượng áp dụng', 'SubjectsApplication', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;
 
 INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTypeId","Active", "CreatedById", "CreatedDate", "TenantId", "IsEdit","IsDefauld")
 VALUES (
 	'7bbc84c4-21cd-4342-9b63-0df1602dd70d', 
 	'Chưa đăng lên mobile', 
-	'DontMobile',
+	N'DontMobile',
 	'cca041ff-a79d-4adf-95ce-4632626f8c2e',
 	true, 
 	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
@@ -651,7 +651,7 @@ INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTy
 VALUES (
 	'a6720c5a-da18-4531-b191-04ceff99d4a8', 
 	'Đăng lên mobile', 
-	'UpMobile',
+	N'UpMobile',
 	'cca041ff-a79d-4adf-95ce-4632626f8c2e',
 	true, 
 	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
@@ -665,7 +665,7 @@ INSERT INTO "Category"("CategoryId", "CategoryName", "CategoryCode", "CategoryTy
 VALUES (
 	'f1b8fc13-7ae1-481e-9d97-9426ab67debd', 
 	'Khách hàng Review', 
-	'UserReview',
+   N'UserReview',
 	'cca041ff-a79d-4adf-95ce-4632626f8c2e',
 	true, 
 	'de2d55bf-e224-4ada-95e8-7769ecc494ea', 
@@ -683,3 +683,6 @@ VALUES (
 
 update "CategoryType" set "Active" = 'true' where "CategoryTypeCode" = 'NHA';
 delete from "Category" where "CategoryTypeId" = (select "CategoryTypeId" from "CategoryType" where "CategoryTypeCode" = 'NHA') and "IsEdit" = 'false';
+
+INSERT INTO "CategoryType" ("CategoryTypeId", "CategoryTypeName", "CategoryTypeCode", "TenantId")
+VALUES ('cca041ff-a79d-4adf-95ce-4632576f8c2e', N'Danh sách các bệnh viện', 'ListHospital', '04d0d35e-eacb-49da-87fd-cdc0913caeec') ON CONFLICT DO NOTHING;

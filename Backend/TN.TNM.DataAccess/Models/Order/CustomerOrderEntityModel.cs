@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TN.TNM.DataAccess.Models.Employee;
 
 namespace TN.TNM.DataAccess.Models.Order
 {
@@ -91,16 +92,13 @@ namespace TN.TNM.DataAccess.Models.Order
         public int? PaymentMethodOrder { get; set; }
         public string PaymentContent { get; set; }
         public string PaymentMethodNote { get; set; }
-
         public Guid? OrderProcesId { get; set; }
         public int? RateStar { get; set; }
         public string RateConent { get; set; }
-
         public List<CustomerOrderEntityModel> ListOrderExtend { get; set; }
         public List<CustomerOrderDetailEntityModel> ListCustomerOrderDetail{ get; set; }
-
         public List<CustomerOrderDetailExtenEntityModel> ListCustomerOrderDetailExten { get; set; }
-
+        public List<EmployeeEntityModel> ListEmployeeEntityModel { get; set; }
         public CustomerOrderEntityModel(Databases.Entities.CustomerOrder entity)
         {
             Mapper(entity, this);

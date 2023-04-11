@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TN.TNM.DataAccess.Models.Employee;
 
 namespace TN.TNM.DataAccess.Models.Order
 {
@@ -16,6 +17,7 @@ namespace TN.TNM.DataAccess.Models.Order
         public int? Order { get; set; }
         public Guid? EmpId { get; set; }
         public string EmpName { get; set; }
+        public List<EmployeeEntityModel> ListEmployeeEntityModel { get; set; }
         public DateTime? Deadline { get; set; }
         public bool? IsCusView { get; set; }
         public string Content { get; set; }

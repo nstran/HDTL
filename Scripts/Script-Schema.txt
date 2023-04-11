@@ -420,3 +420,17 @@ ALTER TABLE public."Customer" ADD COLUMN IF NOT EXISTS "SubjectsApplication" boo
 ALTER TABLE public."Customer" ADD COLUMN IF NOT EXISTS "StaffChargeIds" uuid[];
 
 ALTER TABLE public."Vendor" ADD COLUMN IF NOT EXISTS "Price" decimal;
+
+CREATE TABLE IF NOT EXISTS public."OrderProcessMappingEmployee"
+(
+    "Id" uuid NOT NULL,
+	"EmployeeId" uuid,
+	"OrderProcessId" uuid,
+    "RateContent" character varying(5000) COLLATE pg_catalog."default",
+    "CreatedDate" timestamp without time zone NOT NULL,
+    "CreatedById" uuid NOT NULL,
+    "UpdatedDate" timestamp without time zone,
+    "UpdatedById" uuid,
+    "TenantId" uuid,
+    CONSTRAINT "Id_pkey" PRIMARY KEY ("Id")
+);

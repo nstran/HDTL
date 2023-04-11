@@ -17,11 +17,12 @@ namespace TN.TNM.DataAccess.Models.Product
         //Dành cho option
         public string NameCustom { get; set; }
         public decimal? Vat { get; set; }
-
         public decimal? Price { get; set; }
         public Guid? OptionId { get; set; }
         public Guid? ServicePacketId { get; set; }
         public int? SortOrder { get; set; }
         public string CategoryUnitName { get; set; }
+        public string Description { get; set; }
+
     }
 }
