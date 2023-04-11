@@ -12337,15 +12337,16 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listOrderProcessMappingEmployee = context.OrderProcessMappingEmployee.Where(x => listEmployeeIdParameter.Any(y => y == x.EmployeeId)).ToList();
                 foreach (var item in parameter.ListEmployeeRatingStar)
                 {
-                    if (item.EmployeeId != null && item.EmployeeId != Guid.Empty)
+                    var orderProcessMappingEmployeeByEmpId = listOrderProcessMappingEmployee.FirstOrDefault(x => x.EmployeeId == item.EmployeeId);
+                    if (orderProcessMappingEmployeeByEmpId != null && orderProcessMappingEmployeeByEmpId.Id != Guid.Empty)
                     {
-                        var orderProcessMappingEmployee = listOrderProcessMappingEmployee.FirstOrDefault(x => x.EmployeeId == item.EmployeeId);
-                        orderProcessMappingEmployee.RateContent = item.RateContent;
-                        context.OrderProcessMappingEmployee.Update(orderProcessMappingEmployee);
+                        orderProcessMappingEmployeeByEmpId.RateContent = item.RateContent;
+                        context.OrderProcessMappingEmployee.Update(orderProcessMappingEmployeeByEmpId);
                     }
                     else
                     {
                         var orderProcessMappingEmployee = new OrderProcessMappingEmployee();
+                        orderProcessMappingEmployee.Id = Guid.NewGuid();
                         orderProcessMappingEmployee.EmployeeId = item.EmployeeId;
                         orderProcessMappingEmployee.OrderProcessId = item.OrderProcessId;
                         orderProcessMappingEmployee.RateContent = item.RateContent;
