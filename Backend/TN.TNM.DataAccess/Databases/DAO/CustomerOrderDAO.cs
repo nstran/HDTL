@@ -11244,6 +11244,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     item.ServicePacketId = customerOrderAction.ServicePacketId;
                     item.VendorName = listAllVendor.FirstOrDefault(x => x.VendorId == item.VendorId)?.VendorName;
                     item.ListEmpId = new List<Guid>();
+                    item.ListEmployeeEntityModel = emp.Select(x => new EmployeeEntityModel { EmployeeId = x.EmployeeId, EmployeeName = x.EmployeeName }).ToList();
                     item.ListEmpName = "";
                     emp.ForEach(obj => {
                         item.EmpPhone = contact.FirstOrDefault(x => x.ObjectId == obj.EmployeeId)?.Phone;

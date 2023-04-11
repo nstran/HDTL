@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TN.TNM.DataAccess.Models.Employee;
 
 namespace TN.TNM.DataAccess.Models.CustomerOrder
 {
@@ -20,6 +21,7 @@ namespace TN.TNM.DataAccess.Models.CustomerOrder
         public string EmpName { get; set; }
         public string EmpPhone { get; set; }
         public List<Guid> ListEmpId { get; set; }
+        public List<EmployeeEntityModel> ListEmployeeEntityModel { get; set; }
         public string ListEmpName { get; set; }
         public bool? isExtend { get; set; }
         public string Mission { get; set; }
