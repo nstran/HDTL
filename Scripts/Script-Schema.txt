@@ -432,5 +432,5 @@ CREATE TABLE IF NOT EXISTS public."OrderProcessMappingEmployee"
     "UpdatedDate" timestamp without time zone,
     "UpdatedById" uuid,
     "TenantId" uuid,
-    CONSTRAINT "Id_pkey" PRIMARY KEY ("Id")
+    CONSTRAINT "OrderProcessMappingEmployee_pkey" PRIMARY KEY ("Id")
 );
