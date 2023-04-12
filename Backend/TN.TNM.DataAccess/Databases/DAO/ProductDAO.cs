@@ -2882,7 +2882,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                        Icon = GetImageBase64(si.Icon),
                                                        BackgroundImage = GetImageBase64(si.BackgroundImage),
                                                        MainImage = GetImageBase64(si.MainImage),
-                                                       Stt = s.Stt
+                                                       Stt = s.Stt,
+                                                       SubjectsApplication = scJoined.CategoryCode == ProductConsts.CategoryCodeUpMobile ? true : false
                                                    }).ToListAsync();
 
                     var listAllServiceMappingOptions = context.ServicePacketMappingOptions.ToList();
