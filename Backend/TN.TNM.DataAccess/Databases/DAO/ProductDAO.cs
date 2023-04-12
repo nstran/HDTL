@@ -3124,18 +3124,25 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
         private string GetImageBase64(string path)
         {
-            using (MemoryStream m = new MemoryStream())
+            try
             {
-                string base64String = string.Empty;
-                if (!string.IsNullOrEmpty(path) && Path.IsPathRooted(path))
+                using (MemoryStream m = new MemoryStream())
                 {
-                    Image image = Image.FromFile(@path);
-                    image.Save(m, image.RawFormat);
-                    byte[] imageBytes = m.ToArray();
-                    string type = Path.GetExtension(path);
-                    base64String = $"data:image/{type.Replace(".","")};base64," + Convert.ToBase64String(imageBytes);
+                    string base64String = string.Empty;
+                    if (!string.IsNullOrEmpty(path) && Path.IsPathRooted(path))
+                    {
+                        Image image = Image.FromFile(@path);
+                        image.Save(m, image.RawFormat);
+                        byte[] imageBytes = m.ToArray();
+                        string type = Path.GetExtension(path);
+                        base64String = $"data:image/{type.Replace(".", "")};base64," + Convert.ToBase64String(imageBytes);
+                    }
+                    return base64String;
                 }
-                return base64String;
+            }
+            catch (Exception)
+            {
+                return "";
             }
         }
 
