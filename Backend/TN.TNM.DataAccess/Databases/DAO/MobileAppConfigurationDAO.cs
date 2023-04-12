@@ -134,7 +134,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                             {
                                                 Id = x.Id,
                                                 Content = x.Content,
-                                                Image = x.Image,
+                                                Image = GetImageBase64(x.Image),
+                                                ImageName = Path.GetFileName(x.Image),
                                                 Title = x.Title,
                                                 SortOrder = x.SortOrder,
                                                 Edit = false,
@@ -165,7 +166,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             using (MemoryStream m = new MemoryStream())
             {
                 string base64String = string.Empty;
-                if (!string.IsNullOrEmpty(path))
+                if (!string.IsNullOrEmpty(path) && Path.IsPathRooted(path))
                 {
                     Image image = Image.FromFile(path);
                     image.Save(m, image.RawFormat);
@@ -446,13 +447,15 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-      
-
                 var advertisementConfiguration = _mapper.Map<AdvertisementConfiguration>(parameter.AdvertisementConfigurationEntityModel);
                 if (advertisementConfiguration.Id != null && advertisementConfiguration.Id != Guid.Empty)
                 {
                     advertisementConfiguration.UpdatedDate = DateTime.Now;
                     advertisementConfiguration.UpdatedById = parameter.UserId;
+                    string folderName = "AdvertisementConfigurationImage";
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    string newPath = Path.Combine(webRootPath, folderName);
+                    advertisementConfiguration.Image = parameter.AdvertisementConfigurationEntityModel.ImageName != null ? Path.Combine(newPath, parameter.AdvertisementConfigurationEntityModel.ImageName) : "";
                     context.AdvertisementConfiguration.Update(advertisementConfiguration);
                 }
                 else
@@ -469,6 +472,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     advertisementConfiguration.Id = Guid.NewGuid();
                     advertisementConfiguration.CreatedDate = DateTime.Now;
                     advertisementConfiguration.CreatedById = parameter.UserId;
+                    string folderName = "AdvertisementConfigurationImage";
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    string newPath = Path.Combine(webRootPath, folderName);
+                    advertisementConfiguration.Image = parameter.AdvertisementConfigurationEntityModel.ImageName != null ? Path.Combine(newPath, parameter.AdvertisementConfigurationEntityModel.ImageName) : "";
                     context.AdvertisementConfiguration.Add(advertisementConfiguration);
                 }
 
@@ -524,7 +531,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             {
                                 Id = x.Id,
                                 Content = x.Content,
-                                Image = x.Image,
+                                Image = GetImageBase64(x.Image),
                                 Title = x.Title,
                                 SortOrder = x.SortOrder
                             }).ToList();

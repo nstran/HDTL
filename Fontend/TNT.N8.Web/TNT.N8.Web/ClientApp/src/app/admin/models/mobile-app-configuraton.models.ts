@@ -63,6 +63,7 @@ export class PaymentMethodConfigure {
 export class AdvertisementConfigurationEntityModel {
     id: string | null;
     image: string;
+    imageName: string;
     title: string;
     content: string;
     sortOrder: number | null;

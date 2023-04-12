@@ -29,7 +29,8 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
   listPayMentCategory: Array<CategoryEntityModel> = [];
   listPayMent: Array<PaymentMethodConfigure> = [];
   listAdvertisementConfigurationEntityModel : AdvertisementConfigurationEntityModel[] = [];
-  images: MobileAppConfigurationImage[] = [];
+  imagesMobileAppConfig: MobileAppConfigurationImage[] = [];
+  imagesAdvertisementConfig: MobileAppConfigurationImage[] = [];
 
   constructor(
     injector: Injector,
@@ -67,9 +68,18 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
   }
 
   //#region Image
-  getFileList(): File[] {
+  getFileListMobileApp(): File[] {
     let files: File[] = [];
-    this.images.forEach((image, index) => {
+    this.imagesMobileAppConfig.forEach((image, index) => {
+      let file = this.convertDataURItoFile(image.source, image.imageName, image.imageType);
+      files.push(file)
+    });
+    return files;
+  }
+
+  getFileListAdvertisement(): File[] {
+    let files: File[] = [];
+    this.imagesAdvertisementConfig.forEach((image, index) => {
       let file = this.convertDataURItoFile(image.source, image.imageName, image.imageType);
       files.push(file)
     });
@@ -91,7 +101,7 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
     return file;
   }
 
-  readerFile(files: File[]): Promise<string>{
+  readerFileMobileAppConfig(files: File[]): Promise<string>{
     return new Promise(resolve => {
       let fileName = "";
       let file = files[0];
@@ -106,9 +116,32 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
         newImage.imageType = file.type;
         newImage.title = '';
         newImage.alt = '';
-        var existImage = this.images.find(x => x.imageName == file.name);
+        var existImage = this.imagesMobileAppConfig.find(x => x.imageName == file.name);
         if(!existImage){
-          this.images = [...this.images, newImage];
+          this.imagesMobileAppConfig = [...this.imagesMobileAppConfig, newImage];
+        }
+        resolve(fileName);
+      };
+    });
+  }
+
+  readerFileAdvertisementConfig(files: File[]): Promise<string>{
+    return new Promise(resolve => {
+      let fileName = "";
+      let reader = new FileReader();
+      reader.readAsDataURL(files[0]);
+      reader.onload  = (reader: any) => {
+        let newImage = new MobileAppConfigurationImage();
+        newImage.source = reader.target.result; //base64
+        newImage.imageSize = files[0].size;
+        newImage.imageName = files[0].name;
+        newImage.imageType = files[0].type;
+        newImage.title = '';
+        newImage.alt = '';
+        fileName = files[0].name;
+        var existImage = this.imagesAdvertisementConfig.find(x => x.imageName == files[0].name);
+        if(!existImage){
+          this.imagesAdvertisementConfig = [...this.imagesAdvertisementConfig, newImage];
         }
         resolve(fileName);
       };
@@ -118,7 +151,7 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
   async uploadImageIntro(event: { files: File[] }): Promise<void> {
     this.base64ImageIntro = await this.getBase64ImageFromURL(event);
     this.mobileAppConfiguration.introduceImageOrVideo = this.base64ImageIntro.toString();
-    this.mobileAppConfiguration.introduceImageOrVideoName = await this.readerFile(event.files);
+    this.mobileAppConfiguration.introduceImageOrVideoName = await this.readerFileMobileAppConfig(event.files);
   }
 
   removeImageIntro(): void {
@@ -129,7 +162,7 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
   async uploadImageLoginAndResterScreen(event: { files: File[] }): Promise<void> {
     this.base64ImageLoginAndResterScreen = await this.getBase64ImageFromURL(event);
     this.mobileAppConfiguration.loginAndRegisterScreenImage = this.base64ImageLoginAndResterScreen.toString();
-    this.mobileAppConfiguration.loginAndRegisterScreenImageName = await this.readerFile(event.files);
+    this.mobileAppConfiguration.loginAndRegisterScreenImageName = await this.readerFileMobileAppConfig(event.files);
   }
 
   removeImageLoginAndResterScreen(): void {
@@ -140,7 +173,7 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
   async uploadIconLogin(event: { files: File[] }): Promise<void> {
     this.base64IconLogin = await this.getBase64ImageFromURL(event);
     this.mobileAppConfiguration.loginScreenIcon = this.base64IconLogin.toString();
-    this.mobileAppConfiguration.loginScreenIconName = await this.readerFile(event.files);
+    this.mobileAppConfiguration.loginScreenIconName = await this.readerFileMobileAppConfig(event.files);
   }
 
   removeIconLogin(): void {
@@ -151,7 +184,7 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
   async uploadIconPaymentScreenTransfer(event: { files: File[] }): Promise<void> {
     this.base64PaymentScreenIconTransfer = await this.getBase64ImageFromURL(event);
     this.mobileAppConfiguration.paymentScreenIconTransfer = this.base64PaymentScreenIconTransfer.toString();
-    this.mobileAppConfiguration.paymentScreenIconTransferName = await this.readerFile(event.files);
+    this.mobileAppConfiguration.paymentScreenIconTransferName = await this.readerFileMobileAppConfig(event.files);
   }
 
   removeIconPaymentScreenTransfer(): void {
@@ -159,21 +192,10 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
     this.mobileAppConfiguration.paymentScreenIconTransfer = undefined;
   }
 
-  async uploadIconPaymentScreenVNPAY(event: { files: File[] }): Promise<void> {
-    this.base64PaymentScreenIconVNPAY = await this.getBase64ImageFromURL(event);
-    this.mobileAppConfiguration.paymentScreenIconVnpay = this.base64PaymentScreenIconVNPAY.toString();
-    this.mobileAppConfiguration.paymentScreenIconTransferName = await this.readerFile(event.files);
-  }
-
-  removeIconPaymentScreenVNPAY(): void {
-    this.base64PaymentScreenIconVNPAY = undefined;
-    this.mobileAppConfiguration.paymentScreenIconVnpay = undefined;
-  }
-
   async uploadImageNotice(event: { files: File[] }): Promise<void> {
     this.base64ImageNotice = await this.getBase64ImageFromURL(event);
     this.mobileAppConfiguration.orderNotificationImage = this.base64ImageNotice.toString();
-    this.mobileAppConfiguration.orderNotificationImageName = await this.readerFile(event.files);
+    this.mobileAppConfiguration.orderNotificationImageName = await this.readerFileMobileAppConfig(event.files);
   }
 
   removeImageNotice(): void {
@@ -197,13 +219,13 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
     });
   }
 
-  getFile(source: string, fileName: string): void {
+  getFileMobileAppConfig(source: string, fileName: string): void {
     if(source && fileName){
       let newImage = new MobileAppConfigurationImage();
       newImage.source = source; //base64
       newImage.imageName = fileName;
       newImage.imageType = fileName.split('.').pop();
-      this.images = [...this.images, newImage];
+      this.imagesMobileAppConfig = [...this.imagesMobileAppConfig, newImage];
     }
   }
 
@@ -216,11 +238,11 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
       .subscribe(result => {
         if (result.mobileAppConfigurationEntityModel) {
           this.mobileAppConfiguration = result.mobileAppConfigurationEntityModel;
-          this.getFile(this.mobileAppConfiguration.introduceImageOrVideo, this.mobileAppConfiguration.introduceImageOrVideoName);
-          this.getFile(this.mobileAppConfiguration.loginAndRegisterScreenImage, this.mobileAppConfiguration.loginAndRegisterScreenImageName);
-          this.getFile(this.mobileAppConfiguration.loginScreenIcon, this.mobileAppConfiguration.loginScreenIconName);
-          this.getFile(this.mobileAppConfiguration.orderNotificationImage, this.mobileAppConfiguration.orderNotificationImageName);
-          this.getFile(this.mobileAppConfiguration.paymentScreenIconTransfer, this.mobileAppConfiguration.paymentScreenIconTransferName);
+          this.getFileMobileAppConfig(this.mobileAppConfiguration.introduceImageOrVideo, this.mobileAppConfiguration.introduceImageOrVideoName);
+          this.getFileMobileAppConfig(this.mobileAppConfiguration.loginAndRegisterScreenImage, this.mobileAppConfiguration.loginAndRegisterScreenImageName);
+          this.getFileMobileAppConfig(this.mobileAppConfiguration.loginScreenIcon, this.mobileAppConfiguration.loginScreenIconName);
+          this.getFileMobileAppConfig(this.mobileAppConfiguration.orderNotificationImage, this.mobileAppConfiguration.orderNotificationImageName);
+          this.getFileMobileAppConfig(this.mobileAppConfiguration.paymentScreenIconTransfer, this.mobileAppConfiguration.paymentScreenIconTransferName);
           this.listAdvertisementConfigurationEntityModel = result.listAdvertisementConfigurationEntityModel;
           this.listPayMentCategory = result.listPayMentCategory.length > 0 ? result.listPayMentCategory : [];
           this.listPayMent = result.listPayMent ? result.listPayMent.length > 0 ? result.listPayMent : [] : [];
@@ -230,7 +252,7 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
 
   async save(): Promise<void> {
     this.loading = true;
-    let fileList: File[] = this.getFileList();
+    let fileList: File[] = this.getFileListMobileApp();
     let uploadResult: any = await this._mobileAppConfigurationService.uploadMobileAppConfigurationImage(fileList);
     if(uploadResult){
       this._mobileAppConfigurationService.createOrEditMobileAppConfiguration(this.mobileAppConfiguration)
@@ -317,6 +339,7 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
 
   async uploadImageAdvertisement(event: { files: File[] }, index: number): Promise<void> {
     this.listAdvertisementConfigurationEntityModel[index].image = await (await this.getBase64ImageFromURL(event)).toString();
+    this.listAdvertisementConfigurationEntityModel[index].imageName = await this.readerFileAdvertisementConfig(event.files);
   }
 
   removeImageAdvertisement(index: number): void {
@@ -326,6 +349,7 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
   addAdvertisement(): void {
     let advertisementConfigurationEntityModel = new AdvertisementConfigurationEntityModel();
     advertisementConfigurationEntityModel.image = "";
+    advertisementConfigurationEntityModel.imageName = "";
     advertisementConfigurationEntityModel.title = "";
     advertisementConfigurationEntityModel.content = "";
     advertisementConfigurationEntityModel.sortOrder = null;
@@ -334,24 +358,24 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
   }
 
   /** Xử lý row con */
-  onRowEditSaveAdvertisement(rowData: AdvertisementConfigurationEntityModel): void {
+  async onRowEditSaveAdvertisement(rowData: AdvertisementConfigurationEntityModel): Promise<void> {
     if (!rowData.title && !rowData.content) {
       let msg = { severity: 'error', summary: 'Thông báo:', detail: 'Hãy nhập đầy đủ thông tin!' };
       this.showMessage(msg);
       return;
     }
+    this.loading = true;
+    let fileList: File[] = this.getFileListAdvertisement();
+    let uploadResult = await this._mobileAppConfigurationService.uploadAdvertisementConfigurationImage(fileList)
+    if(uploadResult){
+      this._mobileAppConfigurationService.createOrEditAdvertisementConfiguration(rowData)
+        .pipe(tap(() => {this.loading = false; rowData.edit = false;}))
+        .subscribe(result => {
+          this.showToast('success', 'Thông báo', result.statusCode == 200 ? 'Lưu thành công' : result.messageCode);
+        })
+    } else {
     this.loading = false;
-    this._mobileAppConfigurationService.createOrEditAdvertisementConfiguration(rowData)
-      .pipe(tap(() => this.loading = false))
-      .subscribe(result => {
-        if (result.statusCode == 200) {
-          this.showToast('success', 'Thông báo', 'Lưu thành công');
-          rowData.edit = false;
-        } else {
-          this.showToast('error', 'Thông báo', result.messageCode);
-          rowData.edit = false;
-        }
-      })
+    }
   }
 
   onRowEditAdvertisementInitChild(rowData: AdvertisementConfigurationEntityModel): void {

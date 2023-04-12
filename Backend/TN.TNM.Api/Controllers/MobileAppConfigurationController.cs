@@ -133,13 +133,68 @@ namespace TN.TNM.Api.Controllers
         [HttpPost]
         [Route("api/MobileAppConfiguration/uploadMobileAppConfigurationImage")]
         [Authorize(Policy = "Member")]
-        public UploadFileResponse UploadProductImage(UploadFileRequest request)
+        public UploadFileResponse UploadMobileAppConfigurationImage(UploadFileRequest request)
         {
             try
             {
                 if (request.FileList != null && request.FileList.Count > 0)
                 {
                     string folderName = "MobileAppConfigurationImage";
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    string newPath = Path.Combine(webRootPath, folderName);
+                    if (!Directory.Exists(newPath))
+                    {
+                        Directory.CreateDirectory(newPath);
+                    }
+
+                    foreach (IFormFile item in request.FileList)
+                    {
+                        if (item.Length > 0)
+                        {
+                            string fileName = item.FileName.Trim();
+                            string fullPath = Path.Combine(newPath, fileName);
+                            using (var stream = new FileStream(fullPath, FileMode.Create))
+                            {
+                                item.CopyTo(stream);
+                            }
+                        }
+                    }
+
+                    return new UploadFileResponse()
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        MessageCode = CommonMessage.FileUpload.UPLOAD_SUCCESS,
+                    };
+                }
+                else
+                {
+                    return new UploadFileResponse()
+                    {
+                        StatusCode = HttpStatusCode.ExpectationFailed,
+                        MessageCode = CommonMessage.FileUpload.NO_FILE
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new UploadFileResponse()
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    MessageCode = ex.Message
+                };
+            }
+        }
+
+        [HttpPost]
+        [Route("api/MobileAppConfiguration/uploadAdvertisementConfigurationImage")]
+        [Authorize(Policy = "Member")]
+        public UploadFileResponse UploadAdvertisementConfigurationImage(UploadFileRequest request)
+        {
+            try
+            {
+                if (request.FileList != null && request.FileList.Count > 0)
+                {
+                    string folderName = "AdvertisementConfigurationImage";
                     string webRootPath = _hostingEnvironment.WebRootPath;
                     string newPath = Path.Combine(webRootPath, folderName);
                     if (!Directory.Exists(newPath))

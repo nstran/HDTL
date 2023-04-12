@@ -298,73 +298,45 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
     }
   }
 
-  async uploadMainImage(event : {files : File[]}): Promise<void>{
-    this.base64MainImage = await this.getBase64ImageFromURL(event);
-    this.servicePacketImageEntityModel.mainImage = this.base64MainImage.toString();
-    for (let file of event.files) {
-      let fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = (reader: any) => {
+  readerFile(files: File[]): Promise<string>{
+    return new Promise(resolve => {
+      let fileName = "";
+      let reader = new FileReader();
+      reader.readAsDataURL(files[0]);
+      reader.onload  = (reader: any) => {
         let newImage = new ServicePacketImage();
         newImage.source = reader.target.result; //base64
-        newImage.imageSize = file.size;
-        newImage.imageName = file.name;
-        this.servicePacketImageEntityModel.mainImageName = file.name;
-        newImage.imageType = file.type;
+        newImage.imageSize = files[0].size;
+        newImage.imageName = files[0].name;
+        fileName = files[0].name;
+        newImage.imageType = files[0].type;
         newImage.title = '';
         newImage.alt = '';
-        var existImage = this.images.find(x => x.imageName == file.name);
+        var existImage = this.images.find(x => x.imageName == files[0].name);
         if(!existImage){
           this.images = [...this.images, newImage];
         }
+        resolve(fileName);
       };
-    }
+    });
+  }
+
+  async uploadMainImage(event : {files : File[]}): Promise<void>{
+    this.base64MainImage = await this.getBase64ImageFromURL(event);
+    this.servicePacketImageEntityModel.mainImage = this.base64MainImage.toString();
+    this.servicePacketImageEntityModel.mainImageName = await this.readerFile(event.files);
   }
 
   async uploadBackgroundImage(event : {files : File[]}): Promise<void> {
     this.base64BackgroundImage = await this.getBase64ImageFromURL(event);
     this.servicePacketImageEntityModel.backgroundImage = this.base64BackgroundImage.toString();
-    for (let file of event.files) {
-      let fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = (reader: any) => {
-        let newImage = new ServicePacketImage();
-        newImage.source = reader.target.result; //base64
-        newImage.imageSize = file.size;
-        newImage.imageName = file.name;
-        this.servicePacketImageEntityModel.backgroundImageName = file.name;
-        newImage.imageType = file.type;
-        newImage.title = '';
-        newImage.alt = '';
-        var existImage = this.images.find(x => x.imageName == file.name);
-        if(!existImage){
-          this.images = [...this.images, newImage];
-        }
-      };
-    }
+    this.servicePacketImageEntityModel.backgroundImageName = await this.readerFile(event.files);
   }
 
   async uploadIcon(event : {files : File[]}): Promise<void> {
     this.base64Icon = await this.getBase64ImageFromURL(event);
     this.servicePacketImageEntityModel.icon = this.base64Icon.toString();
-    for (let file of event.files) {
-      let fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = (reader: any) => {
-        let newImage = new ServicePacketImage();
-        newImage.source = reader.target.result; //base64
-        newImage.imageSize = file.size;
-        newImage.imageName = file.name;
-        this.servicePacketImageEntityModel.iconName = file.name;
-        newImage.imageType = file.type;
-        newImage.title = '';
-        newImage.alt = '';
-        var existImage = this.images.find(x => x.imageName == file.name);
-        if(!existImage){
-          this.images = [...this.images, newImage];
-        }
-      };
-    }
+    this.servicePacketImageEntityModel.iconName = await this.readerFile(event.files);
   }
 
   removeMainImage(): void {
@@ -391,6 +363,31 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
         resolve(reader.result);
       };
     });
+  }
+
+  getFileList(): File[] {
+    let files: File[] = [];
+    this.images.forEach((image, index) => {
+      // image.imageName = this.hashImageName(image.imageName, index);
+      let file = this.convertDataURItoFile(image.source, image.imageName, image.imageType);
+      files.push(file)
+    });
+    return files;
+  }
+
+  convertDataURItoFile(dataURI: string, fileName: string, type: string): File {
+    var byteString = atob(dataURI.split(',')[1]);
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    var blob: any = new Blob([ia], { type: mimeString });
+    blob.lastModifiedDate = new Date();
+    blob.name = fileName;
+    let file = new File([blob], fileName, { type: type })
+    return file;
   }
   //#endregion
 
@@ -879,31 +876,6 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
         }
       }
     }
-  }
-
-  getFileList(): File[] {
-    let files: File[] = [];
-    this.images.forEach((image, index) => {
-      // image.imageName = this.hashImageName(image.imageName, index);
-      let file = this.convertDataURItoFile(image.source, image.imageName, image.imageType);
-      files.push(file)
-    });
-    return files;
-  }
-
-  convertDataURItoFile(dataURI: string, fileName: string, type: string): File {
-    var byteString = atob(dataURI.split(',')[1]);
-    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
-    var ab = new ArrayBuffer(byteString.length);
-    var ia = new Uint8Array(ab);
-    for (var i = 0; i < byteString.length; i++) {
-      ia[i] = byteString.charCodeAt(i);
-    }
-    var blob: any = new Blob([ia], { type: mimeString });
-    blob.lastModifiedDate = new Date();
-    blob.name = fileName;
-    let file = new File([blob], fileName, { type: type })
-    return file;
   }
 
   //Quy trình phê duyệt

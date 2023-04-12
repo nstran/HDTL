@@ -3127,7 +3127,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             using (MemoryStream m = new MemoryStream())
             {
                 string base64String = string.Empty;
-                if (!string.IsNullOrEmpty(path))
+                if (!string.IsNullOrEmpty(path) && Path.IsPathRooted(path))
                 {
                     Image image = Image.FromFile(path);
                     image.Save(m, image.RawFormat);

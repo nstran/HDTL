@@ -306,7 +306,7 @@
                                             <div *ngIf="rowData['edit'] || rowData[col.field]" class="image" [ngClass]="'h-188'">
                                                 <img class="w-200px" [src]="rowData[col.field] ? rowData[col.field] : '/assets/images/no-product-image.jpg'">
                                             </div>
-                                            <div *ngIf="rowData['edit'] || rowData[col.field]">
+                                            <div *ngIf="rowData['edit']">
                                                 <p-fileUpload name="demo[]" customUpload="true" [showCancelButton]="false"
                                                     (uploadHandler)="uploadImageAdvertisement($event, index)"
                                                     (onRemove)="removeImageAdvertisement(index)" 
