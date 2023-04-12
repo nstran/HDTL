@@ -3002,8 +3002,11 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                              {
                                                  Id = x.Id,
                                                  MainImage = GetImageBase64(x.MainImage),
+                                                 MainImageName = Path.GetFileName(x.MainImage),
                                                  BackgroundImage = GetImageBase64(x.BackgroundImage),
-                                                 Icon = GetImageBase64(x.Icon)
+                                                 BackgroundImageName = Path.GetFileName(x.BackgroundImage),
+                                                 Icon = GetImageBase64(x.Icon),
+                                                 IconName = Path.GetFileName(x.Icon)
                                              }).FirstOrDefault();
 
                 var listNotificationConfigurationModel = (from n in context.NotificationConfiguration join

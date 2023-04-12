@@ -1,22 +1,32 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Xml;
+using System.IO;
+using System.Net;
+using System;
 using TN.TNM.BusinessLogic.Interfaces.Admin.Product;
+using TN.TNM.Common;
 using TN.TNM.DataAccess.Interfaces;
 using TN.TNM.DataAccess.Messages.Parameters.Admin.MobileAppConfiguration;
 using TN.TNM.DataAccess.Messages.Parameters.Admin.Product;
 using TN.TNM.DataAccess.Messages.Results.Admin;
 using TN.TNM.DataAccess.Messages.Results.Admin.Product;
+using TN.TNM.BusinessLogic.Messages.Responses.File;
+using TN.TNM.BusinessLogic.Messages.Requests.File;
+using Microsoft.AspNetCore.Hosting;
 
 namespace TN.TNM.Api.Controllers
 {
     public class MobileAppConfigurationController : Controller
     {
         private readonly IMobileAppConfigurationDataAccess iMobileAppConfigurationDataAccess;
+        private IHostingEnvironment _hostingEnvironment;
 
-        public MobileAppConfigurationController(IMobileAppConfigurationDataAccess _iMobileAppConfigurationDataAccess)
+        public MobileAppConfigurationController(IMobileAppConfigurationDataAccess _iMobileAppConfigurationDataAccess, IHostingEnvironment hostingEnvironment)
         {
             this.iMobileAppConfigurationDataAccess = _iMobileAppConfigurationDataAccess;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         /// <summary>
@@ -114,9 +124,65 @@ namespace TN.TNM.Api.Controllers
 
         [HttpPost]
         [Route("api/MobileAppConfiguration/takeListAdvertisementConfiguration")]
+        [AllowAnonymous]
         public TakeListAdvertisementConfigurationResult TakeListAdvertisementConfiguration([FromBody] TakeListAdvertisementConfigurationParameter request)
         {
             return this.iMobileAppConfigurationDataAccess.TakeListAdvertisementConfiguration(request);
+        }
+
+        [HttpPost]
+        [Route("api/MobileAppConfiguration/uploadMobileAppConfigurationImage")]
+        [Authorize(Policy = "Member")]
+        public UploadFileResponse UploadProductImage(UploadFileRequest request)
+        {
+            try
+            {
+                if (request.FileList != null && request.FileList.Count > 0)
+                {
+                    string folderName = "MobileAppConfigurationImage";
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    string newPath = Path.Combine(webRootPath, folderName);
+                    if (!Directory.Exists(newPath))
+                    {
+                        Directory.CreateDirectory(newPath);
+                    }
+
+                    foreach (IFormFile item in request.FileList)
+                    {
+                        if (item.Length > 0)
+                        {
+                            string fileName = item.FileName.Trim();
+                            string fullPath = Path.Combine(newPath, fileName);
+                            using (var stream = new FileStream(fullPath, FileMode.Create))
+                            {
+                                item.CopyTo(stream);
+                            }
+                        }
+                    }
+
+                    return new UploadFileResponse()
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        MessageCode = CommonMessage.FileUpload.UPLOAD_SUCCESS,
+                    };
+                }
+                else
+                {
+                    return new UploadFileResponse()
+                    {
+                        StatusCode = HttpStatusCode.ExpectationFailed,
+                        MessageCode = CommonMessage.FileUpload.NO_FILE
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new UploadFileResponse()
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    MessageCode = ex.Message
+                };
+            }
         }
     }
 }

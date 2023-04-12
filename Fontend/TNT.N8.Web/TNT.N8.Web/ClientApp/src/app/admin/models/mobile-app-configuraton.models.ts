@@ -1,26 +1,32 @@
 import { CategoryEntityModel } from "../../../../src/app/product/models/product.model";
 
 export class MobileAppConfigurationEntityModel {
-    id: string;
+    id: string | null;
     introduceColor: string;
     introduceImageOrVideo: string;
+    introduceImageOrVideoName: string;
     introduceSologan: string;
     loginAndRegisterScreenImage: string;
+    loginAndRegisterScreenImageName: string;
     loginScreenColor: string;
     loginScreenIcon: string;
+    loginScreenIconName: string;
     paymentScreenIconVnpay: string;
     isPaymentScreenIconVnpay: boolean | null;
     paymentScreenContentVnpay: string;
     orderNotificationImage: string;
-    createdById: string;
-    updatedById: string;
-    tenantId: string;
+    orderNotificationImageName: string;
+    createdById: string | null;
+    updatedById: string | null;
+    tenantId: string | null;
     createdDate: string | null;
     updatedDate: string | null;
     paymentScreenIconTransfer: string;
+    paymentScreenIconTransferName: string;
     isPaymentScreenIconTransfer: boolean | null;
     paymentScreenContentTransfer: string;
 }
+
 
 export class TakeMobileAppConfigurationResult {
     mobileAppConfigurationEntityModel : MobileAppConfigurationEntityModel;
@@ -62,3 +68,13 @@ export class AdvertisementConfigurationEntityModel {
     sortOrder: number | null;
     edit: boolean;
 }
+
+export class MobileAppConfigurationImage {
+    source: string | null;
+    imageSize: number;
+    imageName: string;
+    imageType: string;
+    imageUrl: string;
+    alt: string | null;
+    title: string | null;
+  }

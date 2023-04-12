@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -17,14 +19,17 @@ namespace TN.TNM.DataAccess.Databases.DAO
     public class MobileAppConfigurationDAO : BaseDAO, IMobileAppConfigurationDataAccess
     {
         private readonly IMapper _mapper;
+        private IHostingEnvironment _hostingEnvironment;
 
         public MobileAppConfigurationDAO(
             Databases.TNTN8Context _content,
-            IMapper mapper
+            IMapper mapper,
+            IHostingEnvironment hostingEnvironment
             )
         {
             this.context = _content;
             _mapper = mapper;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public CreateOrEditMobileAppConfigurationResult CreateOrEditMobileAppConfiguration(CreateOrEditMobileAppConfigurationParameter parameter)
@@ -36,6 +41,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     mobileAppConfiguration.UpdatedDate = DateTime.Now;
                     mobileAppConfiguration.UpdatedById = parameter.UserId;
+                    string folderName = "MobileAppConfigurationImage";
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    string newPath = Path.Combine(webRootPath, folderName);
+                    mobileAppConfiguration.IntroduceImageOrVideo = parameter.MobileAppConfigurationEntityModel.IntroduceImageOrVideoName != null ? Path.Combine(newPath, parameter.MobileAppConfigurationEntityModel.IntroduceImageOrVideoName) : "";
+                    mobileAppConfiguration.LoginAndRegisterScreenImage = parameter.MobileAppConfigurationEntityModel.LoginAndRegisterScreenImageName != null ? Path.Combine(newPath, parameter.MobileAppConfigurationEntityModel.LoginAndRegisterScreenImageName) : "";
+                    mobileAppConfiguration.LoginScreenIcon = parameter.MobileAppConfigurationEntityModel.LoginScreenIconName != null ? Path.Combine(newPath, parameter.MobileAppConfigurationEntityModel.LoginScreenIconName) : "";
+                    mobileAppConfiguration.PaymentScreenIconTransfer = parameter.MobileAppConfigurationEntityModel.PaymentScreenIconTransferName != null ? Path.Combine(newPath, parameter.MobileAppConfigurationEntityModel.PaymentScreenIconTransferName) : "";
+                    mobileAppConfiguration.OrderNotificationImage = parameter.MobileAppConfigurationEntityModel.OrderNotificationImageName != null ? Path.Combine(newPath, parameter.MobileAppConfigurationEntityModel.OrderNotificationImageName) : "";
                     context.MobileAppConfiguration.Update(mobileAppConfiguration);
                 }
                 else
@@ -43,6 +56,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     mobileAppConfiguration.Id = Guid.NewGuid();
                     mobileAppConfiguration.CreatedDate = DateTime.Now;
                     mobileAppConfiguration.CreatedById = parameter.UserId;
+                    string folderName = "MobileAppConfigurationImage";
+                    string webRootPath = _hostingEnvironment.WebRootPath;
+                    string newPath = Path.Combine(webRootPath, folderName);
+                    mobileAppConfiguration.IntroduceImageOrVideo = parameter.MobileAppConfigurationEntityModel.IntroduceImageOrVideoName != null ? Path.Combine(newPath, parameter.MobileAppConfigurationEntityModel.IntroduceImageOrVideoName) : "";
+                    mobileAppConfiguration.LoginAndRegisterScreenImage = parameter.MobileAppConfigurationEntityModel.LoginAndRegisterScreenImageName != null ? Path.Combine(newPath, parameter.MobileAppConfigurationEntityModel.LoginAndRegisterScreenImageName) : "";
+                    mobileAppConfiguration.LoginScreenIcon = parameter.MobileAppConfigurationEntityModel.LoginScreenIconName != null ? Path.Combine(newPath, parameter.MobileAppConfigurationEntityModel.LoginScreenIconName) : "";
+                    mobileAppConfiguration.PaymentScreenIconTransfer = parameter.MobileAppConfigurationEntityModel.PaymentScreenIconTransferName != null ? Path.Combine(newPath, parameter.MobileAppConfigurationEntityModel.PaymentScreenIconTransferName) : "";
+                    mobileAppConfiguration.OrderNotificationImage = parameter.MobileAppConfigurationEntityModel.OrderNotificationImageName != null ? Path.Combine(newPath, parameter.MobileAppConfigurationEntityModel.OrderNotificationImageName) : "";
                     context.MobileAppConfiguration.Add(mobileAppConfiguration);
                 }
 
@@ -72,18 +93,23 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                             {
                                                 Id = x.Id,
                                                 IntroduceColor = x.IntroduceColor,
-                                                IntroduceImageOrVideo = x.IntroduceImageOrVideo,
+                                                IntroduceImageOrVideo = GetImageBase64(x.IntroduceImageOrVideo),
+                                                IntroduceImageOrVideoName = Path.GetFileName(x.IntroduceImageOrVideo),
                                                 IntroduceSologan = x.IntroduceSologan,
-                                                LoginAndRegisterScreenImage = x.LoginAndRegisterScreenImage,
+                                                LoginAndRegisterScreenImage = GetImageBase64(x.LoginAndRegisterScreenImage),
+                                                LoginAndRegisterScreenImageName = Path.GetFileName(x.LoginAndRegisterScreenImage),
                                                 LoginScreenColor = x.LoginScreenColor,
-                                                LoginScreenIcon = x.LoginScreenIcon,
+                                                LoginScreenIcon = GetImageBase64(x.LoginScreenIcon),
+                                                LoginScreenIconName = Path.GetFileName(x.LoginScreenIcon),
                                                 PaymentScreenContentTransfer = x.PaymentScreenContentTransfer,
                                                 PaymentScreenContentVnpay = x.PaymentScreenContentVnpay,
-                                                PaymentScreenIconTransfer = x.PaymentScreenIconTransfer,
+                                                PaymentScreenIconTransfer = GetImageBase64(x.PaymentScreenIconTransfer),
+                                                PaymentScreenIconTransferName = Path.GetFileName(x.PaymentScreenIconTransfer),
                                                 IsPaymentScreenIconTransfer = x.IsPaymentScreenIconTransfer,
                                                 IsPaymentScreenIconVnpay = x.IsPaymentScreenIconVnpay,
                                                 PaymentScreenIconVnpay = x.PaymentScreenIconVnpay,
-                                                OrderNotificationImage = x.OrderNotificationImage
+                                                OrderNotificationImage = GetImageBase64(x.OrderNotificationImage),
+                                                OrderNotificationImageName = Path.GetFileName(x.OrderNotificationImage)
                                             }).FirstOrDefault();
 
                 var paymentMethodCateTypeId = context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == "PaymentMethod").CategoryTypeId;
@@ -131,6 +157,23 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     StatusCode = HttpStatusCode.ExpectationFailed,
                     MessageCode = e.Message
                 };
+            }
+        }
+
+        private string GetImageBase64(string path)
+        {
+            using (MemoryStream m = new MemoryStream())
+            {
+                string base64String = string.Empty;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    Image image = Image.FromFile(path);
+                    image.Save(m, image.RawFormat);
+                    byte[] imageBytes = m.ToArray();
+                    string type = Path.GetExtension(path);
+                    base64String = $"data:image/{type.Replace(".", "")};base64," + Convert.ToBase64String(imageBytes);
+                }
+                return base64String;
             }
         }
 

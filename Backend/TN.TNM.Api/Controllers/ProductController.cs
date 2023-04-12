@@ -22,13 +22,11 @@ namespace TN.TNM.Api.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly IProduct iProduct;
         private readonly IProductDataAccess iProductDataAccess;
         private IHostingEnvironment _hostingEnvironment;
 
-        public ProductController(IProduct _iProduct, IProductDataAccess _iProductDataAccess, IHostingEnvironment hostingEnvironment)
+        public ProductController(IProductDataAccess _iProductDataAccess, IHostingEnvironment hostingEnvironment)
         {
-            this.iProduct = _iProduct;
             this.iProductDataAccess = _iProductDataAccess;
             _hostingEnvironment = hostingEnvironment;
         }

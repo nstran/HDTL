@@ -251,6 +251,9 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
           this.base64BackgroundImage = result.servicePacketImageEntityModel.backgroundImage;
           this.base64Icon = result.servicePacketImageEntityModel.icon;
           this.servicePacketImageEntityModel = result.servicePacketImageEntityModel;
+          this.getFile(result.servicePacketImageEntityModel.mainImage, result.servicePacketImageEntityModel.mainImageName);
+          this.getFile(result.servicePacketImageEntityModel.backgroundImage, result.servicePacketImageEntityModel.backgroundImageName);
+          this.getFile(result.servicePacketImageEntityModel.icon, result.servicePacketImageEntityModel.iconName);
         }
 
         if(result.servicePacketEntityModel.provinceIds != null && result.servicePacketEntityModel.provinceIds.length > 0){
@@ -285,6 +288,16 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   }
 
   //#region File
+  getFile(source: string, fileName: string) {
+    if(source && fileName){
+      let newImage = new ServicePacketImage();
+      newImage.source = source; //base64
+      newImage.imageName = fileName;
+      newImage.imageType = fileName.split('.').pop();
+      this.images = [...this.images, newImage];
+    }
+  }
+
   async uploadMainImage(event : {files : File[]}): Promise<void>{
     this.base64MainImage = await this.getBase64ImageFromURL(event);
     this.servicePacketImageEntityModel.mainImage = this.base64MainImage.toString();
@@ -847,7 +860,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
 
         let fileList: File[] = this.getFileList();
         let uploadResult: any = await this._productService.uploadServicePacketImage(fileList);
-        if(uploadResult.statusCode == 200){
+        if(uploadResult){
           this._productService.createOrUpdateServicePacket(createOrEditProductParameter)
           .pipe(tap(() => {
             this.loading = false; 

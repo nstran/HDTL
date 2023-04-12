@@ -90,8 +90,10 @@ p-fileupload {
     padding-bottom: 30px;
 }
 
+p-celleditor img{
+    width: 200px !important;
+}
 
-/* ::ng-deep  body .ui-tabview .ui-tabview-panels {
-    height: 500px !important;
-} */
-
+.ql-align-justify img {
+    max-width: 100%;
+}

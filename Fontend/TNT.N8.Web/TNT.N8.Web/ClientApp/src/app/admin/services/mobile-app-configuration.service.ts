@@ -66,5 +66,19 @@ export class MobileAppConfigurationService {
                 })
             );
     }
+
+    uploadMobileAppConfigurationImage(fileList : File[]): Promise<Response> {
+        const url = localStorage.getItem('ApiEndPoint') + '/api/MobileAppConfiguration/uploadMobileAppConfigurationImage';
+        let formData: FormData = new FormData();
+        for (var i = 0; i < fileList.length; i++) {
+          formData.append('fileList', fileList[i]);
+        }
+        return new Promise((resolve, reject) => {
+          return this.httpClient.post(url, formData).toPromise()
+            .then((response: Response) => {
+              resolve(response);
+            });
+        });
+    }
     
 }
