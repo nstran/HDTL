@@ -15,3 +15,22 @@
   border: solid 1px #dde1e6;
   padding: 25px 60px;
 }
+
+.evaluate {
+  border-top: 1px solid #000;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+}
+
+.rate-content {
+  background: #dde1e6;
+  border-radius: 10px;
+  padding: 15px;
+  width: fit-content;
+}
+
+.py-3 {
+  padding: 10px 0;
+}

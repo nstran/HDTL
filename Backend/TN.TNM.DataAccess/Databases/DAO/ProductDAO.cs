@@ -2820,37 +2820,37 @@ namespace TN.TNM.DataAccess.Databases.DAO
             try
             {
                 var listServicePacket = new List<ServicePacketEntityModel>();
-                if (parameter != null)
+                if (parameter != null && parameter.UserId != null && parameter.UserId != Guid.Empty)
                 {
                     var user = await context.User.FirstOrDefaultAsync(x => x.UserId == parameter.UserId);
                     var customerSubjectsApplication = context.Customer.FirstOrDefault(x => x.CustomerId == user.EmployeeId)?.SubjectsApplication;
                     var listProvince = context.Province.Select(x => new { ProvinceId = x.ProvinceId, ProvinceName = x.ProvinceName }).ToList();
                     listServicePacket = await (from s in context.ServicePacket
-                                                   join pc in context.ProductCategory on s.ProductCategoryId equals pc.ProductCategoryId
-                                                   join si in context.ServicePacketImage on s.Id equals si.ServicePacketId
-                                                   join c in context.Category on s.SubjectsApplicationId equals c.CategoryId
-                                                   into sc
-                                                   from scJoined in sc.DefaultIfEmpty()
-                                                   where (s.Name.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || pc.ProductCategoryName.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || parameter.FilterText == null)
-                                                   orderby s.Stt
-                                                   select new ServicePacketEntityModel
-                                                   {
-                                                       Id = s.Id,
-                                                       AttributeName = s.AttributeName,
-                                                       Description = s.Description,
-                                                       ProvinceIds = s.ProvinceIds,
-                                                       ProvinceName = (s.ProvinceIds != null && s.ProvinceIds.Length > 0) ? String.Join(", ", listProvince.Where(x => s.ProvinceIds.Any(y => y == x.ProvinceId)).Select(z => z.ProvinceName).ToList()) : "",
-                                                       Message = s.Message,
-                                                       Name = s.Name,
-                                                       ProductCategoryId = s.ProductCategoryId,
-                                                       ProductCategoryName = pc.ProductCategoryName,
-                                                       Status = s.Status,
-                                                       Icon = GetImageBase64(si.Icon),
-                                                       BackgroundImage = GetImageBase64(si.BackgroundImage),
-                                                       MainImage = GetImageBase64(si.MainImage),
-                                                       Stt = s.Stt,
-                                                       SubjectsApplication = customerSubjectsApplication != null ? scJoined.CategoryCode == ProductConsts.CategoryCodeUpMobile ? true : (scJoined.CategoryCode == ProductConsts.CategoryCodeUserReview && customerSubjectsApplication == true) ? true : false : false
-                                                   }).ToListAsync();
+                                                    join pc in context.ProductCategory on s.ProductCategoryId equals pc.ProductCategoryId
+                                                    join si in context.ServicePacketImage on s.Id equals si.ServicePacketId
+                                                    join c in context.Category on s.SubjectsApplicationId equals c.CategoryId
+                                                    into sc
+                                                    from scJoined in sc.DefaultIfEmpty()
+                                                    where (s.Name.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || pc.ProductCategoryName.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || parameter.FilterText == null)
+                                                    orderby s.Stt
+                                                    select new ServicePacketEntityModel
+                                                    {
+                                                        Id = s.Id,
+                                                        AttributeName = s.AttributeName,
+                                                        Description = s.Description,
+                                                        ProvinceIds = s.ProvinceIds,
+                                                        ProvinceName = (s.ProvinceIds != null && s.ProvinceIds.Length > 0) ? String.Join(", ", listProvince.Where(x => s.ProvinceIds.Any(y => y == x.ProvinceId)).Select(z => z.ProvinceName).ToList()) : "",
+                                                        Message = s.Message,
+                                                        Name = s.Name,
+                                                        ProductCategoryId = s.ProductCategoryId,
+                                                        ProductCategoryName = pc.ProductCategoryName,
+                                                        Status = s.Status,
+                                                        Icon = GetImageBase64(si.Icon),
+                                                        BackgroundImage = GetImageBase64(si.BackgroundImage),
+                                                        MainImage = GetImageBase64(si.MainImage),
+                                                        Stt = s.Stt,
+                                                        SubjectsApplication = customerSubjectsApplication != null ? scJoined.CategoryCode == ProductConsts.CategoryCodeUpMobile ? true : (scJoined.CategoryCode == ProductConsts.CategoryCodeUserReview && customerSubjectsApplication == true) ? true : false : false
+                                                    }).ToListAsync();
 
                     var listAllServiceMappingOptions = context.ServicePacketMappingOptions.ToList();
                     listServicePacket.ForEach(item => {
@@ -2866,6 +2866,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                    join c in context.Category on s.SubjectsApplicationId equals c.CategoryId
                                                    into sc
                                                    from scJoined in sc.DefaultIfEmpty()
+                                                   where (s.Name.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || pc.ProductCategoryName.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || parameter.FilterText == null)
                                                    orderby s.Stt
                                                    select new ServicePacketEntityModel
                                                    {
