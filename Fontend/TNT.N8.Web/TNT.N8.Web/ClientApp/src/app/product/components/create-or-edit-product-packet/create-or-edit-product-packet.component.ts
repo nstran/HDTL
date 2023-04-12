@@ -288,7 +288,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   }
 
   //#region File
-  getFile(source: string, fileName: string) {
+  getFile(source: string, fileName: string): void {
     if(source && fileName){
       let newImage = new ServicePacketImage();
       newImage.source = source; //base64

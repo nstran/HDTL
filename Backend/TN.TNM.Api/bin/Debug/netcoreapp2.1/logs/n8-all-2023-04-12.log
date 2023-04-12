@@ -23416,3 +23416,463 @@ WHERE e."TenantId" = @__ef_filter___tenantId_0
 2023-04-12 11:38:50.9329||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
 2023-04-12 11:38:50.9340||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
 2023-04-12 11:38:50.9340||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:38:55.9428||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:38:55.9428||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:38:55.9428||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:38:55.9428||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:00.9523||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:00.9523||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:00.9523||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:00.9523||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:04.3712||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18184:fb743639 heartbeat successfully sent 
+2023-04-12 11:39:04.3712||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18184:fb743639 waiting for 00:00:30 delay before sending a heartbeat 
+2023-04-12 11:39:04.4823||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18184:9edb45ba heartbeat successfully sent 
+2023-04-12 11:39:04.4823||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18184:9edb45ba waiting for 00:00:30 delay before sending a heartbeat 
+2023-04-12 11:39:05.9672||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:05.9672||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:05.9672||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:05.9672||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:10.9756||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:10.9756||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:10.9756||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:10.9756||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:15.9827||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:15.9827||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:15.9827||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:15.9827||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:20.9844||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:20.9844||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:20.9844||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:20.9844||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:25.9966||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:25.9966||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:25.9966||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:25.9966||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:31.0305||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:31.0305||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:31.0305||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:31.0305||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:34.3934||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18184:fb743639 heartbeat successfully sent 
+2023-04-12 11:39:34.3934||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18184:fb743639 waiting for 00:00:30 delay before sending a heartbeat 
+2023-04-12 11:39:34.5020||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18184:9edb45ba heartbeat successfully sent 
+2023-04-12 11:39:34.5020||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18184:9edb45ba waiting for 00:00:30 delay before sending a heartbeat 
+2023-04-12 11:39:36.0408||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:36.0408||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:36.0408||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:36.0408||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:41.0528||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:41.0528||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:41.0528||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:41.0528||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:46.0628||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:46.0628||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:46.0628||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:46.0628||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:51.0728||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:51.0728||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:51.0728||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:51.0728||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:56.0765||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:56.0765||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:39:56.0765||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:39:56.0765||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:00.8580||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'EVMDaily' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-11T06:09:11.7098468Z;V:2;Queue:default;Cron:*/10 * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-04-12T04:30:25.8275300Z;NextExecution:2023-04-12T04:40:00.0000000Z;LastJobId:31823), Changes: (LastExecution:2023-04-12T04:40:00.8514163Z;NextExecution:2023-04-12T04:50:00.0000000Z;LastJobId:31832), NextExecution: (4/12/2023 4:50:00 AM) 
+2023-04-12 11:40:00.8580||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (Queue:default;Cron:*/10 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-04-12T04:37:04.1244257Z;NextExecution:2023-04-12T04:40:00.0000000Z;V:2), Changes: (LastExecution:2023-04-12T04:40:00.8628984Z;NextExecution:2023-04-12T04:50:00.0000000Z;LastJobId:31833), NextExecution: (4/12/2023 4:50:00 AM) 
+2023-04-12 11:40:00.8788||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-04-12T04:38:00.6221650Z;NextExecution:2023-04-12T04:40:00.0000000Z;LastJobId:31831), Changes: (LastExecution:2023-04-12T04:40:00.8736857Z;NextExecution:2023-04-12T04:42:00.0000000Z;LastJobId:31834), NextExecution: (4/12/2023 4:42:00 AM) 
+2023-04-12 11:40:00.8788||DEBUG|Hangfire.Server.RecurringJobScheduler|3 recurring job(s) processed by scheduler. 
+2023-04-12 11:40:01.0856||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:01.0856||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:01.0856||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:01.0856||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:04.4482||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18184:fb743639 heartbeat successfully sent 
+2023-04-12 11:40:04.4482||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18184:fb743639 waiting for 00:00:30 delay before sending a heartbeat 
+2023-04-12 11:40:04.5188||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18184:9edb45ba heartbeat successfully sent 
+2023-04-12 11:40:04.5188||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18184:9edb45ba waiting for 00:00:30 delay before sending a heartbeat 
+2023-04-12 11:40:05.6615|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:05.6825|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Content", x."CreatedById", x."CreatedDate", x."Deadline", x."EmpId", x."IsCusView", x."Name", x."OptionId", x."Order", x."OrderActionId", x."ServicePacketMappingOptionsId", x."Status", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ReportPoint" AS x
+WHERE (x."Deadline" IS NOT NULL AND ((x."Status" <> 3) OR x."Status" IS NULL)) AND x."Id" NOT IN ('3f4a4564-bb78-4b4e-ae3e-1bc385fc0588', 'cecc7e00-6a9d-417b-a58d-5c35744ec381', 'e2ebf3cf-d510-4c32-a433-45752c4eb904', '130a62ea-05e5-471c-99f5-28b756e5d733') 
+2023-04-12 11:40:05.7232|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."OrderId", x."Active", x."Amount", x."ApprovedDate", x."BankAccountId", x."CloneCount", x."CreatedById", x."CreatedDate", x."CustomerAddress", x."CustomerCode", x."CustomerContactId", x."CustomerId", x."CustomerName", x."CustomerNumber", x."CustomerPhone", x."DaysAreOwed", x."Description", x."DiscountType", x."DiscountValue", x."Especially", x."IsAutoGenReceiveInfor", x."IsOrderAction", x."LocationOfShipment", x."ManufactureDate", x."MaxDebt", x."Note", x."NoteTechnique", x."ObjectId", x."OrderCode", x."OrderContractId", x."OrderDate", x."OrderProcessId", x."OrderType", x."PaymentContent", x."PaymentMethod", x."PaymentMethodNote", x."PaymentMethodOrder", x."PercentAdvance", x."PercentAdvanceType", x."PlaceOfDelivery", x."QuoteId", x."ReasonCancel", x."ReceiptInvoiceAmount", x."ReceivedDate", x."ReceivedHour", x."RecipientEmail", x."RecipientName", x."RecipientPhone", x."Seller", x."ServicePacketId", x."ShippingNote", x."StatusId", x."StatusOrder", x."TenantId", x."UpdatedById", x."UpdatedDate", x."VAT", x."WarehouseId"
+FROM "CustomerOrder" AS x
+WHERE FALSE = TRUE 
+2023-04-12 11:40:05.7745|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."AttributeName", x."Code", x."CreatedById", x."CreatedDate", x."Description", x."Message", x."Name", x."ProductCategoryId", x."ProvinceIds", x."RoleId", x."Status", x."Stt", x."SubjectsApplicationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ServicePacket" AS x
+WHERE FALSE = TRUE 
+2023-04-12 11:40:05.7745|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:05.7780|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Content", x."CreatedById", x."CreatedDate", x."Deadline", x."EmpId", x."IsCusView", x."Name", x."OptionId", x."Order", x."OrderActionId", x."ServicePacketMappingOptionsId", x."Status", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ReportPoint" AS x
+WHERE (x."Deadline" IS NOT NULL AND ((x."Status" <> 3) OR x."Status" IS NULL)) AND x."Id" NOT IN ('3f4a4564-bb78-4b4e-ae3e-1bc385fc0588', 'cecc7e00-6a9d-417b-a58d-5c35744ec381', 'e2ebf3cf-d510-4c32-a433-45752c4eb904', '130a62ea-05e5-471c-99f5-28b756e5d733') 
+2023-04-12 11:40:05.7780|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."OrderId", x."Active", x."Amount", x."ApprovedDate", x."BankAccountId", x."CloneCount", x."CreatedById", x."CreatedDate", x."CustomerAddress", x."CustomerCode", x."CustomerContactId", x."CustomerId", x."CustomerName", x."CustomerNumber", x."CustomerPhone", x."DaysAreOwed", x."Description", x."DiscountType", x."DiscountValue", x."Especially", x."IsAutoGenReceiveInfor", x."IsOrderAction", x."LocationOfShipment", x."ManufactureDate", x."MaxDebt", x."Note", x."NoteTechnique", x."ObjectId", x."OrderCode", x."OrderContractId", x."OrderDate", x."OrderProcessId", x."OrderType", x."PaymentContent", x."PaymentMethod", x."PaymentMethodNote", x."PaymentMethodOrder", x."PercentAdvance", x."PercentAdvanceType", x."PlaceOfDelivery", x."QuoteId", x."ReasonCancel", x."ReceiptInvoiceAmount", x."ReceivedDate", x."ReceivedHour", x."RecipientEmail", x."RecipientName", x."RecipientPhone", x."Seller", x."ServicePacketId", x."ShippingNote", x."StatusId", x."StatusOrder", x."TenantId", x."UpdatedById", x."UpdatedDate", x."VAT", x."WarehouseId"
+FROM "CustomerOrder" AS x
+WHERE FALSE = TRUE 
+2023-04-12 11:40:05.7780|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."AttributeName", x."Code", x."CreatedById", x."CreatedDate", x."Description", x."Message", x."Name", x."ProductCategoryId", x."ProvinceIds", x."RoleId", x."Status", x."Stt", x."SubjectsApplicationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ServicePacket" AS x
+WHERE FALSE = TRUE 
+2023-04-12 11:40:05.7994|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryTypeId", x."Active", x."CategoryTypeCode", x."CategoryTypeName", x."CreatedById", x."CreatedDate", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "CategoryType" AS x
+WHERE x."CategoryTypeCode" = 'NOTIFICATIONCONFIG'
+LIMIT 1 
+2023-04-12 11:40:05.7994|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryTypeId", x."Active", x."CategoryTypeCode", x."CategoryTypeName", x."CreatedById", x."CreatedDate", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "CategoryType" AS x
+WHERE x."CategoryTypeCode" = 'NOTIFICATIONCONFIG'
+LIMIT 1 
+2023-04-12 11:40:05.8224|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__notificationCateTypeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryId", x."Active", x."CategoryCode", x."CategoryName", x."CategoryTypeId", x."CreatedById", x."CreatedDate", x."IsDefauld", x."IsEdit", x."SortOrder", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "Category" AS x
+WHERE x."CategoryTypeId" = @__notificationCateTypeId_0 
+2023-04-12 11:40:05.8224|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__notificationCateTypeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryId", x."Active", x."CategoryCode", x."CategoryName", x."CategoryTypeId", x."CreatedById", x."CreatedDate", x."IsDefauld", x."IsEdit", x."SortOrder", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "Category" AS x
+WHERE x."CategoryTypeId" = @__notificationCateTypeId_0 
+2023-04-12 11:40:05.8580|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:05.8580|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."Content", x."CreatedById", x."CreatedDate", x."Deadline", x."EmpId", x."IsCusView", x."Name", x."OptionId", x."Order", x."OrderActionId", x."ServicePacketMappingOptionsId", x."Status", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ReportPoint" AS x
+WHERE (x."Deadline" IS NOT NULL AND ((x."Status" <> 3) OR x."Status" IS NULL)) AND x."Id" NOT IN ('3f4a4564-bb78-4b4e-ae3e-1bc385fc0588', 'cecc7e00-6a9d-417b-a58d-5c35744ec381', 'e2ebf3cf-d510-4c32-a433-45752c4eb904', '130a62ea-05e5-471c-99f5-28b756e5d733') 
+2023-04-12 11:40:05.8580|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."OrderId", x."Active", x."Amount", x."ApprovedDate", x."BankAccountId", x."CloneCount", x."CreatedById", x."CreatedDate", x."CustomerAddress", x."CustomerCode", x."CustomerContactId", x."CustomerId", x."CustomerName", x."CustomerNumber", x."CustomerPhone", x."DaysAreOwed", x."Description", x."DiscountType", x."DiscountValue", x."Especially", x."IsAutoGenReceiveInfor", x."IsOrderAction", x."LocationOfShipment", x."ManufactureDate", x."MaxDebt", x."Note", x."NoteTechnique", x."ObjectId", x."OrderCode", x."OrderContractId", x."OrderDate", x."OrderProcessId", x."OrderType", x."PaymentContent", x."PaymentMethod", x."PaymentMethodNote", x."PaymentMethodOrder", x."PercentAdvance", x."PercentAdvanceType", x."PlaceOfDelivery", x."QuoteId", x."ReasonCancel", x."ReceiptInvoiceAmount", x."ReceivedDate", x."ReceivedHour", x."RecipientEmail", x."RecipientName", x."RecipientPhone", x."Seller", x."ServicePacketId", x."ShippingNote", x."StatusId", x."StatusOrder", x."TenantId", x."UpdatedById", x."UpdatedDate", x."VAT", x."WarehouseId"
+FROM "CustomerOrder" AS x
+WHERE FALSE = TRUE 
+2023-04-12 11:40:05.8580|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."AttributeName", x."Code", x."CreatedById", x."CreatedDate", x."Description", x."Message", x."Name", x."ProductCategoryId", x."ProvinceIds", x."RoleId", x."Status", x."Stt", x."SubjectsApplicationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "ServicePacket" AS x
+WHERE FALSE = TRUE 
+2023-04-12 11:40:05.8580|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryTypeId", x."Active", x."CategoryTypeCode", x."CategoryTypeName", x."CreatedById", x."CreatedDate", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "CategoryType" AS x
+WHERE x."CategoryTypeCode" = 'NOTIFICATIONCONFIG'
+LIMIT 1 
+2023-04-12 11:40:05.8743|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[@__notificationCateTypeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT x."CategoryId", x."Active", x."CategoryCode", x."CategoryName", x."CategoryTypeId", x."CreatedById", x."CreatedDate", x."IsDefauld", x."IsEdit", x."SortOrder", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "Category" AS x
+WHERE x."CategoryTypeId" = @__notificationCateTypeId_0 
+2023-04-12 11:40:05.9275|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CategoryId", x."CreatedById", x."CreatedDate", x."Reporter", x."ServiceManagement", x."ServicePacketId", x."ServiceRequestMaker", x."ServiceSupporter", x."Supporter", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "NotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-04-12 11:40:05.9275|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CategoryId", x."CreatedById", x."CreatedDate", x."Reporter", x."ServiceManagement", x."ServicePacketId", x."ServiceRequestMaker", x."ServiceSupporter", x."Supporter", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "NotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-04-12 11:40:05.9275|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CategoryId", x."CreatedById", x."CreatedDate", x."Reporter", x."ServiceManagement", x."ServicePacketId", x."ServiceRequestMaker", x."ServiceSupporter", x."Supporter", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "NotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-04-12 11:40:05.9440|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CreatedById", x."CreatedDate", x."EmployeeId", x."NotificationConfigurationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "EmployeeMappingNotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-04-12 11:40:05.9440|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CreatedById", x."CreatedDate", x."EmployeeId", x."NotificationConfigurationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "EmployeeMappingNotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-04-12 11:40:05.9440|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT x."Id", x."CreatedById", x."CreatedDate", x."EmployeeId", x."NotificationConfigurationId", x."TenantId", x."UpdatedById", x."UpdatedDate"
+FROM "EmployeeMappingNotificationConfiguration" AS x
+WHERE FALSE = TRUE 
+2023-04-12 11:40:06.0892||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:06.0903||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:06.0892||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:06.0903||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:11.0926||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:11.0926||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:11.1377||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:11.1377||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:16.0963||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:16.0963||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:16.1422||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:16.1422||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:21.1059||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:21.1059||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:21.1541||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:21.1541||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:26.1117||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:26.1117||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:26.1575||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:26.1575||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:30.2153|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 OPTIONS http://localhost:5001/api/notification/getNotification   
+2023-04-12 11:40:30.2175|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.2175|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 2.6238ms 204  
+2023-04-12 11:40:30.2473|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 POST http://localhost:5001/api/notification/getNotification application/json 101 
+2023-04-12 11:40:30.2473|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.2473|2|INFO|Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler|Successfully validated the token. 
+2023-04-12 11:40:30.2659|3|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Route matched with {action = "GetNotification", controller = "Notification"}. Executing controller action with signature TN.TNM.BusinessLogic.Messages.Responses.Notification.GetNotificationResponse GetNotification(TN.TNM.BusinessLogic.Messages.Requests.Notification.GetNotificationRequest) on controller TN.TNM.Api.Controllers.NotificationController (TN.TNM.Api). 
+2023-04-12 11:40:30.2659|1|INFO|Microsoft.AspNetCore.Authorization.DefaultAuthorizationService|Authorization was successful. 
+2023-04-12 11:40:30.2989|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.2989|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__domain_0='?' (Size = 500)], CommandType='Text', CommandTimeout='30']
+SELECT t."TenantId", t."Status", t."TenantHost", t."TenantMode", t."TenantName", t."UserNumber"
+FROM "Tenants" AS t
+WHERE t."TenantHost" = @__domain_0
+LIMIT 1 
+2023-04-12 11:40:30.2989|1|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executing action method TN.TNM.Api.Controllers.NotificationController.GetNotification (TN.TNM.Api) - Validation state: Valid 
+2023-04-12 11:40:30.2989||INFO|TN.TNM.BusinessLogic.Factories.Notification.NotificationFactory|Get Notification 
+2023-04-12 11:40:30.2989|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TNTN8Context' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.2989|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_0='?' (DbType = Guid), @__parameter_EmployeeId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."NotificationId", e."Content", e."CreatedDate", e."NotificationType", e."ObjectId", e."ObjectType", e."ReceiverId", e."TenantId", e."Viewed"
+FROM "Notifications" AS e
+WHERE (e."TenantId" = @__ef_filter___tenantId_0) AND (e."ReceiverId" = @__parameter_EmployeeId_0)
+ORDER BY e."CreatedDate" DESC 
+2023-04-12 11:40:30.2989|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action method TN.TNM.Api.Controllers.NotificationController.GetNotification (TN.TNM.Api), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 3.1953ms. 
+2023-04-12 11:40:30.2989|1|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing ObjectResult, writing value of type 'TN.TNM.BusinessLogic.Messages.Responses.Notification.GetNotificationResponse'. 
+2023-04-12 11:40:30.2989|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action TN.TNM.Api.Controllers.NotificationController.GetNotification (TN.TNM.Api) in 34.0639ms 
+2023-04-12 11:40:30.2989|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 59.4277ms 200 application/json; charset=utf-8 
+2023-04-12 11:40:30.3308|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 OPTIONS http://localhost:5001/api/Dashboard/takeRevenueStatisticDashboard   
+2023-04-12 11:40:30.3308|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.3308|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 1.1405ms 204  
+2023-04-12 11:40:30.3308|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 OPTIONS http://localhost:5001/api/Dashboard/takeRevenueStatisticServicePacketDashboard   
+2023-04-12 11:40:30.3308|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 OPTIONS http://localhost:5001/api/Dashboard/takeRevenueStatisticEmployeeDashboard   
+2023-04-12 11:40:30.3308|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.3405|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.3405|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 3.2059ms 204  
+2023-04-12 11:40:30.3405|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 12.1754ms 204  
+2023-04-12 11:40:30.3405|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 POST http://localhost:5001/api/Dashboard/takeRevenueStatisticEmployeeDashboard application/json 135 
+2023-04-12 11:40:30.3747|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.3747|2|INFO|Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler|Successfully validated the token. 
+2023-04-12 11:40:30.3747|3|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Route matched with {action = "TakeRevenueStatisticEmployeeDashboard", controller = "Dashboard"}. Executing controller action with signature TN.TNM.DataAccess.Messages.Results.Admin.Dashboard.TakeRevenueStatisticEmployeeDashboardResult TakeRevenueStatisticEmployeeDashboard(TN.TNM.DataAccess.Messages.Parameters.Admin.Dashboard.TakeRevenueStatisticDashboardByFilterParameter) on controller TN.TNM.Api.Controllers.DashboardController (TN.TNM.Api). 
+2023-04-12 11:40:30.3747|1|INFO|Microsoft.AspNetCore.Authorization.DefaultAuthorizationService|Authorization was successful. 
+2023-04-12 11:40:30.3747|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.3747|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__domain_0='?' (Size = 500)], CommandType='Text', CommandTimeout='30']
+SELECT t."TenantId", t."Status", t."TenantHost", t."TenantMode", t."TenantName", t."UserNumber"
+FROM "Tenants" AS t
+WHERE t."TenantHost" = @__domain_0
+LIMIT 1 
+2023-04-12 11:40:30.3994|1|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executing action method TN.TNM.Api.Controllers.DashboardController.TakeRevenueStatisticEmployeeDashboard (TN.TNM.Api) - Validation state: Valid 
+2023-04-12 11:40:30.3994|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 POST http://localhost:5001/api/Dashboard/takeRevenueStatisticServicePacketDashboard application/json 135 
+2023-04-12 11:40:30.3994|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 OPTIONS http://localhost:5001/api/Dashboard/takeRevenueStatisticWaitPaymentDashboard   
+2023-04-12 11:40:30.4054|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.4054|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 5.183ms 204  
+2023-04-12 11:40:30.4054|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 OPTIONS http://localhost:5001/api/Dashboard/takeStatisticServiceTicketDashboard   
+2023-04-12 11:40:30.4054|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.4054|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 0.57ms 204  
+2023-04-12 11:40:30.4054|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.4054|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 OPTIONS http://localhost:5001/api/Dashboard/takeRatingStatisticDashboard   
+2023-04-12 11:40:30.4054|2|INFO|Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler|Successfully validated the token. 
+2023-04-12 11:40:30.4054|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.4054|3|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Route matched with {action = "TakeRevenueStatisticServicePacketDashboard", controller = "Dashboard"}. Executing controller action with signature TN.TNM.DataAccess.Messages.Results.Admin.Dashboard.TakeRevenueStatisticServicePacketDashboardResult TakeRevenueStatisticServicePacketDashboard(TN.TNM.DataAccess.Messages.Parameters.Admin.Dashboard.TakeRevenueStatisticDashboardByFilterParameter) on controller TN.TNM.Api.Controllers.DashboardController (TN.TNM.Api). 
+2023-04-12 11:40:30.4054|1|INFO|Microsoft.AspNetCore.Authorization.DefaultAuthorizationService|Authorization was successful. 
+2023-04-12 11:40:30.4054|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 10.4668ms 204  
+2023-04-12 11:40:30.4189|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 POST http://localhost:5001/api/Dashboard/takeRevenueStatisticDashboard application/json 49 
+2023-04-12 11:40:30.4189|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.4189|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.4189|2|INFO|Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler|Successfully validated the token. 
+2023-04-12 11:40:30.4189|3|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Route matched with {action = "TakeRevenueStatisticDashboard", controller = "Dashboard"}. Executing controller action with signature TN.TNM.DataAccess.Messages.Results.Admin.Dashboard.TakeRevenueStatisticDashboardResult TakeRevenueStatisticDashboard(TN.TNM.DataAccess.Messages.Parameters.Admin.Dashboard.TakeRevenueStatisticDashboardParameter) on controller TN.TNM.Api.Controllers.DashboardController (TN.TNM.Api). 
+2023-04-12 11:40:30.4189|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__domain_0='?' (Size = 500)], CommandType='Text', CommandTimeout='30']
+SELECT t."TenantId", t."Status", t."TenantHost", t."TenantMode", t."TenantName", t."UserNumber"
+FROM "Tenants" AS t
+WHERE t."TenantHost" = @__domain_0
+LIMIT 1 
+2023-04-12 11:40:30.4189|1|INFO|Microsoft.AspNetCore.Authorization.DefaultAuthorizationService|Authorization was successful. 
+2023-04-12 11:40:30.4189|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TNTN8Context' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.4189|1|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executing action method TN.TNM.Api.Controllers.DashboardController.TakeRevenueStatisticServicePacketDashboard (TN.TNM.Api) - Validation state: Valid 
+2023-04-12 11:40:30.4189|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.4189|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TNTN8Context' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.4189|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__domain_0='?' (Size = 500)], CommandType='Text', CommandTimeout='30']
+SELECT t."TenantId", t."Status", t."TenantHost", t."TenantMode", t."TenantName", t."UserNumber"
+FROM "Tenants" AS t
+WHERE t."TenantHost" = @__domain_0
+LIMIT 1 
+2023-04-12 11:40:30.4189|1|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executing action method TN.TNM.Api.Controllers.DashboardController.TakeRevenueStatisticDashboard (TN.TNM.Api) - Validation state: Valid 
+2023-04-12 11:40:30.4189|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TNTN8Context' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.4189|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."OrderId", e."OrderCode", e."CustomerId", e."StatusOrder", e."CreatedDate", e."CreatedById", e."UpdatedDate", e."DiscountType", e."DiscountValue", e."VAT", e."OrderType"
+FROM "CustomerOrder" AS e
+WHERE (e."TenantId" = @__ef_filter___tenantId_0) AND e."StatusOrder" IN (4, 5) 
+2023-04-12 11:40:30.4189|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_1='?' (DbType = Guid), @__ef_filter___tenantId_2='?' (DbType = Guid), @__ef_filter___tenantId_0='?' (DbType = Guid), @__Date_0='?' (DbType = DateTime), @__AddTicks_1='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT e."OrderId", e."StatusOrder", e."CreatedDate", e."UpdatedDate", e."DiscountType", e."DiscountValue", e."VAT", e."OrderType", t0."ProductCategoryName", e."ServicePacketId"
+FROM "CustomerOrder" AS e
+LEFT JOIN (
+    SELECT e0.*
+    FROM "ServicePacket" AS e0
+    WHERE e0."TenantId" = @__ef_filter___tenantId_1
+) AS t ON e."ServicePacketId" = t."Id"
+LEFT JOIN (
+    SELECT e1.*
+    FROM "ProductCategory" AS e1
+    WHERE e1."TenantId" = @__ef_filter___tenantId_2
+) AS t0 ON t."ProductCategoryId" = t0."ProductCategoryId"
+WHERE (e."TenantId" = @__ef_filter___tenantId_0) AND (((e."StatusOrder" = 5) AND (e."UpdatedDate" >= @__Date_0)) AND (e."UpdatedDate" <= @__AddTicks_1)) 
+2023-04-12 11:40:30.4189|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."OrderDetailId", e."Active", e."ActualInventory", e."Borehole", e."BusinessInventory", e."CreatedById", e."CreatedDate", e."CurrencyUnit", e."Description", e."DiscountType", e."DiscountValue", e."EmployeePhoneNumber", e."ExchangeRate", e."ExpirationDate", e."Grind", e."Guarantee", e."GuaranteeDatetime", e."GuaranteeTime", e."Hole", e."IncurredUnit", e."IsPriceInitial", e."OptionId", e."OrderDetailType", e."OrderId", e."OrderNumber", e."PacketServiceId", e."PriceInitial", e."ProductCategoryId", e."ProductCode", e."ProductColor", e."ProductColorCode", e."ProductGroupCode", e."ProductId", e."ProductLength", e."ProductName", e."ProductThickness", e."ProductWidth", e."Quantity", e."ReviewDetail", e."ReviewName", e."Stt", e."TechniqueDescription", e."TenantId", e."TotalArea", e."UnitId", e."UnitLaborNumber", e."UnitLaborPrice", e."UnitName", e."UnitPrice", e."UpdatedById", e."UpdatedDate", e."UserReview", e."VAT", e."VendorID", e."WarehouseId", e."WarrantyPeriod"
+FROM "CustomerOrderDetail" AS e
+WHERE (e."TenantId" = @__ef_filter___tenantId_0) AND e."OrderId" IN ('9d556c0c-4141-49d8-95eb-9182b88fbedd', '108ac96c-8d23-4b5f-b315-b54e89a029c8', '8ead53c6-484b-48ad-a21a-cac94945ba1d') 
+2023-04-12 11:40:30.4189|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."OrderDetailId", e."Active", e."ActualInventory", e."Borehole", e."BusinessInventory", e."CreatedById", e."CreatedDate", e."CurrencyUnit", e."Description", e."DiscountType", e."DiscountValue", e."EmployeePhoneNumber", e."ExchangeRate", e."ExpirationDate", e."Grind", e."Guarantee", e."GuaranteeDatetime", e."GuaranteeTime", e."Hole", e."IncurredUnit", e."IsPriceInitial", e."OptionId", e."OrderDetailType", e."OrderId", e."OrderNumber", e."PacketServiceId", e."PriceInitial", e."ProductCategoryId", e."ProductCode", e."ProductColor", e."ProductColorCode", e."ProductGroupCode", e."ProductId", e."ProductLength", e."ProductName", e."ProductThickness", e."ProductWidth", e."Quantity", e."ReviewDetail", e."ReviewName", e."Stt", e."TechniqueDescription", e."TenantId", e."TotalArea", e."UnitId", e."UnitLaborNumber", e."UnitLaborPrice", e."UnitName", e."UnitPrice", e."UpdatedById", e."UpdatedDate", e."UserReview", e."VAT", e."VendorID", e."WarehouseId", e."WarrantyPeriod"
+FROM "CustomerOrderDetail" AS e
+WHERE (e."TenantId" = @__ef_filter___tenantId_0) AND e."OrderId" IN ('9d556c0c-4141-49d8-95eb-9182b88fbedd', '108ac96c-8d23-4b5f-b315-b54e89a029c8', '8ead53c6-484b-48ad-a21a-cac94945ba1d') 
+2023-04-12 11:40:30.4344|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."Id", e."CreatedById", e."CreatedDate", e."Name", e."OrderId", e."Price", e."Quantity", e."ServicePacketId", e."Status", e."Stt", e."TenantId", e."UpdatedById", e."UpdatedDate"
+FROM "CustomerOrderDetailExten" AS e
+WHERE (e."TenantId" = @__ef_filter___tenantId_0) AND e."OrderId" IN ('9d556c0c-4141-49d8-95eb-9182b88fbedd', '108ac96c-8d23-4b5f-b315-b54e89a029c8', '8ead53c6-484b-48ad-a21a-cac94945ba1d') 
+2023-04-12 11:40:30.4344|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."Id", e."CreatedById", e."CreatedDate", e."Name", e."OrderId", e."Price", e."Quantity", e."ServicePacketId", e."Status", e."Stt", e."TenantId", e."UpdatedById", e."UpdatedDate"
+FROM "CustomerOrderDetailExten" AS e
+WHERE (e."TenantId" = @__ef_filter___tenantId_0) AND e."OrderId" IN ('9d556c0c-4141-49d8-95eb-9182b88fbedd', '108ac96c-8d23-4b5f-b315-b54e89a029c8', '8ead53c6-484b-48ad-a21a-cac94945ba1d') 
+2023-04-12 11:40:30.4344|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action method TN.TNM.Api.Controllers.DashboardController.TakeRevenueStatisticDashboard (TN.TNM.Api), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 6.993ms. 
+2023-04-12 11:40:30.4344|1|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing ObjectResult, writing value of type 'TN.TNM.DataAccess.Messages.Results.Admin.Dashboard.TakeRevenueStatisticDashboardResult'. 
+2023-04-12 11:40:30.4344|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action TN.TNM.Api.Controllers.DashboardController.TakeRevenueStatisticDashboard (TN.TNM.Api) in 15.0925ms 
+2023-04-12 11:40:30.4344|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 19.3538ms 200 application/json; charset=utf-8 
+2023-04-12 11:40:30.4344|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_1='?' (DbType = Guid), @__ef_filter___tenantId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."Id", e."Name", t."ProductCategoryName"
+FROM "ServicePacket" AS e
+LEFT JOIN (
+    SELECT e0.*
+    FROM "ProductCategory" AS e0
+    WHERE e0."TenantId" = @__ef_filter___tenantId_1
+) AS t ON e."ProductCategoryId" = t."ProductCategoryId"
+WHERE e."TenantId" = @__ef_filter___tenantId_0 
+2023-04-12 11:40:30.4344|32|INFO|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HMPR1U8BNH47", Request id "0HMPR1U8BNH47:00000001": the application completed without reading the entire request body. 
+2023-04-12 11:40:30.4344|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (5ms) [Parameters=[@__ef_filter___tenantId_1='?' (DbType = Guid), @__ef_filter___tenantId_2='?' (DbType = Guid), @__ef_filter___tenantId_0='?' (DbType = Guid), @__Date_0='?' (DbType = DateTime), @__AddTicks_1='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT e."OrderId", e."DiscountType", e."DiscountValue", e."VAT", e."StatusOrder", t0."EmployeeName", t0."EmployeeId"
+FROM "CustomerOrder" AS e
+LEFT JOIN (
+    SELECT e0.*
+    FROM "User" AS e0
+    WHERE e0."TenantId" = @__ef_filter___tenantId_1
+) AS t ON e."CreatedById" = t."UserId"
+LEFT JOIN (
+    SELECT e1.*
+    FROM "Employee" AS e1
+    WHERE e1."TenantId" = @__ef_filter___tenantId_2
+) AS t0 ON t."EmployeeId" = t0."EmployeeId"
+WHERE (e."TenantId" = @__ef_filter___tenantId_0) AND (((e."StatusOrder" = 5) AND (e."UpdatedDate" >= @__Date_0)) AND (e."UpdatedDate" <= @__AddTicks_1)) 
+2023-04-12 11:40:30.4344|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action method TN.TNM.Api.Controllers.DashboardController.TakeRevenueStatisticServicePacketDashboard (TN.TNM.Api), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 14.7361ms. 
+2023-04-12 11:40:30.4344|1|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing ObjectResult, writing value of type 'TN.TNM.DataAccess.Messages.Results.Admin.Dashboard.TakeRevenueStatisticServicePacketDashboardResult'. 
+2023-04-12 11:40:30.4344|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action TN.TNM.Api.Controllers.DashboardController.TakeRevenueStatisticServicePacketDashboard (TN.TNM.Api) in 22.3544ms 
+2023-04-12 11:40:30.4344|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 39.2923ms 200 application/json; charset=utf-8 
+2023-04-12 11:40:30.4344|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 POST http://localhost:5001/api/Dashboard/takeRevenueStatisticWaitPaymentDashboard application/json 49 
+2023-04-12 11:40:30.4344|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."OrderDetailId", e."Active", e."ActualInventory", e."Borehole", e."BusinessInventory", e."CreatedById", e."CreatedDate", e."CurrencyUnit", e."Description", e."DiscountType", e."DiscountValue", e."EmployeePhoneNumber", e."ExchangeRate", e."ExpirationDate", e."Grind", e."Guarantee", e."GuaranteeDatetime", e."GuaranteeTime", e."Hole", e."IncurredUnit", e."IsPriceInitial", e."OptionId", e."OrderDetailType", e."OrderId", e."OrderNumber", e."PacketServiceId", e."PriceInitial", e."ProductCategoryId", e."ProductCode", e."ProductColor", e."ProductColorCode", e."ProductGroupCode", e."ProductId", e."ProductLength", e."ProductName", e."ProductThickness", e."ProductWidth", e."Quantity", e."ReviewDetail", e."ReviewName", e."Stt", e."TechniqueDescription", e."TenantId", e."TotalArea", e."UnitId", e."UnitLaborNumber", e."UnitLaborPrice", e."UnitName", e."UnitPrice", e."UpdatedById", e."UpdatedDate", e."UserReview", e."VAT", e."VendorID", e."WarehouseId", e."WarrantyPeriod"
+FROM "CustomerOrderDetail" AS e
+WHERE (e."TenantId" = @__ef_filter___tenantId_0) AND e."OrderId" IN ('8ead53c6-484b-48ad-a21a-cac94945ba1d', '108ac96c-8d23-4b5f-b315-b54e89a029c8', '9d556c0c-4141-49d8-95eb-9182b88fbedd') 
+2023-04-12 11:40:30.4344|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.4344|2|INFO|Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler|Successfully validated the token. 
+2023-04-12 11:40:30.4344|3|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Route matched with {action = "TakeRevenueStatisticWaitPaymentDashboard", controller = "Dashboard"}. Executing controller action with signature TN.TNM.DataAccess.Messages.Results.Admin.Dashboard.TakeRevenueStatisticWaitPaymentDashboardResult TakeRevenueStatisticWaitPaymentDashboard(TN.TNM.DataAccess.Messages.Parameters.Admin.Dashboard.TakeRevenueStatisticDashboardParameter) on controller TN.TNM.Api.Controllers.DashboardController (TN.TNM.Api). 
+2023-04-12 11:40:30.4344|1|INFO|Microsoft.AspNetCore.Authorization.DefaultAuthorizationService|Authorization was successful. 
+2023-04-12 11:40:30.4344|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."Id", e."CreatedById", e."CreatedDate", e."Name", e."OrderId", e."Price", e."Quantity", e."ServicePacketId", e."Status", e."Stt", e."TenantId", e."UpdatedById", e."UpdatedDate"
+FROM "CustomerOrderDetailExten" AS e
+WHERE (e."TenantId" = @__ef_filter___tenantId_0) AND e."OrderId" IN ('8ead53c6-484b-48ad-a21a-cac94945ba1d', '108ac96c-8d23-4b5f-b315-b54e89a029c8', '9d556c0c-4141-49d8-95eb-9182b88fbedd') 
+2023-04-12 11:40:30.4344|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action method TN.TNM.Api.Controllers.DashboardController.TakeRevenueStatisticEmployeeDashboard (TN.TNM.Api), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 40.3305ms. 
+2023-04-12 11:40:30.4344|1|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing ObjectResult, writing value of type 'TN.TNM.DataAccess.Messages.Results.Admin.Dashboard.TakeRevenueStatisticEmployeeDashboardResult'. 
+2023-04-12 11:40:30.4344|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.4344|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action TN.TNM.Api.Controllers.DashboardController.TakeRevenueStatisticEmployeeDashboard (TN.TNM.Api) in 67.8526ms 
+2023-04-12 11:40:30.4344|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 90.8565ms 200 application/json; charset=utf-8 
+2023-04-12 11:40:30.4344|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__domain_0='?' (Size = 500)], CommandType='Text', CommandTimeout='30']
+SELECT t."TenantId", t."Status", t."TenantHost", t."TenantMode", t."TenantName", t."UserNumber"
+FROM "Tenants" AS t
+WHERE t."TenantHost" = @__domain_0
+LIMIT 1 
+2023-04-12 11:40:30.4344|1|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executing action method TN.TNM.Api.Controllers.DashboardController.TakeRevenueStatisticWaitPaymentDashboard (TN.TNM.Api) - Validation state: Valid 
+2023-04-12 11:40:30.4344|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TNTN8Context' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.4511|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_1='?' (DbType = Guid), @__ef_filter___tenantId_2='?' (DbType = Guid), @__ef_filter___tenantId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."OrderId", e."StatusOrder", e."CreatedDate", e."UpdatedDate", e."DiscountType", e."DiscountValue", e."VAT", e."ServicePacketId", e."OrderType", t0."ProductCategoryName"
+FROM "CustomerOrder" AS e
+LEFT JOIN (
+    SELECT e0.*
+    FROM "ServicePacket" AS e0
+    WHERE e0."TenantId" = @__ef_filter___tenantId_1
+) AS t ON e."ServicePacketId" = t."Id"
+LEFT JOIN (
+    SELECT e1.*
+    FROM "ProductCategory" AS e1
+    WHERE e1."TenantId" = @__ef_filter___tenantId_2
+) AS t0 ON t."ProductCategoryId" = t0."ProductCategoryId"
+WHERE (e."TenantId" = @__ef_filter___tenantId_0) AND (e."StatusOrder" = 4) 
+2023-04-12 11:40:30.4511|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 POST http://localhost:5001/api/Dashboard/takeStatisticServiceTicketDashboard application/json 49 
+2023-04-12 11:40:30.4511|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.4511|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT e."OrderDetailId", e."Active", e."ActualInventory", e."Borehole", e."BusinessInventory", e."CreatedById", e."CreatedDate", e."CurrencyUnit", e."Description", e."DiscountType", e."DiscountValue", e."EmployeePhoneNumber", e."ExchangeRate", e."ExpirationDate", e."Grind", e."Guarantee", e."GuaranteeDatetime", e."GuaranteeTime", e."Hole", e."IncurredUnit", e."IsPriceInitial", e."OptionId", e."OrderDetailType", e."OrderId", e."OrderNumber", e."PacketServiceId", e."PriceInitial", e."ProductCategoryId", e."ProductCode", e."ProductColor", e."ProductColorCode", e."ProductGroupCode", e."ProductId", e."ProductLength", e."ProductName", e."ProductThickness", e."ProductWidth", e."Quantity", e."ReviewDetail", e."ReviewName", e."Stt", e."TechniqueDescription", e."TenantId", e."TotalArea", e."UnitId", e."UnitLaborNumber", e."UnitLaborPrice", e."UnitName", e."UnitPrice", e."UpdatedById", e."UpdatedDate", e."UserReview", e."VAT", e."VendorID", e."WarehouseId", e."WarrantyPeriod"
+FROM "CustomerOrderDetail" AS e
+WHERE FALSE = TRUE 
+2023-04-12 11:40:30.4511|2|INFO|Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler|Successfully validated the token. 
+2023-04-12 11:40:30.4511|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT e."Id", e."CreatedById", e."CreatedDate", e."Name", e."OrderId", e."Price", e."Quantity", e."ServicePacketId", e."Status", e."Stt", e."TenantId", e."UpdatedById", e."UpdatedDate"
+FROM "CustomerOrderDetailExten" AS e
+WHERE FALSE = TRUE 
+2023-04-12 11:40:30.4511|3|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Route matched with {action = "TakeStatisticServiceTicketDashboard", controller = "Dashboard"}. Executing controller action with signature TN.TNM.DataAccess.Messages.Results.Admin.Dashboard.TakeStatisticServiceTicketDashboardResult TakeStatisticServiceTicketDashboard(TN.TNM.DataAccess.Messages.Parameters.Admin.Dashboard.TakeRevenueStatisticDashboardParameter) on controller TN.TNM.Api.Controllers.DashboardController (TN.TNM.Api). 
+2023-04-12 11:40:30.4511|1|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request starting HTTP/1.1 POST http://localhost:5001/api/Dashboard/takeRatingStatisticDashboard application/json 135 
+2023-04-12 11:40:30.4511|4|INFO|Microsoft.AspNetCore.Cors.Infrastructure.CorsService|Policy execution successful. 
+2023-04-12 11:40:30.4511|1|INFO|Microsoft.AspNetCore.Authorization.DefaultAuthorizationService|Authorization was successful. 
+2023-04-12 11:40:30.4511|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action method TN.TNM.Api.Controllers.DashboardController.TakeRevenueStatisticWaitPaymentDashboard (TN.TNM.Api), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 9.8638ms. 
+2023-04-12 11:40:30.4511|1|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing ObjectResult, writing value of type 'TN.TNM.DataAccess.Messages.Results.Admin.Dashboard.TakeRevenueStatisticWaitPaymentDashboardResult'. 
+2023-04-12 11:40:30.4511|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action TN.TNM.Api.Controllers.DashboardController.TakeRevenueStatisticWaitPaymentDashboard (TN.TNM.Api) in 17.1078ms 
+2023-04-12 11:40:30.4511|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.4511|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 18.7386ms 200 application/json; charset=utf-8 
+2023-04-12 11:40:30.4511|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__domain_0='?' (Size = 500)], CommandType='Text', CommandTimeout='30']
+SELECT t."TenantId", t."Status", t."TenantHost", t."TenantMode", t."TenantName", t."UserNumber"
+FROM "Tenants" AS t
+WHERE t."TenantHost" = @__domain_0
+LIMIT 1 
+2023-04-12 11:40:30.4511|2|INFO|Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerHandler|Successfully validated the token. 
+2023-04-12 11:40:30.4511|32|INFO|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HMPR1U8BNH45", Request id "0HMPR1U8BNH45:00000002": the application completed without reading the entire request body. 
+2023-04-12 11:40:30.4511|3|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Route matched with {action = "TakeRatingStatisticDashboard", controller = "Dashboard"}. Executing controller action with signature TN.TNM.DataAccess.Messages.Results.Admin.Dashboard.TakeRatingStatistictDashboardResult TakeRatingStatisticDashboard(TN.TNM.DataAccess.Messages.Parameters.Admin.Dashboard.TakeRevenueStatisticDashboardByFilterParameter) on controller TN.TNM.Api.Controllers.DashboardController (TN.TNM.Api). 
+2023-04-12 11:40:30.4511|1|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executing action method TN.TNM.Api.Controllers.DashboardController.TakeStatisticServiceTicketDashboard (TN.TNM.Api) - Validation state: Valid 
+2023-04-12 11:40:30.4511|1|INFO|Microsoft.AspNetCore.Authorization.DefaultAuthorizationService|Authorization was successful. 
+2023-04-12 11:40:30.4658|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TNTN8Context' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.4658|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."Id", e."Name"
+FROM "ServicePacket" AS e
+WHERE e."TenantId" = @__ef_filter___tenantId_0 
+2023-04-12 11:40:30.4658|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TenantContext' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.4658|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__domain_0='?' (Size = 500)], CommandType='Text', CommandTimeout='30']
+SELECT t."TenantId", t."Status", t."TenantHost", t."TenantMode", t."TenantName", t."UserNumber"
+FROM "Tenants" AS t
+WHERE t."TenantHost" = @__domain_0
+LIMIT 1 
+2023-04-12 11:40:30.4658|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__ef_filter___tenantId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."ServicePacketId", e."Status"
+FROM "OrderProcess" AS e
+WHERE e."TenantId" = @__ef_filter___tenantId_0 
+2023-04-12 11:40:30.4658|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (0ms) [Parameters=[@__ef_filter___tenantId_1='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT t."ProductCategoryId", t."ProductCategoryName"
+FROM (
+    SELECT e0.*
+    FROM "ProductCategory" AS e0
+    WHERE e0."TenantId" = @__ef_filter___tenantId_1
+) AS t 
+2023-04-12 11:40:30.4658|1|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executing action method TN.TNM.Api.Controllers.DashboardController.TakeRatingStatisticDashboard (TN.TNM.Api) - Validation state: Valid 
+2023-04-12 11:40:30.4658|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action method TN.TNM.Api.Controllers.DashboardController.TakeStatisticServiceTicketDashboard (TN.TNM.Api), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 6.1055ms. 
+2023-04-12 11:40:30.4658|1|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing ObjectResult, writing value of type 'TN.TNM.DataAccess.Messages.Results.Admin.Dashboard.TakeStatisticServiceTicketDashboardResult'. 
+2023-04-12 11:40:30.4658|10403|INFO|Microsoft.EntityFrameworkCore.Infrastructure|Entity Framework Core 2.1.14-servicing-32113 initialized 'TNTN8Context' using provider 'Npgsql.EntityFrameworkCore.PostgreSQL' with options: None 
+2023-04-12 11:40:30.4658|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action TN.TNM.Api.Controllers.DashboardController.TakeStatisticServiceTicketDashboard (TN.TNM.Api) in 15.6404ms 
+2023-04-12 11:40:30.4658|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 21.5873ms 200 application/json; charset=utf-8 
+2023-04-12 11:40:30.4658|32|INFO|Microsoft.AspNetCore.Server.Kestrel|Connection id "0HMPR1U8BNH44", Request id "0HMPR1U8BNH44:00000002": the application completed without reading the entire request body. 
+2023-04-12 11:40:30.4658|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (3ms) [Parameters=[@__ef_filter___tenantId_1='?' (DbType = Guid), @__ef_filter___tenantId_2='?' (DbType = Guid), @__ef_filter___tenantId_0='?' (DbType = Guid), @__Date_0='?' (DbType = DateTime), @__AddTicks_1='?' (DbType = DateTime)], CommandType='Text', CommandTimeout='30']
+SELECT e."RateStar", e."ServicePacketId", t."Name" AS "ServicePacketName", t0."ProductCategoryName", e."UpdatedDate"
+FROM "OrderProcess" AS e
+LEFT JOIN (
+    SELECT e0.*
+    FROM "ServicePacket" AS e0
+    WHERE e0."TenantId" = @__ef_filter___tenantId_1
+) AS t ON e."ServicePacketId" = t."Id"
+LEFT JOIN (
+    SELECT e1.*
+    FROM "ProductCategory" AS e1
+    WHERE e1."TenantId" = @__ef_filter___tenantId_2
+) AS t0 ON t."ProductCategoryId" = t0."ProductCategoryId"
+WHERE (e."TenantId" = @__ef_filter___tenantId_0) AND (((e."RateStar" > 0) AND (e."UpdatedDate" >= @__Date_0)) AND (e."UpdatedDate" <= @__AddTicks_1)) 
+2023-04-12 11:40:30.4658|20101|INFO|Microsoft.EntityFrameworkCore.Database.Command|Executed DbCommand (1ms) [Parameters=[@__ef_filter___tenantId_1='?' (DbType = Guid), @__ef_filter___tenantId_0='?' (DbType = Guid)], CommandType='Text', CommandTimeout='30']
+SELECT e."Id", e."Name", t."ProductCategoryName"
+FROM "ServicePacket" AS e
+LEFT JOIN (
+    SELECT e0.*
+    FROM "ProductCategory" AS e0
+    WHERE e0."TenantId" = @__ef_filter___tenantId_1
+) AS t ON e."ProductCategoryId" = t."ProductCategoryId"
+WHERE e."TenantId" = @__ef_filter___tenantId_0 
+2023-04-12 11:40:30.4814|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action method TN.TNM.Api.Controllers.DashboardController.TakeRatingStatisticDashboard (TN.TNM.Api), returned result Microsoft.AspNetCore.Mvc.ObjectResult in 10.1056ms. 
+2023-04-12 11:40:30.4814|1|INFO|Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor|Executing ObjectResult, writing value of type 'TN.TNM.DataAccess.Messages.Results.Admin.Dashboard.TakeRatingStatistictDashboardResult'. 
+2023-04-12 11:40:30.4814|2|INFO|Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker|Executed action TN.TNM.Api.Controllers.DashboardController.TakeRatingStatisticDashboard (TN.TNM.Api) in 17.8962ms 
+2023-04-12 11:40:30.4814|2|INFO|Microsoft.AspNetCore.Hosting.Internal.WebHost|Request finished in 26.8699ms 200 application/json; charset=utf-8 
+2023-04-12 11:40:31.1463||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:31.1463||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 
+2023-04-12 11:40:31.1932||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... 
+2023-04-12 11:40:31.1932||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. 

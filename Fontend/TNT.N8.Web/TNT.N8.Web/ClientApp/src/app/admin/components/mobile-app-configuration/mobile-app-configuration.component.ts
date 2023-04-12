@@ -197,7 +197,7 @@ export class MobileAppConfigurationComponent extends AbstractBase implements OnI
     });
   }
 
-  getFile(source: string, fileName: string) {
+  getFile(source: string, fileName: string): void {
     if(source && fileName){
       let newImage = new MobileAppConfigurationImage();
       newImage.source = source; //base64
