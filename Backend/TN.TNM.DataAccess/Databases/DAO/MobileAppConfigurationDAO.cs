@@ -168,7 +168,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 string base64String = string.Empty;
                 if (!string.IsNullOrEmpty(path) && Path.IsPathRooted(path))
                 {
-                    Image image = Image.FromFile(path);
+                    Image image = Image.FromFile(@path);
                     image.Save(m, image.RawFormat);
                     byte[] imageBytes = m.ToArray();
                     string type = Path.GetExtension(path);

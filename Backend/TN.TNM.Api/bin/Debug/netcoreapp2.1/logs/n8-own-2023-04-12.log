@@ -11183,3 +11183,835 @@ System.IO.PathTooLongException: The path 'data:image/png;base64,iVBORw0KGgoAAAAN
 2023-04-12 14:17:25.9335||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
 2023-04-12 14:17:25.9335||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
 2023-04-12 14:17:25.9335||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:21:46.7590|48|ERROR|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider|An error occurred while reading the key ring. System.Xml.XmlException: '.', hexadecimal value 0x00, is an invalid character. Line 1, position 1.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   at System.Xml.XmlTextReaderImpl.ParseRootLevelWhitespace()
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlReader.MoveToContent()
+   at System.Xml.Linq.XElement.Load(XmlReader reader, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.ReadElementFromFile(String fullPath)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElementsCore()+MoveNext()
+   at System.Collections.Generic.List`1.AddEnumerable(IEnumerable`1 enumerable)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElements()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.GetAllKeys()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.CreateCacheableKeyRingCore(DateTimeOffset now, IKey keyJustAdded)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.ICacheableKeyRingProvider.GetCacheableKeyRing(DateTimeOffset now)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.GetCurrentKeyRingCore(DateTime utcNow)|url: |action: 
+2023-04-12 14:21:48.0160||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Start installing Hangfire SQL objects... |url: |action: 
+2023-04-12 14:21:48.1098||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Hangfire SQL objects installed. |url: |action: 
+2023-04-12 14:21:49.0822||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL, Schema: hangfire' |url: |action: 
+2023-04-12 14:21:49.0822||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: |url: |action: 
+2023-04-12 14:21:49.0822||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. |url: |action: 
+2023-04-12 14:21:49.0908||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. |url: |action: 
+2023-04-12 14:21:49.0908||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 |url: |action: 
+2023-04-12 14:21:49.1273||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:c123304c has started in 21.4774 ms |url: |action: 
+2023-04-12 14:21:49.1794||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:18360:e79517a4 is announcing itself... |url: |action: 
+2023-04-12 14:21:49.3123||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:18360:e79517a4 successfully announced in 110.5163 ms |url: |action: 
+2023-04-12 14:21:49.3303||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:0aa3943e has started in 12.5038 ms |url: |action: 
+2023-04-12 14:21:49.3456||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:18360:e79517a4 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... |url: |action: 
+2023-04-12 14:21:49.3456||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18360:e79517a4 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:21:49.3456||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:24f399b3 has started in 9.0688 ms |url: |action: 
+2023-04-12 14:21:49.3700||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:4e6b6d2f has started in 20.5436 ms |url: |action: 
+2023-04-12 14:21:49.3820||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:81682f3f has started in 12.0895 ms |url: |action: 
+2023-04-12 14:21:49.3820||INFO|Hangfire.Server.ServerWatchdog|2 servers were removed due to timeout |url: |action: 
+2023-04-12 14:21:49.3820||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:21:49.4003||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a06a0944 has started in 28.0921 ms |url: |action: 
+2023-04-12 14:21:49.4128||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:eb8dbddd has started in 40.5529 ms |url: |action: 
+2023-04-12 14:21:49.4128||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:0d71fb4d has started in 40.5084 ms |url: |action: 
+2023-04-12 14:21:49.4244||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:21:49.4244||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... |url: |action: 
+2023-04-12 14:21:49.4509||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5f585ee4 has started in 78.7231 ms |url: |action: 
+2023-04-12 14:21:49.4749||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:1930dd85 has started in 102.7444 ms |url: |action: 
+2023-04-12 14:21:49.5194||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:f6282e1f has started in 147.1686 ms |url: |action: 
+2023-04-12 14:21:49.7794||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a8f27f05 has started in 407.1245 ms |url: |action: 
+2023-04-12 14:21:49.8512||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 9 outdated record(s) from 'counter' table. |url: |action: 
+2023-04-12 14:21:50.1328||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:7dd07223 has started in 760.5997 ms |url: |action: 
+2023-04-12 14:21:50.3751||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:62870244 has started in 1002.7958 ms |url: |action: 
+2023-04-12 14:21:50.4476||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:753725f9 has started in 1075.2085 ms |url: |action: 
+2023-04-12 14:21:50.4606||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:e831e83f has started in 1088.4122 ms |url: |action: 
+2023-04-12 14:21:50.4714||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:142dd26c has started in 1099.1826 ms |url: |action: 
+2023-04-12 14:21:50.4881||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:f4ad5bed has started in 1115.8949 ms |url: |action: 
+2023-04-12 14:21:50.5172||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:fe8bbdcf has started in 1145.0231 ms |url: |action: 
+2023-04-12 14:21:50.5714||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:059225f2 has started in 1199.18 ms |url: |action: 
+2023-04-12 14:21:50.6760||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:7ae32734 has started in 1303.7838 ms |url: |action: 
+2023-04-12 14:21:50.6866||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:20f40be1 has started in 1314.362 ms |url: |action: 
+2023-04-12 14:21:50.8175||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:4f092822 has started in 1445.2569 ms |url: |action: 
+2023-04-12 14:21:50.8885||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... |url: |action: 
+2023-04-12 14:21:50.9044||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 9 outdated record(s) from 'job' table. |url: |action: 
+2023-04-12 14:21:50.9830||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:eebfdde1 has started in 1609.412 ms |url: |action: 
+2023-04-12 14:21:51.0359||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:2b3f6e22 has started in 1663.6236 ms |url: |action: 
+2023-04-12 14:21:51.0479||TRACE|Hangfire.RecurringJobManager|Recurring job 'Deadline' is being updated. RecurringJob: (), Changes: (Queue:default;Cron:*/10 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-04-12T07:21:49.2397462Z;NextExecution:2023-04-12T07:30:00.0000000Z;V:2), NextExecution: (4/12/2023 7:30:00 AM) |url: |action: 
+2023-04-12 14:21:51.0764||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:753e3a85 has started in 78.1247 ms |url: |action: 
+2023-04-12 14:21:51.1086||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:18360:e79517a4 all the dispatchers started |url: |action: 
+2023-04-12 14:21:51.1391||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:84931f23 has started in 72.4954 ms |url: |action: 
+2023-04-12 14:21:51.1745||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL, Schema: hangfire' |url: |action: 
+2023-04-12 14:21:51.1745||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: |url: |action: 
+2023-04-12 14:21:51.1745||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. |url: |action: 
+2023-04-12 14:21:51.1745||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. |url: |action: 
+2023-04-12 14:21:51.1888||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:30
+    Schedule polling interval: 00:00:15 |url: |action: 
+2023-04-12 14:21:51.2489||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:1cd9e676 has started in 59.4029 ms |url: |action: 
+2023-04-12 14:21:51.2489||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:18360:7aa4d83b is announcing itself... |url: |action: 
+2023-04-12 14:21:51.2874||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:18360:7aa4d83b successfully announced in 5.3188 ms |url: |action: 
+2023-04-12 14:21:51.2874||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-04-12T07:16:06.8530342Z;NextExecution:2023-04-12T07:18:00.0000000Z;LastJobId:31859), Changes: (LastExecution:2023-04-12T07:21:51.1759954Z;NextExecution:2023-04-12T07:22:00.0000000Z;LastJobId:31861), NextExecution: (4/12/2023 7:22:00 AM) |url: |action: 
+2023-04-12 14:21:51.3039||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'EVMDaily' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-11T06:09:11.7098468Z;V:2;Queue:default;Cron:*/10 * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-04-12T07:10:10.0978465Z;NextExecution:2023-04-12T07:20:00.0000000Z;LastJobId:31853), Changes: (LastExecution:2023-04-12T07:21:51.2989208Z;NextExecution:2023-04-12T07:30:00.0000000Z;LastJobId:31862), NextExecution: (4/12/2023 7:30:00 AM) |url: |action: 
+2023-04-12 14:21:51.3154||DEBUG|Hangfire.Server.RecurringJobScheduler|2 recurring job(s) processed by scheduler. |url: |action: 
+2023-04-12 14:21:51.3595||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:18360:7aa4d83b is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... |url: |action: 
+2023-04-12 14:21:51.3939||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:7aacefdc has started in 105.8848 ms |url: |action: 
+2023-04-12 14:21:51.3939||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18360:7aa4d83b waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:21:51.4236||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:fce267dc has started in 63.0387 ms |url: |action: 
+2023-04-12 14:21:51.4408||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:4d41e1e7 has started in 30.9142 ms |url: |action: 
+2023-04-12 14:21:51.4408||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:21:51.4870||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:21:51.4870||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:d03232ff has started in 63.2746 ms |url: |action: 
+2023-04-12 14:21:51.4870||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... |url: |action: 
+2023-04-12 14:21:51.5007||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... |url: |action: 
+2023-04-12 14:21:51.5178||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... |url: |action: 
+2023-04-12 14:21:51.5178||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:aec44661 has started in 84.3671 ms |url: |action: 
+2023-04-12 14:21:51.5178||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... |url: |action: 
+2023-04-12 14:21:51.5346||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... |url: |action: 
+2023-04-12 14:21:51.5346||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:4c27f2fa has started in 101.0848 ms |url: |action: 
+2023-04-12 14:21:51.5448||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:8ea63e20 has started in 111.1974 ms |url: |action: 
+2023-04-12 14:21:51.5791||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a070c331 has started in 145.5022 ms |url: |action: 
+2023-04-12 14:21:51.6247||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:003b1537 has started in 191.0358 ms |url: |action: 
+2023-04-12 14:21:51.8111||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5837e787 has started in 377.4574 ms |url: |action: 
+2023-04-12 14:21:51.8399||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:06310ca8 has started in 406.2273 ms |url: |action: 
+2023-04-12 14:21:51.8399||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:7b14a04e has started in 406.2981 ms |url: |action: 
+2023-04-12 14:21:51.8724||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a7b2ae7c has started in 438.8268 ms |url: |action: 
+2023-04-12 14:21:51.8968||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:462e94cd has started in 463.0072 ms |url: |action: 
+2023-04-12 14:21:51.9233||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:3c5d6c9d has started in 489.698 ms |url: |action: 
+2023-04-12 14:21:51.9394||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c0e565a2 has started in 505.7015 ms |url: |action: 
+2023-04-12 14:21:51.9394||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... |url: |action: 
+2023-04-12 14:21:51.9394||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... |url: |action: 
+2023-04-12 14:21:51.9539||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... |url: |action: 
+2023-04-12 14:21:51.9836||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:38be6e16 has started in 549.9851 ms |url: |action: 
+2023-04-12 14:21:52.0573||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5914963f has started in 623.657 ms |url: |action: 
+2023-04-12 14:21:52.1138||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:9118011a has started in 680.2015 ms |url: |action: 
+2023-04-12 14:21:52.1467||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:feed8ba9 has started in 713.058 ms |url: |action: 
+2023-04-12 14:21:52.2489||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:e83b4485 has started in 815.1891 ms |url: |action: 
+2023-04-12 14:21:52.2972||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:286a37b8 has started in 863.4268 ms |url: |action: 
+2023-04-12 14:21:52.3715||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c36cf1a4 has started in 937.8598 ms |url: |action: 
+2023-04-12 14:21:52.4273||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ad0eb4d0 has started in 993.6498 ms |url: |action: 
+2023-04-12 14:21:52.4704||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:3c381cf8 has started in 103.6438 ms |url: |action: 
+2023-04-12 14:21:52.4956||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:18360:7aa4d83b all the dispatchers started |url: |action: 
+2023-04-12 14:21:52.5132||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:ae9727e3 has started in 56.1342 ms |url: |action: 
+2023-04-12 14:21:54.4449||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:21:54.4449||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:21:56.5032||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:21:56.5032||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:21:58.9834||INFO|TN.TNM.BusinessLogic.Factories.Notification.NotificationFactory|Get Notification |url: http://localhost/api/notification/getNotification|action: GetNotification
+2023-04-12 14:21:59.4573||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:21:59.4573||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:00.8710|20601|WARN|Microsoft.EntityFrameworkCore.Model.Validation|The 'bool' property 'SubjectsApplication' on entity type 'Customer' is configured with a database-generated default. This default will always be used for inserts when the property has the value 'false', since this is the CLR default for the 'bool' type. Consider using the nullable 'bool?' type instead so that the default will only be used for inserts when the property value is 'null'. |url: http://localhost/api/Dashboard/takeRevenueStatisticDashboard|action: TakeRevenueStatisticDashboard
+2023-04-12 14:22:00.9519|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([y].Value, Nullable`1) == [e].OrderType)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticDashboard|action: TakeRevenueStatisticDashboard
+2023-04-12 14:22:00.9519|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticDashboard|action: TakeRevenueStatisticDashboard
+2023-04-12 14:22:00.9519|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([y].Value, Nullable`1) == [e].OrderType)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticDashboard|action: TakeRevenueStatisticDashboard
+2023-04-12 14:22:00.9519|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticDashboard|action: TakeRevenueStatisticDashboard
+2023-04-12 14:22:01.0084|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([y].Value, Nullable`1) == [e].OrderType)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticWaitPaymentDashboard|action: TakeRevenueStatisticWaitPaymentDashboard
+2023-04-12 14:22:01.0084|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([y].Value, Nullable`1) == [e].OrderType)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticServicePacketDashboard|action: TakeRevenueStatisticServicePacketDashboard
+2023-04-12 14:22:01.0084|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticWaitPaymentDashboard|action: TakeRevenueStatisticWaitPaymentDashboard
+2023-04-12 14:22:01.0084|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticServicePacketDashboard|action: TakeRevenueStatisticServicePacketDashboard
+2023-04-12 14:22:01.0084|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([y].Value, Nullable`1) == [e].OrderType)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticWaitPaymentDashboard|action: TakeRevenueStatisticWaitPaymentDashboard
+2023-04-12 14:22:01.0084|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([y].Value, Nullable`1) == [e].OrderType)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticServicePacketDashboard|action: TakeRevenueStatisticServicePacketDashboard
+2023-04-12 14:22:01.0084|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticWaitPaymentDashboard|action: TakeRevenueStatisticWaitPaymentDashboard
+2023-04-12 14:22:01.0084|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeRevenueStatisticServicePacketDashboard|action: TakeRevenueStatisticServicePacketDashboard
+2023-04-12 14:22:01.0383|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'join ServicePacketEntityModel s in __p_0 on [e].ServicePacketId equals [s].Id' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeStatisticServiceTicketDashboard|action: TakeStatisticServiceTicketDashboard
+2023-04-12 14:22:01.0444|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'DefaultIfEmpty()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeStatisticServiceTicketDashboard|action: TakeStatisticServiceTicketDashboard
+2023-04-12 14:22:01.0444|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'DefaultIfEmpty()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeStatisticServiceTicketDashboard|action: TakeStatisticServiceTicketDashboard
+2023-04-12 14:22:01.0444|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'from ServicePacketEntityModel s in {[sJoined] => DefaultIfEmpty()}' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeStatisticServiceTicketDashboard|action: TakeStatisticServiceTicketDashboard
+2023-04-12 14:22:01.0618|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'join ProductCategory c in {from ProductCategory e in value(Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1[TN.TNM.DataAccess.Databases.Entities.ProductCategory]) where ([e].TenantId == Convert(__ef_filter___tenantId_1, Nullable`1)) select [e]} on [s]?.ProductCategoryId equals Convert([c].ProductCategoryId, Nullable`1)' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeStatisticServiceTicketDashboard|action: TakeStatisticServiceTicketDashboard
+2023-04-12 14:22:01.0618|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'DefaultIfEmpty()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeStatisticServiceTicketDashboard|action: TakeStatisticServiceTicketDashboard
+2023-04-12 14:22:01.0618|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'DefaultIfEmpty()' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeStatisticServiceTicketDashboard|action: TakeStatisticServiceTicketDashboard
+2023-04-12 14:22:01.0618|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'from ProductCategory cs in {[csJoined] => DefaultIfEmpty()}' could not be translated and will be evaluated locally. |url: http://localhost/api/Dashboard/takeStatisticServiceTicketDashboard|action: TakeStatisticServiceTicketDashboard
+2023-04-12 14:22:01.5078||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:01.5078||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:04.4731||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:04.4731||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:06.3440||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-04-12T07:21:51.1759954Z;NextExecution:2023-04-12T07:22:00.0000000Z;LastJobId:31861), Changes: (LastExecution:2023-04-12T07:22:06.3330990Z;NextExecution:2023-04-12T07:24:00.0000000Z;LastJobId:31863), NextExecution: (4/12/2023 7:24:00 AM) |url: |action: 
+2023-04-12 14:22:06.3440||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. |url: |action: 
+2023-04-12 14:22:06.5167||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:06.5167||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:09.5035||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:09.5035||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:11.5500||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:11.5500||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:12.7628||INFO|TN.TNM.BusinessLogic.Factories.Notification.NotificationFactory|Get Notification |url: http://localhost/api/notification/getNotification|action: GetNotification
+2023-04-12 14:22:12.7841|10103|WARN|Microsoft.EntityFrameworkCore.Query|Query: '(from CompanyConfiguration <generated>_1 in DbSet<CompanyConfiguration> select [<generated>_1]).Firs...' uses First/FirstOrDefault/Last/LastOrDefault operation without OrderBy and filter which may lead to unpredictable results. |url: http://localhost/api/company/getCompanyConfig|action: GetCompanyConfig
+2023-04-12 14:22:13.1730|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Count()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:22:13.1730|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Count()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:22:13.1730|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where {from Guid y in [e].ProvinceIds where ([y] == [x].ProvinceId) select [y] => Any()}' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:22:13.1730|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([y] == [x].ProvinceId)' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:22:13.1730|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:22:14.5083||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:14.5083||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:16.5549||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:16.5549||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:19.3892||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18360:e79517a4 heartbeat successfully sent |url: |action: 
+2023-04-12 14:22:19.3892||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18360:e79517a4 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:22:19.5256||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:19.5256||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:21.4051||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18360:7aa4d83b heartbeat successfully sent |url: |action: 
+2023-04-12 14:22:21.4051||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:18360:7aa4d83b waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:22:21.5583||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:21.5583||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:23.0412|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([y].CategoryId == Convert([e].CategoryId, Nullable`1))' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.0457|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.0457|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([y].CategoryId == Convert([e].CategoryId, Nullable`1))' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.0457|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.1284|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([x].CategoryId, Nullable`1) == [e].CategoryUnitId)' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.1284|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.1387|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([x].CategoryId, Nullable`1) == [e].CategoryUnitId)' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.1387|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.1387|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([x].CategoryId, Nullable`1) == [e].CategoryUnitId)' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.1387|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.1387|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where (Convert([x].CategoryId, Nullable`1) == [e].CategoryUnitId)' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.1387|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.1696|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([y].CategoryId == Convert([e].CategoryId, Nullable`1))' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.1696|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.1696|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([y].CategoryId == Convert([e].CategoryId, Nullable`1))' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:23.1696|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'FirstOrDefault()' could not be translated and will be evaluated locally. |url: http://localhost/api/order/searchOptionOfPacketService|action: SearchOptionOfPacketService
+2023-04-12 14:22:24.5450||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:24.5450||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:25.4367||INFO|TN.TNM.BusinessLogic.Factories.Notification.NotificationFactory|Get Notification |url: http://localhost/api/notification/getNotification|action: GetNotification
+2023-04-12 14:22:26.5649||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:26.5649||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:29.5581||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:29.5581||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:31.5682||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:31.5682||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:50.6523|48|ERROR|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider|An error occurred while reading the key ring. System.Xml.XmlException: '.', hexadecimal value 0x00, is an invalid character. Line 1, position 1.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   at System.Xml.XmlTextReaderImpl.ParseRootLevelWhitespace()
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlReader.MoveToContent()
+   at System.Xml.Linq.XElement.Load(XmlReader reader, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.ReadElementFromFile(String fullPath)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElementsCore()+MoveNext()
+   at System.Collections.Generic.List`1.AddEnumerable(IEnumerable`1 enumerable)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElements()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.GetAllKeys()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.CreateCacheableKeyRingCore(DateTimeOffset now, IKey keyJustAdded)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.ICacheableKeyRingProvider.GetCacheableKeyRing(DateTimeOffset now)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.GetCurrentKeyRingCore(DateTime utcNow)|url: |action: 
+2023-04-12 14:22:51.6645||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Start installing Hangfire SQL objects... |url: |action: 
+2023-04-12 14:22:51.7206||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Hangfire SQL objects installed. |url: |action: 
+2023-04-12 14:22:52.4606||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL_BACKUP, Schema: hangfire' |url: |action: 
+2023-04-12 14:22:52.4606||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: |url: |action: 
+2023-04-12 14:22:52.4682||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. |url: |action: 
+2023-04-12 14:22:52.4682||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. |url: |action: 
+2023-04-12 14:22:52.4682||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 |url: |action: 
+2023-04-12 14:22:52.5307||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:b82a6ae9 has started in 14.7995 ms |url: |action: 
+2023-04-12 14:22:52.5594||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:12076:086e984e is announcing itself... |url: |action: 
+2023-04-12 14:22:52.7007||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:12076:086e984e successfully announced in 107.3947 ms |url: |action: 
+2023-04-12 14:22:52.7007||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:47d3656f has started in 7.439 ms |url: |action: 
+2023-04-12 14:22:52.7007||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:12076:086e984e is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... |url: |action: 
+2023-04-12 14:22:52.7166||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:4264daea has started in 4.7144 ms |url: |action: 
+2023-04-12 14:22:52.7166||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:6f008d9c has started in 8.3382 ms |url: |action: 
+2023-04-12 14:22:52.7166||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:12076:086e984e waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:22:52.7166||INFO|Hangfire.Server.ServerWatchdog|2 servers were removed due to timeout |url: |action: 
+2023-04-12 14:22:52.7166||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:52.7349||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:9e6cbb97 has started in 13.9431 ms |url: |action: 
+2023-04-12 14:22:52.7349||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:52.7349||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:76bacb6e has started in 19.3338 ms |url: |action: 
+2023-04-12 14:22:52.7349||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:3b52a657 has started in 21.6994 ms |url: |action: 
+2023-04-12 14:22:52.7599||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:149d84e9 has started in 34.7315 ms |url: |action: 
+2023-04-12 14:22:52.7599||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... |url: |action: 
+2023-04-12 14:22:52.7599||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:3f231d73 has started in 37.8398 ms |url: |action: 
+2023-04-12 14:22:52.7672||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:07ba218f has started in 42.6295 ms |url: |action: 
+2023-04-12 14:22:52.7790||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:09ef69fe has started in 54.5144 ms |url: |action: 
+2023-04-12 14:22:52.8682||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:1722bdab has started in 143.6366 ms |url: |action: 
+2023-04-12 14:22:52.8855||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d845d9fb has started in 160.9536 ms |url: |action: 
+2023-04-12 14:22:52.8952||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 21 outdated record(s) from 'counter' table. |url: |action: 
+2023-04-12 14:22:52.9260||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d3a22f44 has started in 201.4282 ms |url: |action: 
+2023-04-12 14:22:52.9858||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:62678115 has started in 261.316 ms |url: |action: 
+2023-04-12 14:22:53.0300||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:4a08575d has started in 305.4585 ms |url: |action: 
+2023-04-12 14:22:53.0622||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a0eaf706 has started in 337.521 ms |url: |action: 
+2023-04-12 14:22:53.1161||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:cd9913e7 has started in 391.5671 ms |url: |action: 
+2023-04-12 14:22:53.1315||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:7d9cc27f has started in 406.9994 ms |url: |action: 
+2023-04-12 14:22:53.1432||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:50d8cea3 has started in 418.6905 ms |url: |action: 
+2023-04-12 14:22:53.1951||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:51dbda30 has started in 470.5554 ms |url: |action: 
+2023-04-12 14:22:53.2193||TRACE|Hangfire.RecurringJobManager|Recurring job 'Deadline' is being updated. RecurringJob: (), Changes: (Queue:default;Cron:*/10 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-04-12T07:22:52.6118392Z;NextExecution:2023-04-12T07:30:00.0000000Z;V:2), NextExecution: (4/12/2023 7:30:00 AM) |url: |action: 
+2023-04-12 14:22:53.2193||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:abacd0ac has started in 499.2234 ms |url: |action: 
+2023-04-12 14:22:53.2641||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5da362b6 has started in 539.5265 ms |url: |action: 
+2023-04-12 14:22:53.2814||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5909ee20 has started in 556.8359 ms |url: |action: 
+2023-04-12 14:22:53.3067||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:780fb2c5 has started in 582.1122 ms |url: |action: 
+2023-04-12 14:22:53.3346||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:25e847d1 has started in 60.0355 ms |url: |action: 
+2023-04-12 14:22:53.3511||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:553cdd48 has started in 29.5558 ms |url: |action: 
+2023-04-12 14:22:53.3511||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:12076:086e984e all the dispatchers started |url: |action: 
+2023-04-12 14:22:53.3648||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL_BACKUP, Schema: hangfire' |url: |action: 
+2023-04-12 14:22:53.3648||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: |url: |action: 
+2023-04-12 14:22:53.3648||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. |url: |action: 
+2023-04-12 14:22:53.3648||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. |url: |action: 
+2023-04-12 14:22:53.3648||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:30
+    Schedule polling interval: 00:00:15 |url: |action: 
+2023-04-12 14:22:53.3830||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:009e9230 has started in 15.576 ms |url: |action: 
+2023-04-12 14:22:53.3830||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:12076:b3382cbd is announcing itself... |url: |action: 
+2023-04-12 14:22:53.3830||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:12076:b3382cbd successfully announced in 2.5754 ms |url: |action: 
+2023-04-12 14:22:53.3891||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:12076:b3382cbd is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... |url: |action: 
+2023-04-12 14:22:53.3891||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:20be6b35 has started in 10.6347 ms |url: |action: 
+2023-04-12 14:22:53.3891||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:12076:b3382cbd waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:22:53.4181||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:6f887540 has started in 23.172 ms |url: |action: 
+2023-04-12 14:22:53.4273||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:2d35760d has started in 24.3602 ms |url: |action: 
+2023-04-12 14:22:53.4273||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:53.4273||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:ab523570 has started in 13.8213 ms |url: |action: 
+2023-04-12 14:22:53.4273||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... |url: |action: 
+2023-04-12 14:22:53.4347||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:53.4347||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... |url: |action: 
+2023-04-12 14:22:53.4552||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:4225fc85 has started in 30.6703 ms |url: |action: 
+2023-04-12 14:22:53.4552||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 21 outdated record(s) from 'job' table. |url: |action: 
+2023-04-12 14:22:53.4701||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d30aba41 has started in 45.628 ms |url: |action: 
+2023-04-12 14:22:53.4701||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ed11e205 has started in 52.1665 ms |url: |action: 
+2023-04-12 14:22:53.4903||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:9f7d2eeb has started in 65.8221 ms |url: |action: 
+2023-04-12 14:22:53.5171||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:51c454f8 has started in 92.6331 ms |url: |action: 
+2023-04-12 14:22:53.5171||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-04-12T07:12:09.2712482Z;NextExecution:2023-04-12T07:14:00.0000000Z;LastJobId:32025), Changes: (LastExecution:2023-04-12T07:22:53.3704651Z;NextExecution:2023-04-12T07:24:00.0000000Z;LastJobId:32027), NextExecution: (4/12/2023 7:24:00 AM) |url: |action: 
+2023-04-12 14:22:53.5475||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'EVMDaily' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-11T06:09:11.7098468Z;V:2;Queue:default;Cron:*/10 * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-04-12T07:10:09.1011890Z;NextExecution:2023-04-12T07:20:00.0000000Z;LastJobId:32023), Changes: (LastExecution:2023-04-12T07:22:53.5371984Z;NextExecution:2023-04-12T07:30:00.0000000Z;LastJobId:32028), NextExecution: (4/12/2023 7:30:00 AM) |url: |action: 
+2023-04-12 14:22:53.5475||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b800b996 has started in 123.1011 ms |url: |action: 
+2023-04-12 14:22:53.5673||DEBUG|Hangfire.Server.RecurringJobScheduler|2 recurring job(s) processed by scheduler. |url: |action: 
+2023-04-12 14:22:53.5673||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c814604f has started in 144.5965 ms |url: |action: 
+2023-04-12 14:22:53.5938||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:82c22240 has started in 169.1426 ms |url: |action: 
+2023-04-12 14:22:53.6521||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:210dbbe3 has started in 227.54 ms |url: |action: 
+2023-04-12 14:22:53.6725||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:0c5e59a0 has started in 248.0579 ms |url: |action: 
+2023-04-12 14:22:53.6862||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:fafbab3a has started in 261.6626 ms |url: |action: 
+2023-04-12 14:22:53.6862||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:3e6872b2 has started in 269.0074 ms |url: |action: 
+2023-04-12 14:22:53.7075||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:97750501 has started in 282.9564 ms |url: |action: 
+2023-04-12 14:22:53.7602||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5d71d634 has started in 335.7317 ms |url: |action: 
+2023-04-12 14:22:53.7700||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ac563403 has started in 345.4929 ms |url: |action: 
+2023-04-12 14:22:53.7872||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ba1b0056 has started in 362.6868 ms |url: |action: 
+2023-04-12 14:22:53.8703||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:17ffdea2 has started in 445.7971 ms |url: |action: 
+2023-04-12 14:22:53.9037||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ccbca4b2 has started in 479.1944 ms |url: |action: 
+2023-04-12 14:22:53.9037||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... |url: |action: 
+2023-04-12 14:22:53.9326||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... |url: |action: 
+2023-04-12 14:22:53.9368||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... |url: |action: 
+2023-04-12 14:22:53.9368||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:042bc3b7 has started in 514.1066 ms |url: |action: 
+2023-04-12 14:22:53.9368||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... |url: |action: 
+2023-04-12 14:22:53.9836||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:fbe58da9 has started in 559.122 ms |url: |action: 
+2023-04-12 14:22:54.0361||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:d960a9d0 has started in 72.3809 ms |url: |action: 
+2023-04-12 14:22:54.0361||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:12076:b3382cbd all the dispatchers started |url: |action: 
+2023-04-12 14:22:54.0644||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:5bb8aee9 has started in 50.4533 ms |url: |action: 
+2023-04-12 14:22:54.4645||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... |url: |action: 
+2023-04-12 14:22:54.4659||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... |url: |action: 
+2023-04-12 14:22:54.4659||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... |url: |action: 
+2023-04-12 14:22:57.7403||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:57.7403||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:22:58.4376||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:22:58.4376||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:23:02.7436||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:23:02.7436||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:23:03.4424||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:23:03.4424||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:23:07.7487||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:23:07.7487||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:23:08.4548||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:23:08.4548||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:23:10.3795||INFO|TN.TNM.BusinessLogic.Factories.Notification.NotificationFactory|Get Notification |url: http://localhost/api/notification/getNotification|action: GetNotification
+2023-04-12 14:23:12.7487|20601|WARN|Microsoft.EntityFrameworkCore.Model.Validation|The 'bool' property 'SubjectsApplication' on entity type 'Customer' is configured with a database-generated default. This default will always be used for inserts when the property has the value 'false', since this is the CLR default for the 'bool' type. Consider using the nullable 'bool?' type instead so that the default will only be used for inserts when the property value is 'null'. |url: http://localhost/api/company/getCompanyConfig|action: GetCompanyConfig
+2023-04-12 14:23:12.7487||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:23:12.7630|10103|WARN|Microsoft.EntityFrameworkCore.Query|Query: '(from CompanyConfiguration <generated>_1 in DbSet<CompanyConfiguration> select [<generated>_1]).Firs...' uses First/FirstOrDefault/Last/LastOrDefault operation without OrderBy and filter which may lead to unpredictable results. |url: http://localhost/api/company/getCompanyConfig|action: GetCompanyConfig
+2023-04-12 14:23:12.7630||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:23:13.4681||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:23:13.4681||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:23:13.5003|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Count()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:23:13.5003|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Count()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:23:13.5003|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where {from Guid y in [e].ProvinceIds where ([y] == [x].ProvinceId) select [y] => Any()}' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:23:13.5003|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([y] == [x].ProvinceId)' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:23:13.5003|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:27:45.6078|48|ERROR|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider|An error occurred while reading the key ring. System.Xml.XmlException: '.', hexadecimal value 0x00, is an invalid character. Line 1, position 1.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   at System.Xml.XmlTextReaderImpl.ParseRootLevelWhitespace()
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlReader.MoveToContent()
+   at System.Xml.Linq.XElement.Load(XmlReader reader, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.ReadElementFromFile(String fullPath)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElementsCore()+MoveNext()
+   at System.Collections.Generic.List`1.AddEnumerable(IEnumerable`1 enumerable)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElements()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.GetAllKeys()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.CreateCacheableKeyRingCore(DateTimeOffset now, IKey keyJustAdded)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.ICacheableKeyRingProvider.GetCacheableKeyRing(DateTimeOffset now)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.GetCurrentKeyRingCore(DateTime utcNow)|url: |action: 
+2023-04-12 14:27:46.6844||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Start installing Hangfire SQL objects... |url: |action: 
+2023-04-12 14:27:46.7388||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Hangfire SQL objects installed. |url: |action: 
+2023-04-12 14:27:47.4181||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL_BACKUP, Schema: hangfire' |url: |action: 
+2023-04-12 14:27:47.4225||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: |url: |action: 
+2023-04-12 14:27:47.4225||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. |url: |action: 
+2023-04-12 14:27:47.4225||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. |url: |action: 
+2023-04-12 14:27:47.4225||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 |url: |action: 
+2023-04-12 14:27:47.4594||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:d9e9e9eb has started in 18.902 ms |url: |action: 
+2023-04-12 14:27:47.4937||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20968:959c1e38 is announcing itself... |url: |action: 
+2023-04-12 14:27:47.5983||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20968:959c1e38 successfully announced in 95.4031 ms |url: |action: 
+2023-04-12 14:27:47.6097||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:c17e10f9 has started in 8.4379 ms |url: |action: 
+2023-04-12 14:27:47.6097||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20968:959c1e38 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... |url: |action: 
+2023-04-12 14:27:47.6097||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:20968:959c1e38 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:27:47.6256||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:70a22775 has started in 9.7147 ms |url: |action: 
+2023-04-12 14:27:47.6256||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:a7e9e889 has started in 10.9167 ms |url: |action: 
+2023-04-12 14:27:47.6421||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:9d0b8d60 has started in 10.833 ms |url: |action: 
+2023-04-12 14:27:47.6421||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:27:47.6589||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:f186e17a has started in 18.5528 ms |url: |action: 
+2023-04-12 14:27:47.6589||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:9fde671f has started in 25.6144 ms |url: |action: 
+2023-04-12 14:27:47.6589||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:27:47.6589||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... |url: |action: 
+2023-04-12 14:27:47.6589||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d4f0a191 has started in 31.6067 ms |url: |action: 
+2023-04-12 14:27:47.6870||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 2 outdated record(s) from 'counter' table. |url: |action: 
+2023-04-12 14:27:47.6814||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:dc3e282a has started in 42.351 ms |url: |action: 
+2023-04-12 14:27:47.6870||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:33c79ccf has started in 50.5267 ms |url: |action: 
+2023-04-12 14:27:47.6870||TRACE|Hangfire.RecurringJobManager|Recurring job 'Deadline' is being updated. RecurringJob: (), Changes: (Queue:default;Cron:*/10 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-04-12T07:27:47.5405446Z;NextExecution:2023-04-12T07:30:00.0000000Z;V:2), NextExecution: (4/12/2023 7:30:00 AM) |url: |action: 
+2023-04-12 14:27:47.7830||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:0de68482 has started in 144.2615 ms |url: |action: 
+2023-04-12 14:27:47.8067||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:2f9d880b has started in 167.8953 ms |url: |action: 
+2023-04-12 14:27:47.8236||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d22c547d has started in 184.8784 ms |url: |action: 
+2023-04-12 14:27:47.8358||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:562076c8 has started in 196.9991 ms |url: |action: 
+2023-04-12 14:27:47.9064||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:63ec6453 has started in 267.5952 ms |url: |action: 
+2023-04-12 14:27:48.0000||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:79ce25d0 has started in 361.2492 ms |url: |action: 
+2023-04-12 14:27:48.0235||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:70822a5e has started in 384.744 ms |url: |action: 
+2023-04-12 14:27:48.0492||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:69082a0a has started in 410.2215 ms |url: |action: 
+2023-04-12 14:27:48.1896||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:1dbebf0f has started in 550.82 ms |url: |action: 
+2023-04-12 14:27:48.2290||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c36efa84 has started in 590.239 ms |url: |action: 
+2023-04-12 14:27:48.2461||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:3307a7ef has started in 607.3472 ms |url: |action: 
+2023-04-12 14:27:48.2513||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:8d0319d6 has started in 612.4957 ms |url: |action: 
+2023-04-12 14:27:48.2666||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5e81072a has started in 627.8015 ms |url: |action: 
+2023-04-12 14:27:48.2666||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:bd5d984d has started in 637.5088 ms |url: |action: 
+2023-04-12 14:27:48.2826||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:e955bbd5 has started in 643.8485 ms |url: |action: 
+2023-04-12 14:27:48.2993||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:a7859b45 has started in 23.1219 ms |url: |action: 
+2023-04-12 14:27:48.2993||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL_BACKUP, Schema: hangfire' |url: |action: 
+2023-04-12 14:27:48.2993||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: |url: |action: 
+2023-04-12 14:27:48.2993||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. |url: |action: 
+2023-04-12 14:27:48.2993||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. |url: |action: 
+2023-04-12 14:27:48.2993||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:30
+    Schedule polling interval: 00:00:15 |url: |action: 
+2023-04-12 14:27:48.2993||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20968:959c1e38 all the dispatchers started |url: |action: 
+2023-04-12 14:27:48.3211||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:690ce3ad has started in 15.3336 ms |url: |action: 
+2023-04-12 14:27:48.3211||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20968:d116cdb1 is announcing itself... |url: |action: 
+2023-04-12 14:27:48.3375||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:51c0dca1 has started in 44.9614 ms |url: |action: 
+2023-04-12 14:27:48.3375||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20968:d116cdb1 successfully announced in 14.4404 ms |url: |action: 
+2023-04-12 14:27:48.3614||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20968:d116cdb1 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... |url: |action: 
+2023-04-12 14:27:48.3614||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:0461f173 has started in 24.7603 ms |url: |action: 
+2023-04-12 14:27:48.3614||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:20968:d116cdb1 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:27:48.3959||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:3e382b9d has started in 32.7117 ms |url: |action: 
+2023-04-12 14:27:48.4165||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:6affe566 has started in 33.8632 ms |url: |action: 
+2023-04-12 14:27:48.4165||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:16a57b6d has started in 21.8061 ms |url: |action: 
+2023-04-12 14:27:48.4165||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:27:48.4165||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... |url: |action: 
+2023-04-12 14:27:48.4165||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:27:48.4299||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:730ebc84 has started in 29.1896 ms |url: |action: 
+2023-04-12 14:27:48.4618||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b91c69fb has started in 61.0823 ms |url: |action: 
+2023-04-12 14:27:48.4982||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a31d5446 has started in 97.4974 ms |url: |action: 
+2023-04-12 14:27:48.5081||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-04-12T07:22:53.3704651Z;NextExecution:2023-04-12T07:24:00.0000000Z;LastJobId:32027), Changes: (LastExecution:2023-04-12T07:27:48.3683486Z;NextExecution:2023-04-12T07:28:00.0000000Z;LastJobId:32030), NextExecution: (4/12/2023 7:28:00 AM) |url: |action: 
+2023-04-12 14:27:48.5159||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. |url: |action: 
+2023-04-12 14:27:48.5159||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:249f6521 has started in 125.7076 ms |url: |action: 
+2023-04-12 14:27:48.5324||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... |url: |action: 
+2023-04-12 14:27:48.5324||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 2 outdated record(s) from 'job' table. |url: |action: 
+2023-04-12 14:27:48.5694||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:62cafb4b has started in 168.7762 ms |url: |action: 
+2023-04-12 14:27:48.5890||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:273eb23b has started in 188.1306 ms |url: |action: 
+2023-04-12 14:27:48.6346||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:cbd4dccc has started in 233.961 ms |url: |action: 
+2023-04-12 14:27:48.7049||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... |url: |action: 
+2023-04-12 14:27:48.7049||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... |url: |action: 
+2023-04-12 14:27:48.7049||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:7815219e has started in 309.5183 ms |url: |action: 
+2023-04-12 14:27:48.7049||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... |url: |action: 
+2023-04-12 14:27:48.7049||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... |url: |action: 
+2023-04-12 14:27:48.7265||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c0b65f85 has started in 325.8056 ms |url: |action: 
+2023-04-12 14:27:48.7673||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:8752a4c0 has started in 366.6423 ms |url: |action: 
+2023-04-12 14:27:48.8011||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:bee66e7d has started in 400.3701 ms |url: |action: 
+2023-04-12 14:27:48.8011||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:6e6120c9 has started in 405.9955 ms |url: |action: 
+2023-04-12 14:27:48.8266||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:069ffb07 has started in 425.8126 ms |url: |action: 
+2023-04-12 14:27:48.8626||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:42dc0d95 has started in 461.9657 ms |url: |action: 
+2023-04-12 14:27:48.8897||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5664f5d1 has started in 489.0032 ms |url: |action: 
+2023-04-12 14:27:48.9305||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:68a0163b has started in 529.7198 ms |url: |action: 
+2023-04-12 14:27:48.9305||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:bfc157e2 has started in 530.013 ms |url: |action: 
+2023-04-12 14:27:48.9702||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c540e731 has started in 569.4885 ms |url: |action: 
+2023-04-12 14:27:49.0081||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:0faffd55 has started in 607.4447 ms |url: |action: 
+2023-04-12 14:27:49.0365||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:bb84424c has started in 635.8392 ms |url: |action: 
+2023-04-12 14:27:49.0645||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:a630f412 has started in 85.4686 ms |url: |action: 
+2023-04-12 14:27:49.1137||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:20968:d116cdb1 all the dispatchers started |url: |action: 
+2023-04-12 14:27:49.1515||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:2fb2b071 has started in 111.533 ms |url: |action: 
+2023-04-12 14:27:49.5511||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... |url: |action: 
+2023-04-12 14:27:49.5511||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... |url: |action: 
+2023-04-12 14:27:49.5511||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... |url: |action: 
+2023-04-12 14:27:52.6918||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:27:52.6918||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:27:53.4244||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:27:53.4244||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:27:57.7010||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:27:57.7029||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:27:58.4342||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:27:58.4342||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:02.7171||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:02.7184||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:03.4431||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:03.4431||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:03.5464||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-04-12T07:27:48.3683486Z;NextExecution:2023-04-12T07:28:00.0000000Z;LastJobId:32030), Changes: (LastExecution:2023-04-12T07:28:03.5395963Z;NextExecution:2023-04-12T07:30:00.0000000Z;LastJobId:32031), NextExecution: (4/12/2023 7:30:00 AM) |url: |action: 
+2023-04-12 14:28:03.5464||DEBUG|Hangfire.Server.RecurringJobScheduler|1 recurring job(s) processed by scheduler. |url: |action: 
+2023-04-12 14:28:07.7442||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:07.7442||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:08.4751||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:08.4751||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:12.7571||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:12.7571||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:13.4893||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:13.4893||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:17.6534||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:20968:959c1e38 heartbeat successfully sent |url: |action: 
+2023-04-12 14:28:17.6534||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:20968:959c1e38 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:28:17.7728||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:17.7728||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:18.3961||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:20968:d116cdb1 heartbeat successfully sent |url: |action: 
+2023-04-12 14:28:18.3961||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:20968:d116cdb1 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:28:18.5013||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:18.5013||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:22.7753||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:22.7753||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:23.5171||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:23.5171||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:27.7800||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:27.7812||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:28.5216||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:28.5216||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:32.7895||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:32.7895||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:33.2698||INFO|TN.TNM.BusinessLogic.Factories.Notification.NotificationFactory|Get Notification |url: http://localhost/api/notification/getNotification|action: GetNotification
+2023-04-12 14:28:33.5336||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:28:33.5336||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:28:35.3153|20601|WARN|Microsoft.EntityFrameworkCore.Model.Validation|The 'bool' property 'SubjectsApplication' on entity type 'Customer' is configured with a database-generated default. This default will always be used for inserts when the property has the value 'false', since this is the CLR default for the 'bool' type. Consider using the nullable 'bool?' type instead so that the default will only be used for inserts when the property value is 'null'. |url: http://localhost/api/company/getCompanyConfig|action: GetCompanyConfig
+2023-04-12 14:28:35.3153|10103|WARN|Microsoft.EntityFrameworkCore.Query|Query: '(from CompanyConfiguration <generated>_1 in DbSet<CompanyConfiguration> select [<generated>_1]).Firs...' uses First/FirstOrDefault/Last/LastOrDefault operation without OrderBy and filter which may lead to unpredictable results. |url: http://localhost/api/company/getCompanyConfig|action: GetCompanyConfig
+2023-04-12 14:28:35.8147|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Count()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:28:35.8147|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Count()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:28:35.8147|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where {from Guid y in [e].ProvinceIds where ([y] == [x].ProvinceId) select [y] => Any()}' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:28:35.8276|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([y] == [x].ProvinceId)' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:28:35.8276|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:29:05.5140|48|ERROR|Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider|An error occurred while reading the key ring. System.Xml.XmlException: '.', hexadecimal value 0x00, is an invalid character. Line 1, position 1.
+   at System.Xml.XmlTextReaderImpl.Throw(Exception e)
+   at System.Xml.XmlTextReaderImpl.Throw(String res, String[] args)
+   at System.Xml.XmlTextReaderImpl.ParseRootLevelWhitespace()
+   at System.Xml.XmlTextReaderImpl.ParseDocumentContent()
+   at System.Xml.XmlTextReaderImpl.Read()
+   at System.Xml.XmlReader.MoveToContent()
+   at System.Xml.Linq.XElement.Load(XmlReader reader, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream, LoadOptions options)
+   at System.Xml.Linq.XElement.Load(Stream stream)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.ReadElementFromFile(String fullPath)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElementsCore()+MoveNext()
+   at System.Collections.Generic.List`1.AddEnumerable(IEnumerable`1 enumerable)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository.GetAllElements()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager.GetAllKeys()
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.CreateCacheableKeyRingCore(DateTimeOffset now, IKey keyJustAdded)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.Microsoft.AspNetCore.DataProtection.KeyManagement.Internal.ICacheableKeyRingProvider.GetCacheableKeyRing(DateTimeOffset now)
+   at Microsoft.AspNetCore.DataProtection.KeyManagement.KeyRingProvider.GetCurrentKeyRingCore(DateTime utcNow)|url: |action: 
+2023-04-12 14:29:06.5702||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Start installing Hangfire SQL objects... |url: |action: 
+2023-04-12 14:29:06.6301||INFO|Hangfire.PostgreSql.PostgreSqlStorage|Hangfire SQL objects installed. |url: |action: 
+2023-04-12 14:29:07.2520||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL_BACKUP, Schema: hangfire' |url: |action: 
+2023-04-12 14:29:07.2520||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: |url: |action: 
+2023-04-12 14:29:07.2520||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. |url: |action: 
+2023-04-12 14:29:07.2520||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. |url: |action: 
+2023-04-12 14:29:07.2520||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15 |url: |action: 
+2023-04-12 14:29:07.2883||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:64050b9b has started in 15.9559 ms |url: |action: 
+2023-04-12 14:29:07.3094||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:17044:c25048f1 is announcing itself... |url: |action: 
+2023-04-12 14:29:07.4282||TRACE|Hangfire.RecurringJobManager|Recurring job 'Deadline' is being updated. RecurringJob: (), Changes: (Queue:default;Cron:*/10 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-04-12T07:29:07.3460379Z;NextExecution:2023-04-12T07:30:00.0000000Z;V:2), NextExecution: (4/12/2023 7:30:00 AM) |url: |action: 
+2023-04-12 14:29:07.4615||INFO|Hangfire.BackgroundJobServer|Starting Hangfire Server using job storage: 'PostgreSQL Server: Host: localhost, DB: HDTL_BACKUP, Schema: hangfire' |url: |action: 
+2023-04-12 14:29:07.4615||INFO|Hangfire.BackgroundJobServer|Using the following options for SQL Server job storage: |url: |action: 
+2023-04-12 14:29:07.4615||INFO|Hangfire.BackgroundJobServer|    Queue poll interval: 00:00:15. |url: |action: 
+2023-04-12 14:29:07.4615||INFO|Hangfire.BackgroundJobServer|    Invisibility timeout: 00:30:00. |url: |action: 
+2023-04-12 14:29:07.4615||INFO|Hangfire.BackgroundJobServer|Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:30
+    Schedule polling interval: 00:00:15 |url: |action: 
+2023-04-12 14:29:07.4777||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:54387c88 has started in 11.3094 ms |url: |action: 
+2023-04-12 14:29:07.4777||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:17044:408a136e is announcing itself... |url: |action: 
+2023-04-12 14:29:07.5238||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:17044:408a136e successfully announced in 39.8052 ms |url: |action: 
+2023-04-12 14:29:07.5238||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:17044:c25048f1 successfully announced in 213.2047 ms |url: |action: 
+2023-04-12 14:29:07.5369||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:4239a1cb has started in 10.5584 ms |url: |action: 
+2023-04-12 14:29:07.5369||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:5348db0e has started in 16.0314 ms |url: |action: 
+2023-04-12 14:29:07.5495||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:17044:c25048f1 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... |url: |action: 
+2023-04-12 14:29:07.5495||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:17044:408a136e is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, Worker, DelayedJobScheduler, RecurringJobScheduler... |url: |action: 
+2023-04-12 14:29:07.5495||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:8f947a06 has started in 4.4675 ms |url: |action: 
+2023-04-12 14:29:07.5495||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:8ee3c2e9 has started in 9.7297 ms |url: |action: 
+2023-04-12 14:29:07.5648||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:a525710a has started in 13.8701 ms |url: |action: 
+2023-04-12 14:29:07.5648||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:4b146fc6 has started in 13.4747 ms |url: |action: 
+2023-04-12 14:29:07.5648||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:17044:408a136e waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:29:07.5648||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:17044:c25048f1 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:29:07.5648||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:29:07.5648||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:29:07.5648||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:bd7708fb has started in 15.1217 ms |url: |action: 
+2023-04-12 14:29:07.5853||INFO|Hangfire.Server.ServerWatchdog|2 servers were removed due to timeout |url: |action: 
+2023-04-12 14:29:07.5853||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:0dd72c79 has started in 22.2496 ms |url: |action: 
+2023-04-12 14:29:07.5853||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:29:07.5853||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... |url: |action: 
+2023-04-12 14:29:07.5853||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'counter'... |url: |action: 
+2023-04-12 14:29:07.6012||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 1 outdated record(s) from 'counter' table. |url: |action: 
+2023-04-12 14:29:07.6012||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... |url: |action: 
+2023-04-12 14:29:07.6259||INFO|Hangfire.PostgreSql.ExpirationManager|Removed 1 outdated record(s) from 'job' table. |url: |action: 
+2023-04-12 14:29:07.6259||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c99e766f has started in 54.6222 ms |url: |action: 
+2023-04-12 14:29:07.6259||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ef173d3b has started in 65.4294 ms |url: |action: 
+2023-04-12 14:29:07.6259||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:37171984 has started in 64.4399 ms |url: |action: 
+2023-04-12 14:29:07.6259||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d16c4358 has started in 65.6851 ms |url: |action: 
+2023-04-12 14:29:07.6553||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:dc90e7b1 has started in 81.2375 ms |url: |action: 
+2023-04-12 14:29:07.6553||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b9580379 has started in 82.3821 ms |url: |action: 
+2023-04-12 14:29:07.6760||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:6b9b0144 has started in 101.9407 ms |url: |action: 
+2023-04-12 14:29:07.6760||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ca06c579 has started in 104.6064 ms |url: |action: 
+2023-04-12 14:29:07.6969||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:e4579cd6 has started in 122.9084 ms |url: |action: 
+2023-04-12 14:29:07.7234||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:29:07.7711||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:6830741c has started in 196.1765 ms |url: |action: 
+2023-04-12 14:29:07.7711||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a2f7fe46 has started in 202.1759 ms |url: |action: 
+2023-04-12 14:29:07.7865||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:6ef63c46 has started in 212.5241 ms |url: |action: 
+2023-04-12 14:29:07.7865||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:54f34618 has started in 212.2624 ms |url: |action: 
+2023-04-12 14:29:07.8123||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:114573d4 has started in 238.2233 ms |url: |action: 
+2023-04-12 14:29:07.8435||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:4a7a69cc has started in 269.4522 ms |url: |action: 
+2023-04-12 14:29:07.8435||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:187c77fe has started in 280.5383 ms |url: |action: 
+2023-04-12 14:29:07.9141||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c211e475 has started in 339.1315 ms |url: |action: 
+2023-04-12 14:29:07.9141||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:4064368c has started in 341.5062 ms |url: |action: 
+2023-04-12 14:29:07.9945||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b4f5fb8f has started in 419.5599 ms |url: |action: 
+2023-04-12 14:29:08.1137||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:245f39f8 has started in 538.6925 ms |url: |action: 
+2023-04-12 14:29:08.1561||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:5b877af5 has started in 576.2041 ms |url: |action: 
+2023-04-12 14:29:08.1980||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b9e026cd has started in 623.0639 ms |url: |action: 
+2023-04-12 14:29:08.2410||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ac3b18c8 has started in 666.9252 ms |url: |action: 
+2023-04-12 14:29:08.2620||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b4beb1a3 has started in 687.6585 ms |url: |action: 
+2023-04-12 14:29:08.2747||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:30d29395 has started in 700.1097 ms |url: |action: 
+2023-04-12 14:29:08.2747||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:8ebbb312 has started in 703.4854 ms |url: |action: 
+2023-04-12 14:29:08.2921||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ec5e2ff9 has started in 718.0791 ms |url: |action: 
+2023-04-12 14:29:08.3017||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:662d2394 has started in 726.7719 ms |url: |action: 
+2023-04-12 14:29:08.3286||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:63ede897 has started in 753.5831 ms |url: |action: 
+2023-04-12 14:29:08.3582||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:8f3b83bc has started in 783.2704 ms |url: |action: 
+2023-04-12 14:29:08.3911||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ba6107f2 has started in 817.0535 ms |url: |action: 
+2023-04-12 14:29:08.4429||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:fc45fadd has started in 868.8887 ms |url: |action: 
+2023-04-12 14:29:08.4916||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:287a8c2a has started in 917.56 ms |url: |action: 
+2023-04-12 14:29:08.5174||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:e57104d9 has started in 937.6286 ms |url: |action: 
+2023-04-12 14:29:08.5364||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:e3060bd5 has started in 962.338 ms |url: |action: 
+2023-04-12 14:29:08.5538||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:92d0a76a has started in 978.7993 ms |url: |action: 
+2023-04-12 14:29:08.5742||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:17044:408a136e all the dispatchers started |url: |action: 
+2023-04-12 14:29:08.5819||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:5c633d65 has started in 81.9827 ms |url: |action: 
+2023-04-12 14:29:08.5954||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:96788f74 has started in 1021.2989 ms |url: |action: 
+2023-04-12 14:29:08.6435||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:39394784 has started in 1068.492 ms |url: |action: 
+2023-04-12 14:29:08.6435||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'job'... |url: |action: 
+2023-04-12 14:29:08.6435||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... |url: |action: 
+2023-04-12 14:29:08.6585||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... |url: |action: 
+2023-04-12 14:29:08.6723||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:91d84a34 has started in 1097.3544 ms |url: |action: 
+2023-04-12 14:29:08.6723||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... |url: |action: 
+2023-04-12 14:29:08.6723||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'list'... |url: |action: 
+2023-04-12 14:29:08.7019||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'set'... |url: |action: 
+2023-04-12 14:29:08.7036||DEBUG|Hangfire.PostgreSql.ExpirationManager|Removing outdated records from table 'hash'... |url: |action: 
+2023-04-12 14:29:08.7214||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:ba25e4c2 has started in 186.2905 ms |url: |action: 
+2023-04-12 14:29:08.7683||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:3971e443 has started in 115.2951 ms |url: |action: 
+2023-04-12 14:29:08.7931||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:89a2d574 has started in 1218.1539 ms |url: |action: 
+2023-04-12 14:29:08.8008||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:17044:c25048f1 all the dispatchers started |url: |action: 
+2023-04-12 14:29:08.8250||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:f5f39c0b has started in 65.9574 ms |url: |action: 
+2023-04-12 14:29:12.5986||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:29:12.5986||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:29:12.7378||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:29:12.7378||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:29:17.6017||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:29:17.6017||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:29:17.7553||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:29:17.7553||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:29:20.8304||INFO|TN.TNM.BusinessLogic.Factories.Notification.NotificationFactory|Get Notification |url: http://localhost/api/notification/getNotification|action: GetNotification
+2023-04-12 14:29:22.6126||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:29:22.6126||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:29:22.7722||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:29:22.7722||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:29:22.8353|20601|WARN|Microsoft.EntityFrameworkCore.Model.Validation|The 'bool' property 'SubjectsApplication' on entity type 'Customer' is configured with a database-generated default. This default will always be used for inserts when the property has the value 'false', since this is the CLR default for the 'bool' type. Consider using the nullable 'bool?' type instead so that the default will only be used for inserts when the property value is 'null'. |url: http://localhost/api/company/getCompanyConfig|action: GetCompanyConfig
+2023-04-12 14:29:22.8481|10103|WARN|Microsoft.EntityFrameworkCore.Query|Query: '(from CompanyConfiguration <generated>_1 in DbSet<CompanyConfiguration> select [<generated>_1]).Firs...' uses First/FirstOrDefault/Last/LastOrDefault operation without OrderBy and filter which may lead to unpredictable results. |url: http://localhost/api/company/getCompanyConfig|action: GetCompanyConfig
+2023-04-12 14:29:23.3618|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Count()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:29:23.3618|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Count()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:29:23.3618|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where {from Guid y in [e].ProvinceIds where ([y] == [x].ProvinceId) select [y] => Any()}' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:29:23.3618|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([y] == [x].ProvinceId)' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:29:23.3618|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:29:29.5258||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:29:29.5259||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:29:29.5439||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:29:29.5439||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:30:02.2051||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:30:02.2236||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:17044:c25048f1 heartbeat successfully sent |url: |action: 
+2023-04-12 14:30:02.2236||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:17044:408a136e heartbeat successfully sent |url: |action: 
+2023-04-12 14:30:02.2236||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:17044:c25048f1 waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:30:02.2236||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:30:02.2236||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:17044:408a136e waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-12 14:30:02.2559||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:30:02.3117||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:30:02.4352||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'EVMDaily' is being updated. RecurringJob: (Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-11T06:09:11.7098468Z;V:2;Queue:default;Cron:*/10 * * * *;TimeZoneId:SE Asia Standard Time;LastExecution:2023-04-12T07:22:53.5371984Z;NextExecution:2023-04-12T07:30:00.0000000Z;LastJobId:32028), Changes: (LastExecution:2023-04-12T07:30:02.2087283Z;NextExecution:2023-04-12T07:40:00.0000000Z;LastJobId:32033), NextExecution: (4/12/2023 7:40:00 AM) |url: |action: 
+2023-04-12 14:30:02.6284||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Cảnh báo hạn báo cáo' is being updated. RecurringJob: (Queue:default;Cron:*/2 * * * *;TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-01-06T03:27:30.0981312Z;V:2;LastExecution:2023-04-12T07:28:03.5395963Z;NextExecution:2023-04-12T07:30:00.0000000Z;LastJobId:32031), Changes: (LastExecution:2023-04-12T07:30:02.6247661Z;NextExecution:2023-04-12T07:32:00.0000000Z;LastJobId:32034), NextExecution: (4/12/2023 7:32:00 AM) |url: |action: 
+2023-04-12 14:30:02.6533||DEBUG|Hangfire.Processing.BackgroundExecution|Execution Worker is in the Faulted state now due to an exception, execution will be retried no more than in 00:00:01 System.TimeoutException: The operation has timed out.
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\NpgsqlConnector.cs:line 393
+   at Npgsql.ConnectorPool.AllocateLong(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\ConnectorPool.cs:line 241
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass32_0.<<Open>g__OpenLong|0>d.MoveNext() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 273
+--- End of stack trace from previous location where exception was thrown ---
+   at Npgsql.NpgsqlConnection.Open() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 119
+   at Hangfire.PostgreSql.PostgreSqlStorage.CreateAndOpenConnection()
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.<>c__DisplayClass5_1.<Dequeue_Transaction>b__1()
+   at Hangfire.PostgreSql.Utils.Utils.TryExecute[T](Func`1 func, T& result, Func`2 smoothExValidator, Nullable`1 tryCount)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue_Transaction(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlConnection.FetchNextJob(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.Server.Worker.Execute(BackgroundProcessContext context)
+   at Hangfire.Server.BackgroundProcessDispatcherBuilder.ExecuteProcess(Guid executionId, Object state)
+   at Hangfire.Processing.BackgroundExecution.Run(Action`2 callback, Object state)|url: |action: 
+2023-04-12 14:30:02.6687||DEBUG|Hangfire.Processing.BackgroundExecution|Execution Worker is in the Faulted state now due to an exception, execution will be retried no more than in 00:00:01 System.TimeoutException: The operation has timed out.
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\NpgsqlConnector.cs:line 393
+   at Npgsql.ConnectorPool.AllocateLong(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\ConnectorPool.cs:line 241
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass32_0.<<Open>g__OpenLong|0>d.MoveNext() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 273
+--- End of stack trace from previous location where exception was thrown ---
+   at Npgsql.NpgsqlConnection.Open() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 119
+   at Hangfire.PostgreSql.PostgreSqlStorage.CreateAndOpenConnection()
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.<>c__DisplayClass5_1.<Dequeue_Transaction>b__1()
+   at Hangfire.PostgreSql.Utils.Utils.TryExecute[T](Func`1 func, T& result, Func`2 smoothExValidator, Nullable`1 tryCount)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue_Transaction(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlConnection.FetchNextJob(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.Server.Worker.Execute(BackgroundProcessContext context)
+   at Hangfire.Server.BackgroundProcessDispatcherBuilder.ExecuteProcess(Guid executionId, Object state)
+   at Hangfire.Processing.BackgroundExecution.Run(Action`2 callback, Object state)|url: |action: 
+2023-04-12 14:30:02.6687||TRACE|Hangfire.Server.RecurringJobScheduler|Recurring job 'Deadline' is being updated. RecurringJob: (TimeZoneId:SE Asia Standard Time;Job:{"Type":"TN.TNM.Api.RecurringJobs.RecurringJobsService, TN.TNM.Api, Version=2.0.0.0, Culture=neutral, PublicKeyToken=null","Method":"AlertReportPoint","ParameterTypes":"[]","Arguments":"[]"};CreatedAt:2023-04-12T07:29:07.3460379Z;NextExecution:2023-04-12T07:30:00.0000000Z;V:2;Queue:default;Cron:*/10 * * * *), Changes: (LastExecution:2023-04-12T07:30:02.6453849Z;NextExecution:2023-04-12T07:40:00.0000000Z;LastJobId:32035), NextExecution: (4/12/2023 7:40:00 AM) |url: |action: 
+2023-04-12 14:30:02.8068||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:e3060bd5 caught an exception and will be retried in 00:00:01 System.TimeoutException: The operation has timed out.
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\NpgsqlConnector.cs:line 393
+   at Npgsql.ConnectorPool.AllocateLong(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\ConnectorPool.cs:line 241
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass32_0.<<Open>g__OpenLong|0>d.MoveNext() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 273
+--- End of stack trace from previous location where exception was thrown ---
+   at Npgsql.NpgsqlConnection.Open() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 119
+   at Hangfire.PostgreSql.PostgreSqlStorage.CreateAndOpenConnection()
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.<>c__DisplayClass5_1.<Dequeue_Transaction>b__1()
+   at Hangfire.PostgreSql.Utils.Utils.TryExecute[T](Func`1 func, T& result, Func`2 smoothExValidator, Nullable`1 tryCount)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue_Transaction(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlConnection.FetchNextJob(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.Server.Worker.Execute(BackgroundProcessContext context)
+   at Hangfire.Server.BackgroundProcessDispatcherBuilder.ExecuteProcess(Guid executionId, Object state)
+   at Hangfire.Processing.BackgroundExecution.Run(Action`2 callback, Object state)|url: |action: 
+2023-04-12 14:30:02.8068||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ec5e2ff9 caught an exception and will be retried in 00:00:04 System.TimeoutException: The operation has timed out.
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\NpgsqlConnector.cs:line 393
+   at Npgsql.ConnectorPool.AllocateLong(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\ConnectorPool.cs:line 241
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass32_0.<<Open>g__OpenLong|0>d.MoveNext() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 273
+--- End of stack trace from previous location where exception was thrown ---
+   at Npgsql.NpgsqlConnection.Open() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 119
+   at Hangfire.PostgreSql.PostgreSqlStorage.CreateAndOpenConnection()
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.<>c__DisplayClass5_1.<Dequeue_Transaction>b__1()
+   at Hangfire.PostgreSql.Utils.Utils.TryExecute[T](Func`1 func, T& result, Func`2 smoothExValidator, Nullable`1 tryCount)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue_Transaction(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlConnection.FetchNextJob(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.Server.Worker.Execute(BackgroundProcessContext context)
+   at Hangfire.Server.BackgroundProcessDispatcherBuilder.ExecuteProcess(Guid executionId, Object state)
+   at Hangfire.Processing.BackgroundExecution.Run(Action`2 callback, Object state)|url: |action: 
+2023-04-12 14:30:02.8068||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ba6107f2 caught an exception and will be retried in 00:00:09 System.TimeoutException: The operation has timed out.
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\NpgsqlConnector.cs:line 393
+   at Npgsql.ConnectorPool.AllocateLong(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\ConnectorPool.cs:line 241
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass32_0.<<Open>g__OpenLong|0>d.MoveNext() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 273
+--- End of stack trace from previous location where exception was thrown ---
+   at Npgsql.NpgsqlConnection.Open() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 119
+   at Hangfire.PostgreSql.PostgreSqlStorage.CreateAndOpenConnection()
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.<>c__DisplayClass5_1.<Dequeue_Transaction>b__1()
+   at Hangfire.PostgreSql.Utils.Utils.TryExecute[T](Func`1 func, T& result, Func`2 smoothExValidator, Nullable`1 tryCount)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue_Transaction(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlConnection.FetchNextJob(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.Server.Worker.Execute(BackgroundProcessContext context)
+   at Hangfire.Server.BackgroundProcessDispatcherBuilder.ExecuteProcess(Guid executionId, Object state)
+   at Hangfire.Processing.BackgroundExecution.Run(Action`2 callback, Object state)|url: |action: 
+2023-04-12 14:30:02.8068|10100|ERROR|Microsoft.EntityFrameworkCore.Query|An exception occurred in the database while iterating the results of a query for context type 'TN.TNM.DataAccess.Databases.TNTN8Context'.
+System.IO.FileNotFoundException: C:\HDTL\API\wwwroot\ServicePacketImage\1.png
+   at System.Drawing.Image.FromFile(String filename, Boolean useEmbeddedColorManagement)
+   at TN.TNM.DataAccess.Databases.DAO.ProductDAO.GetImageBase64(String path) in D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\Databases\DAO\ProductDAO.cs:line 3132
+   at lambda_method(Closure , QueryContext , TransparentIdentifier`2 )
+   at Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal.ProjectionShaper.TypedProjectionShaper`3.Shape(QueryContext queryContext, ValueBuffer& valueBuffer)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken) in /home/roji/projects/EFCore.PG/src/EFCore.PG/Storage/Internal/NpgsqlExecutionStrategy.cs:line 72
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken) System.IO.FileNotFoundException: C:\HDTL\API\wwwroot\ServicePacketImage\1.png
+   at System.Drawing.Image.FromFile(String filename, Boolean useEmbeddedColorManagement)
+   at TN.TNM.DataAccess.Databases.DAO.ProductDAO.GetImageBase64(String path) in D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.DataAccess\Databases\DAO\ProductDAO.cs:line 3132
+   at lambda_method(Closure , QueryContext , TransparentIdentifier`2 )
+   at Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal.ProjectionShaper.TypedProjectionShaper`3.Shape(QueryContext queryContext, ValueBuffer& valueBuffer)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.BufferlessMoveNext(DbContext _, Boolean buffer, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken) in /home/roji/projects/EFCore.PG/src/EFCore.PG/Storage/Internal/NpgsqlExecutionStrategy.cs:line 72
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncQueryingEnumerable`1.AsyncEnumerator.MoveNext(CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.AsyncLinqOperatorProvider.ExceptionInterceptor`1.EnumeratorExceptionInterceptor.MoveNext(CancellationToken cancellationToken)|url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:30:02.8068||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:92d0a76a caught an exception and will be retried in 00:00:01 System.TimeoutException: The operation has timed out.
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\NpgsqlConnector.cs:line 393
+   at Npgsql.ConnectorPool.AllocateLong(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\ConnectorPool.cs:line 241
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass32_0.<<Open>g__OpenLong|0>d.MoveNext() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 273
+--- End of stack trace from previous location where exception was thrown ---
+   at Npgsql.NpgsqlConnection.Open() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 119
+   at Hangfire.PostgreSql.PostgreSqlStorage.CreateAndOpenConnection()
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.<>c__DisplayClass5_1.<Dequeue_Transaction>b__1()
+   at Hangfire.PostgreSql.Utils.Utils.TryExecute[T](Func`1 func, T& result, Func`2 smoothExValidator, Nullable`1 tryCount)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue_Transaction(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlConnection.FetchNextJob(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.Server.Worker.Execute(BackgroundProcessContext context)
+   at Hangfire.Server.BackgroundProcessDispatcherBuilder.ExecuteProcess(Guid executionId, Object state)
+   at Hangfire.Processing.BackgroundExecution.Run(Action`2 callback, Object state)|url: |action: 
+2023-04-12 14:30:02.8122||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ec5e2ff9 will be retried in 00:00:04... |url: |action: 
+2023-04-12 14:30:02.8122||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:92d0a76a will be retried in 00:00:01... |url: |action: 
+2023-04-12 14:30:02.8068||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:e3060bd5 will be retried in 00:00:01... |url: |action: 
+2023-04-12 14:30:02.8068||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:39394784 caught an exception and will be retried in 00:00:04 System.TimeoutException: The operation has timed out.
+   at Npgsql.NpgsqlConnector.Authenticate(String username, NpgsqlTimeout timeout, Boolean async)
+   at Npgsql.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\NpgsqlConnector.cs:line 393
+   at Npgsql.ConnectorPool.AllocateLong(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken) in C:\projects\npgsql\src\Npgsql\ConnectorPool.cs:line 241
+   at Npgsql.NpgsqlConnection.<>c__DisplayClass32_0.<<Open>g__OpenLong|0>d.MoveNext() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 273
+--- End of stack trace from previous location where exception was thrown ---
+   at Npgsql.NpgsqlConnection.Open() in C:\projects\npgsql\src\Npgsql\NpgsqlConnection.cs:line 119
+   at Hangfire.PostgreSql.PostgreSqlStorage.CreateAndOpenConnection()
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.<>c__DisplayClass5_1.<Dequeue_Transaction>b__1()
+   at Hangfire.PostgreSql.Utils.Utils.TryExecute[T](Func`1 func, T& result, Func`2 smoothExValidator, Nullable`1 tryCount)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue_Transaction(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlJobQueue.Dequeue(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.PostgreSql.PostgreSqlConnection.FetchNextJob(String[] queues, CancellationToken cancellationToken)
+   at Hangfire.Server.Worker.Execute(BackgroundProcessContext context)
+   at Hangfire.Server.BackgroundProcessDispatcherBuilder.ExecuteProcess(Guid executionId, Object state)
+   at Hangfire.Processing.BackgroundExecution.Run(Action`2 callback, Object state)|url: |action: 
+2023-04-12 14:30:02.8122||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ba6107f2 will be retried in 00:00:09... |url: |action: 
+2023-04-12 14:30:02.8122||DEBUG|Hangfire.Server.RecurringJobScheduler|3 recurring job(s) processed by scheduler. |url: |action: 
+2023-04-12 14:30:02.8122||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:39394784 will be retried in 00:00:04... |url: |action: 
+2023-04-12 14:30:07.2508||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:30:07.2508||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:30:07.3444||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-12 14:30:07.3444||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-12 14:30:08.5103||INFO|Hangfire.Processing.BackgroundExecution|Execution Worker recovered from the Faulted state after 00:00:05.8573987 and is in the Running state now |url: |action: 
+2023-04-12 14:30:08.5103||INFO|Hangfire.Processing.BackgroundExecution|Execution Worker recovered from the Faulted state after 00:00:05.8439061 and is in the Running state now |url: |action: 
+2023-04-12 14:30:09.9843||INFO|TN.TNM.BusinessLogic.Factories.Notification.NotificationFactory|Get Notification |url: http://localhost/api/notification/getNotification|action: GetNotification
+2023-04-12 14:30:10.2638|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Count()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:30:10.2638|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Count()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:30:10.2665|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where {from Guid y in [e].ProvinceIds where ([y] == [x].ProvinceId) select [y] => Any()}' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:30:10.2665|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'where ([y] == [x].ProvinceId)' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
+2023-04-12 14:30:10.2665|20500|WARN|Microsoft.EntityFrameworkCore.Query|The LINQ expression 'Any()' could not be translated and will be evaluated locally. |url: http://localhost/api/Product/getListServicePacket|action: GetListServicePacket
