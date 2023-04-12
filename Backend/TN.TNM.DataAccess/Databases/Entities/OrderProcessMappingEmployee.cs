@@ -7,6 +7,7 @@ namespace TN.TNM.DataAccess.Databases.Entities
     {
         public Guid Id { get; set; }
         public Guid? EmployeeId { get; set; }
+        public Guid? CustomerId { get; set; }
         public Guid? OrderProcessId { get; set; }
         public string RateContent { get; set; }
         public DateTime CreatedDate { get; set; }

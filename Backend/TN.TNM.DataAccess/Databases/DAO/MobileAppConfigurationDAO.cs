@@ -194,7 +194,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                             {
                                                 Id = x.Id,
                                                 IntroduceColor = x.IntroduceColor,
-                                                IntroduceImageOrVideo = x.IntroduceImageOrVideo,
+                                                IntroduceImageOrVideo = GetImageBase64(x.IntroduceImageOrVideo),
                                                 IntroduceSologan = x.IntroduceSologan
                                             }).FirstOrDefault();
 
@@ -224,7 +224,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                             {
                                                 Id = x.Id,
                                                 LoginScreenColor = x.LoginScreenColor,
-                                                LoginScreenIcon = x.LoginScreenIcon,
+                                                LoginScreenIcon = GetImageBase64(x.LoginScreenIcon),
                                             }).FirstOrDefault();
 
                 return new TakeMobileAppConfigurationResult
@@ -252,7 +252,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                             .Select(x => new MobileAppConfigurationEntityModel
                                             {
                                                 Id = x.Id,
-                                                LoginAndRegisterScreenImage = x.LoginAndRegisterScreenImage
+                                                LoginAndRegisterScreenImage = GetImageBase64(x.LoginAndRegisterScreenImage)
                                             }).FirstOrDefault();
 
                 return new TakeMobileAppConfigurationResult
@@ -280,9 +280,9 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                             .Select(x => new MobileAppConfigurationEntityModel
                                             {
                                                 Id = x.Id,
-                                                PaymentScreenContentTransfer = x.PaymentScreenContentTransfer,
+                                                PaymentScreenContentTransfer = GetImageBase64(x.PaymentScreenContentTransfer),
                                                 PaymentScreenContentVnpay = x.PaymentScreenContentVnpay,
-                                                PaymentScreenIconTransfer = x.PaymentScreenIconTransfer,
+                                                PaymentScreenIconTransfer = GetImageBase64(x.PaymentScreenIconTransfer),
                                                 IsPaymentScreenIconTransfer = x.IsPaymentScreenIconTransfer,
                                                 IsPaymentScreenIconVnpay = x.IsPaymentScreenIconVnpay,
                                                 PaymentScreenIconVnpay = x.PaymentScreenIconVnpay 
@@ -313,7 +313,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                             .Select(x => new MobileAppConfigurationEntityModel
                                             {
                                                 Id = x.Id,
-                                                OrderNotificationImage = x.OrderNotificationImage
+                                                OrderNotificationImage = GetImageBase64(x.OrderNotificationImage)
                                             }).FirstOrDefault();
 
                 return new TakeMobileAppConfigurationResult

@@ -253,7 +253,7 @@
                             </p>
                             <div class="image" [ngClass]="'wh375-375'">
                                 <img
-                                    [src]="mobileAppConfiguration.orderNotificationImage != undefined ? mobileAppConfiguration.orderNotificationImage : '/assets/images/no-product-image.jpg'">
+                                    [src]="mobileAppConfiguration.orderNotificationImage ? mobileAppConfiguration.orderNotificationImage : '/assets/images/no-product-image.jpg'">
                             </div>
                             <div [ngClass]="'w375'">
                                 <p-fileUpload name="demo[]" customUpload="true" [showCancelButton]="false"

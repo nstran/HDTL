@@ -12335,6 +12335,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 var listEmployeeIdParameter = parameter.ListEmployeeRatingStar.Select(e => e.EmployeeId).ToList();
                 var listOrderProcessMappingEmployee = context.OrderProcessMappingEmployee.Where(x => listEmployeeIdParameter.Any(y => y == x.EmployeeId)).ToList();
+                var listCustomer = context.Customer.Select(x => x.CustomerId).ToList();
                 foreach (var item in parameter.ListEmployeeRatingStar)
                 {
                     var orderProcessMappingEmployeeByEmpId = listOrderProcessMappingEmployee.FirstOrDefault(x => x.EmployeeId == item.EmployeeId);
@@ -12348,6 +12349,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         var orderProcessMappingEmployee = new OrderProcessMappingEmployee();
                         orderProcessMappingEmployee.Id = Guid.NewGuid();
                         orderProcessMappingEmployee.EmployeeId = item.EmployeeId;
+                        orderProcessMappingEmployee.CustomerId = listCustomer.FirstOrDefault(x => x == item.EmployeeId);
                         orderProcessMappingEmployee.OrderProcessId = item.OrderProcessId;
                         orderProcessMappingEmployee.RateContent = item.RateContent;
                         context.OrderProcessMappingEmployee.Add(orderProcessMappingEmployee);
