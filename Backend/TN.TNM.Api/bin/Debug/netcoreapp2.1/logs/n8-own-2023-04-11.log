@@ -16339,3 +16339,124 @@ System.IO.FileNotFoundException: D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Ap
 2023-04-11 18:02:40.1743||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
 2023-04-11 18:02:41.1693||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
 2023-04-11 18:02:41.1693||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:02:45.1828||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:02:45.1828||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:02:46.1780||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:02:46.1780||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:02:50.1890||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:02:50.2483||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:02:51.1818||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:02:51.2754||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:02:55.3485||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:02:55.3485||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:02:56.2817||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:02:56.2817||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:00.3638||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:00.3638||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:01.2978||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:01.2978||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:05.0679||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:24356:badad13c heartbeat successfully sent |url: |action: 
+2023-04-11 18:03:05.0679||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:24356:badad13c waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-11 18:03:05.1311||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:24356:18a98d6b heartbeat successfully sent |url: |action: 
+2023-04-11 18:03:05.1311||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:24356:18a98d6b waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-11 18:03:05.3813||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:05.3813||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:06.3107||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:06.3107||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:10.3891||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:10.3891||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:11.3264||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:11.3264||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:15.3995||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:15.3995||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:16.3346||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:16.3346||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:20.4080||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:20.4080||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:21.3406||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:21.3406||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:25.4233||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:25.4233||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:26.3576||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:26.3576||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:30.4359||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:30.4359||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:31.3716||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:31.3716||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:35.0749||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:24356:badad13c heartbeat successfully sent |url: |action: 
+2023-04-11 18:03:35.0749||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:24356:badad13c waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-11 18:03:35.1385||DEBUG|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:24356:18a98d6b heartbeat successfully sent |url: |action: 
+2023-04-11 18:03:35.1385||TRACE|Hangfire.Server.ServerHeartbeatProcess|Server desktop-8nqps5h:24356:18a98d6b waiting for 00:00:30 delay before sending a heartbeat |url: |action: 
+2023-04-11 18:03:35.4501||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:35.4501||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:36.3807||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:36.3807||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:40.4557||TRACE|Hangfire.Server.ServerJobCancellationWatcher|Checking for aborted jobs... |url: |action: 
+2023-04-11 18:03:40.4557||TRACE|Hangfire.Server.ServerJobCancellationWatcher|No newly aborted jobs found. |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.BackgroundJobServer|Hangfire Server is stopping... |url: |action: 
+2023-04-11 18:03:40.7352||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:24356:18a98d6b caught stopping signal... |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:8b404a9a stopped in 0.855 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:61f21940 stopped in 1.1969 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:f06c183f stopped in 0.8718 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:ad31df00 stopped in 0.8989 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:6ea2369d stopped in 0.9089 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b67293bf stopped in 0.9194 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:1ce87905 stopped in 0.9337 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ce86c080 stopped in 0.9403 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:1eb85790 stopped in 0.9533 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:ac549e4c stopped in 0.9596 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c7b7ab6a stopped in 0.9964 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:e963dbb0 stopped in 1.0245 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:fb45527d stopped in 1.0409 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:0b59bd8c stopped in 1.0444 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:917d1f7f stopped in 1.0673 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:f9c3ddfe stopped in 1.2059 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:2c784ccf stopped in 1.1337 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:a7c603ef stopped in 1.306 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:c64b3d16 stopped in 1.4256 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:0d4578a0 stopped in 0.8605 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:696122ed stopped in 1.466 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d3330476 stopped in 1.6458 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:4429328a stopped in 1.7633 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:596d238f stopped in 1.7889 ms |url: |action: 
+2023-04-11 18:03:40.7352||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:56eee805 stopped in 1.793 ms |url: |action: 
+2023-04-11 18:03:40.7352||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:24356:18a98d6b caught stopped signal... |url: |action: 
+2023-04-11 18:03:40.7352||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:24356:18a98d6b All dispatchers stopped |url: |action: 
+2023-04-11 18:03:40.7527||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:b2e4f2be stopped in 15.3461 ms |url: |action: 
+2023-04-11 18:03:40.7527||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:24356:18a98d6b is reporting itself as stopped... |url: |action: 
+2023-04-11 18:03:40.7527||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:24356:18a98d6b successfully reported itself as stopped in 5.0726 ms |url: |action: 
+2023-04-11 18:03:40.7527||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:24356:18a98d6b has been stopped in total 27.1741 ms |url: |action: 
+2023-04-11 18:03:40.7527||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:b3d6334a stopped in 28.5888 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.BackgroundJobServer|Hangfire Server is stopping... |url: |action: 
+2023-04-11 18:03:40.7718||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:24356:badad13c caught stopping signal... |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:faeffcaa stopped in 0.1558 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:4193f455 stopped in 0.3265 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:205efb33 stopped in 0.4795 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:6dcb05d7 stopped in 0.1558 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:05260253 stopped in 0.164 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:b8ec5873 stopped in 0.1701 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:af61ec12 stopped in 0.1788 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:1d7527e4 stopped in 0.1946 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:e8b3b4b9 stopped in 0.2517 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:37fb79c1 stopped in 0.2634 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:7ca811cb stopped in 0.2643 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d6de19b0 stopped in 0.2645 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:61d91b45 stopped in 0.317 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:077b9ebf stopped in 0.2673 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerWatchdog:9a1a4c51 stopped in 0.3168 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop RecurringJobScheduler:6f62745f stopped in 0.2934 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:e86f3c2a stopped in 0.3435 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:11133801 stopped in 0.3574 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ExpirationManager:eb2d4e41 stopped in 0.3801 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop DelayedJobScheduler:49228911 stopped in 0.4077 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:d391e725 stopped in 0.4162 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerJobCancellationWatcher:4e86f9aa stopped in 0.4314 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:9da6f5b2 stopped in 0.5607 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:852722f3 stopped in 0.8219 ms |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop Worker:41fc03b3 stopped in 1.0206 ms |url: |action: 
+2023-04-11 18:03:40.7718||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:24356:badad13c All dispatchers stopped |url: |action: 
+2023-04-11 18:03:40.7718||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop ServerHeartbeatProcess:81d1cb0c stopped in 8.2604 ms |url: |action: 
+2023-04-11 18:03:40.7819||TRACE|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:24356:badad13c is reporting itself as stopped... |url: |action: 
+2023-04-11 18:03:40.7819||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:24356:badad13c successfully reported itself as stopped in 1.2799 ms |url: |action: 
+2023-04-11 18:03:40.7819||INFO|Hangfire.Server.BackgroundServerProcess|Server desktop-8nqps5h:24356:badad13c has been stopped in total 11.5237 ms |url: |action: 
+2023-04-11 18:03:40.7819||DEBUG|Hangfire.Processing.BackgroundExecution|Execution loop BackgroundServerProcess:f1a6ec4b stopped in 11.8569 ms |url: |action: 

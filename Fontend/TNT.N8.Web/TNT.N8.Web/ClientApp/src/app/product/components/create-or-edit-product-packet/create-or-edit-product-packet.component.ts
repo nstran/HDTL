@@ -18,7 +18,6 @@ import { GetPermission } from '../../../../../src/app/shared/permission/get-perm
   templateUrl: './create-or-edit-product-packet.component.html',
   styleUrls: ['./create-or-edit-product-packet.component.css'],
   providers: [DialogService]
-
 })
 export class CreateOrEditProductPacketComponent extends AbstractBase implements OnInit {
   servicePacketEntityModel: ServicePacketEntityModel = new ServicePacketEntityModel();
@@ -52,9 +51,11 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   showErrorProductCategoryEntityModel : boolean = false;
   showErrorProvinceEntityModel : boolean = false;
   showErrorSubjectsApplication : boolean = false;
+  showErrorOptionModelService : boolean = false;
   colsAttr: any[];
   colsRole: any[];
   colsNotiConfig: any[];
+  colOptions: any[];
   rows = 10;
   servicePacketId: string;
   provinceEntityModel : ProvinceEntityModel;
@@ -68,12 +69,10 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   listOptionTreeNode: NewTreeNode[] = [];
   listOption: ServicePacketMappingOptionsEntityModel[] = [];
   listOptionEntityModel: OptionsEntityModel[] = [];
-  colOptions: any[];
   servicePacketMappingOptionsEntityModel: ServicePacketMappingOptionsEntityModel = new ServicePacketMappingOptionsEntityModel();
   servicePacketImageEntityModel : ServicePacketImageEntityModel = new ServicePacketImageEntityModel();
   isLastOption : boolean = false;
   optionModelService : OptionsEntityModel;
-  showErrorOptionModelService : boolean = false;
   editServicePMOption : boolean = false;
   showIsLastOption : boolean = false;
   servicePrice : number;
@@ -124,30 +123,23 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
     private _router: Router,
     private organizationService: OrganizationService,
     private getPermission: GetPermission,
-    private router: Router,
-
   ) {
     super(injector);
    }
 
-   async ngOnInit() {
+   async ngOnInit(): Promise<void> {
     this.setTable();
 
     let resource = "sal/product/product-packet-createOrUpdate";
     let permission: any = await this.getPermission.getPermission(resource);
-
     if(permission.listCurrentActionResource.includes("action")){
       this.isShowButtonActive = true;
     }
-
     if (permission.status == false) {
-      this.router.navigate(['/home']);
+      this._router.navigate(['/home']);
     }
 
-    this.getMasterDataServicePacket();
-
     this.tenCauHinhControl = new FormControl(null);
-
     this.formTenCauHinh = new FormGroup({
       tenCauHinhControl: this.tenCauHinhControl
     });
@@ -155,7 +147,8 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
     this.form = this.fb.group({
       quyTrinh: this.fb.array([]),
     });
-
+    
+    this.getMasterDataServicePacket();
   }
 
   setTable(): void {
@@ -406,7 +399,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
     this.servicePacketAttributeEntityModelAdd.dataTypeName = event.name;
   }
 
-  selectRole(event : PermissionConfigurationEntityModel, stepObject : PermissionConfigurationEntityModel){
+  selectRole(event : PermissionConfigurationEntityModel, stepObject : PermissionConfigurationEntityModel): void{
     stepObject.categoryId = event.categoryId;
     stepObject.categoryName = event.categoryName;
   }
@@ -535,7 +528,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
     }
   }
 
-  async getServicePacketOptionByServicePacketId(servicePacketId : string){
+  async getServicePacketOptionByServicePacketId(servicePacketId : string): Promise<void>{
     this.loading = true;
     let result: any = await this._productService.searchOptionOfPacketService(servicePacketId);
     this.loading = false;
@@ -809,7 +802,6 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
       return;
     }
 
-    
     //Kiểm tra nếu Loại phê duyệt là Phòng ban phê duyệt hoặc Phòng ban xác nhận => Đã chọn phòng ban chưa?
     let error = false;
     this.quyTrinh.controls.forEach(abstractControl => {
@@ -841,8 +833,6 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
           this.showToast('error', 'Thông báo', 'Vui lòng chọn quản lý dịch vụ cho gói') 
           return;
         }
-        let listManagerId = this.listManager.map(x => x.employeeId);
-        
         this.loading = true;
         this.setStepIdAgain();
         let createOrEditProductParameter = new CreateOrUpdateServicePacketParameter();
@@ -853,7 +843,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
         createOrEditProductParameter.servicePacketImageEntityModel = this.servicePacketImageEntityModel;
         createOrEditProductParameter.listNotificationConfigurationModel = this.listNotificationConfigurationModel;
         createOrEditProductParameter.cauHinhQuyTrinh = cauHinhQuyTrinh;
-        createOrEditProductParameter.listManagerId = listManagerId;
+        createOrEditProductParameter.listManagerId = this.listManager.map(x => x.employeeId);
 
         let fileList: File[] = this.getFileList();
         let uploadResult: any = await this._productService.uploadServicePacketImage(fileList);
@@ -864,12 +854,8 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
           }))
           .subscribe(result => {
             if (result.statusCode == 200) {
-            this.showToast('success', 'Thông báo', 'Lưu thành công');
-  
-            //Thêm cấu hình phân quyền
-  
+            this.showToast('success', 'Thông báo', 'Lưu thành công'); 
             this._router.navigate(['/product/list-product-packet']);
-            this.getMasterDataServicePacket();
             } else {
               this.showToast('error', 'Thông báo', 'Lưu thất bại');
             }
@@ -892,7 +878,7 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
     return files;
   }
 
-  convertDataURItoFile(dataURI: string, fileName: string, type: string) {
+  convertDataURItoFile(dataURI: string, fileName: string, type: string): File {
     var byteString = atob(dataURI.split(',')[1]);
     var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0]
     var ab = new ArrayBuffer(byteString.length);
@@ -908,15 +894,15 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   }
 
   //Quy trình phê duyệt
-  themBuoc() {
+  themBuoc(): void {
     this.quyTrinh.push(this.addForm());
   }
 
-  xoaBuoc(index: number) {
+  xoaBuoc(index: number): void {
     this.quyTrinh.removeAt(index);
   }
 
-  addForm() {
+  addForm(): FormGroup {
     return this.fb.group({
       loaiPheDuyet: [null, Validators.required],
       phongBan: [{value: [], disabled: true}],
@@ -925,14 +911,13 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
   }
 
   /* Thay đổi loại phê duyệt */
-  changeLoaiPheDuyet(index: number) {
+  changeLoaiPheDuyet(index: number): void {
     this.quyTrinh.controls[index].get('phongBanId').setValue([]);
     this.quyTrinh.controls[index].get('phongBan').setValue([]);
   }
 
-
   /* Chọn đơn vị */
-  openPopup(index: number) {
+  openPopup(index: number): void {
     let mode = 2;
     let loaiPheDuyet = this.quyTrinh.controls[index].get('loaiPheDuyet').value.value;
     if (loaiPheDuyet == 2) {
@@ -971,7 +956,6 @@ export class CreateOrEditProductPacketComponent extends AbstractBase implements 
       }
     });
   }
-
 
   mapDataToModel(cauHinhQuyTrinh: CauHinhQuyTrinh) {
     cauHinhQuyTrinh.listCacBuocQuyTrinh = [];
