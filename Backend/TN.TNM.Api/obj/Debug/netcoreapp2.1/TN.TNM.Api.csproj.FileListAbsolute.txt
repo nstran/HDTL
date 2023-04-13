@@ -1,3 +1,4 @@
+D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\Select.Html.dep
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.csproj.AssemblyReference.cache
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.GeneratedMSBuildEditorConfig.editorconfig
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.AssemblyInfoInputs.cache
@@ -6,7 +7,6 @@ D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.RazorAssemblyInfo.cache
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\TN.TNM.Api.RazorAssemblyInfo.cs
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
-D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\Select.Html.dep
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\web.config
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\appsettings.Development.json
 D:\Source\TNM_HDTL\SourceCode\Backend\TN.TNM.Api\bin\Debug\netcoreapp2.1\appsettings.json

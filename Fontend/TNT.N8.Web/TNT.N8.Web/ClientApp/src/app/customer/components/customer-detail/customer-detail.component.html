@@ -637,6 +637,23 @@
           </p-accordion>
         </div>
       </div>
+        <!-- Đánh giá -->
+        <div class="evaluate" *ngIf="listOrderProcessMappingEmployee.length > 0">
+          <h5 class="font-weight-bold">Đánh giá</h5>
+          <div class="row">
+            <div *ngFor="let item of listOrderProcessMappingEmployee" class="col-md-12 p-5">
+              <div class="employee">
+                Khách hàng: <strong>{{item?.customerName}}</strong> - Phiếu: <strong>{{item?.orderCode}}</strong>
+              </div>
+              <div class="rate-content">
+                {{item?.rateContent}} test
+              </div>
+              <div class="time pt-2">
+                {{item?.createdDate | date: 'hh:mm:ss - dd/MM/yyyy'}}
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
   </div>
 </div>

@@ -57,3 +57,18 @@ export class CustomerModel {
     this.SalesUpdateAfterMeeting = ''
   }
 }
+
+export class TakeListEvaluateResult {
+  listOrderProcessMappingEmployee : OrderProcessMappingEmployeeEntityModel[];
+  statusCode: number;
+  message : string;
+}
+export class OrderProcessMappingEmployeeEntityModel {
+  employeeId: string | null;
+  customerId: string | null;
+  customerName: string;
+  orderProcessId: string | null;
+  rateContent: string;
+  createdDate: string;
+  orderCode: string;
+}

@@ -2,13 +2,14 @@
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CustomerOrder, CustomerOrderTaskEntityModel, ReportPointEntityModel } from '../models/customer-order.model';
+import { CustomerOrder, CustomerOrderTaskEntityModel, ReportPointEntityModel, TakeListEvaluateResult } from '../models/customer-order.model';
 import { CustomerOrderDetail, CustomerOrderDetailExten, CustomerOrderExtension } from '../models/customer-order-detail.model';
 import { ContactModel } from '../../shared/models/contact.model';
 import { OrderCostDetail } from '../models/customer-order-cost-detail.model';
 import { CustomList } from '../components/create/create.component';
 import { OrderProcessEntityModel } from '../../../../src/app/product/models/product.model';
 import { CustomerModel } from '../components/orderProcessList/orderProcessList.component';
+import { Observable } from 'rxjs';
 @Injectable()
 export class CustomerOrderService {
 
@@ -573,6 +574,17 @@ export class CustomerOrderService {
       map((response: Response) => {
         return response;
       }));
+  }
+
+  takeListEvaluateForObjectId(orderProcessId: string): Observable<TakeListEvaluateResult> {
+    const url = localStorage.getItem('ApiEndPoint') + '/api/order/takeListEvaluateForObjectId';
+    return this.httpClient.post(url, {
+      OrderId: orderProcessId
+    }).pipe(
+      map((response: TakeListEvaluateResult) => {
+        return response;
+      })
+    );
   }
 
 }

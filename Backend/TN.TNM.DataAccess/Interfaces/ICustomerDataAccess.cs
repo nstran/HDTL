@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using TN.TNM.DataAccess.Messages.Parameters.Customer;
+using TN.TNM.DataAccess.Messages.Parameters.Employee;
 using TN.TNM.DataAccess.Messages.Results.Customer;
+using TN.TNM.DataAccess.Messages.Results.Employee;
 
 namespace TN.TNM.DataAccess.Interfaces
 {
@@ -71,6 +73,6 @@ namespace TN.TNM.DataAccess.Interfaces
         KichHoatTinhHuongResult KichHoatTinhHuong(KichHoatTinhHuongParameter parameter);
         GetListTinhHuongResult GetListTinhHuong(GetListTinhHuongParameter parameter);
         Task<GetChiTietTinhHuongResult> GetChiTietTinhHuong(GetChiTietTinhHuongParameter parameter);
-
+        Task<TakeListEvaluateResult> TakeListEvaluateForObjectId(TakeListEvaluateParameter parameter);
     }
 }

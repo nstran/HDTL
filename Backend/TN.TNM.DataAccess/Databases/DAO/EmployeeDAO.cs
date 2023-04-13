@@ -43,7 +43,8 @@ using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using System.Threading.Tasks;
 using TN.TNM.DataAccess.Messages.Results.DataType;
 using TN.TNM.DataAccess.Consts.Product;
-
+using TN.TNM.DataAccess.Models.OrderProcessMappingEmployee;
+using Microsoft.EntityFrameworkCore;
 
 namespace TN.TNM.DataAccess.Databases.DAO
 {
@@ -26804,6 +26805,46 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     StatusCode = HttpStatusCode.ExpectationFailed,
                     Message = ex.Message
+                };
+            }
+        }
+
+        public async Task<TakeListEvaluateResult> TakeListEvaluateForObjectId(TakeListEvaluateParameter parameter)
+        {
+            try
+            {
+                var listOrderProcessMappingEmployee = await (from o in context.OrderProcessMappingEmployee
+                                                       join e in context.Employee on o.EmployeeId equals e.EmployeeId
+                                                       into oe
+                                                       from oeJoined in oe.DefaultIfEmpty()
+                                                       join c in context.Customer on o.CustomerId equals c.CustomerId
+                                                       into oc
+                                                       from ocJoined in oc.DefaultIfEmpty()
+                                                       join cu in context.CustomerOrder on o.OrderProcessId equals cu.OrderId
+                                                       into ocu 
+                                                       from ocuJoined in ocu.DefaultIfEmpty()
+                                                       where parameter.EmployeeId != null && o.EmployeeId == parameter.EmployeeId
+                                                       select new OrderProcessMappingEmployeeEntityModel
+                                                       {
+                                                           CustomerName = ocJoined.CustomerName,
+                                                           OrderCode = ocuJoined.OrderCode,
+                                                           RateContent = o.RateContent,
+                                                           CreatedDate = o.CreatedDate
+                                                       }).ToListAsync();
+
+                return new TakeListEvaluateResult
+                {
+                   ListOrderProcessMappingEmployee = listOrderProcessMappingEmployee,
+                   StatusCode = HttpStatusCode.OK,
+                   Message = "Thành công"
+                };
+            }
+            catch (Exception e)
+            {
+                return new TakeListEvaluateResult
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    Message = e.Message
                 };
             }
         }

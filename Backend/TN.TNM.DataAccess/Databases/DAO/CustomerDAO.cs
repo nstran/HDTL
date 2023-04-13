@@ -27,8 +27,10 @@ using TN.TNM.DataAccess.Databases.Entities;
 using TN.TNM.DataAccess.Helper;
 using TN.TNM.DataAccess.Interfaces;
 using TN.TNM.DataAccess.Messages.Parameters.Customer;
+using TN.TNM.DataAccess.Messages.Parameters.Employee;
 using TN.TNM.DataAccess.Messages.Parameters.Lead;
 using TN.TNM.DataAccess.Messages.Results.Customer;
+using TN.TNM.DataAccess.Messages.Results.Employee;
 using TN.TNM.DataAccess.Messages.Results.Lead;
 using TN.TNM.DataAccess.Models;
 using TN.TNM.DataAccess.Models.Address;
@@ -40,6 +42,7 @@ using TN.TNM.DataAccess.Models.Folder;
 using TN.TNM.DataAccess.Models.GeographicalArea;
 using TN.TNM.DataAccess.Models.Lead;
 using TN.TNM.DataAccess.Models.Note;
+using TN.TNM.DataAccess.Models.OrderProcessMappingEmployee;
 using TN.TNM.DataAccess.Models.ProductCategory;
 using TN.TNM.DataAccess.Models.Quote;
 using TN.TNM.DataAccess.Models.TinhHuong;
@@ -13471,6 +13474,46 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     str = str.Replace(VietNamChar[i][j], VietNamChar[0][i - 1]);
             }
             return str;
+        }
+
+        public async Task<TakeListEvaluateResult> TakeListEvaluateForObjectId(TakeListEvaluateParameter parameter)
+        {
+            try
+            {
+                var listOrderProcessMappingEmployee = await (from o in context.OrderProcessMappingEmployee
+                                                             join e in context.Employee on o.EmployeeId equals e.EmployeeId
+                                                             into oe
+                                                             from oeJoined in oe.DefaultIfEmpty()
+                                                             join c in context.Customer on o.CustomerId equals c.CustomerId
+                                                             into oc
+                                                             from ocJoined in oc.DefaultIfEmpty()
+                                                             join cu in context.CustomerOrder on o.OrderProcessId equals cu.OrderId
+                                                             into ocu
+                                                             from ocuJoined in ocu.DefaultIfEmpty()
+                                                             where parameter.CustomerId != null && o.CustomerId == parameter.CustomerId
+                                                             select new OrderProcessMappingEmployeeEntityModel
+                                                             {
+                                                                 CustomerName = ocJoined.CustomerName,
+                                                                 OrderCode = ocuJoined.OrderCode,
+                                                                 RateContent = o.RateContent,
+                                                                 CreatedDate = o.CreatedDate
+                                                             }).ToListAsync();
+
+                return new TakeListEvaluateResult
+                {
+                    ListOrderProcessMappingEmployee = listOrderProcessMappingEmployee,
+                    StatusCode = HttpStatusCode.OK,
+                    Message = "Thành công"
+                };
+            }
+            catch (Exception e)
+            {
+                return new TakeListEvaluateResult
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    Message = e.Message
+                };
+            }
         }
     }
 

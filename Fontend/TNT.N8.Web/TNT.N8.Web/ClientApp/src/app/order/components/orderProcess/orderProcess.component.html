@@ -227,14 +227,9 @@
                             *ngIf="actionAdd && orderProcessId != null && (i == 0  || i != 0 && listProcessOfOder[i-1].status == 3) && attr.status != 3 && (attr.categoryCode != 'CREATE' && attr.categoryCode != 'CONFIRM' && attr.categoryCode != 'CFORDER' &&
                                                                                      attr.categoryCode != 'DONE' && attr.categoryCode != 'SUPPORT') && attr.isAction"
                             style="margin-left:10px;"></button>
-
                         </div>
-
                       </div>
-
                     </div>
-
-
                   </div>
 
                   <!-- Cột 2 -->
@@ -261,11 +256,8 @@
 
                   <!-- Cột 3 -->
                   <div class="col-md-5 mt-10" style="width:47.5%">
-
                     <div class="row mt-10" *ngFor="let attr of listProcessOfOder; let i = index">
-
                       <div *ngIf="i % 2 == false" style="padding:20px;height:140px; border-radius:10px;"></div>
-
                       <div *ngIf="i % 2 == true" class="w-100"
                         style="border:1.5px solid gray; padding:20px;height:140px; border-radius:10px;">
                         <div class="col-md-8 mt-10">
@@ -320,43 +312,50 @@
                                                                                      attr.categoryCode != 'DONE' && attr.categoryCode != 'SUPPORT') && attr.isAction"
                             style="margin-left:10px;"></button>
 
-
                         </div>
-
                       </div>
                     </div>
-
-
-
                   </div>
-
                 </div>
-
               </p-accordionTab>
             </p-accordion>
           </div>
-
 
           <div class="row no-margin w-100" *ngIf="orderProcessId">
             <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
               class="w-100">
               <p-accordionTab header="Đánh giá" [selected]="true">
-                
                 <div class="col-md-12">
                   Điểm đánh giá: <span style="margin-left: 7px;"> {{ rateStar == 0 ? "" : rateStar + "/5" }} </span>
-
                 </div>
-
                 <div class="col-md-12 mt-10">
                   <p-editor [(ngModel)]="rateContent" [style]="{'height':'180px', 'width': '100%'}"  readonly="true">
                   </p-editor>
                 </div>
-
               </p-accordionTab>
             </p-accordion>
+
+            <!-- Đánh giá -->
+            <div class="evaluate" *ngIf="listOrderProcessMappingEmployee.length > 0">
+              <div class="row no-margin">
+                <div class="col-md-12">
+                  <div *ngFor="let item of listOrderProcessMappingEmployee" class="col-md-12 p-5">
+                    <div class="employee">
+                      Khách hàng: <strong>{{item?.customerName}}</strong> - Phiếu: <strong>{{item?.orderCode}}</strong>
+                    </div>
+                    <div class="rate-content">
+                      {{item?.rateContent}} test
+                    </div>
+                    <div class="time pt-2">
+                      {{item?.createdDate | date: 'hh:mm:ss - dd/MM/yyyy'}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-<!-- 
+          <!-- 
           <div class="row no-margin w-100" *ngIf="orderProcessId">
             <app-note-time-line [viewNote]="viewNote" [viewTimeline]="viewTimeline" objectType="ORDERPROCESS"  [ngStyle]="{'width': '100%'}"
               [isReportPoint]="false" [objectId]="orderProcessId" [actionAdd]="actionAdd" [actionEdit]="actionEdit"

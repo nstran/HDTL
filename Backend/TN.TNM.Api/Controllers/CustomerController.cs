@@ -6,7 +6,9 @@ using TN.TNM.BusinessLogic.Messages.Requests.Customer;
 using TN.TNM.BusinessLogic.Messages.Responses.Customer;
 using TN.TNM.DataAccess.Interfaces;
 using TN.TNM.DataAccess.Messages.Parameters.Customer;
+using TN.TNM.DataAccess.Messages.Parameters.Employee;
 using TN.TNM.DataAccess.Messages.Results.Customer;
+using TN.TNM.DataAccess.Messages.Results.Employee;
 
 namespace TN.TNM.Api.Controllers
 {
@@ -688,6 +690,14 @@ namespace TN.TNM.Api.Controllers
         public Task<GetChiTietTinhHuongResult> GetChiTietTinhHuong([FromBody] GetChiTietTinhHuongParameter request)
         {
             return this._iCustomerDataAccess.GetChiTietTinhHuong(request);
+        }
+
+        [HttpPost]
+        [Route("api/customer/takeListEvaluateForObjectId")]
+        [Authorize(Policy = "Member")]
+        public async Task<TakeListEvaluateResult> TakeListEvaluateForObjectId([FromBody] TakeListEvaluateParameter request)
+        {
+            return await this._iCustomerDataAccess.TakeListEvaluateForObjectId(request);
         }
     }
 }

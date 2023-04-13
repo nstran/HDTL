@@ -1891,6 +1891,14 @@ namespace TN.TNM.Api.Controllers
         {
             return this._iEmployeeDataAccess.DeleteEmployee(request);
         }
+
+        [HttpPost]
+        [Route("api/employee/takeListEvaluateForObjectId")]
+        [Authorize(Policy = "Member")]
+        public async Task<TakeListEvaluateResult> TakeListEvaluateForObjectId([FromBody] TakeListEvaluateParameter request)
+        {
+            return await this._iEmployeeDataAccess.TakeListEvaluateForObjectId(request);
+        }
     }
 }
 

@@ -1,27 +1,15 @@
-import { Component, OnInit, ChangeDetectorRef, Renderer2 ,Injector} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Injector} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { CustomerOrderTaskEntityModel, } from '../../models/customer-order.model';
 import { CustomerService } from '../../../customer/services/customer.service';
 import { CustomerOrderService } from '../../services/customer-order.service';
-import { BankService } from '../../../shared/services/bank.service';
-import { ContactService } from '../../../shared/services/contact.service';
-import { QuoteService } from '../../../customer/services/quote.service';
 import { GetPermission } from '../../../shared/permission/get-permission';
-import { EmailConfigService } from '../../../admin/services/email-config.service';
-import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmationService } from 'primeng/api';
-import { TranslateService } from '@ngx-translate/core';
 import { OrderProcessDetailEntityModel, OrderProcessEntityModel, PermissionConfigurationEntityModel, ProductCategoryEntityModel, ServicePacketEntityModel } from '../../../../../src/app/product/models/product.model';
 import { NotificationFireBase } from '../../../shared/models/fire-base.model';
 import { DatePipe } from '@angular/common';
 import { AbstractBase } from '../../../shared/abstract-base.component';
-
-class ResultDialog {
-  status: boolean;
-  rowData: CustomerOrderTaskEntityModel;
-}
-
+import { tap } from 'rxjs/operators';
+import { OrderProcessMappingEmployeeEntityModel } from '../../models/customer-order.model';
 @Component({
   selector: 'app-orderProcess',
   templateUrl: './orderProcess.component.html',
@@ -36,16 +24,10 @@ export class OrderProcessComponent extends AbstractBase implements OnInit {
   actionAdd: boolean = true;
   emptyGuid: string = '00000000-0000-0000-0000-000000000000';
   awaitResult: boolean = false;
-
   toDay: Date = new Date();
-
   editing: boolean = false;
-
-
   title: string = "Tạo đơn đặt dịch vụ";
-
   orderProcessId: string = null;
-
   //form
   processForm: FormGroup;
   processCodeForm: FormControl;
@@ -85,29 +67,21 @@ export class OrderProcessComponent extends AbstractBase implements OnInit {
 
   //Quy trình của gói gắn với phiếu kèm theo status
   listProcessOfOder: Array<OrderProcessDetailEntityModel> = [];
-
-
   orderProces: OrderProcessEntityModel;
-
   processStatus: number = 1;//Mới
-
   listOrderExten: any = [];
   showOrderExten: boolean = false;
   colOrderExten: any;
+  listOrderProcessMappingEmployee : OrderProcessMappingEmployeeEntityModel[] = [];
+
   constructor(
-    private translate: TranslateService,
     private injector: Injector,
     private router: Router,
     private getPermission: GetPermission,
     private route: ActivatedRoute,
     private customerService: CustomerService,
-    private bankService: BankService,
     private customerOrderService: CustomerOrderService,
-    private quoteService: QuoteService,
-    private contactService: ContactService,
     public cdRef: ChangeDetectorRef,
-    private emailConfigService: EmailConfigService,
-    private renderer: Renderer2,
     public datepipe: DatePipe,
   ) { 
     super(injector)
@@ -131,6 +105,7 @@ export class OrderProcessComponent extends AbstractBase implements OnInit {
 
     this.route.params.subscribe(params => {
       this.orderProcessId = params['OrderProcessId']; 
+      this.takeListEvaluateForObjectId();
     });
 
     this.getMasterData();
@@ -166,8 +141,6 @@ export class OrderProcessComponent extends AbstractBase implements OnInit {
       customerAddressControl: this.customerAddressControl
     });
   }
-
-
 
   getMasterData() {
     this.loading = true;
@@ -378,6 +351,17 @@ export class OrderProcessComponent extends AbstractBase implements OnInit {
   viewListOrderExten(attr) {
     this.listOrderExten = attr.listExtenOrder;
     this.showOrderExten = true;
+  }
+
+  takeListEvaluateForObjectId(): void {
+    if(this.orderProcessId){
+      this.loading = true;
+      this.customerOrderService.takeListEvaluateForObjectId(this.orderProcessId)
+      .pipe(tap(() => this.loading = false))
+      .subscribe(result => {
+        this.listOrderProcessMappingEmployee = result.listOrderProcessMappingEmployee;
+      })
+    }
   }
 
 }

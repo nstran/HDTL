@@ -1,19 +1,18 @@
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
-import { MessageService, ConfirmationService } from 'primeng/api';
-import { Time, DatePipe } from '@angular/common';
+import { MessageService } from 'primeng/api';
+import { DatePipe } from '@angular/common';
 import { DomSanitizer } from '@angular/platform-browser';
 import { DialogService } from 'primeng/dynamicdialog';
-
 import { EmployeeService } from './../../../../services/employee.service';
 import { HandleFileService } from './../../../../../shared/services/handleFile.service';
 import { FormatDateService } from './../../../../../shared/services/formatDate.services';
 import { DataService } from './../../../../../shared/services/data.service';
-import { CommonService } from '../../../../../shared/services/common.service';
-
 import { ChonNhieuDvDialogComponent } from './../../../../../shared/components/chon-nhieu-dv-dialog/chon-nhieu-dv-dialog.component';
 import { CategoryEntityModel } from '../../../../../../../src/app/product/models/product.model';
 import { GetListBenefitType } from '../../../../models/employee-type.model';
+import { tap } from 'rxjs/operators';
+import { OrderProcessMappingEmployeeEntityModel } from '../../../../models/employee.model';
 
 class ThongTinChung {
   employeeId: string;
@@ -106,7 +105,9 @@ export class ThongTinChungComponent implements OnInit {
     Benefit: 1,
     PercenBenefit: null
   };
-
+  employeeIdCurrent : string = "";
+  listOrderProcessMappingEmployee : OrderProcessMappingEmployeeEntityModel[] = [];
+  
   constructor(
     public messageService: MessageService,
     public employeeService: EmployeeService,
@@ -116,8 +117,7 @@ export class ThongTinChungComponent implements OnInit {
     private handleFileService: HandleFileService,
     private domSanitizer: DomSanitizer,
     private formatDateService: FormatDateService,
-    private dataService: DataService,
-    private commonService: CommonService,
+    private dataService: DataService
   ) { }
 
   ngOnInit(): void {
@@ -170,6 +170,10 @@ export class ThongTinChungComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     if (this.listLoaiHopDong?.length > 0) {
       this.getThongTinChungThanhVien();
+    }
+    if(this.employeeId != this.employeeIdCurrent){
+      this.employeeIdCurrent = this.employeeId;
+      this.takeListEvaluateForObjectId(this.employeeIdCurrent);
     }
   }
 
@@ -472,6 +476,17 @@ export class ThongTinChungComponent implements OnInit {
   getPhonePattern() {
     let phonePatternObj = this.systemParameterList.find(systemParameter => systemParameter.systemKey == "DefaultPhoneType");
     return phonePatternObj.systemValueString;
+  }
+
+  takeListEvaluateForObjectId(employeeId: string): void {
+    if(employeeId){
+      this.loading = true;
+      this.employeeService.takeListEvaluateForObjectId(employeeId)
+      .pipe(tap(() => this.loading = false))
+      .subscribe(result => {
+        this.listOrderProcessMappingEmployee = result.listOrderProcessMappingEmployee;
+      })
+    }
   }
 }
 

@@ -254,5 +254,6 @@ namespace TN.TNM.DataAccess.Interfaces
         TakeListEmployeeByUserNameResult TakeListEmployeeByUserName(TakeListEmployeeByUserNameParameter parameter);
         TakeListOrganizationToFilterEmployeeResult TakeListOrganizationToFilterEmployee(TakeListOrganizationToFilterEmployeeParameter parameter);
         DeleteEmployeeResult DeleteEmployee(DeleteEmployeeParameter parameter);
+        Task<TakeListEvaluateResult> TakeListEvaluateForObjectId(TakeListEvaluateParameter parameter);
     }
 }

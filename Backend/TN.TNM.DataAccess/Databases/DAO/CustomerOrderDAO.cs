@@ -46,6 +46,7 @@ using TN.TNM.DataAccess.Messages.Results;
 using TN.TNM.DataAccess.Models.Entities;
 using static iTextSharp.text.pdf.AcroFields;
 using System.Net.WebSockets;
+using TN.TNM.DataAccess.Models.OrderProcessMappingEmployee;
 
 namespace TN.TNM.DataAccess.Databases.DAO
 {
@@ -12342,12 +12343,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     if (orderProcessMappingEmployeeByEmpId != null && orderProcessMappingEmployeeByEmpId.Id != Guid.Empty)
                     {
                         orderProcessMappingEmployeeByEmpId.RateContent = item.RateContent;
+                        orderProcessMappingEmployeeByEmpId.CreatedDate = DateTime.Now;
                         context.OrderProcessMappingEmployee.Update(orderProcessMappingEmployeeByEmpId);
                     }
                     else
                     {
                         var orderProcessMappingEmployee = new OrderProcessMappingEmployee();
                         orderProcessMappingEmployee.Id = Guid.NewGuid();
+                        orderProcessMappingEmployeeByEmpId.CreatedDate = DateTime.Now;
                         orderProcessMappingEmployee.EmployeeId = item.EmployeeId;
                         orderProcessMappingEmployee.CustomerId = listCustomer.FirstOrDefault(x => x == item.EmployeeId);
                         orderProcessMappingEmployee.OrderProcessId = item.OrderProcessId;
@@ -12578,6 +12581,46 @@ namespace TN.TNM.DataAccess.Databases.DAO
             }
 
             
+        }
+
+        public async Task<Messages.Results.Employee.TakeListEvaluateResult> TakeListEvaluateForObjectId(Messages.Parameters.Employee.TakeListEvaluateParameter parameter)
+        {
+            try
+            {
+                var listOrderProcessMappingEmployee = await (from o in context.OrderProcessMappingEmployee
+                                                             join e in context.Employee on o.EmployeeId equals e.EmployeeId
+                                                             into oe
+                                                             from oeJoined in oe.DefaultIfEmpty()
+                                                             join c in context.Customer on o.CustomerId equals c.CustomerId
+                                                             into oc
+                                                             from ocJoined in oc.DefaultIfEmpty()
+                                                             join cu in context.CustomerOrder on o.OrderProcessId equals cu.OrderId
+                                                             into ocu
+                                                             from ocuJoined in ocu.DefaultIfEmpty()
+                                                             where o.OrderProcessId == parameter.OrderId
+                                                             select new OrderProcessMappingEmployeeEntityModel
+                                                             {
+                                                                 CustomerName = ocJoined.CustomerName,
+                                                                 OrderCode = ocuJoined.OrderCode,
+                                                                 RateContent = o.RateContent,
+                                                                 CreatedDate = o.CreatedDate
+                                                             }).ToListAsync();
+
+                return new Messages.Results.Employee.TakeListEvaluateResult
+                {
+                    ListOrderProcessMappingEmployee = listOrderProcessMappingEmployee,
+                    StatusCode = HttpStatusCode.OK,
+                    Message = "Thành công"
+                };
+            }
+            catch (Exception e)
+            {
+                return new Messages.Results.Employee.TakeListEvaluateResult
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    Message = e.Message
+                };
+            }
         }
     }
 

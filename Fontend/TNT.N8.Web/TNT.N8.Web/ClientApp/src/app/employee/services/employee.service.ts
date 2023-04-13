@@ -1,7 +1,7 @@
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DeleteEmployeeResult, EmployeeModel } from "../models/employee.model";
+import { HttpClient } from '@angular/common/http';
+import { DeleteEmployeeResult, EmployeeModel, TakeListEvaluateResult } from "../models/employee.model";
 import { CreateEmployeeModel } from "../models/employee.model";
 import { ContactModel } from "../../shared/models/contact.model";
 import { UserModel } from '../../shared/models/user.model';
@@ -3081,6 +3081,17 @@ export class EmployeeService {
       ListEmployeeId: listEmployeeId
     }).pipe(
       map((response: DeleteEmployeeResult) => {
+        return response;
+      })
+    );
+  }
+
+  takeListEvaluateForObjectId(employeeId: string): Observable<TakeListEvaluateResult> {
+    const url = localStorage.getItem('ApiEndPoint') + '/api/employee/takeListEvaluateForObjectId';
+    return this.httpClient.post(url, {
+      EmployeeId: employeeId
+    }).pipe(
+      map((response: TakeListEvaluateResult) => {
         return response;
       })
     );

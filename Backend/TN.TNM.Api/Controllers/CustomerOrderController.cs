@@ -576,7 +576,6 @@ namespace TN.TNM.Api.Controllers
             return this._iCustomerOrderDataAccess.CheckTaskWithReportPointExtend(request);
         }
 
-
         [HttpPost]
         [Route("api/order/DeleteCustomerOrder")]
         [Authorize(Policy = "Member")]
@@ -585,5 +584,12 @@ namespace TN.TNM.Api.Controllers
             return this._iCustomerOrderDataAccess.DeleteCustomerOrder(request);
         }
 
+        [HttpPost]
+        [Route("api/order/takeListEvaluateForObjectId")]
+        [Authorize(Policy = "Member")]
+        public async Task<DataAccess.Messages.Results.Employee.TakeListEvaluateResult> TakeListEvaluateForObjectId([FromBody] DataAccess.Messages.Parameters.Employee.TakeListEvaluateParameter parameter)
+        {
+            return await this._iCustomerOrderDataAccess.TakeListEvaluateForObjectId(parameter);
+        }
     }
 }

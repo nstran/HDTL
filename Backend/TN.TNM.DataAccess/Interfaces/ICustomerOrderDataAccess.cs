@@ -78,7 +78,6 @@ namespace TN.TNM.DataAccess.Interfaces
         UpdateCustomerOrderDetailExtendResult UpdateCustomerOrderDetailExtend(UpdateCustomerOrderDetailExtendParameter parameter);
         CheckTaskWithReportPointExtendResult CheckTaskWithReportPointExtend(CheckTaskWithReportPointExtendParameter parameter);
         DeleteOrderResult DeleteCustomerOrder(DeleteOrderParameter parameter);
-
-        
+        Task<Messages.Results.Employee.TakeListEvaluateResult> TakeListEvaluateForObjectId(Messages.Parameters.Employee.TakeListEvaluateParameter parameter);
     }
 }

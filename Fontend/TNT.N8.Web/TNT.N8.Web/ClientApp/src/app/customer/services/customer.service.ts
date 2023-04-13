@@ -2,10 +2,11 @@
 import { map } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CustomerModel } from "../models/customer.model";
+import { CustomerModel, TakeListEvaluateResult } from "../models/customer.model";
 import { ContactModel } from "../../shared/models/contact.model";
 import { CreateEmployeeModel } from '../../employee/models/employee.model';
 import { UserModel } from '../../shared/models/user.model';
+import { Observable } from 'rxjs';
 
 interface CustomerCareFeedBack {
   customerCareFeedBackId: string,
@@ -767,6 +768,18 @@ export class CustomerService {
           resolve(response);
         });
     });
+  }
+
+  
+  takeListEvaluateForObjectId(customerId: string): Observable<TakeListEvaluateResult> {
+    const url = localStorage.getItem('ApiEndPoint') + '/api/employee/takeListEvaluateForObjectId';
+    return this.httpClient.post(url, {
+      CustomerId: customerId
+    }).pipe(
+      map((response: TakeListEvaluateResult) => {
+        return response;
+      })
+    );
   }
 
 }

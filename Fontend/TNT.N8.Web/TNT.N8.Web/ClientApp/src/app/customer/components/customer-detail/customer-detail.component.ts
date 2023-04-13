@@ -6,7 +6,7 @@ import * as $ from 'jquery';
 import { TranslateService } from '@ngx-translate/core';
 import { CustomerService } from "../../services/customer.service";
 import { ImageUploadService } from '../../../shared/services/imageupload.service';
-import { CustomerModel } from "../../models/customer.model";
+import { CustomerModel, OrderProcessMappingEmployeeEntityModel } from "../../models/customer.model";
 import { ContactModel } from "../../../shared/models/contact.model";
 import { NoteModel } from '../../../shared/models/note.model';
 import { NoteService } from '../../../shared/services/note.service';
@@ -21,6 +21,7 @@ import { GoogleService } from '../../../shared/services/google.service';
 import { WarningComponent } from '../../../shared/toast/warning/warning.component';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { CategoryModel } from '../../models/customer-care.model';
+import { tap } from 'rxjs/operators';
 
 interface Category {
   categoryId: string;
@@ -205,6 +206,7 @@ export class CustomerDetailComponent implements OnInit {
   listStaffChargeName: string
   // listEmployeeEntityModel: any[] = [];
   // listCategoryByCustomerGroup: CategoryModel[] = [];
+  listOrderProcessMappingEmployee : OrderProcessMappingEmployeeEntityModel[] = [];
 
   constructor(
     private translate: TranslateService,
@@ -1059,6 +1061,16 @@ export class CustomerDetailComponent implements OnInit {
     this.customerGroupId = event.categoryId;
   }
 
+  takeListEvaluateForObjectId(customerId: string): void {
+    if(customerId){
+      this.loading = true;
+      this.customerService.takeListEvaluateForObjectId(customerId)
+      .pipe(tap(() => this.loading = false))
+      .subscribe(result => {
+        this.listOrderProcessMappingEmployee = result.listOrderProcessMappingEmployee;
+      })
+    }
+  }
 }
 
 function checkDuplicateCode(array: Array<any>): ValidatorFn {
