@@ -970,19 +970,19 @@ export class CreateComponent extends AbstractBase implements OnInit {
       if (resultUpdate.statusCode == 200) {
         let msg = { severity: 'success', summary: 'Thông báo:', detail: resultUpdate.messageCode };
         this.showMessage(msg);
-        if (resultUpdate.listEmpId.length > 0){
-          resultUpdate.listEmpId.forEach(e => {
-            let notification: NotificationFireBase = {
-              content: "Phiếu " + this.customerOrder.orderCode + ": " + resultUpdate.messageCode,
-              status: false,
-              url: '/order/create;OrderId=' + this.orderId,
-              orderId: this.orderId,
-              date: this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss'),
-              employeeId: e
-            }
-            this.createNotificationFireBase(notification, e);
-          });
-        } 
+        // if (resultUpdate.listEmpId.length > 0){
+        //   resultUpdate.listEmpId.forEach(e => {
+        //     // let notification: NotificationFireBase = {
+        //     //   content: "Phiếu " + this.customerOrder.orderCode + ": " + resultUpdate.messageCode,
+        //     //   status: false,
+        //     //   url: '/order/create;OrderId=' + this.orderId,
+        //     //   orderId: this.orderId,
+        //     //   date: this.datepipe.transform(new Date(), 'dd/MM/yyyy HH:mm:ss'),
+        //     //   employeeId: e
+        //     // }
+        //     // this.createNotificationFireBase(notification, e);
+        //   });
+        // } 
 
         if (statusOrder == 2) {
           this.guiXacNhan();

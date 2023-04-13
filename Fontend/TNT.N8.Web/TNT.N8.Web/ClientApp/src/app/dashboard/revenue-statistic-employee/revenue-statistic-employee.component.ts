@@ -1,13 +1,14 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
 import { DashBoardService } from '../dashboard.service';
 import Highcharts from 'highcharts';
+import { AbstractBase } from '../../shared/abstract-base.component';
 
 @Component({
   selector: 'app-revenue-statistic-employee',
   templateUrl: './revenue-statistic-employee.component.html',
   styleUrls: ['./revenue-statistic-employee.component.css']
 })
-export class RevenueStatisticEmployeeComponent implements OnInit {
+export class RevenueStatisticEmployeeComponent extends AbstractBase implements OnInit {
   @ViewChild("container", { read: ElementRef, static: true }) container: ElementRef;
   loading: boolean = false;
   startDate: Date = new Date(new Date().setDate(new Date().getDate() - 7));
@@ -24,8 +25,11 @@ export class RevenueStatisticEmployeeComponent implements OnInit {
   chart: Highcharts.ChartObject;
 
   constructor(
+    injector: Injector,
     private _dashBoardService : DashBoardService
-  ) { }
+  ) {
+    super(injector)
+   }
 
   ngOnInit(): void {
     this.takeRevenueStatisticEmployeeDashboard();

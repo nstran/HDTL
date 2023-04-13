@@ -47,6 +47,9 @@ using TN.TNM.DataAccess.Models.Entities;
 using static iTextSharp.text.pdf.AcroFields;
 using System.Net.WebSockets;
 using TN.TNM.DataAccess.Models.OrderProcessMappingEmployee;
+using Firebase.Database;
+using Firebase.Database.Query;
+using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 
 namespace TN.TNM.DataAccess.Databases.DAO
 {
@@ -54,6 +57,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
     {
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IMapper _mapper;
+        public static FirebaseClient _firebaseClient = new FirebaseClient("https://hello-world-34e33.firebaseio.com");
 
         public CustomerOrderDAO(Databases.TNTN8Context _content, IAuditTraceDataAccess _iAuditTrace, IHostingEnvironment hostingEnvironment, IMapper mapper)
         {
@@ -281,7 +285,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
             //LogHelper.AuditTrace(context, ActionName.Create, ObjectName.CUSTOMERORDER, parameter.CustomerOrder.OrderId, parameter.UserId);
 
             #endregion
-            
+
+
             return new CreateCustomerOrderResult
             {
                 StatusCode = HttpStatusCode.OK,
@@ -289,6 +294,30 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 CustomerOrderID = customerOrder.OrderId,
                 CustomerOrderCode = customerOrder.OrderCode,
             };
+        }
+
+        private void PushNotificationFireBase(string orderCode, Guid orderId, string url, string message, List<Guid> listEmployeeId)
+        {
+            try
+            {
+                foreach (var employeeId in listEmployeeId)
+                {
+                    var notification = new
+                    {
+                        content = "Phiếu " + orderCode + ": " + message,
+                        status = false,
+                        url = url + orderId,
+                        orderId = orderId,
+                        date = DateTime.Now.ToString("dd/MM/yyy HH:mm:ss"),
+                        employeeId = employeeId
+                    };
+                    _firebaseClient.Child("notification").Child($"{employeeId}").PostAsync(notification);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private void genCustomerOrder(out List<CustomerOrderExtension> listAttrDetail, out List<CustomerOrderDetail> listOrderDetail,
@@ -10410,7 +10439,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 context.CustomerOrder.Update(customerOrder);
                 context.SaveChanges();
 
-
+                PushNotificationFireBase(customerOrder.OrderCode, customerOrder.OrderId, "/order/create;OrderId=", messagae, listEmp.Distinct().ToList());
                 return new ChangeStatusCustomerOrderResult()
                 {
                     StatusCode = HttpStatusCode.OK,
@@ -10427,7 +10456,6 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 };
             }
         }
-
 
         private string GetPathOption(string pathName, Guid parentOptionId, List<ServicePacketMappingOptions> listTreeOptionOfPack)
         {

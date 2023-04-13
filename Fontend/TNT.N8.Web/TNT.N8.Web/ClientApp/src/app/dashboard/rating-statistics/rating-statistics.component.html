@@ -19,7 +19,7 @@
             </div>
             <div class="row row-responsive">
                 <div class="col-md-4">
-                    <label>Top :</label>
+                    <label class="pt-2">Top :</label>
                     <p-dropdown 
                         [options]="listCount"
                         [(ngModel)]="countSelected"
@@ -33,25 +33,27 @@
                     </p-dropdown>
                 </div>
                 <div class="col-md-4">
-                    <label>Từ :</label>
+                    <label class="pt-2">Từ :</label>
                     <p-calendar
                         styleClass="d-block"
                         inputStyleClass="w100"
                         [(ngModel)]="startDate"
                         showButtonBar="true"
+                        [locale]="localeVi"
                         (onClose)="onChangeFromDate($event)"
                         dateFormat="dd/mm/yy"
                     >
                     </p-calendar>
                 </div>
                 <div class="col-md-4">
-                    <label>Đến :</label>
+                    <label class="pt-2">Đến :</label>
                     <p-calendar
                         styleClass="d-block"
                         inputStyleClass="w100"
                         [(ngModel)]="endDate"
                         showButtonBar="true"
                         dateFormat="dd/mm/yy"
+                        [locale]="localeVi"
                         (onClose)="onChangeToDate($event)"
                     ></p-calendar>
                 </div>
