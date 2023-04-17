@@ -104,7 +104,7 @@
     <div *ngIf="listAsset.length > 0" class="col-md-{{leftColNumber}} no-padding">
       <div class="col-md-{{leftColGridNumber}}">
         <p-table #myTable [columns]="selectedColumns" [value]="listAsset" [resizableColumns]="true"
-          columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true"
+          columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true"
           [scrollable]="true">
           <ng-template pTemplate="caption">
             <div style="text-align:left">

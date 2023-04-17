@@ -50,18 +50,18 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
     })
     const [data_Parent, setData_Parent] = useState()
     const [listData, setListData] = useState([])
-    const [listAttrPacket, setListAttrPacket] = useState([])
+    const [listAttrPacket, setListAttrPacket] = useState([]) // các thuộc tính chung của gói
     const [listOptionAttr, setListOptionAttr] = useState([])
     const [listData_Fist, setListData_First] = useState([])
     const { params }: any = useRoute();
-    const [data_select, setData_Select] = useState({})
+    const [data_select, setData_Select] = useState({}) // gói được chọn khi mở modal điền thông tin thuộc tính tùy chọn
     const [properties_option, setProperties_option] = useState([])
     const [formData,setFormData] = useState({})
     const [listDataClass, setListDataClass] = useState([])  // các lớp lồng nhau
     const [ListCustomerDetail, setListCustomerDetail] = useState([]) // list các dịch vụ
     const [ListAttrPackAndOption, setListAttrPackAndOption] = useState([])  // list các thuộc tính dịch vụ
     const [data_yc_bosung, setDataYcBoSung] = useState([])   // list danh sách yêu cầu bổ sung
-    const [listDataOption_properties, setListDataOption_properties] = useState({})  
+    const [listDataOption_properties, setListDataOption_properties] = useState({})   // Lưu thông tin của các tùy chọn theo gói để hiển thị, id_class_0 => id tùy chọn => data các thuộc tính
     const [ID_class_first, setID_class_first] = useState('')  // Id của lớp đầu tiên
     const [dataDate,setDataDate] = useState({})
     const [dataConfigPayment,setDataConfigPayment] = useState([])
@@ -69,6 +69,7 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
     const [countYc, setCountYc] = useState('1') // số lượng của phiêu dịch vụ con
     const [image_payment, setImage_payment] = useState('')
     const [image_success, setImage_Sucess] = useState('')
+
 
     const scrollViewRef = useRef(null);
 
@@ -82,47 +83,56 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
         console.log("params: ", params);
         
         if(params) setData_Parent(params?.data)
-        
-        let user_id = await HDLTModel.getUserInfoByKey('userId')
-        let response = await _unitOfWork.user.searchOptionOfPacketService(
-            {   PacketServiceId: params?.data?.id,
-                "UserId": user_id
-            }
-        )
-        
-        let response_payment = await _unitOfWork.user.takeMobileAppConfiguration({})      
-        if(response_payment?.statusCode == 200) {
-            setDataConfigPayment(response_payment?.listPayMent)
-            setImage_payment(response_payment?.mobileAppConfigurationEntityModel?.paymentScreenIconTransfer)
-            setImage_Sucess(response_payment?.mobileAppConfigurationEntityModel?.orderNotificationImage)
-        }
 
-        
-        if(response?.statusCode == 200){
-            let _listData = [...response?.listOption]
-            setListData(_listData)
-            setListAttrPacket(response?.listAttrPacket)
-            setListOptionAttr(response?.listOptionAttr)
+        if(isFocus){
+            let user_id = await HDLTModel.getUserInfoByKey('userId')
+            let response = await _unitOfWork.user.searchOptionOfPacketService(
+                {   PacketServiceId: params?.data?.id,
+                    "UserId": user_id
+                }
+            )
+
+            console.log("response detail: ", response);
             
-            let new_arr1 = _listData.filter(item => item?.parentId == null)
-            new_arr1.sort((a,b) => {
-                return a?.sortOrder - b?.sortOrder
-            })
             
-            setListData_First(new_arr1)
+            let response_payment = await _unitOfWork.user.takeMobileAppConfiguration({})      
+            if(response_payment?.statusCode == 200) {
+                setDataConfigPayment(response_payment?.listPayMent)
+                setImage_payment(response_payment?.mobileAppConfigurationEntityModel?.paymentScreenIconTransfer)
+                setImage_Sucess(response_payment?.mobileAppConfigurationEntityModel?.orderNotificationImage)
+            }
+
+            
+            if(response?.statusCode == 200){
+                let _listData = [...response?.listOption]
+                setListData(_listData)
+                setListAttrPacket(response?.listAttrPacket)
+                setListOptionAttr(response?.listOptionAttr)
+                
+                let new_arr1 = _listData.filter(item => item?.parentId == null)
+                new_arr1.sort((a,b) => {
+                    return a?.sortOrder - b?.sortOrder
+                })
+                setListData_First(new_arr1)
+
+            }
         }
 
         setLoading(false)
     };
 
+    // 
     const handleChooseOption = async (item, id_parent) => {
         if(id_parent) setID_class_first(id_parent)
         else  setID_class_first(item?.id)
        
         setData_Select(item)
+
         let _listOptionAttr = [...listOptionAttr]
-        let new_arr = _listOptionAttr.filter(item_2 => item_2?.objectId == item?.optionId)
-        setProperties_option(new_arr);
+        let new_arr = _listOptionAttr.filter(item_2 => item_2?.objectId == item?.optionId || item_2.objectId == params?.data?.id) // lấy các thuộc tính theo gói
+        let all_thuoc_tinh_tuy_chon = [...new_arr]
+            
+        setProperties_option(all_thuoc_tinh_tuy_chon);
     
         if(listDataOption_properties[id_parent]){
             let data = listDataOption_properties[id_parent][item?.id]
@@ -182,7 +192,6 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                 break
             }
         }
-        
         return check
     }
 
@@ -270,6 +279,9 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                     _ListAttrPackAndOption.push(obj)
                 }
             }
+
+            console.log("_ListAttrPackAndOption: ", _ListAttrPackAndOption);
+            
             
             setListAttrPackAndOption(_ListAttrPackAndOption)
 
@@ -302,6 +314,9 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
             
             setListDataOption_properties(_listDataOption_properties)
 
+            console.log("_listDataOption_properties: ", _listDataOption_properties);
+            
+
             // tạo phiếu yêu cầu
             resetData()
             let new_arr1 = listData.filter(item => item?.parentId == null)
@@ -313,8 +328,6 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
             setCountYc('1')
             handleSetShowModal("modal_choose_dv", false)
         }
-
-          
     }
 
     const submitDatDv = async () => {
@@ -327,8 +340,30 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
         payload.UserId = userId
         payload.ServicePacketId = data_Parent?.id
         payload.ListCustomerDetail = [...ListCustomerDetail]
-        payload.ListAttrPackAndOption = [...ListAttrPackAndOption]
-    
+
+        // lấy dữ liệu AttrPackAndOption của thông tin chung
+        let _ListAttrPackAndOption_chung = []
+        listAttrPacket.map((i) => {
+            let obj = {
+                attributeConfigurationId: null,
+                objectId: null,
+                objectType: null,
+                value: null,
+                dataType: null
+            }
+
+            obj.attributeConfigurationId = i.id
+            obj.objectId = i.objectId
+            obj.objectType = 2
+            obj.dataType = i.dataType
+            obj.value = i.value
+            obj.servicePacketMappingOptionsId = null
+
+            _ListAttrPackAndOption_chung.push(obj)
+        })
+        // ListAttrPackAndOption của cả chung và riêng từng gói tùy chọn con
+        payload.ListAttrPackAndOption = [...ListAttrPackAndOption, ..._ListAttrPackAndOption_chung]
+
         let _ListOrderDetailExten = []
         payload.ListOrderDetailExten = []
         if(data_yc_bosung?.length > 0 && data_yc_bosung[0]?.name != ''){
@@ -387,6 +422,22 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
         setLoading(false)     
     }
 
+    // check điền thông tin chung đầy đủ chưa
+    const check_dien_thong_tin_chung =  () => {
+        let check  = true
+        if(listAttrPacket?.length > 0){
+            for(let i = 0; i < listAttrPacket?.length; i++){
+                if(!listAttrPacket[i].value){
+                    showToast('error', `Thông tin chung ${listAttrPacket[i].categoryName} không được để trống`)
+                    check = false
+                    break;
+                }
+            }
+           
+        }
+        return check
+    }
+
     const submitDatDv_Sau = async () => {
         let customerID = await HDLTModel.getUserInfoByKey('customerId')
         let userId = await HDLTModel.getUserInfoByKey('userId')
@@ -396,7 +447,28 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
         payload.UserId = userId
         payload.ServicePacketId = data_Parent?.id
         payload.ListCustomerDetail = [...ListCustomerDetail]
-        payload.ListAttrPackAndOption = [...ListAttrPackAndOption]
+
+        let _ListAttrPackAndOption_chung = []
+        listAttrPacket.map((i) => {
+            let obj = {
+                attributeConfigurationId: null,
+                objectId: null,
+                objectType: null,
+                value: null,
+                dataType: null
+            }
+
+            obj.attributeConfigurationId = i.id
+            obj.objectId = i.objectId
+            obj.objectType = 2
+            obj.dataType = i.dataType
+            obj.value = i.value
+            obj.servicePacketMappingOptionsId = null
+
+            _ListAttrPackAndOption_chung.push(obj)
+        })
+        // ListAttrPackAndOption của cả chung và riêng từng gói tùy chọn con
+        payload.ListAttrPackAndOption = [...ListAttrPackAndOption, ..._ListAttrPackAndOption_chung]
     
         let _ListOrderDetailExten = []
         payload.ListOrderDetailExten = []
@@ -649,6 +721,9 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                                                     </View>
                                                 )
                                             })}
+                                            <View>
+                                                <Text style={{marginBottom: 5}}>Số lượng: {showCountYcDichVuChild(item_3?.id)}</Text>
+                                            </View>
                                         </View>
                                         : null }                
                                     </View>
@@ -679,9 +754,11 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                                     style={[styles.box2]} 
                                     onPress={() => {
                                         if(item?.price) {
+                                            // nếu có giá thì mở modal điền thông tin dịch vụ
                                             handleChooseOption(item , listDataClass[0]?.id)
                                         } 
                                         else {
+                                            // Thay đổi class đầu tiên hiển thị thành item
                                             handleChooseClassOption(item)
                                         }}
                                     }
@@ -740,6 +817,77 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
        
                 </View>
                 : null }
+
+                {listDataClass?.length == 0 && listAttrPacket?.length > 0 && 
+                    <View style={{marginBottom: 50}}>
+                        <View style={[styles.box,{justifyContent: 'space-between', alignItems: 'center', paddingVertical: 16}]}>
+                            <View style={[{flexDirection: 'row'}]}>
+                                <Image source={images.icon_dv_bosung} style={{width: 22, height: 22}} />
+                                <Text style={[styles.text_header_2, {marginLeft: 16}]}>Thông tin chung</Text>
+                            </View>
+                        </View>
+                        {listAttrPacket?.map((item, index) => {
+                            return(
+                                <View style={{paddingHorizontal: 16}}>
+                                    <Text style={[styles.text_black,{marginVertical: 16}]}>{item?.categoryName} <Text style={{color: color.error}}>*</Text></Text>
+                                    {item?.dataType != 3 ?
+                                        <TextInput
+                                            style={[styles.input]}
+                                            value={item.value ? item.value : ''}
+                                            onChangeText={(value) => {
+                                                let _listAttrPacket = [...listAttrPacket]
+                                                _listAttrPacket[index].value = value
+                                                setListAttrPacket(_listAttrPacket)
+                                            }}
+                                            onFocus={() => {
+                                                handleSetShowModal('open_keyboard', true)
+                                                // scrollViewRef.current.scrollToEnd({animated: true})
+                                                }
+                                            }
+                                            onEndEditing={() => handleSetShowModal('open_keyboard', false)}
+                                        />
+                                    :
+                                        <View style={{width: '100%'}}>
+                                            <TouchableOpacity style={styles.inputDate} onPress={() => {ShowDateFormData(item, true)}}>
+                                                <Text>{formatDate(item?.value)}</Text>
+                                                <Ionicons name={'calendar-outline'} color="black" size={24}/>
+                                            </TouchableOpacity>
+                                            {dataDate?.[item?.id] ? 
+                                                <DatePicker
+                                                    // minimumDate={lastUpload}
+                                                    // maximumDate={new Date()}
+                                                    textColor={Platform?.OS == 'ios' ? color.black : color.black}
+                                                    mode="date"
+                                                    modal
+                                                    open={dataDate?.[item?.id]}
+                                                    date={item.value ? item.value : new Date()}
+                                                    onConfirm={(date) => {
+                                                        // lưu ngày
+                                                        let _listAttrPacket = [...listAttrPacket]
+                                                        _listAttrPacket[index].value = date
+                                                        setListAttrPacket(_listAttrPacket)
+                                                        // đóng ngày
+                                                        ShowDateFormData(item, false)      
+                                                    }}
+                                                    onCancel={() => {
+                                                        ShowDateFormData(item, false)
+                                                    }}
+                                                    locale='vi'
+                                                    confirmText='Xác nhận'
+                                                    cancelText='Hủy'
+                                                    title={null}
+
+                                                />
+                                            :  null }
+                                        </View>
+                                    }
+                                </View>
+                            )
+                        })}
+                    </View>
+                }
+
+
                 <View style={{height: showModal?.open_keyboard ? 0 : 150}}></View>
             </View>
         );
@@ -779,7 +927,7 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                         {topComponent()}
                     </ScrollView>
                     {listDataClass?.length == 0 && !showModal?.open_keyboard  ?
-                        <View style={{paddingHorizontal: 15,paddingVertical: 12,width: layout.width, position: 'absolute', bottom: 16, height: 120, backgroundColor: color.white}}>
+                        <View style={{paddingHorizontal: 15,paddingVertical: 12,width: layout.width, position: 'absolute', bottom: 0, height: 120, backgroundColor: color.lighterGrey}}>
                             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                                 <Text style={[styles.text_header_2]}>Lựa chọn - <Text style={{fontWeight: '400'}}>{Calculate_Count_Service_Select()} dịch vụ</Text></Text>
                                 <Text style={[styles.text_header_2]}>{formatNumber(Calculate_Total_Price())} đ</Text>
@@ -790,6 +938,9 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                                     onPress={async () => {
                                         let user_id = await HDLTModel.getUserInfoByKey('userId')
                                         if(user_id){
+                                            let check = check_dien_thong_tin_chung()
+                                            
+                                            if(!check) return
                                             if(ListCustomerDetail?.length > 0){
                                                 submitDatDv_Sau()
                                             }else{
@@ -821,6 +972,9 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                                         console.log("userID: ", user_id);
                                         
                                         if(user_id){
+                                            let check = check_dien_thong_tin_chung()
+                                            
+                                            if(!check) return
                                             if(ListCustomerDetail?.length > 0){
                                                 if(data_yc_bosung?.length > 0 && data_yc_bosung[0]?.name){
                                                     submitDatDv()
@@ -883,8 +1037,24 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                                     >
                                         <View style={{paddingVertical: 16}}>
                                             <Text style={[styles.text_header_2, {marginBottom: 12}]}>{data_select?.name}</Text>
+                                            <View>
+                                                <RenderHtml
+                                                    renderers={renderers}
+                                                    source={{
+                                                        html: `<div style="color: #1d1d1d ">${data_select?.description}</div>`,
+                                                    }}
+                                                    customHTMLElementModels={customHTMLElementModels}
+                                                    tagsStyles={{
+                                                        p: {
+                                                            color: color.black
+                                                        }
+                                                    }}
+                                                    renderersProps={{
+                                                    }}
+                                                />
+                                            </View>
                                             {/* <Text style={{fontWeight: '400', color: color.black, fontSize: 15}}>Đưa đón đến bệnh viện bao gồm các bệnh viện Hồng Ngọc, Bạch Mai, Việt Đức</Text> */}
-                                            <View style={[styles.box3,{marginTop: 24, justifyContent: 'flex-start', paddingHorizontal: 0}]}>
+                                            <View style={[styles.box3,{marginTop: 0, justifyContent: 'flex-start', paddingHorizontal: 0}]}>
                                                 <Image source={images.icon_book} style={{width: 22, height: 22}} />
                                                 <Text style={[styles.text_header_2, {marginLeft: 16}]}>Thông tin đặt dịch vụ</Text>
                                             </View>
@@ -961,6 +1131,7 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                     </View>
                     <Toast />
                 </Modal>
+
                 <Modal
                     animationType={"slide"}
                     transparent={true}
@@ -981,6 +1152,15 @@ export const ChooseServiceScreen1 = observer(function ChooseServiceScreen1() {
                             <View style={[styles.body_thanh_toan]}>
                                 <Text style={[styles.text_header_2,{fontSize: 16}]}>Dịch vụ</Text>
                                 <Text style={[styles.text_header,{fontSize: 16, marginTop: 5}]}>{data_Parent?.name}</Text>
+
+                                <Text style={[styles.text_header_2,{fontSize: 16, marginTop: 5}]}>Thông tin chung</Text>
+                                {listAttrPacket?.length > 0 && listAttrPacket?.map((AttrPacke_chung) => {
+                                    return(
+                                        <View style={[{flexDirection: 'row'}]}>
+                                            <Text style={[styles.text_black,{fontSize: 14, marginTop: 5}]}>- {AttrPacke_chung.categoryName}: {AttrPacke_chung.dataType == 3 ? formatDate(AttrPacke_chung.value) :  AttrPacke_chung.value}</Text>
+                                        </View>
+                                    )
+                                })} 
                                 <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                                     <Text style={[styles.text_header_2,{fontSize: 16, marginTop: 16}]}>Chi tiết dịch vụ:</Text>
                                     {showModal?.show_detail_option ? 
@@ -1241,8 +1421,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         borderWidth: 1,
         borderColor: color.black,
-        margin: 16,
-        borderRadius: 6
+        marginHorizontal: 16,
+        borderRadius: 6,
+        marginTop: 10
     },
     box_item: {
         padding: 10,

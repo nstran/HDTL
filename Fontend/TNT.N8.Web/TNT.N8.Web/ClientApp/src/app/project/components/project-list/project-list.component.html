@@ -232,7 +232,7 @@
               <div *ngIf="listProjectDTK.length > 0" class="col-md-12 no-padding">
                 <p-table #myTableDtk [columns]="selectedColumns" [value]="listProjectDTK" [resizableColumns]="true"
                   (sortFunction)="customSort($event)" [customSort]="true" columnResizeMode="expand" [paginator]="true"
-                  [rows]="rows" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" (onPage)="pageChange($event)">
+                  [rows]="rows" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" (onPage)="pageChange($event)">
                   <ng-template pTemplate="caption">
                     <div style="text-align:left">
                       <p-multiSelect [options]="colsListProject" [(ngModel)]="selectedColumns"
@@ -317,7 +317,7 @@
               <div *ngIf="listProjectHUY.length > 0" class="col-md-12 no-padding">
                 <p-table #myTableHuy [columns]="selectedColumns" [value]="listProjectHUY" [resizableColumns]="true"
                   (sortFunction)="customSort($event)" [customSort]="true" columnResizeMode="expand" [paginator]="true"
-                  [rows]="rows" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" (onPage)="pageChange($event)">
+                  [rows]="rows" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" (onPage)="pageChange($event)">
                   <ng-template pTemplate="caption">
                     <div style="text-align:left">
                       <p-multiSelect [options]="colsListProject" [(ngModel)]="selectedColumns"

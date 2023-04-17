@@ -61,7 +61,7 @@
     <div *ngIf="lstContactCustomer.length > 0" class="col-md-12 no-padding">
       <p-table #table [columns]="selectedColumns" [value]="lstContactCustomer" [resizableColumns]="true"
         (sortFunction)="customSort($event)" [customSort]="true" [paginator]="true" [rows]="rows"
-        [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+        [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
         <ng-template pTemplate="caption">
           <div style="text-align:left">
             <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" [ngModelOptions]="{standalone: true}"

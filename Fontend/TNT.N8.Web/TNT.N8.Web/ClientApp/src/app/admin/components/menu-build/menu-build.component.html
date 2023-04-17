@@ -87,7 +87,7 @@
                 <div class="row mt-10">
                   <div class="col-md-12">
                     <p-table [columns]="cols1" [value]="listMenuModule" [resizableColumns]="true" [responsive]="true"
-                      [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" 
+                      [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" 
                       dataKey="menuBuildId" editMode="row">
                       <ng-template pTemplate="header" let-columns>
                         <tr>
@@ -259,7 +259,7 @@
                   <div class="col-md-12">
                     <p-table [columns]="cols2" [value]="listSubMenuModule" [resizableColumns]="true" [responsive]="true"
                       dataKey="menuBuildId" editMode="row" [paginator]="true" [rows]="10"
-                      [rowsPerPageOptions]="[10,20,30]">
+                      [rowsPerPageOptions]="[50,100,150]">
                       <ng-template pTemplate="header" let-columns>
                         <tr>
                           <th *ngFor="let col of columns" pResizableColumn
@@ -440,7 +440,7 @@
                   <div class="col-md-12">
                     <p-table [columns]="cols3" [value]="listMenuPage" [resizableColumns]="true" [responsive]="true"
                       dataKey="menuBuildId" editMode="row" [paginator]="true" [rows]="10"
-                      [rowsPerPageOptions]="[10,20,30]">
+                      [rowsPerPageOptions]="[50,100,150]">
                       <ng-template pTemplate="header" let-columns>
                         <tr>
                           <th *ngFor="let col of columns" pResizableColumn

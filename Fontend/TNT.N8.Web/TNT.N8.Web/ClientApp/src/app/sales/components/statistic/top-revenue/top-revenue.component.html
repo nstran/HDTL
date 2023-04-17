@@ -240,7 +240,7 @@
     <div *ngIf="listTopEmployeeRevenue.length > 0" class="col-md-{{leftColNumber}}">
       <p-table #table [columns]="selectedColumns" [frozenColumns]="frozenCols" [value]="listTopEmployeeRevenue"
         [customSort]="false" [resizableColumns]="true" columnResizeMode="expand" [paginator]="true" [rows]="10"
-        [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+        [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
         <ng-template pTemplate="caption">
           <div style="text-align: left;">
             <p-multiSelect [options]="colsList" optionLabel="header" [(ngModel)]="selectedColumns"

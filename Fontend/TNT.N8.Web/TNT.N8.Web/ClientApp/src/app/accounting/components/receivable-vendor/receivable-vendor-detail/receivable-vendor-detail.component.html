@@ -173,7 +173,7 @@
 
             <p-table #myTable [columns]="selectedColumns" [value]="listReceivableVendorDetail"
             (sortFunction)="sortColumnInList($event)" [customSort]="true" columnResizeMode="expand" [paginator]="true"
-            [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+            [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" class="table-border">
             <ng-template pTemplate="caption">
               <div style="text-align: left;">
                 <p-multiSelect [options]="colsList" optionLabel="header" [(ngModel)]="selectedColumns"
@@ -228,7 +228,7 @@
           <div *ngIf="listReceipt.length > 0" style="border-top: 1px solid #ccc;">
             <p-table #myTable [columns]="selectedColumnsRe" [value]="listReceipt"
               (sortFunction)="sortColumnInList($event)" [customSort]="true" columnResizeMode="expand" [paginator]="true"
-              [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+              [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" class="table-border">
               <ng-template pTemplate="caption">
                 <div style="text-align: left;">
                   <p-multiSelect [options]="colsListRe" optionLabel="header" [(ngModel)]="selectedColumnsRe"

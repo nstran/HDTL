@@ -143,7 +143,7 @@
     </div>
     <div *ngIf="(listResult.length > 0)" class="col-md-{{leftColNumber}} no-padding">
       <p-table #myTable [columns]="cols" [value]="listResult" [paginator]="true" [rows]="rows"
-        [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+        [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th *ngFor="let col of columns" [ngStyle]="{'text-align': col.textAlign, 'width': col.width}"

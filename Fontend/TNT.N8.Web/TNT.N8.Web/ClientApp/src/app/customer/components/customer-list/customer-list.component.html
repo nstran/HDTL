@@ -163,7 +163,7 @@
 
     <div *ngIf="currentMode == true" class="col-md-{{ leftColNumber }} no-padding">
       <p-table #table dataKey="customerId" [columns]="selectedColumns" [value]="listCustomer" [resizableColumns]="true"
-        columnResizeMode="expand" [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[10, 20, 30]"
+        columnResizeMode="expand" [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[50, 100, 150]"
         [responsive]="true" (onPage)="pageChange($event)" [(selection)]="selectedCustomers">
         <ng-template pTemplate="caption">
           <div style="text-align: left;">

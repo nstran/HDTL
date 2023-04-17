@@ -157,7 +157,7 @@
     <div *ngIf="listContract.length > 0" class="col-md-{{leftColNumber}} no-padding">
       <p-table #myTable [columns]="selectedColumns" [value]="listContract" [resizableColumns]="true"
         (sortFunction)="sortColumnInList($event)" [customSort]="true" [paginator]="true" [rows]="10"
-        columnResizeMode="expand" [paginator]="true" [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+        columnResizeMode="expand" [paginator]="true" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
         <ng-template pTemplate="caption">
           <div style="text-align:left">
             <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns" [ngModelOptions]="{standalone: true}"

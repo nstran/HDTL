@@ -165,7 +165,7 @@
     <div *ngIf="listQuote.length > 0" class="col-md-{{leftColNumber}} no-padding">
       <p-table #myTable [columns]="selectedColumns" [value]="listQuote" [resizableColumns]="true"
         (sortFunction)="customSort($event)" [customSort]="true" columnResizeMode="expand" [paginator]="true"
-        [rows]="rows" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" (onPage)="pageChange($event)"
+        [rows]="rows" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" (onPage)="pageChange($event)"
         [(selection)]="SelectedQuote">
         <ng-template pTemplate="caption">
           <div style="text-align:left">

@@ -139,7 +139,7 @@
     </div>
     <div *ngIf="listDeXuatXinNghi.length" class="col-md-{{leftColNumber}}">
       <p-table #myTable [columns]="colsList" [value]="listDeXuatXinNghi"
-               [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true"
+               [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true"
                class="table-border">
         <ng-template pTemplate="header" let-columns>
           <tr>

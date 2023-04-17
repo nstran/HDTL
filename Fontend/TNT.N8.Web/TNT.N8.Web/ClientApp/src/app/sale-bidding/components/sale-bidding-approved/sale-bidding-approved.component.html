@@ -133,7 +133,7 @@
       </div>
       <p-table #myTable [columns]="selectedColumns" [value]="listSaleBidding" [(selection)]="listSaleBiddingSelected"
         (sortFunction)="customSort($event)" [customSort]="true" [resizableColumns]="true" columnResizeMode="expand"
-        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" dataKey="saleBiddingId">
+        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" dataKey="saleBiddingId">
         <ng-template pTemplate="caption">
           <div style="text-align: left;">
             <p-multiSelect [options]="colsList" optionLabel="header" [(ngModel)]="selectedColumns"

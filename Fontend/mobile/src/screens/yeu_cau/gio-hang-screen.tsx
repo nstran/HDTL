@@ -74,9 +74,13 @@ export const GioHangScreen = observer(function GioHangScreen() {
             "CustomerId": customerID,
             "UserId": userId
         })
+        console.log("response: ", response);
+        
         if(response?.statusCode == 200){
             let data = [...response?.listOrder].filter(item => item?.statusOrder == 1 && item?.listCustomerOrderDetail?.length > 0)
             setListDataOrder(data)
+            console.log("data: ", data);
+            
             
         } 
     };
@@ -113,8 +117,12 @@ export const GioHangScreen = observer(function GioHangScreen() {
                 {   PacketServiceId: response?.customerOrder?.servicePacketId,
                     UserId: userID
                 }
-            )       
+            )
+            console.log("response_master: ", response_master);
+                  
             if(response_master?.statusCode == 200) setMasterData(response_master)
+            console.log("response YC: ", response);
+            
             setDataDetailYc(response)
             setModalDetail(true)
         }
@@ -249,6 +257,13 @@ export const GioHangScreen = observer(function GioHangScreen() {
         )
     }
 
+    const showName_Thong_tin_chung = (id_thong_tin_chung) => {
+        let name = ''
+        let find = masterData?.listAttrPacket?.find(i => i.id == id_thong_tin_chung)
+        if(find) name = find.categoryName
+        return name
+    }
+
     const ItemView = ({item,index}) => {
         if(item?.listCustomerOrderDetail?.length == 0) return null
         return (
@@ -337,11 +352,24 @@ export const GioHangScreen = observer(function GioHangScreen() {
                                 </View>
                                 <View style={{marginTop: 16, marginBottom: 10}}>
                                     <Text style={[styles.text_header_blue,{paddingLeft: 16, marginBottom: 10}]}>Dịch vụ</Text>
+                                    <View style={[styles.box_item,{flexDirection: 'column'}]}>
+                                        <Text style={[styles.text_header,{fontSize: 15, marginBottom: 5}]}>Thông tin chung</Text>
+                                        {dataDetailYc?.listAtrrPacket?.map((AtrrPacket) => {
+                                            return(
+                                                <View style={{paddingLeft: 16}}>
+                                                    <Text style={[styles.text]}>{showName_Thong_tin_chung(AtrrPacket.attributeConfigurationId)}: {AtrrPacket.dataType == 3 ? formatDate(AtrrPacket.value) : AtrrPacket.value}</Text>
+                                                </View>
+                                            )
+                                        })}
+                                    </View>
                                     {dataDetailYc?.listDetail?.map((item,index) => {
                                         return (
                                             <View style={[styles.box_item,{flexDirection: 'column', paddingHorizontal: 16}]}>
                                                 <Text style={[{fontWeight: '600',color: color.black}]}>{index + 1}. {item.optionName.split('--->')[1]}</Text>
                                                 {showDetailProperty(item?.optionId, index + 1)}
+                                                <View style={{width: '95%', marginLeft: 15, marginTop: 10}}>
+                                                    <Text style={styles.text}>Số lượng: {item.quantity}</Text>
+                                                </View>
                                                 <Text style={[{position: 'absolute', right: 0, marginRight: 16, marginTop: 16}]}>{formatNumber(item?.priceInitial)} vnd</Text>
                                                 <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop: 10, borderTopColor: color.nau_nhat, borderTopWidth: 1, paddingTop: 10}}>
                                                     <Text style={{color: color.black}}>Thành tiền: {formatNumber(calculatePriceVat(item))} vnd  <Text style={{color: color.orange}}>(VAT: {item?.vat ? item?.vat : 0} % )</Text></Text>

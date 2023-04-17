@@ -308,7 +308,7 @@
           </div>
           <div *ngIf="listResource.length > 0" class="col-md-12">
             <p-table #myTable [columns]="selectedColumns" [value]="listResource" columnResizeMode="expand"
-              [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+              [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
               <ng-template pTemplate="header" let-columns>
                 <tr>
                   <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"

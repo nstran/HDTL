@@ -83,37 +83,49 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 parameter.Vendor.CreatedDate = DateTime.Now;
 
                 //kiểm tra vendorCode
-                if (parameter.Vendor.VendorCode == null)
+                //if (parameter.Vendor.VendorCode == null)
+                //{
+                //    return new CreateVendorResult
+                //    {
+                //        StatusCode = HttpStatusCode.ExpectationFailed,
+                //        MessageCode = "Mã nhà cung cấp không được để trống"
+                //    };
+                //}
+                //else
+                //{
+                //    parameter.Vendor.VendorCode = parameter.Vendor.VendorCode.Trim();
+                //    if (parameter.Vendor.VendorCode == "")
+                //    {
+                //        return new CreateVendorResult
+                //        {
+                //            StatusCode = HttpStatusCode.ExpectationFailed,
+                //            MessageCode = "Mã nhà cung cấp không được để trống"
+                //        };
+                //    }
+                //    else
+                //    {
+                //        var dublicateVendor = context.Vendor.FirstOrDefault(x => x.VendorCode == parameter.Vendor.VendorCode);
+                //        if (dublicateVendor != null)
+                //        {
+                //            return new CreateVendorResult
+                //            {
+                //                StatusCode = HttpStatusCode.ExpectationFailed,
+                //                MessageCode = "Mã nhà cung cấp đã tồn tại trên hệ thống"
+                //            };
+                //        };
+                //    }
+                //}
+
+                var vendorGroupbyCategory = context.Category.FirstOrDefault(x => x.CategoryId == parameter.Vendor.VendorGroupId);
+                var vendorGroupCode = context.Vendor.OrderByDescending(x => x.CreatedDate).FirstOrDefault(x => x.VendorGroupId == vendorGroupbyCategory.CategoryId)?.VendorCode;
+                if (!string.IsNullOrEmpty(vendorGroupCode))
                 {
-                    return new CreateVendorResult
-                    {
-                        StatusCode = HttpStatusCode.ExpectationFailed,
-                        MessageCode = "Mã nhà cung cấp không được để trống"
-                    };
+                    var resultString = Regex.Match(vendorGroupCode, @"\d+").Value;
+                    parameter.Vendor.VendorCode = vendorGroupbyCategory.CategoryCode + (Int16.Parse(resultString) + 1).ToString();
                 }
                 else
                 {
-                    parameter.Vendor.VendorCode = parameter.Vendor.VendorCode.Trim();
-                    if (parameter.Vendor.VendorCode == "")
-                    {
-                        return new CreateVendorResult
-                        {
-                            StatusCode = HttpStatusCode.ExpectationFailed,
-                            MessageCode = "Mã nhà cung cấp không được để trống"
-                        };
-                    }
-                    else
-                    {
-                        var dublicateVendor = context.Vendor.FirstOrDefault(x => x.VendorCode == parameter.Vendor.VendorCode);
-                        if (dublicateVendor != null)
-                        {
-                            return new CreateVendorResult
-                            {
-                                StatusCode = HttpStatusCode.ExpectationFailed,
-                                MessageCode = "Mã nhà cung cấp đã tồn tại trên hệ thống"
-                            };
-                        };
-                    }
+                    parameter.Vendor.VendorCode = vendorGroupbyCategory.CategoryCode + 1.ToString();
                 }
 
                 #region Trim data - Add by Dung

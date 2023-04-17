@@ -75,31 +75,34 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
         setLoading(true)
         setRefresh(false)
 
-        let response_payment = await _unitOfWork.user.takeMobileAppConfiguration({})
-        if(response_payment?.statusCode == 200) {
-            setDataConfigPayment(response_payment?.listPayMent)
-            setImage_payment(response_payment?.mobileAppConfigurationEntityModel?.paymentScreenIconTransfer)
-        }
+        if(isFocus){
+            let response_payment = await _unitOfWork.user.takeMobileAppConfiguration({})
+            if(response_payment?.statusCode == 200) {
+                setDataConfigPayment(response_payment?.listPayMent)
+                setImage_payment(response_payment?.mobileAppConfigurationEntityModel?.paymentScreenIconTransfer)
+            }
 
-        let user_id = await HDLTModel.getUserInfoByKey('userId')
-        setUserID(user_id)
-        let response = await _unitOfWork.user.getMasterDataOrderDetail(
-            {OrderId: params?.item?.orderId,
-            UserId: user_id
-        })
-        
-        if(response?.statusCode == 200) {
-            console.log("Detail: ", response);
+            let user_id = await HDLTModel.getUserInfoByKey('userId')
+            setUserID(user_id)
+            let response = await _unitOfWork.user.getMasterDataOrderDetail(
+                {OrderId: params?.item?.orderId,
+                UserId: user_id
+            })
             
-            let response_master = await _unitOfWork.user.searchOptionOfPacketService(
-                {   PacketServiceId: response?.customerOrder?.servicePacketId,
-                    UserId: user_id
-                }
-            )
-            if(response_master?.statusCode == 200) setMasterData(response_master)
-            setMasterDataDetail(response)
+            if(response?.statusCode == 200) {
+                console.log("Detail: ", response);
+                
+                let response_master = await _unitOfWork.user.searchOptionOfPacketService(
+                    {   PacketServiceId: response?.customerOrder?.servicePacketId,
+                        UserId: user_id
+                    }
+                )
+                console.log("response_master: ", response_master);
+                
+                if(response_master?.statusCode == 200) setMasterData(response_master)
+                setMasterDataDetail(response)
+            } 
         }
-
         setLoading(false)
         
     };
@@ -261,12 +264,15 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
 
 
         if(orderId_phieuhotro){
+
+            setLoading(true)
             
             let res = await _unitOfWork.user.getMasterDataOrderActionDetail({
                 UserId: userID, 
                 OrderActionId: orderId_phieuhotro,
             })
             setMasterData_Phieu_hotro(res)
+            setLoading(false)
             console.log("Res ho tro: ", res);   
         }
     }
@@ -292,7 +298,7 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
         }
     }
 
-    const getDataNote_hotrodichvu = async (id_report_point) => {
+    const getDataNote_hotrodichvu = async (id_report_point : any) => {
         let response = await _unitOfWork.user.getListNote({
             "ObjectType":"Report_Point",
             "ObjectId": id_report_point,
@@ -370,17 +376,24 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
         setLoading(false)
     }
 
-    const converName_Tuychon = (str) => {
+    const converName_Tuychon = (str: any) => {
         let arr = str.split('--->')
         return arr[arr?.length - 1]
     }
-    const converName_nhanvien = (str) => {
+    const converName_nhanvien = (str: any) => {
         let arr = str.split(', ')
         return arr[arr?.length - 1]
     }
 
+    const showName_Thong_tin_chung = (id_thong_tin_chung: any) => {
+        let name = ''
+        let find = masterData?.listAttrPacket?.find(i => i.id == id_thong_tin_chung)
+        if(find) name = find.categoryName
+        return name
+    }
 
-    const goToPage = (page) => {
+
+    const goToPage = (page : any) => {
         navigation.navigate(page);
     };
     const onRefresh = () => {
@@ -449,6 +462,16 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
                                         <View style={{marginTop: 24}}>
                                             <View style={{alignItems: 'center', marginBottom: 24}}>
                                                 <Text style={styles.text_header_blue}>{masterDataDetail?.listServicePacket[0]?.name}</Text>
+                                            </View>
+                                            <View style={[styles.box_item,{flexDirection: 'column'}]}>
+                                                <Text style={[styles.text_header,{fontSize: 15, marginBottom: 5}]}>Thông tin chung</Text>
+                                                {masterDataDetail?.listAtrrPacket?.map((AtrrPacket) => {
+                                                    return(
+                                                        <View style={{paddingLeft: 16}}>
+                                                            <Text style={[styles.text]}>{showName_Thong_tin_chung(AtrrPacket.attributeConfigurationId)}: {AtrrPacket.dataType == 3 ? formatDate(AtrrPacket.value) : AtrrPacket.value}</Text>
+                                                        </View>
+                                                    )
+                                                })}
                                             </View>
                                             {masterDataDetail?.listDetail.map((item,index) => {
                                                 return (
@@ -571,13 +594,17 @@ export const DetailYeuCauScreen = observer(function DetailYeuCauScreen() {
                                                     return(
                                                         <View>
                                                             <View style={{flexDirection: 'row', justifyContent: 'space-between',  marginBottom: 7}}>
-                                                                <Text style={styles.text}>{converName_Tuychon(item?.path) }</Text>
-                                                                <Text style={styles.text}>{converName_nhanvien(item?.listEmpName)}</Text>
+                                                                <Text style={[styles.text, {fontWeight: '600'}]}>{converName_Tuychon(item?.path) }</Text>
+                                                                {/* <Text style={styles.text}>{converName_nhanvien(item?.listEmpName)}</Text> */}
                                                             </View>
-                                                            <View style={{flexDirection: 'row', justifyContent: 'space-between',  marginBottom: 7}}>
-                                                                <Text style={styles.text}>Số điện thoại</Text>
-                                                                <Text style={styles.text}>{item?.empPhone}</Text>
-                                                            </View>
+                                                            {item?.listEmployeeEntityModel?.map((nhan_vien) => {
+                                                                return(
+                                                                    <View style={{marginBottom: 7, marginLeft: 10}}>
+                                                                        <Text style={styles.text}>{nhan_vien?.employeeName} - {nhan_vien?.phone}</Text>
+                                                                    </View>
+                                                                )
+                                                            })}
+                                                            
                                                             {index < masterData_Phieu_hotro?.listCustomerOrderTask?.length - 1 ? 
                                                             <Net_dut /> : null }
                                                         </View>

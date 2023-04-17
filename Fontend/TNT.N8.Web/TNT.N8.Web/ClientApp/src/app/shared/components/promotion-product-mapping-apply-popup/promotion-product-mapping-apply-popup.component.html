@@ -8,7 +8,7 @@
   <div *ngIf="!chiChonMot" class="row no-margin">
     <p-table [columns]="cols" [value]="listPromotionProductMappingApply" [resizableColumns]="true"
       [(selection)]="selectedPromotionProductMappingApply" columnResizeMode="expand" [paginator]="true" [rows]="5"
-      [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+      [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th style="width: 3em">
@@ -43,7 +43,7 @@
   <div *ngIf="chiChonMot" class="row no-margin">
     <p-table [columns]="cols" [value]="listPromotionProductMappingApply" [resizableColumns]="true"
       [(selection)]="selectedPromotionProductMappingApply" columnResizeMode="expand" [paginator]="true" [rows]="5"
-      [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+      [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
       <ng-template pTemplate="header" let-columns>
         <tr>
           <th style="width: 3em"></th>

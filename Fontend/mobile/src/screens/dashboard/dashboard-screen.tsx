@@ -32,6 +32,7 @@ import RenderHtml from "react-native-render-html";
 import { IGNORED_TAGS } from 'react-native-render-html/src/HTMLUtils';
 import { showToast, StatusBarHeight_2 } from '../../services';
 import { ScrollView } from 'react-native-gesture-handler';
+import { log } from 'react-native-reanimated';
 
 const _unitOfWork = new UnitOfWorkService()
 
@@ -87,14 +88,15 @@ export const DashboardScreen = observer(function DashboardScreen() {
       fetchData();
       getCountMessageNotSeen()
       getNotificationNotSeen()
-    }, [isFocus,isRefresh]);
+    }, [isFocus]);
 
     // useEffect(() => {
     //     getCountMessageNotSeen()
     //   }, []);
     const fetchData = async () => {
+        console.log("isFocus : ", isFocus)
         setLoading(true)
-        setRefresh(false)
+        // setRefresh(false)
         let _userId = await HDLTModel.getUserInfoByKey('userId')
         let userName = await HDLTModel.getUserInfoByKey('userFullName')
         let _userAvatar = await HDLTModel.getUserInfoByKey('userAvatar')
@@ -102,15 +104,31 @@ export const DashboardScreen = observer(function DashboardScreen() {
         setFullName(userName)
         setUserId(_userId)
 
-        let response = await _unitOfWork.user.getListServicePacket({"UserId": _userId})
-        if(response?.statusCode == 200){
-            let arrList = [...response?.listServicePackageEntityModel].filter(item => item.active == true)
-            setListServicePacket(arrList)
-        } 
+        console.log({"UserId": _userId})
 
-        let res_quang_cao = await _unitOfWork.user.takeListAdvertisementConfiguration({})
+        if(isFocus){
+            await Promise.all([
+                _unitOfWork.user.getListServicePacket({"UserId": "00000000-0000-0000-0000-000000000000"}),
+                _unitOfWork.user.takeListAdvertisementConfiguration({}),
+            ])
+            .then((response) => {
+                console.log("res all: ",response[0], response[1])
+                let res_list_service = response[0]
+                let res_list_qc = response[1]
 
-        if(res_quang_cao?.statusCode == 200) setList_qc(res_quang_cao?.listAdvertisementConfigurationEntityModel)
+                if(res_list_service?.statusCode == 200){
+                    let arrList = [...res_list_service?.listServicePackageEntityModel].filter(item => item.subjectsApplication == true)
+                    setListServicePacket(arrList)
+                }
+
+                if(res_list_qc?.statusCode == 200) setList_qc(res_list_qc?.listAdvertisementConfigurationEntityModel)
+
+            });
+        }
+        
+
+        
+
         setLoading(false)
     };
 
@@ -212,7 +230,8 @@ export const DashboardScreen = observer(function DashboardScreen() {
         navigation.navigate('MainScreen', {screen: page});
     };
     const onRefresh = () => {
-        setRefresh(true)
+        // setRefresh(true)
+        fetchData()
     };
 
     const checkLogin = () => {
@@ -234,7 +253,7 @@ export const DashboardScreen = observer(function DashboardScreen() {
     const ItemView = ({item,index}) => {
         return (
             <TouchableOpacity 
-                style={{alignItems: 'center'}}
+                style={{alignItems: 'center', marginBottom: 10}}
                 onPress={() => {
                     navigation.navigate('ChooseServiceScreen1',{
                         data: item
@@ -242,7 +261,7 @@ export const DashboardScreen = observer(function DashboardScreen() {
                 }}
             >
                 <View style={[styles.box_item]}>
-                    <Image resizeMode='contain' source={{uri: item?.backgroundImage}} style={styles?.image} />
+                    <Image resizeMode='stretch' source={{uri: item?.backgroundImage}} style={styles?.image} />
                     {/* <Text style={styles.text}>{item?.productCategoryName}</Text> */}
                 </View>
                 <View style={{ height: '100%', width: (layout.width - 32)/2 - 7, position: 'absolute',alignItems: 'center', justifyContent: 'center', left: 0}}>
@@ -250,7 +269,6 @@ export const DashboardScreen = observer(function DashboardScreen() {
                     <Text numberOfLines={2}adjustsFontSizeToFit={true} style={[styles.text,{marginTop: 10, width: '100%', paddingHorizontal: 5,textAlign: 'center'}]}>{item?.name}</Text>
                 </View>
             </TouchableOpacity>
-            
         )
     }
 
@@ -483,8 +501,8 @@ const styles = StyleSheet.create({
         borderRadius: 10
     },
     box_item: {
-        width: (layout.width - 32)/2 - 7,
-        height: ((layout.width - 32)/2 - 10)*2/3,
+        width: (layout.width - 28)/2 - 7,
+        height: ((layout.width - 32)/2 - 7)*2/3,
         marginRight: 14,
         alignItems: 'center',
         // borderRadius: 16   justifyContent: 'center',

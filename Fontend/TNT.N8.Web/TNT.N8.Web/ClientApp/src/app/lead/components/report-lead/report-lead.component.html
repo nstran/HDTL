@@ -164,7 +164,7 @@
                 <div *ngIf="listReportLeadAge.length > 0" class="col-md-12 no-padding">
                     <p-table #myTable [columns]="selectedColListReportLeadFollowAge" [value]="listReportLeadAge"
                         [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true"
-                        [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+                        [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" class="table-border">
                         <ng-template pTemplate="caption">
                             <div style="text-align:left">
                                 <p-multiSelect [options]="colsListReportLeadFollowAge"
@@ -229,7 +229,7 @@
                 <div *ngIf="listReportLeadPic.length > 0" class="col-md-12 no-padding">
                     <p-table #myTable [columns]="selectedColListReportLeadFollowPic" [value]="listReportLeadPic"
                         [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true"
-                        [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+                        [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" class="table-border">
                         <ng-template pTemplate="caption">
                             <div style="text-align:left">
                                 <p-multiSelect [options]="colsListReportLeadFollowPic"
@@ -294,7 +294,7 @@
                 <div *ngIf="listReportLeadSource.length > 0" class="col-md-12 no-padding">
                     <p-table #myTable [columns]="selectedColListReportLeadFollowSource" [value]="listReportLeadSource"
                         [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true"
-                        [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+                        [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" class="table-border">
                         <ng-template pTemplate="caption">
                             <div style="text-align:left">
                                 <p-multiSelect [options]="colsListReportLeadFollowSource"
@@ -362,7 +362,7 @@
                 <div *ngIf="listReportLeadProvincial.length > 0" class="col-md-12 no-padding">
                     <p-table #myTable [columns]="selectedColListReportLeadFollowProvincial"
                         [value]="listReportLeadProvincial" [resizableColumns]="true" (sortFunction)="customSort($event)"
-                        [customSort]="true" [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[10,20,30]"
+                        [customSort]="true" [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[50,100,150]"
                         [responsive]="true" class="table-border">
                         <ng-template pTemplate="caption">
                             <div style="text-align:left">
@@ -428,7 +428,7 @@
                 <div *ngIf="listReportLeadStatus.length > 0" class="col-md-12 no-padding">
                     <p-table #myTable [columns]="selectedColListReportLeadFollowMonth" [value]="listReportLeadStatus"
                         [resizableColumns]="true" (sortFunction)="customSort($event)" [customSort]="true"
-                        [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+                        [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" class="table-border">
                         <ng-template pTemplate="caption">
                             <div style="text-align:left">
                                 <p-multiSelect [options]="colsListReportLeadFollowMonth"

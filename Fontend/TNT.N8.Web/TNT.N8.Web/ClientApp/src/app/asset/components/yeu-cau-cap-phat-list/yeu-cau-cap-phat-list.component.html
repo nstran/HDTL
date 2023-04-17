@@ -120,7 +120,7 @@
     <div *ngIf="listYeuCauCapPhat.length > 0" class="col-md-{{leftColNumber}} no-padding">
       <div class="col-md-12">
         <p-table #myTable [columns]="selectedColumns" [value]="listYeuCauCapPhat" [resizableColumns]="true"
-          columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true"
+          columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true"
           [scrollable]="true">
           <ng-template pTemplate="caption">
             <div style="text-align:left">

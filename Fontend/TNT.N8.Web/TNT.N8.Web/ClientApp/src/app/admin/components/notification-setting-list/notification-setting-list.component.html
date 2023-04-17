@@ -92,7 +92,7 @@
 
     <div *ngIf="listNotifiSetting.length > 0" class="col-md-{{leftColNumber}}">
       <p-table #myTable [columns]="selectedColumns" [value]="listNotifiSetting" [resizableColumns]="true"
-        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" 
+        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" 
       >
         <ng-template pTemplate="caption">
           <div style="text-align: left;">

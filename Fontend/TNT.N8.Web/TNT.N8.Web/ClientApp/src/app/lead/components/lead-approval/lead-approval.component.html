@@ -191,7 +191,7 @@
     <div *ngIf="listLead.length > 0" class="col-md-{{leftColNumber}} no-padding">
       <p-table #myTable [columns]="selectedColumns" [value]="listLead" [resizableColumns]="true"
         (sortFunction)="customSort($event)" [customSort]="true" columnResizeMode="expand" [paginator]="true"
-        [(selection)]="listSelectedLead" [rows]="rows" [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+        [(selection)]="listSelectedLead" [rows]="rows" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
         <ng-template pTemplate="caption">
           <div style="text-align:left">
             <p-multiSelect [options]="colsListLead" [(ngModel)]="selectedColumns" [ngModelOptions]="{standalone: true}"

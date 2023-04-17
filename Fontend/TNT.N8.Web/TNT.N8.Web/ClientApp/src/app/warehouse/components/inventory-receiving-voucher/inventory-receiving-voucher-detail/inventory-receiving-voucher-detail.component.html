@@ -355,7 +355,7 @@
                   <div class="row mt-10">
                     <div *ngIf="loaiPhieuNhapType == 1" class="col-md-12">
                       <p-table #myTable [columns]="colsDonHangMua" [value]="listItemDetail" [resizableColumns]="true"
-                        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
                         [responsive]="true">
                         <ng-template pTemplate="header" let-columns>
                           <tr>
@@ -411,7 +411,7 @@
                     </div>
                     <div *ngIf="loaiPhieuNhapType == 2" class="col-md-12">
                       <p-table #myTable [columns]="colsPhieuXuatKho" [value]="listItemDetail" [resizableColumns]="true"
-                        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
                         [responsive]="true">
                         <ng-template pTemplate="header" let-columns>
                           <tr>
@@ -452,7 +452,7 @@
                     </div>
                     <div *ngIf="loaiPhieuNhapType == 3" class="col-md-12">
                       <p-table #myTable [columns]="colsKiemKe" [value]="listItemDetail" [resizableColumns]="true"
-                        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
                         [responsive]="true">
                         <ng-template pTemplate="header" let-columns>
                           <tr>
@@ -493,7 +493,7 @@
                     </div>
                     <div *ngIf="loaiPhieuNhapType == 4" class="col-md-12">
                       <p-table #myTable [columns]="colsDieuChuyen" [value]="listItemDetail" [resizableColumns]="true"
-                        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
                         [responsive]="true">
                         <ng-template pTemplate="header" let-columns>
                           <tr>
@@ -534,7 +534,7 @@
                     </div>
                     <div *ngIf="loaiPhieuNhapType == 5" class="col-md-12">
                       <p-table #myTable [columns]="colsNhapKhac" [value]="listItemDetail" [resizableColumns]="true"
-                        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
                         [responsive]="true">
                         <ng-template pTemplate="header" let-columns>
                           <tr>

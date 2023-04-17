@@ -169,7 +169,7 @@
       <p-table #myTable [columns]="selectedColumns" [value]="listProductOrder" 
         [globalFilterFields]="selectedColumns" [resizableColumns]="true"
         (sortFunction)="customSort($event)" [customSort]="true" columnResizeMode="expand" [paginator]="true" [rows]="10"
-        [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+        [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
         <ng-template pTemplate="caption">
           <div style="text-align:left">
             <p-multiSelect [options]="colsListProductionOrder" [(ngModel)]="selectedColumns"

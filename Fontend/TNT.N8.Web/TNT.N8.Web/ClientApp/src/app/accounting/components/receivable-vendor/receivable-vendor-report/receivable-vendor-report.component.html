@@ -170,7 +170,7 @@
         <p-accordionTab header="Danh sách công nợ nhà cung cấp" [selected]="true">
           <p-table #myTable [columns]="selectedColumns" [value]="listReceivableVendorReport"
             (sortFunction)="sortColumnInList($event)" [customSort]="true" columnResizeMode="expand" [paginator]="true"
-            [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+            [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" class="table-border">
 
             <ng-template pTemplate="caption">
               <div style="text-align: left;">

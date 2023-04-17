@@ -172,7 +172,7 @@
       <div class="col-md-{{leftColGridNumber}}">
         <p-table #myTable [columns]="selectedColumns" [value]="listAsset" [resizableColumns]="true"
                  [(selection)]="listAssetSelected" columnResizeMode="expand" [paginator]="true" [rows]="10"
-                 [rowsPerPageOptions]="[10,20,30]" [responsive]="true" [scrollable]="true">
+                 [rowsPerPageOptions]="[50,100,150]" [responsive]="true" [scrollable]="true">
           <ng-template pTemplate="caption">
             <div style="text-align:left">
               <p-multiSelect [options]="colsList" [(ngModel)]="selectedColumns" [ngModelOptions]="{standalone: true}"

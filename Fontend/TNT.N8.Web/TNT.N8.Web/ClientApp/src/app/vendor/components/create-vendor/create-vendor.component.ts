@@ -129,7 +129,7 @@ export class CreateVendorComponent implements OnInit {
   initForm() {
     this.createVendorForm = new FormGroup({
       'VendorGroup': new FormControl(null, [Validators.required]),
-      'VendorCode': new FormControl('', [Validators.required, Validators.pattern(this.vendorCodePattern)]),
+      // 'VendorCode': new FormControl('', [Validators.required, Validators.pattern(this.vendorCodePattern)]),
       'VendorName': new FormControl('', [Validators.required, checkBlankString()]),
       'Email': new FormControl('', [Validators.pattern(this.emailPattern)]),
       'Phone': new FormControl('', [Validators.pattern(this.getPhonePattern())]),
@@ -155,7 +155,7 @@ export class CreateVendorComponent implements OnInit {
   resetForm() {
     this.createVendorForm.reset();
     this.createVendorForm.get('VendorGroup').patchValue(null);
-    this.createVendorForm.get('VendorCode').patchValue('');
+    // this.createVendorForm.get('VendorCode').patchValue('');
     this.createVendorForm.get('VendorName').patchValue('');
     this.createVendorForm.get('Email').patchValue('');
     this.createVendorForm.get('Phone').patchValue('');
@@ -271,7 +271,7 @@ export class CreateVendorComponent implements OnInit {
       this.listVendorGroup = result.listVendorGroup;
       this.listVendorCode = result.listVendorCode;
       //set duplicate code validation
-      this.createVendorForm.get('VendorCode').setValidators([Validators.required, checkDuplicateCode(this.listVendorCode), checkBlankString(), Validators.pattern(this.vendorCodePattern)]);
+      // this.createVendorForm.get('VendorCode').setValidators([Validators.required, checkDuplicateCode(this.listVendorCode), checkBlankString(), Validators.pattern(this.vendorCodePattern)]);
       this.createVendorForm.updateValueAndValidity();
     } else {
       this.clearToast();
@@ -378,7 +378,7 @@ export class CreateVendorComponent implements OnInit {
     let vendorModel = new VendorModel();
     vendorModel.VendorId = this.emptyGuid;
     vendorModel.VendorName = this.createVendorForm.get('VendorName').value;
-    vendorModel.VendorCode = this.createVendorForm.get('VendorCode').value;
+    // vendorModel.VendorCode = this.createVendorForm.get('VendorCode').value;
     let vendorGroup = this.createVendorForm.get('VendorGroup').value
     vendorModel.VendorGroupId = vendorGroup !== null ? vendorGroup.categoryId : this.emptyGuid;
     vendorModel.PaymentId = this.emptyGuid;

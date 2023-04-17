@@ -196,7 +196,7 @@
         <p-accordionTab header="Danh sách công nợ khách hàng" [selected]="true">
           <p-table #myTable [columns]="selectedColumns" [value]="listReceivableCustomerReport"
             (sortFunction)="sortColumnInList($event)" [customSort]="true" [scrollable]="true" [resizableColumns]="true"
-            columnResizeMode="colgroup" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+            columnResizeMode="colgroup" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
             [responsive]="true" class="table-border">
             <ng-template pTemplate="caption">
               <div style="text-align:left">

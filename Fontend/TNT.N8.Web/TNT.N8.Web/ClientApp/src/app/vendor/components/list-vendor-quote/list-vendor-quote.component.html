@@ -105,7 +105,7 @@
 
     <div *ngIf="listVendorQuote.length > 0" class="col-md-{{leftColNumber}} no-padding">
       <p-table #myTable [columns]="selectedColumns" [value]="listVendorQuote" [resizableColumns]="true" [(first)]="first"
-        columnResizeMode="expand" [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[10,20,30]"
+        columnResizeMode="expand" [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[50,100,150]"
         [responsive]="true">
         <ng-template pTemplate="caption">
           <div style="text-align:left">

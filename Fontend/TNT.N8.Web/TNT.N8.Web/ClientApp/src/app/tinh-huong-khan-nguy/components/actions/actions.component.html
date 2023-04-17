@@ -80,7 +80,7 @@
         </div>
         <div class="col-md-12">
           <p-table #myTable1 [columns]="cols1" [value]="listData" [paginator]="true" [rows]="10"
-            [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+            [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
             <ng-template pTemplate="header" let-columns>
               <tr>
                 <th *ngFor="let col of columns"
@@ -121,7 +121,7 @@
   <p-dialog header="Chi tiết" [(visible)]="display" [style]="{width: '50vw'}">
     <div class="col-md-12">
       <p-table #myTable2 [columns]="cols2" [value]="listDataDetail" [paginator]="true" [rows]="10"
-        [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+        [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th *ngFor="let col of columns"

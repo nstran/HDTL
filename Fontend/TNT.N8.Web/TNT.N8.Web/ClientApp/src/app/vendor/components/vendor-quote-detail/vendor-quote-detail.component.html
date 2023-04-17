@@ -250,7 +250,7 @@
                         <p-table #myTable [columns]="selectedColumns" [value]="listSuggestedSupplierQuotesDetail"
                           [resizableColumns]="true" (sortFunction)="sortColumnInList($event)" [customSort]="true"
                           [paginator]="true" [rows]="10" columnResizeMode="expand" [paginator]="true"
-                          [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+                          [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
                           <ng-template pTemplate="caption">
                             <div style="text-align:left">
                               <p-multiSelect [options]="cols" [(ngModel)]="selectedColumns"

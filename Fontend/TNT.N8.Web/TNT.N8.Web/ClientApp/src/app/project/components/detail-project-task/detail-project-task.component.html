@@ -602,7 +602,7 @@
                                                         <p-table #myTable [columns]="selectedColumns"
                                                             [value]="listResource" columnResizeMode="expand"
                                                             [paginator]="true" [rows]="10"
-                                                            [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+                                                            [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
                                                             <ng-template pTemplate="header" let-columns>
                                                                 <tr>
                                                                     <th *ngFor="let col of columns" pResizableColumn
@@ -809,7 +809,7 @@
                                                 <div *ngIf="(listTaskContraintBefore.length > 0)" class="col-md-12">
                                                     <p-table #tableBefore [columns]="selectedColumnsConstraintBefore"
                                                         [value]="listTaskContraintBefore" columnResizeMode="expand"
-                                                        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                                                        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
                                                         [responsive]="true">
                                                         <ng-template pTemplate="header" let-columns>
                                                             <tr>
@@ -900,7 +900,7 @@
                                                 <div *ngIf="(listTaskContraintAfter.length > 0)" class="col-md-12">
                                                     <p-table #tableAfter [columns]="selectedColumnsConstrantAfter"
                                                         [value]="listTaskContraintAfter" columnResizeMode="expand"
-                                                        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                                                        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
                                                         [responsive]="true">
                                                         <ng-template pTemplate="header" let-columns>
                                                             <tr>
@@ -1002,7 +1002,7 @@
                                                 <div *ngIf="(listRelateTask.length > 0)" class="col-md-12">
                                                     <p-table #tableRelateTask [columns]="selectedColumnsRelateTask"
                                                         [value]="listRelateTask" columnResizeMode="expand"
-                                                        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                                                        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
                                                         [responsive]="true">
                                                         <ng-template pTemplate="header" let-columns>
                                                             <tr>
@@ -1275,7 +1275,7 @@
                                                             <p-paginator #paginator [rows]="10"
                                                                 [totalRecords]="totalRecordsNote"
                                                                 (onPageChange)="paginate($event)"
-                                                                [rowsPerPageOptions]="[10,20,30]">
+                                                                [rowsPerPageOptions]="[50,100,150]">
                                                             </p-paginator>
                                                         </div>
                                                     </div>

@@ -183,7 +183,7 @@
     <div *ngIf="(listInventoryReceivingVoucher.length > 0)" class="col-md-{{leftColNumber}} no-padding">
       <p-table #myTable [columns]="cols" [value]="listInventoryReceivingVoucher" [resizableColumns]="true"
         (sortFunction)="customSort($event)" [customSort]="true" selectionMode="single" columnResizeMode="expand"
-        [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[10,20,30]"
+        [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[50,100,150]"
         [responsive]="true">
         <ng-template pTemplate="header" let-columns>
           <tr>

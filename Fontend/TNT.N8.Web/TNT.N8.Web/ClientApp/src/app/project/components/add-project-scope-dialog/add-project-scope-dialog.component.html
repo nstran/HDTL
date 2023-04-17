@@ -108,7 +108,7 @@
           <p-table #myTable [columns]="selectedColumns" [value]="listTaskOfScope"
             (sortFunction)="sortColumnInList($event)" [customSort]="true" [resizableColumns]="true"
             [(selection)]="selectedTask" columnResizeMode="expand" [paginator]="true" [rows]="10"
-            [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+            [rowsPerPageOptions]="[50,100,150]" [responsive]="true" class="table-border">
             <ng-template pTemplate="header" let-columns>
               <tr>
                 <th style="width: 3em;">

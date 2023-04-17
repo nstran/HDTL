@@ -549,7 +549,7 @@
                             <div *ngIf="listResource.length > 0" class="col-md-12">
                               <p-table #myTable [columns]="selectedColumns" [value]="listResource"
                                 columnResizeMode="expand" [paginator]="true" [rows]="10"
-                                [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+                                [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
                                 <ng-template pTemplate="header" let-columns>
                                   <tr>
                                     <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
@@ -659,7 +659,7 @@
                         <div *ngIf="(listRelateTask.length > 0)" class="col-md-12">
                             <p-table #tableBefore [columns]="selectedColumnsRelateTask"
                                 [value]="listRelateTask" columnResizeMode="expand"
-                                [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                                [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
                                 [responsive]="true">
                                 <ng-template pTemplate="header" let-columns>
                                     <tr>
@@ -771,7 +771,7 @@
                             <div *ngIf="(listTaskContraintBefore.length > 0)" class="col-md-12">
                                 <p-table #tableBefore [columns]="selectedColumnsConstraintBefore"
                                     [value]="listTaskContraintBefore" columnResizeMode="expand"
-                                    [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                                    [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
                                     [responsive]="true">
                                     <ng-template pTemplate="header" let-columns>
                                         <tr>
@@ -829,7 +829,7 @@
                             <div *ngIf="(listTaskContraintAfter.length > 0)" class="col-md-12">
                                 <p-table #tableAfter [columns]="selectedColumnsConstrantAfter"
                                     [value]="listTaskContraintAfter" columnResizeMode="expand"
-                                    [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                                    [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
                                     [responsive]="true">
                                     <ng-template pTemplate="header" let-columns>
                                         <tr>

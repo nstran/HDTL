@@ -5,7 +5,7 @@
   <div class="row no-margin">
     <div *ngIf="conditionsType != 2" class="col-md-12">
       <p-table [columns]="cols1" [value]="listPromotionApply" [resizableColumns]="true" [(selection)]="selectedPromotionApply"
-        columnResizeMode="expand" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+        columnResizeMode="expand" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th style="width: 3em">
@@ -46,7 +46,7 @@
     </div>
     <div *ngIf="conditionsType == 2" class="col-md-12">
       <p-table [columns]="cols2" [value]="listPromotionApply" [resizableColumns]="true" [(selection)]="selectedPromotionApply"
-        columnResizeMode="expand" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+        columnResizeMode="expand" [paginator]="true" [rows]="5" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
         <ng-template pTemplate="header" let-columns>
           <tr>
             <th style="width: 3em">

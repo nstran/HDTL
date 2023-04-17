@@ -47,31 +47,72 @@ export const DashBoardAdminScreen = observer(function DashBoardAdminScreen() {
     }, [isFocus,isRefresh]);
     const fetchData = async () => {
         setRefresh(false)
-        let _userId = await HDLTModel.getUserInfoByKey('userId')
-        let response = await _unitOfWork.user.getDashboardDoanhthu({
-                StartDate: dataDate?.FromDate,
-                EndDate: dataDate?.ToDate,
-                Count:5,
-                UserId: _userId
-        })
-        if(response?.statusCode == 200) setMasterData_Doanhthu(response)
-        let response_chothanhtoan = await _unitOfWork.user.getDashboardChoThanhToan({
-                UserId: _userId
-        })
-        if(response_chothanhtoan?.statusCode == 200) setMasterData_cho_thanh_toan(response_chothanhtoan)
+        setLoading(true)
+        if(isFocus){
+            let _userId = await HDLTModel.getUserInfoByKey('userId')
+            // let response = await _unitOfWork.user.getDashboardDoanhthu({
+            //         StartDate: dataDate?.FromDate,
+            //         EndDate: dataDate?.ToDate,
+            //         Count:5,
+            //         UserId: _userId
+            // })
+            // if(response?.statusCode == 200) setMasterData_Doanhthu(response)
+            // let response_chothanhtoan = await _unitOfWork.user.getDashboardChoThanhToan({
+            //         UserId: _userId
+            // })
+            // if(response_chothanhtoan?.statusCode == 200) setMasterData_cho_thanh_toan(response_chothanhtoan)
 
-        let respons_danhgia = await _unitOfWork.user.takeRatingStatisticDashboard({
-            StartDate: dataDate?.FromDate,
-            EndDate: dataDate?.ToDate,
-            Count:5,
-            UserId: _userId
-        })
-        if(respons_danhgia?.statusCode == 200) setMasterData_danhgia(respons_danhgia)
+            // let respons_danhgia = await _unitOfWork.user.takeRatingStatisticDashboard({
+            //     StartDate: dataDate?.FromDate,
+            //     EndDate: dataDate?.ToDate,
+            //     Count:5,
+            //     UserId: _userId
+            // })
+            // if(respons_danhgia?.statusCode == 200) setMasterData_danhgia(respons_danhgia)
 
-        let respon_phieuYc = await _unitOfWork.user.takeStatisticServiceTicketDashboard({
-            UserId: _userId
-        })
-        if(respon_phieuYc?.statusCode == 200) setMasterData_phieuYc(respon_phieuYc)
+            let respon_phieuYc = await _unitOfWork.user.takeStatisticServiceTicketDashboard({
+                UserId: _userId
+            })
+            if(respon_phieuYc?.statusCode == 200) setMasterData_phieuYc(respon_phieuYc)
+
+            await Promise.all([
+                _unitOfWork.user.getDashboardDoanhthu({
+                    StartDate: dataDate?.FromDate,
+                    EndDate: dataDate?.ToDate,
+                    Count:5,
+                    UserId: _userId
+                }),
+                _unitOfWork.user.getDashboardChoThanhToan({
+                    UserId: _userId
+                }),
+                _unitOfWork.user.takeRatingStatisticDashboard({
+                    StartDate: dataDate?.FromDate,
+                    EndDate: dataDate?.ToDate,
+                    Count:5,
+                    UserId: _userId
+                }),
+                _unitOfWork.user.takeStatisticServiceTicketDashboard({
+                    UserId: _userId
+                })
+            ])
+            .then((response) => {
+                
+                let res_doanh_thu = response[0]
+                if(res_doanh_thu?.statusCode == 200) setMasterData_Doanhthu(res_doanh_thu)
+ 
+                let response_chothanhtoan = response[1]
+                if(response_chothanhtoan?.statusCode == 200) setMasterData_cho_thanh_toan(response_chothanhtoan)
+
+                let respons_danhgia = response[2]
+                if(respons_danhgia?.statusCode == 200) setMasterData_danhgia(respons_danhgia)
+
+                let respon_phieuYc = response[3]
+                if(respon_phieuYc?.statusCode == 200) setMasterData_phieuYc(respon_phieuYc)
+
+            });
+        }
+        setLoading(false)
+        
     };
 
     const CaclutateTotalDoanhThuDaThanhToan = () => {

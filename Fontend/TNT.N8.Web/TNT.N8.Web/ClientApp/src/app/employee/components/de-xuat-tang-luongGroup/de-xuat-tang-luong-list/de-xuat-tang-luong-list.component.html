@@ -117,7 +117,7 @@
       <p-table #myTable [columns]="selectedColumns" [value]="listDeXuatTangLuong"
         sortMode="multiple" [resizableColumns]="true"
         [(selection)]="selection" columnResizeMode="expand" [paginator]="true" [rows]="10"
-        [rowsPerPageOptions]="[10,20,30]" [responsive]="true" class="table-border">
+        [rowsPerPageOptions]="[50,100,150]" [responsive]="true" class="table-border">
         <ng-template pTemplate="caption">
           <div style="text-align: left;">
             <p-multiSelect [options]="colsList" optionLabel="header" [(ngModel)]="selectedColumns"

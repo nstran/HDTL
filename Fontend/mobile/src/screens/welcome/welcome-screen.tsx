@@ -20,6 +20,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import Video from 'react-native-video';
 import { UnitOfWorkService } from '../../services/api/unitOfWork-service';
 import { images } from '../../images';
+import { log } from 'react-native-reanimated';
 
 const _unitOfWork = new UnitOfWorkService()
 
@@ -47,6 +48,7 @@ export const WelcomeScreen = observer(function WelcomeScreen() {
         setLoading(true)
         if(tapIndex == 0) {
             let response = await _unitOfWork.user.TakeMobileAppConfigurationIntro({}) 
+            console.log("response: ", response)
             
             if(response?.statusCode == 200){
                 setData(response?.mobileAppConfigurationEntityModel)

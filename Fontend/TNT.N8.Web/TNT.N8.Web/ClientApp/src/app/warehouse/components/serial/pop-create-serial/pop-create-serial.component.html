@@ -24,7 +24,7 @@
       <p-table [value]="dataObject.listSerial"
                [rows]="rows" [paginator]="true" [responsive]="true"
                [scrollable]="true" scrollHeight="280px"
-               [rowsPerPageOptions]="[10,20,30]" (onPage)="pageChange($event)">
+               [rowsPerPageOptions]="[50,100,150]" (onPage)="pageChange($event)">
         <ng-template pTemplate="caption">
           <div style="text-align:right">
             <a (click)="addRowSerial()" style="font-size: 22px;cursor:pointer">

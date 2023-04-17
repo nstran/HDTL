@@ -71,7 +71,7 @@
     <div class="row no-margin" style="background-color: #f2f4f8;">
         <div *ngIf="listViTriTuyenDung.length > 0" class="col-md-{{leftColNumber}} no-padding">
             <p-table #myTable [columns]="selectedColumns" [value]="listViTriTuyenDung" [resizableColumns]="true"
-                columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]"
+                columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
                 [responsive]="true" [scrollable]="true">
                 <ng-template pTemplate="caption">
                     <div style="text-align:left">

@@ -34,7 +34,7 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <p-table [value]="dataObject.listSerial" [rows]="rows" [paginator]="true" [responsive]="true" [rowsPerPageOptions]="[10,20,30]" (onPage)="pageChange($event)">
+      <p-table [value]="dataObject.listSerial" [rows]="rows" [paginator]="true" [responsive]="true" [rowsPerPageOptions]="[50,100,150]" (onPage)="pageChange($event)">
         <ng-template pTemplate="header">
           <tr>
             <th style="width:80%">Serial</th>

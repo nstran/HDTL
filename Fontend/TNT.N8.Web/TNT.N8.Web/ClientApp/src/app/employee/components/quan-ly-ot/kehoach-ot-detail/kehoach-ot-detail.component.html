@@ -439,7 +439,7 @@
                   <!-- Bảng dùng cho trạng thái phê duyệt nhận viên đăng ký teamlead -->
                   <p-table #myTable [columns]="dangKyOTColumns" [value]="dangKyOTList"
                     *ngIf="!(!IsPheDuyetTemLead && trangThaiDeXuat == 4)" [resizableColumns]="true"
-                    [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+                    [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
                     <ng-template pTemplate="header" let-columns>
                       <tr>
                         <th style="width: 2em; text-align: center;">
@@ -484,7 +484,7 @@
                   <!-- Bảng dùng cho phê duyệt nhân viên đăng ký OT tổng -->
                   <p-table #myTable [columns]="thanhVienOTAllColumns" [value]="thanhVienOTList"
                     *ngIf="!IsPheDuyetTemLead && trangThaiDeXuat == 4" [resizableColumns]="true"
-                    [(selection)]="selectedEmpCheckBoxPheDuyetTong" [rowsPerPageOptions]="[10,20,30]"
+                    [(selection)]="selectedEmpCheckBoxPheDuyetTong" [rowsPerPageOptions]="[50,100,150]"
                     [responsive]="true">
                     <ng-template pTemplate="header" let-columns>
                       <tr>
@@ -698,7 +698,7 @@
 
     <div class="col-md-12">
       <p-table #myTable1 [columns]="thanhVienOTColumns" [value]="thanhVienOTListShow" [resizableColumns]="true"
-        [style]="{'margin-bottom': '30px'}" [rowsPerPageOptions]="[10,20,30]" [responsive]="true"
+        [style]="{'margin-bottom': '30px'}" [rowsPerPageOptions]="[50,100,150]" [responsive]="true"
         [(selection)]="selectedEmpCheckBox">
         <ng-template pTemplate="header" let-columns>
           <tr>

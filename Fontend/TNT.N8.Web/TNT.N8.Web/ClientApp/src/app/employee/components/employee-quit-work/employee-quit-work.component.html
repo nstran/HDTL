@@ -128,7 +128,7 @@
     <div *ngIf="listEmp.length > 0" class="col-md-{{leftColNumber}}">
       <p-table #myTable [columns]="selectedColumns" [value]="listEmp"
       (sortFunction)="sortColumnInList($event)" [customSort]="true" [resizableColumns]="true" [(selection)]="selection"
-      columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true">
+      columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
       <ng-template pTemplate="caption" class="table-border">
         <div style="text-align: left;">
           <p-multiSelect [options]="colsList" optionLabel="header" [(ngModel)]="selectedColumns"

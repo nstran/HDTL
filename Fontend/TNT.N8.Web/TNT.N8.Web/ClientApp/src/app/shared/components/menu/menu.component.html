@@ -10,7 +10,7 @@
             src="../../assets/icons/Menu/menu_crm/{{item.nameIcon}}">
           <i style="margin-right:17px;width:17px;height:18px" *ngIf="!item.nameIcon.includes('.png')"
             class="fa {{item.nameIcon}}" aria-hidden="true"></i>
-          <span [ngStyle]="{'height':isToggleCick ? '54px' : null}" pTooltip="{{item.Name}}"
+          <span [ngStyle]="{'height':isToggleCick ? '54px' : null}" 
             style="color:#78a9ff;font-weight:bold;font-size:11px;text-align:left;padding-right: 30px;">
             {{item.Name.trim()|uppercase}}
           </span>
@@ -44,7 +44,7 @@
           <img *ngIf="item.nameIcon.includes('.png')" class="img_conf_cus_lead"
             src="../../assets/icons/Menu/menu_crm/{{item.nameIcon}}">
           <i *ngIf="!item.nameIcon.includes('.png')" class="fa {{item.nameIcon}}" aria-hidden="true"></i>
-          <span class="menu-item-name-1" pTooltip="{{item.Name}}">
+          <span class="menu-item-name-1" >
             {{item.Name.trim()|uppercase}}
           </span>
           <span class="pull-right-container">
@@ -113,7 +113,7 @@
               <img *ngIf="item.nameIcon.includes('.png')" class="img_conf_cus_lead"
                 src="../../assets/icons/Menu/menu_crm/{{item.nameIcon}}">
               <i *ngIf="!item.nameIcon.includes('.png')" class="fa {{item.nameIcon}}" aria-hidden="true"></i>
-              <span class="menu-item-name-1" pTooltip="{{item.Name}}">
+              <span class="menu-item-name-1" >
                 {{item.Name.trim()|uppercase}}
               </span>
               <span class="pull-right-container">
@@ -132,7 +132,7 @@
 
                     <i *ngIf="!item.nameIcon.includes('.png')" class="fa {{resource.nameIcon}}" aria-hidden="true"></i>
 
-                    <span class="menu-item-name-2" pTooltip="{{resource.Name}}">
+                    <span class="menu-item-name-2">
                       {{resource.Name.trim()|uppercase}}
                     </span>
                     <span class="pull-right-container">
@@ -147,7 +147,7 @@
                         <a class="cursor" [ngStyle]="{'display':'flex'}">
                           <span
                             [ngStyle]="{'color':resourceItem.Active? '#ffff':'#f2f4f8','font-weight':resourceItem.Active? 'bold':'normal','font-size':'12px', 'line-height':'30px'}"
-                            pTooltip="{{resourceItem.Name}}">
+                            >
                             {{resourceItem.Name.trim()}}
                           </span>
                         </a>
@@ -158,7 +158,7 @@
                   <a class="cursor menu2" [ngStyle]="{'display':'flex'}">
                     <span [ngStyle]="{'color':resource.Active ? '#ffff' : '#f2f4f8',
                       'font-weight':resource.Active? 'bold' : 'normal',
-                      'font-size':'12px','margin-left':'20px','line-height':'30px'}" pTooltip="{{resource.Name}}">
+                      'font-size':'12px','margin-left':'20px','line-height':'30px'}">
                       {{resource.Name.trim()}}
                     </span>
                   </a>

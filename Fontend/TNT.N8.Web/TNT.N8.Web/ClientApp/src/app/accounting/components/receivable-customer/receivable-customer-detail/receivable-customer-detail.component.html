@@ -176,7 +176,7 @@
               <p-table #myTable1 [columns]="selectedColumns" [value]="listReceivableCustomerDetail"
                 (sortFunction)="sortColumnInList($event)" [customSort]="true" [scrollable]="true"
                 [resizableColumns]="true" columnResizeMode="colgroup" [paginator]="true" [rows]="10"
-                [rowsPerPageOptions]="[10,20,30]" [responsive]="true" scrollHeight="800px" class="table-border">
+                [rowsPerPageOptions]="[50,100,150]" [responsive]="true" scrollHeight="800px" class="table-border">
                 <ng-template pTemplate="caption">
                   <div style="text-align:left">
                     <p-multiSelect [options]="colsList" [(ngModel)]="selectedColumns"
@@ -229,7 +229,7 @@
         <p-accordionTab header="Tổng đã thanh toán trong kỳ" [selected]="true">
           <p-table #myTable2 [columns]="selectedColumns2" [value]="listReceipt" (sortFunction)="sortColumnInList($event)"
             [customSort]="true" [scrollable]="true" [resizableColumns]="true" columnResizeMode="colgroup"
-            [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true" scrollHeight="800px" class="table-border">
+            [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true" scrollHeight="800px" class="table-border">
             <ng-template pTemplate="caption">
               <div style="text-align:left">
                 <p-multiSelect [options]="colsList2" [(ngModel)]="selectedColumns2"
